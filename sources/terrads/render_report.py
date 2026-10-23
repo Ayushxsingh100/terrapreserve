@@ -113,45 +113,156 @@ def render(doc: dict) -> str:
 
     lines += ["## Licence buckets", ""]
     lines += [
-        "Bucket rules: permissive = MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, 0BSD, Unlicense, CC0-1.0, Zlib; "
-        "weak copyleft = MPL-2.0, LGPL-\\*, EPL-\\*; strong copyleft = GPL-\\*, AGPL-\\*; "
-        "everything else, including `NOASSERTION` and null, is other/unknown. Whether copyleft repositories "
-        "enter the pool is a D3 decision for the user; nothing here decides it.",
+        "Bucket rules: permissive = MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, 0BSD, Unlicense, CC0-1.0, Zlib, "
+        "**MIT-0, BSL-1.0**; weak copyleft = MPL-2.0, LGPL-\\*, EPL-\\*; strong copyleft = GPL-\\*, AGPL-\\*; "
+        "everything else, including `NOASSERTION` and null, is other/unknown. Strings are stripped and compared "
+        "case-insensitively before matching; nothing else is normalised.",
         "",
-        "| Level | Bucket | Modules | Repositories |",
-        "|---|---|---:|---:|",
+        "**Reviewer-approved list change (Prompt B review, R1):** `MIT-0` and `BSL-1.0` were added to the permissive "
+        "list because both are OSI-approved and permit modification and redistribution. The Prompt B list is shown "
+        "as \"before\" below. Whether copyleft repositories enter the pool is a D3 decision for the user; nothing "
+        "here decides it.",
+        "",
+        "Erratum: an earlier version of the Prompt B report said the 152 F2 modules in other/unknown were all "
+        "`Unlicense`. That was wrong. `Unlicense` (152 modules, 85 repositories) was already permissive; the 152 "
+        "modules and 85 repositories in other/unknown were `MIT-0`, `CC-BY-SA-4.0`, `CC-BY-4.0`, `WTFPL`, `BSL-1.0` and "
+        "`EUPL-1.2`, which happen to sum to the same two numbers.",
+        "",
+        "| Level | Bucket | Modules before | Repos before | Modules now | Repos now |",
+        "|---|---|---:|---:|---:|---:|",
     ]
     for level, per_bucket in doc["licence_buckets"].items():
+        before = doc["licence_buckets_before_review"][level]
         for bucket in BUCKETS:
-            cell = per_bucket[bucket]
-            lines.append(f"| {level} | {bucket} | {_n(cell['modules'])} | {_n(cell['repos'])} |")
-    lines.append("")
-    for level, per_licence in doc["licence_raw"].items():
-        lines += [f"### Raw licence strings, {level}", "", "| Licence string | Modules | Repositories |", "|---|---:|---:|"]
-        for name, cell in per_licence.items():
-            lines.append(f"| `{name}` | {_n(cell['modules'])} | {_n(cell['repos'])} |")
-        lines.append("")
+            cell, old = per_bucket[bucket], before[bucket]
+            lines.append(
+                f"| {level} | {bucket} | {_n(old['modules'])} | {_n(old['repos'])} | "
+                f"{_n(cell['modules'])} | {_n(cell['repos'])} |"
+            )
     lines += [
-        "### Whole-dataset licence strings (repositories)",
         "",
-        "| Licence string | Repositories |",
-        "|---|---:|",
+        "### Every distinct raw licence string",
+        "",
+        "`repr()` of the value stored in `Repositories.License`, so whitespace and case variants would show. "
+        "Counts are modules / repositories.",
+        "",
+        "| `repr()` | Bucket now | Bucket before | Repos (whole dataset) | F2 | F3 | F3ab | G |",
+        "|---|---|---|---:|---:|---:|---:|---:|",
     ]
-    for name, count in doc["whole_dataset_repo_licences"].items():
-        lines.append(f"| `{name}` | {_n(count)} |")
-    lines.append("")
+    for e in doc["licence_inventory"]:
+        cells = " | ".join(f"{_n(e[lv]['modules'])} / {_n(e[lv]['repos'])}" for lv in ("F2", "F3", "F3ab", "G"))
+        lines.append(
+            f"| `{e['repr']}` | {e['bucket']} | {e['bucket_before_review']} | {_n(e['repos_whole_dataset'])} | {cells} |"
+        )
+    lines += [
+        "",
+        "Strings that match no list and therefore stay **other/unknown**: "
+        + ", ".join(f"`{x}`" for x in doc["licence_unmatched"])
+        + ".",
+        "",
+    ]
 
-    lines += ["## Cross-check against terraform-config-inspect", ""]
+    view = doc.get("redistributable_view") or {"present": False}
+    lines += ["## The `RedistributableRepositories` view (report only)", ""]
+    if view["present"]:
+        has_efm = "_EFMigrationHistory" in doc["table_row_counts"]
+        lines += [
+            "Nothing in the funnel is filtered by this view.",
+            "",
+            "Definition, read from `sqlite_master`:",
+            "",
+            "```sql",
+            view["sql"],
+            "```",
+            "",
+            f"The view has {_n(view['rows_in_view'])} rows; `Repositories` has {_n(view['rows_in_repositories'])}.",
+            "",
+            "The tools snapshot's `README.md` says, in its list of steps to reproduce TerraDS:",
+            "",
+        ]
+        lines += [f"> {x}" for x in view["tools_readme_lines"]] or ["> (no line mentions the view)"]
+        lines += [
+            "",
+            "That is, the authors' README says the view (which it calls a table) should have been deleted before "
+            "release; the pinned database still contains it. It also names `_EFMigrationHistory`; "
+            + ("the pinned database still contains it." if has_efm else "the pinned database contains no such table."),
+            "",
+            "Repositories with at least one module in the level, by licence bucket and membership of the view:",
+            "",
+            "| Level | Bucket | In view: yes | In view: no |",
+            "|---|---|---:|---:|",
+        ]
+        for level, per_bucket in view["crosstab_repositories"].items():
+            for bucket in BUCKETS:
+                cell = per_bucket[bucket]
+                lines.append(f"| {level} | {bucket} | {_n(cell['in_view_yes'])} | {_n(cell['in_view_no'])} |")
+        lines.append("")
+    else:
+        lines += ["The view is not present in the database.", ""]
+
     check = doc.get("crosscheck") or {"status": "UNRESOLVED", "reason": "not run"}
-    lines.append(f"**Status: {check['status']}**")
-    lines.append("")
-    for key in ("reason", "error"):
-        if check.get(key):
-            lines += [check[key], ""]
-    for key, label in (("tool_commit", "terraform-config-inspect commit"), ("go_version", "Go toolchain")):
-        if check.get(key):
-            lines.append(f"- {label}: `{check[key]}`")
-    lines.append("")
+    lines += [f"## {check.get('title', 'Cross-check')}", ""]
+    if check["status"] != "OK":
+        lines += [f"**Status: {check['status']}**", "", check.get("reason", ""), ""]
+    else:
+        pop = check["population"]
+        lines += [
+            "TerraDS's metadata comes from terraform-config-inspect, so this check re-derives each sampled module's "
+            "contents from its own files with a separate implementation (`sources/hcl_lex.py`, "
+            "`sources/terrads/lexical_crosscheck.py`): stdlib only, no code shared with that analyser or with DAIL. "
+            "Files are read in memory from `TerraDS.tar.gz`; nothing is written to disk.",
+            "",
+            f"- method: {check['method']}",
+            f"- seed {check['seed']}; population: all {pop['F3']} F3 modules, plus {pop['F2_sample']} F2 modules "
+            f"(`{pop['sampling']['F2_sample']}`; {pop['F3_in_F2_sample']} of them are also F3), "
+            f"giving {pop['F3'] + pop['F2_sample'] - pop['F3_in_F2_sample']} distinct modules. "
+            f"As an extra negative control, {pop['negative_control']} modules with an `aws_` resource that are not F2 "
+            f"(`{pop['sampling']['negative_control']}`).",
+            f"- files read: {_n(check['files_read']['.tf'])} `.tf`, {_n(check['files_read']['.tf.json'])} `.tf.json` "
+            "(the archive holds only `.tf` files, see above, so the JSON reader is exercised by unit tests only)",
+            f"- sampled modules with no file found in the archive: {check['modules_without_any_file_found']}; "
+            f"modules where the lexer noted unbalanced braces or a malformed header: {check['modules_with_lexer_anomalies']} "
+            f"({', '.join(str(i) for i in check.get('lexer_anomaly_module_ids', [])) or 'none'})",
+            f"- development history: {check['development_history']}",
+            "",
+            "Agreement (modules that agree / modules compared):",
+            "",
+            "| Comparison | F3 | F2 sample | F3 + F2 sample | Negative control |",
+            "|---|---:|---:|---:|---:|",
+        ]
+        names = {
+            "types": "managed type set",
+            "type_name_pairs": "managed (type, name) set",
+            "has_data": "has data sources",
+            "has_module_calls": "has module blocks",
+            "is_F2": "F2 membership",
+            "is_F3": "F3 membership",
+        }
+        agreement = check["agreement"]
+        for key, label in names.items():
+            cells = []
+            for group in ("F3", "F2_sample", "positive_population_F3_union_F2_sample", "negative_control"):
+                cell = agreement[group][key]
+                cells.append(f"{cell['agree']}/{cell['total']} ({100 * cell['agree'] / cell['total']:.1f}%)")
+            lines.append(f"| {label} | " + " | ".join(cells) + " |")
+        lines += [
+            "",
+            "The F3 and F2-sample groups are chosen by TerraDS's own F2/F3 flags, so for them F2 and F3 agreement can "
+            "only fail one way (the lexical reading says \"not F2\"). The negative control is the other direction: "
+            "the lexical reading would have to say \"F2\" for a module TerraDS excluded.",
+            "",
+            f"### Disagreements ({check['disagreement_count']})",
+            "",
+            "| Module id | Group | Repository / path | Disagrees on | TerraDS types | Lexical types | Likely cause |",
+            "|---|---|---|---|---|---|---|",
+        ]
+        for d in check["disagreements"]:
+            lines.append(
+                f"| {d['module_id']} | {', '.join(d['groups'])} | `{d['repo']}` `{d['path']}` | "
+                f"{', '.join(d['disagrees_on'])} | {', '.join(f'`{t}`' for t in d['terrads_types']) or '-'} | "
+                f"{', '.join(f'`{t}`' for t in d['lexical_types']) or '-'} | {d['likely_cause']} |"
+            )
+        lines += ["", f"terraform-config-inspect: {check['terraform_config_inspect']}", ""]
 
     scan = doc.get("archive_scan")
     lines += ["## Archive checks", ""]

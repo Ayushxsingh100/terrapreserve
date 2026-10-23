@@ -331,7 +331,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 1089512061,Balaji-R-web/ec2-automation-,MIT,permissive,no
 1078237713,BalajiKarad7599/terraform-aws-balajikarad-test-vpc,MIT,permissive,no
 878742733,Balu-Kona/learn-terraform,MPL-2.0,weak copyleft,no
-1061217395,Bamidele0102/retail-store-sample-app,MIT-0,other/unknown,no
+1061217395,Bamidele0102/retail-store-sample-app,MIT-0,permissive,no
 857457966,BartTho/Thomas-More-DevOps,GPL-2.0,strong copyleft,no
 103643625,Barteus/terraform-sandbox,MIT,permissive,no
 998995387,BasakUlker/tf-field,GPL-3.0,strong copyleft,no
@@ -904,7 +904,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 1057099322,HasanMariam/terraform-aws-instances-module,MIT,permissive,no
 1054698242,HasanMariam/terraform-aws-my-own-ec2-module,MIT,permissive,no
 1017695290,Hassa678/Log_visito_app,MIT,permissive,no
-1091559410,Hassam-u-llah/DevOps-Project,BSL-1.0,other/unknown,no
+1091559410,Hassam-u-llah/DevOps-Project,BSL-1.0,permissive,no
 796743460,Hassan-Eid-Hassan/terraform-devops-tools,MIT,permissive,no
 946034101,Hasuzawa/aws-projects,MIT,permissive,no
 487736886,HatCS/-Red-Baron,GPL-3.0,strong copyleft,no
@@ -2165,7 +2165,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 197233017,TomDonnly/terraform-aws-influx,Apache-2.0,permissive,no
 566390538,TomHowarth/Amazic-Three-Tier-App-Stack,Apache-2.0,permissive,no
 638713752,ToshiroC/learn-terraform-cloud,MPL-2.0,weak copyleft,no
-815241445,TrekkieCoder/aws-local-zone,MIT-0,other/unknown,no
+815241445,TrekkieCoder/aws-local-zone,MIT-0,permissive,no
 158767795,Tritium-VLK/MultiBeanstalkAPI,Unlicense,permissive,no
 765206239,Truta446/cloud-oficina-16,MIT,permissive,no
 643206785,Truta446/terraform-aws,MIT,permissive,no
@@ -2364,7 +2364,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 1140322871,abani-rautray/multi-cluster-rke2-platform,MIT,permissive,no
 264780086,abarua4/DevOps_Demo,MIT,permissive,no
 699082254,abatchanga/terraform-ec2-vpc-backend,GPL-3.0,strong copyleft,no
-1087612534,abayomischolarship-ai/amazon-ecs-fullstack-app-terraform,MIT-0,other/unknown,no
+1087612534,abayomischolarship-ai/amazon-ecs-fullstack-app-terraform,MIT-0,permissive,no
 1078599452,abdihakim-said/jenkins-enterprise-platform,MIT,permissive,no
 108005122,abdobald/terraform,Apache-2.0,permissive,no
 1058693259,abdoulWaris/Projet_prestashop_terraform,MIT,permissive,no
@@ -2599,7 +2599,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 917843009,alin9661/learn-terraform,MPL-2.0,weak copyleft,no
 826231732,alirezaravanbakhsh/learn-terraform,MPL-2.0,weak copyleft,no
 955866645,aliscott/terraform-examples,MIT,permissive,no
-675131729,alistairyes/emirates2,MIT-0,other/unknown,no
+675131729,alistairyes/emirates2,MIT-0,permissive,no
 699076400,alixstearns/Static-resume,GPL-3.0,strong copyleft,no
 289860424,alkem-io/infrastructure,EUPL-1.2,other/unknown,no
 877476112,allanbentsen/Terraform_Playground,MIT,permissive,no
@@ -2820,7 +2820,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 414480147,ariansyahyutama/terraform-aws-sg,Apache-2.0,permissive,no
 523662278,arielm-cloudbuzz/ecs,MIT,permissive,no
 81380124,arielsepulveda/terraform-modules,Apache-2.0,permissive,no
-936165933,ariffraja69/Terraform-Modules,MIT-0,other/unknown,no
+936165933,ariffraja69/Terraform-Modules,MIT-0,permissive,no
 850438390,ariguada/simple-aws-deployment,MIT,permissive,no
 492201197,arimal199/ecsssssss,MIT,permissive,no
 292465255,arjun1507/gitops-terraform-jenkins,MIT,permissive,no
@@ -2895,7 +2895,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 794761704,astewart-iolap/tfc-guide-example,MPL-2.0,weak copyleft,no
 983300562,asup20cs/terraform-practice,MIT,permissive,no
 624653462,aswathicloudlab/cloud_projects,MIT,permissive,no
-981333646,asynced24/amazon-ecs-fullstack-app-terraform,MIT-0,other/unknown,no
+981333646,asynced24/amazon-ecs-fullstack-app-terraform,MIT-0,permissive,no
 699081192,atenchong/terraformgood23,GPL-3.0,strong copyleft,no
 907175053,atheanchu/eks-workshop-jin,Apache-2.0,permissive,no
 699975107,atieno75/Terraform-week7,GPL-3.0,strong copyleft,no
@@ -2942,48 +2942,48 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 278707716,aw230012/aws-serverless-http,MIT,permissive,no
 174998283,awesome-accelerators/build-infrastructure,GPL-3.0,strong copyleft,no
 904373406,awesome-gpus/spacelift,MIT,permissive,no
-801128805,aws-cloudformation/iac-model-evaluation,MIT-0,other/unknown,no
+801128805,aws-cloudformation/iac-model-evaluation,MIT-0,permissive,no
 215519067,aws-deepracer-community/terraform,Apache-2.0,permissive,no
 265275014,aws-freetier/tf-aws-rnbv-complex,Apache-2.0,permissive,no
 355360954,aws-ia/terraform-aws-eks-blueprints,Apache-2.0,permissive,no
 449769482,aws-ia/terraform-aws-swift-digital-connectivity,Apache-2.0,permissive,no
 633138922,aws-ref-architect/aws-ref-architecture-testing,MIT,permissive,no
 594242155,aws-ref-architect/aws-reference-architecture,MIT,permissive,no
-588675674,aws-samples/amazon-api-gateway-step-functions-xml,MIT-0,other/unknown,no
+588675674,aws-samples/amazon-api-gateway-step-functions-xml,MIT-0,permissive,no
 710928242,aws-samples/amazon-codeguru-iac-detectors,Apache-2.0,permissive,no
 713512509,aws-samples/amazon-codeguru-terraform-detectors,Apache-2.0,permissive,no
-368452345,aws-samples/amazon-ecs-fullstack-app-terraform,MIT-0,other/unknown,no
-656783193,aws-samples/amazon-vpc-lattice-blueprints,MIT-0,other/unknown,no
-451613437,aws-samples/aws-central-alb-ingress-for-private-eks-terraform,MIT-0,other/unknown,no
+368452345,aws-samples/amazon-ecs-fullstack-app-terraform,MIT-0,permissive,no
+656783193,aws-samples/amazon-vpc-lattice-blueprints,MIT-0,permissive,no
+451613437,aws-samples/aws-central-alb-ingress-for-private-eks-terraform,MIT-0,permissive,no
 558578517,aws-samples/aws-cloud9-for-cross-account-cross-region-deployment-of-terraform,Apache-2.0,permissive,no
-615988973,aws-samples/aws-cloudwan-basics-workshop-tf,MIT-0,other/unknown,no
-658692611,aws-samples/aws-devops-pipeline-accelerator,MIT-0,other/unknown,no
-466789312,aws-samples/aws-hub-and-spoke-with-connect-peer-terraform,MIT-0,other/unknown,no
-491255212,aws-samples/aws-multi-region-cicd-with-terraform,MIT-0,other/unknown,no
-580687219,aws-samples/aws-sap-on-ase-with-jenkins-terraform-ansible,MIT-0,other/unknown,no
-921262499,aws-samples/aws-sap-terraform,MIT-0,other/unknown,no
-528004609,aws-samples/aws-sec-checkov-terraform,MIT-0,other/unknown,no
-510259646,aws-samples/aws-site-to-site-vpn-private-ip-vpn,MIT-0,other/unknown,no
-436455380,aws-samples/aws-startup-landing-zone-terraform-example,MIT-0,other/unknown,no
+615988973,aws-samples/aws-cloudwan-basics-workshop-tf,MIT-0,permissive,no
+658692611,aws-samples/aws-devops-pipeline-accelerator,MIT-0,permissive,no
+466789312,aws-samples/aws-hub-and-spoke-with-connect-peer-terraform,MIT-0,permissive,no
+491255212,aws-samples/aws-multi-region-cicd-with-terraform,MIT-0,permissive,no
+580687219,aws-samples/aws-sap-on-ase-with-jenkins-terraform-ansible,MIT-0,permissive,no
+921262499,aws-samples/aws-sap-terraform,MIT-0,permissive,no
+528004609,aws-samples/aws-sec-checkov-terraform,MIT-0,permissive,no
+510259646,aws-samples/aws-site-to-site-vpn-private-ip-vpn,MIT-0,permissive,no
+436455380,aws-samples/aws-startup-landing-zone-terraform-example,MIT-0,permissive,no
 188318156,aws-samples/aws-systems-manager-lifecycle-management,Apache-2.0,permissive,no
-510192401,aws-samples/eks-localzone-demo,MIT-0,other/unknown,no
+510192401,aws-samples/eks-localzone-demo,MIT-0,permissive,no
 463303596,aws-samples/eks-workshop-v2,Apache-2.0,permissive,no
-445445953,aws-samples/hub-and-spoke-with-shared-services-vpc-terraform,MIT-0,other/unknown,no
-492312842,aws-samples/hub-and-spoke-with-traffic-segmentation,MIT-0,other/unknown,no
-632802427,aws-samples/manage-aws-network-firewall-multi-account-aws-firewall-manager,MIT-0,other/unknown,no
-582753999,aws-samples/multi-az-db-cluster-sample-for-amazon-rds,MIT-0,other/unknown,no
-739264979,aws-samples/private-s3-vpce,MIT-0,other/unknown,no
-842426360,aws-samples/provision-fsx-lustre-with-terraform,MIT-0,other/unknown,no
-730560167,aws-samples/rds-oracle-terraform,MIT-0,other/unknown,no
-1065856497,aws-samples/sample-automate-aws-supply-chain-deployment,MIT-0,other/unknown,no
-1021146853,aws-samples/sample-eks-clusters-with-shared-subnets,MIT-0,other/unknown,no
-970969181,aws-samples/sample-fraud-detection-and-prevention-fdp-agentic-platform,MIT-0,other/unknown,no
-1057232813,aws-samples/sample-karpenter-migration-automation,MIT-0,other/unknown,no
-978878259,aws-samples/sample-patterns-for-aws-marketplace,MIT-0,other/unknown,no
-787147890,aws-samples/secure-migrations-and-modernizations,MIT-0,other/unknown,no
-288510145,aws-samples/terraform-aws-sap-netweaver-on-hana,MIT-0,other/unknown,no
-562712299,aws-samples/terraform-checkov-validation-pipeline,MIT-0,other/unknown,no
-331712292,aws-samples/terraform-sample-workshop,MIT-0,other/unknown,no
+445445953,aws-samples/hub-and-spoke-with-shared-services-vpc-terraform,MIT-0,permissive,no
+492312842,aws-samples/hub-and-spoke-with-traffic-segmentation,MIT-0,permissive,no
+632802427,aws-samples/manage-aws-network-firewall-multi-account-aws-firewall-manager,MIT-0,permissive,no
+582753999,aws-samples/multi-az-db-cluster-sample-for-amazon-rds,MIT-0,permissive,no
+739264979,aws-samples/private-s3-vpce,MIT-0,permissive,no
+842426360,aws-samples/provision-fsx-lustre-with-terraform,MIT-0,permissive,no
+730560167,aws-samples/rds-oracle-terraform,MIT-0,permissive,no
+1065856497,aws-samples/sample-automate-aws-supply-chain-deployment,MIT-0,permissive,no
+1021146853,aws-samples/sample-eks-clusters-with-shared-subnets,MIT-0,permissive,no
+970969181,aws-samples/sample-fraud-detection-and-prevention-fdp-agentic-platform,MIT-0,permissive,no
+1057232813,aws-samples/sample-karpenter-migration-automation,MIT-0,permissive,no
+978878259,aws-samples/sample-patterns-for-aws-marketplace,MIT-0,permissive,no
+787147890,aws-samples/secure-migrations-and-modernizations,MIT-0,permissive,no
+288510145,aws-samples/terraform-aws-sap-netweaver-on-hana,MIT-0,permissive,no
+562712299,aws-samples/terraform-checkov-validation-pipeline,MIT-0,permissive,no
+331712292,aws-samples/terraform-sample-workshop,MIT-0,permissive,no
 652266665,awsautomation/AWS-DevOps-Project,MIT,permissive,no
 652085844,awsautomation/GitOps,MIT,permissive,no
 652277373,awsautomation/serverless-jenkins,MIT,permissive,no
@@ -3202,7 +3202,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 666119099,bmaluff/coding-game,GPL-3.0,strong copyleft,no
 553015814,bmw325ia/mycode,GPL-3.0,strong copyleft,no
 223469542,bnrizzo86/Terraform2,MIT,permissive,no
-270182448,bnusunny/terraform-stateful-lambda-api-module,MIT-0,other/unknown,no
+270182448,bnusunny/terraform-stateful-lambda-api-module,MIT-0,permissive,no
 33077909,bobtfish/terraform-vpc,Apache-2.0,permissive,no
 1088747499,bodanc/tf-practice-a,MIT,permissive,no
 906366249,bokal2/terraform-vpc-module,MIT,permissive,no
@@ -3402,7 +3402,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 379651724,cesarataws/terraform,MIT,permissive,no
 398348710,cesarmoralesonya/Terraform,GPL-3.0,strong copyleft,no
 198695885,ceskillets/Automation-Terraform-Backend-for-AWS,Apache-2.0,permissive,no
-1121064082,cetfgcw/fraud-detection-and-prevention-fdp-agentic-ai,MIT-0,other/unknown,no
+1121064082,cetfgcw/fraud-detection-and-prevention-fdp-agentic-ai,MIT-0,permissive,no
 468034351,cetrex/ventas,Apache-2.0,permissive,no
 839656427,cezacai/infra-fastfood-database-rds,MIT,permissive,no
 546065734,cfaife/terraform-module-example,Apache-2.0,permissive,no
@@ -3566,7 +3566,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 532640768,cloudjerry-14/Terraform,MIT,permissive,no
 723421409,cloudmiketyson/terraform-3-tier-architecture,MIT,permissive,no
 793781791,cloudmiketyson/terraform-up-and-running-code,MIT,permissive,no
-613873857,cloudperis/end-to-end-project,MIT-0,other/unknown,no
+613873857,cloudperis/end-to-end-project,MIT-0,permissive,no
 131209713,cloudposse/terraform-aws-components,Apache-2.0,permissive,no
 100474194,cloudposse/terraform-aws-ec2-admin-server,Apache-2.0,permissive,no
 135447853,cloudposse/terraform-aws-rds-cloudwatch-sns-alarms,Apache-2.0,permissive,no
@@ -3686,7 +3686,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 973397618,ctablero/naiboa,Apache-2.0,permissive,no
 441500479,ctcac00/mongodb-terraform-templates,GPL-3.0,strong copyleft,no
 657572845,ctciwasa/learn-terraform-cloud,MPL-2.0,weak copyleft,no
-290097538,ctopherwilliams/terraform-aws-sap-netweaver-on-hana,MIT-0,other/unknown,no
+290097538,ctopherwilliams/terraform-aws-sap-netweaver-on-hana,MIT-0,permissive,no
 556554101,ctreminiom/certified-terraform-associate,MIT,permissive,no
 284706231,ctxis/DynamicLabs,MIT,permissive,no
 198707826,cuetos/terraform-lil,Apache-2.0,permissive,no
@@ -4131,8 +4131,8 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 302620968,dvulpe/terraform-eks,Apache-2.0,permissive,no
 313454760,dwakeman/ibm-satellite-location,Apache-2.0,permissive,no
 694838918,dwarakanathreddy/Terraform-infra,MIT,permissive,no
-1055643832,dwayneex/amazon-ecs-fullstack-app-terraform,MIT-0,other/unknown,no
-1064171123,dwdontwait/amazon-ecs-fullstack-app-terraform,MIT-0,other/unknown,no
+1055643832,dwayneex/amazon-ecs-fullstack-app-terraform,MIT-0,permissive,no
+1064171123,dwdontwait/amazon-ecs-fullstack-app-terraform,MIT-0,permissive,no
 558640552,dwiest/terraform-modules,MIT,permissive,no
 117995629,dwp/devops-workstream,MIT,permissive,no
 341538061,dwp/terraform-aws-kong-gateway,MIT,permissive,no
@@ -4193,7 +4193,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 278657144,ei-roslyakov/terraform-modules,MIT,permissive,no
 594461052,eider043/ml_repo,MIT,permissive,no
 484342400,ejb486/aws-terraform-module-ejb486,MIT,permissive,no
-853944548,ejbest/terraform-testing,BSL-1.0,other/unknown,no
+853944548,ejbest/terraform-testing,BSL-1.0,permissive,no
 804551093,ejwoods/linkta-lp-terraform,MIT,permissive,no
 803975413,ejwoods/terraform-sf,MIT,permissive,no
 409875304,ekwutosi/project16,MIT,permissive,no
@@ -4656,7 +4656,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 854491051,gopalmahera/terraform-aws-gopalmahera-vpc-module,MIT,permissive,no
 597424555,gopikrishhnaChokkalamani/terraform-workspaces,MIT,permissive,no
 537766614,gopikrishna72/AWS-EKS,Apache-2.0,permissive,no
-539007703,gopikrishna72/AWS-Startup-Landing-Zone-Example,MIT-0,other/unknown,no
+539007703,gopikrishna72/AWS-Startup-Landing-Zone-Example,MIT-0,permissive,no
 684114243,gopikrishna72/Logstash,MIT,permissive,no
 506283602,gopikrishna72/terraform-aws-vault,Apache-2.0,permissive,no
 570933748,gorponbanjoshark/terraform,GPL-3.0,strong copyleft,no
@@ -4695,9 +4695,9 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 950933875,gsrt1088/learn-terraform,MPL-2.0,weak copyleft,no
 950210120,gsrt1088/terraformhcp-aws,MPL-2.0,weak copyleft,no
 88587261,gssumesh/avidya,GPL-3.0,strong copyleft,no
-595072558,gsvaidwan/multi-az-db-cluster-sample-for-amazon-rds,MIT-0,other/unknown,no
+595072558,gsvaidwan/multi-az-db-cluster-sample-for-amazon-rds,MIT-0,permissive,no
 794599455,gtltest2030/tfc-guide-example,MPL-2.0,weak copyleft,no
-207010338,gtrafimenkov/aws-wireguard-bastion,MIT-0,other/unknown,no
+207010338,gtrafimenkov/aws-wireguard-bastion,MIT-0,permissive,no
 167617049,gtrafimenkov/devops-toolkit,MIT,permissive,no
 859970461,guardianproject-ops/terraform-aws-rds-postgresql,GPL-3.0,strong copyleft,no
 859970941,guardianproject-ops/terraform-aws-vpc,Apache-2.0,permissive,no
@@ -4954,7 +4954,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 820584382,hninl23/learn-terraform,MPL-2.0,weak copyleft,no
 445395033,hoanglinhdigital/aws-training,Apache-2.0,permissive,no
 728227318,hoanglinhtan/sre-udacity-project-2,MIT,permissive,no
-942757637,hoangnguyenvo0112/terraform-aws-samples,MIT-0,other/unknown,no
+942757637,hoangnguyenvo0112/terraform-aws-samples,MIT-0,permissive,no
 857635523,hobointhecorner/hobo.terraform.aws_security_group,MPL-2.0,weak copyleft,no
 857177355,hobointhecorner/hobo.terraform.aws_security_group_rule,MPL-2.0,weak copyleft,no
 627449049,hoch-bjoern/terraform,GPL-3.0,strong copyleft,no
@@ -5105,7 +5105,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 211704239,inderpal2406/terraform,MIT,permissive,no
 512613371,inderpal2406/terraform-practice-2022,MIT,permissive,no
 921229499,infernus616/prometheusstack,Apache-2.0,permissive,no
-920545950,infernus616/terraformCICDpipeline,MIT-0,other/unknown,no
+920545950,infernus616/terraformCICDpipeline,MIT-0,permissive,no
 166387389,infinite-Joy/automated-ml-infrastructure,MIT,permissive,no
 151734069,influxdata/terraform-aws-influx,Apache-2.0,permissive,no
 843838788,infobarbosa/data-eng-infra-with-terraform,Apache-2.0,permissive,no
@@ -5989,7 +5989,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 118689621,limed/executive-dashboard,MPL-2.0,weak copyleft,no
 662875133,limseunghyun95/T102-Terraform,MIT,permissive,no
 861602017,lindamaijo/Terraform-AWS,MIT,permissive,no
-495612181,lindarr915/local-zone-eks,MIT-0,other/unknown,no
+495612181,lindarr915/local-zone-eks,MIT-0,permissive,no
 691296667,lindnech/terraform-ansible,MIT,permissive,no
 348606911,lineneon/tf-ecs-fargate-tmpl,MIT,permissive,no
 360123906,linoproject/learn_terraform,Apache-2.0,permissive,no
@@ -6479,7 +6479,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 71787445,moio/terraform_output_map_issue_example,MIT,permissive,no
 1001599224,moises-herrera/files-storage-terraform,MIT,permissive,no
 685725784,moisesjurad0/terraform-hands-on-workshop,GPL-3.0,strong copyleft,no
-481159457,moitrasayan007/sayan-ab,MIT-0,other/unknown,no
+481159457,moitrasayan007/sayan-ab,MIT-0,permissive,no
 1054251924,mojhos/terraform,Apache-2.0,permissive,no
 138801965,mojochao/terraform-aws-web-stack,MIT,permissive,no
 87973278,moltin/terraform-modules,MIT,permissive,no
@@ -6734,7 +6734,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 331778499,newpathexchange/labtools,MIT,permissive,no
 301645494,nfelger/terraform-examples,Apache-2.0,permissive,no
 648761403,ngallegos-ib/learn-terraform-cloud,MPL-2.0,weak copyleft,no
-383223062,ngawale/NW-ON_HANA,MIT-0,other/unknown,no
+383223062,ngawale/NW-ON_HANA,MIT-0,permissive,no
 505235269,ngawale/terraform-cloud-demo1,Apache-2.0,permissive,no
 787441156,ngietzen/learn-terraform-cloud,MPL-2.0,weak copyleft,no
 337197576,nginxinc/nginx-controller-automation,Apache-2.0,permissive,no
@@ -6750,8 +6750,8 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 1049066608,nh6476/terraform-tutorial,GPL-3.0,strong copyleft,no
 666633786,nhancv/nchain.poa,MIT,permissive,no
 320908295,nhawk2/Fabric-Test-Network,MIT,permissive,no
-878748259,nholuongut/aws-ecs-fullstack-app-with-terraform,MIT-0,other/unknown,no
-878743261,nholuongut/aws-multi-region-cicd-with-terraform,MIT-0,other/unknown,no
+878748259,nholuongut/aws-ecs-fullstack-app-with-terraform,MIT-0,permissive,no
+878743261,nholuongut/aws-multi-region-cicd-with-terraform,MIT-0,permissive,no
 877863918,nholuongut/devops-basics,Apache-2.0,permissive,no
 656507666,nholuongut/terraform-aws-ec2-instance,Apache-2.0,permissive,no
 884608814,nholuongut/terraform-aws-vpc,Apache-2.0,permissive,no
@@ -6844,7 +6844,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 176136286,nobuoka/osm-standard-tile-server-playground,MIT,permissive,no
 853301317,nocamin/terraform-aws-multi-region-ec2,MIT,permissive,no
 149743485,node123/ec2,GPL-3.0,strong copyleft,no
-938890775,nodonorteit/eks-localzone,MIT-0,other/unknown,no
+938890775,nodonorteit/eks-localzone,MIT-0,permissive,no
 408362683,noi-techpark/it.bz.software.virtual.events,AGPL-3.0,strong copyleft,no
 221223395,nomaddevops/network,GPL-3.0,strong copyleft,no
 370509166,noorlan/terraform-aws-keypair,Apache-2.0,permissive,no
@@ -7780,7 +7780,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 521471083,sammmoran/Terraform-Demo,MPL-2.0,weak copyleft,no
 792108179,samotpoint/x1-validator,MIT,permissive,no
 162617189,samparsky/terraform-aws-blockchain,MIT,permissive,no
-978006755,samsiis/fraud-detection-and-prevention-fdp-agentic-platform,MIT-0,other/unknown,no
+978006755,samsiis/fraud-detection-and-prevention-fdp-agentic-platform,MIT-0,permissive,no
 824342092,samuelchika/learn-terraform,MPL-2.0,weak copyleft,no
 1068650277,samuelrojasm/lab-aws-eks-private-cluster-terraform,MIT,permissive,no
 1054481823,samuelrojasm/lab-aws-vpc-endpoints-mvp,MIT,permissive,no
@@ -7882,9 +7882,9 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 563994728,scshitole/bigip-opa,GPL-3.0,strong copyleft,no
 1067775728,sdbjakeer/AWS-Terraform-Workshop-for-Begineerss,GPL-2.0,strong copyleft,no
 512086475,seacow188/terraform-aws-example,Apache-2.0,permissive,no
-506515105,seacow188/terraform-aws-sap,MIT-0,other/unknown,no
-511577049,seacow188/terraform-aws-sap-netweaver-on-hana,MIT-0,other/unknown,no
-506523629,seacow188/terraform-aws-sap-netweaver-on-hana-HG,MIT-0,other/unknown,no
+506515105,seacow188/terraform-aws-sap,MIT-0,permissive,no
+511577049,seacow188/terraform-aws-sap-netweaver-on-hana,MIT-0,permissive,no
+506523629,seacow188/terraform-aws-sap-netweaver-on-hana-HG,MIT-0,permissive,no
 237821075,seanflannery10/aws-terraform-ec2-exmaple,MIT,permissive,no
 797249451,seb-scothorn-bjss/learn-terraform,MPL-2.0,weak copyleft,no
 383413011,sebastus/bigbang-azure,Apache-2.0,permissive,no
@@ -7936,13 +7936,13 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 1114857827,shahLLL/ha-3tier-webapp,Apache-2.0,permissive,no
 112690705,shahadarsh/aws-vpc-terraform,Apache-2.0,permissive,no
 105090002,shahadarsh/hashicorp-workshop,MIT,permissive,no
-482720874,shahamishi/ecs-terraform-demo,MIT-0,other/unknown,no
+482720874,shahamishi/ecs-terraform-demo,MIT-0,permissive,no
 381875426,shahazzat/terraform_aws,MIT,permissive,no
 1014807938,shahid-2020/infrastructure-aws-manager,MIT,permissive,no
 731643277,shaikhu2/learn-terraform-cloud,MPL-2.0,weak copyleft,no
 387757450,shaileshchanderiya/Getting-Started-Terraform,MIT,permissive,no
 1045257211,shakiata/tf-eks,Unlicense,permissive,no
-907243979,shakoor7882/aws-multi-region-cicd-with-terraform,MIT-0,other/unknown,no
+907243979,shakoor7882/aws-multi-region-cicd-with-terraform,MIT-0,permissive,no
 907326146,shakoor7882/aws-security-operations,MIT,permissive,no
 906714897,shakoor7882/terraform-aws-vpc,Apache-2.0,permissive,no
 906716212,shakoor7882/tf--aws-vpc,Apache-2.0,permissive,no
@@ -8023,7 +8023,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 294646369,shukla-deepesh/terraform-demo,MIT,permissive,no
 454458440,shuklaritvik06/DevOps,MIT,permissive,no
 810428121,shungheonchai/Terraform-CM-dataNode-Launcher,MIT,permissive,no
-1051643914,shyamrughani/amazon-ecs-fullstack-app-terraform,MIT-0,other/unknown,no
+1051643914,shyamrughani/amazon-ecs-fullstack-app-terraform,MIT-0,permissive,no
 564179919,si4oen/terraform-aws-eks,Apache-2.0,permissive,no
 564179739,si4oen/terraform-aws-rds,Apache-2.0,permissive,no
 535990751,si4oen/terraform-aws-vpc,Apache-2.0,permissive,no
@@ -8054,7 +8054,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 407938174,singhankur/DevOps,GPL-3.0,strong copyleft,no
 376247023,singhujjwal/awsinfra,Apache-2.0,permissive,no
 791576200,sirivo/vsirivo-terraform-cloud,Apache-2.0,permissive,no
-599768475,sirjoon/amazon-ecs-fullstack-terraform,MIT-0,other/unknown,no
+599768475,sirjoon/amazon-ecs-fullstack-terraform,MIT-0,permissive,no
 1061619163,sitinfra/ec2,MIT,permissive,no
 732535058,siva-492007/aws-workshop-tfc,MPL-2.0,weak copyleft,no
 421154057,siva-492007/terraform-ec2-sg-output,Apache-2.0,permissive,no
@@ -8299,8 +8299,8 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 907867773,sudo-talon/Terraform-Eks-GitOps-ArgoCD,MIT,permissive,no
 789233435,sugiyama404/qa_chatbot,MIT,permissive,no
 579660061,suhaad79/terraform-cloud-demo1,Apache-2.0,permissive,no
-588499215,suhas2905/terraform-aws-sap-netweaver-on-hana_without_DR,MIT-0,other/unknown,no
-601148792,suhas2905/terraform-aws-sap-netweaver-on-oracle,MIT-0,other/unknown,no
+588499215,suhas2905/terraform-aws-sap-netweaver-on-hana_without_DR,MIT-0,permissive,no
+601148792,suhas2905/terraform-aws-sap-netweaver-on-oracle,MIT-0,permissive,no
 763993261,suhasvrundavan/Terraform_Project_Modules,MIT,permissive,no
 1091704873,suhaybpirji/terraform-aws-vpc-setup,MIT,permissive,no
 759395516,sujit-devops/terraform-up-and-running-code,MIT,permissive,no
@@ -8450,8 +8450,8 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 717836438,tecnomancer1/TF_labs,MPL-2.0,weak copyleft,no
 1066684906,tedm/OpenTofu,GPL-3.0,strong copyleft,no
 633617275,tegarimansyah/cloud-workshop,Apache-2.0,permissive,no
-730901045,teholm/aws-cloud-wan,MIT-0,other/unknown,no
-741629816,teholm/aws-cloudwan-workshop-terraform,MIT-0,other/unknown,no
+730901045,teholm/aws-cloud-wan,MIT-0,permissive,no
+741629816,teholm/aws-cloudwan-workshop-terraform,MIT-0,permissive,no
 256165570,teitei-tk/practice-terraform,Apache-2.0,permissive,no
 680470406,tej-sawarkar/nimesa-assignment1,MIT,permissive,no
 466993121,tejas-2232/terraform_exercises,MIT,permissive,no
@@ -9079,7 +9079,7 @@ repo_id,repo_full_name,licence,licence_bucket,licence_file_in_archive
 591548774,yamap17/fargate-terraform,MIT,permissive,no
 460120188,yamarba/AWSterraModules,Apache-2.0,permissive,no
 136244390,yamaszone/terraform-eks,MIT,permissive,no
-591725608,yandjoumbi/amazon-ecs-fullstack-app,MIT-0,other/unknown,no
+591725608,yandjoumbi/amazon-ecs-fullstack-app,MIT-0,permissive,no
 231909013,yanivwho/terraform-lil,Apache-2.0,permissive,no
 820974376,yankeygilbert/InfraDeploy-tf,MIT,permissive,no
 329069970,yardbirdsax/rancher-gitops,GPL-3.0,strong copyleft,no

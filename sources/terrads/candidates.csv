@@ -784,9 +784,9 @@ repo_id,repo_full_name,repo_commit_sha,module_id,module_path,licence,licence_buc
 1089512061,Balaji-R-web/ec2-automation-,cf8d337d37ce96fef62eebd2f5d9323e34bd2fda,663234,.,MIT,permissive,aws_instance,0,1,1,0,0,0
 1078237713,BalajiKarad7599/terraform-aws-balajikarad-test-vpc,7ab38a91db9437f4c812e604c63f0c7b1d264522,660031,.,MIT,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,1,1,0,0,1
 878742733,Balu-Kona/learn-terraform,2e2ca58c5736106ffa8f05bbe464dbb924df75f3,583358,.,MPL-2.0,weak copyleft,aws_instance,0,0,1,0,0,0
-1061217395,Bamidele0102/retail-store-sample-app,2f1fa0064669b52a9c9a4ed3b0c97e2d3ad87a1f,655311,innovatemart-project-bedrock/terraform/modules/rds-mysql,MIT-0,other/unknown,aws_db_instance;aws_db_subnet_group,0,1,1,0,0,0
-1061217395,Bamidele0102/retail-store-sample-app,2f1fa0064669b52a9c9a4ed3b0c97e2d3ad87a1f,655312,innovatemart-project-bedrock/terraform/modules/rds-postgres,MIT-0,other/unknown,aws_db_instance;aws_db_subnet_group,0,1,1,0,0,0
-1061217395,Bamidele0102/retail-store-sample-app,2f1fa0064669b52a9c9a4ed3b0c97e2d3ad87a1f,655314,innovatemart-project-bedrock/terraform/modules/vpc,MIT-0,other/unknown,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,0,1,0,0,1
+1061217395,Bamidele0102/retail-store-sample-app,2f1fa0064669b52a9c9a4ed3b0c97e2d3ad87a1f,655311,innovatemart-project-bedrock/terraform/modules/rds-mysql,MIT-0,permissive,aws_db_instance;aws_db_subnet_group,0,1,1,0,0,0
+1061217395,Bamidele0102/retail-store-sample-app,2f1fa0064669b52a9c9a4ed3b0c97e2d3ad87a1f,655312,innovatemart-project-bedrock/terraform/modules/rds-postgres,MIT-0,permissive,aws_db_instance;aws_db_subnet_group,0,1,1,0,0,0
+1061217395,Bamidele0102/retail-store-sample-app,2f1fa0064669b52a9c9a4ed3b0c97e2d3ad87a1f,655314,innovatemart-project-bedrock/terraform/modules/vpc,MIT-0,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,0,1,0,0,1
 857457966,BartTho/Thomas-More-DevOps,7593df130ce9224baebf0a64e2c5f74c797b2b68,576535,Terraform/aws_ec2_demo01,GPL-2.0,strong copyleft,aws_instance,0,1,1,0,0,0
 857457966,BartTho/Thomas-More-DevOps,7593df130ce9224baebf0a64e2c5f74c797b2b68,576536,Terraform/aws_ec2_demo02,GPL-2.0,strong copyleft,aws_instance,0,1,1,0,0,0
 857457966,BartTho/Thomas-More-DevOps,7593df130ce9224baebf0a64e2c5f74c797b2b68,576537,Terraform/aws_ec2_demo03,GPL-2.0,strong copyleft,aws_instance,0,1,1,0,0,0
@@ -2008,7 +2008,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 1054698242,HasanMariam/terraform-aws-my-own-ec2-module,9f69308da975c8edbe298b2b9a314bd3e1e77b31,651081,.,MIT,permissive,aws_instance,0,1,0,0,0,0
 1017695290,Hassa678/Log_visito_app,42c69023deb2b715534e10b82ca123a96ca18d15,633312,modules/bastion,MIT,permissive,aws_instance,0,1,1,0,0,0
 1017695290,Hassa678/Log_visito_app,42c69023deb2b715534e10b82ca123a96ca18d15,633316,modules/security,MIT,permissive,aws_security_group,0,1,1,0,0,1
-1091559410,Hassam-u-llah/DevOps-Project,182cf4281816f9bcd3a30b94c765a12ce972c25c,664073,DevOps-Project-01/infrastructure/modules/security,BSL-1.0,other/unknown,aws_security_group,0,1,1,0,0,1
+1091559410,Hassam-u-llah/DevOps-Project,182cf4281816f9bcd3a30b94c765a12ce972c25c,664073,DevOps-Project-01/infrastructure/modules/security,BSL-1.0,permissive,aws_security_group,0,1,1,0,0,1
 796743460,Hassan-Eid-Hassan/terraform-devops-tools,0ad02e09c35b826e4d66e3be44e65733f08a318a,556578,modules/vpc,MIT,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,0,1,0,0,1
 946034101,Hasuzawa/aws-projects,633a4f5c276dc75acbb056197e5e614b03f2838a,609049,aws/module/vpc,MIT,permissive,aws_subnet;aws_vpc,0,1,1,0,0,1
 487736886,HatCS/-Red-Baron,d62c7a52586870636e4fdc1aa2b9e68d20878736,419723,modules/aws/create-vpc,GPL-3.0,strong copyleft,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,1,1,0,0,1
@@ -4710,8 +4710,8 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 197233017,TomDonnly/terraform-aws-influx,4778cc56bf40cb872e0db47a2d8ed0355fe9d744,319025,modules/kapacitor-security-group-rules,Apache-2.0,permissive,aws_security_group_rule,0,1,1,0,0,1
 566390538,TomHowarth/Amazic-Three-Tier-App-Stack,d963eddfc41c6b4cce41ee2705c53c684c705d6c,453664,modules/database,Apache-2.0,permissive,aws_db_instance,0,1,1,0,0,0
 638713752,ToshiroC/learn-terraform-cloud,a5018c9875bcc0691af564961f91210633773576,485031,.,MPL-2.0,weak copyleft,aws_instance,0,0,1,0,0,0
-815241445,TrekkieCoder/aws-local-zone,0a48f2d7e02dcbbd5f82cb277e07b5fe9f127fc7,563298,deploy/01-vpc,MIT-0,other/unknown,aws_route_table_association;aws_subnet,0,1,0,0,0,1
-815241445,TrekkieCoder/aws-local-zone,0a48f2d7e02dcbbd5f82cb277e07b5fe9f127fc7,563303,hack/00-bastion,MIT-0,other/unknown,aws_instance;aws_security_group,0,0,1,0,0,1
+815241445,TrekkieCoder/aws-local-zone,0a48f2d7e02dcbbd5f82cb277e07b5fe9f127fc7,563298,deploy/01-vpc,MIT-0,permissive,aws_route_table_association;aws_subnet,0,1,0,0,0,1
+815241445,TrekkieCoder/aws-local-zone,0a48f2d7e02dcbbd5f82cb277e07b5fe9f127fc7,563303,hack/00-bastion,MIT-0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
 158767795,Tritium-VLK/MultiBeanstalkAPI,8a5269a9696be03904bee0d293deb5ce825d6668,308292,modules/network/bastion,Unlicense,permissive,aws_instance;aws_security_group,0,1,0,0,0,1
 158767795,Tritium-VLK/MultiBeanstalkAPI,8a5269a9696be03904bee0d293deb5ce825d6668,308296,modules/network/private_subnet,Unlicense,permissive,aws_route_table;aws_route_table_association;aws_subnet,0,1,1,0,0,1
 158767795,Tritium-VLK/MultiBeanstalkAPI,8a5269a9696be03904bee0d293deb5ce825d6668,308297,modules/network/public_subnet,Unlicense,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet,0,1,1,0,0,1
@@ -5184,7 +5184,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 1140322871,abani-rautray/multi-cluster-rke2-platform,4ed511634747887d76510d743a59c765e91a9042,682205,infra/terraform/modules/vpc,MIT,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,1,1,0,0,1
 264780086,abarua4/DevOps_Demo,63aa31faa18fc49ef63d5257226bee36a865d992,340754,module/vpc,MIT,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_security_group;aws_subnet;aws_vpc,0,1,1,0,0,1
 699082254,abatchanga/terraform-ec2-vpc-backend,c96cff4401cc3ba5115e8a5eab121c75669504f6,517758,.,GPL-3.0,strong copyleft,aws_instance;aws_internet_gateway;aws_route_table;aws_route_table_association;aws_security_group;aws_subnet;aws_vpc,0,1,1,0,0,1
-1087612534,abayomischolarship-ai/amazon-ecs-fullstack-app-terraform,9ba30a153061405f124d2ca13b9a37a0132bd935,662595,Infrastructure/Modules/SecurityGroup,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
+1087612534,abayomischolarship-ai/amazon-ecs-fullstack-app-terraform,9ba30a153061405f124d2ca13b9a37a0132bd935,662595,Infrastructure/Modules/SecurityGroup,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
 1078599452,abdihakim-said/jenkins-enterprise-platform,793f6485d373d1824152f8ef93e15a4b1899cb2f,660225,modules/security,MIT,permissive,aws_security_group,0,1,1,0,0,1
 108005122,abdobald/terraform,edca7ae392017ff5ec565596d8a1574a370ddb4b,291943,vpc,Apache-2.0,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,1,1,0,0,1
 1058693259,abdoulWaris/Projet_prestashop_terraform,1b0c59307fb8447ba86d9c37d84dbf8e3b29355d,654441,prestashop_hcl/modules/rds,MIT,permissive,aws_db_instance;aws_db_subnet_group,0,1,1,0,0,0
@@ -5653,7 +5653,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 917843009,alin9661/learn-terraform,dd46206ff4fd7d3fb46dd1d3f0ee945da063ef75,595352,.,MPL-2.0,weak copyleft,aws_instance,0,0,1,0,0,0
 826231732,alirezaravanbakhsh/learn-terraform,19099cc23946ce4151ab94ae20dedb850c4523a0,566926,.,MPL-2.0,weak copyleft,aws_instance,0,0,1,0,0,0
 955866645,aliscott/terraform-examples,4b99cf5a1ab388330d5f3d229f322c631e5de607,611577,aws-vpc-example,MIT,permissive,aws_instance;aws_security_group,0,1,0,0,0,1
-675131729,alistairyes/emirates2,5da926f5969d3f4307906f739a8de999bb7f52ee,504963,Infrastructure/Modules/SecurityGroup,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
+675131729,alistairyes/emirates2,5da926f5969d3f4307906f739a8de999bb7f52ee,504963,Infrastructure/Modules/SecurityGroup,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
 699076400,alixstearns/Static-resume,9e2cbcad8ef8ea9f3aeb9c8ad5248c5d7a2f0890,517743,.,GPL-3.0,strong copyleft,aws_instance;aws_internet_gateway;aws_route_table;aws_route_table_association;aws_security_group;aws_subnet;aws_vpc,0,1,1,0,0,1
 289860424,alkem-io/infrastructure,a427f535fad19caaa4f9c7753f4b943e6aaa30c1,349834,terraform-eks-k8s,EUPL-1.2,other/unknown,aws_security_group,0,0,0,0,0,1
 877476112,allanbentsen/Terraform_Playground,79b126023a704a2d5fe6e95d6052e12063f34273,583030,.,MIT,permissive,aws_instance;aws_internet_gateway;aws_route_table;aws_route_table_association;aws_security_group;aws_subnet;aws_vpc,0,1,1,0,0,1
@@ -6239,10 +6239,10 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 414480147,ariansyahyutama/terraform-aws-sg,de78af343329f80e566fc8e78c87a9fc36d703f4,390584,.,Apache-2.0,permissive,aws_security_group;aws_security_group_rule,0,1,1,0,0,1
 523662278,arielm-cloudbuzz/ecs,3bdcd42bdc4560a10c46c08b0c08fa984706b930,437021,security-groups,MIT,permissive,aws_security_group,0,1,1,0,0,1
 81380124,arielsepulveda/terraform-modules,20b0e27731a461f5e6b60545578291c0984b3cac,287252,vpc_me,Apache-2.0,permissive,aws_internet_gateway;aws_vpc,0,1,1,0,0,0
-936165933,ariffraja69/Terraform-Modules,e1fc40f9903c4cb1c81b864ec3ef214233ff9429,602555,module_2/modularized_tf/modules/providers/aws/security_group/create_sg,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
-936165933,ariffraja69/Terraform-Modules,e1fc40f9903c4cb1c81b864ec3ef214233ff9429,602556,module_2/modularized_tf/modules/providers/aws/security_group/create_sg_rule,MIT-0,other/unknown,aws_security_group_rule,0,1,1,0,0,1
-936165933,ariffraja69/Terraform-Modules,e1fc40f9903c4cb1c81b864ec3ef214233ff9429,602562,module_3/modularized_tf/base_modules/providers/aws/security_group/create_sg,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
-936165933,ariffraja69/Terraform-Modules,e1fc40f9903c4cb1c81b864ec3ef214233ff9429,602563,module_3/modularized_tf/base_modules/providers/aws/security_group/create_sg_rule,MIT-0,other/unknown,aws_security_group_rule,0,1,1,0,0,1
+936165933,ariffraja69/Terraform-Modules,e1fc40f9903c4cb1c81b864ec3ef214233ff9429,602555,module_2/modularized_tf/modules/providers/aws/security_group/create_sg,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
+936165933,ariffraja69/Terraform-Modules,e1fc40f9903c4cb1c81b864ec3ef214233ff9429,602556,module_2/modularized_tf/modules/providers/aws/security_group/create_sg_rule,MIT-0,permissive,aws_security_group_rule,0,1,1,0,0,1
+936165933,ariffraja69/Terraform-Modules,e1fc40f9903c4cb1c81b864ec3ef214233ff9429,602562,module_3/modularized_tf/base_modules/providers/aws/security_group/create_sg,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
+936165933,ariffraja69/Terraform-Modules,e1fc40f9903c4cb1c81b864ec3ef214233ff9429,602563,module_3/modularized_tf/base_modules/providers/aws/security_group/create_sg_rule,MIT-0,permissive,aws_security_group_rule,0,1,1,0,0,1
 850438390,ariguada/simple-aws-deployment,8d67ad1074d7799537c4be80c2ae5184ef1b9e33,574281,.,MIT,permissive,aws_instance;aws_internet_gateway;aws_route_table;aws_route_table_association;aws_security_group;aws_subnet;aws_vpc,0,1,1,0,0,1
 492201197,arimal199/ecsssssss,0aff70b184c7d9ec11980d251820654ba5f98e47,421379,security-groups,MIT,permissive,aws_security_group,0,1,1,0,0,1
 292465255,arjun1507/gitops-terraform-jenkins,430f48aaa081c68e2c086596eb7752a4c525a3d7,350855,.,MIT,permissive,aws_instance;aws_security_group,0,1,1,0,0,1
@@ -6470,7 +6470,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 983300562,asup20cs/terraform-practice,0d2a62b8c7d777ed230f05bd73c7ad23dae52f22,621280,terraform-basic,MIT,permissive,aws_instance,0,1,1,0,0,0
 983300562,asup20cs/terraform-practice,0d2a62b8c7d777ed230f05bd73c7ad23dae52f22,621281,terraform-variables,MIT,permissive,aws_instance,0,1,1,0,0,0
 624653462,aswathicloudlab/cloud_projects,8c2aed5755ff0d058f9d66017410bc61db722fda,478369,aws/tf_ec2,MIT,permissive,aws_instance,0,1,1,0,0,0
-981333646,asynced24/amazon-ecs-fullstack-app-terraform,98ee8e693a5ebc4b14f3dfe731bdc786637c1eb4,620644,Infrastructure/Modules/SecurityGroup,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
+981333646,asynced24/amazon-ecs-fullstack-app-terraform,98ee8e693a5ebc4b14f3dfe731bdc786637c1eb4,620644,Infrastructure/Modules/SecurityGroup,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
 699081192,atenchong/terraformgood23,ef6fb272403ae0ef46f39f19bee255d0ddf4b5c1,517753,.,GPL-3.0,strong copyleft,aws_instance;aws_internet_gateway;aws_route_table;aws_route_table_association;aws_security_group;aws_subnet;aws_vpc,0,1,1,0,0,1
 907175053,atheanchu/eks-workshop-jin,a85dea513e5260e0d742138b628a612fa3c63425,591675,manifests/modules/networking/securitygroups-for-pods/.workshop/terraform,Apache-2.0,permissive,aws_security_group_rule,0,0,0,0,0,1
 699975107,atieno75/Terraform-week7,f01d1ae866f1b0e79ae551d43a8267a7912a25ce,518200,.,GPL-3.0,strong copyleft,aws_instance;aws_internet_gateway;aws_route_table;aws_route_table_association;aws_security_group;aws_subnet;aws_vpc,0,1,1,0,0,1
@@ -6534,8 +6534,8 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 174998283,awesome-accelerators/build-infrastructure,828b7c54bd5dc6bf7721d901fade313a5c4f1d6f,312198,.,GPL-3.0,strong copyleft,aws_instance;aws_security_group,0,1,1,0,0,1
 904373406,awesome-gpus/spacelift,044dfa70fc2d2f5478f53083294b641d2c06f12e,590954,opentofu/ec2,MIT,permissive,aws_instance,0,0,1,0,0,0
 904373406,awesome-gpus/spacelift,044dfa70fc2d2f5478f53083294b641d2c06f12e,590956,opentofu/vpc,MIT,permissive,aws_security_group;aws_subnet;aws_vpc,0,1,1,0,0,1
-801128805,aws-cloudformation/iac-model-evaluation,a3067403d3e0d0546f42ddb45aabb8c74789247e,558350,terraform/aws-provider/service/rds,MIT-0,other/unknown,aws_db_instance,0,1,0,0,0,0
-801128805,aws-cloudformation/iac-model-evaluation,a3067403d3e0d0546f42ddb45aabb8c74789247e,558353,terraform/aws-provider/service/vpc,MIT-0,other/unknown,aws_vpc,0,1,1,0,0,0
+801128805,aws-cloudformation/iac-model-evaluation,a3067403d3e0d0546f42ddb45aabb8c74789247e,558350,terraform/aws-provider/service/rds,MIT-0,permissive,aws_db_instance,0,1,0,0,0,0
+801128805,aws-cloudformation/iac-model-evaluation,a3067403d3e0d0546f42ddb45aabb8c74789247e,558353,terraform/aws-provider/service/vpc,MIT-0,permissive,aws_vpc,0,1,1,0,0,0
 215519067,aws-deepracer-community/terraform,a75a599910e8dceb53a6a558f59cf25c19d4715c,324822,ec2/website,Apache-2.0,permissive,aws_instance,0,1,1,0,0,0
 215519067,aws-deepracer-community/terraform,a75a599910e8dceb53a6a558f59cf25c19d4715c,324823,ec2/wiki,Apache-2.0,permissive,aws_instance,0,1,1,0,0,0
 215519067,aws-deepracer-community/terraform,a75a599910e8dceb53a6a558f59cf25c19d4715c,324826,vpc,Apache-2.0,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,1,0,0,0,1
@@ -6547,57 +6547,57 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 633138922,aws-ref-architect/aws-ref-architecture-testing,a3702591cb011ff6142444cda9d7860fdd0304e7,482289,modules/vpc,MIT,permissive,aws_vpc,0,1,1,0,0,0
 594242155,aws-ref-architect/aws-reference-architecture,b82050d0558f19ab4095eb9cd75b1832d553ee09,465247,modules/rds/databases,MIT,permissive,aws_db_instance,0,1,1,0,0,0
 594242155,aws-ref-architect/aws-reference-architecture,b82050d0558f19ab4095eb9cd75b1832d553ee09,465252,modules/vpc,MIT,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_security_group;aws_subnet;aws_vpc,0,1,1,0,0,1
-588675674,aws-samples/amazon-api-gateway-step-functions-xml,3977485ed66b8ee446136b0378bc8d6e96e744ef,463223,modules/lambda,MIT-0,other/unknown,aws_security_group,0,1,0,0,0,1
+588675674,aws-samples/amazon-api-gateway-step-functions-xml,3977485ed66b8ee446136b0378bc8d6e96e744ef,463223,modules/lambda,MIT-0,permissive,aws_security_group,0,1,0,0,0,1
 710928242,aws-samples/amazon-codeguru-iac-detectors,0341b0f1319fd91014d0645f7da97c60d48a8d1a,523112,src/IaC/detectors/terraform/disabled-rds-encryption-terraform,Apache-2.0,permissive,aws_db_instance,0,1,1,0,0,0
 710928242,aws-samples/amazon-codeguru-iac-detectors,0341b0f1319fd91014d0645f7da97c60d48a8d1a,523114,src/IaC/detectors/terraform/exposed-ec2-user-data-secret-terraform,Apache-2.0,permissive,aws_instance,0,1,1,0,0,0
 710928242,aws-samples/amazon-codeguru-iac-detectors,0341b0f1319fd91014d0645f7da97c60d48a8d1a,523130,src/IaC/detectors/terraform/restrict-public-ip-ec2-terraform,Apache-2.0,permissive,aws_instance,1,1,1,0,0,0
 713512509,aws-samples/amazon-codeguru-terraform-detectors,1b50a0dd1d2dfac778c18ab46aa6918846102cdd,523764,src/terraform/detectors/disabled-rds-encryption-terraform,Apache-2.0,permissive,aws_db_instance,0,1,1,0,0,0
 713512509,aws-samples/amazon-codeguru-terraform-detectors,1b50a0dd1d2dfac778c18ab46aa6918846102cdd,523766,src/terraform/detectors/exposed-ec2-user-data-secret-terraform,Apache-2.0,permissive,aws_instance,0,1,1,0,0,0
 713512509,aws-samples/amazon-codeguru-terraform-detectors,1b50a0dd1d2dfac778c18ab46aa6918846102cdd,523782,src/terraform/detectors/restrict-public-ip-ec2-terraform,Apache-2.0,permissive,aws_instance,1,1,1,0,0,0
-368452345,aws-samples/amazon-ecs-fullstack-app-terraform,98ee8e693a5ebc4b14f3dfe731bdc786637c1eb4,375749,Infrastructure/Modules/SecurityGroup,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
-656783193,aws-samples/amazon-vpc-lattice-blueprints,6b62f857d0d806629a39f5c2bdace0308ebb7718,496094,modules/compute,MIT-0,other/unknown,aws_instance;aws_security_group,0,1,1,0,0,1
-451613437,aws-samples/aws-central-alb-ingress-for-private-eks-terraform,c3050c952dee0048e3b23cb7b7da423cf5c40f21,405930,eks-service-account/networking-setup/terraform/modules/vpc,MIT-0,other/unknown,aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,0,1,0,0,1
+368452345,aws-samples/amazon-ecs-fullstack-app-terraform,98ee8e693a5ebc4b14f3dfe731bdc786637c1eb4,375749,Infrastructure/Modules/SecurityGroup,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
+656783193,aws-samples/amazon-vpc-lattice-blueprints,6b62f857d0d806629a39f5c2bdace0308ebb7718,496094,modules/compute,MIT-0,permissive,aws_instance;aws_security_group,0,1,1,0,0,1
+451613437,aws-samples/aws-central-alb-ingress-for-private-eks-terraform,c3050c952dee0048e3b23cb7b7da423cf5c40f21,405930,eks-service-account/networking-setup/terraform/modules/vpc,MIT-0,permissive,aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,0,1,0,0,1
 558578517,aws-samples/aws-cloud9-for-cross-account-cross-region-deployment-of-terraform,1d5538c4d6388999870b02ce3ad5caaae131bcc8,450398,Terraform,Apache-2.0,permissive,aws_security_group;aws_vpc,0,1,1,0,0,1
-615988973,aws-samples/aws-cloudwan-basics-workshop-tf,2a0f9276c80ba3c36ee5023eb2372984cdc35e33,474693,lab1-cloudwan-connectivity/modules/compute,MIT-0,other/unknown,aws_instance;aws_security_group,0,0,1,0,0,1
-658692611,aws-samples/aws-devops-pipeline-accelerator,ba6ee0fc667c1ea0f86ae46c591b6fa2ff462e5d,496823,examples/aws_codepipeline/terraform,MIT-0,other/unknown,aws_instance,0,1,1,0,0,0
-466789312,aws-samples/aws-hub-and-spoke-with-connect-peer-terraform,3024fb371d66181e867fd4b8d5736204e3bf773c,411772,modules/compute,MIT-0,other/unknown,aws_instance;aws_security_group,0,0,1,0,0,1
-491255212,aws-samples/aws-multi-region-cicd-with-terraform,8eff661a51acda550415d70adca7bcf652b46286,421041,modules/regional/vpc,MIT-0,other/unknown,aws_security_group,0,1,0,0,0,1
-580687219,aws-samples/aws-sap-on-ase-with-jenkins-terraform-ansible,473d51c5b0fe0cc1b68a6f2914590667c716a6cd,459695,terraform-aws-sap-netweaver-on-ase/modules/aws-sap-netweaver-efs,MIT-0,other/unknown,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
-921262499,aws-samples/aws-sap-terraform,9e99466dd2c98c8c0bf8066a3a6fc9de4e0208a7,597683,efs/modules/security_group,MIT-0,other/unknown,aws_security_group,0,1,0,0,0,1
-921262499,aws-samples/aws-sap-terraform,9e99466dd2c98c8c0bf8066a3a6fc9de4e0208a7,597691,security_group/modules/additional_rules_for_existing_sg,MIT-0,other/unknown,aws_security_group_rule,0,0,1,0,0,1
-921262499,aws-samples/aws-sap-terraform,9e99466dd2c98c8c0bf8066a3a6fc9de4e0208a7,597692,security_group/modules/security_group,MIT-0,other/unknown,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
-528004609,aws-samples/aws-sec-checkov-terraform,0884c3961aa837149a33d84f4d37bbe5f3e8c514,438494,security-groups,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
-510259646,aws-samples/aws-site-to-site-vpn-private-ip-vpn,c8c6fb6a21ddc631bb3be729ad2ececcf37b0278,430621,terraform/modules/compute,MIT-0,other/unknown,aws_instance;aws_security_group,0,0,1,0,0,1
-436455380,aws-samples/aws-startup-landing-zone-terraform-example,0b693b83c83e89fba627b95eb22f1ada9c613fa2,399594,modules/internet-gateway,MIT-0,other/unknown,aws_internet_gateway,0,1,1,0,0,0
-436455380,aws-samples/aws-startup-landing-zone-terraform-example,0b693b83c83e89fba627b95eb22f1ada9c613fa2,399596,modules/private-subnet,MIT-0,other/unknown,aws_route_table;aws_route_table_association;aws_subnet,0,1,1,0,0,1
-436455380,aws-samples/aws-startup-landing-zone-terraform-example,0b693b83c83e89fba627b95eb22f1ada9c613fa2,399597,modules/public-subnet,MIT-0,other/unknown,aws_route_table;aws_route_table_association;aws_subnet,0,1,1,0,0,1
+615988973,aws-samples/aws-cloudwan-basics-workshop-tf,2a0f9276c80ba3c36ee5023eb2372984cdc35e33,474693,lab1-cloudwan-connectivity/modules/compute,MIT-0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
+658692611,aws-samples/aws-devops-pipeline-accelerator,ba6ee0fc667c1ea0f86ae46c591b6fa2ff462e5d,496823,examples/aws_codepipeline/terraform,MIT-0,permissive,aws_instance,0,1,1,0,0,0
+466789312,aws-samples/aws-hub-and-spoke-with-connect-peer-terraform,3024fb371d66181e867fd4b8d5736204e3bf773c,411772,modules/compute,MIT-0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
+491255212,aws-samples/aws-multi-region-cicd-with-terraform,8eff661a51acda550415d70adca7bcf652b46286,421041,modules/regional/vpc,MIT-0,permissive,aws_security_group,0,1,0,0,0,1
+580687219,aws-samples/aws-sap-on-ase-with-jenkins-terraform-ansible,473d51c5b0fe0cc1b68a6f2914590667c716a6cd,459695,terraform-aws-sap-netweaver-on-ase/modules/aws-sap-netweaver-efs,MIT-0,permissive,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
+921262499,aws-samples/aws-sap-terraform,9e99466dd2c98c8c0bf8066a3a6fc9de4e0208a7,597683,efs/modules/security_group,MIT-0,permissive,aws_security_group,0,1,0,0,0,1
+921262499,aws-samples/aws-sap-terraform,9e99466dd2c98c8c0bf8066a3a6fc9de4e0208a7,597691,security_group/modules/additional_rules_for_existing_sg,MIT-0,permissive,aws_security_group_rule,0,0,1,0,0,1
+921262499,aws-samples/aws-sap-terraform,9e99466dd2c98c8c0bf8066a3a6fc9de4e0208a7,597692,security_group/modules/security_group,MIT-0,permissive,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
+528004609,aws-samples/aws-sec-checkov-terraform,0884c3961aa837149a33d84f4d37bbe5f3e8c514,438494,security-groups,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
+510259646,aws-samples/aws-site-to-site-vpn-private-ip-vpn,c8c6fb6a21ddc631bb3be729ad2ececcf37b0278,430621,terraform/modules/compute,MIT-0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
+436455380,aws-samples/aws-startup-landing-zone-terraform-example,0b693b83c83e89fba627b95eb22f1ada9c613fa2,399594,modules/internet-gateway,MIT-0,permissive,aws_internet_gateway,0,1,1,0,0,0
+436455380,aws-samples/aws-startup-landing-zone-terraform-example,0b693b83c83e89fba627b95eb22f1ada9c613fa2,399596,modules/private-subnet,MIT-0,permissive,aws_route_table;aws_route_table_association;aws_subnet,0,1,1,0,0,1
+436455380,aws-samples/aws-startup-landing-zone-terraform-example,0b693b83c83e89fba627b95eb22f1ada9c613fa2,399597,modules/public-subnet,MIT-0,permissive,aws_route_table;aws_route_table_association;aws_subnet,0,1,1,0,0,1
 188318156,aws-samples/aws-systems-manager-lifecycle-management,9226a3c4870147375b42122649596c155d075bd1,316076,jumphost,Apache-2.0,permissive,aws_instance,0,1,1,0,0,0
-510192401,aws-samples/eks-localzone-demo,27b63d6905a56e6fc7f9eed482980808cfe8c8e5,430582,deploy/01-vpc,MIT-0,other/unknown,aws_route_table_association;aws_subnet,0,1,0,0,0,1
-510192401,aws-samples/eks-localzone-demo,27b63d6905a56e6fc7f9eed482980808cfe8c8e5,430587,hack/00-bastion,MIT-0,other/unknown,aws_instance;aws_security_group,0,0,1,0,0,1
+510192401,aws-samples/eks-localzone-demo,27b63d6905a56e6fc7f9eed482980808cfe8c8e5,430582,deploy/01-vpc,MIT-0,permissive,aws_route_table_association;aws_subnet,0,1,0,0,0,1
+510192401,aws-samples/eks-localzone-demo,27b63d6905a56e6fc7f9eed482980808cfe8c8e5,430587,hack/00-bastion,MIT-0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
 463303596,aws-samples/eks-workshop-v2,8cb746e39f642a71fc3459758b9ad7e38bac0560,410251,manifests/modules/networking/securitygroups-for-pods/.workshop/terraform,Apache-2.0,permissive,aws_security_group_rule,0,0,0,0,0,1
-445445953,aws-samples/hub-and-spoke-with-shared-services-vpc-terraform,b75201447a6998e8b1397bdc8a487994f956ed40,403580,modules/compute,MIT-0,other/unknown,aws_instance,0,1,1,0,0,0
-492312842,aws-samples/hub-and-spoke-with-traffic-segmentation,8e6b95fa7a0428fe3aef8a7024de8ba98606de3c,421477,modules/compute,MIT-0,other/unknown,aws_instance;aws_security_group,0,0,1,0,0,1
-632802427,aws-samples/manage-aws-network-firewall-multi-account-aws-firewall-manager,cfa9a57f4388e8475d280962318fe11cb2006b81,482240,spoke_account/modules/vpc-resources,MIT-0,other/unknown,aws_route_table;aws_route_table_association,0,0,1,0,0,0
-582753999,aws-samples/multi-az-db-cluster-sample-for-amazon-rds,ef3d4f9d78209d7b187a91aebce126dbdc601ef0,460608,modules/rds_modules/rds_db_subnet_group,MIT-0,other/unknown,aws_db_subnet_group,0,1,1,0,0,0
-582753999,aws-samples/multi-az-db-cluster-sample-for-amazon-rds,ef3d4f9d78209d7b187a91aebce126dbdc601ef0,460609,modules/rds_modules/rds_vpc,MIT-0,other/unknown,aws_security_group;aws_subnet;aws_vpc,0,1,1,0,0,1
-739264979,aws-samples/private-s3-vpce,420c77ad79e584ee204c196483631b83db89060c,535283,terraform,MIT-0,other/unknown,aws_security_group,0,0,0,0,0,1
-842426360,aws-samples/provision-fsx-lustre-with-terraform,f5a9bef4401e2c6dd124aadc091aaac16ec456b5,572064,modules/ec2_instance,MIT-0,other/unknown,aws_instance,0,1,1,0,0,0
-842426360,aws-samples/provision-fsx-lustre-with-terraform,f5a9bef4401e2c6dd124aadc091aaac16ec456b5,572067,modules/security_group,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
-730560167,aws-samples/rds-oracle-terraform,9cadd2957320c7dc8588ebedcbb0253d54f01a50,531094,.,MIT-0,other/unknown,aws_db_instance,0,1,1,0,0,0
-1065856497,aws-samples/sample-automate-aws-supply-chain-deployment,2bc11de4d43b49f7c097fa131dbdcc6b2199b936,656297,ASC-Datasets/terraform-deployment/modules/security-group,MIT-0,other/unknown,aws_security_group;aws_security_group_rule,0,1,1,0,0,1
-1021146853,aws-samples/sample-eks-clusters-with-shared-subnets,0e66dff1ce9b9defb36d80ece0f4e55a17c20baa,635800,workload,MIT-0,other/unknown,aws_route_table;aws_route_table_association;aws_subnet,0,0,0,0,0,1
-970969181,aws-samples/sample-fraud-detection-and-prevention-fdp-agentic-platform,29c0429d2311e9cbea23132fc5a2bbed37eeac5a,617490,iac/api/security_group,MIT-0,other/unknown,aws_security_group,0,0,1,0,0,1
-1057232813,aws-samples/sample-karpenter-migration-automation,137d6d8c9c828ca049a9bda87b788f47c9152566,653867,modules/cluster,MIT-0,other/unknown,aws_security_group,0,0,0,0,0,1
-978878259,aws-samples/sample-patterns-for-aws-marketplace,1a78a08179007099c9c5a652ec30852fbd671e2b,619775,solution-templates/elastic/end-to-end-rag-terraform,MIT-0,other/unknown,aws_security_group_rule,0,1,0,0,0,1
-787147890,aws-samples/secure-migrations-and-modernizations,9187d6265d441089b26a570b1ed9c78933b6a873,553649,tf_scenario_code/1_pre-condition-ec2,MIT-0,other/unknown,aws_instance,0,0,1,0,0,0
-787147890,aws-samples/secure-migrations-and-modernizations,9187d6265d441089b26a570b1ed9c78933b6a873,553650,tf_scenario_code/2_sentinel-sg,MIT-0,other/unknown,aws_instance;aws_security_group,0,1,1,0,0,1
-787147890,aws-samples/secure-migrations-and-modernizations,9187d6265d441089b26a570b1ed9c78933b6a873,553653,tf_scenario_code/4_drift-sg,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
-288510145,aws-samples/terraform-aws-sap-netweaver-on-hana,d10e06a55663072fb6c8812f4d6ab01ede90b8c9,349317,modules/aws-sap-netweaver-efs,MIT-0,other/unknown,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
-562712299,aws-samples/terraform-checkov-validation-pipeline,042a65f66533a200523c1b7fdd552628603e2dcd,452083,code/initial_code,MIT-0,other/unknown,aws_subnet;aws_vpc,0,1,1,0,0,1
-331712292,aws-samples/terraform-sample-workshop,0a265e356a3cf4fd0f15ba821b7bedf712a32239,362565,module_2/modularized_tf/modules/providers/aws/security_group/create_sg,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
-331712292,aws-samples/terraform-sample-workshop,0a265e356a3cf4fd0f15ba821b7bedf712a32239,362566,module_2/modularized_tf/modules/providers/aws/security_group/create_sg_rule,MIT-0,other/unknown,aws_security_group_rule,0,1,1,0,0,1
-331712292,aws-samples/terraform-sample-workshop,0a265e356a3cf4fd0f15ba821b7bedf712a32239,362572,module_3/modularized_tf/base_modules/providers/aws/security_group/create_sg,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
-331712292,aws-samples/terraform-sample-workshop,0a265e356a3cf4fd0f15ba821b7bedf712a32239,362573,module_3/modularized_tf/base_modules/providers/aws/security_group/create_sg_rule,MIT-0,other/unknown,aws_security_group_rule,0,1,1,0,0,1
+445445953,aws-samples/hub-and-spoke-with-shared-services-vpc-terraform,b75201447a6998e8b1397bdc8a487994f956ed40,403580,modules/compute,MIT-0,permissive,aws_instance,0,1,1,0,0,0
+492312842,aws-samples/hub-and-spoke-with-traffic-segmentation,8e6b95fa7a0428fe3aef8a7024de8ba98606de3c,421477,modules/compute,MIT-0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
+632802427,aws-samples/manage-aws-network-firewall-multi-account-aws-firewall-manager,cfa9a57f4388e8475d280962318fe11cb2006b81,482240,spoke_account/modules/vpc-resources,MIT-0,permissive,aws_route_table;aws_route_table_association,0,0,1,0,0,0
+582753999,aws-samples/multi-az-db-cluster-sample-for-amazon-rds,ef3d4f9d78209d7b187a91aebce126dbdc601ef0,460608,modules/rds_modules/rds_db_subnet_group,MIT-0,permissive,aws_db_subnet_group,0,1,1,0,0,0
+582753999,aws-samples/multi-az-db-cluster-sample-for-amazon-rds,ef3d4f9d78209d7b187a91aebce126dbdc601ef0,460609,modules/rds_modules/rds_vpc,MIT-0,permissive,aws_security_group;aws_subnet;aws_vpc,0,1,1,0,0,1
+739264979,aws-samples/private-s3-vpce,420c77ad79e584ee204c196483631b83db89060c,535283,terraform,MIT-0,permissive,aws_security_group,0,0,0,0,0,1
+842426360,aws-samples/provision-fsx-lustre-with-terraform,f5a9bef4401e2c6dd124aadc091aaac16ec456b5,572064,modules/ec2_instance,MIT-0,permissive,aws_instance,0,1,1,0,0,0
+842426360,aws-samples/provision-fsx-lustre-with-terraform,f5a9bef4401e2c6dd124aadc091aaac16ec456b5,572067,modules/security_group,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
+730560167,aws-samples/rds-oracle-terraform,9cadd2957320c7dc8588ebedcbb0253d54f01a50,531094,.,MIT-0,permissive,aws_db_instance,0,1,1,0,0,0
+1065856497,aws-samples/sample-automate-aws-supply-chain-deployment,2bc11de4d43b49f7c097fa131dbdcc6b2199b936,656297,ASC-Datasets/terraform-deployment/modules/security-group,MIT-0,permissive,aws_security_group;aws_security_group_rule,0,1,1,0,0,1
+1021146853,aws-samples/sample-eks-clusters-with-shared-subnets,0e66dff1ce9b9defb36d80ece0f4e55a17c20baa,635800,workload,MIT-0,permissive,aws_route_table;aws_route_table_association;aws_subnet,0,0,0,0,0,1
+970969181,aws-samples/sample-fraud-detection-and-prevention-fdp-agentic-platform,29c0429d2311e9cbea23132fc5a2bbed37eeac5a,617490,iac/api/security_group,MIT-0,permissive,aws_security_group,0,0,1,0,0,1
+1057232813,aws-samples/sample-karpenter-migration-automation,137d6d8c9c828ca049a9bda87b788f47c9152566,653867,modules/cluster,MIT-0,permissive,aws_security_group,0,0,0,0,0,1
+978878259,aws-samples/sample-patterns-for-aws-marketplace,1a78a08179007099c9c5a652ec30852fbd671e2b,619775,solution-templates/elastic/end-to-end-rag-terraform,MIT-0,permissive,aws_security_group_rule,0,1,0,0,0,1
+787147890,aws-samples/secure-migrations-and-modernizations,9187d6265d441089b26a570b1ed9c78933b6a873,553649,tf_scenario_code/1_pre-condition-ec2,MIT-0,permissive,aws_instance,0,0,1,0,0,0
+787147890,aws-samples/secure-migrations-and-modernizations,9187d6265d441089b26a570b1ed9c78933b6a873,553650,tf_scenario_code/2_sentinel-sg,MIT-0,permissive,aws_instance;aws_security_group,0,1,1,0,0,1
+787147890,aws-samples/secure-migrations-and-modernizations,9187d6265d441089b26a570b1ed9c78933b6a873,553653,tf_scenario_code/4_drift-sg,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
+288510145,aws-samples/terraform-aws-sap-netweaver-on-hana,d10e06a55663072fb6c8812f4d6ab01ede90b8c9,349317,modules/aws-sap-netweaver-efs,MIT-0,permissive,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
+562712299,aws-samples/terraform-checkov-validation-pipeline,042a65f66533a200523c1b7fdd552628603e2dcd,452083,code/initial_code,MIT-0,permissive,aws_subnet;aws_vpc,0,1,1,0,0,1
+331712292,aws-samples/terraform-sample-workshop,0a265e356a3cf4fd0f15ba821b7bedf712a32239,362565,module_2/modularized_tf/modules/providers/aws/security_group/create_sg,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
+331712292,aws-samples/terraform-sample-workshop,0a265e356a3cf4fd0f15ba821b7bedf712a32239,362566,module_2/modularized_tf/modules/providers/aws/security_group/create_sg_rule,MIT-0,permissive,aws_security_group_rule,0,1,1,0,0,1
+331712292,aws-samples/terraform-sample-workshop,0a265e356a3cf4fd0f15ba821b7bedf712a32239,362572,module_3/modularized_tf/base_modules/providers/aws/security_group/create_sg,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
+331712292,aws-samples/terraform-sample-workshop,0a265e356a3cf4fd0f15ba821b7bedf712a32239,362573,module_3/modularized_tf/base_modules/providers/aws/security_group/create_sg_rule,MIT-0,permissive,aws_security_group_rule,0,1,1,0,0,1
 652266665,awsautomation/AWS-DevOps-Project,1f475a27d5388fd3aa3d78e3428cc1485de53c89,493958,02-Terraform-Basics/02-02-Terraform-Command-Basics/terraform-manifests,MIT,permissive,aws_instance,0,1,1,0,0,0
 652266665,awsautomation/AWS-DevOps-Project,1f475a27d5388fd3aa3d78e3428cc1485de53c89,493959,02-Terraform-Basics/02-03-Terraform-Language-Syntax/terraform-manifests,MIT,permissive,aws_instance,0,0,0,0,0,0
 652266665,awsautomation/AWS-DevOps-Project,1f475a27d5388fd3aa3d78e3428cc1485de53c89,493960,03-Terraform-Settings-Providers-Resources/terraform-manifests,MIT,permissive,aws_instance,0,1,1,0,0,0
@@ -7043,7 +7043,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 553015814,bmw325ia/mycode,94828b74c792c5ca2a28f7ce3a24ea3f17178938,451074,aws-output-tf,GPL-3.0,strong copyleft,aws_instance,0,1,1,0,0,0
 553015814,bmw325ia/mycode,94828b74c792c5ca2a28f7ce3a24ea3f17178938,451075,aws-tf,GPL-3.0,strong copyleft,aws_instance,0,1,1,0,0,0
 223469542,bnrizzo86/Terraform2,6b99f7d9decc50395efc091e5efc4c94ad8173e0,327468,.,MIT,permissive,aws_instance;aws_security_group,0,1,1,0,0,1
-270182448,bnusunny/terraform-stateful-lambda-api-module,140a2cbf5c92b84fc279d690250addc9a99700ec,342641,modules/vpc,MIT-0,other/unknown,aws_security_group,0,1,0,0,0,1
+270182448,bnusunny/terraform-stateful-lambda-api-module,140a2cbf5c92b84fc279d690250addc9a99700ec,342641,modules/vpc,MIT-0,permissive,aws_security_group,0,1,0,0,0,1
 33077909,bobtfish/terraform-vpc,bd44c99c62725fa7914f9471c6dba538a7a4330d,284765,.,Apache-2.0,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,1,0,0,0,1
 1088747499,bodanc/tf-practice-a,65624f09355722da86af48f0980039ae88928d4a,662978,.,MIT,permissive,aws_instance;aws_internet_gateway;aws_route_table;aws_route_table_association;aws_security_group;aws_subnet;aws_vpc,0,0,1,0,0,1
 906366249,bokal2/terraform-vpc-module,d6fe637544eb0764e98c941ca85e6c7ab5c2649c,591355,.,MIT,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,0,1,0,0,1
@@ -7530,7 +7530,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 379651724,cesarataws/terraform,598dba0af3346a6d298d1723bc95e76ad40da666,378884,02-terraform-intermediario/06-workspaces,MIT,permissive,aws_instance,0,1,1,0,0,0
 398348710,cesarmoralesonya/Terraform,4cafb53537978ea295b6d2e3b5542d8a4a68bae8,385006,.,GPL-3.0,strong copyleft,aws_instance,0,0,1,0,0,0
 198695885,ceskillets/Automation-Terraform-Backend-for-AWS,ff239b266fdfeca93831e09ce870040d3cb92987,319446,test,Apache-2.0,permissive,aws_instance,0,1,1,0,0,0
-1121064082,cetfgcw/fraud-detection-and-prevention-fdp-agentic-ai,409fe2c89dbd6b9b8ef8cf8c3dee9cfd8816a095,675761,iac/api/security_group,MIT-0,other/unknown,aws_security_group,0,0,1,0,0,1
+1121064082,cetfgcw/fraud-detection-and-prevention-fdp-agentic-ai,409fe2c89dbd6b9b8ef8cf8c3dee9cfd8816a095,675761,iac/api/security_group,MIT-0,permissive,aws_security_group,0,0,1,0,0,1
 468034351,cetrex/ventas,2f2c65cf53ac3b3343b905b3801259dbe018dbb2,412405,.,Apache-2.0,permissive,aws_instance,0,1,1,0,0,0
 839656427,cezacai/infra-fastfood-database-rds,25c1d01b4ac7bec13c1e8355593991e459ab71e8,571156,.,MIT,permissive,aws_db_instance,0,1,1,0,0,0
 546065734,cfaife/terraform-module-example,b26f85df1afaf83a25eb1b28de315f5f34fc4952,445158,.,Apache-2.0,permissive,aws_subnet,0,1,0,0,0,1
@@ -7928,7 +7928,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 793781791,cloudmiketyson/terraform-up-and-running-code,5a4454843292d252caeb12424b800ef65fe83146,555608,code/terraform/10-terraform-team/live/stage/services/conflict-bill,MIT,permissive,aws_instance,0,0,1,0,0,0
 793781791,cloudmiketyson/terraform-up-and-running-code,5a4454843292d252caeb12424b800ef65fe83146,555609,code/terraform/10-terraform-team/live/stage/services/conflict-original,MIT,permissive,aws_instance,0,0,1,0,0,0
 793781791,cloudmiketyson/terraform-up-and-running-code,5a4454843292d252caeb12424b800ef65fe83146,555611,code/terraform/10-terraform-team/modules/data-stores/mysql,MIT,permissive,aws_db_instance,0,1,1,0,0,0
-613873857,cloudperis/end-to-end-project,73014977286cfc1513c63cdd86f92ec1c68fbd4c,473924,Infrastructure/Modules/SecurityGroup,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
+613873857,cloudperis/end-to-end-project,73014977286cfc1513c63cdd86f92ec1c68fbd4c,473924,Infrastructure/Modules/SecurityGroup,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
 131209713,cloudposse/terraform-aws-components,1f74a966a0b40ce7e5cae5baec690e5356cf46b8,297402,deprecated/tgw/spoke/modules/standard_vpc_attachment,Apache-2.0,permissive,aws_security_group_rule,0,1,0,0,0,1
 100474194,cloudposse/terraform-aws-ec2-admin-server,8abe587286b933b36807b2a2268e8eb9cf18b634,289673,.,Apache-2.0,permissive,aws_security_group;aws_security_group_rule,0,1,0,0,0,1
 135447853,cloudposse/terraform-aws-rds-cloudwatch-sns-alarms,9669c5dab0bda940640911cadf03af34e284981b,298470,examples/complete,Apache-2.0,permissive,aws_db_instance,0,1,0,0,0,0
@@ -8110,7 +8110,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 973397618,ctablero/naiboa,38eb00c767bb8ef444b8a997c8d7fc751c880dcb,618238,modules/networking,Apache-2.0,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet,0,1,1,0,0,1
 441500479,ctcac00/mongodb-terraform-templates,5e72babd5b1070031cf1cf4af1efc3aa73184c9a,401921,aws/ec2-instance,GPL-3.0,strong copyleft,aws_instance,0,0,1,0,0,0
 657572845,ctciwasa/learn-terraform-cloud,9de52ffbaa850a9624e8977fd12194e471e9a0e8,496526,.,MPL-2.0,weak copyleft,aws_instance,0,0,1,0,0,0
-290097538,ctopherwilliams/terraform-aws-sap-netweaver-on-hana,76213ee7f1fff916eac52c1a571614f84b2a906e,349929,modules/aws-sap-netweaver-efs,MIT-0,other/unknown,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
+290097538,ctopherwilliams/terraform-aws-sap-netweaver-on-hana,76213ee7f1fff916eac52c1a571614f84b2a906e,349929,modules/aws-sap-netweaver-efs,MIT-0,permissive,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
 556554101,ctreminiom/certified-terraform-associate,bcd2634668e8d7cc1b36788b3e1438a9b0181046,449453,command-basics,MIT,permissive,aws_instance,0,1,1,0,0,0
 284706231,ctxis/DynamicLabs,1e92365f96bfe7b15b0cfbde5c5c2a71e7561fed,348044,Terraform/AWS/Apple/macOS_arm64,MIT,permissive,aws_instance,0,0,1,0,0,0
 284706231,ctxis/DynamicLabs,1e92365f96bfe7b15b0cfbde5c5c2a71e7561fed,348045,Terraform/AWS/Apple/macOS_x86_64,MIT,permissive,aws_instance,0,0,1,0,0,0
@@ -9146,8 +9146,8 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 302620968,dvulpe/terraform-eks,b5d17eca38790dfb2384844967b652c9a2e0480a,354372,modules/security-groups,Apache-2.0,permissive,aws_security_group;aws_security_group_rule,0,1,1,0,0,1
 313454760,dwakeman/ibm-satellite-location,9548903824f9abf732a7e59af90c5a22683e778d,357745,.,Apache-2.0,permissive,aws_instance;aws_internet_gateway;aws_route_table;aws_route_table_association;aws_security_group;aws_subnet;aws_vpc,0,0,1,0,0,1
 694838918,dwarakanathreddy/Terraform-infra,df5e96c7456ac4c24ea4aaed9dcef70463d34c9d,515264,basics-101,MIT,permissive,aws_instance,0,0,1,0,0,0
-1055643832,dwayneex/amazon-ecs-fullstack-app-terraform,0334df0078558dce53455e675c994d98337f895c,651347,Infrastructure/Modules/SecurityGroup,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
-1064171123,dwdontwait/amazon-ecs-fullstack-app-terraform,8a3b2636eebfcea01a01f189318021da5532c2f8,655867,Infrastructure/Modules/SecurityGroup,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
+1055643832,dwayneex/amazon-ecs-fullstack-app-terraform,0334df0078558dce53455e675c994d98337f895c,651347,Infrastructure/Modules/SecurityGroup,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
+1064171123,dwdontwait/amazon-ecs-fullstack-app-terraform,8a3b2636eebfcea01a01f189318021da5532c2f8,655867,Infrastructure/Modules/SecurityGroup,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
 558640552,dwiest/terraform-modules,930248657877298c4532daac62a2ffb6ed81b8a2,450406,Next.js,MIT,permissive,aws_security_group_rule,0,1,0,0,0,1
 558640552,dwiest/terraform-modules,930248657877298c4532daac62a2ffb6ed81b8a2,450408,cacti,MIT,permissive,aws_security_group_rule,0,1,0,0,0,1
 558640552,dwiest/terraform-modules,930248657877298c4532daac62a2ffb6ed81b8a2,450410,dante,MIT,permissive,aws_security_group_rule,0,1,0,0,0,1
@@ -9297,8 +9297,8 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 594461052,eider043/ml_repo,aceeeb9cdbb23cc6229dfa7954db74ab4701b2c4,465307,terraform-ec2,MIT,permissive,aws_instance,0,0,1,0,0,0
 484342400,ejb486/aws-terraform-module-ejb486,36a6e207787b9901c1aad4bddea62c68d6ea24bf,418476,remote_test/03.security_group,MIT,permissive,aws_security_group;aws_security_group_rule,0,0,1,0,0,1
 484342400,ejb486/aws-terraform-module-ejb486,36a6e207787b9901c1aad4bddea62c68d6ea24bf,418490,tdcs-dev/02.security-group,MIT,permissive,aws_security_group;aws_security_group_rule,0,0,1,0,0,1
-853944548,ejbest/terraform-testing,0f1a328d87c31f22222aaabccbc17ca9c3331f78,575251,for_each,BSL-1.0,other/unknown,aws_instance,0,1,1,0,0,0
-853944548,ejbest/terraform-testing,0f1a328d87c31f22222aaabccbc17ca9c3331f78,575253,modules_learn/modules/ec2_instance,BSL-1.0,other/unknown,aws_instance,0,1,1,0,0,0
+853944548,ejbest/terraform-testing,0f1a328d87c31f22222aaabccbc17ca9c3331f78,575251,for_each,BSL-1.0,permissive,aws_instance,0,1,1,0,0,0
+853944548,ejbest/terraform-testing,0f1a328d87c31f22222aaabccbc17ca9c3331f78,575253,modules_learn/modules/ec2_instance,BSL-1.0,permissive,aws_instance,0,1,1,0,0,0
 804551093,ejwoods/linkta-lp-terraform,e28d882561016737a15529690a89f749078794bb,559357,vpc,MIT,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,1,1,0,0,1
 803975413,ejwoods/terraform-sf,87cd620881f874b6fa9fdba929210f2120e23fc0,559190,ec2,MIT,permissive,aws_instance,0,1,1,0,0,0
 409875304,ekwutosi/project16,b4444003d355310ab581f6b90dd7706e659a10d1,388872,PBL,MIT,permissive,aws_subnet;aws_vpc,0,0,1,0,0,1
@@ -10425,9 +10425,9 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 597424555,gopikrishhnaChokkalamani/terraform-workspaces,d93c6d7c233dc0c8ce2541e9892ecbcf3d64c823,466660,terraform-import-infra,MIT,permissive,aws_instance;aws_security_group,0,1,1,0,0,1
 597424555,gopikrishhnaChokkalamani/terraform-workspaces,d93c6d7c233dc0c8ce2541e9892ecbcf3d64c823,466661,terraform-multiple-providers,MIT,permissive,aws_instance,0,1,1,0,0,0
 537766614,gopikrishna72/AWS-EKS,57bb667f20e072bb1a6ca1ffa9beef6052895acb,442311,examples/complete,Apache-2.0,permissive,aws_security_group,0,1,0,0,0,1
-539007703,gopikrishna72/AWS-Startup-Landing-Zone-Example,0b693b83c83e89fba627b95eb22f1ada9c613fa2,442587,modules/internet-gateway,MIT-0,other/unknown,aws_internet_gateway,0,1,1,0,0,0
-539007703,gopikrishna72/AWS-Startup-Landing-Zone-Example,0b693b83c83e89fba627b95eb22f1ada9c613fa2,442589,modules/private-subnet,MIT-0,other/unknown,aws_route_table;aws_route_table_association;aws_subnet,0,1,1,0,0,1
-539007703,gopikrishna72/AWS-Startup-Landing-Zone-Example,0b693b83c83e89fba627b95eb22f1ada9c613fa2,442590,modules/public-subnet,MIT-0,other/unknown,aws_route_table;aws_route_table_association;aws_subnet,0,1,1,0,0,1
+539007703,gopikrishna72/AWS-Startup-Landing-Zone-Example,0b693b83c83e89fba627b95eb22f1ada9c613fa2,442587,modules/internet-gateway,MIT-0,permissive,aws_internet_gateway,0,1,1,0,0,0
+539007703,gopikrishna72/AWS-Startup-Landing-Zone-Example,0b693b83c83e89fba627b95eb22f1ada9c613fa2,442589,modules/private-subnet,MIT-0,permissive,aws_route_table;aws_route_table_association;aws_subnet,0,1,1,0,0,1
+539007703,gopikrishna72/AWS-Startup-Landing-Zone-Example,0b693b83c83e89fba627b95eb22f1ada9c613fa2,442590,modules/public-subnet,MIT-0,permissive,aws_route_table;aws_route_table_association;aws_subnet,0,1,1,0,0,1
 684114243,gopikrishna72/Logstash,78c5fefa8848839b5c67c215908c3783266dfc10,509832,examples/ami-centos-test,MIT,permissive,aws_instance;aws_security_group,0,1,0,0,0,1
 684114243,gopikrishna72/Logstash,78c5fefa8848839b5c67c215908c3783266dfc10,509835,examples/encrypted-s3,MIT,permissive,aws_instance;aws_security_group,0,0,0,0,0,1
 684114243,gopikrishna72/Logstash,78c5fefa8848839b5c67c215908c3783266dfc10,509843,examples/s3-remote-state,MIT,permissive,aws_instance;aws_security_group,0,1,0,0,0,1
@@ -10607,9 +10607,9 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 950933875,gsrt1088/learn-terraform,b5dbd4c35be791c59e72e21ef70208893b1869fb,610427,.,MPL-2.0,weak copyleft,aws_instance,0,0,1,0,0,0
 950210120,gsrt1088/terraformhcp-aws,b260ccaf1a1edc0648f69789f1c846fb0ca98b6c,610208,.,MPL-2.0,weak copyleft,aws_instance,0,0,1,0,0,0
 88587261,gssumesh/avidya,4913640d49c48d722a934283ce235d96633ec720,287925,infrastructure_provisioning,GPL-3.0,strong copyleft,aws_instance,0,1,1,0,0,0
-595072558,gsvaidwan/multi-az-db-cluster-sample-for-amazon-rds,c96fd8adc903f43ef1d568bfc616a77a6d2c06ed,465562,modules/rds_modules/rds_db_subnet_group,MIT-0,other/unknown,aws_db_subnet_group,0,1,1,0,0,0
+595072558,gsvaidwan/multi-az-db-cluster-sample-for-amazon-rds,c96fd8adc903f43ef1d568bfc616a77a6d2c06ed,465562,modules/rds_modules/rds_db_subnet_group,MIT-0,permissive,aws_db_subnet_group,0,1,1,0,0,0
 794599455,gtltest2030/tfc-guide-example,a5e4ca7f27a1a82fac6c93f6c99f72f9ae4e07c3,555797,.,MPL-2.0,weak copyleft,aws_instance,0,0,1,0,0,0
-207010338,gtrafimenkov/aws-wireguard-bastion,163248ce36c5d5a505b505ccb8046165870e1dc3,322290,.,MIT-0,other/unknown,aws_instance;aws_security_group,0,0,1,0,0,1
+207010338,gtrafimenkov/aws-wireguard-bastion,163248ce36c5d5a505b505ccb8046165870e1dc3,322290,.,MIT-0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
 167617049,gtrafimenkov/devops-toolkit,99354d2903f8d3ef4186462e37b38499a25040d1,310710,terraform/live/aws-demo-simple-bastion,MIT,permissive,aws_instance,0,0,1,0,0,0
 167617049,gtrafimenkov/devops-toolkit,99354d2903f8d3ef4186462e37b38499a25040d1,310712,terraform/live/aws-test-ami-dtk-u1804,MIT,permissive,aws_instance,0,0,1,0,0,0
 859970461,guardianproject-ops/terraform-aws-rds-postgresql,35717c5d717941b0e0eb9a555e83169cc3a635aa,577107,.,GPL-3.0,strong copyleft,aws_security_group,0,0,0,0,0,1
@@ -11131,7 +11131,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 445395033,hoanglinhdigital/aws-training,2ad75f971d269b94f0fc5e103e8d4f04d0bc8c89,403550,terraform-template,Apache-2.0,permissive,aws_subnet;aws_vpc,0,1,1,0,0,1
 728227318,hoanglinhtan/sre-udacity-project-2,85158721281acb24a5b66f0273e89a82db892155,530342,starter-code/zone1/modules/ec2,MIT,permissive,aws_instance;aws_security_group,0,1,1,0,0,1
 728227318,hoanglinhtan/sre-udacity-project-2,85158721281acb24a5b66f0273e89a82db892155,530349,starter-code/zone2/modules/ec2,MIT,permissive,aws_instance;aws_security_group,0,1,1,0,0,1
-942757637,hoangnguyenvo0112/terraform-aws-samples,98ee8e693a5ebc4b14f3dfe731bdc786637c1eb4,608220,Infrastructure/Modules/SecurityGroup,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
+942757637,hoangnguyenvo0112/terraform-aws-samples,98ee8e693a5ebc4b14f3dfe731bdc786637c1eb4,608220,Infrastructure/Modules/SecurityGroup,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
 857635523,hobointhecorner/hobo.terraform.aws_security_group,eac55070aeb1c7a483864c20153b705033bceb31,576390,.,MPL-2.0,weak copyleft,aws_security_group;aws_security_group_rule,0,1,1,0,0,1
 857177355,hobointhecorner/hobo.terraform.aws_security_group_rule,7bb4174b4b409b84b013ded8d36f3da569e0def1,576347,.,MPL-2.0,weak copyleft,aws_security_group_rule,0,1,1,0,0,1
 627449049,hoch-bjoern/terraform,6d0149bbb169a3f9eee665e63f5b510b4784169b,479668,.,GPL-3.0,strong copyleft,aws_instance,0,1,1,0,0,0
@@ -11594,7 +11594,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 512613371,inderpal2406/terraform-practice-2022,f5fdec72151c8fd788b0c7f4ed7ad8241bd6e4fe,431765,02_session,MIT,permissive,aws_instance,0,1,0,0,0,0
 921229499,infernus616/prometheusstack,c668f2f4bf46a31a3dbd83a3533daeda6f395fa8,597666,terraform-aws/modules/ec2,Apache-2.0,permissive,aws_instance,0,1,1,0,0,0
 921229499,infernus616/prometheusstack,c668f2f4bf46a31a3dbd83a3533daeda6f395fa8,597667,terraform-aws/modules/security-group,Apache-2.0,permissive,aws_security_group,0,1,1,0,0,1
-920545950,infernus616/terraformCICDpipeline,d518d669d9806c09d463ee292f03a8c1483f04ea,596980,modules/regional/vpc,MIT-0,other/unknown,aws_security_group,0,1,0,0,0,1
+920545950,infernus616/terraformCICDpipeline,d518d669d9806c09d463ee292f03a8c1483f04ea,596980,modules/regional/vpc,MIT-0,permissive,aws_security_group,0,1,0,0,0,1
 166387389,infinite-Joy/automated-ml-infrastructure,2010aded7548256b14f4e636724df7a99082f92d,310380,terraform/modules/instances,MIT,permissive,aws_instance,0,1,1,0,0,0
 151734069,influxdata/terraform-aws-influx,5ade47e3fcc294383c15b4aaa2a35afe185962dc,306192,modules/chronograf-security-group-rules,Apache-2.0,permissive,aws_security_group_rule,0,1,1,0,0,1
 151734069,influxdata/terraform-aws-influx,5ade47e3fcc294383c15b4aaa2a35afe185962dc,306196,modules/influxdb-security-group-rules,Apache-2.0,permissive,aws_security_group_rule,0,1,1,0,0,1
@@ -13354,8 +13354,8 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 118689621,limed/executive-dashboard,72678a288f6d92df4f7bc2deb36746617ea2a3c2,293509,nubis/terraform,MPL-2.0,weak copyleft,aws_security_group,0,1,0,0,0,1
 662875133,limseunghyun95/T102-Terraform,b5b4260b4df113a15e47cc6d18ebe02ae49d5785,498172,week02-assignment/01-create-subnet,MIT,permissive,aws_subnet;aws_vpc,0,0,1,0,0,1
 861602017,lindamaijo/Terraform-AWS,9b244b76f888644aed42ed93234113e64aa40e5a,577718,terraform/modules/rds,MIT,permissive,aws_db_instance;aws_db_subnet_group;aws_security_group,0,1,1,0,0,1
-495612181,lindarr915/local-zone-eks,9293a172d30f826cd9fea415cd50c14d712c9823,423159,deploy/01-vpc,MIT-0,other/unknown,aws_route_table_association;aws_subnet,0,1,0,0,0,1
-495612181,lindarr915/local-zone-eks,9293a172d30f826cd9fea415cd50c14d712c9823,423164,hack/00-bastion,MIT-0,other/unknown,aws_instance;aws_security_group,0,0,1,0,0,1
+495612181,lindarr915/local-zone-eks,9293a172d30f826cd9fea415cd50c14d712c9823,423159,deploy/01-vpc,MIT-0,permissive,aws_route_table_association;aws_subnet,0,1,0,0,0,1
+495612181,lindarr915/local-zone-eks,9293a172d30f826cd9fea415cd50c14d712c9823,423164,hack/00-bastion,MIT-0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
 691296667,lindnech/terraform-ansible,9a5fb007f4459a97b2917320e9a5c440a6bd1216,512657,.,MIT,permissive,aws_instance;aws_internet_gateway;aws_route_table;aws_route_table_association;aws_security_group;aws_subnet;aws_vpc,0,1,1,0,0,1
 348606911,lineneon/tf-ecs-fargate-tmpl,f939312544b4f4c7dc0276d5f2d2c1382c90d9da,367699,security-groups,MIT,permissive,aws_security_group,0,1,1,0,0,1
 360123906,linoproject/learn_terraform,8622ea3ac3b3410d76c186aed54459cc0413c427,371593,AWSSetup,Apache-2.0,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,0,1,0,0,1
@@ -14361,7 +14361,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 1001599224,moises-herrera/files-storage-terraform,3b39e2914ff84636d071bd52d90ecbc2fe7175d8,626709,modules/security-groups,MIT,permissive,aws_security_group,0,1,1,0,0,1
 685725784,moisesjurad0/terraform-hands-on-workshop,792a46a1e3ea4e62416b921228b38e5904f4dba8,510620,app2/prod,GPL-3.0,strong copyleft,aws_instance,0,1,1,0,0,0
 685725784,moisesjurad0/terraform-hands-on-workshop,792a46a1e3ea4e62416b921228b38e5904f4dba8,510621,app2/staging,GPL-3.0,strong copyleft,aws_instance,0,1,1,0,0,0
-481159457,moitrasayan007/sayan-ab,49d7cfe262a1df577d388e022f48d138579fb488,417311,Infrastructure/Modules/SecurityGroup,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
+481159457,moitrasayan007/sayan-ab,49d7cfe262a1df577d388e022f48d138579fb488,417311,Infrastructure/Modules/SecurityGroup,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
 1054251924,mojhos/terraform,76cd85b5bc5ddd2267bd695cdf0131bfe63a4266,651019,.,Apache-2.0,permissive,aws_instance;aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,0,1,0,0,1
 138801965,mojochao/terraform-aws-web-stack,4299aea5ff2d11fb36220d606ac8edaa8c5f371c,300812,modules/stack/db,MIT,permissive,aws_db_instance,0,1,1,0,0,0
 87973278,moltin/terraform-modules,61fe2a575e08f5a6dcb3223acfe89390e598088a,287860,aws/networking/internet_gateway,MIT,permissive,aws_internet_gateway,0,1,1,0,0,0
@@ -15152,7 +15152,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 331778499,newpathexchange/labtools,5d7025f073e6d821585e80eb623b8009160dc00f,362593,terraform/aws/modules/aws-server-group,MIT,permissive,aws_instance;aws_security_group;aws_security_group_rule,0,0,1,0,0,1
 301645494,nfelger/terraform-examples,ed45a5afd6d1e00c500acc0a365a5dfbe827ea31,354041,01-ec2-instance,Apache-2.0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
 648761403,ngallegos-ib/learn-terraform-cloud,bc42c175a5b71f518e4af6d04488b5cd5908895e,491845,.,MPL-2.0,weak copyleft,aws_instance,0,0,1,0,0,0
-383223062,ngawale/NW-ON_HANA,b04c20ff6344bb546ddd7e9701d95ed40e5850ff,380024,modules/aws-sap-netweaver-efs,MIT-0,other/unknown,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
+383223062,ngawale/NW-ON_HANA,b04c20ff6344bb546ddd7e9701d95ed40e5850ff,380024,modules/aws-sap-netweaver-efs,MIT-0,permissive,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
 505235269,ngawale/terraform-cloud-demo1,17c35b5362580e1c14aeb32ebd2e74ddec90a84f,427859,.,Apache-2.0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
 787441156,ngietzen/learn-terraform-cloud,1b866e4a5db13e728b6e097e73c69df3fe5dc4f7,553701,.,MPL-2.0,weak copyleft,aws_instance,0,0,1,0,0,0
 337197576,nginxinc/nginx-controller-automation,3d444fe1ad55173c00bc69c038626fbfd1c55442,363795,aws-terraform-ansible/terraform/nginx,Apache-2.0,permissive,aws_instance;aws_security_group;aws_security_group_rule,0,0,1,0,0,1
@@ -15177,8 +15177,8 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 320908295,nhawk2/Fabric-Test-Network,e82f02644f1a2cf134ea1663bc2db28b479d328d,359886,src/modules/public-subnet,MIT,permissive,aws_subnet,0,1,1,0,0,1
 320908295,nhawk2/Fabric-Test-Network,e82f02644f1a2cf134ea1663bc2db28b479d328d,359887,src/modules/route-table,MIT,permissive,aws_route_table;aws_route_table_association,0,1,1,0,0,0
 320908295,nhawk2/Fabric-Test-Network,e82f02644f1a2cf134ea1663bc2db28b479d328d,359888,src/modules/vpc,MIT,permissive,aws_vpc,0,1,1,0,0,0
-878748259,nholuongut/aws-ecs-fullstack-app-with-terraform,e71134edc4b244a2f1f6d97c9647a1d892b1523e,583394,Infrastructure/Modules/SecurityGroup,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
-878743261,nholuongut/aws-multi-region-cicd-with-terraform,55e6fd9a1c2113c063a071737c8f342e2b18df6e,583363,modules/regional/vpc,MIT-0,other/unknown,aws_security_group,0,1,0,0,0,1
+878748259,nholuongut/aws-ecs-fullstack-app-with-terraform,e71134edc4b244a2f1f6d97c9647a1d892b1523e,583394,Infrastructure/Modules/SecurityGroup,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
+878743261,nholuongut/aws-multi-region-cicd-with-terraform,55e6fd9a1c2113c063a071737c8f342e2b18df6e,583363,modules/regional/vpc,MIT-0,permissive,aws_security_group,0,1,0,0,0,1
 877863918,nholuongut/devops-basics,99d038db75508100bdfc09035574e1da5247baa8,583157,topics/terraform/advanced/aws-three-tier/modules/three-tier-deployment/database,Apache-2.0,permissive,aws_db_instance,0,1,1,0,0,0
 877863918,nholuongut/devops-basics,99d038db75508100bdfc09035574e1da5247baa8,583162,topics/terraform/advanced/terraform-up-and-running/chap02-getting-started/single-web-server,Apache-2.0,permissive,aws_instance;aws_security_group,0,1,1,0,0,1
 877863918,nholuongut/devops-basics,99d038db75508100bdfc09035574e1da5247baa8,583164,topics/terraform/advanced/terraform-up-and-running/chap03-terraform-state/stage/datastore/mysql,Apache-2.0,permissive,aws_db_instance,0,1,1,0,0,0
@@ -15408,8 +15408,8 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 176136286,nobuoka/osm-standard-tile-server-playground,5b6c55e5481f7f328e39c2265de1b1701cc6e055,312811,aws/terraform-for-ecs-and-rds/modules/osm-tile-server/modules/database,MIT,permissive,aws_db_instance;aws_db_subnet_group;aws_security_group;aws_security_group_rule,0,1,1,0,0,1
 853301317,nocamin/terraform-aws-multi-region-ec2,fccb999a06c31c9d3a5488fd8077f3dce0cf6f87,574875,.,MIT,permissive,aws_instance,0,1,1,0,0,0
 149743485,node123/ec2,a68de5a9b30fa53a6bde31988429e8c57773f127,304360,.,GPL-3.0,strong copyleft,aws_instance,0,0,1,0,0,0
-938890775,nodonorteit/eks-localzone,27b63d6905a56e6fc7f9eed482980808cfe8c8e5,603430,deploy/01-vpc,MIT-0,other/unknown,aws_route_table_association;aws_subnet,0,1,0,0,0,1
-938890775,nodonorteit/eks-localzone,27b63d6905a56e6fc7f9eed482980808cfe8c8e5,603435,hack/00-bastion,MIT-0,other/unknown,aws_instance;aws_security_group,0,0,1,0,0,1
+938890775,nodonorteit/eks-localzone,27b63d6905a56e6fc7f9eed482980808cfe8c8e5,603430,deploy/01-vpc,MIT-0,permissive,aws_route_table_association;aws_subnet,0,1,0,0,0,1
+938890775,nodonorteit/eks-localzone,27b63d6905a56e6fc7f9eed482980808cfe8c8e5,603435,hack/00-bastion,MIT-0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
 408362683,noi-techpark/it.bz.software.virtual.events,8b2e617bc38e83f55510795d97247a7f2fe0cb78,388064,modules/networking,AGPL-3.0,strong copyleft,aws_subnet,0,1,1,0,0,1
 408362683,noi-techpark/it.bz.software.virtual.events,8b2e617bc38e83f55510795d97247a7f2fe0cb78,388066,modules/security_group,AGPL-3.0,strong copyleft,aws_security_group,0,1,1,0,0,1
 221223395,nomaddevops/network,a81df5060cbf17b91897e90c4f5c3338d27094c3,326789,.,GPL-3.0,strong copyleft,aws_vpc,0,0,0,0,0,0
@@ -17692,7 +17692,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 521471083,sammmoran/Terraform-Demo,ca7f97308e12ded5b2dfb88bfcf8f166569b01ad,436212,spring4shell-terraform-setup,MPL-2.0,weak copyleft,aws_instance,0,1,1,0,0,0
 792108179,samotpoint/x1-validator,d0fa46cc67c4658000cc98ee2f913ae8d32d4001,555033,modules/security-group,MIT,permissive,aws_security_group;aws_security_group_rule,0,1,1,0,0,1
 162617189,samparsky/terraform-aws-blockchain,9c086eab670d878a1dceb5db7d5836d75edd91d7,309449,modules/bastion,MIT,permissive,aws_instance;aws_security_group,0,1,1,0,0,1
-978006755,samsiis/fraud-detection-and-prevention-fdp-agentic-platform,5ffae0a64fc7b74964fa38d0f6725a467d18c1ab,620075,iac/api/security_group,MIT-0,other/unknown,aws_security_group,0,0,1,0,0,1
+978006755,samsiis/fraud-detection-and-prevention-fdp-agentic-platform,5ffae0a64fc7b74964fa38d0f6725a467d18c1ab,620075,iac/api/security_group,MIT-0,permissive,aws_security_group,0,0,1,0,0,1
 824342092,samuelchika/learn-terraform,d8cbf8a082661961986a112f9e8510d159a967f2,566433,.,MPL-2.0,weak copyleft,aws_instance,0,0,1,0,0,0
 1068650277,samuelrojasm/lab-aws-eks-private-cluster-terraform,fccc84d5e679369f52f4c7eb2f282627c2c6aa73,657241,modules/security/sg-eks,MIT,permissive,aws_security_group_rule,0,0,0,0,0,1
 1054481823,samuelrojasm/lab-aws-vpc-endpoints-mvp,74161aab1ecbb88c35b59980c6ddcf286bdeea3d,651045,.,MIT,permissive,aws_security_group,0,0,0,0,0,1
@@ -17873,9 +17873,9 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 563994728,scshitole/bigip-opa,1edcd7f4f4de5fa53139682c6af1a0f54151c043,452824,modules/network,GPL-3.0,strong copyleft,aws_instance;aws_security_group,0,0,0,0,0,1
 1067775728,sdbjakeer/AWS-Terraform-Workshop-for-Begineerss,6fde1dc60646f5e9023c89ed9d87dc4cb27cddfe,656827,.,GPL-2.0,strong copyleft,aws_instance;aws_internet_gateway;aws_route_table;aws_route_table_association;aws_security_group;aws_subnet;aws_vpc,0,1,1,0,0,1
 512086475,seacow188/terraform-aws-example,cd61d186fd5017ca280e2f7a8d27dea83cc5a139,431630,.,Apache-2.0,permissive,aws_instance,0,1,1,0,0,0
-506515105,seacow188/terraform-aws-sap,f25e90930b5eebc7b79611c8e42b6eaf85502ae5,428403,modules/sap-deploymentscripts/aws-sap-netweaver-efs,MIT-0,other/unknown,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
-511577049,seacow188/terraform-aws-sap-netweaver-on-hana,f3924689479d4702fcb828f785f75795d880684a,431397,modules/aws-sap-netweaver-efs,MIT-0,other/unknown,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
-506523629,seacow188/terraform-aws-sap-netweaver-on-hana-HG,f3924689479d4702fcb828f785f75795d880684a,428425,modules/aws-sap-netweaver-efs,MIT-0,other/unknown,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
+506515105,seacow188/terraform-aws-sap,f25e90930b5eebc7b79611c8e42b6eaf85502ae5,428403,modules/sap-deploymentscripts/aws-sap-netweaver-efs,MIT-0,permissive,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
+511577049,seacow188/terraform-aws-sap-netweaver-on-hana,f3924689479d4702fcb828f785f75795d880684a,431397,modules/aws-sap-netweaver-efs,MIT-0,permissive,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
+506523629,seacow188/terraform-aws-sap-netweaver-on-hana-HG,f3924689479d4702fcb828f785f75795d880684a,428425,modules/aws-sap-netweaver-efs,MIT-0,permissive,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
 237821075,seanflannery10/aws-terraform-ec2-exmaple,286e2b1f3dfdfd1961e02c6f8ce11ac9f9bee32c,332208,.,MIT,permissive,aws_instance;aws_subnet;aws_vpc,0,0,1,0,0,1
 797249451,seb-scothorn-bjss/learn-terraform,189834f32d89cb0bc200e52864a52bf1028dc7ec,556724,.,MPL-2.0,weak copyleft,aws_instance,0,0,1,0,0,0
 383413011,sebastus/bigbang-azure,c6c84489c602af6555bcdfe806a217a171377388,380083,terraform/modules/elb,Apache-2.0,permissive,aws_security_group,0,1,0,0,0,1
@@ -17949,7 +17949,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 112690705,shahadarsh/aws-vpc-terraform,9f8d756fe842deac752224a83c019593071785d3,292476,vpc,Apache-2.0,permissive,aws_instance;aws_security_group,0,1,0,0,0,1
 105090002,shahadarsh/hashicorp-workshop,29272e21c6fd2a07e9de34691233ad29adb48383,291057,consul,MIT,permissive,aws_instance;aws_security_group,0,1,1,0,0,1
 105090002,shahadarsh/hashicorp-workshop,29272e21c6fd2a07e9de34691233ad29adb48383,291058,terraform/nginx,MIT,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
-482720874,shahamishi/ecs-terraform-demo,845b18333b220e164942abfa0771fdaa3ec2ec93,417910,Infrastructure/Modules/SecurityGroup,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
+482720874,shahamishi/ecs-terraform-demo,845b18333b220e164942abfa0771fdaa3ec2ec93,417910,Infrastructure/Modules/SecurityGroup,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
 381875426,shahazzat/terraform_aws,e64af700df79a287630504f5ee4a6824786ec358,379430,.,MIT,permissive,aws_instance;aws_security_group,0,0,0,0,0,1
 1014807938,shahid-2020/infrastructure-aws-manager,cbce6fa5172b4983a1f45d474a477691fe7543e1,632230,main/modules/db-subnet-group,MIT,permissive,aws_db_subnet_group,0,1,1,0,0,0
 1014807938,shahid-2020/infrastructure-aws-manager,cbce6fa5172b4983a1f45d474a477691fe7543e1,632232,main/modules/internet-gateway,MIT,permissive,aws_internet_gateway,0,1,1,0,0,0
@@ -17960,7 +17960,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 731643277,shaikhu2/learn-terraform-cloud,26512ef4f6186d3bb0daec70dc6ff5081548480a,531623,.,MPL-2.0,weak copyleft,aws_instance,0,0,1,0,0,0
 387757450,shaileshchanderiya/Getting-Started-Terraform,cdc5f272b5ee109fee75539c4128fcf95662b99d,381491,m4,MIT,permissive,aws_instance;aws_internet_gateway;aws_route_table;aws_route_table_association;aws_security_group;aws_subnet;aws_vpc,0,0,1,0,0,1
 1045257211,shakiata/tf-eks,9ecc134f104adc500ca9c1717cdf4b2727aeafc3,647393,terraform,Unlicense,permissive,aws_subnet;aws_vpc,0,0,0,0,0,1
-907243979,shakoor7882/aws-multi-region-cicd-with-terraform,2cdee9585f65d89088c197385c893eef2238b2d2,591595,modules/regional/vpc,MIT-0,other/unknown,aws_security_group,0,1,0,0,0,1
+907243979,shakoor7882/aws-multi-region-cicd-with-terraform,2cdee9585f65d89088c197385c893eef2238b2d2,591595,modules/regional/vpc,MIT-0,permissive,aws_security_group,0,1,0,0,0,1
 907326146,shakoor7882/aws-security-operations,6eed289196c872361455b80cad80b1448819cb2c,591572,modules/solutions/forensics-security-group,MIT,permissive,aws_security_group;aws_security_group_rule,0,0,1,0,0,1
 907326146,shakoor7882/aws-security-operations,6eed289196c872361455b80cad80b1448819cb2c,591573,modules/solutions/isolated-security-group,MIT,permissive,aws_security_group,0,1,1,0,0,1
 906714897,shakoor7882/terraform-aws-vpc,21678e5ae55736d373709d9129b700f967a1b7ae,591406,examples/complete,Apache-2.0,permissive,aws_security_group,0,0,0,0,0,1
@@ -18137,7 +18137,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 454458440,shuklaritvik06/DevOps,9110b6cd634376c4fb4d288dd38a8e8e7deff84f,406962,terraform/for_each,MIT,permissive,aws_instance,0,0,1,0,0,0
 454458440,shuklaritvik06/DevOps,9110b6cd634376c4fb4d288dd38a8e8e7deff84f,406964,terraform/remote_backend,MIT,permissive,aws_instance,0,0,1,0,0,0
 810428121,shungheonchai/Terraform-CM-dataNode-Launcher,2b2c8529873cab84d868444302b541737048cd39,561711,.,MIT,permissive,aws_instance,0,1,1,0,0,0
-1051643914,shyamrughani/amazon-ecs-fullstack-app-terraform,8377532cacc921c5f454d92556b960ece1829750,650242,Infrastructure/Modules/SecurityGroup,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
+1051643914,shyamrughani/amazon-ecs-fullstack-app-terraform,8377532cacc921c5f454d92556b960ece1829750,650242,Infrastructure/Modules/SecurityGroup,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
 564179919,si4oen/terraform-aws-eks,25eaa163fe736264d977df575cd4abc88e1c24f0,452925,examples/complete,Apache-2.0,permissive,aws_security_group,0,1,0,0,0,1
 564179739,si4oen/terraform-aws-rds,ba4549986b9a6a290495d7870dc1384ac42026da,452922,modules/db_subnet_group,Apache-2.0,permissive,aws_db_subnet_group,0,1,1,0,0,0
 535990751,si4oen/terraform-aws-vpc,e70c64d5912710388d68331351e325d6a1284a99,441616,examples/complete-vpc,Apache-2.0,permissive,aws_security_group,0,0,0,0,0,1
@@ -18174,7 +18174,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 407938174,singhankur/DevOps,a0098c9dc40c67e0b625a2b9b404de4c4deb92bc,387951,terraform,GPL-3.0,strong copyleft,aws_instance;aws_security_group,0,1,1,0,0,1
 376247023,singhujjwal/awsinfra,7aa0024c13350889e0f01bfa4195f944addfaf93,378026,terraform/components/vpc,Apache-2.0,permissive,aws_security_group,0,0,0,0,0,1
 791576200,sirivo/vsirivo-terraform-cloud,33adc1550f91cab53630fb1e0769cd192c925503,554930,.,Apache-2.0,permissive,aws_instance,0,0,1,0,0,0
-599768475,sirjoon/amazon-ecs-fullstack-terraform,429cef4938caeb040728d6e616fa3307a1b39401,467717,Infrastructure/Modules/SecurityGroup,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
+599768475,sirjoon/amazon-ecs-fullstack-terraform,429cef4938caeb040728d6e616fa3307a1b39401,467717,Infrastructure/Modules/SecurityGroup,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
 1061619163,sitinfra/ec2,8209a2cf21e50b707573bbc2e0758b437388a1dd,655395,.,MIT,permissive,aws_instance;aws_security_group,0,1,1,0,0,1
 732535058,siva-492007/aws-workshop-tfc,92269be66363c709ee5c0ba7ac84ef3281b7cedf,532615,.,MPL-2.0,weak copyleft,aws_instance,0,0,1,0,0,0
 421154057,siva-492007/terraform-ec2-sg-output,d3278282b6f8275e8466c00cee89597da24baebd,392876,.,Apache-2.0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
@@ -18700,8 +18700,8 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 907867773,sudo-talon/Terraform-Eks-GitOps-ArgoCD,2e2bc3040fa036be0a65586efa1ba2fca38f1232,591694,.,MIT,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_subnet;aws_vpc,0,1,0,0,0,1
 789233435,sugiyama404/qa_chatbot,3509aebcea4f2c9bbd150c27025d524bd365cffb,554506,infra/modules/network,MIT,permissive,aws_internet_gateway;aws_route_table;aws_route_table_association;aws_security_group;aws_security_group_rule;aws_subnet;aws_vpc,0,1,1,0,0,1
 579660061,suhaad79/terraform-cloud-demo1,dc4184ae6ef45e8049c3db63642906d345c499bf,459105,.,Apache-2.0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
-588499215,suhas2905/terraform-aws-sap-netweaver-on-hana_without_DR,3267c5de2cb08a33b86271e7064a6357db5ed7fe,463135,modules/aws-sap-netweaver-efs,MIT-0,other/unknown,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
-601148792,suhas2905/terraform-aws-sap-netweaver-on-oracle,5c714f994ad73966734e88b44c93586ac7ee8365,468663,modules/aws-sap-netweaver-efs,MIT-0,other/unknown,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
+588499215,suhas2905/terraform-aws-sap-netweaver-on-hana_without_DR,3267c5de2cb08a33b86271e7064a6357db5ed7fe,463135,modules/aws-sap-netweaver-efs,MIT-0,permissive,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
+601148792,suhas2905/terraform-aws-sap-netweaver-on-oracle,5c714f994ad73966734e88b44c93586ac7ee8365,468663,modules/aws-sap-netweaver-efs,MIT-0,permissive,aws_security_group;aws_security_group_rule,0,0,0,0,0,1
 763993261,suhasvrundavan/Terraform_Project_Modules,93a4f0992580dcbb0d6613e07a7a1c89ec13a3d6,545094,terraform/modules/rds,MIT,permissive,aws_db_instance;aws_db_subnet_group;aws_security_group,0,1,1,0,0,1
 1091704873,suhaybpirji/terraform-aws-vpc-setup,da981f979a4f5cd6afe356ec83e775977223ee9d,664075,.,MIT,permissive,aws_subnet;aws_vpc,0,1,1,0,0,1
 759395516,sujit-devops/terraform-up-and-running-code,0ae1340d6492b1f9b733e31b65023303d1a76e10,543400,code/terraform/00-preface/hello-world,MIT,permissive,aws_instance,0,1,1,0,0,0
@@ -19029,10 +19029,10 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 1066684906,tedm/OpenTofu,6cc41b2424337e4999ae329226bb845326ea181e,656476,aws/ec2,GPL-3.0,strong copyleft,aws_instance,0,0,1,0,0,0
 633617275,tegarimansyah/cloud-workshop,0cd01e9bb1232c6401e87497fa1d2118180c059b,483051,aws/modules/ec2,Apache-2.0,permissive,aws_instance,0,1,1,0,0,0
 633617275,tegarimansyah/cloud-workshop,0cd01e9bb1232c6401e87497fa1d2118180c059b,483053,aws/modules/security_group,Apache-2.0,permissive,aws_security_group,0,1,1,0,0,1
-730901045,teholm/aws-cloud-wan,8dd4c8c55a4a57504c6c352187317f126ce39e9b,531170,lab1-cloudwan-connectivity/modules/compute,MIT-0,other/unknown,aws_instance;aws_security_group,0,0,1,0,0,1
-741629816,teholm/aws-cloudwan-workshop-terraform,6b54783572481c8a71d5b0373748e1261732c727,536291,terraform-ohio-oregon/modules/compute,MIT-0,other/unknown,aws_instance;aws_security_group,0,0,1,0,0,1
-741629816,teholm/aws-cloudwan-workshop-terraform,6b54783572481c8a71d5b0373748e1261732c727,536295,terraform-stockholm-oregon/modules/compute,MIT-0,other/unknown,aws_instance;aws_security_group,0,0,1,0,0,1
-741629816,teholm/aws-cloudwan-workshop-terraform,6b54783572481c8a71d5b0373748e1261732c727,536287,terraform/modules/compute,MIT-0,other/unknown,aws_instance;aws_security_group,0,0,1,0,0,1
+730901045,teholm/aws-cloud-wan,8dd4c8c55a4a57504c6c352187317f126ce39e9b,531170,lab1-cloudwan-connectivity/modules/compute,MIT-0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
+741629816,teholm/aws-cloudwan-workshop-terraform,6b54783572481c8a71d5b0373748e1261732c727,536291,terraform-ohio-oregon/modules/compute,MIT-0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
+741629816,teholm/aws-cloudwan-workshop-terraform,6b54783572481c8a71d5b0373748e1261732c727,536295,terraform-stockholm-oregon/modules/compute,MIT-0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
+741629816,teholm/aws-cloudwan-workshop-terraform,6b54783572481c8a71d5b0373748e1261732c727,536287,terraform/modules/compute,MIT-0,permissive,aws_instance;aws_security_group,0,0,1,0,0,1
 256165570,teitei-tk/practice-terraform,5b75670c269653f5d1a7d0a55a35e91c3614b013,338009,.,Apache-2.0,permissive,aws_instance;aws_subnet;aws_vpc,0,1,1,0,0,1
 680470406,tej-sawarkar/nimesa-assignment1,a76715d7d7a56e4d03c9a52e679a7918c75ddf12,508576,.,MIT,permissive,aws_instance;aws_security_group;aws_subnet;aws_vpc,0,1,1,0,0,1
 466993121,tejas-2232/terraform_exercises,11931a383a542d75e68e4060423689324e0d3770,411794,terraform_aws,MIT,permissive,aws_instance;aws_vpc,0,1,1,0,0,0
@@ -20670,7 +20670,7 @@ e9979a525a2e33174980bcf33ca2b00bad903ac9",355561,.,MIT,permissive,aws_security_g
 591548774,yamap17/fargate-terraform,8a029a5519a32e83a719a9b08e3ca010f4f5bea0,464330,modules/vpc,MIT,permissive,aws_vpc,0,1,1,0,0,0
 460120188,yamarba/AWSterraModules,367d26915c563e43b1ba0c6c0378976738125866,408841,modules/db_subnet_group,Apache-2.0,permissive,aws_db_subnet_group,0,1,1,0,0,0
 136244390,yamaszone/terraform-eks,8e0b78dd252d311ac494eec537475a3a7cf08e02,298571,src/modules/security-groups,MIT,permissive,aws_security_group;aws_security_group_rule,0,1,1,0,0,1
-591725608,yandjoumbi/amazon-ecs-fullstack-app,086d1a7b91bf9fb8c28b4bbe1c4aca0f7a77bb6c,464391,Infrastructure/Modules/SecurityGroup,MIT-0,other/unknown,aws_security_group,0,1,1,0,0,1
+591725608,yandjoumbi/amazon-ecs-fullstack-app,086d1a7b91bf9fb8c28b4bbe1c4aca0f7a77bb6c,464391,Infrastructure/Modules/SecurityGroup,MIT-0,permissive,aws_security_group,0,1,1,0,0,1
 231909013,yanivwho/terraform-lil,ccc2b3aea403bf0488c5985fc7e4bb62a03ec5eb,330157,.,Apache-2.0,permissive,aws_vpc,0,1,1,0,0,0
 820974376,yankeygilbert/InfraDeploy-tf,8ebb00165c3fba111802c1c90e902f4fd14c14e5,565413,.,MIT,permissive,aws_instance,0,1,0,0,0,0
 329069970,yardbirdsax/rancher-gitops,3d2d31c740f137d2c9290f96ef650e49fda1b0aa,361686,infrastructure,GPL-3.0,strong copyleft,aws_security_group;aws_security_group_rule,0,0,0,0,0,1

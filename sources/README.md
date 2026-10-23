@@ -25,19 +25,25 @@ Stdlib only; no third-party package is needed to acquire or measure.
 | `tools.py` | installs the pinned helper tools into the cache: gitleaks (CI version), Go, and a build of terraform-config-inspect at a pinned commit |
 | `terragoat/files.sha256` | `sha256  size  path` for every file under `terraform/aws/` at the pinned commit |
 | `terragoat/scan_secrets.py`, `terragoat/secret_scan_summary.md` | gitleaks run with `--redact`; counts per rule and file paths only, no values |
+| `terragoat/attribute_inventory.py` | second, rule-independent inventory of credential-like attributes (file, line, resource address, attribute name; no values); appended to the summary |
+| `terragoat/licence_diff.py`, `terragoat/licence_diff.md` | whitespace-normalised diff of TerraGoat's `LICENSE` against `LICENSES/Apache-2.0.txt` |
+| `hcl_lex.py` | stand-alone lexer for `.tf` / `.tf.json` text (comments, heredocs, strings, block headers); used by the two scripts that read HCL |
+| `terrads/lexical_crosscheck.py`, `terrads/crosscheck.json` | independent re-derivation of module contents from the archive, compared with TerraDS's metadata |
 | `terrads/SCHEMA.md` | tables, columns, types and row counts of the pinned `TerraDS.sqlite` |
 | `terrads/measure_yield.py` | the funnel F0..X, written to `yield.json`, `yield_report.md`, `candidates.csv`, `licence_inventory.csv` |
 | `terrads/scan_archive.py` | lists the pinned `TerraDS.tar.gz` and records which repositories ship a licence file |
 
 ## Reference tool
 
-Checkov is a **reference tool only** (DAIL register C-12). It is installed into `.venv-tools` (gitignored) from `requirements-tools.txt`; nothing in `generator/` or `oracle/` may import it.
+Checkov is a **reference tool only** (DAIL register C-12). It is installed into `.venv-tools` (gitignored); nothing in `generator/` or `oracle/` may import it. `requirements-tools.txt` pins Checkov itself (`==3.3.30`); `requirements-tools.lock.txt` is the full environment, the output of `python -m pip freeze --all` in `.venv-tools` (its sha256 is in `manifest.json`, entry `checkov`, field `lock_file`, and `acquire.py verify` checks it).
+
+**Later runs must install from the lock file and put `.venv-tools\Scripts` first on PATH** (the `checkov.cmd` launcher runs the first `python` on PATH):
 
 ```powershell
 py -3.12 -m venv .venv-tools
-.venv-tools\Scripts\python -m pip install -r requirements-tools.txt
-$env:PATH = "$PWD\.venv-tools\Scripts;$env:PATH"   # checkov.cmd runs the first `python` on PATH
+.venv-tools\Scripts\python -m pip install -r requirements-tools.lock.txt
+$env:PATH = "$PWD\.venv-tools\Scripts;$env:PATH"
 checkov --version
 ```
 
-Only `checkov` itself is pinned (`==3.3.30`); its transitive dependencies resolve at install time and are not pinned.
+The lock file was produced on Windows with Python 3.12.10; another platform may need its own freeze.

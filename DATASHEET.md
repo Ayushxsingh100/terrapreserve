@@ -31,15 +31,23 @@ Measured on 2026-10-23 (UTC) by `sources/acquire.py` and `sources/terrads/measur
 
 | Source | Pinned version | Licence (manifest `licence_spdx`) | What was measured |
 |---|---|---|---|
-| TerraGoat | `bridgecrewio/terragoat`, default branch `master`, commit `729f8da62c6a85ce4af5ad3d123de97776d954c4` (committed 2023-04-27); not archived | Apache-2.0, read from the repository's `LICENSE` (sha256 in `licence_evidence`) | 17 files under `terraform/aws/` (`sources/terragoat/files.sha256`); 2 gitleaks findings there in the working tree and 4 in history, values redacted (`sources/terragoat/secret_scan_summary.md`) |
+| TerraGoat | `bridgecrewio/terragoat`, default branch `master`, commit `729f8da62c6a85ce4af5ad3d123de97776d954c4` (committed 2023-04-27); not archived | Apache-2.0, read from the repository's `LICENSE` (sha256 in `licence_evidence`); identical to `LICENSES/Apache-2.0.txt` after whitespace normalisation (`sources/terragoat/licence_diff.md`) | 17 files under `terraform/aws/` (`sources/terragoat/files.sha256`); 2 gitleaks findings there in the working tree and 4 in history, values redacted; a second, rule-independent inventory flags 4 credential-like literal attributes, 3 of which gitleaks did not flag (`sources/terragoat/secret_scan_summary.md`) |
 | TerraDS | Zenodo record `20339474` (published 2026-05-26), version DOI `10.5281/zenodo.20339474`, concept DOI `10.5281/zenodo.14217385` | CC-BY-4.0 for the dataset; each repository keeps its own licence, recorded per repository in the database (D0 Decision 9) | 82,749 repositories, 394,004 modules and 2,497,629 resources in the database; the funnel and licence tables are in [sources/terrads/yield_report.md](sources/terrads/yield_report.md) |
-| Checkov | PyPI `checkov` 3.3.30, git tag `3.3.30` at commit `dfeb34b2d52a269bb417b4d4f7854a16bef06629` | Apache-2.0, read from `LICENSE` at that commit | reference tool only; wheel sha256 `32c3d6a808399f3fd6ec83e68a337050d17f019336f4d8f3b23aae469ba79408` (PyPI and measured agree) |
+| Checkov | PyPI `checkov` 3.3.30, git tag `3.3.30` at commit `dfeb34b2d52a269bb417b4d4f7854a16bef06629` | Apache-2.0, read from `LICENSE` at that commit | reference tool only; wheel sha256 `32c3d6a808399f3fd6ec83e68a337050d17f019336f4d8f3b23aae469ba79408` (PyPI and measured agree); full environment pinned in `requirements-tools.lock.txt` (sha256 in the manifest) |
 
-**Attribution (CC-BY-4.0).** TerraDS is cited as the Zenodo record and its DOI give it:
+**Attribution (CC-BY-4.0).** TerraDS is cited twice: the paper that describes it, and the data we use.
+
+(a) Paper:
+
+> Bühler, C., Spielmann, D., Meier, R., & Salvaneschi, G. (2025). TerraDS: A Dataset for Terraform HCL Programs. In *2025 IEEE/ACM 22nd International Conference on Mining Software Repositories (MSR)*, Data and Tool Showcase Track, pp. 654-658. https://doi.org/10.1109/MSR66628.2025.00101
+
+(b) Data (the version we pin, as the Zenodo record and its DOI give it):
 
 > Bühler, C., Spielmann, D., Meier, R., & Salvaneschi, G. (2026). *TerraDS: A Dataset for Terraform HCL Programs* [Dataset]. Zenodo. https://doi.org/10.5281/zenodo.20339474
 
-The earlier version is https://doi.org/10.5281/zenodo.14217386 (2024) and the concept DOI is https://doi.org/10.5281/zenodo.14217385.
+The earlier data version is https://doi.org/10.5281/zenodo.14217386 (2024) and the concept DOI is https://doi.org/10.5281/zenodo.14217385.
+
+Repository counts: the paper's abstract states 67,360 repositories, while its body (371,981 found, 67,360 with a permissive licence, minus 14 not clonable and 4,940 without Terraform) and the v1 data state 62,406; TerraPreserve reports its own measured v2 counts (82,749 repositories, 394,004 modules, 2,497,629 resources).
 
 Terraform, AWS provider and Checkov versions (D0 gate 9): Terraform 1.15.8 and `hashicorp/aws` 6.53.0 (ADR-013 pins); Checkov 3.3.30. Instance schema and counts of scenarios: not yet established.
 
@@ -48,7 +56,7 @@ Terraform, AWS provider and Checkov versions (D0 gate 9): Terraform 1.15.8 and `
 | Question | Answer |
 |---|---|
 | How was the data acquired? | `sources/acquire.py fetch`: TerraGoat by `git clone` at the pinned commit; TerraDS from Zenodo record `20339474` (`TerraDS.sqlite`, `TerraDS.tar.gz`, `HCL Dataset Tools.zip`), md5 checked against Zenodo's published values and sha256 measured; Checkov from PyPI. Hashes, sizes and licence evidence: `sources/manifest.json`. Raw files are in an external cache, not in Git. |
-| What was the sampling strategy? | Not yet established for the pool. The funnel F0..X over TerraDS metadata is measured (`sources/terrads/yield_report.md`); which modules enter the pool is a D3 decision. Pool filtering uses TerraDS's own metadata, produced by terraform-config-inspect, not DAIL's parser (ADR-013). The independent cross-check with terraform-config-inspect is UNRESOLVED (see the report). |
+| What was the sampling strategy? | Not yet established for the pool. The funnel F0..X over TerraDS metadata is measured (`sources/terrads/yield_report.md`); which modules enter the pool is a D3 decision. Pool filtering uses TerraDS's own metadata, produced by terraform-config-inspect, not DAIL's parser (ADR-013). A lexical re-derivation of module contents from the archive (an independent implementation, not terraform-config-inspect, which could not be run here and would not have been independent) agrees with the metadata on the managed type set for 656 of 657 sampled F3/F2 modules; see the report. |
 | Who was involved in collection? | Not yet established. Run by Claude Code under the authors' instruction (D1 Prompt B). |
 | Over what timeframe? | Sources retrieved on 2026-10-23 (UTC; `retrieved_utc` in the manifest). TerraDS's own data cutoff for the pinned version is January 2026, as its Zenodo record states. |
 | Were ethical review processes conducted? | Not yet established. |

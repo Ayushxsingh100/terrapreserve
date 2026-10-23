@@ -21,6 +21,7 @@ import datetime as dt
 import json
 import sqlite3
 import sys
+import zipfile
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -44,24 +45,33 @@ S = T9 | {"aws_db_subnet_group"}
 SG_TYPES = frozenset({"aws_security_group", "aws_security_group_rule"})
 GRAFT_TYPES = SG_TYPES | {"aws_subnet"}
 
-PERMISSIVE = frozenset(
+# Reviewer-approved list change (Prompt B review, R1): MIT-0 and BSL-1.0 are OSI-approved and
+# permit modification and redistribution, so they were added to the Prompt B list.
+PERMISSIVE_BEFORE_REVIEW = frozenset(
     {"MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC", "0BSD", "Unlicense", "CC0-1.0", "Zlib"}
 )
+REVIEWER_ADDED = frozenset({"MIT-0", "BSL-1.0"})
+PERMISSIVE = PERMISSIVE_BEFORE_REVIEW | REVIEWER_ADDED
 BUCKETS = ("permissive", "weak copyleft", "strong copyleft", "other/unknown")
 LEVELS = ("F0", "F1", "F2", "F2a", "F2b", "F2ab", "F3", "F3ab", "F4", "G", "X")
 LICENCE_LEVELS = ("F2", "F3", "F3ab", "G")
 SEED = 20261023
 
 
-def licence_bucket(licence: str | None) -> str:
-    """Bucket a repository licence string; anything unlisted is ``other/unknown``."""
-    if licence in PERMISSIVE:
-        return "permissive"
+def licence_bucket(licence: str | None, permissive: frozenset[str] = PERMISSIVE) -> str:
+    """Bucket a repository licence string; anything unlisted is ``other/unknown``.
+
+    The string is stripped and compared case-insensitively. Nothing else is
+    normalised, so an unlisted or misspelt id stays ``other/unknown``.
+    """
     if licence is None:
         return "other/unknown"
-    if licence == "MPL-2.0" or licence.startswith(("LGPL-", "EPL-")):
+    key = licence.strip().casefold()
+    if key in {p.casefold() for p in permissive}:
+        return "permissive"
+    if key == "mpl-2.0" or key.startswith(("lgpl-", "epl-")):
         return "weak copyleft"
-    if licence.startswith(("GPL-", "AGPL-")):
+    if key.startswith(("gpl-", "agpl-")):
         return "strong copyleft"
     return "other/unknown"
 
@@ -185,16 +195,21 @@ def measure(modules: list[ModuleRow], repos: dict[int, dict]) -> dict:
         level: {"modules": len(rows), "repos": len({r.repo_id for r in rows})}
         for level, rows in members.items()
     }
-    buckets: dict[str, dict] = {}
-    raw: dict[str, dict] = {}
-    for level in LICENCE_LEVELS:
-        buckets[level] = {
+    def bucket_table(level: str, permissive: frozenset[str]) -> dict:
+        return {
             b: {
-                "modules": sum(1 for r in members[level] if licence_bucket(licence_of(r)) == b),
-                "repos": len({r.repo_id for r in members[level] if licence_bucket(licence_of(r)) == b}),
+                "modules": sum(1 for r in members[level] if licence_bucket(licence_of(r), permissive) == b),
+                "repos": len({r.repo_id for r in members[level] if licence_bucket(licence_of(r), permissive) == b}),
             }
             for b in BUCKETS
         }
+
+    buckets: dict[str, dict] = {}
+    buckets_before: dict[str, dict] = {}
+    raw: dict[str, dict] = {}
+    for level in LICENCE_LEVELS:
+        buckets[level] = bucket_table(level, PERMISSIVE)
+        buckets_before[level] = bucket_table(level, PERMISSIVE_BEFORE_REVIEW)
         per_licence: dict[str, set[int]] = collections.defaultdict(set)
         per_licence_modules: collections.Counter[str] = collections.Counter()
         for r in members[level]:
@@ -206,11 +221,27 @@ def measure(modules: list[ModuleRow], repos: dict[int, dict]) -> dict:
             for k in sorted(per_licence, key=lambda k: (-len(per_licence[k]), k))
         }
     whole = collections.Counter(r["licence"] or "<null>" for r in repos.values())
+    whole_exact = collections.Counter(r["licence"] for r in repos.values())
+    inventory = []
+    for licence, n_repos in sorted(whole_exact.items(), key=lambda kv: (-kv[1], repr(kv[0]))):
+        entry = {
+            "repr": repr(licence),
+            "bucket": licence_bucket(licence),
+            "bucket_before_review": licence_bucket(licence, PERMISSIVE_BEFORE_REVIEW),
+            "repos_whole_dataset": n_repos,
+        }
+        for level in LICENCE_LEVELS:
+            hits = [r for r in members[level] if licence_of(r) == licence]
+            entry[level] = {"modules": len(hits), "repos": len({r.repo_id for r in hits})}
+        inventory.append(entry)
     f2 = members["F2"]
     return {
         "funnel": funnel,
         "licence_buckets": buckets,
+        "licence_buckets_before_review": buckets_before,
         "licence_raw": raw,
+        "licence_inventory": inventory,
+        "licence_unmatched": [e["repr"] for e in inventory if e["bucket"] == "other/unknown"],
         "whole_dataset_repo_licences": dict(sorted(whole.items(), key=lambda kv: (-kv[1], kv[0]))),
         "f2_modules_with_diagnostics": sum(1 for r in f2 if r.has_diagnostics),
         "f2b_nonlocal_calls_only": sum(1 for r in f2 if r.n_nonlocal_calls == 0),
@@ -365,6 +396,39 @@ def comparison_notes(args: argparse.Namespace, counts: dict, result: dict, modul
     return notes
 
 
+def view_section(conn: sqlite3.Connection, members: dict[str, list[ModuleRow]], repos: dict[int, dict],
+                 tools_zip: Path | None) -> dict:
+    """Report on the RedistributableRepositories view. Nothing here filters anything."""
+    row = conn.execute("SELECT sql FROM sqlite_master WHERE name = 'RedistributableRepositories'").fetchone()
+    if row is None:
+        return {"present": False}
+    in_view = {i for (i,) in conn.execute("SELECT Id FROM RedistributableRepositories")}
+    crosstab: dict[str, dict] = {}
+    for level in ("F2", "F3"):
+        repo_ids = {r.repo_id for r in members[level]}
+        crosstab[level] = {
+            bucket: {
+                "in_view_yes": len([i for i in repo_ids if licence_bucket(repos[i]["licence"]) == bucket and i in in_view]),
+                "in_view_no": len([i for i in repo_ids if licence_bucket(repos[i]["licence"]) == bucket and i not in in_view]),
+            }
+            for bucket in BUCKETS
+        }
+    readme_lines = []
+    if tools_zip and tools_zip.is_file():
+        with zipfile.ZipFile(tools_zip) as z:
+            name = next(n for n in z.namelist() if n.count("/") == 1 and n.endswith("/README.md"))
+            text = z.read(name).decode("utf-8")
+        readme_lines = [ln.strip() for ln in text.splitlines() if "RedistributableRepositories" in ln]
+    return {
+        "present": True,
+        "sql": row[0],
+        "rows_in_view": len(in_view),
+        "rows_in_repositories": len(repos),
+        "tools_readme_lines": readme_lines,
+        "crosstab_repositories": crosstab,
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("database", type=Path)
@@ -373,6 +437,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--crosscheck", type=Path, help="JSON describing the cross-check outcome")
     parser.add_argument("--manifest", type=Path, default=Path(__file__).resolve().parents[1] / "manifest.json")
     parser.add_argument("--published", type=Path, default=Path(__file__).resolve().parent / "published_counts.json")
+    parser.add_argument("--tools-zip", type=Path, help="HCL Dataset Tools.zip, read for the view note")
     parser.add_argument("--v1-db", type=Path, help="first TerraDS version's database, for the count comparison only")
     args = parser.parse_args(argv)
 
@@ -380,8 +445,9 @@ def main(argv: list[str] | None = None) -> int:
     tables = dump_schema(conn)
     repos = load_repos(conn)
     modules = load_modules(conn)
-    conn.close()
     result = measure(modules, repos)
+    view = view_section(conn, result["members"], repos, args.tools_zip)
+    conn.close()
     out = args.out_dir
     out.mkdir(parents=True, exist_ok=True)
     (out / "SCHEMA.md").write_text(schema_markdown(tables, "TerraDS.sqlite"), encoding="utf-8", newline="\n")
@@ -398,6 +464,7 @@ def main(argv: list[str] | None = None) -> int:
         "run_utc": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "seed": SEED,
         "pin": pin,
+        "redistributable_view": view,
         "published_comparison": comparison_notes(args, counts, result, modules),
         "table_row_counts": counts,
         "distinct_repositories_with_modules": len({m.repo_id for m in modules}),

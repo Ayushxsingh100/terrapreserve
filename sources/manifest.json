@@ -83,14 +83,14 @@
       "archived": false,
       "github_spdx": "Apache-2.0",
       "retrieved_utc": "2026-10-23T05:26:51Z",
-      "size_bytes": 63100,
-      "sha256": "307d963e4b0826195023cfcebd632472c9af4578d83df8607ba2dcf9318385cc",
+      "size_bytes": 61571,
+      "sha256": "17c2b10fc1225a88f0b8d35780c65f4bd76c5ca758bbab1014114bbbfbbbbd21",
       "licence_spdx": "Apache-2.0",
       "licence_evidence": {
         "path": "LICENSE",
-        "sha256": "1eb85fc97224598dad1852b5d6483bbcf0aa8608790dcc657a5a2a761ae9c8c6"
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
       },
-      "notes": "sha256 is the digest of sources/terragoat/files.sha256 (17 files under terraform/aws/); size_bytes is their summed size. The clone holds deliberate fake secrets; see sources/terragoat/secret_scan_summary.md."
+      "notes": "sha256 is the digest of sources/terragoat/files.sha256 (17 files under terraform/aws/); size_bytes is their summed size. Hashes are of the files exactly as committed (LF; cloned with core.autocrlf=false). The clone holds deliberate fake secrets; see sources/terragoat/secret_scan_summary.md."
     },
     {
       "id": "terrads-tools-zip",
@@ -199,7 +199,13 @@
         "git_commit": "dfeb34b2d52a269bb417b4d4f7854a16bef06629",
         "sha256": "ea45084c567928ec4116df7172beba374bbf67bc96c06a38171fafcb49a37510"
       },
-      "notes": "Reference tool only (advisory, DAIL C-12); nothing in generator/ or oracle/ imports it. Installed into .venv-tools and pinned in requirements-tools.txt."
+      "notes": "Reference tool only (advisory, DAIL C-12); nothing in generator/ or oracle/ imports it. Installed into .venv-tools and pinned in requirements-tools.txt; the full environment (`pip freeze --all`) is pinned in requirements-tools.lock.txt, whose sha256 is in lock_file.",
+      "lock_file": {
+        "path": "requirements-tools.lock.txt",
+        "sha256": "92146249e059feed27a928aeddc539150bf7e86404aa20c6b86d4aa2371cee13",
+        "lines": 98,
+        "note": "output of `python -m pip freeze --all` in .venv-tools (Windows, Python 3.12.10)"
+      }
     }
   ]
 }

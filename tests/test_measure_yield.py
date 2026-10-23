@@ -221,12 +221,34 @@ class TestDefinitions(unittest.TestCase):
             "MIT": "permissive", "Zlib": "permissive", "0BSD": "permissive",
             "MPL-2.0": "weak copyleft", "LGPL-2.1": "weak copyleft", "EPL-2.0": "weak copyleft",
             "GPL-3.0": "strong copyleft", "AGPL-3.0": "strong copyleft",
-            "NOASSERTION": "other/unknown", None: "other/unknown", "MIT-0": "other/unknown",
-            "WTFPL": "other/unknown",
+            "NOASSERTION": "other/unknown", None: "other/unknown", "MIT-0": "permissive",
+            "BSL-1.0": "permissive", "WTFPL": "other/unknown",
         }
         for licence, bucket in cases.items():
             with self.subTest(licence=licence):
                 self.assertEqual(my.licence_bucket(licence), bucket)
+
+    def test_licence_normalisation_review_cases(self) -> None:
+        cases = {
+            "Unlicense": "permissive",
+            "unlicense": "permissive",
+            " MIT-0 ": "permissive",
+            "NOASSERTION": "other/unknown",
+            None: "other/unknown",
+            "Totally-Unknown-1.0": "other/unknown",
+            "mit": "permissive",
+            " gpl-3.0": "strong copyleft",
+            "Mpl-2.0": "weak copyleft",
+        }
+        for licence, bucket in cases.items():
+            with self.subTest(licence=licence):
+                self.assertEqual(my.licence_bucket(licence), bucket)
+
+    def test_reviewer_added_ids_are_the_only_difference_from_the_prompt_list(self) -> None:
+        self.assertEqual(my.PERMISSIVE - my.PERMISSIVE_BEFORE_REVIEW, {"MIT-0", "BSL-1.0"})
+        self.assertEqual(my.licence_bucket("MIT-0", my.PERMISSIVE_BEFORE_REVIEW), "other/unknown")
+        self.assertEqual(my.licence_bucket("BSL-1.0", my.PERMISSIVE_BEFORE_REVIEW), "other/unknown")
+        self.assertEqual(my.licence_bucket("Unlicense", my.PERMISSIVE_BEFORE_REVIEW), "permissive")
 
     def test_module_call_parsing(self) -> None:
         self.assertEqual(my.parse_module_calls("[]"), (0, 0))
@@ -234,6 +256,39 @@ class TestDefinitions(unittest.TestCase):
         self.assertEqual(my.parse_module_calls(None), (0, 0))
         self.assertEqual(my.parse_module_calls(CALL_LOCAL), (1, 0))
         self.assertEqual(my.parse_module_calls(CALL_REMOTE), (1, 1))
+
+
+class TestViewAndInventory(SyntheticDatabaseCase):
+    def test_licence_inventory_lists_repr_and_buckets(self) -> None:
+        inventory = {e["repr"]: e for e in self.result["licence_inventory"]}
+        self.assertEqual(set(inventory), {"'MIT'", "'GPL-3.0'", "'Apache-2.0'", "'NOASSERTION'", "None"})
+        self.assertEqual(inventory["'NOASSERTION'"]["bucket"], "other/unknown")
+        self.assertEqual(inventory["None"]["F2"], {"modules": 1, "repos": 1})
+        self.assertEqual(sorted(self.result["licence_unmatched"]), ["'NOASSERTION'", "None"])
+        self.assertEqual(
+            self.result["licence_buckets"]["F2"]["permissive"], self.result["licence_buckets_before_review"]["F2"]["permissive"]
+        )
+
+    def test_view_section_reports_definition_and_crosstab(self) -> None:
+        writable = sqlite3.connect(self.db)
+        writable.execute(
+            "CREATE VIEW RedistributableRepositories AS SELECT * FROM Repositories "
+            "WHERE License IS NOT NULL AND License != 'NOASSERTION'"
+        )
+        writable.commit()
+        writable.close()
+        conn = my.connect_readonly(self.db)
+        self.addCleanup(conn.close)
+        view = my.view_section(conn, self.result["members"], self.repos, None)
+        self.assertTrue(view["present"])
+        self.assertIn("CREATE VIEW RedistributableRepositories", view["sql"])
+        self.assertEqual(view["rows_in_view"], 3)  # repos 1, 2, 3 have a usable licence
+        f2 = view["crosstab_repositories"]["F2"]
+        self.assertEqual(f2["permissive"], {"in_view_yes": 2, "in_view_no": 0})
+        self.assertEqual(f2["other/unknown"], {"in_view_yes": 0, "in_view_no": 1})  # repo 5, null licence
+
+    def test_view_section_when_absent(self) -> None:
+        self.assertEqual(my.view_section(self.conn, self.result["members"], self.repos, None), {"present": False})
 
 
 if __name__ == "__main__":

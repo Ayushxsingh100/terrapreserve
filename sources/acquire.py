@@ -34,6 +34,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = REPO_ROOT / "sources" / "manifest.json"
 TERRAGOAT_LISTING = REPO_ROOT / "sources" / "terragoat" / "files.sha256"
+CHECKOV_LOCK = REPO_ROOT / "requirements-tools.lock.txt"
 
 SCHEMA_VERSION = 1
 CHUNK = 1024 * 1024
@@ -175,6 +176,11 @@ def git(*args: str, cwd: Path | None = None) -> str:
     if result.returncode != 0:
         raise AcquireError(f"git {' '.join(args)} failed: {result.stderr.strip()}")
     return result.stdout.strip()
+
+
+def lock_file_sha256(path: Path = CHECKOV_LOCK) -> str:
+    """sha256 of the lock file with CRLF read as LF (the repository stores text files with LF)."""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def load_manifest() -> dict:
@@ -388,11 +394,14 @@ def fetch_terragoat(root: Path, manifest: dict, now: str) -> tuple[dict, str]:
         live = resolve_terragoat()
         commit = live["commit"]
         info = {k: live[k] for k in ("commit_date", "archived", "default_branch", "github_spdx")}
+    # core.autocrlf must be off: Git for Windows defaults it to true, which would rewrite every
+    # file with CRLF and make the recorded hashes differ from the committed (LF) blobs.
+    plain = ("-c", "core.autocrlf=false", "-c", "core.longpaths=true")
     if not (clone / ".git").is_dir():
         clone.parent.mkdir(parents=True, exist_ok=True)
-        git("-c", "core.longpaths=true", "clone", "--quiet", TERRAGOAT_URL, str(clone))
-    if git("rev-parse", "HEAD", cwd=clone) != commit:
-        git("-c", "core.longpaths=true", "checkout", "--quiet", "--detach", commit, cwd=clone)
+        git(*plain, "clone", "--quiet", TERRAGOAT_URL, str(clone))
+    git("config", "core.autocrlf", "false", cwd=clone)
+    git(*plain, "checkout", "--quiet", "--force", "--detach", commit, cwd=clone)
     head = git("rev-parse", "HEAD", cwd=clone)
     if head != commit:
         raise AcquireError(f"terragoat: checked out {head}, wanted {commit}")
@@ -425,7 +434,8 @@ def fetch_terragoat(root: Path, manifest: dict, now: str) -> tuple[dict, str]:
         "licence_evidence": {"path": "LICENSE", "sha256": licence_sha},
         "notes": (
             f"sha256 is the digest of sources/terragoat/files.sha256 ({n_files} files under "
-            f"{TERRAGOAT_SUBDIR}/); size_bytes is their summed size. The clone holds deliberate "
+            f"{TERRAGOAT_SUBDIR}/); size_bytes is their summed size. Hashes are of the files exactly as "
+            "committed (LF; cloned with core.autocrlf=false). The clone holds deliberate "
             "fake secrets; see sources/terragoat/secret_scan_summary.md."
         ),
     }
@@ -546,7 +556,7 @@ def fetch_checkov(root: Path, manifest: dict, now: str) -> dict:
     licence_url = f"https://raw.githubusercontent.com/{CHECKOV_REPO}/{tag['commit']}/LICENSE"
     licence_bytes = get_bytes(licence_url)
     spdx = spdx_from_licence_text(licence_bytes.decode("utf-8", errors="replace"))
-    return {
+    entry = {
         "id": "checkov",
         "kind": "pypi",
         "url": live["url"],
@@ -567,9 +577,19 @@ def fetch_checkov(root: Path, manifest: dict, now: str) -> dict:
         },
         "notes": (
             "Reference tool only (advisory, DAIL C-12); nothing in generator/ or oracle/ imports "
-            "it. Installed into .venv-tools and pinned in requirements-tools.txt."
+            "it. Installed into .venv-tools and pinned in requirements-tools.txt; the full "
+            "environment (`pip freeze --all`) is pinned in requirements-tools.lock.txt, whose "
+            "sha256 is in lock_file."
         ),
     }
+    if CHECKOV_LOCK.is_file():
+        entry["lock_file"] = {
+            "path": CHECKOV_LOCK.name,
+            "sha256": lock_file_sha256(),
+            "lines": CHECKOV_LOCK.read_bytes().count(b"\n"),
+            "note": "output of `python -m pip freeze --all` in .venv-tools (Windows, Python 3.12.10)",
+        }
+    return entry
 
 
 def cmd_fetch(_args: argparse.Namespace) -> int:
@@ -631,6 +651,8 @@ def cmd_verify(_args: argparse.Namespace) -> int:
                 continue
             if head != entry["commit"]:
                 problems.append(f"{entry['id']}: HEAD {head} != {entry['commit']}")
+            if git("status", "--porcelain", cwd=clone):
+                problems.append(f"{entry['id']}: working tree differs from the commit (line endings or edits)")
             if hashlib.sha256(listing.encode("utf-8")).hexdigest() != entry["sha256"]:
                 problems.append(f"{entry['id']}: file listing digest differs from the manifest")
             committed = TERRAGOAT_LISTING.read_text(encoding="utf-8") if TERRAGOAT_LISTING.is_file() else ""
@@ -643,6 +665,9 @@ def cmd_verify(_args: argparse.Namespace) -> int:
             problem = verify_file(root / entry["cache_path"], entry["sha256"], entry["size_bytes"])
             if problem:
                 problems.append(f"{entry['id']}: {problem}")
+            lock = entry.get("lock_file")
+            if lock and (not CHECKOV_LOCK.is_file() or lock_file_sha256() != lock["sha256"]):
+                problems.append(f"{entry['id']}: {lock['path']} differs from the manifest")
         print(f"{entry['id']}: {'MISMATCH' if any(p.startswith(entry['id']) for p in problems) else 'ok'}")
     for problem in problems:
         print("MISMATCH", problem, file=sys.stderr)

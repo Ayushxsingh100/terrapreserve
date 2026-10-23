@@ -152,6 +152,17 @@ class TestCommittedManifest(unittest.TestCase):
         ids = {s["id"] for s in manifest["sources"]}
         self.assertTrue({"terragoat", "terrads-sqlite", "terrads-tar-gz", "checkov"} <= ids)
 
+    def test_checkov_lock_file_hash_matches(self) -> None:
+        import hashlib
+
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        entry = next(s for s in manifest["sources"] if s["id"] == "checkov")
+        lock = REPO_ROOT / entry["lock_file"]["path"]
+        data = lock.read_bytes().replace(b"\r\n", b"\n")
+        self.assertEqual(hashlib.sha256(data).hexdigest(), entry["lock_file"]["sha256"])
+        self.assertEqual(data.count(b"\n"), entry["lock_file"]["lines"])
+        self.assertIn(b"checkov==" + entry["version"].encode() + b"\n", data)
+
     def test_manifest_has_no_local_user_path(self) -> None:
         text = MANIFEST.read_text(encoding="utf-8")
         self.assertNotRegex(text, r"(?i)[a-z]:[\\/]+users[\\/]")

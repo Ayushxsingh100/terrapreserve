@@ -1,0 +1,9 @@
+{
+  "291657": "First run only: the module's only module block is in the hidden file .wrapper.tf, which Terraform ignores (the directory also holds a symlink .module). The reader now applies Terraform's file-selection rule (skip files starting with '.'), so this module agrees; it is not in the final list.",
+  "298829": "Symlinked .tf files: ami.tf, global.tf, region_specific.tf and security.tf are git symlinks (mode 120000 in the GitHub git-trees API at the pinned commit). The archive holds only regular files, so the security-group definitions are not in the archived text. The analyser also reported it could not read ami.tf.",
+  "311156": "Symlinked .tf files: subnet.tf and vpc.tf are git symlinks (mode 120000, GitHub git-trees API at the pinned commit) and are absent from the archive; the VPC and subnet definitions come through them.",
+  "367075": "Analyser diagnostic 'Invalid multi-line string' (and 58 others): the HCL has a syntax error, so terraform-config-inspect dropped blocks that the lenient lexer still finds.",
+  "381210": "Analyser diagnostic 'Missing newline after argument': HCL syntax error; terraform-config-inspect dropped blocks that the lenient lexer still finds.",
+  "405005": "Symlinked .tf files: main.tf, outputs.tf, provider.tf and variables.tf are git symlinks (mode 120000, GitHub git-trees API at the pinned commit) and are absent from the archive; the module call and the CloudFront identity come through them.",
+  "625313": "Analyser diagnostic 'Argument or block definition required': HCL syntax error; terraform-config-inspect dropped blocks that the lenient lexer still finds."
+}
