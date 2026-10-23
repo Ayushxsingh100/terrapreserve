@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "cache": "$TERRAPRESERVE_CACHE (default ~/.terrapreserve-cache); entries give cache_path relative to it",
+  "terrads_pin_reason": "latest version (20339474, published 2026-05-26) is cc-by-4.0 and has the same file names as the first version (14217386): HCL Dataset Tools.zip, TerraDS.sqlite, TerraDS.tar.gz",
+  "terrads_versions": [
+    {
+      "record_id": "14217386",
+      "doi": "10.5281/zenodo.14217386",
+      "concept_doi": "10.5281/zenodo.14217385",
+      "zenodo_version_field": null,
+      "index": 0,
+      "is_last": false,
+      "publication_date": "2024-11-25",
+      "licence": "cc-by-4.0",
+      "title": "TerraDS: A Dataset for Terraform HCL Programs",
+      "creators": [
+        "Bühler, Christoph",
+        "Spielmann, David",
+        "Meier, Roland",
+        "Salvaneschi, Guido"
+      ],
+      "files": [
+        {
+          "key": "HCL Dataset Tools.zip",
+          "size_bytes": 66165,
+          "checksum": "md5:73bb51903d76149c6fbeafc3cf32d703"
+        },
+        {
+          "key": "TerraDS.sqlite",
+          "size_bytes": 433709056,
+          "checksum": "md5:92e2fffd8208b2a290204555ec500977"
+        },
+        {
+          "key": "TerraDS.tar.gz",
+          "size_bytes": 351177082,
+          "checksum": "md5:664716c1dd690b14add572cd5a41f192"
+        }
+      ]
+    },
+    {
+      "record_id": "20339474",
+      "doi": "10.5281/zenodo.20339474",
+      "concept_doi": "10.5281/zenodo.14217385",
+      "zenodo_version_field": null,
+      "index": 1,
+      "is_last": true,
+      "publication_date": "2026-05-26",
+      "licence": "cc-by-4.0",
+      "title": "TerraDS: A Dataset for Terraform HCL Programs",
+      "creators": [
+        "Bühler, Christoph",
+        "Spielmann, David",
+        "Meier, Roland",
+        "Salvaneschi, Guido"
+      ],
+      "files": [
+        {
+          "key": "HCL Dataset Tools.zip",
+          "size_bytes": 66165,
+          "checksum": "md5:73bb51903d76149c6fbeafc3cf32d703"
+        },
+        {
+          "key": "TerraDS.sqlite",
+          "size_bytes": 613322752,
+          "checksum": "md5:faa52a357eefb8729d042f09bd236881"
+        },
+        {
+          "key": "TerraDS.tar.gz",
+          "size_bytes": 523682960,
+          "checksum": "md5:f3cc4d3e1c3b6328111ff6284711dc6b"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "terragoat",
+      "kind": "git",
+      "url": "https://github.com/bridgecrewio/terragoat",
+      "commit": "729f8da62c6a85ce4af5ad3d123de97776d954c4",
+      "commit_date": "2023-04-27T12:48:20Z",
+      "default_branch": "master",
+      "archived": false,
+      "github_spdx": "Apache-2.0",
+      "retrieved_utc": "2026-10-23T05:26:51Z",
+      "size_bytes": 61571,
+      "sha256": "17c2b10fc1225a88f0b8d35780c65f4bd76c5ca758bbab1014114bbbfbbbbd21",
+      "licence_spdx": "Apache-2.0",
+      "licence_evidence": {
+        "path": "LICENSE",
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      },
+      "notes": "sha256 is the digest of sources/terragoat/files.sha256 (17 files under terraform/aws/); size_bytes is their summed size. Hashes are of the files exactly as committed (LF; cloned with core.autocrlf=false). The clone holds deliberate fake secrets; see sources/terragoat/secret_scan_summary.md."
+    },
+    {
+      "id": "terrads-tools-zip",
+      "source": "terrads",
+      "kind": "zenodo",
+      "url": "https://zenodo.org/records/20339474/files/HCL%20Dataset%20Tools.zip",
+      "record_id": "20339474",
+      "doi": "10.5281/zenodo.20339474",
+      "concept_doi": "10.5281/zenodo.14217385",
+      "cache_path": "terrads/20339474/HCL Dataset Tools.zip",
+      "retrieved_utc": "2026-10-23T05:26:51Z",
+      "size_bytes": 66165,
+      "sha256": "5cdabf19b34a94f92f9ada819adf39a1d1db57064a88aff306ecf60f01f1517d",
+      "md5_published": "73bb51903d76149c6fbeafc3cf32d703",
+      "md5_measured": "73bb51903d76149c6fbeafc3cf32d703",
+      "licence_spdx": "CC-BY-4.0",
+      "licence_evidence": {
+        "source": "Zenodo API https://zenodo.org/api/records/20339474, metadata.license.id",
+        "value": "cc-by-4.0"
+      },
+      "notes": "Pinned TerraDS record 20339474. latest version (20339474, published 2026-05-26) is cc-by-4.0 and has the same file names as the first version (14217386): HCL Dataset Tools.zip, TerraDS.sqlite, TerraDS.tar.gz."
+    },
+    {
+      "id": "terrads-sqlite",
+      "source": "terrads",
+      "kind": "zenodo",
+      "url": "https://zenodo.org/records/20339474/files/TerraDS.sqlite",
+      "record_id": "20339474",
+      "doi": "10.5281/zenodo.20339474",
+      "concept_doi": "10.5281/zenodo.14217385",
+      "cache_path": "terrads/20339474/TerraDS.sqlite",
+      "retrieved_utc": "2026-10-23T05:26:51Z",
+      "size_bytes": 613322752,
+      "sha256": "728477a499dd949e4dd74ca6230318544839ac465d317ef743da093f3c2e96aa",
+      "md5_published": "faa52a357eefb8729d042f09bd236881",
+      "md5_measured": "faa52a357eefb8729d042f09bd236881",
+      "licence_spdx": "CC-BY-4.0",
+      "licence_evidence": {
+        "source": "Zenodo API https://zenodo.org/api/records/20339474, metadata.license.id",
+        "value": "cc-by-4.0"
+      },
+      "notes": "Pinned TerraDS record 20339474. latest version (20339474, published 2026-05-26) is cc-by-4.0 and has the same file names as the first version (14217386): HCL Dataset Tools.zip, TerraDS.sqlite, TerraDS.tar.gz."
+    },
+    {
+      "id": "terrads-tar-gz",
+      "source": "terrads",
+      "kind": "zenodo",
+      "url": "https://zenodo.org/records/20339474/files/TerraDS.tar.gz",
+      "record_id": "20339474",
+      "doi": "10.5281/zenodo.20339474",
+      "concept_doi": "10.5281/zenodo.14217385",
+      "cache_path": "terrads/20339474/TerraDS.tar.gz",
+      "retrieved_utc": "2026-10-23T05:26:51Z",
+      "size_bytes": 523682960,
+      "sha256": "e3e14764a5a1205f38ed4790d840773ca8c6fccb06adf0e5c5c3c1bf45ae0b79",
+      "md5_published": "f3cc4d3e1c3b6328111ff6284711dc6b",
+      "md5_measured": "f3cc4d3e1c3b6328111ff6284711dc6b",
+      "licence_spdx": "CC-BY-4.0",
+      "licence_evidence": {
+        "source": "Zenodo API https://zenodo.org/api/records/20339474, metadata.license.id",
+        "value": "cc-by-4.0"
+      },
+      "notes": "Pinned TerraDS record 20339474. latest version (20339474, published 2026-05-26) is cc-by-4.0 and has the same file names as the first version (14217386): HCL Dataset Tools.zip, TerraDS.sqlite, TerraDS.tar.gz."
+    },
+    {
+      "id": "terrads-v1-sqlite",
+      "source": "terrads",
+      "kind": "zenodo",
+      "url": "https://zenodo.org/records/14217386/files/TerraDS.sqlite",
+      "record_id": "14217386",
+      "doi": "10.5281/zenodo.14217386",
+      "concept_doi": "10.5281/zenodo.14217385",
+      "cache_path": "terrads/14217386/TerraDS.sqlite",
+      "retrieved_utc": "2026-10-23T05:26:51Z",
+      "size_bytes": 433709056,
+      "sha256": "9ff4f914dfb864aac408272651d50d8f0641a90421b528dbb28550f5810f4a26",
+      "md5_published": "92e2fffd8208b2a290204555ec500977",
+      "md5_measured": "92e2fffd8208b2a290204555ec500977",
+      "licence_spdx": "CC-BY-4.0",
+      "licence_evidence": {
+        "source": "Zenodo API https://zenodo.org/api/records/14217386, metadata.license.id",
+        "value": "cc-by-4.0"
+      },
+      "notes": "Comparison only, not part of the pool: the first TerraDS version's database, fetched to settle which published repository count it matches and to compare its schema with the pinned version."
+    },
+    {
+      "id": "checkov",
+      "kind": "pypi",
+      "url": "https://files.pythonhosted.org/packages/06/ed/a8bfc06b6091b59984804e5d794890d91a0011041aeadfb429d1bf53520e/checkov-3.3.30-py3-none-any.whl",
+      "version": "3.3.30",
+      "wheel_filename": "checkov-3.3.30-py3-none-any.whl",
+      "upload_time": "2026-10-20T13:00:16.988422Z",
+      "git_tag": {
+        "tag": "3.3.30",
+        "tag_object_type": "commit",
+        "commit": "dfeb34b2d52a269bb417b4d4f7854a16bef06629"
+      },
+      "cache_path": "checkov/checkov-3.3.30-py3-none-any.whl",
+      "retrieved_utc": "2026-10-23T05:26:51Z",
+      "size_bytes": 2330499,
+      "sha256": "32c3d6a808399f3fd6ec83e68a337050d17f019336f4d8f3b23aae469ba79408",
+      "sha256_published": "32c3d6a808399f3fd6ec83e68a337050d17f019336f4d8f3b23aae469ba79408",
+      "licence_spdx": "Apache-2.0",
+      "licence_evidence": {
+        "path": "LICENSE",
+        "git_commit": "dfeb34b2d52a269bb417b4d4f7854a16bef06629",
+        "sha256": "ea45084c567928ec4116df7172beba374bbf67bc96c06a38171fafcb49a37510"
+      },
+      "notes": "Reference tool only (advisory, DAIL C-12); nothing in generator/ or oracle/ imports it. Installed into .venv-tools and pinned in requirements-tools.txt; the full environment (`pip freeze --all`) is pinned in requirements-tools.lock.txt, whose sha256 is in lock_file.",
+      "lock_file": {
+        "path": "requirements-tools.lock.txt",
+        "sha256": "92146249e059feed27a928aeddc539150bf7e86404aa20c6b86d4aa2371cee13",
+        "lines": 98,
+        "note": "output of `python -m pip freeze --all` in .venv-tools (Windows, Python 3.12.10)"
+      }
+    }
+  ]
+}

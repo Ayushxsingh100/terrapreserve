@@ -1,0 +1,338 @@
+{
+  "status": "OK",
+  "title": "Lexical cross-check (independent implementation)",
+  "seed": 20261023,
+  "method": "sources/hcl_lex.py: comments (#, //, /* */) and heredoc bodies removed, quoted strings skipped including ${...} interpolation; top-level resource/data/module headers matched by brace depth; .tf.json read with json. Files read in memory from TerraDS.tar.gz members; nothing written to disk.",
+  "population": {
+    "F3": 160,
+    "F2_sample": 500,
+    "F3_in_F2_sample": 3,
+    "negative_control": 500,
+    "distinct_modules": 1157,
+    "sampling": {
+      "F2_sample": "random.Random(20261023).sample(sorted(F2 module ids), 500)",
+      "negative_control": "random.Random(20261023).sample(sorted(F1-not-F2 module ids), 500)"
+    }
+  },
+  "development_history": "Run 1 reported 19 disagreements; inspecting them showed a bug in the lexer's heredoc handling (HCL allows leading whitespace before the closing marker of a << heredoc as well as <<-), which swallowed later blocks. Fixed. Run 2 reported 7; one (module 291657) was a hidden file .wrapper.tf that Terraform ignores, so the reader now applies Terraform's file-selection rule. The 6 left are the final result below.",
+  "files_read": {
+    ".tf": 4220,
+    ".tf.json": 0
+  },
+  "modules_without_any_file_found": 0,
+  "modules_with_lexer_anomalies": 1,
+  "lexer_anomaly_module_ids": [
+    625313
+  ],
+  "agreement": {
+    "F3": {
+      "types": {
+        "agree": 160,
+        "total": 160,
+        "rate": 1.0
+      },
+      "type_name_pairs": {
+        "agree": 160,
+        "total": 160,
+        "rate": 1.0
+      },
+      "has_data": {
+        "agree": 160,
+        "total": 160,
+        "rate": 1.0
+      },
+      "has_module_calls": {
+        "agree": 160,
+        "total": 160,
+        "rate": 1.0
+      },
+      "is_F2": {
+        "agree": 160,
+        "total": 160,
+        "rate": 1.0
+      },
+      "is_F3": {
+        "agree": 160,
+        "total": 160,
+        "rate": 1.0
+      }
+    },
+    "F2_sample": {
+      "types": {
+        "agree": 499,
+        "total": 500,
+        "rate": 0.998
+      },
+      "type_name_pairs": {
+        "agree": 498,
+        "total": 500,
+        "rate": 0.996
+      },
+      "has_data": {
+        "agree": 500,
+        "total": 500,
+        "rate": 1.0
+      },
+      "has_module_calls": {
+        "agree": 500,
+        "total": 500,
+        "rate": 1.0
+      },
+      "is_F2": {
+        "agree": 500,
+        "total": 500,
+        "rate": 1.0
+      },
+      "is_F3": {
+        "agree": 500,
+        "total": 500,
+        "rate": 1.0
+      }
+    },
+    "positive_population_F3_union_F2_sample": {
+      "types": {
+        "agree": 656,
+        "total": 657,
+        "rate": 0.998478
+      },
+      "type_name_pairs": {
+        "agree": 655,
+        "total": 657,
+        "rate": 0.996956
+      },
+      "has_data": {
+        "agree": 657,
+        "total": 657,
+        "rate": 1.0
+      },
+      "has_module_calls": {
+        "agree": 657,
+        "total": 657,
+        "rate": 1.0
+      },
+      "is_F2": {
+        "agree": 657,
+        "total": 657,
+        "rate": 1.0
+      },
+      "is_F3": {
+        "agree": 657,
+        "total": 657,
+        "rate": 1.0
+      }
+    },
+    "negative_control": {
+      "types": {
+        "agree": 496,
+        "total": 500,
+        "rate": 0.992
+      },
+      "type_name_pairs": {
+        "agree": 496,
+        "total": 500,
+        "rate": 0.992
+      },
+      "has_data": {
+        "agree": 500,
+        "total": 500,
+        "rate": 1.0
+      },
+      "has_module_calls": {
+        "agree": 499,
+        "total": 500,
+        "rate": 0.998
+      },
+      "is_F2": {
+        "agree": 500,
+        "total": 500,
+        "rate": 1.0
+      },
+      "is_F3": {
+        "agree": 500,
+        "total": 500,
+        "rate": 1.0
+      }
+    }
+  },
+  "disagreement_count": 6,
+  "disagreements": [
+    {
+      "module_id": 298829,
+      "groups": [
+        "negative_control"
+      ],
+      "repo": "NAECL/aws-infrastructure",
+      "path": "terraform/Paris/Chef.3",
+      "disagrees_on": [
+        "types",
+        "type_name_pairs"
+      ],
+      "terrads_types": [
+        "aws_instance",
+        "aws_internet_gateway",
+        "aws_route53_record",
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_security_group",
+        "aws_subnet",
+        "aws_vpc"
+      ],
+      "lexical_types": [
+        "aws_instance",
+        "aws_internet_gateway",
+        "aws_route53_record",
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_subnet",
+        "aws_vpc"
+      ],
+      "terrads_has_data": false,
+      "lexical_has_data": false,
+      "terrads_has_module_calls": false,
+      "lexical_has_module_calls": false,
+      "likely_cause": "Symlinked .tf files: ami.tf, global.tf, region_specific.tf and security.tf are git symlinks (mode 120000 in the GitHub git-trees API at the pinned commit). The archive holds only regular files, so the security-group definitions are not in the archived text. The analyser also reported it could not read ami.tf."
+    },
+    {
+      "module_id": 311156,
+      "groups": [
+        "negative_control"
+      ],
+      "repo": "C2Devel/terraform-examples",
+      "path": "cases/aws_volume_attachment",
+      "disagrees_on": [
+        "types",
+        "type_name_pairs"
+      ],
+      "terrads_types": [
+        "aws_ebs_volume",
+        "aws_instance",
+        "aws_subnet",
+        "aws_volume_attachment",
+        "aws_vpc"
+      ],
+      "lexical_types": [
+        "aws_ebs_volume",
+        "aws_instance",
+        "aws_volume_attachment"
+      ],
+      "terrads_has_data": false,
+      "lexical_has_data": false,
+      "terrads_has_module_calls": false,
+      "lexical_has_module_calls": false,
+      "likely_cause": "Symlinked .tf files: subnet.tf and vpc.tf are git symlinks (mode 120000, GitHub git-trees API at the pinned commit) and are absent from the archive; the VPC and subnet definitions come through them."
+    },
+    {
+      "module_id": 367075,
+      "groups": [
+        "F2_sample"
+      ],
+      "repo": "Shravan6488/terraform-ec2-rds-cicd",
+      "path": "terraform/modules/network",
+      "disagrees_on": [
+        "types",
+        "type_name_pairs"
+      ],
+      "terrads_types": [
+        "aws_internet_gateway",
+        "aws_vpc"
+      ],
+      "lexical_types": [
+        "aws_db_subnet_group",
+        "aws_internet_gateway",
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_subnet",
+        "aws_vpc"
+      ],
+      "terrads_has_data": false,
+      "lexical_has_data": false,
+      "terrads_has_module_calls": false,
+      "lexical_has_module_calls": false,
+      "likely_cause": "Analyser diagnostic 'Invalid multi-line string' (and 58 others): the HCL has a syntax error, so terraform-config-inspect dropped blocks that the lenient lexer still finds."
+    },
+    {
+      "module_id": 381210,
+      "groups": [
+        "F2_sample"
+      ],
+      "repo": "Allanfers/terraform-aws-spoke-vpcs",
+      "path": ".",
+      "disagrees_on": [
+        "type_name_pairs"
+      ],
+      "terrads_types": [
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_subnet",
+        "aws_vpc"
+      ],
+      "lexical_types": [
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_subnet",
+        "aws_vpc"
+      ],
+      "terrads_has_data": true,
+      "lexical_has_data": true,
+      "terrads_has_module_calls": false,
+      "lexical_has_module_calls": false,
+      "likely_cause": "Analyser diagnostic 'Missing newline after argument': HCL syntax error; terraform-config-inspect dropped blocks that the lenient lexer still finds."
+    },
+    {
+      "module_id": 405005,
+      "groups": [
+        "negative_control"
+      ],
+      "repo": "Atika-rooms/atikarooms-webpage-infrastructure",
+      "path": "terraform/environments/testing",
+      "disagrees_on": [
+        "types",
+        "type_name_pairs",
+        "has_module_calls"
+      ],
+      "terrads_types": [
+        "aws_cloudfront_origin_access_identity"
+      ],
+      "lexical_types": [],
+      "terrads_has_data": false,
+      "lexical_has_data": false,
+      "terrads_has_module_calls": true,
+      "lexical_has_module_calls": false,
+      "likely_cause": "Symlinked .tf files: main.tf, outputs.tf, provider.tf and variables.tf are git symlinks (mode 120000, GitHub git-trees API at the pinned commit) and are absent from the archive; the module call and the CloudFront identity come through them."
+    },
+    {
+      "module_id": 625313,
+      "groups": [
+        "negative_control"
+      ],
+      "repo": "AI-SmartSearch/terraform",
+      "path": "aws/aws_reverse_proxy",
+      "disagrees_on": [
+        "types",
+        "type_name_pairs"
+      ],
+      "terrads_types": [
+        "aws_acm_certificate",
+        "aws_acm_certificate_validation",
+        "aws_cloudfront_distribution",
+        "aws_lambda_function",
+        "aws_route53_record"
+      ],
+      "lexical_types": [
+        "aws_acm_certificate",
+        "aws_acm_certificate_validation",
+        "aws_cloudfront_distribution",
+        "aws_iam_policy",
+        "aws_iam_role_policy_attachment",
+        "aws_lambda_function",
+        "aws_route53_record"
+      ],
+      "terrads_has_data": true,
+      "lexical_has_data": true,
+      "terrads_has_module_calls": false,
+      "lexical_has_module_calls": false,
+      "likely_cause": "Analyser diagnostic 'Argument or block definition required': HCL syntax error; terraform-config-inspect dropped blocks that the lenient lexer still finds."
+    }
+  ],
+  "terraform_config_inspect": "UNRESOLVED: go.exe is blocked by a Windows Application Control policy (not bypassed). It would not have been independent: TerraDS's analyser calls tfconfig.LoadModule (terraform-config-inspect v0.0.0-20240801114854-6714b46f5fe4)."
+}

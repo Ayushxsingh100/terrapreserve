@@ -1,0 +1,1556 @@
+{
+  "run_utc": "2026-10-23T06:23:50Z",
+  "seed": 20261023,
+  "pin": {
+    "record_id": "20339474",
+    "doi": "10.5281/zenodo.20339474",
+    "concept_doi": "10.5281/zenodo.14217385",
+    "sqlite_sha256": "728477a499dd949e4dd74ca6230318544839ac465d317ef743da093f3c2e96aa",
+    "pin_reason": "latest version (20339474, published 2026-05-26) is cc-by-4.0 and has the same file names as the first version (14217386): HCL Dataset Tools.zip, TerraDS.sqlite, TerraDS.tar.gz"
+  },
+  "redistributable_view": {
+    "present": true,
+    "sql": "CREATE VIEW RedistributableRepositories\n                                 as\n                                 select *\n                                 from Repositories\n                                 where License is not null\n                                   and License != 'NOASSERTION'",
+    "rows_in_view": 82749,
+    "rows_in_repositories": 82749,
+    "tools_readme_lines": [
+      "5. **Delete the `RedistributableRepositories` and `_EFMigrationHistory` tables** from the database."
+    ],
+    "crosstab_repositories": {
+      "F2": {
+        "permissive": {
+          "in_view_yes": 6962,
+          "in_view_no": 0
+        },
+        "weak copyleft": {
+          "in_view_yes": 1130,
+          "in_view_no": 0
+        },
+        "strong copyleft": {
+          "in_view_yes": 1112,
+          "in_view_no": 0
+        },
+        "other/unknown": {
+          "in_view_yes": 16,
+          "in_view_no": 0
+        }
+      },
+      "F3": {
+        "permissive": {
+          "in_view_yes": 89,
+          "in_view_no": 0
+        },
+        "weak copyleft": {
+          "in_view_yes": 3,
+          "in_view_no": 0
+        },
+        "strong copyleft": {
+          "in_view_yes": 14,
+          "in_view_no": 0
+        },
+        "other/unknown": {
+          "in_view_yes": 0,
+          "in_view_no": 0
+        }
+      }
+    }
+  },
+  "published_comparison": [
+    "Pinned record 20339474: measured repositories 82,749 matches published 82,749.",
+    "Pinned record 20339474: measured modules 394,004 matches published 394,004.",
+    "Pinned record 20339474: measured resources 2,497,629 matches published 2,497,629.",
+    "Pinned record 20339474: measured managed resources 2,100,728 matches published 2,100,728.",
+    "Pinned record 20339474: measured data resources 396,901 matches published 396,901.",
+    "First record 14217386 (measured from its own database): measured repositories 62,406 matches published 62,406.",
+    "First record 14217386 (measured from its own database): measured modules 279,344 matches published 279,344.",
+    "First record 14217386 (measured from its own database): measured resources 1,773,991 matches published 1,773,991.",
+    "First record 14217386 (measured from its own database): measured managed resources 1,484,185 matches published 1,484,185.",
+    "First record 14217386 (measured from its own database): measured data resources 289,806 matches published 289,806.",
+    "First record 14217386: measured repositories 62,406 does not match the 67,360 figure (MSR 2025 Data and Tool Showcase Track page for TerraDS).",
+    "Table names, column names and declared types of the first and the pinned database are identical (row counts excluded).",
+    "Views only in the first database: none; views only in the pinned database: ['RedistributableRepositories']."
+  ],
+  "table_row_counts": {
+    "Modules": 394004,
+    "Repositories": 82749,
+    "Resources": 2497629,
+    "sqlite_sequence": 3,
+    "RedistributableRepositories": 82749
+  },
+  "distinct_repositories_with_modules": 82749,
+  "managed_resources": 2100728,
+  "data_resources": 396901,
+  "definitions": {
+    "S": [
+      "aws_db_instance",
+      "aws_db_subnet_group",
+      "aws_instance",
+      "aws_internet_gateway",
+      "aws_route_table",
+      "aws_route_table_association",
+      "aws_security_group",
+      "aws_security_group_rule",
+      "aws_subnet",
+      "aws_vpc"
+    ],
+    "T9": [
+      "aws_db_instance",
+      "aws_instance",
+      "aws_internet_gateway",
+      "aws_route_table",
+      "aws_route_table_association",
+      "aws_security_group",
+      "aws_security_group_rule",
+      "aws_subnet",
+      "aws_vpc"
+    ]
+  },
+  "funnel": {
+    "F0": {
+      "modules": 394004,
+      "repos": 82749
+    },
+    "F1": {
+      "modules": 136941,
+      "repos": 44903
+    },
+    "F2": {
+      "modules": 20903,
+      "repos": 9220
+    },
+    "F2a": {
+      "modules": 14630,
+      "repos": 6175
+    },
+    "F2b": {
+      "modules": 18736,
+      "repos": 8378
+    },
+    "F2ab": {
+      "modules": 13383,
+      "repos": 5807
+    },
+    "F3": {
+      "modules": 160,
+      "repos": 106
+    },
+    "F3ab": {
+      "modules": 124,
+      "repos": 86
+    },
+    "F4": {
+      "modules": 107,
+      "repos": 62
+    },
+    "G": {
+      "modules": 10206,
+      "repos": 6048
+    },
+    "X": {
+      "modules": 1508,
+      "repos": 1139
+    }
+  },
+  "licence_buckets": {
+    "F2": {
+      "permissive": {
+        "modules": 16942,
+        "repos": 6962
+      },
+      "weak copyleft": {
+        "modules": 1622,
+        "repos": 1130
+      },
+      "strong copyleft": {
+        "modules": 2282,
+        "repos": 1112
+      },
+      "other/unknown": {
+        "modules": 57,
+        "repos": 16
+      }
+    },
+    "F3": {
+      "permissive": {
+        "modules": 133,
+        "repos": 89
+      },
+      "weak copyleft": {
+        "modules": 4,
+        "repos": 3
+      },
+      "strong copyleft": {
+        "modules": 23,
+        "repos": 14
+      },
+      "other/unknown": {
+        "modules": 0,
+        "repos": 0
+      }
+    },
+    "F3ab": {
+      "permissive": {
+        "modules": 105,
+        "repos": 75
+      },
+      "weak copyleft": {
+        "modules": 4,
+        "repos": 3
+      },
+      "strong copyleft": {
+        "modules": 15,
+        "repos": 8
+      },
+      "other/unknown": {
+        "modules": 0,
+        "repos": 0
+      }
+    },
+    "G": {
+      "permissive": {
+        "modules": 8542,
+        "repos": 5029
+      },
+      "weak copyleft": {
+        "modules": 513,
+        "repos": 266
+      },
+      "strong copyleft": {
+        "modules": 1111,
+        "repos": 742
+      },
+      "other/unknown": {
+        "modules": 40,
+        "repos": 11
+      }
+    }
+  },
+  "licence_buckets_before_review": {
+    "F2": {
+      "permissive": {
+        "modules": 16847,
+        "repos": 6893
+      },
+      "weak copyleft": {
+        "modules": 1622,
+        "repos": 1130
+      },
+      "strong copyleft": {
+        "modules": 2282,
+        "repos": 1112
+      },
+      "other/unknown": {
+        "modules": 152,
+        "repos": 85
+      }
+    },
+    "F3": {
+      "permissive": {
+        "modules": 133,
+        "repos": 89
+      },
+      "weak copyleft": {
+        "modules": 4,
+        "repos": 3
+      },
+      "strong copyleft": {
+        "modules": 23,
+        "repos": 14
+      },
+      "other/unknown": {
+        "modules": 0,
+        "repos": 0
+      }
+    },
+    "F3ab": {
+      "permissive": {
+        "modules": 105,
+        "repos": 75
+      },
+      "weak copyleft": {
+        "modules": 4,
+        "repos": 3
+      },
+      "strong copyleft": {
+        "modules": 15,
+        "repos": 8
+      },
+      "other/unknown": {
+        "modules": 0,
+        "repos": 0
+      }
+    },
+    "G": {
+      "permissive": {
+        "modules": 8463,
+        "repos": 4967
+      },
+      "weak copyleft": {
+        "modules": 513,
+        "repos": 266
+      },
+      "strong copyleft": {
+        "modules": 1111,
+        "repos": 742
+      },
+      "other/unknown": {
+        "modules": 119,
+        "repos": 73
+      }
+    }
+  },
+  "licence_raw": {
+    "F2": {
+      "MIT": {
+        "modules": 11482,
+        "repos": 4575
+      },
+      "Apache-2.0": {
+        "modules": 5045,
+        "repos": 2151
+      },
+      "MPL-2.0": {
+        "modules": 1607,
+        "repos": 1121
+      },
+      "GPL-3.0": {
+        "modules": 1937,
+        "repos": 990
+      },
+      "Unlicense": {
+        "modules": 152,
+        "repos": 85
+      },
+      "GPL-2.0": {
+        "modules": 266,
+        "repos": 83
+      },
+      "MIT-0": {
+        "modules": 92,
+        "repos": 67
+      },
+      "AGPL-3.0": {
+        "modules": 79,
+        "repos": 39
+      },
+      "BSD-3-Clause": {
+        "modules": 76,
+        "repos": 38
+      },
+      "CC0-1.0": {
+        "modules": 32,
+        "repos": 26
+      },
+      "BSD-2-Clause": {
+        "modules": 56,
+        "repos": 16
+      },
+      "CC-BY-SA-4.0": {
+        "modules": 32,
+        "repos": 7
+      },
+      "LGPL-2.1": {
+        "modules": 10,
+        "repos": 6
+      },
+      "WTFPL": {
+        "modules": 5,
+        "repos": 5
+      },
+      "LGPL-3.0": {
+        "modules": 5,
+        "repos": 3
+      },
+      "BSL-1.0": {
+        "modules": 3,
+        "repos": 2
+      },
+      "CC-BY-4.0": {
+        "modules": 18,
+        "repos": 2
+      },
+      "EUPL-1.2": {
+        "modules": 2,
+        "repos": 2
+      },
+      "ISC": {
+        "modules": 4,
+        "repos": 2
+      }
+    },
+    "F3": {
+      "MIT": {
+        "modules": 61,
+        "repos": 61
+      },
+      "Apache-2.0": {
+        "modules": 71,
+        "repos": 27
+      },
+      "GPL-3.0": {
+        "modules": 23,
+        "repos": 14
+      },
+      "MPL-2.0": {
+        "modules": 4,
+        "repos": 3
+      },
+      "BSD-3-Clause": {
+        "modules": 1,
+        "repos": 1
+      }
+    },
+    "F3ab": {
+      "MIT": {
+        "modules": 50,
+        "repos": 50
+      },
+      "Apache-2.0": {
+        "modules": 54,
+        "repos": 24
+      },
+      "GPL-3.0": {
+        "modules": 15,
+        "repos": 8
+      },
+      "MPL-2.0": {
+        "modules": 4,
+        "repos": 3
+      },
+      "BSD-3-Clause": {
+        "modules": 1,
+        "repos": 1
+      }
+    },
+    "G": {
+      "MIT": {
+        "modules": 5770,
+        "repos": 3386
+      },
+      "Apache-2.0": {
+        "modules": 2538,
+        "repos": 1473
+      },
+      "GPL-3.0": {
+        "modules": 943,
+        "repos": 641
+      },
+      "MPL-2.0": {
+        "modules": 505,
+        "repos": 259
+      },
+      "GPL-2.0": {
+        "modules": 123,
+        "repos": 70
+      },
+      "MIT-0": {
+        "modules": 78,
+        "repos": 61
+      },
+      "Unlicense": {
+        "modules": 67,
+        "repos": 49
+      },
+      "BSD-3-Clause": {
+        "modules": 51,
+        "repos": 32
+      },
+      "AGPL-3.0": {
+        "modules": 45,
+        "repos": 31
+      },
+      "CC0-1.0": {
+        "modules": 17,
+        "repos": 15
+      },
+      "BSD-2-Clause": {
+        "modules": 16,
+        "repos": 10
+      },
+      "CC-BY-SA-4.0": {
+        "modules": 28,
+        "repos": 5
+      },
+      "LGPL-2.1": {
+        "modules": 5,
+        "repos": 5
+      },
+      "WTFPL": {
+        "modules": 3,
+        "repos": 3
+      },
+      "EUPL-1.2": {
+        "modules": 2,
+        "repos": 2
+      },
+      "ISC": {
+        "modules": 4,
+        "repos": 2
+      },
+      "LGPL-3.0": {
+        "modules": 3,
+        "repos": 2
+      },
+      "BSL-1.0": {
+        "modules": 1,
+        "repos": 1
+      },
+      "CC-BY-4.0": {
+        "modules": 7,
+        "repos": 1
+      }
+    }
+  },
+  "licence_inventory": [
+    {
+      "repr": "'MIT'",
+      "bucket": "permissive",
+      "bucket_before_review": "permissive",
+      "repos_whole_dataset": 41186,
+      "F2": {
+        "modules": 11482,
+        "repos": 4575
+      },
+      "F3": {
+        "modules": 61,
+        "repos": 61
+      },
+      "F3ab": {
+        "modules": 50,
+        "repos": 50
+      },
+      "G": {
+        "modules": 5770,
+        "repos": 3386
+      }
+    },
+    {
+      "repr": "'Apache-2.0'",
+      "bucket": "permissive",
+      "bucket_before_review": "permissive",
+      "repos_whole_dataset": 25647,
+      "F2": {
+        "modules": 5045,
+        "repos": 2151
+      },
+      "F3": {
+        "modules": 71,
+        "repos": 27
+      },
+      "F3ab": {
+        "modules": 54,
+        "repos": 24
+      },
+      "G": {
+        "modules": 2538,
+        "repos": 1473
+      }
+    },
+    {
+      "repr": "'GPL-3.0'",
+      "bucket": "strong copyleft",
+      "bucket_before_review": "strong copyleft",
+      "repos_whole_dataset": 6907,
+      "F2": {
+        "modules": 1937,
+        "repos": 990
+      },
+      "F3": {
+        "modules": 23,
+        "repos": 14
+      },
+      "F3ab": {
+        "modules": 15,
+        "repos": 8
+      },
+      "G": {
+        "modules": 943,
+        "repos": 641
+      }
+    },
+    {
+      "repr": "'MPL-2.0'",
+      "bucket": "weak copyleft",
+      "bucket_before_review": "weak copyleft",
+      "repos_whole_dataset": 4196,
+      "F2": {
+        "modules": 1607,
+        "repos": 1121
+      },
+      "F3": {
+        "modules": 4,
+        "repos": 3
+      },
+      "F3ab": {
+        "modules": 4,
+        "repos": 3
+      },
+      "G": {
+        "modules": 505,
+        "repos": 259
+      }
+    },
+    {
+      "repr": "'Unlicense'",
+      "bucket": "permissive",
+      "bucket_before_review": "permissive",
+      "repos_whole_dataset": 930,
+      "F2": {
+        "modules": 152,
+        "repos": 85
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 67,
+        "repos": 49
+      }
+    },
+    {
+      "repr": "'MIT-0'",
+      "bucket": "permissive",
+      "bucket_before_review": "other/unknown",
+      "repos_whole_dataset": 753,
+      "F2": {
+        "modules": 92,
+        "repos": 67
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 78,
+        "repos": 61
+      }
+    },
+    {
+      "repr": "'BSD-3-Clause'",
+      "bucket": "permissive",
+      "bucket_before_review": "permissive",
+      "repos_whole_dataset": 685,
+      "F2": {
+        "modules": 76,
+        "repos": 38
+      },
+      "F3": {
+        "modules": 1,
+        "repos": 1
+      },
+      "F3ab": {
+        "modules": 1,
+        "repos": 1
+      },
+      "G": {
+        "modules": 51,
+        "repos": 32
+      }
+    },
+    {
+      "repr": "'UPL-1.0'",
+      "bucket": "other/unknown",
+      "bucket_before_review": "other/unknown",
+      "repos_whole_dataset": 673,
+      "F2": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 0,
+        "repos": 0
+      }
+    },
+    {
+      "repr": "'AGPL-3.0'",
+      "bucket": "strong copyleft",
+      "bucket_before_review": "strong copyleft",
+      "repos_whole_dataset": 419,
+      "F2": {
+        "modules": 79,
+        "repos": 39
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 45,
+        "repos": 31
+      }
+    },
+    {
+      "repr": "'CC0-1.0'",
+      "bucket": "permissive",
+      "bucket_before_review": "permissive",
+      "repos_whole_dataset": 372,
+      "F2": {
+        "modules": 32,
+        "repos": 26
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 17,
+        "repos": 15
+      }
+    },
+    {
+      "repr": "'GPL-2.0'",
+      "bucket": "strong copyleft",
+      "bucket_before_review": "strong copyleft",
+      "repos_whole_dataset": 366,
+      "F2": {
+        "modules": 266,
+        "repos": 83
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 123,
+        "repos": 70
+      }
+    },
+    {
+      "repr": "'BSD-2-Clause'",
+      "bucket": "permissive",
+      "bucket_before_review": "permissive",
+      "repos_whole_dataset": 225,
+      "F2": {
+        "modules": 56,
+        "repos": 16
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 16,
+        "repos": 10
+      }
+    },
+    {
+      "repr": "'ISC'",
+      "bucket": "permissive",
+      "bucket_before_review": "permissive",
+      "repos_whole_dataset": 87,
+      "F2": {
+        "modules": 4,
+        "repos": 2
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 4,
+        "repos": 2
+      }
+    },
+    {
+      "repr": "'WTFPL'",
+      "bucket": "other/unknown",
+      "bucket_before_review": "other/unknown",
+      "repos_whole_dataset": 53,
+      "F2": {
+        "modules": 5,
+        "repos": 5
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 3,
+        "repos": 3
+      }
+    },
+    {
+      "repr": "'LGPL-2.1'",
+      "bucket": "weak copyleft",
+      "bucket_before_review": "weak copyleft",
+      "repos_whole_dataset": 43,
+      "F2": {
+        "modules": 10,
+        "repos": 6
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 5,
+        "repos": 5
+      }
+    },
+    {
+      "repr": "'LGPL-3.0'",
+      "bucket": "weak copyleft",
+      "bucket_before_review": "weak copyleft",
+      "repos_whole_dataset": 42,
+      "F2": {
+        "modules": 5,
+        "repos": 3
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 3,
+        "repos": 2
+      }
+    },
+    {
+      "repr": "'CC-BY-SA-4.0'",
+      "bucket": "other/unknown",
+      "bucket_before_review": "other/unknown",
+      "repos_whole_dataset": 39,
+      "F2": {
+        "modules": 32,
+        "repos": 7
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 28,
+        "repos": 5
+      }
+    },
+    {
+      "repr": "'EUPL-1.2'",
+      "bucket": "other/unknown",
+      "bucket_before_review": "other/unknown",
+      "repos_whole_dataset": 37,
+      "F2": {
+        "modules": 2,
+        "repos": 2
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 2,
+        "repos": 2
+      }
+    },
+    {
+      "repr": "'EPL-2.0'",
+      "bucket": "weak copyleft",
+      "bucket_before_review": "weak copyleft",
+      "repos_whole_dataset": 23,
+      "F2": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 0,
+        "repos": 0
+      }
+    },
+    {
+      "repr": "'BSL-1.0'",
+      "bucket": "permissive",
+      "bucket_before_review": "other/unknown",
+      "repos_whole_dataset": 20,
+      "F2": {
+        "modules": 3,
+        "repos": 2
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 1,
+        "repos": 1
+      }
+    },
+    {
+      "repr": "'EPL-1.0'",
+      "bucket": "weak copyleft",
+      "bucket_before_review": "weak copyleft",
+      "repos_whole_dataset": 18,
+      "F2": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 0,
+        "repos": 0
+      }
+    },
+    {
+      "repr": "'CC-BY-4.0'",
+      "bucket": "other/unknown",
+      "bucket_before_review": "other/unknown",
+      "repos_whole_dataset": 17,
+      "F2": {
+        "modules": 18,
+        "repos": 2
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 7,
+        "repos": 1
+      }
+    },
+    {
+      "repr": "'0BSD'",
+      "bucket": "permissive",
+      "bucket_before_review": "permissive",
+      "repos_whole_dataset": 6,
+      "F2": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 0,
+        "repos": 0
+      }
+    },
+    {
+      "repr": "'BSD-3-Clause-Clear'",
+      "bucket": "other/unknown",
+      "bucket_before_review": "other/unknown",
+      "repos_whole_dataset": 2,
+      "F2": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 0,
+        "repos": 0
+      }
+    },
+    {
+      "repr": "'AFL-3.0'",
+      "bucket": "other/unknown",
+      "bucket_before_review": "other/unknown",
+      "repos_whole_dataset": 1,
+      "F2": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 0,
+        "repos": 0
+      }
+    },
+    {
+      "repr": "'BSD-4-Clause'",
+      "bucket": "other/unknown",
+      "bucket_before_review": "other/unknown",
+      "repos_whole_dataset": 1,
+      "F2": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 0,
+        "repos": 0
+      }
+    },
+    {
+      "repr": "'CECILL-2.1'",
+      "bucket": "other/unknown",
+      "bucket_before_review": "other/unknown",
+      "repos_whole_dataset": 1,
+      "F2": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3": {
+        "modules": 0,
+        "repos": 0
+      },
+      "F3ab": {
+        "modules": 0,
+        "repos": 0
+      },
+      "G": {
+        "modules": 0,
+        "repos": 0
+      }
+    }
+  ],
+  "licence_unmatched": [
+    "'UPL-1.0'",
+    "'WTFPL'",
+    "'CC-BY-SA-4.0'",
+    "'EUPL-1.2'",
+    "'CC-BY-4.0'",
+    "'BSD-3-Clause-Clear'",
+    "'AFL-3.0'",
+    "'BSD-4-Clause'",
+    "'CECILL-2.1'"
+  ],
+  "whole_dataset_repo_licences": {
+    "MIT": 41186,
+    "Apache-2.0": 25647,
+    "GPL-3.0": 6907,
+    "MPL-2.0": 4196,
+    "Unlicense": 930,
+    "MIT-0": 753,
+    "BSD-3-Clause": 685,
+    "UPL-1.0": 673,
+    "AGPL-3.0": 419,
+    "CC0-1.0": 372,
+    "GPL-2.0": 366,
+    "BSD-2-Clause": 225,
+    "ISC": 87,
+    "WTFPL": 53,
+    "LGPL-2.1": 43,
+    "LGPL-3.0": 42,
+    "CC-BY-SA-4.0": 39,
+    "EUPL-1.2": 37,
+    "EPL-2.0": 23,
+    "BSL-1.0": 20,
+    "EPL-1.0": 18,
+    "CC-BY-4.0": 17,
+    "0BSD": 6,
+    "BSD-3-Clause-Clear": 2,
+    "AFL-3.0": 1,
+    "BSD-4-Clause": 1,
+    "CECILL-2.1": 1
+  },
+  "f2_modules_with_diagnostics": 156,
+  "f2b_nonlocal_calls_only": 19899,
+  "f2_modules_in_repos_missing_from_repositories_table": 0,
+  "archive_scan": {
+    "inner_archives": 82749,
+    "f2_repositories_scanned": 9220,
+    "f3_repositories": 106,
+    "f3_repositories_with_licence_file": 0,
+    "f3_licence_mismatches": [],
+    "f3_missing_module_dirs": [],
+    "module_dir_count_mismatches": [
+      {
+        "repo_id": 61765563,
+        "database_modules": 12,
+        "archive_tf_dirs": 10
+      },
+      {
+        "repo_id": 198304137,
+        "database_modules": 11,
+        "archive_tf_dirs": 5
+      },
+      {
+        "repo_id": 239363902,
+        "database_modules": 4,
+        "archive_tf_dirs": 3
+      },
+      {
+        "repo_id": 282171892,
+        "database_modules": 13,
+        "archive_tf_dirs": 12
+      },
+      {
+        "repo_id": 516271221,
+        "database_modules": 43,
+        "archive_tf_dirs": 42
+      },
+      {
+        "repo_id": 726432994,
+        "database_modules": 7,
+        "archive_tf_dirs": 5
+      },
+      {
+        "repo_id": 736673032,
+        "database_modules": 91,
+        "archive_tf_dirs": 90
+      },
+      {
+        "repo_id": 970969181,
+        "database_modules": 32,
+        "archive_tf_dirs": 29
+      },
+      {
+        "repo_id": 1121064082,
+        "database_modules": 32,
+        "archive_tf_dirs": 29
+      }
+    ],
+    "module_dir_set_mismatch_repos": [
+      61765563,
+      198304137,
+      239363902,
+      282171892,
+      516271221,
+      726432994,
+      736673032,
+      970969181,
+      1121064082
+    ],
+    "summary_lines": [
+      "The archive holds 82,749 inner repository archives; `Repositories` has 82,749 rows; 0 database repositories have no inner archive and 0 inner archives have no database row.",
+      "Of the 9,220 F2 repositories, 9,220 were found in the archive (0 missing).",
+      "Non-`.tf` files in the F2 repositories' archives: 0; licence-like files (LICENSE/LICENCE/COPYING/UNLICENSE): 0 in 0 F2 repositories.",
+      "F3 repositories: 106; with a licence-like file in the archive: 0; licence file names a different SPDX id than the database: 0.",
+      "F3 module directories absent from the archive or without a `*.tf` file: 0 of 160.",
+      "F2 repositories whose set of `*.tf` directories in the archive differs from the database's module paths: 9 of 9,220 (count differs in 9).",
+      "This is a name-level consistency check only. No file was parsed and no member was written to disk, so there is nothing to report for Windows extraction failures."
+    ]
+  },
+  "crosscheck": {
+    "status": "OK",
+    "title": "Lexical cross-check (independent implementation)",
+    "seed": 20261023,
+    "method": "sources/hcl_lex.py: comments (#, //, /* */) and heredoc bodies removed, quoted strings skipped including ${...} interpolation; top-level resource/data/module headers matched by brace depth; .tf.json read with json. Files read in memory from TerraDS.tar.gz members; nothing written to disk.",
+    "population": {
+      "F3": 160,
+      "F2_sample": 500,
+      "F3_in_F2_sample": 3,
+      "negative_control": 500,
+      "distinct_modules": 1157,
+      "sampling": {
+        "F2_sample": "random.Random(20261023).sample(sorted(F2 module ids), 500)",
+        "negative_control": "random.Random(20261023).sample(sorted(F1-not-F2 module ids), 500)"
+      }
+    },
+    "development_history": "Run 1 reported 19 disagreements; inspecting them showed a bug in the lexer's heredoc handling (HCL allows leading whitespace before the closing marker of a << heredoc as well as <<-), which swallowed later blocks. Fixed. Run 2 reported 7; one (module 291657) was a hidden file .wrapper.tf that Terraform ignores, so the reader now applies Terraform's file-selection rule. The 6 left are the final result below.",
+    "files_read": {
+      ".tf": 4220,
+      ".tf.json": 0
+    },
+    "modules_without_any_file_found": 0,
+    "modules_with_lexer_anomalies": 1,
+    "lexer_anomaly_module_ids": [
+      625313
+    ],
+    "agreement": {
+      "F3": {
+        "types": {
+          "agree": 160,
+          "total": 160,
+          "rate": 1.0
+        },
+        "type_name_pairs": {
+          "agree": 160,
+          "total": 160,
+          "rate": 1.0
+        },
+        "has_data": {
+          "agree": 160,
+          "total": 160,
+          "rate": 1.0
+        },
+        "has_module_calls": {
+          "agree": 160,
+          "total": 160,
+          "rate": 1.0
+        },
+        "is_F2": {
+          "agree": 160,
+          "total": 160,
+          "rate": 1.0
+        },
+        "is_F3": {
+          "agree": 160,
+          "total": 160,
+          "rate": 1.0
+        }
+      },
+      "F2_sample": {
+        "types": {
+          "agree": 499,
+          "total": 500,
+          "rate": 0.998
+        },
+        "type_name_pairs": {
+          "agree": 498,
+          "total": 500,
+          "rate": 0.996
+        },
+        "has_data": {
+          "agree": 500,
+          "total": 500,
+          "rate": 1.0
+        },
+        "has_module_calls": {
+          "agree": 500,
+          "total": 500,
+          "rate": 1.0
+        },
+        "is_F2": {
+          "agree": 500,
+          "total": 500,
+          "rate": 1.0
+        },
+        "is_F3": {
+          "agree": 500,
+          "total": 500,
+          "rate": 1.0
+        }
+      },
+      "positive_population_F3_union_F2_sample": {
+        "types": {
+          "agree": 656,
+          "total": 657,
+          "rate": 0.998478
+        },
+        "type_name_pairs": {
+          "agree": 655,
+          "total": 657,
+          "rate": 0.996956
+        },
+        "has_data": {
+          "agree": 657,
+          "total": 657,
+          "rate": 1.0
+        },
+        "has_module_calls": {
+          "agree": 657,
+          "total": 657,
+          "rate": 1.0
+        },
+        "is_F2": {
+          "agree": 657,
+          "total": 657,
+          "rate": 1.0
+        },
+        "is_F3": {
+          "agree": 657,
+          "total": 657,
+          "rate": 1.0
+        }
+      },
+      "negative_control": {
+        "types": {
+          "agree": 496,
+          "total": 500,
+          "rate": 0.992
+        },
+        "type_name_pairs": {
+          "agree": 496,
+          "total": 500,
+          "rate": 0.992
+        },
+        "has_data": {
+          "agree": 500,
+          "total": 500,
+          "rate": 1.0
+        },
+        "has_module_calls": {
+          "agree": 499,
+          "total": 500,
+          "rate": 0.998
+        },
+        "is_F2": {
+          "agree": 500,
+          "total": 500,
+          "rate": 1.0
+        },
+        "is_F3": {
+          "agree": 500,
+          "total": 500,
+          "rate": 1.0
+        }
+      }
+    },
+    "disagreement_count": 6,
+    "disagreements": [
+      {
+        "module_id": 298829,
+        "groups": [
+          "negative_control"
+        ],
+        "repo": "NAECL/aws-infrastructure",
+        "path": "terraform/Paris/Chef.3",
+        "disagrees_on": [
+          "types",
+          "type_name_pairs"
+        ],
+        "terrads_types": [
+          "aws_instance",
+          "aws_internet_gateway",
+          "aws_route53_record",
+          "aws_route_table",
+          "aws_route_table_association",
+          "aws_security_group",
+          "aws_subnet",
+          "aws_vpc"
+        ],
+        "lexical_types": [
+          "aws_instance",
+          "aws_internet_gateway",
+          "aws_route53_record",
+          "aws_route_table",
+          "aws_route_table_association",
+          "aws_subnet",
+          "aws_vpc"
+        ],
+        "terrads_has_data": false,
+        "lexical_has_data": false,
+        "terrads_has_module_calls": false,
+        "lexical_has_module_calls": false,
+        "likely_cause": "Symlinked .tf files: ami.tf, global.tf, region_specific.tf and security.tf are git symlinks (mode 120000 in the GitHub git-trees API at the pinned commit). The archive holds only regular files, so the security-group definitions are not in the archived text. The analyser also reported it could not read ami.tf."
+      },
+      {
+        "module_id": 311156,
+        "groups": [
+          "negative_control"
+        ],
+        "repo": "C2Devel/terraform-examples",
+        "path": "cases/aws_volume_attachment",
+        "disagrees_on": [
+          "types",
+          "type_name_pairs"
+        ],
+        "terrads_types": [
+          "aws_ebs_volume",
+          "aws_instance",
+          "aws_subnet",
+          "aws_volume_attachment",
+          "aws_vpc"
+        ],
+        "lexical_types": [
+          "aws_ebs_volume",
+          "aws_instance",
+          "aws_volume_attachment"
+        ],
+        "terrads_has_data": false,
+        "lexical_has_data": false,
+        "terrads_has_module_calls": false,
+        "lexical_has_module_calls": false,
+        "likely_cause": "Symlinked .tf files: subnet.tf and vpc.tf are git symlinks (mode 120000, GitHub git-trees API at the pinned commit) and are absent from the archive; the VPC and subnet definitions come through them."
+      },
+      {
+        "module_id": 367075,
+        "groups": [
+          "F2_sample"
+        ],
+        "repo": "Shravan6488/terraform-ec2-rds-cicd",
+        "path": "terraform/modules/network",
+        "disagrees_on": [
+          "types",
+          "type_name_pairs"
+        ],
+        "terrads_types": [
+          "aws_internet_gateway",
+          "aws_vpc"
+        ],
+        "lexical_types": [
+          "aws_db_subnet_group",
+          "aws_internet_gateway",
+          "aws_route_table",
+          "aws_route_table_association",
+          "aws_subnet",
+          "aws_vpc"
+        ],
+        "terrads_has_data": false,
+        "lexical_has_data": false,
+        "terrads_has_module_calls": false,
+        "lexical_has_module_calls": false,
+        "likely_cause": "Analyser diagnostic 'Invalid multi-line string' (and 58 others): the HCL has a syntax error, so terraform-config-inspect dropped blocks that the lenient lexer still finds."
+      },
+      {
+        "module_id": 381210,
+        "groups": [
+          "F2_sample"
+        ],
+        "repo": "Allanfers/terraform-aws-spoke-vpcs",
+        "path": ".",
+        "disagrees_on": [
+          "type_name_pairs"
+        ],
+        "terrads_types": [
+          "aws_route_table",
+          "aws_route_table_association",
+          "aws_subnet",
+          "aws_vpc"
+        ],
+        "lexical_types": [
+          "aws_route_table",
+          "aws_route_table_association",
+          "aws_subnet",
+          "aws_vpc"
+        ],
+        "terrads_has_data": true,
+        "lexical_has_data": true,
+        "terrads_has_module_calls": false,
+        "lexical_has_module_calls": false,
+        "likely_cause": "Analyser diagnostic 'Missing newline after argument': HCL syntax error; terraform-config-inspect dropped blocks that the lenient lexer still finds."
+      },
+      {
+        "module_id": 405005,
+        "groups": [
+          "negative_control"
+        ],
+        "repo": "Atika-rooms/atikarooms-webpage-infrastructure",
+        "path": "terraform/environments/testing",
+        "disagrees_on": [
+          "types",
+          "type_name_pairs",
+          "has_module_calls"
+        ],
+        "terrads_types": [
+          "aws_cloudfront_origin_access_identity"
+        ],
+        "lexical_types": [],
+        "terrads_has_data": false,
+        "lexical_has_data": false,
+        "terrads_has_module_calls": true,
+        "lexical_has_module_calls": false,
+        "likely_cause": "Symlinked .tf files: main.tf, outputs.tf, provider.tf and variables.tf are git symlinks (mode 120000, GitHub git-trees API at the pinned commit) and are absent from the archive; the module call and the CloudFront identity come through them."
+      },
+      {
+        "module_id": 625313,
+        "groups": [
+          "negative_control"
+        ],
+        "repo": "AI-SmartSearch/terraform",
+        "path": "aws/aws_reverse_proxy",
+        "disagrees_on": [
+          "types",
+          "type_name_pairs"
+        ],
+        "terrads_types": [
+          "aws_acm_certificate",
+          "aws_acm_certificate_validation",
+          "aws_cloudfront_distribution",
+          "aws_lambda_function",
+          "aws_route53_record"
+        ],
+        "lexical_types": [
+          "aws_acm_certificate",
+          "aws_acm_certificate_validation",
+          "aws_cloudfront_distribution",
+          "aws_iam_policy",
+          "aws_iam_role_policy_attachment",
+          "aws_lambda_function",
+          "aws_route53_record"
+        ],
+        "terrads_has_data": true,
+        "lexical_has_data": true,
+        "terrads_has_module_calls": false,
+        "lexical_has_module_calls": false,
+        "likely_cause": "Analyser diagnostic 'Argument or block definition required': HCL syntax error; terraform-config-inspect dropped blocks that the lenient lexer still finds."
+      }
+    ],
+    "terraform_config_inspect": "UNRESOLVED: go.exe is blocked by a Windows Application Control policy (not bypassed). It would not have been independent: TerraDS's analyser calls tfconfig.LoadModule (terraform-config-inspect v0.0.0-20240801114854-6714b46f5fe4)."
+  }
+}
