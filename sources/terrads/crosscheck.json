@@ -1,0 +1,8 @@
+{
+  "status": "UNRESOLVED",
+  "reason": "terraform-config-inspect could not be built on this machine, so no agreement rate, sample or disagreement list exists. No other parser was substituted.",
+  "error": "py -3.12 sources/tools.py tci: `could not run go.exe: [WinError 4551] An Application Control policy has blocked this file`. The Go toolchain go1.27.3 (windows-amd64 zip, sha256 f26081f438319757f8a1b46d7d0b2c5ec7583d4038e485e0aa725cfde7885fff, as published by go.dev) was downloaded and its hash verified, but its unsigned go.exe is blocked by a Windows Application Control policy. The policy was not bypassed. WSL is not installed.",
+  "tool_commit": "75d64de68c31445dbe4ee8308350e0b6dda1571d (master head on 2026-10-23, committed 2026-09-04; checked out, not built)",
+  "go_version": "go1.27.3 (not runnable here)",
+  "independence_note": "TerraDS's own analyser calls tfconfig.LoadModule from terraform-config-inspect (go.mod: v0.0.0-20240801114854-6714b46f5fe4), so a successful run would have re-run the tool that produced the database, not an independent parser."
+}

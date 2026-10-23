@@ -25,14 +25,32 @@ Structure follows Gebru et al., *Datasheets for Datasets* (section headings: Mot
 | Are there errors, noise or redundancies? | Not yet established. |
 | Does it contain confidential or sensitive data? | Not yet established. TerraGoat contains deliberate fake secrets, which are redacted before commit (D0 gate 5, per `CLAUDE.md`). |
 
+### Composition (sources)
+
+Measured on 2026-10-23 (UTC) by `sources/acquire.py` and `sources/terrads/measure_yield.py`; every value is read from [sources/manifest.json](sources/manifest.json) or [sources/terrads/yield.json](sources/terrads/yield.json). Raw archives are kept outside Git.
+
+| Source | Pinned version | Licence (manifest `licence_spdx`) | What was measured |
+|---|---|---|---|
+| TerraGoat | `bridgecrewio/terragoat`, default branch `master`, commit `729f8da62c6a85ce4af5ad3d123de97776d954c4` (committed 2023-04-27); not archived | Apache-2.0, read from the repository's `LICENSE` (sha256 in `licence_evidence`) | 17 files under `terraform/aws/` (`sources/terragoat/files.sha256`); 2 gitleaks findings there in the working tree and 4 in history, values redacted (`sources/terragoat/secret_scan_summary.md`) |
+| TerraDS | Zenodo record `20339474` (published 2026-05-26), version DOI `10.5281/zenodo.20339474`, concept DOI `10.5281/zenodo.14217385` | CC-BY-4.0 for the dataset; each repository keeps its own licence, recorded per repository in the database (D0 Decision 9) | 82,749 repositories, 394,004 modules and 2,497,629 resources in the database; the funnel and licence tables are in [sources/terrads/yield_report.md](sources/terrads/yield_report.md) |
+| Checkov | PyPI `checkov` 3.3.30, git tag `3.3.30` at commit `dfeb34b2d52a269bb417b4d4f7854a16bef06629` | Apache-2.0, read from `LICENSE` at that commit | reference tool only; wheel sha256 `32c3d6a808399f3fd6ec83e68a337050d17f019336f4d8f3b23aae469ba79408` (PyPI and measured agree) |
+
+**Attribution (CC-BY-4.0).** TerraDS is cited as the Zenodo record and its DOI give it:
+
+> Bühler, C., Spielmann, D., Meier, R., & Salvaneschi, G. (2026). *TerraDS: A Dataset for Terraform HCL Programs* [Dataset]. Zenodo. https://doi.org/10.5281/zenodo.20339474
+
+The earlier version is https://doi.org/10.5281/zenodo.14217386 (2024) and the concept DOI is https://doi.org/10.5281/zenodo.14217385.
+
+Terraform, AWS provider and Checkov versions (D0 gate 9): Terraform 1.15.8 and `hashicorp/aws` 6.53.0 (ADR-013 pins); Checkov 3.3.30. Instance schema and counts of scenarios: not yet established.
+
 ## Collection Process
 
 | Question | Answer |
 |---|---|
-| How was the data acquired? | Planned sources: TerraGoat, TerraDS, Checkov rule library (ADR-013). Acquisition is D1 Prompt B; versions and hashes: not yet established. |
-| What was the sampling strategy? | Not yet established. Pool filtering uses Terraform's own tooling or a parser different from DAIL's (ADR-013). |
-| Who was involved in collection? | Not yet established. |
-| Over what timeframe? | Not yet established. |
+| How was the data acquired? | `sources/acquire.py fetch`: TerraGoat by `git clone` at the pinned commit; TerraDS from Zenodo record `20339474` (`TerraDS.sqlite`, `TerraDS.tar.gz`, `HCL Dataset Tools.zip`), md5 checked against Zenodo's published values and sha256 measured; Checkov from PyPI. Hashes, sizes and licence evidence: `sources/manifest.json`. Raw files are in an external cache, not in Git. |
+| What was the sampling strategy? | Not yet established for the pool. The funnel F0..X over TerraDS metadata is measured (`sources/terrads/yield_report.md`); which modules enter the pool is a D3 decision. Pool filtering uses TerraDS's own metadata, produced by terraform-config-inspect, not DAIL's parser (ADR-013). The independent cross-check with terraform-config-inspect is UNRESOLVED (see the report). |
+| Who was involved in collection? | Not yet established. Run by Claude Code under the authors' instruction (D1 Prompt B). |
+| Over what timeframe? | Sources retrieved on 2026-10-23 (UTC; `retrieved_utc` in the manifest). TerraDS's own data cutoff for the pinned version is January 2026, as its Zenodo record states. |
 | Were ethical review processes conducted? | Not yet established. |
 
 ## Preprocessing / Cleaning / Labeling

@@ -10,6 +10,7 @@ crash.*.log
 .venv/
 venv/
 env/
+.venv-tools/
 __pycache__/
 *.py[cod]
 .pytest_cache/

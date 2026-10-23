@@ -1,0 +1,29 @@
+{
+  "note": "Figures as published, transcribed from the sources named in each entry. They are compared with the measured counts by measure_yield.py; none of them is used in the funnel.",
+  "versions": {
+    "14217386": {
+      "label": "first Zenodo version (published 2024-11-25)",
+      "source": "Zenodo API record 14217386, metadata.description, read on 2026-10-23",
+      "repositories": 62406,
+      "modules": 279344,
+      "resources": 1773991,
+      "managed_resources": 1484185,
+      "data_resources": 289806
+    },
+    "20339474": {
+      "label": "latest Zenodo version (published 2026-05-26)",
+      "source": "Zenodo API record 20339474, metadata.description, read on 2026-10-23",
+      "repositories": 82749,
+      "modules": 394004,
+      "resources": 2497629,
+      "managed_resources": 2100728,
+      "data_resources": 396901
+    }
+  },
+  "other_published_repository_counts": [
+    {
+      "figure": 67360,
+      "source": "MSR 2025 Data and Tool Showcase Track page for TerraDS (https://2025.msrconf.org/details/msr-2025-data-and-tool-showcase-track/12/TerraDS-A-Dataset-for-Terraform-HCL-Programs), found by web search on 2026-10-23; the same abstract gives 279,344 modules and 1,773,991 resources"
+    }
+  ]
+}
