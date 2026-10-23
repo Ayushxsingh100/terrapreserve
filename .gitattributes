@@ -1,0 +1,14 @@
+# Store all text files with LF, whatever the editor's platform (CI runs on Linux
+# and Windows; the author edits on Windows).
+* text=auto eol=lf
+
+# Binary files are never rewritten.
+*.png binary
+*.jpg binary
+*.gif binary
+*.zip binary
+*.gz binary
+*.tgz binary
+*.sqlite binary
+*.sqlite3 binary
+*.db binary

@@ -1,0 +1,32 @@
+# Terraform working files. .terraform.lock.hcl is committed and must NOT be ignored.
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+
+# Python
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# External caches and raw archives are never committed (see CLAUDE.md and
+# sources/manifest.json, which records where they live).
+cache/
+_cache/
+*.tar.gz
+*.tgz
+*.zip
+*.sqlite
+*.sqlite3
+*.db
+
+# Editors / OS
+.DS_Store
+Thumbs.db
