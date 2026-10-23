@@ -1,0 +1,30 @@
+applied configs/count1.tf; state before the change:
+terraform_data.x[0]
+
+changed to configs/foreach_a.tf; `terraform plan -no-color`:
+$ terraform plan -input=false -no-color
+terraform_data.x[0]: Refreshing state... [id=02f35154-b8ee-c1b9-def1-8ad46b752e1a]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  - destroy
+
+Terraform will perform the following actions:
+
+  # terraform_data.x[0] will be destroyed
+  # (because resource does not use count)
+  - resource "terraform_data" "x" {
+      - id     = "02f35154-b8ee-c1b9-def1-8ad46b752e1a" -> null
+      - input  = "v" -> null
+      - output = "v" -> null
+    }
+
+  # terraform_data.x["a"] will be created
+  + resource "terraform_data" "x" {
+      + id     = (known after apply)
+      + input  = "v"
+      + output = (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.

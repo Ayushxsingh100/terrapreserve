@@ -1,0 +1,101 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "passed_checks": [
+            {
+                "check_id": "CKV_AWS_24",
+                "bc_check_id": null,
+                "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": [
+                        "from_port",
+                        "to_port",
+                        "cidr_ipv4",
+                        "cidr_ipv6"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "\\main.tf",
+                "file_abs_path": "X:\\TerraPreserve\\validation\\d1_to_verify\\V04\\m5_rule_default_with_prefix_list\\main.tf",
+                "repo_file_path": "/m5_rule_default_with_prefix_list/main.tf",
+                "file_line_range": [
+                    1,
+                    3
+                ],
+                "resource": "aws_security_group.g",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress22",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": {},
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": null,
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "X:\\TerraPreserve\\validation\\d1_to_verify\\V04\\m5_rule_default_with_prefix_list\\main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_24",
+                "bc_check_id": null,
+                "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": [
+                        "from_port",
+                        "to_port",
+                        "cidr_blocks",
+                        "ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "\\main.tf",
+                "file_abs_path": "X:\\TerraPreserve\\validation\\d1_to_verify\\V04\\m5_rule_default_with_prefix_list\\main.tf",
+                "repo_file_path": "/m5_rule_default_with_prefix_list/main.tf",
+                "file_line_range": [
+                    5,
+                    13
+                ],
+                "resource": "aws_security_group_rule.r",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress22",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": {},
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": null,
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "X:\\TerraPreserve\\validation\\d1_to_verify\\V04\\m5_rule_default_with_prefix_list\\main.tf"
+            }
+        ],
+        "failed_checks": [],
+        "skipped_checks": [],
+        "parsing_errors": []
+    },
+    "summary": {
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 2,
+        "checkov_version": "3.3.30"
+    },
+    "url": "Add an api key '--bc-api-key <api-key>' to see more detailed insights via https://bridgecrew.cloud"
+}

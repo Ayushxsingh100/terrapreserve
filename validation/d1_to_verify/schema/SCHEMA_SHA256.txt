@@ -1,0 +1,5 @@
+file: schema_aws_6.53.0.json (output of `terraform providers schema -json`, not committed)
+sha256: d6eca2ffe2141a23a742999b09c67b93c3e99939aacfff4e9afe37702664e9b2
+size_bytes: 19169003
+resource_types: 1678
+data_source_types: 668

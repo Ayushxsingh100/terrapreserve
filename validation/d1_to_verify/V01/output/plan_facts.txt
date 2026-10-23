@@ -1,0 +1,111 @@
+terraform_version: 1.15.8  format_version: 1.2
+resource_changes: 15
+types: ['aws_db_instance', 'aws_db_subnet_group', 'aws_instance', 'aws_internet_gateway', 'aws_route_table', 'aws_route_table_association', 'aws_security_group', 'aws_security_group_rule', 'aws_subnet', 'aws_vpc']
+
+aws_db_instance.database  actions=['create']
+    engine                       "postgres"
+    port                         <unknown>
+    publicly_accessible          false
+    vpc_security_group_ids       <unknown>
+    db_subnet_group_name         "main"
+aws_db_subnet_group.main  actions=['create']
+    subnet_ids                   <unknown>
+    name                         "main"
+aws_instance.app  actions=['create']
+    subnet_id                    <unknown>
+    vpc_security_group_ids       <unknown>
+    private_ip                   <unknown>
+    ami                          "ami-0123456789abcdef0"
+aws_internet_gateway.main  actions=['create']
+    vpc_id                       <unknown>
+aws_route_table.public  actions=['create']
+    vpc_id                       <unknown>
+    route                        [{"carrier_gateway_id": "", "cidr_block": "0.0.0.0/0", "core_network_arn": "", "destination_prefix_list_id": "", "egress_only_gateway_id": "", "ipv6_cidr_block": "", "local_gateway_id": "", "nat_gateway_id": "", "network_interface_id": "", "odb_network_arn": "", "transit_gateway_id": "", "vpc_endpoint_id": "", "vpc_peering_connection_id": ""}]  (partly unknown: [{"gateway_id": true}])
+aws_route_table_association.app  actions=['create']
+    subnet_id                    <unknown>
+    route_table_id               <unknown>
+aws_security_group.app  actions=['create']
+    vpc_id                       <unknown>
+    ingress                      <unknown>
+    egress                       <unknown>
+aws_security_group.db  actions=['create']
+    vpc_id                       <unknown>
+    ingress                      <unknown>
+    egress                       <unknown>
+aws_security_group_rule.app_egress_all  actions=['create']
+    type                         "egress"
+    security_group_id            <unknown>
+    protocol                     "-1"
+    from_port                    0
+    to_port                      0
+    cidr_blocks                  ["0.0.0.0/0"]
+    ipv6_cidr_blocks             <null>
+    source_security_group_id     <unknown>
+    self                         false
+aws_security_group_rule.app_ssh_public  actions=['create']
+    type                         "ingress"
+    security_group_id            <unknown>
+    protocol                     "tcp"
+    from_port                    22
+    to_port                      22
+    cidr_blocks                  ["0.0.0.0/0"]
+    ipv6_cidr_blocks             <null>
+    source_security_group_id     <unknown>
+    self                         false
+aws_security_group_rule.app_to_db_5432  actions=['create']
+    type                         "ingress"
+    security_group_id            <unknown>
+    protocol                     "tcp"
+    from_port                    5432
+    to_port                      5432
+    cidr_blocks                  <null>
+    ipv6_cidr_blocks             <null>
+    source_security_group_id     <unknown>
+    self                         false
+aws_subnet.app  actions=['create']
+    vpc_id                       <unknown>
+    cidr_block                   "10.0.1.0/24"
+aws_subnet.db_a  actions=['create']
+    vpc_id                       <unknown>
+    cidr_block                   "10.0.2.0/24"
+aws_subnet.db_b  actions=['create']
+    vpc_id                       <unknown>
+    cidr_block                   "10.0.4.0/24"
+aws_vpc.main  actions=['create']
+    cidr_block                   "10.0.0.0/16"
+
+configuration.root_module resources and their expression references:
+  aws_db_instance.database
+      db_subnet_group_name       references=['aws_db_subnet_group.main.name', 'aws_db_subnet_group.main']
+      vpc_security_group_ids     references=['aws_security_group.db.id', 'aws_security_group.db']
+  aws_db_subnet_group.main
+      subnet_ids                 references=['aws_subnet.db_a.id', 'aws_subnet.db_a', 'aws_subnet.db_b.id', 'aws_subnet.db_b']
+  aws_instance.app
+      subnet_id                  references=['aws_subnet.app.id', 'aws_subnet.app']
+      vpc_security_group_ids     references=['aws_security_group.app.id', 'aws_security_group.app']
+  aws_internet_gateway.main
+      vpc_id                     references=['aws_vpc.main.id', 'aws_vpc.main']
+  aws_route_table.public
+      route                      references=['aws_internet_gateway.main.id', 'aws_internet_gateway.main']
+      vpc_id                     references=['aws_vpc.main.id', 'aws_vpc.main']
+  aws_route_table_association.app
+      route_table_id             references=['aws_route_table.public.id', 'aws_route_table.public']
+      subnet_id                  references=['aws_subnet.app.id', 'aws_subnet.app']
+  aws_security_group.app
+      vpc_id                     references=['aws_vpc.main.id', 'aws_vpc.main']
+  aws_security_group.db
+      vpc_id                     references=['aws_vpc.main.id', 'aws_vpc.main']
+  aws_security_group_rule.app_egress_all
+      security_group_id          references=['aws_security_group.app.id', 'aws_security_group.app']
+  aws_security_group_rule.app_ssh_public
+      security_group_id          references=['aws_security_group.app.id', 'aws_security_group.app']
+  aws_security_group_rule.app_to_db_5432
+      security_group_id          references=['aws_security_group.db.id', 'aws_security_group.db']
+      source_security_group_id   references=['aws_security_group.app.id', 'aws_security_group.app']
+  aws_subnet.app
+      vpc_id                     references=['aws_vpc.main.id', 'aws_vpc.main']
+  aws_subnet.db_a
+      vpc_id                     references=['aws_vpc.main.id', 'aws_vpc.main']
+  aws_subnet.db_b
+      vpc_id                     references=['aws_vpc.main.id', 'aws_vpc.main']
+  aws_vpc.main

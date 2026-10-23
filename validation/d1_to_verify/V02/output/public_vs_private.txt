@@ -1,0 +1,17 @@
+FAILED check ids per resource
+  aws_security_group.inline
+    public  (0.0.0.0/0)  : ['CKV2_AWS_5', 'CKV_AWS_23']
+    private (10.0.0.0/16): ['CKV2_AWS_5', 'CKV_AWS_23']
+    only in public       : []
+  aws_security_group.separate
+    public  (0.0.0.0/0)  : ['CKV2_AWS_5', 'CKV_AWS_23']
+    private (10.0.0.0/16): ['CKV2_AWS_5', 'CKV_AWS_23']
+    only in public       : []
+  aws_security_group_rule.pg
+    public  (0.0.0.0/0)  : ['CKV_AWS_23']
+    private (10.0.0.0/16): ['CKV_AWS_23']
+    only in public       : []
+
+PASSED in public but FAILED/absent in private, or vice versa (any difference at all):
+
+check ids failing on the public configuration but not the private one: []

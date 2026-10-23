@@ -1,0 +1,33 @@
+$ terraform init -input=false -lockfile=readonly
+Initializing the backend...
+
+Initializing provider plugins...
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Using previously-installed hashicorp/aws v6.53.0
+
+
+Terraform has been successfully initialized!
+[exit 0]
+
+$ terraform validate
+╷
+│ Error: "2001:db8::1/32" is not a valid IPv6 CIDR block; did you mean "2001:db8::/32"?
+│ 
+│   with aws_security_group_rule.r,
+│   on main.tf line 25, in resource "aws_security_group_rule" "r":
+│   25:   ipv6_cidr_blocks  = ["2001:db8::1/32"]
+│ 
+╵
+[exit 1]
+
+$ terraform plan -input=false -out=plan.bin
+╷
+│ Error: "2001:db8::1/32" is not a valid IPv6 CIDR block; did you mean "2001:db8::/32"?
+│ 
+│   with aws_security_group_rule.r,
+│   on main.tf line 25, in resource "aws_security_group_rule" "r":
+│   25:   ipv6_cidr_blocks  = ["2001:db8::1/32"]
+│ 
+╵
+[exit 1]
+

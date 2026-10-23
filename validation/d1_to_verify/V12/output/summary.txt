@@ -1,0 +1,8 @@
+resource types in the schema:                    1678
+types matching the heuristic:                    396
+  already in the registry lists/supported:       25
+  MISSING, tier 1 (family or strong attribute):  248
+  MISSING, tier 2 (weak keyword only):           123
+  of which in the core EC2/VPC/RDS families:     126
+registry-listed types not matched by heuristic:  ['aws_vpc_peering_connection']
+registry-listed types absent from the schema:    []

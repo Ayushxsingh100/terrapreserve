@@ -1,0 +1,2422 @@
+{
+ "format_version": "1.0",
+ "provider": "registry.terraform.io/hashicorp/aws",
+ "resource_schemas": {
+  "aws_db_instance": {
+   "block": {
+    "attributes": {
+     "address": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "allocated_storage": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "allow_major_version_upgrade": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "apply_immediately": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "arn": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "auto_minor_version_upgrade": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "availability_zone": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "backup_retention_period": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "backup_target": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "backup_window": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "ca_cert_identifier": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "character_set_name": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "copy_tags_to_snapshot": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "custom_iam_instance_profile": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "customer_owned_ip_enabled": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "database_insights_mode": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "db_name": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "db_subnet_group_name": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "dedicated_log_volume": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "delete_automated_backups": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "deletion_protection": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "domain": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "domain_auth_secret_arn": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "domain_dns_ips": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "list",
+       "string"
+      ]
+     },
+     "domain_fqdn": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "domain_iam_role_name": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "domain_ou": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "enabled_cloudwatch_logs_exports": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "set",
+       "string"
+      ]
+     },
+     "endpoint": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "engine": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "engine_lifecycle_support": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "engine_version": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "engine_version_actual": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "final_snapshot_identifier": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "hosted_zone_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "iam_database_authentication_enabled": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "identifier": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "identifier_prefix": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "instance_class": {
+      "description_kind": "plain",
+      "required": true,
+      "type": "string"
+     },
+     "iops": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "kms_key_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "latest_restorable_time": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "license_model": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "listener_endpoint": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": [
+       "list",
+       [
+        "object",
+        {
+         "address": "string",
+         "hosted_zone_id": "string",
+         "port": "number"
+        }
+       ]
+      ]
+     },
+     "maintenance_window": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "manage_master_user_password": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "master_user_secret": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": [
+       "list",
+       [
+        "object",
+        {
+         "kms_key_id": "string",
+         "secret_arn": "string",
+         "secret_status": "string"
+        }
+       ]
+      ]
+     },
+     "master_user_secret_kms_key_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "max_allocated_storage": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "monitoring_interval": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "monitoring_role_arn": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "multi_az": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "nchar_character_set_name": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "network_type": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "option_group_name": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "parameter_group_name": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "password": {
+      "description_kind": "plain",
+      "optional": true,
+      "sensitive": true,
+      "type": "string"
+     },
+     "password_wo": {
+      "description_kind": "plain",
+      "optional": true,
+      "sensitive": true,
+      "type": "string",
+      "write_only": true
+     },
+     "password_wo_version": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "performance_insights_enabled": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "performance_insights_kms_key_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "performance_insights_retention_period": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "port": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "publicly_accessible": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "region": {
+      "computed": true,
+      "description": "Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the [provider configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#aws-configuration-reference).",
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "replica_mode": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "replicas": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": [
+       "list",
+       "string"
+      ]
+     },
+     "replicate_source_db": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "resource_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "skip_final_snapshot": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "snapshot_identifier": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "status": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "storage_encrypted": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "storage_throughput": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "storage_type": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "tags": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "tags_all": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "timezone": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "upgrade_rollout_order": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "upgrade_storage_config": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "username": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "vpc_security_group_ids": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "set",
+       "string"
+      ]
+     }
+    },
+    "block_types": {
+     "blue_green_update": {
+      "block": {
+       "attributes": {
+        "enabled": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "bool"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "max_items": 1,
+      "nesting_mode": "list"
+     },
+     "restore_to_point_in_time": {
+      "block": {
+       "attributes": {
+        "restore_time": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "source_db_instance_automated_backups_arn": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "source_db_instance_identifier": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "source_dbi_resource_id": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "use_latest_restorable_time": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "bool"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "max_items": 1,
+      "nesting_mode": "list"
+     },
+     "s3_import": {
+      "block": {
+       "attributes": {
+        "bucket_name": {
+         "description_kind": "plain",
+         "required": true,
+         "type": "string"
+        },
+        "bucket_prefix": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "ingestion_role": {
+         "description_kind": "plain",
+         "required": true,
+         "type": "string"
+        },
+        "source_engine": {
+         "description_kind": "plain",
+         "required": true,
+         "type": "string"
+        },
+        "source_engine_version": {
+         "description_kind": "plain",
+         "required": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "max_items": 1,
+      "nesting_mode": "list"
+     },
+     "timeouts": {
+      "block": {
+       "attributes": {
+        "create": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "delete": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "update": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "nesting_mode": "single"
+     }
+    },
+    "description_kind": "plain"
+   },
+   "version": 2
+  },
+  "aws_db_subnet_group": {
+   "block": {
+    "attributes": {
+     "arn": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "description": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "name": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "name_prefix": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "region": {
+      "computed": true,
+      "description": "Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the [provider configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#aws-configuration-reference).",
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "subnet_ids": {
+      "description_kind": "plain",
+      "required": true,
+      "type": [
+       "set",
+       "string"
+      ]
+     },
+     "supported_network_types": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": [
+       "set",
+       "string"
+      ]
+     },
+     "tags": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "tags_all": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "vpc_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     }
+    },
+    "description_kind": "plain"
+   },
+   "version": 0
+  },
+  "aws_instance": {
+   "block": {
+    "attributes": {
+     "ami": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "arn": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "associate_public_ip_address": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "availability_zone": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "disable_api_stop": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "disable_api_termination": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "ebs_optimized": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "enable_primary_ipv6": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "force_destroy": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "get_password_data": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "hibernation": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "host_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "host_resource_group_arn": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "iam_instance_profile": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "instance_initiated_shutdown_behavior": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "instance_lifecycle": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "instance_state": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "instance_type": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "ipv6_address_count": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "ipv6_addresses": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "list",
+       "string"
+      ]
+     },
+     "key_name": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "monitoring": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "outpost_arn": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "password_data": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "placement_group": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "placement_group_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "placement_partition_number": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "primary_network_interface_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "private_dns": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "private_ip": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "public_dns": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "public_ip": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "region": {
+      "computed": true,
+      "description": "Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the [provider configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#aws-configuration-reference).",
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "secondary_private_ips": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "set",
+       "string"
+      ]
+     },
+     "security_groups": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "set",
+       "string"
+      ]
+     },
+     "source_dest_check": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "spot_instance_request_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "subnet_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "tags": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "tags_all": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "tenancy": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "user_data": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "user_data_base64": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "user_data_replace_on_change": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "volume_tags": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "vpc_security_group_ids": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "set",
+       "string"
+      ]
+     }
+    },
+    "block_types": {
+     "capacity_reservation_specification": {
+      "block": {
+       "attributes": {
+        "capacity_reservation_preference": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "block_types": {
+        "capacity_reservation_target": {
+         "block": {
+          "attributes": {
+           "capacity_reservation_id": {
+            "description_kind": "plain",
+            "optional": true,
+            "type": "string"
+           },
+           "capacity_reservation_resource_group_arn": {
+            "description_kind": "plain",
+            "optional": true,
+            "type": "string"
+           }
+          },
+          "description_kind": "plain"
+         },
+         "max_items": 1,
+         "nesting_mode": "list"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "max_items": 1,
+      "nesting_mode": "list"
+     },
+     "cpu_options": {
+      "block": {
+       "attributes": {
+        "amd_sev_snp": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "core_count": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "number"
+        },
+        "nested_virtualization": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "threads_per_core": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "number"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "max_items": 1,
+      "nesting_mode": "list"
+     },
+     "credit_specification": {
+      "block": {
+       "attributes": {
+        "cpu_credits": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "max_items": 1,
+      "nesting_mode": "list"
+     },
+     "ebs_block_device": {
+      "block": {
+       "attributes": {
+        "delete_on_termination": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "bool"
+        },
+        "device_name": {
+         "description_kind": "plain",
+         "required": true,
+         "type": "string"
+        },
+        "encrypted": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "bool"
+        },
+        "iops": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "number"
+        },
+        "kms_key_id": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "snapshot_id": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "tags": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": [
+          "map",
+          "string"
+         ]
+        },
+        "tags_all": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": [
+          "map",
+          "string"
+         ]
+        },
+        "throughput": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "number"
+        },
+        "volume_id": {
+         "computed": true,
+         "description_kind": "plain",
+         "type": "string"
+        },
+        "volume_size": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "number"
+        },
+        "volume_type": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "nesting_mode": "set"
+     },
+     "enclave_options": {
+      "block": {
+       "attributes": {
+        "enabled": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "bool"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "max_items": 1,
+      "nesting_mode": "list"
+     },
+     "ephemeral_block_device": {
+      "block": {
+       "attributes": {
+        "device_name": {
+         "description_kind": "plain",
+         "required": true,
+         "type": "string"
+        },
+        "no_device": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "bool"
+        },
+        "virtual_name": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "nesting_mode": "set"
+     },
+     "instance_market_options": {
+      "block": {
+       "attributes": {
+        "market_type": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "block_types": {
+        "spot_options": {
+         "block": {
+          "attributes": {
+           "instance_interruption_behavior": {
+            "computed": true,
+            "description_kind": "plain",
+            "optional": true,
+            "type": "string"
+           },
+           "max_price": {
+            "computed": true,
+            "description_kind": "plain",
+            "optional": true,
+            "type": "string"
+           },
+           "spot_instance_type": {
+            "computed": true,
+            "description_kind": "plain",
+            "optional": true,
+            "type": "string"
+           },
+           "valid_until": {
+            "computed": true,
+            "description_kind": "plain",
+            "optional": true,
+            "type": "string"
+           }
+          },
+          "description_kind": "plain"
+         },
+         "max_items": 1,
+         "nesting_mode": "list"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "max_items": 1,
+      "nesting_mode": "list"
+     },
+     "launch_template": {
+      "block": {
+       "attributes": {
+        "id": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "name": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "version": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "max_items": 1,
+      "nesting_mode": "list"
+     },
+     "maintenance_options": {
+      "block": {
+       "attributes": {
+        "auto_recovery": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "max_items": 1,
+      "nesting_mode": "list"
+     },
+     "metadata_options": {
+      "block": {
+       "attributes": {
+        "http_endpoint": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "http_protocol_ipv6": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "http_put_response_hop_limit": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "number"
+        },
+        "http_tokens": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "instance_metadata_tags": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "max_items": 1,
+      "nesting_mode": "list"
+     },
+     "network_interface": {
+      "block": {
+       "attributes": {
+        "delete_on_termination": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "bool"
+        },
+        "device_index": {
+         "description_kind": "plain",
+         "required": true,
+         "type": "number"
+        },
+        "network_card_index": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "number"
+        },
+        "network_interface_id": {
+         "description_kind": "plain",
+         "required": true,
+         "type": "string"
+        }
+       },
+       "deprecated": true,
+       "deprecation_message": "network_interface is deprecated. To specify the primary network interface, use primary_network_interface instead. To attach additional network interfaces, use the aws_network_interface_attachment resource.",
+       "description_kind": "plain"
+      },
+      "nesting_mode": "set"
+     },
+     "primary_network_interface": {
+      "block": {
+       "attributes": {
+        "delete_on_termination": {
+         "computed": true,
+         "description_kind": "plain",
+         "type": "bool"
+        },
+        "network_interface_id": {
+         "description_kind": "plain",
+         "required": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "max_items": 1,
+      "nesting_mode": "list"
+     },
+     "private_dns_name_options": {
+      "block": {
+       "attributes": {
+        "enable_resource_name_dns_a_record": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "bool"
+        },
+        "enable_resource_name_dns_aaaa_record": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "bool"
+        },
+        "hostname_type": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "max_items": 1,
+      "nesting_mode": "list"
+     },
+     "root_block_device": {
+      "block": {
+       "attributes": {
+        "delete_on_termination": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "bool"
+        },
+        "device_name": {
+         "computed": true,
+         "description_kind": "plain",
+         "type": "string"
+        },
+        "encrypted": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "bool"
+        },
+        "iops": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "number"
+        },
+        "kms_key_id": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "tags": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": [
+          "map",
+          "string"
+         ]
+        },
+        "tags_all": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": [
+          "map",
+          "string"
+         ]
+        },
+        "throughput": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "number"
+        },
+        "volume_id": {
+         "computed": true,
+         "description_kind": "plain",
+         "type": "string"
+        },
+        "volume_size": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "number"
+        },
+        "volume_type": {
+         "computed": true,
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "max_items": 1,
+      "nesting_mode": "list"
+     },
+     "secondary_network_interface": {
+      "block": {
+       "attributes": {
+        "delete_on_termination": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "bool"
+        },
+        "device_index": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "number"
+        },
+        "interface_type": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "mac_address": {
+         "computed": true,
+         "description_kind": "plain",
+         "type": "string"
+        },
+        "network_card_index": {
+         "description_kind": "plain",
+         "required": true,
+         "type": "number"
+        },
+        "private_ip_address_count": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "number"
+        },
+        "private_ip_addresses": {
+         "computed": true,
+         "description_kind": "plain",
+         "type": [
+          "list",
+          "string"
+         ]
+        },
+        "secondary_interface_id": {
+         "computed": true,
+         "description_kind": "plain",
+         "type": "string"
+        },
+        "secondary_network_id": {
+         "computed": true,
+         "description_kind": "plain",
+         "type": "string"
+        },
+        "secondary_subnet_id": {
+         "description_kind": "plain",
+         "required": true,
+         "type": "string"
+        },
+        "source_dest_check": {
+         "computed": true,
+         "description_kind": "plain",
+         "type": "bool"
+        },
+        "status": {
+         "computed": true,
+         "description_kind": "plain",
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "nesting_mode": "set"
+     },
+     "timeouts": {
+      "block": {
+       "attributes": {
+        "create": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "delete": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "read": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "update": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "nesting_mode": "single"
+     }
+    },
+    "description_kind": "plain"
+   },
+   "version": 2
+  },
+  "aws_internet_gateway": {
+   "block": {
+    "attributes": {
+     "arn": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "owner_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "region": {
+      "computed": true,
+      "description": "Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the [provider configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#aws-configuration-reference).",
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "tags": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "tags_all": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "vpc_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     }
+    },
+    "block_types": {
+     "timeouts": {
+      "block": {
+       "attributes": {
+        "create": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "delete": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "update": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "nesting_mode": "single"
+     }
+    },
+    "description_kind": "plain"
+   },
+   "version": 0
+  },
+  "aws_route_table": {
+   "block": {
+    "attributes": {
+     "arn": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "owner_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "propagating_vgws": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "set",
+       "string"
+      ]
+     },
+     "region": {
+      "computed": true,
+      "description": "Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the [provider configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#aws-configuration-reference).",
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "route": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "set",
+       [
+        "object",
+        {
+         "carrier_gateway_id": "string",
+         "cidr_block": "string",
+         "core_network_arn": "string",
+         "destination_prefix_list_id": "string",
+         "egress_only_gateway_id": "string",
+         "gateway_id": "string",
+         "ipv6_cidr_block": "string",
+         "local_gateway_id": "string",
+         "nat_gateway_id": "string",
+         "network_interface_id": "string",
+         "odb_network_arn": "string",
+         "transit_gateway_id": "string",
+         "vpc_endpoint_id": "string",
+         "vpc_peering_connection_id": "string"
+        }
+       ]
+      ]
+     },
+     "tags": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "tags_all": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "vpc_id": {
+      "description_kind": "plain",
+      "required": true,
+      "type": "string"
+     }
+    },
+    "block_types": {
+     "timeouts": {
+      "block": {
+       "attributes": {
+        "create": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "delete": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "update": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "nesting_mode": "single"
+     }
+    },
+    "description_kind": "plain"
+   },
+   "version": 0
+  },
+  "aws_route_table_association": {
+   "block": {
+    "attributes": {
+     "gateway_id": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "region": {
+      "computed": true,
+      "description": "Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the [provider configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#aws-configuration-reference).",
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "route_table_id": {
+      "description_kind": "plain",
+      "required": true,
+      "type": "string"
+     },
+     "subnet_id": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     }
+    },
+    "block_types": {
+     "timeouts": {
+      "block": {
+       "attributes": {
+        "create": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "delete": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "update": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "nesting_mode": "single"
+     }
+    },
+    "description_kind": "plain"
+   },
+   "version": 0
+  },
+  "aws_security_group": {
+   "block": {
+    "attributes": {
+     "arn": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "description": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "egress": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "set",
+       [
+        "object",
+        {
+         "cidr_blocks": [
+          "list",
+          "string"
+         ],
+         "description": "string",
+         "from_port": "number",
+         "ipv6_cidr_blocks": [
+          "list",
+          "string"
+         ],
+         "prefix_list_ids": [
+          "list",
+          "string"
+         ],
+         "protocol": "string",
+         "security_groups": [
+          "set",
+          "string"
+         ],
+         "self": "bool",
+         "to_port": "number"
+        }
+       ]
+      ]
+     },
+     "id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "ingress": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "set",
+       [
+        "object",
+        {
+         "cidr_blocks": [
+          "list",
+          "string"
+         ],
+         "description": "string",
+         "from_port": "number",
+         "ipv6_cidr_blocks": [
+          "list",
+          "string"
+         ],
+         "prefix_list_ids": [
+          "list",
+          "string"
+         ],
+         "protocol": "string",
+         "security_groups": [
+          "set",
+          "string"
+         ],
+         "self": "bool",
+         "to_port": "number"
+        }
+       ]
+      ]
+     },
+     "name": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "name_prefix": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "owner_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "region": {
+      "computed": true,
+      "description": "Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the [provider configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#aws-configuration-reference).",
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "revoke_rules_on_delete": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "tags": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "tags_all": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "vpc_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     }
+    },
+    "block_types": {
+     "timeouts": {
+      "block": {
+       "attributes": {
+        "create": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "delete": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "nesting_mode": "single"
+     }
+    },
+    "description_kind": "plain"
+   },
+   "version": 1
+  },
+  "aws_security_group_rule": {
+   "block": {
+    "attributes": {
+     "cidr_blocks": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "list",
+       "string"
+      ]
+     },
+     "description": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "from_port": {
+      "description_kind": "plain",
+      "required": true,
+      "type": "number"
+     },
+     "id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "ipv6_cidr_blocks": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "list",
+       "string"
+      ]
+     },
+     "prefix_list_ids": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "list",
+       "string"
+      ]
+     },
+     "protocol": {
+      "description_kind": "plain",
+      "required": true,
+      "type": "string"
+     },
+     "region": {
+      "computed": true,
+      "description": "Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the [provider configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#aws-configuration-reference).",
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "security_group_id": {
+      "description_kind": "plain",
+      "required": true,
+      "type": "string"
+     },
+     "security_group_rule_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "self": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "source_security_group_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "to_port": {
+      "description_kind": "plain",
+      "required": true,
+      "type": "number"
+     },
+     "type": {
+      "description_kind": "plain",
+      "required": true,
+      "type": "string"
+     }
+    },
+    "block_types": {
+     "timeouts": {
+      "block": {
+       "attributes": {
+        "create": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "nesting_mode": "single"
+     }
+    },
+    "description_kind": "plain"
+   },
+   "version": 2
+  },
+  "aws_subnet": {
+   "block": {
+    "attributes": {
+     "arn": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "assign_ipv6_address_on_creation": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "availability_zone": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "availability_zone_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "cidr_block": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "customer_owned_ipv4_pool": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "enable_dns64": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "enable_lni_at_device_index": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "enable_resource_name_dns_a_record_on_launch": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "enable_resource_name_dns_aaaa_record_on_launch": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "ipv4_ipam_pool_id": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "ipv4_netmask_length": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "ipv6_cidr_block": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "ipv6_cidr_block_association_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "ipv6_ipam_pool_id": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "ipv6_native": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "ipv6_netmask_length": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "map_customer_owned_ip_on_launch": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "map_public_ip_on_launch": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "outpost_arn": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "owner_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "private_dns_hostname_type_on_launch": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "region": {
+      "computed": true,
+      "description": "Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the [provider configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#aws-configuration-reference).",
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "tags": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "tags_all": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "vpc_id": {
+      "description_kind": "plain",
+      "required": true,
+      "type": "string"
+     }
+    },
+    "block_types": {
+     "timeouts": {
+      "block": {
+       "attributes": {
+        "create": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        },
+        "delete": {
+         "description_kind": "plain",
+         "optional": true,
+         "type": "string"
+        }
+       },
+       "description_kind": "plain"
+      },
+      "nesting_mode": "single"
+     }
+    },
+    "description_kind": "plain"
+   },
+   "version": 1
+  },
+  "aws_vpc": {
+   "block": {
+    "attributes": {
+     "arn": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "assign_generated_ipv6_cidr_block": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "cidr_block": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "default_network_acl_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "default_route_table_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "default_security_group_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "dhcp_options_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "enable_dns_hostnames": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "enable_dns_support": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "enable_network_address_usage_metrics": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "bool"
+     },
+     "id": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "instance_tenancy": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "ipv4_ipam_pool_id": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "ipv4_netmask_length": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "ipv6_association_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "ipv6_cidr_block": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "ipv6_cidr_block_network_border_group": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "ipv6_ipam_pool_id": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "ipv6_netmask_length": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": "number"
+     },
+     "main_route_table_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "owner_id": {
+      "computed": true,
+      "description_kind": "plain",
+      "type": "string"
+     },
+     "region": {
+      "computed": true,
+      "description": "Region where this resource will be [managed](https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints). Defaults to the Region set in the [provider configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#aws-configuration-reference).",
+      "description_kind": "plain",
+      "optional": true,
+      "type": "string"
+     },
+     "tags": {
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     },
+     "tags_all": {
+      "computed": true,
+      "description_kind": "plain",
+      "optional": true,
+      "type": [
+       "map",
+       "string"
+      ]
+     }
+    },
+    "description_kind": "plain"
+   },
+   "version": 1
+  }
+ }
+}

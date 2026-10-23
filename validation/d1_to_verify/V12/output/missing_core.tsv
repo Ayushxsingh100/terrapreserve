@@ -1,0 +1,127 @@
+type	tier	registry	triggering attributes (first 6)	possible invariant impact (heuristic)
+aws_autoscaling_group	2	MISSING	mixed_instances_policy.launch_template.override.instance_requirements.network_interface_count{}	FUNC-001 M3/E7 (routing or interface placement)
+aws_db_cluster_snapshot	1	MISSING	type-family	
+aws_db_event_subscription	1	MISSING	type-family	
+aws_db_instance_automated_backups_replication	1	MISSING	type-family	
+aws_db_instance_role_association	1	MISSING	type-family	
+aws_db_option_group	1	MISSING	type-family, option.db_security_group_memberships, option.vpc_security_group_memberships	SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_db_parameter_group	1	MISSING	type-family	
+aws_db_proxy	1	MISSING	type-family, vpc_security_group_ids	SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_db_proxy_default_target_group	1	MISSING	type-family	
+aws_db_proxy_endpoint	1	MISSING	type-family, vpc_security_group_ids	SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_db_proxy_target	1	MISSING	type-family	
+aws_db_snapshot	1	MISSING	type-family	
+aws_db_snapshot_copy	1	MISSING	type-family	
+aws_default_subnet	1	MISSING	type-family, cidr_block, existing_default_subnet, ipv6_cidr_block, ipv6_cidr_block_association_id	FUNC-001 M2/E4/E6 (placement or address ranges)
+aws_default_vpc	1	MISSING	type-family, assign_generated_ipv6_cidr_block, cidr_block, default_network_acl_id, default_route_table_id, default_security_group_id (+3 more)	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement); FUNC-001 M4 (network ACL); SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_default_vpc_dhcp_options	1	MISSING	type-family	
+aws_ec2_allowed_images_settings	1	MISSING	type-family	
+aws_ec2_availability_zone_group	1	MISSING	type-family	
+aws_ec2_capacity_block_reservation	1	MISSING	type-family	
+aws_ec2_capacity_reservation	1	MISSING	type-family	
+aws_ec2_carrier_gateway	1	MISSING	type-family	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_client_vpn_authorization_rule	1	MISSING	type-family, target_network_cidr	FUNC-001 M2/E4/E6 (placement or address ranges)
+aws_ec2_client_vpn_endpoint	1	MISSING	type-family, security_group_ids	SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_ec2_client_vpn_network_association	1	MISSING	type-family, subnet_id	FUNC-001 M2/E4/E6 (placement or address ranges)
+aws_ec2_client_vpn_route	1	MISSING	type-family, destination_cidr_block, target_vpc_subnet_id	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_default_credit_specification	1	MISSING	type-family	
+aws_ec2_fleet	1	MISSING	type-family, launch_template_config.override.instance_requirements.network_interface_count{}, launch_template_config.override.subnet_id	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_host	1	MISSING	type-family	
+aws_ec2_image_block_public_access	1	MISSING	type-family	
+aws_ec2_instance_connect_endpoint	1	MISSING	type-family, network_interface_ids, security_group_ids	FUNC-001 M3/E7 (routing or interface placement); SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_ec2_instance_metadata_defaults	1	MISSING	type-family	
+aws_ec2_instance_state	1	MISSING	type-family	
+aws_ec2_local_gateway_route	1	MISSING	type-family, destination_cidr_block, local_gateway_route_table_id, local_gateway_virtual_interface_group_id	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_local_gateway_route_table	1	MISSING	type-family, local_gateway_id, local_gateway_route_table_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_local_gateway_route_table_virtual_interface_group_association	1	MISSING	type-family, local_gateway_id, local_gateway_route_table_arn, local_gateway_route_table_id, local_gateway_virtual_interface_group_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_local_gateway_route_table_vpc_association	1	MISSING	type-family, local_gateway_id, local_gateway_route_table_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_managed_prefix_list	1	MISSING	type-family, entry.cidr	FUNC-001 M2/E4/E6 (placement or address ranges); SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_ec2_managed_prefix_list_entry	1	MISSING	type-family, prefix_list_id	SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_ec2_network_insights_access_scope	1	MISSING	type-family, exclude_paths.destination.packet_header_statement.destination_prefix_lists, exclude_paths.destination.packet_header_statement.source_prefix_lists, exclude_paths.source.packet_header_statement.destination_prefix_lists, exclude_paths.source.packet_header_statement.source_prefix_lists, match_paths.destination.packet_header_statement.destination_prefix_lists (+3 more)	SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_ec2_network_insights_analysis	1	MISSING	type-family	
+aws_ec2_network_insights_path	1	MISSING	type-family, filter_at_destination.destination_port_range.from_port, filter_at_destination.destination_port_range.to_port, filter_at_destination.source_port_range.from_port, filter_at_destination.source_port_range.to_port, filter_at_source.destination_port_range.from_port (+3 more)	SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_ec2_secondary_network	1	MISSING	type-family, ipv4_cidr_block, ipv4_cidr_block_associations	FUNC-001 M2/E4/E6 (placement or address ranges)
+aws_ec2_secondary_subnet	1	MISSING	type-family, ipv4_cidr_block, ipv4_cidr_block_associations, secondary_subnet_id	FUNC-001 M2/E4/E6 (placement or address ranges)
+aws_ec2_serial_console_access	1	MISSING	type-family	
+aws_ec2_subnet_cidr_reservation	1	MISSING	type-family, cidr_block, subnet_id	FUNC-001 M2/E4/E6 (placement or address ranges)
+aws_ec2_tag	1	MISSING	type-family	
+aws_ec2_traffic_mirror_filter	1	MISSING	type-family	
+aws_ec2_traffic_mirror_filter_rule	1	MISSING	type-family, destination_port_range.from_port, destination_port_range.to_port, source_port_range.from_port, source_port_range.to_port	SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_ec2_traffic_mirror_session	1	MISSING	type-family, network_interface_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_traffic_mirror_target	1	MISSING	type-family, network_interface_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway	1	MISSING	type-family, association_default_route_table_id, default_route_table_association, default_route_table_propagation, propagation_default_route_table_id, security_group_referencing_support (+1 more)	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement); SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_ec2_transit_gateway_connect	1	MISSING	type-family, transit_gateway_default_route_table_association, transit_gateway_default_route_table_propagation, transit_gateway_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_connect_peer	1	MISSING	type-family, bgp_transit_gateway_addresses, inside_cidr_blocks, transit_gateway_address, transit_gateway_attachment_id	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_default_route_table_association	1	MISSING	type-family, original_default_route_table_id, transit_gateway_id, transit_gateway_route_table_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_default_route_table_propagation	1	MISSING	type-family, original_default_route_table_id, transit_gateway_id, transit_gateway_route_table_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_metering_policy	1	MISSING	type-family, transit_gateway_id, transit_gateway_metering_policy_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_metering_policy_entry	1	MISSING	type-family, destination_cidr_block, destination_transit_gateway_attachment_id, destination_transit_gateway_attachment_type, source_cidr_block, source_transit_gateway_attachment_id (+2 more)	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_multicast_domain	1	MISSING	type-family, transit_gateway_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_multicast_domain_association	1	MISSING	type-family, subnet_id, transit_gateway_attachment_id, transit_gateway_multicast_domain_id	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_multicast_group_member	1	MISSING	type-family, network_interface_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_multicast_group_source	1	MISSING	type-family, network_interface_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_peering_attachment	1	MISSING	type-family, peer_transit_gateway_id, transit_gateway_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_peering_attachment_accepter	1	MISSING	type-family, peer_transit_gateway_id, transit_gateway_attachment_id, transit_gateway_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_policy_table	1	MISSING	type-family, transit_gateway_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_policy_table_association	1	MISSING	type-family, transit_gateway_attachment_id, transit_gateway_policy_table_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_prefix_list_reference	1	MISSING	type-family, prefix_list_id	FUNC-001 M3/E7 (routing or interface placement); SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_ec2_transit_gateway_route	1	MISSING	type-family, destination_cidr_block, transit_gateway_attachment_id, transit_gateway_route_table_id	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_route_table	1	MISSING	type-family, default_association_route_table, default_propagation_route_table, transit_gateway_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_route_table_association	1	MISSING	type-family, transit_gateway_attachment_id, transit_gateway_route_table_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_route_table_propagation	1	MISSING	type-family, transit_gateway_attachment_id, transit_gateway_route_table_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_ec2_transit_gateway_vpc_attachment_accepter	1	MISSING	type-family, security_group_referencing_support, subnet_ids, transit_gateway_attachment_id, transit_gateway_default_route_table_association, transit_gateway_default_route_table_propagation (+1 more)	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement); SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_eip	2	MISSING	network_interface	FUNC-001 M3/E7 (routing or interface placement)
+aws_eip_association	1	MISSING	network_interface_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_internet_gateway_attachment	2	MISSING	internet_gateway_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_launch_configuration	1	MISSING	security_groups	SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_launch_template	1	MISSING	network_interfaces.network_interface_id, network_interfaces.security_groups, vpc_security_group_ids	FUNC-001 M3/E7 (routing or interface placement); SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_nat_gateway	1	MISSING	network_interface_id, route_table_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_nat_gateway_eip_association	2	MISSING	nat_gateway_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_network_interface_permission	1	MISSING	type-family, network_interface_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_rds_certificate	1	MISSING	type-family	
+aws_rds_cluster	1	MISSING	type-family, vpc_security_group_ids	SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_rds_cluster_activity_stream	1	MISSING	type-family	
+aws_rds_cluster_endpoint	1	MISSING	type-family	
+aws_rds_cluster_instance	1	MISSING	type-family, publicly_accessible	SEC-003 (database exposure flag)
+aws_rds_cluster_parameter_group	1	MISSING	type-family	
+aws_rds_cluster_role_association	1	MISSING	type-family	
+aws_rds_cluster_snapshot_copy	1	MISSING	type-family	
+aws_rds_custom_db_engine_version	1	MISSING	type-family	
+aws_rds_export_task	1	MISSING	type-family	
+aws_rds_global_cluster	1	MISSING	type-family	
+aws_rds_instance_state	1	MISSING	type-family	
+aws_rds_integration	1	MISSING	type-family	
+aws_rds_reserved_instance	1	MISSING	type-family	
+aws_rds_shard_group	1	MISSING	type-family, publicly_accessible	SEC-003 (database exposure flag)
+aws_spot_fleet_request	1	MISSING	launch_specification.vpc_security_group_ids	SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_spot_instance_request	1	MISSING	network_interface.network_interface_id, security_groups, vpc_security_group_ids	FUNC-001 M3/E7 (routing or interface placement); SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_vpc_block_public_access_exclusion	2	MISSING	internet_gateway_exclusion_mode, subnet_id	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_block_public_access_options	2	MISSING	internet_gateway_block_mode	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_encryption_control	2	MISSING	egress_only_internet_gateway_exclusion, internet_gateway_exclusion, nat_gateway_exclusion, virtual_private_gateway_exclusion, vpc_peering_exclusion	FUNC-001 M3/E7 (routing or interface placement); SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_vpc_endpoint_connection_accepter	2	MISSING	vpc_endpoint_id, vpc_endpoint_service_id, vpc_endpoint_state	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_endpoint_connection_notification	2	MISSING	vpc_endpoint_id, vpc_endpoint_service_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_endpoint_policy	2	MISSING	vpc_endpoint_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_endpoint_private_dns	2	MISSING	vpc_endpoint_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_endpoint_route_table_association	1	MISSING	route_table_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_endpoint_security_group_association	1	MISSING	security_group_id	FUNC-001 M3/E7 (routing or interface placement); SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_vpc_endpoint_service	2	MISSING	gateway_load_balancer_arns, manages_vpc_endpoints	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_endpoint_service_allowed_principal	2	MISSING	vpc_endpoint_service_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_endpoint_subnet_association	2	MISSING	subnet_id, vpc_endpoint_id	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_ipam_pool_cidr	2	MISSING	cidr, cidr_authorization_context{}, ipam_pool_cidr_id	FUNC-001 M2/E4/E6 (placement or address ranges)
+aws_vpc_ipam_pool_cidr_allocation	2	MISSING	cidr, disallowed_cidrs	FUNC-001 M2/E4/E6 (placement or address ranges)
+aws_vpc_ipam_preview_next_cidr	2	MISSING	cidr, disallowed_cidrs	FUNC-001 M2/E4/E6 (placement or address ranges)
+aws_vpc_ipv6_cidr_block_association	2	MISSING	assign_generated_ipv6_cidr_block, ipv6_cidr_block	FUNC-001 M2/E4/E6 (placement or address ranges)
+aws_vpc_peering_connection_accepter	2	MISSING	vpc_peering_connection_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_peering_connection_options	2	MISSING	vpc_peering_connection_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_route_server	2	MISSING	persist_routes, persist_routes_duration, route_server_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_route_server_endpoint	2	MISSING	route_server_endpoint_id, route_server_id, subnet_id	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_route_server_peer	2	MISSING	route_server_endpoint_id, route_server_id, route_server_peer_id, subnet_id	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_route_server_propagation	1	MISSING	route_table_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_route_server_vpc_association	2	MISSING	route_server_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpc_security_group_rules_exclusive	1	MISSING	type-family, security_group_id	SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_vpc_security_group_vpc_association	1	MISSING	type-family, security_group_id	SEC-001/002 and FUNC-001 E5/E6 (security-group rules or attachment)
+aws_vpn_concentrator	2	MISSING	transit_gateway_attachment_id, transit_gateway_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpn_connection	2	MISSING	customer_gateway_configuration, customer_gateway_id, local_ipv4_network_cidr, local_ipv6_network_cidr, remote_ipv4_network_cidr, remote_ipv6_network_cidr (+10 more)	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement)
+aws_vpn_connection_route	2	MISSING	destination_cidr_block	FUNC-001 M2/E4/E6 (placement or address ranges); FUNC-001 M3/E7 (routing or interface placement)
+aws_vpn_gateway_attachment	2	MISSING	vpn_gateway_id	FUNC-001 M3/E7 (routing or interface placement)
+aws_vpn_gateway_route_propagation	1	MISSING	route_table_id	FUNC-001 M3/E7 (routing or interface placement)

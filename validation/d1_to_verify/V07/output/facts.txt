@@ -1,0 +1,42 @@
+terraform_version: 1.15.8  format_version: 1.2
+resource_changes: 5
+types: ['aws_db_instance']
+
+aws_db_instance.from_variable  actions=['create']
+    engine                       "postgres"
+    port                         5432
+    publicly_accessible          false
+    vpc_security_group_ids       <unknown>
+    db_subnet_group_name         <unknown>
+aws_db_instance.literal_3306  actions=['create']
+    engine                       "postgres"
+    port                         3306
+    publicly_accessible          false
+    vpc_security_group_ids       <unknown>
+    db_subnet_group_name         <unknown>
+aws_db_instance.literal_5432  actions=['create']
+    engine                       "postgres"
+    port                         5432
+    publicly_accessible          false
+    vpc_security_group_ids       <unknown>
+    db_subnet_group_name         <unknown>
+aws_db_instance.unset_mysql  actions=['create']
+    engine                       "mysql"
+    port                         <unknown>
+    publicly_accessible          false
+    vpc_security_group_ids       <unknown>
+    db_subnet_group_name         <unknown>
+aws_db_instance.unset_postgres  actions=['create']
+    engine                       "postgres"
+    port                         <unknown>
+    publicly_accessible          false
+    vpc_security_group_ids       <unknown>
+    db_subnet_group_name         <unknown>
+
+configuration.root_module resources and their expression references:
+  aws_db_instance.from_variable
+      port                       references=['var.db_port']
+  aws_db_instance.literal_3306
+  aws_db_instance.literal_5432
+  aws_db_instance.unset_mysql
+  aws_db_instance.unset_postgres

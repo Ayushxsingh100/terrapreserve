@@ -1,0 +1,35 @@
+m10_inline_no_ingress                CKV_AWS_24: aws_security_group.g=PASSED
+m11_rule_var_no_value                CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=PASSED
+m12_rule_var_default_public          CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=FAILED
+m13_rule_private_control             CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=PASSED
+m1_rule_split_halves                 CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=PASSED
+m2_rule_default_plus_other           CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=FAILED
+m3_rule_zero_mask_two_digits         CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=PASSED
+m4_rule_slash8_wide                  CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=PASSED
+m5_rule_default_with_prefix_list     CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=PASSED
+m6_rule_default_with_self            CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=PASSED
+m7_rule_sg_source_only               CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=PASSED
+m8_inline_self_rule_then_public      CKV_AWS_24: aws_security_group.g=PASSED
+m9_inline_public_then_self_rule      CKV_AWS_24: aws_security_group.g=FAILED
+p10_rule_protocol_6_22               CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=FAILED
+p1_rule_tcp_20_30                    CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=FAILED
+p2_rule_tcp_0_65535                  CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=FAILED
+p3_rule_tcp_0_0                      CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=FAILED
+p4_rule_tcp_23_30                    CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=PASSED
+p5_rule_udp22                        CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=FAILED
+p6_rule_minus1_0_0                   CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=FAILED
+p7_rule_all_0_0                      CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=FAILED
+p8_rule_minus1_22_22                 CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=FAILED
+p9_rule_icmp_22_22                   CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=FAILED
+t1_inline_ingress_tcp22_v4           CKV_AWS_24: aws_security_group.g=FAILED
+t2_rule_ingress_tcp22_v4             CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=FAILED
+t3_vpc_ingress_rule_tcp22_v4         CKV_AWS_24: aws_security_group.g=PASSED  aws_vpc_security_group_ingress_rule.r=FAILED
+t4_vpc_ingress_rule_all_noports      CKV_AWS_24: aws_security_group.g=PASSED  aws_vpc_security_group_ingress_rule.r=PASSED
+t5_rule_egress_tcp22_v4              CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=no result
+t6_inline_egress_tcp22_v4            CKV_AWS_24: aws_security_group.g=PASSED
+t7_vpc_egress_rule_tcp22_v4          CKV_AWS_24: aws_security_group.g=PASSED  aws_vpc_security_group_egress_rule.r=no result
+v1_rule_tcp22_v6_default             CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=FAILED
+v2_rule_tcp22_v6_expanded            CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=FAILED
+v3_rule_tcp22_v6_short_zeros         CKV_AWS_24: aws_security_group.g=PASSED  aws_security_group_rule.r=PASSED
+v4_inline_tcp22_v6_default           CKV_AWS_24: aws_security_group.g=FAILED
+v5_vpc_ingress_rule_tcp22_v6         CKV_AWS_24: aws_security_group.g=PASSED  aws_vpc_security_group_ingress_rule.r=PASSED
