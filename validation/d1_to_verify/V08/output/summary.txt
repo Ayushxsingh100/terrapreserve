@@ -1,0 +1,49 @@
+inline_v4_hostbits validate=1 plan=1 
+inline_v4_valid_control validate=0 plan=0 
+inline_v6_hostbits validate=1 plan=1 
+inline_v6_valid_control validate=0 plan=0 
+rule_v4_default_with_hostbits validate=1 plan=1 
+rule_v4_hostbits validate=1 plan=1 
+rule_v4_no_mask validate=1 plan=1 
+rule_v4_not_a_cidr validate=1 plan=1 
+rule_v4_prefix_too_long validate=1 plan=1 
+rule_v4_valid_control validate=0 plan=0 
+rule_v6_default_with_hostbits validate=1 plan=1 
+rule_v6_hostbits validate=1 plan=1 
+rule_v6_valid_control validate=0 plan=0 
+vpc_v4_hostbits validate=1 plan=1 
+
+== inline_v4_hostbits
+   │ Error: "10.0.0.5/24" is not a valid IPv4 CIDR block; did you mean "10.0.0.0/24"?
+   │ Error: "10.0.0.5/24" is not a valid IPv4 CIDR block; did you mean "10.0.0.0/24"?
+== inline_v4_valid_control
+== inline_v6_hostbits
+   │ Error: "2001:db8::1/32" is not a valid IPv6 CIDR block; did you mean "2001:db8::/32"?
+   │ Error: "2001:db8::1/32" is not a valid IPv6 CIDR block; did you mean "2001:db8::/32"?
+== inline_v6_valid_control
+== rule_v4_default_with_hostbits
+   │ Error: "0.0.0.1/0" is not a valid IPv4 CIDR block; did you mean "0.0.0.0/0"?
+   │ Error: "0.0.0.1/0" is not a valid IPv4 CIDR block; did you mean "0.0.0.0/0"?
+== rule_v4_hostbits
+   │ Error: "10.0.0.5/24" is not a valid IPv4 CIDR block; did you mean "10.0.0.0/24"?
+   │ Error: "10.0.0.5/24" is not a valid IPv4 CIDR block; did you mean "10.0.0.0/24"?
+== rule_v4_no_mask
+   │ Error: "10.0.0.1" is not a valid CIDR block: invalid CIDR address: 10.0.0.1
+   │ Error: "10.0.0.1" is not a valid CIDR block: invalid CIDR address: 10.0.0.1
+== rule_v4_not_a_cidr
+   │ Error: "not-a-cidr" is not a valid CIDR block: invalid CIDR address: not-a-cidr
+   │ Error: "not-a-cidr" is not a valid CIDR block: invalid CIDR address: not-a-cidr
+== rule_v4_prefix_too_long
+   │ Error: "10.0.0.0/33" is not a valid CIDR block: invalid CIDR address: 10.0.0.0/33
+   │ Error: "10.0.0.0/33" is not a valid CIDR block: invalid CIDR address: 10.0.0.0/33
+== rule_v4_valid_control
+== rule_v6_default_with_hostbits
+   │ Error: "::1/0" is not a valid IPv6 CIDR block; did you mean "::/0"?
+   │ Error: "::1/0" is not a valid IPv6 CIDR block; did you mean "::/0"?
+== rule_v6_hostbits
+   │ Error: "2001:db8::1/32" is not a valid IPv6 CIDR block; did you mean "2001:db8::/32"?
+   │ Error: "2001:db8::1/32" is not a valid IPv6 CIDR block; did you mean "2001:db8::/32"?
+== rule_v6_valid_control
+== vpc_v4_hostbits
+   │ Error: expected cidr_block to contain a valid network Value, expected 10.1.0.0/16, got 10.1.0.5/16
+   │ Error: expected cidr_block to contain a valid network Value, expected 10.1.0.0/16, got 10.1.0.5/16

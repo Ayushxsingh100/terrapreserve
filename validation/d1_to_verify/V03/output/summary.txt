@@ -1,0 +1,11 @@
+a10_two_instances_one_true           CKV_AWS_17: aws_db_instance.d1=PASSED  aws_db_instance.d2=FAILED
+a11_count_zero_true                  CKV_AWS_17: aws_db_instance.d=no result
+a1_absent                            CKV_AWS_17: aws_db_instance.d=PASSED
+a2_false                             CKV_AWS_17: aws_db_instance.d=PASSED
+a3_true                              CKV_AWS_17: aws_db_instance.d=FAILED
+a4_string_true                       CKV_AWS_17: aws_db_instance.d=FAILED
+a5_var_no_value                      CKV_AWS_17: aws_db_instance.d=no result
+a6_var_default_true                  CKV_AWS_17: aws_db_instance.d=FAILED
+a7_local_true                        CKV_AWS_17: aws_db_instance.d=FAILED
+a8_cluster_instance_true             CKV_AWS_17: aws_rds_cluster_instance.d=FAILED
+a9_cluster_instance_absent           CKV_AWS_17: aws_rds_cluster_instance.d=PASSED

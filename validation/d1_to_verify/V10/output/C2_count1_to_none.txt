@@ -1,0 +1,16 @@
+applied configs/count1.tf; state before the change:
+terraform_data.x[0]
+
+changed to configs/single.tf; `terraform plan -no-color`:
+$ terraform plan -input=false -no-color
+terraform_data.x: Refreshing state... [id=7c627c63-3678-ad15-b352-84d26706688f]
+
+Terraform will perform the following actions:
+
+  # terraform_data.x[0] has moved to terraform_data.x
+    resource "terraform_data" "x" {
+        id     = "7c627c63-3678-ad15-b352-84d26706688f"
+        # (2 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 0 to change, 0 to destroy.

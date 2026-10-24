@@ -1,0 +1,57 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "passed_checks": [],
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_17",
+                "bc_check_id": null,
+                "check_name": "Ensure all data stored in RDS is not publicly accessible",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "publicly_accessible"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "\\main.tf",
+                "file_abs_path": "X:\\TerraPreserve\\validation\\d1_to_verify\\V03\\a4_string_true\\main.tf",
+                "repo_file_path": "/a4_string_true/main.tf",
+                "file_line_range": [
+                    1,
+                    6
+                ],
+                "resource": "aws_db_instance.d",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.RDSPubliclyAccessible",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": {},
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": null,
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "X:\\TerraPreserve\\validation\\d1_to_verify\\V03\\a4_string_true\\main.tf"
+            }
+        ],
+        "skipped_checks": [],
+        "parsing_errors": []
+    },
+    "summary": {
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 1,
+        "checkov_version": "3.3.30"
+    },
+    "url": "Add an api key '--bc-api-key <api-key>' to see more detailed insights via https://bridgecrew.cloud"
+}

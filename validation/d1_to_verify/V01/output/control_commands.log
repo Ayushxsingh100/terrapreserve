@@ -1,0 +1,25 @@
+$ terraform init -input=false -lockfile=readonly
+Initializing the backend...
+
+Initializing provider plugins...
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Using previously-installed hashicorp/aws v6.53.0
+
+
+Terraform has been successfully initialized!
+[exit 0]
+
+$ terraform plan -input=false
+
+Planning failed. Terraform encountered an error while generating this plan.
+
+╷
+│ Error: Retrieving AWS account details: validating provider credentials: retrieving caller identity from STS: operation error STS: GetCallerIdentity, exceeded maximum number of attempts, 1, https response error StatusCode: 0, RequestID: , request send failed, Post "https://sts.us-east-1.amazonaws.com/": proxyconnect tcp: dial tcp 127.0.0.1:9: connectex: No connection could be made because the target machine actively refused it.
+│ 
+│   with provider["registry.terraform.io/hashicorp/aws"],
+│   on main.tf line 6, in provider "aws":
+│    6: provider "aws" {
+│ 
+╵
+[exit 1]
+

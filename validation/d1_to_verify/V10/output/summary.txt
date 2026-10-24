@@ -1,0 +1,11 @@
+C1_none_to_count1                    terraform_data.x[0]: actions=['no-op'] previous_address=terraform_data.x
+C2_count1_to_none                    terraform_data.x: actions=['no-op'] previous_address=terraform_data.x[0]
+C3_none_to_foreach_a                 terraform_data.x: actions=['delete']; terraform_data.x["a"]: actions=['create']
+C4_count1_to_foreach_a               terraform_data.x[0]: actions=['delete']; terraform_data.x["a"]: actions=['create']
+C5_foreach_a_to_none                 terraform_data.x: actions=['create']; terraform_data.x["a"]: actions=['delete']
+C6_foreach_a_to_count1               terraform_data.x[0]: actions=['create']; terraform_data.x["a"]: actions=['delete']
+C7_none_to_count2                    terraform_data.x[0]: actions=['no-op'] previous_address=terraform_data.x; terraform_data.x[1]: actions=['create']
+C8_count2_to_none                    terraform_data.x: actions=['no-op'] previous_address=terraform_data.x[0]; terraform_data.x[1]: actions=['delete']
+M3_none_to_foreach_a_moved           terraform_data.x["a"]: actions=['no-op'] previous_address=terraform_data.x
+M4_count1_to_foreach_a_moved         terraform_data.x["a"]: actions=['no-op'] previous_address=terraform_data.x[0]
+M6_foreach_a_to_count1_moved         terraform_data.x[0]: actions=['no-op'] previous_address=terraform_data.x["a"]

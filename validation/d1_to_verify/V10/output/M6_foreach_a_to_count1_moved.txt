@@ -1,0 +1,16 @@
+applied configs/foreach_a.tf; state before the change:
+terraform_data.x["a"]
+
+changed to configs/foreach_a_moved_to_count1.tf; `terraform plan -no-color`:
+$ terraform plan -input=false -no-color
+terraform_data.x[0]: Refreshing state... [id=64847027-42a6-7222-bcf5-5402d8aa37a0]
+
+Terraform will perform the following actions:
+
+  # terraform_data.x["a"] has moved to terraform_data.x[0]
+    resource "terraform_data" "x" {
+        id     = "64847027-42a6-7222-bcf5-5402d8aa37a0"
+        # (2 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 0 to change, 0 to destroy.

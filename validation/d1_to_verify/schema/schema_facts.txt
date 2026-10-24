@@ -1,0 +1,21 @@
+[V13] aws_instance.vpc_security_group_ids: attribute, optional+computed, type ["set", "string"]
+[V13] aws_instance.security_group_ids: ABSENT
+[V13] aws_instance.security_groups: attribute, optional+computed, type ["set", "string"]
+[V13] aws_instance.subnet_id: attribute, optional+computed, type "string"
+[V13] aws_instance.private_ip: attribute, optional+computed, type "string"
+[V14] aws_security_group_rule.type: attribute, required, type "string"
+[V14] aws_security_group_rule.security_group_id: attribute, required, type "string"
+[V14] aws_security_group_rule.security_group_ids: ABSENT
+[V14] aws_security_group_rule.source_security_group_id: attribute, optional+computed, type "string"
+[V14] aws_security_group_rule.self: attribute, optional, type "bool"
+[V14] aws_security_group_rule.cidr_blocks: attribute, optional, type ["list", "string"]
+[V14] aws_security_group_rule.ipv6_cidr_blocks: attribute, optional, type ["list", "string"]
+[V14] aws_security_group_rule.prefix_list_ids: attribute, optional, type ["list", "string"]
+[V05] aws_db_instance.publicly_accessible: attribute, optional, type "bool"
+[V07] aws_db_instance.port: attribute, optional+computed, type "number"
+[V07] aws_db_instance.engine: attribute, optional+computed, type "string"
+[V12] aws_instance.network_interface: nested block (set)
+[V12] aws_instance.primary_network_interface: nested block (list)
+[V12] aws_route_table.route: attribute, optional+computed, type ["set", ["object", {"carrier_gateway_id": "string", "cidr_block": "string", "core_network_arn": "string", "destination_prefix_list_id": "string", "egress_only_gateway_id": "string", "gateway_id": "string", "ipv6_cidr_block": "string", "local_gateway_id": "string", "nat_gateway_id": "string", "network_interface_id": "string", "odb_network_arn": "string", "transit_gateway_id": "string", "vpc_endpoint_id": "string", "vpc_peering_connection_id": "string"}]]
+[V12] aws_route_table.propagating_vgws: attribute, optional+computed, type ["set", "string"]
+[V14] aws_security_group.ingress element attributes: cidr_blocks, description, from_port, ipv6_cidr_blocks, prefix_list_ids, protocol, security_groups, self, to_port

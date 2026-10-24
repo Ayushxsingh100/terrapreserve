@@ -1,0 +1,5 @@
+debug.log lines:                      345
+lines mentioning amazonaws.com:       0
+lines mentioning proxyconnect:        0
+lines mentioning 'Sending' requests:  0
+lines mentioning skip/credentials:    4

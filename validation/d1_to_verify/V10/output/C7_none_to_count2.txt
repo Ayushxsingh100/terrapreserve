@@ -1,0 +1,27 @@
+applied configs/single.tf; state before the change:
+terraform_data.x
+
+changed to configs/count2.tf; `terraform plan -no-color`:
+$ terraform plan -input=false -no-color
+terraform_data.x[0]: Refreshing state... [id=4bec3767-266f-4122-df30-6a6db0461180]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # terraform_data.x has moved to terraform_data.x[0]
+    resource "terraform_data" "x" {
+        id     = "4bec3767-266f-4122-df30-6a6db0461180"
+        # (2 unchanged attributes hidden)
+    }
+
+  # terraform_data.x[1] will be created
+  + resource "terraform_data" "x" {
+      + id     = (known after apply)
+      + input  = "v"
+      + output = (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
