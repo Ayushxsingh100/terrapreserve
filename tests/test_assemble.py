@@ -331,7 +331,7 @@ class TestAssembleAndVerify(unittest.TestCase):
         doc = self.pool_json()
         doc["entries"][2]["lineage_id"] = doc["entries"][1]["lineage_id"]
         self.save_pool_json(doc)
-        self.assertTrue(any("lineage" in p and "host" in p for p in self.problems()), self.problems())
+        self.assertTrue(any("has 2 accepted hosts" in p for p in self.problems()), self.problems())
 
     def test_an_accepted_entry_missing_from_lineages_json_is_caught(self) -> None:
         path = self.pool / "lineages.json"
