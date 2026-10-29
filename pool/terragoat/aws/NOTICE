@@ -1,0 +1,11 @@
+TerraGoat-derived files
+=======================
+
+The .tf files in this directory are derived from TerraGoat (https://github.com/bridgecrewio/terragoat), commit 729f8da62c6a85ce4af5ad3d123de97776d954c4,
+directory terraform/aws/, which is licensed under the Apache License, Version 2.0. The licence text
+is in LICENSE.upstream and applies to these files.
+
+Changes made to the upstream files (Apache License, Version 2.0, section 4(b)): attributes that hold
+credential-like literals were deleted so that the dataset contains no secrets. Nothing else was changed.
+Each deleted attribute is listed in REDACTION_LOG.md by file, line, resource address and attribute name;
+the log holds no values. SOURCE.json gives the sha256 of every file before and after.

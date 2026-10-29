@@ -1,0 +1,106 @@
+{
+ "commit": "729f8da62c6a85ce4af5ad3d123de97776d954c4",
+ "directory": "terraform/aws",
+ "files": [
+  {
+   "bytes": 805,
+   "path": "consts.tf",
+   "sha256": "517810c105054c1a64b8e58dafd4edc3ae958fa0416869cc5a64c742ea9c546a",
+   "upstream_sha256": "517810c105054c1a64b8e58dafd4edc3ae958fa0416869cc5a64c742ea9c546a"
+  },
+  {
+   "bytes": 8325,
+   "path": "db-app.tf",
+   "sha256": "1f7cd59838905ace21aabfa9d698a237fbcdce0db1d802f7db54b928b21e92d8",
+   "upstream_sha256": "242feb266e4ed7fc3a2725f88bade8b0029d46bbda3d66b60c4936381f7deda9"
+  },
+  {
+   "bytes": 9534,
+   "path": "ec2.tf",
+   "sha256": "6ac7df3d0264546b64175100b1537af93b9a012d1d641fd91aea9706a2dd7cbd",
+   "upstream_sha256": "5fcc2d4cf052fb2032d9470179f63a903d280b99cf5b1bb2db6e15200ecd9428"
+  },
+  {
+   "bytes": 1318,
+   "path": "ecr.tf",
+   "sha256": "727c87b76cdc42093d46bb1c54219e1db5b7a6fce253358ead09ec0c8aa80da7",
+   "upstream_sha256": "727c87b76cdc42093d46bb1c54219e1db5b7a6fce253358ead09ec0c8aa80da7"
+  },
+  {
+   "bytes": 5862,
+   "path": "eks.tf",
+   "sha256": "57cc62bd473ec45085c78b13cfa57a8ea35a24baac8192ab922e15d08ed17c2e",
+   "upstream_sha256": "57cc62bd473ec45085c78b13cfa57a8ea35a24baac8192ab922e15d08ed17c2e"
+  },
+  {
+   "bytes": 1200,
+   "path": "elb.tf",
+   "sha256": "2c85b9cd746c3895765514328fdc40c9266e06c2e7300e9728bfc0cacf05ff59",
+   "upstream_sha256": "2c85b9cd746c3895765514328fdc40c9266e06c2e7300e9728bfc0cacf05ff59"
+  },
+  {
+   "bytes": 1284,
+   "path": "es.tf",
+   "sha256": "fd15bbc8a04349a8a78286bf66896efb2b2560683285cdb0b9b60e8eadcbbaba",
+   "upstream_sha256": "fd15bbc8a04349a8a78286bf66896efb2b2560683285cdb0b9b60e8eadcbbaba"
+  },
+  {
+   "bytes": 1203,
+   "path": "iam.tf",
+   "sha256": "f0e93459e04e74b3999e1f057909776220cfcfa782e0837284d5f179c33521af",
+   "upstream_sha256": "f0e93459e04e74b3999e1f057909776220cfcfa782e0837284d5f179c33521af"
+  },
+  {
+   "bytes": 763,
+   "path": "kms.tf",
+   "sha256": "f1f3d5f95507b15f2c5c0b18c0aae888452b1bee722199b989c3288371cd2f27",
+   "upstream_sha256": "f1f3d5f95507b15f2c5c0b18c0aae888452b1bee722199b989c3288371cd2f27"
+  },
+  {
+   "bytes": 1802,
+   "path": "lambda.tf",
+   "sha256": "873fd285159d2de95d3021c5bb853cccb07e658e5e2e3453ab87147e545088d2",
+   "upstream_sha256": "873fd285159d2de95d3021c5bb853cccb07e658e5e2e3453ab87147e545088d2"
+  },
+  {
+   "bytes": 1977,
+   "path": "neptune.tf",
+   "sha256": "c743ca589b3c3ca0fa311ec9fc0c135233852314b0c2aea0a0bf6ed5203a2d6c",
+   "upstream_sha256": "c743ca589b3c3ca0fa311ec9fc0c135233852314b0c2aea0a0bf6ed5203a2d6c"
+  },
+  {
+   "bytes": 218,
+   "path": "providers.tf",
+   "sha256": "96e66b3e3e2a6942110af71205a238e63ecc80b8c23ea8cb980b8a7fc8769b94",
+   "upstream_sha256": "edb39e696e7ac40f8f95d27e767435a129e4a651e54046ea2a3adcd12908928d"
+  },
+  {
+   "bytes": 5119,
+   "path": "rds.tf",
+   "sha256": "b6b7b4e4577b6766d7b133fcd739eebbb02e950c1afa58943f3178e3906a4d27",
+   "upstream_sha256": "b6b7b4e4577b6766d7b133fcd739eebbb02e950c1afa58943f3178e3906a4d27"
+  },
+  {
+   "bytes": 4746,
+   "path": "s3.tf",
+   "sha256": "860ce876f7c4144f560517f16ef46e57b97b2917dc81b6db5ac32594a7ea643e",
+   "upstream_sha256": "860ce876f7c4144f560517f16ef46e57b97b2917dc81b6db5ac32594a7ea643e"
+  }
+ ],
+ "kind": "terragoat",
+ "licence_file": "LICENSE.upstream",
+ "licence_file_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "licence_spdx": "Apache-2.0",
+ "not_copied": [
+  "terraform/aws/resources/Dockerfile",
+  "terraform/aws/resources/customer-master.xlsx",
+  "terraform/aws/resources/lambda_function_payload.zip"
+ ],
+ "not_copied_reason": "not .tf files; the secret inventory covers .tf files only",
+ "redactions": 4,
+ "repository": "https://github.com/bridgecrewio/terragoat",
+ "scanners": {
+  "attribute_inventory": "run",
+  "gitleaks": "8.30.1"
+ }
+}

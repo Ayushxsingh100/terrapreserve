@@ -15,6 +15,7 @@ import collections
 import io
 import json
 import posixpath
+import random
 import tarfile
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -24,7 +25,7 @@ import hcl_lex
 import lexical_crosscheck
 import measure_yield as my
 
-from pool import refs
+from pool import lineage, refs
 
 CODES = (
     "E01_LICENCE_BUCKET",
@@ -268,3 +269,122 @@ def run_filter(db: Path, archive: Path, work: Path) -> dict:
         "e01_not_candidates": loaded.e01_not_candidates,
         "funnel": loaded.funnel,
     }
+
+
+# --------------------------------------------------------------------------- E10 and the expensive steps
+
+SEED = 20261030
+HOST_ACCEPT_TARGET = 400
+HOST_PROCESS_CAP = 1500
+NOT_PROCESSED = "NOT_PROCESSED"
+LEDGER_CODES = CODES + (NOT_PROCESSED,)
+
+
+@dataclass
+class Plan:
+    natives: list[int]  # every native that passed E01 to E08, by module id
+    hosts: list[int]  # one host per lineage, in the seeded processing order
+    e10: dict[int, int]  # host dropped as a lineage duplicate -> the host kept in its place
+
+
+def make_plan(passed_natives: list[int], passed_hosts: list[int], lineage_of: dict[int, str], seed: int = SEED) -> Plan:
+    """Natives all go on. Hosts are cut to one per lineage (smallest module id, E10), then shuffled with
+    ``random.Random(seed)`` over the sorted ids (D3-10)."""
+    kept, dropped = lineage.one_per_lineage(sorted(passed_hosts), lineage_of)
+    order = sorted(kept)
+    random.Random(seed).shuffle(order)
+    return Plan(sorted(passed_natives), order, dropped)
+
+
+def process_module(module_id: int, kind: str, steps) -> dict:
+    """E09, then E11, then E12; the first that fails is the module's code and the rest are not run."""
+    record: dict = {"module_id": module_id, "kind": kind, "code": None, "detail": "", "group": "",
+                    "secrets": None, "licence": None, "validate": None}
+    s = steps.secrets(module_id)
+    record["secrets"] = {"gitleaks_findings": s.gitleaks_findings, "inventory_flagged": s.inventory_flagged,
+                         "rules": list(s.rules), "attributes": list(s.attributes)}
+    if s.gitleaks_findings or s.inventory_flagged:
+        what = [f"gitleaks {r}" for r in s.rules] + [f"inventory {a}" for a in s.attributes]
+        record.update(code="E09_SECRET_FOUND", group="; ".join(what),
+                      detail=f"gitleaks {s.gitleaks_findings} finding(s), inventory {s.inventory_flagged} flagged attribute(s)")
+        return record
+    c = steps.licence(module_id)
+    record["licence"] = {f: getattr(c, f) for f in ("repo_id", "file_name", "http_status", "bytes", "sha256",
+                                                    "detected_spdx", "terrads_spdx", "outcome", "detail")}
+    if c.outcome != "found":
+        record.update(code="E11_LICENCE_UNVERIFIED", group=c.outcome, detail=f"{c.outcome}: {c.detail}".rstrip(": "))
+        return record
+    v = steps.validate(module_id)
+    record["validate"] = {"status": v.status, "terraform_version": v.terraform_version,
+                          "provider_version": v.provider_version, "error_class": v.error_class}
+    if v.status != "valid":
+        record.update(code="E12_INVALID_UNDER_PIN", group=f"{v.status}: {v.error_class}",
+                      detail=f"{v.status}: {v.error_class}")
+    return record
+
+
+def process_all(plan: Plan, steps, records: dict[int, dict], append, accept_target: int = HOST_ACCEPT_TARGET,
+                process_cap: int = HOST_PROCESS_CAP) -> None:
+    """Run the expensive steps. Finished modules (``records``) are skipped but still count toward the stop rule,
+    so a rerun resumes. New records go to ``records`` and to ``append`` (the caller persists them)."""
+    for module_id in plan.natives:
+        if module_id not in records:
+            record = process_module(module_id, "native", steps)
+            records[module_id] = record
+            append(record)
+    accepted = processed = 0
+    for module_id in plan.hosts:
+        if accepted >= accept_target or processed >= process_cap:
+            break
+        record = records.get(module_id)
+        if record is None:
+            record = process_module(module_id, "host", steps)
+            records[module_id] = record
+            append(record)
+        processed += 1
+        accepted += record["code"] is None
+
+
+def ledger(candidates: list[Candidate], cheap: dict[int, tuple[str, str, str]], plan: Plan,
+           records: dict[int, dict]) -> list[dict]:
+    """One row per candidate: accepted, excluded (with the first code) or not processed."""
+    rows = []
+    for c in sorted(candidates, key=lambda c: (c.kind, c.module_id)):
+        base = {"module_id": c.module_id, "repo_id": c.repo_id, "repo_full_name": c.full_name, "module_path": c.path,
+                "kind": c.kind}
+        if c.module_id in cheap:
+            code, detail, group = cheap[c.module_id]
+            rows.append({**base, "status": "excluded", "code": code, "detail": detail, "group": group})
+        elif c.module_id in plan.e10:
+            rows.append({**base, "status": "excluded", "code": "E10_LINEAGE_DUPLICATE",
+                         "detail": f"same lineage as host {plan.e10[c.module_id]}", "group": "lineage duplicate"})
+        elif c.module_id in records:
+            r = records[c.module_id]
+            if r["code"] is None:
+                rows.append({**base, "status": "accepted", "code": "", "detail": "", "group": ""})
+            else:
+                rows.append({**base, "status": "excluded", "code": r["code"], "detail": r["detail"], "group": r["group"]})
+        else:
+            rows.append({**base, "status": "not_processed", "code": NOT_PROCESSED, "group": "not processed",
+                         "detail": "host beyond the 400-accepted / 1,500-processed stop rule or run not finished"})
+    return rows
+
+
+def ledger_counts(rows: list[dict], considered: dict[str, int]) -> dict[str, dict[str, int]]:
+    """Per kind: considered, accepted, excluded, not processed. Raises ``AssertionError`` unless
+    considered == accepted + excluded + not_processed, and the rows cover exactly the considered candidates."""
+    out = {}
+    for kind in KINDS:
+        mine = [r for r in rows if r["kind"] == kind]
+        counts = {"considered": considered[kind]}
+        for status in ("accepted", "excluded", "not_processed"):
+            counts[status] = sum(1 for r in mine if r["status"] == status)
+        if len({r["module_id"] for r in mine}) != len(mine):
+            raise AssertionError(f"{kind}: a candidate appears twice in the ledger")
+        if counts["considered"] != counts["accepted"] + counts["excluded"] + counts["not_processed"]:
+            raise AssertionError(f"{kind}: considered {counts['considered']} != accepted + excluded + not processed {counts}")
+        unknown = {r["code"] for r in mine if r["code"] and r["code"] not in LEDGER_CODES}
+        if unknown:
+            raise AssertionError(f"{kind}: unknown code(s) {sorted(unknown)}")
+        out[kind] = counts
+    return out
