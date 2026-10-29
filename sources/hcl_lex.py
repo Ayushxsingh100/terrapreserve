@@ -19,7 +19,7 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 IDENT_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_\-]*")
 NUMBER_RE = re.compile(r"[0-9][A-Za-z0-9_.]*")
@@ -88,12 +88,21 @@ def _scan_string(text: str, i: int) -> tuple[int, bool, str, int]:
 
 
 def tokenize(text: str) -> list[Token]:
-    tokens: list[Token] = []
+    return [tok for tok, _start, _end in tokenize_spans(text)]
+
+
+def tokenize_spans(text: str) -> list[tuple[Token, int, int]]:
+    """The tokens of :func:`tokenize`, each with its character span ``(start, end)`` in ``text``.
+
+    A heredoc token spans its header and body up to the end of the terminator line; the NEWLINE token
+    that follows it has an empty span at that end.
+    """
+    tokens: list[tuple[Token, int, int]] = []
     i, line, n = 0, 1, len(text)
     while i < n:
         ch = text[i]
         if ch == "\n":
-            tokens.append(Token("NEWLINE", "\n", line, line))
+            tokens.append((Token("NEWLINE", "\n", line, line), i, i + 1))
             line += 1
             i += 1
         elif ch in " \t\r":
@@ -108,7 +117,7 @@ def tokenize(text: str) -> list[Token]:
             i = end
         elif ch == '"':
             j, literal, inner, nl = _scan_string(text, i)
-            tokens.append(Token("STRING", inner, line, line + nl, literal))
+            tokens.append((Token("STRING", inner, line, line + nl, literal), i, j))
             line += nl
             i = j
         elif ch == "<" and (m := HEREDOC_RE.match(text, i)):
@@ -125,19 +134,19 @@ def tokenize(text: str) -> list[Token]:
                 if current.strip() == marker:
                     break
             end_line = line + body_lines - 1  # the terminator line
-            tokens.append(Token("HEREDOC", "", line, end_line, True))
+            tokens.append((Token("HEREDOC", "", line, end_line, True), i, j))
             i = j
             # the terminator line's own newline was consumed with it
-            tokens.append(Token("NEWLINE", "\n", end_line, end_line))
+            tokens.append((Token("NEWLINE", "\n", end_line, end_line), j, j))
             line = end_line + 1
         elif m := IDENT_RE.match(text, i):
-            tokens.append(Token("IDENT", m.group(), line, line))
+            tokens.append((Token("IDENT", m.group(), line, line), i, m.end()))
             i = m.end()
         elif m := NUMBER_RE.match(text, i):
-            tokens.append(Token("NUMBER", m.group(), line, line))
+            tokens.append((Token("NUMBER", m.group(), line, line), i, m.end()))
             i = m.end()
         else:
-            tokens.append(Token("PUNCT", ch, line, line))
+            tokens.append((Token("PUNCT", ch, line, line), i, i + 1))
             i += 1
     return tokens
 
@@ -347,3 +356,226 @@ def attributes_from_hcl(text: str) -> list[Attribute]:
             continue
         i = j if j > i else i + 1
     return out
+
+
+# --------------------------------------------------------------------------- D3 additions
+# Added for the pool builder (D3 step 2). Nothing above this line was changed in behaviour;
+# ``tokenize`` now delegates to ``tokenize_spans``, which returns the same tokens plus offsets.
+
+
+def interpolations(raw: str, escapes: bool = True) -> list[str]:
+    """Inner expression text of every ``${...}`` / ``%{...}`` in ``raw`` (``$${`` and ``%%{`` are literal).
+
+    ``raw`` is a STRING token's text (``escapes=True``: a backslash protects the next character) or a
+    heredoc body (``escapes=False``: a backslash is an ordinary character).
+    """
+    found: list[str] = []
+    i, n = 0, len(raw)
+    while i < n:
+        if escapes and raw[i] == "\\":
+            i += 2
+        elif raw.startswith(("$${", "%%{"), i):
+            i += 3
+        elif raw.startswith(("${", "%{"), i):
+            j, _newlines = _skip_interpolation(raw, i + 2)
+            closed = j <= n and raw[j - 1 : j] == "}"
+            found.append(raw[i + 2 : j - 1] if closed else raw[i + 2 : j])
+            i = j
+        else:
+            i += 1
+    return found
+
+
+def heredoc_body(text: str, token: Token) -> str:
+    """The lines strictly between a HEREDOC token's header line and its terminator line."""
+    lines = text.split("\n")
+    return "\n".join(lines[token.line : token.end_line - 1])
+
+
+@dataclass
+class Constructs:
+    """Which Terraform constructs a module uses. Flags only; nothing is excluded because of them."""
+
+    has_count: bool = False  # ``count`` as a meta-argument of a resource, data or module block
+    has_for_each: bool = False  # ``for_each`` likewise (a dynamic block's for_each is has_dynamic)
+    has_dynamic: bool = False
+    has_locals: bool = False
+    has_lifecycle: bool = False
+    has_provisioner: bool = False
+    has_terraform_block: bool = False
+    has_backend: bool = False
+    has_provider_block: bool = False
+    required_versions: set[str] = field(default_factory=set)  # terraform { required_version = ... }
+    provider_constraints: set[str] = field(default_factory=set)  # "name=constraint"
+
+    @property
+    def terraform_required_version(self) -> str | None:
+        return "; ".join(sorted(self.required_versions)) or None
+
+
+_BOOL_FIELDS = (
+    "has_count", "has_for_each", "has_dynamic", "has_locals", "has_lifecycle",
+    "has_provisioner", "has_terraform_block", "has_backend", "has_provider_block",
+)
+
+
+def merge_constructs(parts: list[Constructs]) -> Constructs:
+    total = Constructs()
+    for part in parts:
+        for name in _BOOL_FIELDS:
+            if getattr(part, name):
+                setattr(total, name, True)
+        total.required_versions |= part.required_versions
+        total.provider_constraints |= part.provider_constraints
+    return total
+
+
+def _object_version(expr: list[Token]) -> str:
+    """``version`` inside an object-literal expression ``{ source = "...", version = "..." }``, or ""."""
+    for k, tok in enumerate(expr[:-2]):
+        if tok.kind == "IDENT" and tok.text == "version" and expr[k + 1].text == "=" and expr[k + 2].kind == "STRING":
+            return expr[k + 2].text
+    return ""
+
+
+def constructs_from_hcl(text: str) -> Constructs:
+    """Flags for the constructs one ``.tf`` file uses, found by block structure (comments, strings and
+    heredoc bodies are never read as HCL)."""
+    tokens = tokenize(text)
+    out = Constructs()
+    stack: list[tuple[str, list[str]]] = []  # (block keyword, labels), outermost first
+    i, n = 0, len(tokens)
+    while i < n:
+        tok = tokens[i]
+        if tok.kind == "NEWLINE" or (tok.kind == "PUNCT" and tok.text in (",", ";")):
+            i += 1
+            continue
+        if tok.kind == "PUNCT" and tok.text == "}":
+            if stack:
+                stack.pop()
+            i += 1
+            continue
+        if tok.kind != "IDENT":
+            i += 1
+            continue
+        nxt = tokens[i + 1] if i + 1 < n else None
+        if nxt is not None and nxt.kind == "PUNCT" and nxt.text == "=":
+            j = i + 2
+            expr: list[Token] = []
+            depth = 0
+            while j < n:
+                t = tokens[j]
+                if t.kind == "NEWLINE" and depth == 0:
+                    break
+                if t.kind == "PUNCT" and t.text in "([{":
+                    depth += 1
+                elif t.kind == "PUNCT" and t.text in ")]}":
+                    if depth == 0:
+                        break
+                    depth -= 1
+                expr.append(t)
+                j += 1
+            kinds = [k for k, _ in stack]
+            first = next((t for t in expr if t.kind != "NEWLINE"), None)
+            if len(stack) == 1 and kinds[0] in ("resource", "data", "module"):
+                if tok.text == "count":
+                    out.has_count = True
+                elif tok.text == "for_each":
+                    out.has_for_each = True
+            elif kinds == ["terraform"] and tok.text == "required_version" and first and first.kind == "STRING":
+                out.required_versions.add(first.text)
+            elif kinds == ["terraform", "required_providers"]:
+                if first is not None and first.kind == "STRING":
+                    constraint = first.text
+                elif first is not None and first.kind == "PUNCT" and first.text == "{":
+                    constraint = _object_version(expr)
+                else:
+                    constraint = ""
+                out.provider_constraints.add(f"{tok.text}={constraint}")
+            elif kinds == ["provider"] and tok.text == "version" and first and first.kind == "STRING":
+                labels = stack[0][1]
+                out.provider_constraints.add(f"{labels[0] if labels else ''}={first.text}")
+            i = j
+            continue
+        labels = []
+        j = i + 1
+        while j < n and (lab := _label(tokens[j])) is not None:
+            labels.append(lab)
+            j += 1
+        if j < n and tokens[j].kind == "PUNCT" and tokens[j].text == "{":
+            kinds = [k for k, _ in stack]
+            if not stack:
+                if tok.text == "locals":
+                    out.has_locals = True
+                elif tok.text == "terraform":
+                    out.has_terraform_block = True
+                elif tok.text == "provider":
+                    out.has_provider_block = True
+            else:
+                if tok.text == "dynamic":
+                    out.has_dynamic = True
+                elif len(stack) == 1 and tok.text == "lifecycle":
+                    out.has_lifecycle = True
+                elif len(stack) == 1 and tok.text == "provisioner":
+                    out.has_provisioner = True
+                elif kinds == ["terraform"] and tok.text == "backend":
+                    out.has_backend = True
+            stack.append((tok.text, labels))
+            i = j + 1
+            continue
+        i = j if j > i else i + 1
+    return out
+
+
+def remove_top_level_blocks(text: str, kinds: tuple[str, ...]) -> str:
+    """``text`` without its top-level blocks whose keyword is in ``kinds``, found by brace depth.
+
+    Each removed block takes its whole lines with it when only blanks share them; everything else is
+    returned byte for byte. Used by the D3-09 neutralisation (``terraform`` and ``provider`` blocks).
+    """
+    spans = tokenize_spans(text)
+    cuts: list[tuple[int, int]] = []
+    depth = 0
+    i, n = 0, len(spans)
+    while i < n:
+        tok, start, _end = spans[i]
+        if tok.kind == "PUNCT" and tok.text == "{":
+            depth += 1
+        elif tok.kind == "PUNCT" and tok.text == "}":
+            depth = max(depth - 1, 0)
+        elif depth == 0 and tok.kind == "IDENT" and tok.text in kinds:
+            j = i + 1
+            while j < n and _label(spans[j][0]) is not None:
+                j += 1
+            if j < n and spans[j][0].kind == "PUNCT" and spans[j][0].text == "{":
+                level = 0
+                k = j
+                block_end = len(text)
+                while k < n:
+                    t = spans[k][0]
+                    if t.kind == "PUNCT" and t.text == "{":
+                        level += 1
+                    elif t.kind == "PUNCT" and t.text == "}":
+                        level -= 1
+                        if level == 0:
+                            block_end = spans[k][2]
+                            break
+                    k += 1
+                cuts.append((start, block_end))
+                i = k + 1
+                continue
+        i += 1
+    out: list[str] = []
+    cursor = 0
+    for start, end in cuts:
+        line_start = text.rfind("\n", 0, start) + 1
+        if text[line_start:start].strip(" \t") == "":
+            start = line_start
+        eol = text.find("\n", end)
+        tail_end = len(text) if eol == -1 else eol
+        if text[end:tail_end].strip(" \t\r") == "":
+            end = min(tail_end + 1, len(text))
+        out.append(text[cursor:start])
+        cursor = end
+    out.append(text[cursor:])
+    return "".join(out)
