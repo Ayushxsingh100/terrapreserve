@@ -35,7 +35,7 @@ TerraPreserve is a benchmark dataset for Terraform invariant-preservation, built
 
 ```bash
 python -m unittest discover -s tests -p "test_*.py"
-terraform fmt -check -recursive
+terraform fmt -check -recursive validation   # first-party only; pool/ is verbatim third-party text
 terraform -chdir=validation/smoke init -backend=false -lockfile=readonly
 terraform -chdir=validation/smoke validate
 ```

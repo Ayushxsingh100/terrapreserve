@@ -28,6 +28,17 @@ FILES = (
     "validation/smoke/main.tf",
     "validation/smoke/.terraform.lock.hcl",
     ".github/workflows/ci.yml",
+    # D3 (pool construction)
+    "docs/D3_DECISIONS.md",
+    "pool/__init__.py",
+    "pool/build.py",
+    "pool/cascade.py",
+    "pool/lineage.py",
+    "pool/refs.py",
+    "pool/redact.py",
+    "pool/licence.py",
+    "pool/validate.py",
+    "pool/report.py",
 )
 DIRS = ("LICENSES", "sources", "pool", "generator", "oracle", "scenarios", "validation/smoke", "tests")
 
@@ -54,6 +65,12 @@ class TestLayout(unittest.TestCase):
                 self.assertGreater(len(text.strip()), 0)
                 for title in titles:
                     self.assertIn(title, text)
+
+    def test_fmt_check_is_scoped_to_first_party_directories(self) -> None:
+        """pool/ holds verbatim third-party text (D3-04); the fmt check must not cover it."""
+        ci = (REPO_ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+        fmt_lines = [ln.strip() for ln in ci.splitlines() if "terraform fmt" in ln and not ln.strip().startswith("#")]
+        self.assertEqual(fmt_lines, ["- run: terraform fmt -check -recursive validation"])
 
     def test_terraform_lock_file_is_not_ignored(self) -> None:
         # check-ignore exits 0 if the path is ignored, 1 if it is not.
