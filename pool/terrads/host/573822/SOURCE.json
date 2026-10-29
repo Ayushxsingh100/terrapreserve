@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "40097891e3716ec5b8bab5e7143897a65b9c19c3b95c99037acde1ded9f2fc7f",
+  "outputs.tf": "854daf008c36245941c85562c671c5d21c92d10396f0768179e05714cd491a5c",
+  "variables.tf": "9dfdf063a97a61f81dee4fe1b9560eebf5facc61811fc01a99beb157c48be25d"
+ },
+ "commit_sha": "9d24274eac786435ff8ca9de6fb0ccef7fecc532",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "6b0f587946acf86c516da0ed442bc85d1503c75233efc2e2e1c44e9c094017bc",
+ "module_id": 573822,
+ "module_path": "Alunos/Alessandro de Lucena Silva - 01613750/ec2-cloud-activity/modules/security-group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-573822",
+ "repo_full_name": "CaValk4/ARRAY-VAZIO-TEAM",
+ "repo_id": 847897819,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

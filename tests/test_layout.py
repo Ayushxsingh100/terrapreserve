@@ -40,6 +40,7 @@ FILES = (
     "pool/validate.py",
     "pool/report.py",
     "pool/assemble.py",
+    "docs/D4_CARRYOVER.md",
 )
 DIRS = ("LICENSES", "sources", "pool", "generator", "oracle", "scenarios", "validation/smoke", "tests")
 

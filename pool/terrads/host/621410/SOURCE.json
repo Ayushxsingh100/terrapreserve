@@ -1,0 +1,28 @@
+{
+ "archive_sha256": {
+  "main.tf": "d54f96f814ce06324a5642dc399e65af932302bf53f78b4073c0b4d38088d7ad",
+  "outputs.tf": "29b79aead92ee2e2f8e24009a88e358093b23f841c083b05e26b988379becc82",
+  "variables.tf": "4f062ec4630da6fa6c12b63a3c88562596736ca9e3d21e97c4357d6e5fa07283"
+ },
+ "commit_sha": "64276592974b7fed22e9fc9f3b5b32e108e2af93",
+ "crlf_normalised": [
+  "main.tf",
+  "outputs.tf",
+  "variables.tf"
+ ],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "c3cab36e2f1aba895ca8d27e9ce439d87237e816376f9316969cce7174580913",
+ "module_id": 621410,
+ "module_path": "modules/ec2-module/private-instances",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-621410",
+ "repo_full_name": "michaelcriss09/AWS-SCALABLE-VPC-ARCHITECTURE-w-TERRAFORM",
+ "repo_id": 983884999,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

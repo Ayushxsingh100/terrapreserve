@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "main.tf": "a45689ba7fe2280c8028a7fc388a1525a5195d8530ce21b1ab57b05f43d66ffe",
+  "outputs.tf": "74bdd504407417ef73c9d8b69c07c4186c55847c177ba5de3a4697d2f238c6d5",
+  "security_groups.tf": "354f0f0268951055e771a2bc98f88534672096990626ad901bda608dff2735d4",
+  "variables.tf": "2ed6bea161700173d89feb5502736b4b9afc4595a06e9c1e39c2b9de770a1626"
+ },
+ "commit_sha": "041993bec49a9ae04cc065e4576c491cedc27f17",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "75b32b89fc7fb71340fe6ed0511481a4476d43faa5a7056532f34afa4e88b968",
+ "module_id": 615115,
+ "module_path": "project-1-iac/modules/network",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-615115",
+ "repo_full_name": "yurialcant/devops-portfolio-iac",
+ "repo_id": 965246260,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

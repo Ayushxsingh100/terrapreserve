@@ -388,3 +388,22 @@ def ledger_counts(rows: list[dict], considered: dict[str, int]) -> dict[str, dic
             raise AssertionError(f"{kind}: unknown code(s) {sorted(unknown)}")
         out[kind] = counts
     return out
+
+
+def licence_checks_from_records(records: dict[int, dict], candidates: dict[int, Candidate]) -> dict[int, "licence.Check"]:
+    """The E11 results saved in the process records, as ``Check`` rows keyed by repository id. The records are
+    the authority: the committed CSV is written from them."""
+    from pool import licence
+
+    out: dict[int, licence.Check] = {}
+    for module_id, record in sorted(records.items()):
+        saved = record.get("licence")
+        if not saved:
+            continue
+        c = candidates[module_id]
+        sha = c.commit_sha if licence.SHA_RE.fullmatch(c.commit_sha) else licence.MALFORMED
+        out[c.repo_id] = licence.Check(
+            c.repo_id, c.full_name, sha, saved["file_name"], saved["http_status"], saved["bytes"], saved["sha256"],
+            saved["detected_spdx"], saved["terrads_spdx"], saved["outcome"], saved["detail"],
+        )
+    return out

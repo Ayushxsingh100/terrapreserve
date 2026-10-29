@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "370c38fc67df81846a2f226540efba9243279f9dd6c0180820be516a7aec35a4",
+  "outputs.tf": "059d0c58ce1c064d3d625025fd8604b0fab917e03d7e89d0cfcf627de042eb1b",
+  "variables.tf": "48b79a9f290daced2e15f1edf4d4bfa51736013d6ce02fcb2397a7152ce5fca1"
+ },
+ "commit_sha": "5604637caba0207a5aca5f9eed66575d2d654384",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+ "module_id": 684082,
+ "module_path": "infra/terraform/modules/data-rds-postgres",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-684082",
+ "repo_full_name": "scalable-ml-systems/event-driven-cognitive-runtime",
+ "repo_id": 1145663536,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

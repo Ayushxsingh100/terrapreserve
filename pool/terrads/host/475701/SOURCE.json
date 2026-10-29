@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "sg.tf": "c488b309425877d6d00a2332b9edeff6dd927b7ccffe6234bc11af342463bdf6"
+ },
+ "commit_sha": "2a26a9fb28c20c55059335e13998471852f28242",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 475701,
+ "module_path": "terraform-beginner-to-advanced-resource-master/Section 4 - Terraform Modules & Workspaces/module-locals/modules/sg",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-475701",
+ "repo_full_name": "yusuf-inci/terraform",
+ "repo_id": 618306157,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

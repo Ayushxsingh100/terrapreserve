@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "main.tf": "f415c99b424f4e6865da65745b00c51f95c59f3abaed37905a17788bd1583200"
+ },
+ "commit_sha": "583bb0919a50dfcef018bef25f8bd62a4e07ced2",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "00f957b588aad803d7d92ed830c416bec350377e86088bc36a55168cf6a2d653",
+ "module_id": 558832,
+ "module_path": "provision/deployments/resources/external_security_group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-558832",
+ "repo_full_name": "theocrithary/Terraform-PowerFlex-4.5-on-AWS",
+ "repo_id": 803041981,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

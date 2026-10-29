@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "683ba47b64a7812af377fd9797d629b2e6ba6bd22cc00127b83091b6262b7036",
+  "output.tf": "b5fb01dbefb0462f06c04cca7333de78c689bff3dc77f620f0eba17037b4342d",
+  "variables.tf": "5e8d40482899f989cd7122d1cd02fa86a61d4b73dfb68b8c424dbaea31363e23"
+ },
+ "commit_sha": "fd9cf18939e4aec6b50a8b513b473f5347ed3698",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "b0b419a76f6fe3567d67ec5fcd3ab59bc16f01e1ba93f985d5af47d39e9d9b95",
+ "module_id": 469832,
+ "module_path": "networking/security-group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-469832",
+ "repo_full_name": "tarkalabs/aws-modules",
+ "repo_id": 604743129,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

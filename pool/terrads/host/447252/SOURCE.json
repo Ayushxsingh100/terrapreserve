@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "backend.tf": "dd443e684ee30e411c99ad9638d22da4384a9d267a1c1819afdf35602c3e3cb1",
+  "provider.tf": "eb0024c7a70b2b8b88a3869d2ab94814a34e11b566f6f3ca004f23a12f37b0b4",
+  "variables.tf": "8736aae00aaa24cb6499319f853d8bf32b763e023989c0a25023613460c585a8",
+  "vpc.tf": "df8c045141de85e66136a6392fa554d44ea4c32a57d9fed0d7930a658d7e9521"
+ },
+ "commit_sha": "c212fe7ab5dbc6e2da8c2b16051e5dd0c994fd64",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "754c4d5d1116eef37b82ed595ba6c11cd82f13df7b436171804d51fdef2fa99d",
+ "module_id": 447252,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-447252",
+ "repo_full_name": "jessewang-arvatosystems/trigger-terraform-aws-ci-cd",
+ "repo_id": 551625593,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

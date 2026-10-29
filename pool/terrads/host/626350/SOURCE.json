@@ -1,0 +1,27 @@
+{
+ "archive_sha256": {
+  "igw.tf": "9602b7312e306b78af85fb44b10be830db2a9848f1e712d4d85f8a72a4cc23c6",
+  "outputs.tf": "d08c0273e5e6c591af4ca7bcc59bb4abfe3a79979a28701ecf457455f0d2f07e",
+  "rtb.tf": "28498cdc59ea07ecc6ccd1aa277fb651f81733a3df8f62dab71451025c1a92df",
+  "subnets.tf": "7bd52713836b37980e8c7600f970cd721fd5bb2ba7894818a7be7c6a3107bb22",
+  "variables.tf": "b68332322db730c0485aca6817eb2800fb7e1f95911e1f579d14481fdac1170b",
+  "vpc.tf": "35c513144b3d08e6adab2710bcc98a784291802f09ae29a5873257bc4d6894f3"
+ },
+ "commit_sha": "45fc6545a07a6f0c3df635db786ebbe9d374159a",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "10374cfd571f5d625de96848bac7a6ab65b188c29b871dce85f2c315041acbc9",
+ "module_id": 626350,
+ "module_path": "terraform/modules/network",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-626350",
+ "repo_full_name": "JordanTwz/mentor-mentee-matcher",
+ "repo_id": 1000595317,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

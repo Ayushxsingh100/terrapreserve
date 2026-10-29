@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "83ad552399eb6e580dc19c9f1bceaf9f7b5082b6b1c89d896cfde13d711db6d5",
+  "outputs.tf": "261252392e3b0b5c2913f7debb3396291924ddbc5bbc622d646e52378f01bdf8",
+  "variables.tf": "3adcc0abcc2d5c6e0e9b786deb62264cdecca382a7f008aa557df2f81501f418"
+ },
+ "commit_sha": "94dc28a4244881f3b07ccf1de378aeb4bc5d7bb9",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "05a52788fca8078e1018bcc030460f20d25499cef33d69aa8b3d105e5c3057a1",
+ "module_id": 635806,
+ "module_path": "terraform/modules/security_groups",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-635806",
+ "repo_full_name": "Jivesh24/aws-scalable-architecture",
+ "repo_id": 1021073672,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

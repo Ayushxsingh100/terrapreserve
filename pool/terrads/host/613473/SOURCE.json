@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "66cc72bfb7a13bfe74e456a4d357f460ea665523747d91d8ee0cbff4c8fbabe4",
+  "outputs.tf": "d8c2154d21af5b93b189f1b1d2fad02a0ebfc55a7578187c195939f111a36494",
+  "variables.tf": "3addeb88a611c20cf378329e842d82faaa78560ba618a499014800e4335712da"
+ },
+ "commit_sha": "88af85a2bdf551513c9c947758dd504b71130ded",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "996bd535826729d532dc65a9a59b4e2e2d082052d21c84c37a50a8714f9afc38",
+ "module_id": 613473,
+ "module_path": "terraform/modules/rds",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-613473",
+ "repo_full_name": "Ravindrakumar383/hydro_assignment_kumar_ravindra",
+ "repo_id": 961118787,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

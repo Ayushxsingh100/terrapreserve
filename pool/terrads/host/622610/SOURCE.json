@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "a5edd5df757d7b91931867002e58a9b3b724e2ad0dfc47c54fc902325d119750",
+  "outputs.tf": "8166932c89f49e88012ef395be94e008dc927d615261ae1d3b7f7e1669026462",
+  "variables.tf": "f944976f4bd0d16a8bb9e0fb1ab33f49616e4cdc407746083f2915889def7bde"
+ },
+ "commit_sha": "9e172f23ead5b84733bdd17b483115674f95d043",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 622610,
+ "module_path": "modules/security_groups",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-622610",
+ "repo_full_name": "stegasaur/async-challenge-intermediate-3",
+ "repo_id": 986578999,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

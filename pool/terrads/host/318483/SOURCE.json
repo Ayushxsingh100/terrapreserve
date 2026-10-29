@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "e7796e03d1502de6d2700fb0702cf1cf2eb1e7bde36a000b583a5c8a58cbda8c",
+  "outputs.tf": "4e5f2d1f570f59c9159aab4ed2f1b936e86dd8beac2f62917c39b873a912b2bc",
+  "variables.tf": "4a1b42d074ddb586e0cbbbf691947cb4712a1608e3ffb0fecc6058c14d1428f7"
+ },
+ "commit_sha": "16463db66bc3d8395a7d161e8c3d9f53c6762a67",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE.md",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "8126c295b94128a1ab8f96b44d458908e54e7091b91f70b094f8eb86c2c0d00f",
+ "module_id": 318483,
+ "module_path": "modules/networking",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-318483",
+ "repo_full_name": "davidpneal/portfolio-infrastructure",
+ "repo_id": 194938520,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

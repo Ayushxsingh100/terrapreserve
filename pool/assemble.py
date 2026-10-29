@@ -329,5 +329,6 @@ def write_pool(inp: Inputs, pool_dir: Path) -> dict:
     docs = {"pool": pool, "rows": rows, "funnel": funnel, "lineages": lineages, "inputs": inp}
     from pool import report  # imported late: report imports cascade, assemble is imported by build
 
-    write_text(pool_dir / "POOL_REPORT.md", report.render(docs))
+    docs["view"] = report.load_view(pool_dir)
+    write_text(pool_dir / "POOL_REPORT.md", report.render(docs["view"]))
     return docs

@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "08ff8fc8daf7f512a445612d3e050913962d2f82829905077b4443e774b4e069",
+  "output.tf": "79aec73abb36a78803903d489e0b91b62f5e078e6832639db301622f1f4aa354",
+  "variable.tf": "eba81ead6eb6057063087ceeba283e8c16de2dc597dbd665cbee269af104c9cf"
+ },
+ "commit_sha": "1c375a3d25a789042edce17b307c18b84e280530",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "3107a6984b56085f1e8e5e404a1aee5663e7f109770d40fbcbac529d91ce8542",
+ "module_id": 620827,
+ "module_path": "k8s_deploy/infra/modules/security-group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-620827",
+ "repo_full_name": "ishan-modi/faston",
+ "repo_id": 982114181,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -218,10 +218,59 @@ class TestAssembleAndVerify(unittest.TestCase):
         second = {p.relative_to(second_pool).as_posix(): p.read_bytes() for p in second_pool.rglob("*") if p.is_file()}
         self.assertEqual(first, second)
 
+    # ---- generated documents are pure functions of the committed pool files
+
+    def test_report_is_reproduced_exactly_from_the_pool_files_alone(self) -> None:
+        view = report.load_view(self.pool)
+        self.assertEqual(report.render(view), (self.pool / "POOL_REPORT.md").read_text(encoding="utf-8"))
+
+    def test_datasheet_section_carries_computed_numbers_and_is_idempotent(self) -> None:
+        view = report.load_view(self.pool)
+        section = report.datasheet_section(view)
+        self.assertIn("Real-world modules accepted: 3 (1 native", section)
+        self.assertIn("2 graft hosts", section)
+        self.assertIn("shortfall in modules: 157 (not filled)", section)
+        self.assertIn("hosts not processed after the stop rule: 1", section)
+        self.assertIn("Licences of accepted modules: MIT 3.", section)
+        base = "# Datasheet\n\n## Composition\n\nx\n\n## Uses\n\ny\n"
+        once = report.update_datasheet(base, section)
+        self.assertLess(once.index(report.DATASHEET_BEGIN), once.index("## Uses"))
+        self.assertEqual(report.update_datasheet(once, section), once)
+        changed = report.update_datasheet(once, section.replace("3 (1 native", "9 (1 native"))
+        self.assertIn("9 (1 native", changed)
+        self.assertNotIn("3 (1 native", changed)
+        self.assertEqual(changed.count(report.DATASHEET_BEGIN), 1)
+
+    def test_d4_carryover_states_facts_and_cites_files(self) -> None:
+        text = report.d4_carryover(report.load_view(self.pool))
+        self.assertIn("terrapreserve_versions.tf", text)
+        self.assertIn("`~> 1.15.0`", text)
+        self.assertIn("`6.53.0`", text)
+        self.assertIn("terrads-native-1", text)  # the native defines core addresses
+        self.assertIn("`aws_instance.app`", text)
+        self.assertIn("pool/validate_results.csv", text)
+        self.assertIn("pool/lineages.json", text)
+        self.assertIn("Not yet established", text)
+        for deciding_word in ("should", "recommend", "we propose", "D4 will"):
+            self.assertNotIn(deciding_word, text.lower())
+
     # ---- tampering: each must be caught
 
     def first_module_file(self) -> Path:
         return self.pool / self.pool_json()["entries"][0]["dir"] / "main.tf"
+
+    def test_the_builders_own_python_files_and_their_bytecode_are_not_pool_data(self) -> None:
+        (self.pool / "build.py").write_text("x = 1" + chr(10), encoding="utf-8")
+        (self.pool / "__pycache__").mkdir()
+        (self.pool / "__pycache__" / "build.cpython-312.pyc").write_bytes(bytes([13, 10, 0, 1]) * 100)
+        self.assertEqual(self.problems(), [])
+        total = sum(p.stat().st_size for p in self.pool.rglob("*") if p.is_file() and "__pycache__" not in p.parts
+                    and p.suffix != ".py")
+        self.assertEqual(self.problems(max_total=total), [])  # neither the .py file nor the bytecode counts
+
+    def test_a_stray_data_file_at_the_top_of_the_pool_is_still_caught(self) -> None:
+        (self.pool / "notes.txt").write_text("x", encoding="utf-8")
+        self.assertTrue(any("notes.txt" in p for p in self.problems()), self.problems())
 
     def test_a_pool_file_edited_after_hashing_is_caught(self) -> None:
         path = self.first_module_file()

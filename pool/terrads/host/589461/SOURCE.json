@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "c13bc3395a016b7e5686b837e73fb31801dc8470269674e9b5fb72c99ad6fd0e",
+  "outputs.tf": "a271b9e483e9d001afead8f74d2058e3c2c26e8605005d1e1609c3682cc49552",
+  "variables.tf": "6c413edb076ec70c2aa60ff1698ae85a04b5c90075f5284fb0bc01c06a3a3ce9"
+ },
+ "commit_sha": "4513fa9c6282701514e69c6a4f67fd903cc370ff",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "d289a65405988e680b9545b0437bcc813116c85ee784ea4b3e7540747f88c57b",
+ "module_id": 589461,
+ "module_path": "modules/security_group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-589461",
+ "repo_full_name": "AkalankaDilshan/AWS-VPC-Peering-Architect",
+ "repo_id": 898789103,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

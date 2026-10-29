@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "940b2b5b9783c72399dcaf02d29409a9cd836ccbbd8c5cf5bfd247b29f56b501",
+  "outputs.tf": "c9ba09933e856ffd96fc331d3e69fa72a2d4970ca5ec7c4068b94b7dacd94ff0",
+  "variables.tf": "75db3f9090eec0e8e8af3883db93edff5cab1f253f72972ccc28f6b5b4b14e9a"
+ },
+ "commit_sha": "0b43c1287a3cf3665eb81d92ff7dbf2a973cf791",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+ "module_id": 618950,
+ "module_path": "terraform/modules/aws-networking",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-618950",
+ "repo_full_name": "confluentinc/workshop-tableflow-databricks",
+ "repo_id": 975534328,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

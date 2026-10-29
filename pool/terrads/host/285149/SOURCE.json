@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "template.tf": "e296b8bf598a1ee3e5e10a2e5fc211ac8e43036950b64f0f4df49be0725b885e"
+ },
+ "commit_sha": "55df99c91c05ab7d58192cd99842445878270cf1",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+ "module_id": 285149,
+ "module_path": "templates/aws",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-285149",
+ "repo_full_name": "cloudconductor-patterns/common_network_pattern",
+ "repo_id": 49177139,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

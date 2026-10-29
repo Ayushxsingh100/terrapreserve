@@ -234,6 +234,29 @@ class TestFetch(unittest.TestCase):
         self.assertEqual(fc.slept, [0.75])
 
 
+class TestMalformedInput(unittest.TestCase):
+    def test_a_commit_that_is_not_40_hex_characters_makes_no_request_and_is_an_error(self) -> None:
+        """TerraDS has a repository whose LatestCommitSha field holds a git warning and a hash, joined by a newline."""
+        bad = ["warning: refname 'HEAD' is ambiguous." + chr(10) + SHA, SHA[:39], SHA.upper(), "", SHA + " ", "g" * 40]
+        for sha in bad:
+            with self.subTest(sha=sha[:12]):
+                net = FakeNet({})
+                limiter = licence.RateLimiter(clock=FakeClock().clock, sleep=FakeClock().sleep)
+                got = licence.check_repository(5, "o/r", sha, "MIT", get=net.get, limiter=limiter)
+                self.assertEqual(net.calls, [])
+                self.assertEqual(got.outcome, "error")
+                self.assertIn("40", got.detail)
+
+    def test_a_malformed_url_that_slips_through_is_an_error_not_a_crash(self) -> None:
+        net = FakeNet({url(n): [ValueError] for n in licence.LICENCE_NAMES})
+        got = check(net, FakeClock(), None)
+        self.assertEqual(got.outcome, "error")
+
+    def test_the_detail_never_repeats_the_malformed_value(self) -> None:
+        got = licence.check_repository(5, "o/r", "bad" + chr(10) + "value", "MIT", get=FakeNet({}).get)
+        self.assertNotIn("value", got.detail)
+
+
 class TestCacheAndCsv(unittest.TestCase):
     def test_second_call_for_a_repository_makes_no_request(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

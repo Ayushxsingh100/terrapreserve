@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "5f5260e230da39d52ef8cd0c269c31b94b864faf9dea3b5b0987c11983774fd8",
+  "outputs.tf": "3a70f56dd170c20ab779a07ebaceed75a1ef139d51a426f5648d08d66c042703",
+  "variables.tf": "e546f8961f28cfe66c1d285694ea5ced393538e3e65191a59aab5d0b24957c3a"
+ },
+ "commit_sha": "cbba45fad5df88ac0ae4ae270d9ca79c131d0906",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "03822949dc8464b96deab22504f03fb9f609791b65638aa5b3fc7858268971b1",
+ "module_id": 655692,
+ "module_path": "terraform/modules/security-groups",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-655692",
+ "repo_full_name": "UtsavTomar/Nomad-Cluster-Deployment",
+ "repo_id": 1063266538,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "outputs.tf": "eef92df2262f5026e79454b4152b275e242d8f52cad538201bbf52ee949668db",
+  "providers.tf": "bb7d1b859939862424a91b1c851d5af4f8109621ccc45e4989ab8fce4636a823",
+  "variables.tf": "da614d9c314ee9f935cf14d94b470c178790eb5aadbb2c2b039daff93ad926b9",
+  "vpc.tf": "15fd635aeb51f201152e1aa373931f42a99ac7d55ea01d35ff212bc6c644f164"
+ },
+ "commit_sha": "acdd108d7f03332b6f87083b47d15b99c3e0545f",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "849098dfaac17d8102266c9a1a8a2b46b16f84da97211ee19bd3bed9c7f754ce",
+ "module_id": 592828,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-592828",
+ "repo_full_name": "ryogarajme/terraform-aws-networking-YS_Learnings",
+ "repo_id": 912707779,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "outputs.tf": "d85378057a6e26595630aac0ae0f19445d65a13181ebd6ec549915c628ae06f7",
+  "providers.tf": "99e92b773477b391407144a79ac9aab96b450996c2250aacf8affbf673ab710a",
+  "variables.tf": "b4d158f80b7e7e23b381efcbec610f225e690dd0eb6514368bdbde9427343837",
+  "vpc.tf": "4f8bac3461a6e2bbb25d98d590ae2e3d938b5201d9aca0cf0532b2401b303c2f"
+ },
+ "commit_sha": "adf18241216a54566b5600d9c9f0d31fe075e39b",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "4b702797d909bc394fcab7a9ca965af65b2990a479a893ad05a3be12d7b56823",
+ "module_id": 680926,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-680926",
+ "repo_full_name": "omkar130/terraform-aws-networking-module",
+ "repo_id": 1136311396,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

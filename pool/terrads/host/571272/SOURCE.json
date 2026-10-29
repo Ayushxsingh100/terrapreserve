@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "main.tf": "b68dc2822242af2d90f909b5050c41049759e610713a4fd3d2860877e576102e",
+  "output.tf": "cdaa866d615d922c94b9064e8091c995122840b9a0cb342cef6a5b278a5fe83f",
+  "variables.tf": "21ef0308adec85062ee1256b58214ba9fbf9a30242e5ccba7171cd29912d942c",
+  "version.tf": "35d371a666244566502492778f8e226854608e8db256241e06d57a3cfe44cec1"
+ },
+ "commit_sha": "6325edd270e06c73a8acd46dce953d6412fd93c4",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "fc36f04f29db6b9b2c7a2a906107e89df5f16fc03e386441b346b1719e685673",
+ "module_id": 571272,
+ "module_path": "aws_security_group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-571272",
+ "repo_full_name": "team-tech-challenge/terraform-modules-remotes",
+ "repo_id": 840070026,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

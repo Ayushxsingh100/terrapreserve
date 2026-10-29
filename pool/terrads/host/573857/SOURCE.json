@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "e78eb3c2aa754615ff1f64fd8d36bb8ea43d4707315cef53cec855a2d2c5f889",
+  "output.tf": "8a0d6cf9c6fc5a0fa2c1ca153f91b8161fe837b77aee8f0a35b21313b3695ea5",
+  "variables.tf": "1ec67accd581a31aa175152ce3a939d9f88f10dbbb3852075bc7b048405977ef"
+ },
+ "commit_sha": "e310aee36e874870b2cacf5ce2fe23f85ff787ee",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "8aa349365c750b239c88f6a032ab144748eedc1914bac751f8578ec0f022198b",
+ "module_id": 573857,
+ "module_path": "terraform/modules/subnets",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-573857",
+ "repo_full_name": "FroCode/Scalable-Data-Analytics-Platform-with-CI-CD-Integration",
+ "repo_id": 848501859,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

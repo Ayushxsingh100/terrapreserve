@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "main.tf": "55be58cfd29e51072efec3a85ac6d675aa971e3c6095fc52cf97f898f4af440c",
+  "output.tf": "5f715cf2310e0da6e925fe779d5464897ff5e5bf6a353dd3fb6bbae318b49309",
+  "variables.tf": "920d82774b22af8f4700a3d597e9322a0999af7484f74d1891fd9f07ee2a4c5a",
+  "versions.tf": "9a9a2279d9a70b59413fbd243bfbf1322d21f4aa49c2c890ab6ea23b4e0b270d"
+ },
+ "commit_sha": "21423d638460cd05c72fe53577e60a3d191857bd",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "aea33683301ec29393fa77fc8220a12d988a65d11a058d0ba48d7346aea25f8b",
+ "module_id": 621457,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-621457",
+ "repo_full_name": "sail761/terraform-modules-vpc",
+ "repo_id": 984169676,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

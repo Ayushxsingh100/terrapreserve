@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "41174c48bebbcad4fe12833309c6cdc4848212bc5b65f9073ced0f5006b27768",
+  "output.tf": "b0dd85127fcbc1d0d2902836b256614c0f9bab775b6ecbabe2afa0167ec8cc41",
+  "variables.tf": "6357984411c84a9f0cccb0a4a98c86c04b63ca633e8c9448fefd7da6cab77afd"
+ },
+ "commit_sha": "f276be45d973c42e59653ef9865a51e725642f38",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "443b8adccbdc171ee8b61db7d5cf8e219043d0ab03e08b8501d67454acc55c19",
+ "module_id": 522382,
+ "module_path": "modules/security-group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-522382",
+ "repo_full_name": "Olisaemeka111/vpc-tier-module-08",
+ "repo_id": 709286911,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

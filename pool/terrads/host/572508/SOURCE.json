@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "b440683026937d4a9579c562fc69b34bdf9511c11b98c206a440cf56f1512e46",
+  "outputs.tf": "72ed81a7688d33c4ef9b8b59a57bcad9b8076622e7fcf69c8056e6ed1a9ca181",
+  "variables.tf": "790bcf13c2d062cfc47cfc124daa03cb96e6c9f7ed194ecabec29b5786d40dde"
+ },
+ "commit_sha": "ba1ae1bfe052623c7b3e4a2f5250c630df6a76f5",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "bb30574b6ed1182dbd5ba21ed00e3736a3d981c444489c0f09c4d29fa5ed5bd1",
+ "module_id": 572508,
+ "module_path": "modules/firewall",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-572508",
+ "repo_full_name": "soufiiyane/terraform-ec2-docker-nginx",
+ "repo_id": 844118000,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

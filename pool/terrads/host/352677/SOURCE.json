@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "main.tf": "7cdc664e395604250a2532c6365f21c38a5d3e75368d39b7a3e4d3bf98b58f74"
+ },
+ "commit_sha": "886d89b58efcb4d14c378f7ff150b20df2fa547d",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "BSD-3-Clause",
+ "licence_upstream_sha256": "f5170f0680f4a7348bea2a622157ac9539623ae22591cd5f6709e950aed41fcd",
+ "module_id": 352677,
+ "module_path": "test/aws/terraform/ensure_all_used_default_security_groups_restrict_all_traffic_rule/default_sg_in_new_vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-352677",
+ "repo_full_name": "cysk92/ck-demo",
+ "repo_id": 297431998,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

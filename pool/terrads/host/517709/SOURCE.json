@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "76247c743e2f8d3eb8894241b59ccfd97ae3002ff948df203a155ff3abb77236",
+  "output.tf": "0c102c215b6a3d8f3e1dd5fa3d302667e80a02d03b4b1c1488230971e7c76b25",
+  "variables.tf": "fcc325e63a7154e346429a641224355408c78dd36fce72cf6c439ceb21f370f4"
+ },
+ "commit_sha": "859bd027fa1ff6b5c14ec3f74d0cbbb2ad7dab9f",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "0919df74d325d548f06408b0b4116d38ddf185f5d2e080e254d38042e3870c15",
+ "module_id": 517709,
+ "module_path": "modules/mysql",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-517709",
+ "repo_full_name": "epomatti/aws-client-vpn",
+ "repo_id": 698974343,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

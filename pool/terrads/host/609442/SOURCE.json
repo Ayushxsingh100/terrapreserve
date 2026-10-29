@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "main.tf": "b09edcf93a4797b2e14c038494331a32b2aa861f1a432d70c0fb8d0a6173d477"
+ },
+ "commit_sha": "8da45be0a9fa634da781a9fc93c8a59bb9d25250",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 609442,
+ "module_path": "02-Automate_Infrastructure_Deployment_with_Terraform/Terraform",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-609442",
+ "repo_full_name": "ShlomyR/DevOps-start",
+ "repo_id": 947287205,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

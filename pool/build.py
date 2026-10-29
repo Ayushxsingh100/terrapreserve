@@ -220,11 +220,12 @@ def cmd_assemble(args: argparse.Namespace) -> int:
         path = work / f"lineage_min{floor}.json"
         if path.is_file():
             comparison[label] = json.loads(path.read_text(encoding="utf-8"))["stats"]
-    checks = licence.read_checks(pool_dir / "licence_checks.csv")
+    records = load_records(work / "process_results.jsonl")
+    checks = cascade.licence_checks_from_records(records, {c.module_id: c for c in loaded.candidates})
     goat_dir = pool_dir / "terragoat" / "aws"
     inp = assemble.Inputs(
         candidates=loaded.candidates, cheap=cheap, plan=load_plan(work),
-        records=load_records(work / "process_results.jsonl"),
+        records=records,
         lineage_of={int(k): v for k, v in lin["lineage_of"].items()}, lineage_stats=lin["stats"],
         lineage_merges=lin["merges"], lineage_comparison=comparison, licence_checks=checks,
         stage_dir=work / "stage", licence_cache=work / "licence_cache", funnel_levels=loaded.funnel,
@@ -232,6 +233,12 @@ def cmd_assemble(args: argparse.Namespace) -> int:
         terragoat_validate=terragoat_validate_result(work, goat_dir),
     )
     docs = assemble.write_pool(inp, pool_dir)
+    root = acquire.REPO_ROOT
+    datasheet = root / "DATASHEET.md"
+    datasheet.write_bytes(report.update_datasheet(datasheet.read_bytes().decode("utf-8"),
+                                                  report.datasheet_section(docs["view"])).encode("utf-8"))
+    carryover = root / "docs" / "D4_CARRYOVER.md"
+    carryover.write_bytes(report.d4_carryover(docs["view"]).encode("utf-8"))
     problems = report.verify_pool(pool_dir)
     print(json.dumps({"accepted": docs["funnel"]["accepted"], "ledger": docs["funnel"]["ledger"],
                       "problems": problems}, indent=1, sort_keys=True))

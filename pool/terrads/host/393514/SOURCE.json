@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "476e6e70fd0960f7e9ebe9e68889eec7f4c3d9b3c431da803c2fb65e476cc51a",
+  "output.tf": "0bb89aa5a1931661f4acd9f5886067283a23be83a9360b0f03b4357e6c47ae54",
+  "variables.tf": "678b99612bb681b0f09a192906fb7ee984c461515e0fd6ea92d358e2bb5744d2"
+ },
+ "commit_sha": "aaae01e593b85c5e1db441716f224d1c1e5e39c7",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "496c44d4db369a469c490e813a5e4120ef3b885a770d9f60a8647b5ba6f1469a",
+ "module_id": 393514,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-393514",
+ "repo_full_name": "munnep/kitchen_ec2",
+ "repo_id": 422518257,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

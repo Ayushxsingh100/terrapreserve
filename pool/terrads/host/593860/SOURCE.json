@@ -1,0 +1,23 @@
+{
+ "archive_sha256": {
+  "main.tf": "1e33c6ad14a19544aed23590846d4a1775e30493cfee24e8af978fc34908795b",
+  "variables.tf": "a0cfb411008994103ab9e50fc437b310b1ee3feb998b464c8a805b18c75c3e65"
+ },
+ "commit_sha": "06207d0807df6438da959497395157ba4ed0bb49",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "469db9d69c978415caaba5faa604799dcaa85c9666051ff0c3797e352333a3bd",
+ "module_id": 593860,
+ "module_path": "clouds/aws/modules/rds",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-593860",
+ "repo_full_name": "pos-fiap-schepis/hackton-terraform",
+ "repo_id": 915090031,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

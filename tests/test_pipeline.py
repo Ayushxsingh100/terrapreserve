@@ -145,6 +145,30 @@ class TestLoop(unittest.TestCase):
         self.assertEqual((steps.calls, appended), ([], []))
 
 
+class TestChecksFromRecords(unittest.TestCase):
+    def test_a_check_is_rebuilt_from_the_saved_record_and_the_candidate(self) -> None:
+        c = cascade.Candidate(5, 50, ".", "o/r", "a" * 40, "MIT", "host", False, 0, frozenset())
+        record = {"module_id": 5, "kind": "host", "code": None, "licence": {
+            "repo_id": 50, "file_name": "LICENSE", "http_status": 200, "bytes": 11, "sha256": "ab" * 32,
+            "detected_spdx": "MIT", "terrads_spdx": "MIT", "outcome": "found", "detail": ""}}
+        got = cascade.licence_checks_from_records({5: record}, {5: c})
+        self.assertEqual(got, {50: licence.Check(50, "o/r", "a" * 40, "LICENSE", 200, 11, "ab" * 32, "MIT", "MIT", "found", "")})
+
+    def test_records_without_a_licence_step_give_no_check(self) -> None:
+        c = cascade.Candidate(5, 50, ".", "o/r", "a" * 40, "MIT", "host", False, 0, frozenset())
+        record = {"module_id": 5, "kind": "host", "code": "E09_SECRET_FOUND", "licence": None}
+        self.assertEqual(cascade.licence_checks_from_records({5: record}, {5: c}), {})
+
+    def test_a_malformed_commit_is_not_copied_into_the_check(self) -> None:
+        bad = "warning: x" + chr(10) + "a" * 40
+        c = cascade.Candidate(5, 50, ".", "o/r", bad, "MIT", "host", False, 0, frozenset())
+        record = {"module_id": 5, "kind": "host", "code": "E11_LICENCE_UNVERIFIED", "licence": {
+            "repo_id": 50, "file_name": "", "http_status": 0, "bytes": 0, "sha256": "", "detected_spdx": "",
+            "terrads_spdx": "MIT", "outcome": "error", "detail": "x"}}
+        got = cascade.licence_checks_from_records({5: record}, {5: c})
+        self.assertEqual(got[50].commit_sha, licence.MALFORMED)
+
+
 class TestLedger(unittest.TestCase):
     @staticmethod
     def cands(kind: str, ids) -> list[cascade.Candidate]:

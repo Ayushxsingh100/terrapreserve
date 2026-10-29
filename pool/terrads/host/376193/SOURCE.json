@@ -1,0 +1,26 @@
+{
+ "archive_sha256": {
+  "igw.tf": "f2fecd24fd45e8b5bc1f915353feb28b5d59467ba703a17cd6de065a625764e7",
+  "provider.tf": "44fffa6fa17c6865219cf2cf3027d3d0216fa5037873c3b11e2c14290d424a76",
+  "vars.tf": "0a65505bc6271324dc0e6bdd8be33b83fef971e992b120c2073a77a5a75c0ceb",
+  "versions.tf": "17b469397cb910ba514495d2a633f988ed22e456a2342a0a02597db217e62472",
+  "vpc.tf": "378e874a9c25149efe6edf75c9e18c295b25f98b7a93e1037445cf6bc46a9538"
+ },
+ "commit_sha": "6d02771eb78a1585e5b1a149df8ca331c1b96a7d",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "d938110de7c6de8fc1372f1b9f4bf236b467e016a85a35ef87a5a54f09cd65c4",
+ "module_id": 376193,
+ "module_path": "terraform/VPC",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-376193",
+ "repo_full_name": "kduchagaslima/aws-hackathon-iac",
+ "repo_id": 369695830,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

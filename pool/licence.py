@@ -38,6 +38,8 @@ FINAL_OUTCOMES = ("found", "mismatch", "missing")  # an "error" row is retried o
 CSV_FIELDS = ("repo_id", "full_name", "commit_sha", "file_name", "http_status", "bytes", "sha256",
               "detected_spdx", "terrads_spdx", "outcome", "detail")
 URL = "https://raw.githubusercontent.com/{full_name}/{commit_sha}/{name}"
+SHA_RE = re.compile(r"[0-9a-f]{40}")
+MALFORMED = "(malformed)"
 
 
 @dataclass(frozen=True)
@@ -141,7 +143,7 @@ def _fetch(url: str, get, limiter: RateLimiter, sleep) -> tuple[int | None, byte
         limiter.wait()
         try:
             status, body = get(url)
-        except OSError as exc:
+        except (OSError, ValueError) as exc:  # ValueError: a URL http.client refuses (control characters)
             status, body, problem = 0, b"", type(exc).__name__
         else:
             if status in (200, 404):
@@ -174,8 +176,12 @@ def check_repository(
     prior = (known or {}).get(repo_id)
     if prior is not None and prior.outcome in FINAL_OUTCOMES and prior.commit_sha == commit_sha:
         return prior
-    limiter = limiter or RateLimiter()
     expected = terrads_spdx or ""
+    if not SHA_RE.fullmatch(commit_sha):
+        # TerraDS has a LatestCommitSha that holds a git warning and a hash; it is not repaired by guessing
+        return Check(repo_id, full_name, MALFORMED, "", 0, 0, "", "", expected, "error",
+                     "the pinned commit is not a 40-character lowercase hex string, so no file was requested")
+    limiter = limiter or RateLimiter()
     folder = cache_dir / str(repo_id) if cache_dir is not None else None
     problems: list[str] = []
     for name in LICENCE_NAMES:

@@ -1,0 +1,29 @@
+{
+ "archive_sha256": {
+  "main.tf": "dfd49ba470bafaeae39e067c6e0b846027b41b8f033d48bd2e02b2f9e5c990d2",
+  "outputs.tf": "15d230103758ff38a84cb3966cfdfdca965f918a0c50dd3e880676132e529568",
+  "variables.tf": "c966af04468e9d9fde6359b16ab64f93efa3f645a19b4fbaa8eb8e20806d5d73",
+  "versions.tf": "9ec3506cacc02eddadece1408adcd6c108d9ba6ff9a5fb2a1facb3317d76a945"
+ },
+ "commit_sha": "281208029caac90939ab0b8b335342f5cb39fe4d",
+ "crlf_normalised": [
+  "main.tf",
+  "outputs.tf",
+  "variables.tf"
+ ],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "5cf48a544d85f33ced31f19bec4bf42d393b8a8c475de6c0fa8cf4d04d008258",
+ "module_id": 443396,
+ "module_path": "modules/terraform-zspse-sg-aws",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-443396",
+ "repo_full_name": "zscaler/terraform-aws-zpa-private-service-edge-modules",
+ "repo_id": 540571408,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

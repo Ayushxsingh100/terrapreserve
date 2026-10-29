@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "7f4bcc07d45083853254254b3366afe36c44ee0c6c27c119706499002f636a14",
+  "outputs.tf": "e4d4318605f3d3d629dafffaf80bca54be49c0ca01f2a5b04d4784091f714c7e",
+  "variables.tf": "8cf8265b8c9ee9919d1d71ea64cfe9d1e52f0558ed899d7324c8f152de6cceca"
+ },
+ "commit_sha": "93c66e0d8851c8fa7295f44e0bb4f8c79dd235d7",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "48093e8c9622804dff2c0c862e69e2e364b5dd48a64d04556a1b610a051f4624",
+ "module_id": 662770,
+ "module_path": "modules/database",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-662770",
+ "repo_full_name": "EngrDanish07/terraform-aws-multi-env-infrastructure",
+ "repo_id": 1087734205,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

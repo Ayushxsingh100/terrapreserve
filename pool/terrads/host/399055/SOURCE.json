@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "antes.tf": "9d8c068df103e7baf759f79d9f0df98b89df3b7e4a290ba22c6ef5da02c37627",
+  "depois.tf": "6d3b0bc3ef013b226be996f726328e74aa5c2e73ee002c869a4cd927ae334ad3",
+  "providers.tf": "fab8ca4921c5caa54128a368e835e42e2dcfc2b5bd7b5e8b8f93d447af5a935a"
+ },
+ "commit_sha": "857e8e53ac716cfa4abd7feaa78ea06f672a6646",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 399055,
+ "module_path": "Dynamic-Blocks",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-399055",
+ "repo_full_name": "santospedroh/terraform-mackenzie",
+ "repo_id": 434696147,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

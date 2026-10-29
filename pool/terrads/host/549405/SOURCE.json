@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "main.tf": "edacaa1f14931350aef4eaf80b1c3a37fb867ac74e368a2227989832a30edc60"
+ },
+ "commit_sha": "49ba8be9ce1bfea7d60603b3a9e663b73a530716",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "BSD-3-Clause",
+ "licence_upstream_sha256": "9b59819ec0f2953f01fb255532f6c953d1c6b8869f3d9139009f4b6acdb79ea0",
+ "module_id": 549405,
+ "module_path": "project-1",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-549405",
+ "repo_full_name": "imitelis/terraform-tutorial",
+ "repo_id": 775279858,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

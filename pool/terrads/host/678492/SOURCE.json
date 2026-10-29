@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "instances.tf": "316adeff3a5de9d16fcae4bae8a906360e6a4209d277b5262d3d720d662dfe47",
+  "main.tf": "d72c29bc7c1c1f54abf96153762d1017db365f0f2a149d5e823bfa60d605ec4d",
+  "security_groups.tf": "e4f46f83419b8b25dd7601daab1708a4a21ac768cb48d3089387858c2f361344"
+ },
+ "commit_sha": "6b2dd3fea9389555379241b757aed2a17b4b008b",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 678492,
+ "module_path": "terraform",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-678492",
+ "repo_full_name": "Math-ieu/mini-soc",
+ "repo_id": 1128542199,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

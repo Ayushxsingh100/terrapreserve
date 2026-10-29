@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "156bb8ccc357d88c7f6014419eaab9af92b7c91cafb6dd4bdc10d2e275901d03",
+  "outputs.tf": "adc6b964193ddfb8ee06a83873d384798b86a28c672cc24d7af608294e3b54df",
+  "variables.tf": "6357984411c84a9f0cccb0a4a98c86c04b63ca633e8c9448fefd7da6cab77afd"
+ },
+ "commit_sha": "48eb100a0eb9c77424187dc315afa86bd7257ce1",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 417356,
+ "module_path": "terraform/modules/security",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-417356",
+ "repo_full_name": "logyball/btc-alert-infrastructure",
+ "repo_id": 481232457,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

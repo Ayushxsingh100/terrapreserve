@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "0f35d4e77bb6e8ee8764ec7fe94cb2db9f2a324206038a3916b2f4969d12f7e1",
+  "outputs.tf": "519c9127a1bcb5d65db7a835c21497cae424550b027380675edc852582e510a2",
+  "variables.tf": "2b0d628c7e97500ebad105b3cd86c1164a4acc47b84acf2c3d18e6e455d33b48"
+ },
+ "commit_sha": "4c705e173f90daa69eb76fd7b44f7f18f6457e2c",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "b9846f3eb648ae67a745137c1dcb6f21d9c7d02dcc5cce174e86fa7f8bfa146f",
+ "module_id": 621360,
+ "module_path": "terraform/modules/vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-621360",
+ "repo_full_name": "mnaviapi/pagerduty-devops-Monserrat-Navia",
+ "repo_id": 983671103,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

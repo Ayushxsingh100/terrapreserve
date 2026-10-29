@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "ec2.tf": "d0bfd87c10077462173cf8522302a49e8a0253a3894dee355f34616675d09623",
+  "main.tf": "845e62cf68938594493a4daff3c9a329b30c79190dd0e14ab0ef73901cb9a20e",
+  "vars.tf": "329b59b83b95875e48250a2c211d65ff3a4507075d4990708bbc1f0d4f780ac9",
+  "vpc.tf": "ace2542d30a5d4386c53cf38cb0be68a38ce5e63efae4e448dd2c532d9ddc4c5"
+ },
+ "commit_sha": "42a973a3c73f4405469c554bb26da150f2916681",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 602000,
+ "module_path": "terraform/ansible",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-602000",
+ "repo_full_name": "wushilin/automation_demo_tmp",
+ "repo_id": 934077711,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

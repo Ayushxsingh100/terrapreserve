@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "main.tf": "9e085531fb3aa885cf669413e46ec68c5028b886844fa97a271c805fbf16713f"
+ },
+ "commit_sha": "953b75203e5ff8e34a9e8d91e02c02669d13e3da",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "6a55054dc96712396556f146e2a21c0f9947c83efcaa082c9ff5d3dee024f209",
+ "module_id": 660643,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-660643",
+ "repo_full_name": "devika-goes-cloud/Terraform_EC2_Script",
+ "repo_id": 1079966131,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "3f379b71dfb0521b173a5470712721ad279b217ad4daf58262697b0ac36a38bf",
+  "outputs.tf": "50127a14431ffa8d5165ab2830ae430da651aa1bc5f79aae544a7ba439f28d5f",
+  "variables.tf": "4ccee5e1d626461b70abe3a0149a66477bf9815f581ea19b5a4bd07c0950c565"
+ },
+ "commit_sha": "5ac71f72d4b7b586a49766075b38449c170c3847",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 565065,
+ "module_path": "ec2-instance",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-565065",
+ "repo_full_name": "Jonathan1021/challenge-terraform",
+ "repo_id": 819970003,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

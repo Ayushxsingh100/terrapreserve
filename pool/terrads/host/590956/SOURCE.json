@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "7efc2cdfdd18668528364a11988b4b962dc2df1a9a10e055ea0ae3cc7d85785b",
+  "outputs.tf": "44122684108153a8664bfbe0e1dceaf5708a38fc7827fda51d95043f87e169ad",
+  "providers.tf": "efd24f71387be16e3e30e75b7991c8aeabdd04872dda0a19e79f4e567933fd73"
+ },
+ "commit_sha": "044dfa70fc2d2f5478f53083294b641d2c06f12e",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "e16306a57d851e6ec229b2defcc2eeca3f2042d0b60ab6e8eaac9e3172fbabb9",
+ "module_id": 590956,
+ "module_path": "opentofu/vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-590956",
+ "repo_full_name": "awesome-gpus/spacelift",
+ "repo_id": 904373406,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

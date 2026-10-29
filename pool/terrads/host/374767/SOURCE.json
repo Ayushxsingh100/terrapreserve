@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "output.tf": "83b2724fd85968724bb7b13a989d8ba382b1e17e3ab524e20c00ee36b39a2525",
+  "security_groups.tf": "aef8276db44dec949cd20db58b83d7d89bcd94bece70f9462130f1fa88aa71ba",
+  "variables.tf": "bf1bce8158b8aa98d55d42b38a4e80c766f57471198b7037730bf4a4861ceb30"
+ },
+ "commit_sha": "2b784206dfa3249207625ce531628e57ce20ff5b",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "638f3248a5c8fe49151b6ec2e58c149e16b9f9e42f8e6cce546769ebf881be35",
+ "module_id": 374767,
+ "module_path": "Terraform/modules/ec2_security_groups",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-374767",
+ "repo_full_name": "Piroddi/DockerSwarmAWS",
+ "repo_id": 365435324,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

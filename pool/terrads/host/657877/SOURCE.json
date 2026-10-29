@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "3e68779eb3314993c252caf97adc2ae55e107750d6f22693be19d09ca5c5a968",
+  "outputs.tf": "adb5dc8a191943217ca0929c94edeba992e3f8846eb6a46b18c88f6c29617322",
+  "variables.tf": "cf9e790a622929c91bb86306a2e748a0f3abdda8756cdb349c86adac89b78883"
+ },
+ "commit_sha": "02059fde2a1b51401e6013d5cf8518eb0bed1e2f",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "70b92c14c502f27c58d9d66a1499ce8d4fe7021818829452ef767399c2ca5aae",
+ "module_id": 657877,
+ "module_path": "terraform/security_groups",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-657877",
+ "repo_full_name": "pengchao2022/shooting-game-aws-ecs",
+ "repo_id": 1071162848,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}
