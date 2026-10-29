@@ -6,6 +6,7 @@ Standard library and ``sources/*`` only; nothing here imports DAIL (D3-02, CLAUD
     lineage   lineages over the staged survivors (E10 is applied later, to hosts only)
     process   E09, E11, E12 over the plan (natives, then sampled hosts); resumable
     terragoat redacted TerraGoat controlled tier into pool/terragoat/aws/
+    assemble  write pool.json, exclusions.csv, funnel.json, lineages.json, the module directories and POOL_REPORT.md
     ...       (later steps add lineage, scan, licence, validate, terragoat and assemble)
 
 All intermediate files go to the work directory (``<cache>/d3-work`` by default), never into the repository.
@@ -20,7 +21,7 @@ from pathlib import Path
 
 import acquire
 
-from pool import cascade, lineage, licence, redact, validate
+from pool import assemble, cascade, lineage, licence, redact, report, validate
 
 
 def pinned_inputs() -> tuple[Path, Path]:
@@ -188,6 +189,55 @@ def cmd_process(args: argparse.Namespace) -> int:
     return 0
 
 
+def terragoat_validate_result(work: Path, directory: Path) -> dict | None:
+    """terraform validate of the redacted TerraGoat files as one configuration (cached in the work directory)."""
+    cache = work / "terragoat_validate.json"
+    if cache.is_file():
+        return json.loads(cache.read_text(encoding="utf-8"))
+    try:
+        harness = validate.Harness.default()
+        harness.ensure_ready()
+    except validate.HarnessError:
+        return None
+    files = {p.name: p.read_text(encoding="utf-8") for p in sorted(directory.glob("*.tf"))}
+    r = harness.validate(files)
+    result = {"status": r.status, "terraform_version": r.terraform_version, "provider_version": r.provider_version,
+              "error_class": r.error_class}
+    cache.write_text(json.dumps(result, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    return result
+
+
+def cmd_assemble(args: argparse.Namespace) -> int:
+    work = args.work
+    pool_dir = acquire.REPO_ROOT / "pool"
+    db, _archive = pinned_inputs()
+    loaded = cascade.load_candidates(db)
+    cheap = {r["module_id"]: (r["code"], r["detail"], r["group"]) for r in load_cheap(work) if r["code"] is not None}
+    lin = json.loads((work / f"lineage_min{lineage.FILE_TOKEN_FLOOR}.json").read_text(encoding="utf-8"))
+    comparison = {}
+    for label, floor in (("floor 30 (used)", lineage.FILE_TOKEN_FLOOR), ("floor 0 (rule c as first written)", 0),
+                         ("rule c off", 1_000_000_000)):
+        path = work / f"lineage_min{floor}.json"
+        if path.is_file():
+            comparison[label] = json.loads(path.read_text(encoding="utf-8"))["stats"]
+    checks = licence.read_checks(pool_dir / "licence_checks.csv")
+    goat_dir = pool_dir / "terragoat" / "aws"
+    inp = assemble.Inputs(
+        candidates=loaded.candidates, cheap=cheap, plan=load_plan(work),
+        records=load_records(work / "process_results.jsonl"),
+        lineage_of={int(k): v for k, v in lin["lineage_of"].items()}, lineage_stats=lin["stats"],
+        lineage_merges=lin["merges"], lineage_comparison=comparison, licence_checks=checks,
+        stage_dir=work / "stage", licence_cache=work / "licence_cache", funnel_levels=loaded.funnel,
+        e01_not_candidates=loaded.e01_not_candidates, terragoat_dir=goat_dir,
+        terragoat_validate=terragoat_validate_result(work, goat_dir),
+    )
+    docs = assemble.write_pool(inp, pool_dir)
+    problems = report.verify_pool(pool_dir)
+    print(json.dumps({"accepted": docs["funnel"]["accepted"], "ledger": docs["funnel"]["ledger"],
+                      "problems": problems}, indent=1, sort_keys=True))
+    return 1 if problems else 0
+
+
 def cmd_terragoat(args: argparse.Namespace) -> int:
     root = acquire.cache_root()
     clone = root / "terragoat"
@@ -235,6 +285,9 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("terragoat", help="redacted TerraGoat controlled tier into pool/terragoat/aws/")
     p.add_argument("--work", type=Path, default=None, help=argparse.SUPPRESS)
     p.set_defaults(func=cmd_terragoat)
+    p = sub.add_parser("assemble", help="write the committed pool from the saved results")
+    p.add_argument("--work", type=Path, default=None, help="work directory outside the repository")
+    p.set_defaults(func=cmd_assemble)
     return parser
 
 

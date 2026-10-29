@@ -39,6 +39,7 @@ FILES = (
     "pool/licence.py",
     "pool/validate.py",
     "pool/report.py",
+    "pool/assemble.py",
 )
 DIRS = ("LICENSES", "sources", "pool", "generator", "oracle", "scenarios", "validation/smoke", "tests")
 
