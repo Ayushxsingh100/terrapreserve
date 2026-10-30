@@ -579,3 +579,139 @@ def remove_top_level_blocks(text: str, kinds: tuple[str, ...]) -> str:
         cursor = end
     out.append(text[cursor:])
     return "".join(out)
+
+
+# --------------------------------------------------------------------------- object-literal keys (D3 review fix)
+
+
+@dataclass(frozen=True)
+class ObjectEntry:
+    """A ``key = value`` entry inside an object literal, e.g. ``variables = { access_key = "..." }``."""
+
+    key: str
+    line: int  # line of the key
+    end_line: int  # last line of the value
+    value_kind: str  # as for Attribute.value_kind
+    top_level: str  # address of the outermost block
+    container: str  # enclosing blocks, the attribute and outer keys, joined by "."
+
+
+def _entries_in_expression(expr: list[Token], top_level: str, base: list[str], attribute: str) -> list[ObjectEntry]:
+    out: list[ObjectEntry] = []
+    names: list[str] = []  # name of each open "{" (the key or attribute it is the value of), "" if none
+    kinds: list[str] = []  # "{" or another bracket, for each open bracket
+    pending: str | None = attribute
+    n = len(expr)
+    for i, tok in enumerate(expr):
+        if tok.kind == "PUNCT" and tok.text in "([{":
+            kinds.append(tok.text)
+            if tok.text == "{":
+                names.append(pending or "")
+            pending = None
+            continue
+        if tok.kind == "PUNCT" and tok.text in ")]}":
+            if kinds:
+                if kinds.pop() == "{" and names:
+                    names.pop()
+            pending = None
+            continue
+        if not kinds or kinds[-1] != "{" or tok.kind not in ("IDENT", "STRING"):
+            continue
+        previous = expr[i - 1] if i else None
+        starts_item = previous is None or previous.kind == "NEWLINE" or (previous.kind == "PUNCT" and previous.text in "{,")
+        sep = expr[i + 1] if i + 1 < n else None
+        after = expr[i + 2] if i + 2 < n else None
+        if not (starts_item and sep is not None and sep.kind == "PUNCT" and sep.text in ("=", ":")
+                and not (sep.text == "=" and after is not None and after.kind == "PUNCT" and after.text in "=>")):
+            continue
+        j = i + 2
+        depth = 0
+        value: list[Token] = []
+        while j < n:
+            t = expr[j]
+            if t.kind == "NEWLINE" and depth == 0:
+                break
+            if t.kind == "PUNCT" and t.text in "([{":
+                depth += 1
+            elif t.kind == "PUNCT" and t.text in ")]}":
+                if depth == 0:
+                    break
+                depth -= 1
+            elif t.kind == "PUNCT" and t.text == "," and depth == 0:
+                break
+            value.append(t)
+            j += 1
+        end_line = value[-1].end_line if value else tok.line
+        container = ".".join([*base, *[x for x in names if x]]) if (base or names) else ""
+        out.append(ObjectEntry(tok.text, tok.line, max(end_line, tok.line), _classify(value), top_level, container))
+        pending = tok.text
+    return out
+
+
+def object_entries_from_hcl(text: str) -> list[ObjectEntry]:
+    """Every entry of every object literal that is the value of an attribute, with the block path it sits in.
+
+    ``attributes_from_hcl`` stops at the attribute; this looks inside its value. Comments, strings and heredoc
+    bodies are never read as HCL, and ``==``, ``=>`` and ``for`` expressions are not mistaken for keys.
+    """
+    tokens = tokenize(text)
+    out: list[ObjectEntry] = []
+    stack: list[str] = []
+    i, n = 0, len(tokens)
+    while i < n:
+        tok = tokens[i]
+        if tok.kind == "NEWLINE" or (tok.kind == "PUNCT" and tok.text in (",", ";")):
+            i += 1
+            continue
+        if tok.kind == "PUNCT" and tok.text == "}":
+            if stack:
+                stack.pop()
+            i += 1
+            continue
+        if tok.kind != "IDENT":
+            i += 1
+            continue
+        nxt = tokens[i + 1] if i + 1 < n else None
+        if nxt is not None and nxt.kind == "PUNCT" and nxt.text == "=":
+            j = i + 2
+            expr: list[Token] = []
+            depth = 0
+            while j < n:
+                t = tokens[j]
+                if t.kind == "NEWLINE" and depth == 0:
+                    break
+                if t.kind == "PUNCT" and t.text in "([{":
+                    depth += 1
+                elif t.kind == "PUNCT" and t.text in ")]}":
+                    if depth == 0:
+                        break
+                    depth -= 1
+                expr.append(t)
+                j += 1
+            i = j
+            out.extend(_entries_in_expression(expr, stack[0] if stack else "", stack[1:], tok.text))
+            continue
+        labels = []
+        j = i + 1
+        while j < n and (lab := _label(tokens[j])) is not None:
+            labels.append(lab)
+            j += 1
+        if j < n and tokens[j].kind == "PUNCT" and tokens[j].text == "{":
+            if not stack:
+                if tok.text == "resource" and len(labels) == 2:
+                    header = f"{labels[0]}.{labels[1]}"
+                elif tok.text == "data" and len(labels) == 2:
+                    header = f"data.{labels[0]}.{labels[1]}"
+                elif tok.text == "module" and len(labels) == 1:
+                    header = f"module.{labels[0]}"
+                elif tok.text in ("variable", "output", "provider") and labels:
+                    header = f"{tok.text}.{labels[0]}"
+                else:
+                    header = ".".join([tok.text, *labels])
+            else:
+                header = ".".join([tok.text, *labels])
+            stack.append(header)
+            i = j + 1
+            continue
+        i = j if j > i else i + 1
+    return out

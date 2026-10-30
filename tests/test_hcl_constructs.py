@@ -149,5 +149,63 @@ class TestRemoveTopLevelBlocks(unittest.TestCase):
         self.assertEqual(hcl_lex.remove_top_level_blocks(text, ("terraform", "provider")), text)
 
 
+class TestObjectEntries(unittest.TestCase):
+    """Keys of object literals, which attributes_from_hcl does not see (D3 review fix)."""
+
+    @staticmethod
+    def entries(text: str):
+        return [(e.key, e.line, e.end_line, e.value_kind, e.top_level, e.container)
+                for e in hcl_lex.object_entries_from_hcl(text)]
+
+    def test_map_keys_inside_a_nested_block_attribute(self) -> None:
+        text = (
+            'resource "aws_lambda_function" "f" {\n'
+            "  environment {\n"
+            "    variables = {\n"
+            '      access_key = "v1"\n'
+            "      secret_key = var.s\n"
+            "    }\n"
+            "  }\n"
+            "}\n"
+        )
+        self.assertEqual(self.entries(text), [
+            ("access_key", 4, 4, "literal", "aws_lambda_function.f", "environment.variables"),
+            ("secret_key", 5, 5, "reference", "aws_lambda_function.f", "environment.variables"),
+        ])
+
+    def test_single_line_object_and_comma_separated_entries(self) -> None:
+        text = 'locals {\n  m = { a = "x", token = "y" }\n}\n'
+        self.assertEqual([(k, v) for k, _l, _e, v, _t, _c in self.entries(text)], [("a", "literal"), ("token", "literal")])
+
+    def test_string_keys_and_colon_separators(self) -> None:
+        text = 'locals {\n  m = {\n    "access_key" = "x"\n    "password": "y"\n  }\n}\n'
+        self.assertEqual([(k, v) for k, _l, _e, v, _t, _c in self.entries(text)], [("access_key", "literal"), ("password", "literal")])
+
+    def test_nested_objects_name_their_container_path(self) -> None:
+        text = 'locals {\n  outer = {\n    inner = {\n      password = "x"\n    }\n  }\n}\n'
+        got = self.entries(text)
+        self.assertEqual([(k, c) for k, _l, _e, _v, _t, c in got if k == "password"], [("password", "outer.inner")])
+
+    def test_objects_inside_function_calls(self) -> None:
+        text = 'locals {\n  m = merge({ password = "x" }, var.y)\n}\n'
+        self.assertIn(("password", "literal"), [(k, v) for k, _l, _e, v, _t, _c in self.entries(text)])
+
+    def test_heredoc_and_multiline_values_report_their_last_line(self) -> None:
+        text = 'locals {\n  m = {\n    user_data = <<EOT\nline\nEOT\n    other = 1\n  }\n}\n'
+        got = {k: (l, e, v) for k, l, e, v, _t, _c in self.entries(text)}
+        self.assertEqual(got["user_data"], (3, 5, "heredoc"))
+
+    def test_comparisons_and_for_expressions_are_not_keys(self) -> None:
+        text = 'locals {\n  a = { for k, v in var.m : k => v }\n  b = var.x == "y" ? { z = 1 } : {}\n}\n'
+        self.assertEqual([k for k, *_ in self.entries(text)], ["z"])
+
+    def test_words_in_strings_and_comments_are_not_keys(self) -> None:
+        text = 'locals {\n  # access_key = "x"\n  m = { note = "access_key = y" }\n}\n'
+        self.assertEqual([k for k, *_ in self.entries(text)], ["note"])
+
+    def test_plain_attributes_are_not_object_entries(self) -> None:
+        self.assertEqual(self.entries('resource "aws_vpc" "v" {\n  cidr_block = "10.0.0.0/16"\n}\n'), [])
+
+
 if __name__ == "__main__":
     unittest.main()

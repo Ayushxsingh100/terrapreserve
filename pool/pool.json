@@ -39753,14 +39753,14 @@
      "sha256": "dbb8466b33a5f31c7b72326d893a3bb96b3d2f1ffc369461b23f16694ae25266"
     },
     {
-     "bytes": 3301,
+     "bytes": 3590,
      "path": "REDACTION_LOG.md",
-     "sha256": "0eedc4051231e57d7093437ade08cb499cb9dc91fa20ea9b7cb1e3d57575f7df"
+     "sha256": "87c7f8ef2771a0c86cf9094668200edd3668cd0029ba32d94285ab2b185dc8b4"
     },
     {
      "bytes": 3754,
      "path": "SOURCE.json",
-     "sha256": "5e00aa784f08e74c1d31ab5fd3cada4f580461f265fec02003e7bf3410006e66"
+     "sha256": "fe514f8787edefc46a9a6211acd09fd638819f9cbc7ae3a37021c8324b9c9a81"
     }
    ],
    "files": [
@@ -39810,9 +39810,9 @@
      "sha256": "f1f3d5f95507b15f2c5c0b18c0aae888452b1bee722199b989c3288371cd2f27"
     },
     {
-     "bytes": 1802,
+     "bytes": 1698,
      "path": "lambda.tf",
-     "sha256": "873fd285159d2de95d3021c5bb853cccb07e658e5e2e3453ab87147e545088d2"
+     "sha256": "32c54def3cd7b0a083bfc6f3f2df55b9a25123dcd6649cc14d7cbbb732bc3d12"
     },
     {
      "bytes": 1977,
@@ -39871,7 +39871,7 @@
    "licence_file_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
    "licence_spdx": "Apache-2.0",
    "lineage_id": null,
-   "module_hash": "59703c205f1219f1ce7db76a54bd532415c4f155418c807942d07faec5b6e954",
+   "module_hash": "63a1d97bbde079e24e1bb87c32c5f01652ddd97094a9b2e1af6a3ed3e06d00a7",
    "module_id": null,
    "module_path": "terraform/aws",
    "pool_id": "terragoat-aws",

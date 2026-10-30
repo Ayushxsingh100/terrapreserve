@@ -83,6 +83,90 @@ class TestInventory(unittest.TestCase):
         self.assertEqual(self.flags('resource "aws_vpc" "v" {\n  cidr_block = "10.0.0.0/16"\n}\n'), [])
 
 
+LAMBDA_LIKE = (
+    'resource "aws_lambda_function" "lf" {\n'
+    '  runtime = "python3.9"\n'
+    "  environment {\n"
+    "    variables = {\n"
+    f'      access_key = "{FAKE_KEY}"\n'
+    f'      secret_key = "{FAKE_PW}x"\n'
+    '      region     = "us-west-2"\n'
+    "    }\n"
+    "  }\n"
+    "}\n"
+)
+
+
+class TestObjectKeysAndDenyList(unittest.TestCase):
+    """D3 review fix: secret-named keys inside object literals are flagged; IMDSv2 settings are not."""
+
+    def flags(self, text: str):
+        return redact.inventory_flags({"main.tf": text})
+
+    def test_secret_named_map_keys_are_flagged_with_their_container(self) -> None:
+        got = [(f.line, f.end_line, f.address, f.attribute, f.kind, f.container) for f in self.flags(LAMBDA_LIKE)]
+        self.assertEqual(got, [
+            (5, 5, "aws_lambda_function.lf", "access_key", "literal", "environment.variables"),
+            (6, 6, "aws_lambda_function.lf", "secret_key", "literal", "environment.variables"),
+        ])
+
+    def test_reference_values_in_a_map_are_not_flagged(self) -> None:
+        text = 'locals {\n  m = {\n    password = var.p\n    token = "${var.t}"\n  }\n}\n'
+        self.assertEqual(self.flags(text), [])
+
+    def test_a_non_secret_key_is_not_flagged(self) -> None:
+        self.assertEqual(self.flags('locals {\n  m = {\n    region = "x"\n  }\n}\n'), [])
+
+    def test_literal_secret_key_in_a_single_line_object(self) -> None:
+        self.assertEqual([f.attribute for f in self.flags('locals {\n  m = { token = "x" }\n}\n')], ["token"])
+
+    def test_imdsv2_settings_are_never_flagged_as_attributes_or_keys(self) -> None:
+        text = (
+            'resource "aws_instance" "i" {\n'
+            "  metadata_options {\n"
+            '    http_tokens = "required"\n'
+            '    http_put_response_hop_limit = "1"\n'
+            "  }\n"
+            "}\n"
+            'locals {\n  m = {\n    http_tokens = "required"\n    HTTP_PUT_RESPONSE_HOP_LIMIT = "1"\n  }\n}\n'
+        )
+        self.assertEqual(self.flags(text), [])
+
+    def test_the_deny_list_is_exactly_the_two_names_in_the_review(self) -> None:
+        self.assertEqual(redact.DENY_LIST, frozenset({"http_tokens", "http_put_response_hop_limit"}))
+
+    def test_other_token_names_are_still_flagged(self) -> None:
+        self.assertEqual([f.attribute for f in self.flags('resource "aws_x" "y" {\n  api_token = "x"\n  http_tokens_extra = "y"\n}\n')],
+                         ["api_token", "http_tokens_extra"])
+
+    def test_no_value_is_kept_for_object_keys(self) -> None:
+        dump = repr(self.flags(LAMBDA_LIKE))
+        for secret in (FAKE_KEY, FAKE_PW):
+            self.assertNotIn(secret, dump)
+
+    def test_redaction_deletes_exactly_the_logged_map_lines(self) -> None:
+        files = {"lambda.tf": LAMBDA_LIKE}
+        plan = redact.plan_redactions(files)
+        out = redact.apply_redactions(files, plan)["lambda.tf"]
+        before, after = LAMBDA_LIKE.split("\n"), out.split("\n")
+        self.assertEqual([n for n in range(1, len(before) + 1) if before[n - 1] not in after], [5, 6])
+        self.assertEqual(len(after), len(before) - 2)
+        self.assertIn('      region     = "us-west-2"', after)
+        self.assertEqual(redact.inventory_flags({"lambda.tf": out}), [])
+        import hcl_lex
+
+        self.assertEqual(hcl_lex.headers_from_hcl(out).anomalies, 0)
+
+    def test_log_names_file_line_address_and_key_but_no_value(self) -> None:
+        files = {"lambda.tf": LAMBDA_LIKE}
+        plan = redact.plan_redactions(files)
+        log = redact.redaction_log(plan, files, redact.apply_redactions(files, plan), commit="c" * 40)
+        for needle in ("lambda.tf", "aws_lambda_function.lf", "`access_key`", "`secret_key`", "environment.variables"):
+            self.assertIn(needle, log)
+        for secret in (FAKE_KEY, FAKE_PW):
+            self.assertNotIn(secret, log)
+
+
 GITLEAKS = redact.gitleaks_binary()
 
 

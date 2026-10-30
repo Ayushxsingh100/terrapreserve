@@ -28,6 +28,7 @@ from pathlib import Path
 
 import acquire
 import attribute_inventory
+import hcl_lex
 import tools
 
 GITLEAKS_VERSION = tools.GITLEAKS_VERSION
@@ -43,6 +44,7 @@ class Flag:
     address: str
     attribute: str
     kind: str  # literal | heredoc | call-with-literal
+    container: str = ""  # for a key inside an object literal: the blocks, attribute and keys around it
 
 
 @dataclass(frozen=True)
@@ -60,12 +62,29 @@ def has_secrets(result: SecretsResult) -> bool:
 # --------------------------------------------------------------------------- inventory
 
 
+# Names the inventory's substring rule matches although they are not secrets: IMDSv2 settings (D3 review fix).
+DENY_LIST = frozenset({"http_tokens", "http_put_response_hop_limit"})
+
+
 def inventory_flags(files: dict[str, str]) -> list[Flag]:
-    """Every flagged attribute of every file (``name -> text``), in file and line order."""
+    """Every flagged attribute of every file (``name -> text``), in file and line order.
+
+    An attribute is flagged when its name matches the inventory's credential-like pattern and its value is a
+    literal. Since the D3 review the keys of object literals count too (``variables = { access_key = "..." }``),
+    and the names in ``DENY_LIST`` never do.
+    """
     out: list[Flag] = []
     for name in sorted(files):
+        flags: list[Flag] = []
         flagged, _rest = attribute_inventory.split_flagged(attribute_inventory.matching_attributes(files[name]))
-        out.extend(Flag(name, a.line, a.end_line, a.top_level, a.name, a.value_kind) for a in flagged)
+        for a in flagged:
+            if a.name.lower() not in DENY_LIST:
+                flags.append(Flag(name, a.line, a.end_line, a.top_level, a.name, a.value_kind))
+        for e in hcl_lex.object_entries_from_hcl(files[name]):
+            if (attribute_inventory.NAME_RE.search(e.key) and e.value_kind in attribute_inventory.FLAGGED_KINDS
+                    and e.key.lower() not in DENY_LIST):
+                flags.append(Flag(name, e.line, e.end_line, e.top_level, e.key, e.value_kind, e.container))
+        out.extend(sorted(flags, key=lambda f: (f.line, f.end_line, f.attribute)))
     return out
 
 
@@ -157,12 +176,12 @@ def redaction_log(plan: list[Flag], before: dict[str, str], after: dict[str, str
         "- rule: delete every attribute that `sources/terragoat/attribute_inventory.py` flags (a credential-like "
         "name holding a literal, a heredoc or a function call wrapping a literal); the rest of each block is intact",
         "",
-        "| File | Upstream lines | Lines removed | Resource address | Attribute | Value kind |",
-        "|---|---|---:|---|---|---|",
+        "| File | Upstream lines | Lines removed | Resource address | Attribute or map key | Within (map keys only) | Value kind |",
+        "|---|---|---:|---|---|---|---|",
     ]
     for r in plan:
         span = f"{r.line}" if r.line == r.end_line else f"{r.line}-{r.end_line}"
-        lines.append(f"| `{r.file}` | {span} | {r.end_line - r.line + 1} | `{r.address}` | `{r.attribute}` | {r.kind} |")
+        lines.append(f"| `{r.file}` | {span} | {r.end_line - r.line + 1} | `{r.address}` | `{r.attribute}` | {('`' + r.container + '`') if r.container else '-'} | {r.kind} |")
     lines += ["", "| File | sha256 upstream | sha256 in pool | Changed |", "|---|---|---|---|"]
     for name in sorted(before):
         a, b = sha256_text(before[name]), sha256_text(after[name])

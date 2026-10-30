@@ -89,9 +89,14 @@ class TestCommittedPool(unittest.TestCase):
         self.assertIn("Apache License", (directory / "LICENSE.upstream").read_text(encoding="utf-8"))
         log = (directory / "REDACTION_LOG.md").read_text(encoding="utf-8")
         source = json.loads((directory / "SOURCE.json").read_text(encoding="utf-8"))
-        self.assertEqual(source["redactions"], 4)
+        self.assertEqual(source["redactions"], 6)  # 4 attributes + 2 map keys in lambda.tf (review fix)
         for attribute in ("access_key", "secret_key", "user_data"):
             self.assertIn(f"`{attribute}`", log)
+        self.assertIn("`lambda.tf`", log)
+        self.assertIn("aws_lambda_function", log)
+        lambda_text = (directory / "lambda.tf").read_text(encoding="utf-8")
+        for key in ("access_key", "secret_key"):
+            self.assertNotIn(key, lambda_text)
         self.assertIn("sha256 upstream", log)
 
     def test_generated_documents_are_what_the_scripts_produce_from_the_committed_pool(self) -> None:

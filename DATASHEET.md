@@ -80,7 +80,7 @@ Measured by `pool/build.py`; the full account, with every exclusion, is in `pool
 - Licences of accepted modules: MIT 282, Apache-2.0 105, Unlicense 7, BSD-3-Clause 4, CC0-1.0 2, MIT-0 1.
 - `terraform validate` under Terraform 1.15.x and `hashicorp/aws` 6.53.0: 401 of 526 modules that reached that step were valid.
 - Lineages over the candidates that passed the cheap filters: 3,060; largest 344 modules. Undetected forks: not yet established.
-- Controlled tier: TerraGoat, 14 `.tf` files, Apache-2.0 notice kept, 4 credential-like attributes deleted and logged.
+- Controlled tier: TerraGoat, 14 `.tf` files, Apache-2.0 notice kept, 6 credential-like attributes deleted and logged.
 - Secrets: every accepted real-world module has 0 gitleaks findings and 0 flagged attributes; real-world modules with a finding were excluded, never edited.
 - Selection bias: small, self-contained, secret-free, permissively licensed modules that validate under the pins; the pool is not representative of Terraform in the wild.
 <!-- POOL:END -->

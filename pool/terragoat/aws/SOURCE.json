@@ -57,9 +57,9 @@
    "upstream_sha256": "f1f3d5f95507b15f2c5c0b18c0aae888452b1bee722199b989c3288371cd2f27"
   },
   {
-   "bytes": 1802,
+   "bytes": 1698,
    "path": "lambda.tf",
-   "sha256": "873fd285159d2de95d3021c5bb853cccb07e658e5e2e3453ab87147e545088d2",
+   "sha256": "32c54def3cd7b0a083bfc6f3f2df55b9a25123dcd6649cc14d7cbbb732bc3d12",
    "upstream_sha256": "873fd285159d2de95d3021c5bb853cccb07e658e5e2e3453ab87147e545088d2"
   },
   {
@@ -97,7 +97,7 @@
   "terraform/aws/resources/lambda_function_payload.zip"
  ],
  "not_copied_reason": "not .tf files; the secret inventory covers .tf files only",
- "redactions": 4,
+ "redactions": 6,
  "repository": "https://github.com/bridgecrewio/terragoat",
  "scanners": {
   "attribute_inventory": "run",

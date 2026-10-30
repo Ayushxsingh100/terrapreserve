@@ -242,7 +242,7 @@ Pass rate among modules that reached E12: 76.2% (401 of 526).
 
 ## TerraGoat (controlled tier)
 
-14 `.tf` files from commit `729f8da62c6a85ce4af5ad3d123de97776d954c4`, licence Apache-2.0 (`NOTICE` and `LICENSE.upstream` kept). 4 credential-like attributes deleted and logged without values in `pool/terragoat/aws/REDACTION_LOG.md`; rescan by gitleaks and the attribute inventory: 0 findings. 3 non-`.tf` files under `terraform/aws/` were not copied. terraform validate under the pins: `invalid` (Invalid quoted type constraints).
+14 `.tf` files from commit `729f8da62c6a85ce4af5ad3d123de97776d954c4`, licence Apache-2.0 (`NOTICE` and `LICENSE.upstream` kept). 6 credential-like attributes deleted and logged without values in `pool/terragoat/aws/REDACTION_LOG.md`; rescan by gitleaks and the attribute inventory: 0 findings. 3 non-`.tf` files under `terraform/aws/` were not copied. terraform validate under the pins: `invalid` (Invalid quoted type constraints).
 
 ## Limits
 
