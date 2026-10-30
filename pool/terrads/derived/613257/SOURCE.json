@@ -1,0 +1,21 @@
+{
+  "derived": true,
+  "derived_from": "7d210bb6479dcc807b84aa429b4e3646ca9244c538d998d042ecb9507dfe35c4",
+  "kind": "derived_native",
+  "lineage_id": "lin-000961020473",
+  "modifications": [
+    {
+      "address": "aws_db_instance.academia_rds",
+      "attribute": "password",
+      "file": "main.tf",
+      "line": 22,
+      "sha256_after": "2b597eec4f9c2a0650c04283ad568d22b3b2f6020625790cf8bdd6742ffbbf82",
+      "sha256_before": "7d210bb6479dcc807b84aa429b4e3646ca9244c538d998d042ecb9507dfe35c4"
+    }
+  ],
+  "module_id": 613257,
+  "module_path": "infra",
+  "pool_id": "terrads-derived-613257",
+  "repo_full_name": "Luanacsilva/Academia-corpo-em-forma",
+  "repo_id": 961020473
+}

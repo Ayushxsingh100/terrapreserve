@@ -61,6 +61,10 @@ FILES = (
     "tools/run_mutation_checks.py",
     # D4b (real-world tier, derived natives, assembly)
     "docs/D4B_DECISIONS.md",
+    "pool/derive.py",
+    "pool/derived.json",
+    "pool/derived_exclusions.csv",
+    "pool/DERIVED_REPORT.md",
 )
 DIRS = ("LICENSES", "sources", "pool", "generator", "oracle", "scenarios", "validation/smoke", "tests")
 

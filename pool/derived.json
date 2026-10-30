@@ -1,0 +1,304 @@
+[
+  {
+    "derived": true,
+    "dir": "terrads/derived/290262",
+    "extra_files": [
+      {
+        "bytes": 734,
+        "path": "DERIVED.md",
+        "sha256": "cf3327c1d3be4494007bbc6646f61df2a230961ed6a142bdcc279e99457a0022"
+      },
+      {
+        "bytes": 681,
+        "path": "SOURCE.json",
+        "sha256": "48195c2f4dde98991a4860b3cb6247e53f2bfee049d46fdcc7e4db8b8d960362"
+      }
+    ],
+    "files": [
+      {
+        "bytes": 1277,
+        "path": "compute.tf",
+        "sha256": "1e1376a5970f6dc16d575141a6b749f20664ac6debe107eb33f81b67ab1639a3"
+      },
+      {
+        "bytes": 1228,
+        "path": "database.tf",
+        "sha256": "c133ec0cabc9e00c74573e7f426509ea5b1ca0c3ee6eeb36522e8316dfb23d8a"
+      },
+      {
+        "bytes": 706,
+        "path": "inputs.tf",
+        "sha256": "9e1439e3cce0bc961735679758121dc5b86752013b894d34d708de49a682f130"
+      },
+      {
+        "bytes": 197,
+        "path": "localvalues.tf",
+        "sha256": "e444de28a5f952592c5a8c9d72b76389a987ec25b630643310150f0cb713bda1"
+      },
+      {
+        "bytes": 1979,
+        "path": "network.tf",
+        "sha256": "129ce5062bf1f11f8029bd6cbc10370a2fda0c8eeb78645e12b63c6fb95cc53e"
+      },
+      {
+        "bytes": 197,
+        "path": "outputs.tf",
+        "sha256": "e7e07b673f455322186109d9da40d1782147cbaaf15e92c925fbcd98b0113539"
+      },
+      {
+        "bytes": 193,
+        "path": "provider.tf",
+        "sha256": "83ca938701e5f1ab819e062142f196152822f94f2e88611d07f5d7e550dabdb0"
+      },
+      {
+        "bytes": 67,
+        "path": "variables.tf",
+        "sha256": "046af4fb1b3e0e9e0d2bc8c1614f935fdf5da0bbc6dde6a5fd04b399949f4887"
+      }
+    ],
+    "kind": "native",
+    "licence_file": "LICENSE.upstream",
+    "licence_spdx": "permissive",
+    "lineage_id": "lin-000102797961",
+    "module_id": 290262,
+    "module_path": "Mar23/ntier/aws",
+    "pool_id": "terrads-derived-290262",
+    "repo_full_name": "asquarezone/TerraformZone",
+    "repo_id": 102797961,
+    "validate": {
+      "provider_version": "6.53.0",
+      "status": "valid",
+      "terraform_version": "1.15.8"
+    }
+  },
+  {
+    "derived": true,
+    "dir": "terrads/derived/358849",
+    "extra_files": [
+      {
+        "bytes": 729,
+        "path": "DERIVED.md",
+        "sha256": "eabcde360ffe2bebc21583a71754906179411f534aee65df1a3876144a2da2f3"
+      },
+      {
+        "bytes": 673,
+        "path": "SOURCE.json",
+        "sha256": "6300da7dca4ae4f614f5c6f7a1d8e53f651b0455df5e7e2070d8f69ca41cf44e"
+      }
+    ],
+    "files": [
+      {
+        "bytes": 451,
+        "path": "main.tf",
+        "sha256": "757d425d31a685be42f4b26c2bc158e24769578abe91bed1179a1039557bae57"
+      },
+      {
+        "bytes": 67,
+        "path": "variables.tf",
+        "sha256": "046af4fb1b3e0e9e0d2bc8c1614f935fdf5da0bbc6dde6a5fd04b399949f4887"
+      }
+    ],
+    "kind": "native",
+    "licence_file": "LICENSE.upstream",
+    "licence_spdx": "permissive",
+    "lineage_id": "lin-000316823064",
+    "module_id": 358849,
+    "module_path": "lessons/165/infra",
+    "pool_id": "terrads-derived-358849",
+    "repo_full_name": "antonputra/tutorials",
+    "repo_id": 316823064,
+    "validate": {
+      "provider_version": "6.53.0",
+      "status": "valid",
+      "terraform_version": "1.15.8"
+    }
+  },
+  {
+    "derived": true,
+    "dir": "terrads/derived/574780",
+    "extra_files": [
+      {
+        "bytes": 734,
+        "path": "DERIVED.md",
+        "sha256": "1f70a5698873785f6ef09f4e75851d540be4aa0092a74e31adf6dc9986fe1b2a"
+      },
+      {
+        "bytes": 691,
+        "path": "SOURCE.json",
+        "sha256": "c3d7badbee0cab44c049a44a5dd3488aa3fa3113de3592eaacaea6a0ebfa205f"
+      }
+    ],
+    "files": [
+      {
+        "bytes": 1505,
+        "path": "main.tf",
+        "sha256": "64959c37f77d9743b1c3613698ed6cf84d696387957aae1d6c6fcc5312d0cdef"
+      },
+      {
+        "bytes": 69,
+        "path": "variables.tf",
+        "sha256": "8bce9f0fa313ad8fb978cc4c313df2d39a3d52f5a8ea33702a2ea3140f4fc593"
+      }
+    ],
+    "kind": "native",
+    "licence_file": "LICENSE.upstream",
+    "licence_spdx": "permissive",
+    "lineage_id": "lin-000852752600",
+    "module_id": 574780,
+    "module_path": ".",
+    "pool_id": "terrads-derived-574780",
+    "repo_full_name": "Sarthak-017s/Terraform-IaC-for-Medusa-open-source",
+    "repo_id": 852752600,
+    "validate": {
+      "provider_version": "6.53.0",
+      "status": "valid",
+      "terraform_version": "1.15.8"
+    }
+  },
+  {
+    "derived": true,
+    "dir": "terrads/derived/588227",
+    "extra_files": [
+      {
+        "bytes": 731,
+        "path": "DERIVED.md",
+        "sha256": "1f9fe5a43806cfc5fcdc764cefbd89427c002e471487de9ee161ac4c244bea62"
+      },
+      {
+        "bytes": 672,
+        "path": "SOURCE.json",
+        "sha256": "19ce53d84f53ce4a0f8962e0cc4e5c7e6b315466051b74a105d2756feebd9c90"
+      }
+    ],
+    "files": [
+      {
+        "bytes": 4784,
+        "path": "main.tf",
+        "sha256": "93d6d9d9372b3d43063e10d0778be9a14683af20f6b18e5c390b1d64b8976c91"
+      },
+      {
+        "bytes": 146,
+        "path": "output.tf",
+        "sha256": "64689235c2bb192c42840ebdd6713f6203b0ebaab22c77863b07b1d1fb826d69"
+      },
+      {
+        "bytes": 224,
+        "path": "variables.tf",
+        "sha256": "a7c08679a0073a0a473360888891be17aafb861b160c54c62b6986cdc1fcc513"
+      }
+    ],
+    "kind": "native",
+    "licence_file": "LICENSE.upstream",
+    "licence_spdx": "permissive",
+    "lineage_id": "lin-000893886026",
+    "module_id": 588227,
+    "module_path": ".",
+    "pool_id": "terrads-derived-588227",
+    "repo_full_name": "RajeshRangdal/terraform-aws-2tier",
+    "repo_id": 893886026,
+    "validate": {
+      "provider_version": "6.53.0",
+      "status": "valid",
+      "terraform_version": "1.15.8"
+    }
+  },
+  {
+    "derived": true,
+    "dir": "terrads/derived/613257",
+    "extra_files": [
+      {
+        "bytes": 737,
+        "path": "DERIVED.md",
+        "sha256": "dab6f6dfff020b56a515129b29cd80a0c1923fac399b88e93caf5b8dbb226612"
+      },
+      {
+        "bytes": 684,
+        "path": "SOURCE.json",
+        "sha256": "ebb2af0425404f1964e5676939c8bdb61503b8b38e732f7f0cddc254ed3d15de"
+      }
+    ],
+    "files": [
+      {
+        "bytes": 641,
+        "path": "main.tf",
+        "sha256": "2b597eec4f9c2a0650c04283ad568d22b3b2f6020625790cf8bdd6742ffbbf82"
+      },
+      {
+        "bytes": 0,
+        "path": "outputs.tf",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 69,
+        "path": "variables.tf",
+        "sha256": "8bce9f0fa313ad8fb978cc4c313df2d39a3d52f5a8ea33702a2ea3140f4fc593"
+      }
+    ],
+    "kind": "native",
+    "licence_file": "LICENSE.upstream",
+    "licence_spdx": "permissive",
+    "lineage_id": "lin-000961020473",
+    "module_id": 613257,
+    "module_path": "infra",
+    "pool_id": "terrads-derived-613257",
+    "repo_full_name": "Luanacsilva/Academia-corpo-em-forma",
+    "repo_id": 961020473,
+    "validate": {
+      "provider_version": "6.53.0",
+      "status": "valid",
+      "terraform_version": "1.15.8"
+    }
+  },
+  {
+    "derived": true,
+    "dir": "terrads/derived/653852",
+    "extra_files": [
+      {
+        "bytes": 742,
+        "path": "DERIVED.md",
+        "sha256": "d855fdc8db1b1c443a7f8b4be2ccd4cd59e48a1efef9d7b01b078430e5be90ad"
+      },
+      {
+        "bytes": 702,
+        "path": "SOURCE.json",
+        "sha256": "a78dd6778e064844d00d7d7e7ee9f4ae84b92925e7fae47ff248746e0ecd245e"
+      }
+    ],
+    "files": [
+      {
+        "bytes": 813,
+        "path": "main.tf",
+        "sha256": "ace00c1ec1662af5aa047e6be8216ae4036c462131a97b02486bac386a760406"
+      },
+      {
+        "bytes": 623,
+        "path": "output.tf",
+        "sha256": "6c8f98030a4c458d9cd4b5c4af27789e77f269d4bc7be648bfe52858a0fd8857"
+      },
+      {
+        "bytes": 534,
+        "path": "variable.tf",
+        "sha256": "24efde1908a80c258fbf5f9e625fa5da90a8892705a1733ed2cc052fc7cf6fd6"
+      },
+      {
+        "bytes": 67,
+        "path": "variables.tf",
+        "sha256": "046af4fb1b3e0e9e0d2bc8c1614f935fdf5da0bbc6dde6a5fd04b399949f4887"
+      }
+    ],
+    "kind": "native",
+    "licence_file": "LICENSE.upstream",
+    "licence_spdx": "permissive",
+    "lineage_id": "lin-001057181459",
+    "module_id": 653852,
+    "module_path": "lab2/module/webapp-module",
+    "pool_id": "terrads-derived-653852",
+    "repo_full_name": "abdoulWaris/handleTerraform",
+    "repo_id": 1057181459,
+    "validate": {
+      "provider_version": "6.53.0",
+      "status": "valid",
+      "terraform_version": "1.15.8"
+    }
+  }
+]

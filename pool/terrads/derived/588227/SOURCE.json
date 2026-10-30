@@ -1,0 +1,21 @@
+{
+  "derived": true,
+  "derived_from": "041793164a41b1ad29a7afa6b482d0c69f6373a6dac59b80c0d8cb3dabff8914",
+  "kind": "derived_native",
+  "lineage_id": "lin-000893886026",
+  "modifications": [
+    {
+      "address": "aws_db_instance.my_db",
+      "attribute": "password",
+      "file": "main.tf",
+      "line": 166,
+      "sha256_after": "93d6d9d9372b3d43063e10d0778be9a14683af20f6b18e5c390b1d64b8976c91",
+      "sha256_before": "cb37f71fece968af634179da41616b57a49602993fec3366f8b0b33b111a4863"
+    }
+  ],
+  "module_id": 588227,
+  "module_path": ".",
+  "pool_id": "terrads-derived-588227",
+  "repo_full_name": "RajeshRangdal/terraform-aws-2tier",
+  "repo_id": 893886026
+}

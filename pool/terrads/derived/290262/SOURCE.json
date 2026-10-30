@@ -1,0 +1,21 @@
+{
+  "derived": true,
+  "derived_from": "a978c0630dc13135b514f8978529f9a070d5ae6ff762d343182533b623a100f5",
+  "kind": "derived_native",
+  "lineage_id": "lin-000102797961",
+  "modifications": [
+    {
+      "address": "aws_db_instance.empdb",
+      "attribute": "password",
+      "file": "database.tf",
+      "line": 51,
+      "sha256_after": "c133ec0cabc9e00c74573e7f426509ea5b1ca0c3ee6eeb36522e8316dfb23d8a",
+      "sha256_before": "509a776b932f597024535f0fc5372372e682cc7a09ec87214f8fa2015f0e4abc"
+    }
+  ],
+  "module_id": 290262,
+  "module_path": "Mar23/ntier/aws",
+  "pool_id": "terrads-derived-290262",
+  "repo_full_name": "asquarezone/TerraformZone",
+  "repo_id": 102797961
+}
