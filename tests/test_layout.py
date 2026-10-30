@@ -59,6 +59,8 @@ FILES = (
     "scenarios/validate_results.csv",
     "docs/D5_CARRYOVER.md",
     "tools/run_mutation_checks.py",
+    # D4b (real-world tier, derived natives, assembly)
+    "docs/D4B_DECISIONS.md",
 )
 DIRS = ("LICENSES", "sources", "pool", "generator", "oracle", "scenarios", "validation/smoke", "tests")
 
