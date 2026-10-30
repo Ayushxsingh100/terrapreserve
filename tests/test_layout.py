@@ -65,8 +65,13 @@ FILES = (
     "pool/derived.json",
     "pool/derived_exclusions.csv",
     "pool/DERIVED_REPORT.md",
+    "generator/realworld/__init__.py",
+    "generator/realworld/graft.py",
+    "generator/realworld/span_edit.py",
+    "generator/realworld/real_diff_verify.py",
+    "generator/realworld/screen.py",
 )
-DIRS = ("LICENSES", "sources", "pool", "generator", "oracle", "scenarios", "validation/smoke", "tests")
+DIRS = ("LICENSES", "sources", "pool", "generator", "generator/realworld", "oracle", "scenarios", "validation/smoke", "tests")
 
 LICENCE_TITLES = {
     "LICENSE": ("Apache License", "Version 2.0, January 2004"),
