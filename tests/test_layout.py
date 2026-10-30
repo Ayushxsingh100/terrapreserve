@@ -49,6 +49,7 @@ FILES = (
     "generator/VERSION.py",
     "generator/seed.py",
     "generator/diff_verify.py",
+    "generator/templates/__init__.py",
 )
 DIRS = ("LICENSES", "sources", "pool", "generator", "oracle", "scenarios", "validation/smoke", "tests")
 

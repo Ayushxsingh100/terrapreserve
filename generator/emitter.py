@@ -92,6 +92,17 @@ def _emit_value(value: Any, indent: int) -> str:
     if isinstance(value, list):
         items_str = ", ".join(_emit_value(item, indent) for item in value)
         return f"[{items_str}]"
+    if isinstance(value, dict):
+        if not value:
+            return "{}"
+        lines = ["{"]
+        pad = "  " * (indent + 1)
+        pairs = [(k, _emit_value(v, indent + 1)) for k, v in sorted(value.items())]
+        max_k = max(len(k) for k, _ in pairs)
+        for k, v in pairs:
+            lines.append(f"{pad}{k:{max_k}} = {v}")
+        lines.append("  " * indent + "}")
+        return "\n".join(lines)
     if isinstance(value, Block):
         # Inline block value (rare) — emit as a nested block
         return _emit_block_inline(value, indent)
