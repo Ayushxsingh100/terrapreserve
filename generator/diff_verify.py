@@ -174,12 +174,26 @@ def _verify_texts(
 
     # Check: every recorded change must correspond to an actual change
     fabricated = []
-    actual_set = {(addr, attr) for addr, attr, _, _ in actual_changes}
-    for (addr, attr), (b_val, a_val) in recorded.items():
+    value_mismatches = []
+    actual_dict = {(addr, attr): (b, a) for addr, attr, b, a in actual_changes}
+    actual_set = set(actual_dict)
+    for (addr, attr), (r_before, r_after) in recorded.items():
         if (addr, attr) not in actual_set:
             fabricated.append(f"  recorded but no change: ({addr!r}, {attr!r})")
+        else:
+            act_b, act_a = actual_dict[(addr, attr)]
+            if r_before is not None and act_b is not None:
+                if r_before.strip('"\'') != act_b.strip('"\'') and r_before != act_b:
+                    value_mismatches.append(
+                        f"  value mismatch ({addr!r}, {attr!r}) before: recorded {r_before!r} vs actual {act_b!r}"
+                    )
+            if r_after is not None and act_a is not None:
+                if r_after.strip('"\'') != act_a.strip('"\'') and r_after != act_a:
+                    value_mismatches.append(
+                        f"  value mismatch ({addr!r}, {attr!r}) after: recorded {r_after!r} vs actual {act_a!r}"
+                    )
 
-    errors = missing + fabricated
+    errors = missing + fabricated + value_mismatches
     if errors:
         raise DiffVerifyError(
             f"Operator {operator_name!r} step {step} mutation record is incorrect:\n"
