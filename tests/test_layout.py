@@ -58,6 +58,7 @@ FILES = (
     "scenarios/test_manifest.json",
     "scenarios/validate_results.csv",
     "docs/D5_CARRYOVER.md",
+    "tools/run_mutation_checks.py",
 )
 DIRS = ("LICENSES", "sources", "pool", "generator", "oracle", "scenarios", "validation/smoke", "tests")
 

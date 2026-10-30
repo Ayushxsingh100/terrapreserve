@@ -99,6 +99,7 @@ Measured by `generator/generate.py` on 2026-10-30; records in `scenarios/validat
 - **Withholding (D4-01, D0 Decision 9)**: 144 dev scenarios committed under `scenarios/dev/` (1,128 files, ~1.51 MiB); 64 test scenarios withheld outside Git in `$TERRAPRESERVE_PRIVATE` (`~/.terrapreserve-private`). The repository carries cryptographic SHA-256 integrity hashes in `scenarios/test_manifest.json`.
 - **Validation**: 466 total steps across all 208 scenarios. 466 of 466 steps passed `terraform validate` under Terraform 1.15.8 and `hashicorp/aws` 6.53.0 (0 invalid, 0 error).
 - **Mutation verification**: 100% of generated steps verified by structural diff verifier (`generator/diff_verify.py`); 0 unrecorded or fabricated changes.
+- **Deviations**: In Family F5 (restructuring), only `count` meta-argument restructuring is implemented (`op_f5_count_each_safe`, `op_f5_count_each_unsafe`); `for_each` restructuring is not implemented in D4a.
 - **Licencing**: CC-BY-4.0 for scenario definitions; Apache-2.0 notice for reshaped TerraGoat resource vocabulary (`scenarios/NOTICE`).
 
 ## Uses

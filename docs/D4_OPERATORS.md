@@ -85,7 +85,9 @@ Composed repair: repairs the target invariant (`M_fix`), but unsafe variant simu
 ---
 
 ## Family F5: Restructuring / replacement
-Refactors configuration structure (moved blocks, inline vs separate rule resources, force-replacement, count/for_each).
+Refactors configuration structure (`moved` blocks, inline vs separate rule resources, force-replacement, `count`).
+
+> **Deviation:** In family F5, only `count` meta-argument restructuring is implemented (`op_f5_count_each_safe` and `op_f5_count_each_unsafe`); `for_each` restructuring is not implemented in D4a.
 
 ### Operators:
 - **`op_f5_restructure_moved`**

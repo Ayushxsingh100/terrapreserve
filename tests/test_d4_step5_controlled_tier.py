@@ -184,6 +184,43 @@ class TestControlledTierOutput(unittest.TestCase):
             self.assertEqual(steps1, steps2, f"Scenario {item['global_id']} step files not identical across runs")
             self.assertEqual(records1, records2, f"Scenario {item['global_id']} mutation records not identical across runs")
 
+    def test_full_dev_tree_determinism_byte_identical_across_runs(self) -> None:
+        """A8: Two independent full writes of all 144 dev scenarios produce byte-identical file trees."""
+        import tempfile
+        import sys
+        sys.path.insert(0, str(REPO_ROOT / "sources"))
+        sys.path.insert(0, str(REPO_ROOT / "pool"))
+        sys.path.insert(0, str(REPO_ROOT / "generator"))
+        import generate
+        import writer
+
+        plan = generate.build_scenario_plan()
+        dev_items = [p for p in plan if p["split"] == "dev"]
+        self.assertEqual(len(dev_items), 144)
+
+        with tempfile.TemporaryDirectory() as tmp1, tempfile.TemporaryDirectory() as tmp2:
+            root1 = Path(tmp1)
+            root2 = Path(tmp2)
+
+            for item in dev_items:
+                data1, steps1, _ = generate.generate_scenario(item)
+                writer.write_dev_scenario(root1, data1, steps1)
+
+                data2, steps2, _ = generate.generate_scenario(item)
+                writer.write_dev_scenario(root2, data2, steps2)
+
+            # Compare all files
+            files1 = {p.relative_to(root1): p for p in root1.rglob("*") if p.is_file()}
+            files2 = {p.relative_to(root2): p for p in root2.rglob("*") if p.is_file()}
+
+            self.assertEqual(set(files1.keys()), set(files2.keys()))
+            self.assertEqual(len(files1), 1128)  # Exactly 1128 files across 144 dev scenarios
+
+            for rel_path, path1 in files1.items():
+                bytes1 = path1.read_bytes()
+                bytes2 = files2[rel_path].read_bytes()
+                self.assertEqual(bytes1, bytes2, f"File {rel_path} differed between runs")
+
 
 if __name__ == "__main__":
     unittest.main()
