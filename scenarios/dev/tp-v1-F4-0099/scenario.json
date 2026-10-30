@@ -23,7 +23,7 @@
     {
       "after": "\"DB 5432 repaired\"",
       "attribute": "description",
-      "before": "\"DB 5432 repaired\"",
+      "before": "\"Database security group for tpl-08\"",
       "operator": "op_f4_repair_db_port_open_ssh_unsafe",
       "step": 1,
       "target_address": "aws_security_group.db"

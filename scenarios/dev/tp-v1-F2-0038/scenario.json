@@ -25,7 +25,7 @@
       "before": "true",
       "operator": "op_f2_repair_db_public_safe",
       "step": 1,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_db_instance.backend_database"
     }
   ],
   "oracle": null,
@@ -42,11 +42,11 @@
       ],
       "vpc": "10.120.0.0/16"
     },
-    "db_class": "db.t3.small",
-    "instance_class": "t3.small",
-    "naming_scheme": "tier",
-    "sg_style": "all_separate",
-    "template_id": "tpl-09",
+    "db_class": "db.t3.nano",
+    "instance_class": "t3.micro",
+    "naming_scheme": "component",
+    "sg_style": "all_inline",
+    "template_id": "tpl-10",
     "template_version": "tpl-v1.0",
     "variant": "sec_003_violated"
   },
@@ -76,20 +76,20 @@
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-09",
+    "repo_lineage_id": "tpl-10",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "ccec96a44718768e457f0b3c716117f8d0d0e40ab9c3a6149f652a29ba941cc0",
+      "content_hash": "0b5f3239f0cd9079185215fdaa3b41e4b3ec1d2e41e3b86ac02cf0d417892d13",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "0ff544ba080b73d84c9bf949767bac5dc26289cb7a23c3a55e3eb207fe99714f",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -105,7 +105,7 @@\n   identifier             = \"data-instance-tpl-09\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = true\n+  publicly_accessible    = false\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n",
+      "content_hash": "95ef7f55c8e1f2fbb1d410cb29de6862a80e279b76ee091ea1635d937fb794c0",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -98,7 +98,7 @@\n   identifier             = \"backend-database-tpl-10\"\n   instance_class         = \"db.t3.nano\"\n   password               = var.db_password\n-  publicly_accessible    = true\n+  publicly_accessible    = false\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.backend_sg.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -99,6 +99,6 @@
     "invariant_id": "INV-SEC-003",
     "kind": "repair"
   },
-  "template_id": "tpl-09",
+  "template_id": "tpl-10",
   "template_version": "tpl-v1.0"
 }

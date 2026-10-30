@@ -14,7 +14,7 @@ The dataset benchmark consists of 8 families (F1 through F8), each partitioned i
 - **Split assignment**: 70/30 split assigned strictly by template repository lineage (`scenarios/split.json`):
   - Dev templates (7): `tpl-03`, `tpl-09`, `tpl-06`, `tpl-02`, `tpl-08`, `tpl-10`, `tpl-01`
   - Test templates (3): `tpl-07`, `tpl-04`, `tpl-05`
-  - Yields 160 dev scenarios (112 targets + 48 reserves) and 48 test scenarios (all 3 test templates across all 16 cells).
+  - Yields 144 dev scenarios (112 targets + 32 reserves) and 64 test scenarios (48 targets + 16 reserves), rotating reserves across all 10 templates (2 dev + 1 test per cell).
 
 ### Split Withholding (D4-01, D0 Decision 9)
 Because the repository is public, test-split scenarios are strictly withheld outside the repository (`$TERRAPRESERVE_PRIVATE`, default `~/.terrapreserve-private`).

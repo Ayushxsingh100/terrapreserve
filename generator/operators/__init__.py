@@ -477,10 +477,11 @@ def _f4_repair_ssh_break_db_apply(base: HCLModel, rng: random.Random, name: str)
         ))
     else:
         sg_addr, sg = _find_app_sg(m1)
+        old_desc = str(sg.attrs.get("description", ""))
         sg.set_attr("description", "SSH repaired")
         rows.append(MutationRow(
             step=1, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{sg.attrs.get("description", "")}"', after='"SSH repaired"'
+            attribute="description", before=f'"{old_desc}"', after='"SSH repaired"'
         ))
 
     if "unsafe" in name:
@@ -524,10 +525,11 @@ def _f4_repair_db_port_open_ssh_apply(base: HCLModel, rng: random.Random, name: 
         ))
     else:
         sg_addr, sg = _find_db_sg(m1)
+        old_desc = str(sg.attrs.get("description", ""))
         sg.set_attr("description", "DB 5432 repaired")
         rows.append(MutationRow(
             step=1, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{sg.attrs.get("description", "")}"', after='"DB 5432 repaired"'
+            attribute="description", before=f'"{old_desc}"', after='"DB 5432 repaired"'
         ))
 
     if "unsafe" in name:
@@ -739,6 +741,52 @@ register_op(OperatorDef(
     description="Forces resource replacement with unsafe public DB side-effect.",
     intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
     apply_fn=_f5_replace_apply,
+))
+
+
+def _f5_count_each_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
+    m1 = base.copy()
+    ec2_addr, ec2 = _find_res(m1, "aws_instance")
+    rows: list[MutationRow] = []
+
+    if "count" in ec2.attrs:
+        old_val = ec2.attrs["count"]
+        del ec2.attrs["count"]
+        rows.append(MutationRow(
+            step=1, operator=name, target_address=ec2_addr,
+            attribute="count", before=str(old_val), after=None
+        ))
+    else:
+        ec2.set_attr("count", 1)
+        rows.append(MutationRow(
+            step=1, operator=name, target_address=ec2_addr,
+            attribute="count", before=None, after="1"
+        ))
+
+    if "unsafe" in name:
+        db_addr, db = _find_res(m1, "aws_db_instance")
+        db.set_attr("publicly_accessible", True)
+        rows.append(MutationRow(
+            step=1, operator=name, target_address=db_addr,
+            attribute="publicly_accessible", before="false", after="true"
+        ))
+
+    return [m1], [rows]
+
+
+register_op(OperatorDef(
+    name="op_f5_count_each_safe", family="F5", variant="safe",
+    target_kind="change_request", target_invariant=None,
+    description="Restructures resource with count meta-argument safely.",
+    intent_breaks=[], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003", "INV-FUNC-001"],
+    apply_fn=_f5_count_each_apply,
+))
+register_op(OperatorDef(
+    name="op_f5_count_each_unsafe", family="F5", variant="unsafe",
+    target_kind="change_request", target_invariant=None,
+    description="Restructures count but introduces unsafe public DB side-effect.",
+    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    apply_fn=_f5_count_each_apply,
 ))
 
 
@@ -1027,10 +1075,11 @@ def _f8_twostep_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[li
         ))
     else:
         sg_addr, sg = _find_app_sg(m2)
+        old_desc = str(sg.attrs.get("description", ""))
         sg.set_attr("description", "Two-step safe repair")
         r2.append(MutationRow(
             step=2, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{sg.attrs.get("description", "")}"', after='"Two-step safe repair"'
+            attribute="description", before=f'"{old_desc}"', after='"Two-step safe repair"'
         ))
 
     if "unsafe" in name:
@@ -1096,10 +1145,11 @@ def _f8_threestep_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[
         ))
     else:
         sg_addr, sg = _find_app_sg(m3)
+        old_desc = str(sg.attrs.get("description", ""))
         sg.set_attr("description", "Three-step repair completed")
         r3.append(MutationRow(
             step=3, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{sg.attrs.get("description", "")}"', after='"Three-step repair completed"'
+            attribute="description", before=f'"{old_desc}"', after='"Three-step repair completed"'
         ))
 
     return [m1, m2, m3], [r1, r2, r3]
@@ -1165,10 +1215,11 @@ def _f8_fourstep_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[l
         ))
     else:
         sg_addr, sg = _find_app_sg(m4)
+        old_desc = str(sg.attrs.get("description", ""))
         sg.set_attr("description", "Four-step maintenance completed")
         r4.append(MutationRow(
             step=4, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{sg.attrs.get("description", "")}"', after='"Four-step maintenance completed"'
+            attribute="description", before=f'"{old_desc}"', after='"Four-step maintenance completed"'
         ))
 
     return [m1, m2, m3, m4], [r1, r2, r3, r4]

@@ -20,12 +20,12 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-08 (restructured)\"",
-      "attribute": "description",
-      "before": "\"Application security group for tpl-08\"",
-      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "after": "1",
+      "attribute": "count",
+      "before": null,
+      "operator": "op_f5_count_each_safe",
       "step": 1,
-      "target_address": "aws_security_group.app"
+      "target_address": "aws_instance.app"
     }
   ],
   "oracle": null,
@@ -90,14 +90,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "fd327bfd77f83d23aeedbd1a93dc95d9d274d4cd86c548232fdb369bd84038b9",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -56,7 +56,7 @@\n }\n \n resource \"aws_security_group\" \"app\" {\n-  description = \"Application security group for tpl-08\"\n+  description = \"Application security group for tpl-08 (restructured)\"\n   name        = \"app-tpl-08\"\n   vpc_id      = aws_vpc.main.id\n }\n",
+      "content_hash": "e8a752fdbc933303315a09b04d388bee0295e3b8257a0ed4e3135fff2c0c5163",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -83,6 +83,7 @@\n \n resource \"aws_instance\" \"app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n+  count                  = 1\n   instance_type          = \"t3.nano\"\n   subnet_id              = aws_subnet.app.id\n   vpc_security_group_ids = [aws_security_group.app.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Restructures SG rules safely.",
+    "description": "Restructures resource with count meta-argument safely.",
     "invariant_id": null,
     "kind": "change_request"
   },

@@ -26,7 +26,7 @@
       "before": null,
       "operator": "op_f3_modify_db_subnet_group_unsafe",
       "step": 1,
-      "target_address": "aws_instance.web_instance"
+      "target_address": "aws_instance.ec2_app"
     },
     {
       "after": "true",
@@ -34,30 +34,28 @@
       "before": "false",
       "operator": "op_f3_modify_db_subnet_group_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_db_instance.rds_postgres"
     }
   ],
   "oracle": null,
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b",
-      "us-east-1c"
+      "us-east-1b"
     ],
     "cidr_plan": {
       "app": "10.124.1.0/24",
       "db": [
         "10.124.10.0/24",
-        "10.124.11.0/24",
-        "10.124.12.0/24"
+        "10.124.11.0/24"
       ],
       "vpc": "10.124.0.0/16"
     },
-    "db_class": "db.t3.micro",
-    "instance_class": "t3.nano",
-    "naming_scheme": "tier",
-    "sg_style": "mixed_app_inline_db_separate",
-    "template_id": "tpl-03",
+    "db_class": "db.t3.small",
+    "instance_class": "t3.small",
+    "naming_scheme": "kebab",
+    "sg_style": "all_inline",
+    "template_id": "tpl-02",
     "template_version": "tpl-v1.0",
     "variant": "clean"
   },
@@ -87,20 +85,20 @@
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-03",
+    "repo_lineage_id": "tpl-02",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "04187ce9e9d47b90bc88bbca486ae3003ae05af2d9df727e372d0e2b282c3a98",
+      "content_hash": "4721f3e9d5ec74159f73fd53faa4749dd77f3e6e979857060287ba59033305da",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "ae96bba91acd2b8d820b63d4f9dad80fc7ef110211b1172ba5d129f31e000dde",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -76,6 +76,7 @@\n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.nano\"\n+  monitoring             = true\n   subnet_id              = aws_subnet.web_tier.id\n   vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n }\n@@ -92,7 +93,7 @@\n   identifier             = \"data-instance-tpl-03\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n",
+      "content_hash": "386435647f692f18b23bbb3e680f3f1359b90edaa470093b948e58ceda5fc97b",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -90,6 +90,7 @@\n resource \"aws_instance\" \"ec2_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.small\"\n+  monitoring             = true\n   subnet_id              = aws_subnet.sub_app.id\n   vpc_security_group_ids = [aws_security_group.sg_app.id]\n }\n@@ -106,7 +107,7 @@\n   identifier             = \"rds-postgres-tpl-02\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.sg_db.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -110,6 +108,6 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-03",
+  "template_id": "tpl-02",
   "template_version": "tpl-v1.0"
 }

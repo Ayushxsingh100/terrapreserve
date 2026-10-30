@@ -1,112 +1,106 @@
-resource "aws_vpc" "network" {
+resource "aws_vpc" "prod_vpc" {
   cidr_block           = "10.14.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
 }
 
-resource "aws_internet_gateway" "gateway" {
-  vpc_id = aws_vpc.network.id
+resource "aws_internet_gateway" "prod_igw" {
+  vpc_id = aws_vpc.prod_vpc.id
 }
 
-resource "aws_subnet" "web_tier" {
+resource "aws_subnet" "prod_app_subnet" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.14.1.0/24"
-  vpc_id            = aws_vpc.network.id
+  vpc_id            = aws_vpc.prod_vpc.id
 }
 
-resource "aws_subnet" "data_tier" {
-  count = 2
+resource "aws_subnet" "prod_db_subnet" {
+  count = 3
 
-  availability_zone = ["us-east-1a", "us-east-1b"][count.index]
-  cidr_block        = ["10.14.10.0/24", "10.14.11.0/24"][count.index]
-  vpc_id            = aws_vpc.network.id
+  availability_zone = ["us-east-1a", "us-east-1b", "us-east-1c"][count.index]
+  cidr_block        = ["10.14.10.0/24", "10.14.11.0/24", "10.14.12.0/24"][count.index]
+  vpc_id            = aws_vpc.prod_vpc.id
 }
 
-resource "aws_route_table" "public_route" {
-  vpc_id = aws_vpc.network.id
+resource "aws_route_table" "prod_public_rt" {
+  vpc_id = aws_vpc.prod_vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.gateway.id
+    gateway_id = aws_internet_gateway.prod_igw.id
   }
 }
 
-resource "aws_route_table_association" "assoc_app" {
-  route_table_id = aws_route_table.public_route.id
-  subnet_id      = aws_subnet.web_tier.id
+resource "aws_route_table_association" "prod_rta_app" {
+  route_table_id = aws_route_table.prod_public_rt.id
+  subnet_id      = aws_subnet.prod_app_subnet.id
 }
 
-resource "aws_route_table" "data_route" {
-  vpc_id = aws_vpc.network.id
+resource "aws_route_table" "prod_db_rt" {
+  vpc_id = aws_vpc.prod_vpc.id
 }
 
-resource "aws_route_table_association" "assoc_db" {
-  count = 2
+resource "aws_route_table_association" "prod_rta_db" {
+  count = 3
 
-  route_table_id = aws_route_table.data_route.id
-  subnet_id      = aws_subnet.data_tier[count.index].id
+  route_table_id = aws_route_table.prod_db_rt.id
+  subnet_id      = aws_subnet.prod_db_subnet[count.index].id
 }
 
-resource "aws_security_group_rule" "data_secgroup_from_app_5432" {
-  from_port                = 5432
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.data_secgroup.id
-  source_security_group_id = aws_security_group.web_secgroup.id
-  to_port                  = 5432
-  type                     = "ingress"
+resource "aws_security_group" "prod_app_sg" {
+  description = "Application security group for tpl-06 (app sg reconfigured)"
+  name        = "prod_app_sg-tpl-06"
+  vpc_id      = aws_vpc.prod_vpc.id
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 0
+    protocol    = "-1"
+    to_port     = 0
+  }
 }
 
-resource "aws_security_group_rule" "data_secgroup_egress" {
-  cidr_blocks       = ["0.0.0.0/0"]
-  from_port         = 0
-  protocol          = "-1"
-  security_group_id = aws_security_group.data_secgroup.id
-  to_port           = 0
-  type              = "egress"
+resource "aws_security_group" "prod_db_sg" {
+  description = "Database security group for tpl-06"
+  name        = "prod_db_sg-tpl-06"
+  vpc_id      = aws_vpc.prod_vpc.id
+
+  ingress {
+    from_port       = 5432
+    protocol        = "tcp"
+    security_groups = [aws_security_group.prod_app_sg.id]
+    to_port         = 5432
+  }
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 0
+    protocol    = "-1"
+    to_port     = 0
+  }
 }
 
-resource "aws_security_group_rule" "web_secgroup_egress" {
-  cidr_blocks       = ["0.0.0.0/0"]
-  from_port         = 0
-  protocol          = "-1"
-  security_group_id = aws_security_group.web_secgroup.id
-  to_port           = 0
-  type              = "egress"
-}
-
-resource "aws_security_group" "web_secgroup" {
-  description = "Application security group for tpl-09 (app sg reconfigured)"
-  name        = "web_secgroup-tpl-09"
-  vpc_id      = aws_vpc.network.id
-}
-
-resource "aws_security_group" "data_secgroup" {
-  description = "Database security group for tpl-09"
-  name        = "data_secgroup-tpl-09"
-  vpc_id      = aws_vpc.network.id
-}
-
-resource "aws_instance" "web_instance" {
+resource "aws_instance" "prod_app_server" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.small"
-  subnet_id              = aws_subnet.web_tier.id
-  vpc_security_group_ids = [aws_security_group.web_secgroup.id]
+  instance_type          = "t3.medium"
+  subnet_id              = aws_subnet.prod_app_subnet.id
+  vpc_security_group_ids = [aws_security_group.prod_app_sg.id]
 }
 
-resource "aws_db_subnet_group" "data_subnets" {
-  name       = "data_subnets-tpl-09"
-  subnet_ids = [aws_subnet.data_tier[0].id, aws_subnet.data_tier[1].id]
+resource "aws_db_subnet_group" "prod_db_sng" {
+  name       = "prod_db_sng-tpl-06"
+  subnet_ids = [aws_subnet.prod_db_subnet[0].id, aws_subnet.prod_db_subnet[1].id, aws_subnet.prod_db_subnet[2].id]
 }
 
-resource "aws_db_instance" "data_instance" {
+resource "aws_db_instance" "prod_postgres_db" {
   allocated_storage      = 20
-  db_subnet_group_name   = aws_db_subnet_group.data_subnets.name
+  db_subnet_group_name   = aws_db_subnet_group.prod_db_sng.name
   engine                 = "postgres"
-  identifier             = "data-instance-tpl-09"
+  identifier             = "prod-postgres-db-tpl-06"
   instance_class         = "db.t3.small"
   password               = var.db_password
   publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
-  vpc_security_group_ids = [aws_security_group.data_secgroup.id]
+  vpc_security_group_ids = [aws_security_group.prod_db_sg.id]
 }

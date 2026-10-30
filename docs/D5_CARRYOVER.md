@@ -6,8 +6,8 @@ Facts that D5 (the oracle and ground-truth labelling) inherits from D4a (control
 
 - Total controlled scenarios generated: 208 (160 primary targets + 48 reserves).
 - Split assignment: 70/30 split assigned strictly by template lineage (`scenarios/split.json`):
-  - 160 dev scenarios committed under `scenarios/dev/tp-v1-<FAMILY>-<ID>/`.
-  - 48 test scenarios (and reserves) withheld outside Git in `$TERRAPRESERVE_PRIVATE` (default `~/.terrapreserve-private`), represented by `scenarios/test_manifest.json` (SHA-256 hashes of `scenario.json` and each step directory).
+  - 144 dev scenarios (112 targets + 32 reserves) committed under `scenarios/dev/tp-v1-<FAMILY>-<ID>/`.
+  - 64 test scenarios (48 targets + 16 reserves) withheld outside Git in `$TERRAPRESERVE_PRIVATE` (default `~/.terrapreserve-private`), represented by `scenarios/test_manifest.json` (SHA-256 hashes of `scenario.json` and each step directory).
 - Step structure: each scenario directory contains `scenario.json`, `step_0` (base state S0), and ordered remediation steps (`step_1`, and up to `step_4` for multi-step family F8).
 - Step files: each step directory contains complete `.tf` files (`main.tf`, `variables.tf`, `versions.tf`), fully self-contained.
 - Total steps across all 208 scenarios: 466 steps.
@@ -38,3 +38,4 @@ The generator records an intended class (`intent.class`) and truthful mutation r
 ## 4. Real-world tier notice (D4b)
 
 D4a delivers the 160 controlled targets (+ 48 reserves). D4b will deliver the 160 real-world targets (+ 48 reserves) by grafting onto pooled hosts and derived natives. D5 will label both tiers using the unified oracle suite.
+

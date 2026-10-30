@@ -1,3 +1,8 @@
+moved {
+  from = aws_subnet.web_tier
+  to   = aws_subnet.web_tier_app
+}
+
 resource "aws_vpc" "network" {
   cidr_block           = "10.190.0.0/16"
   enable_dns_hostnames = true
@@ -6,12 +11,6 @@ resource "aws_vpc" "network" {
 
 resource "aws_internet_gateway" "gateway" {
   vpc_id = aws_vpc.network.id
-}
-
-resource "aws_subnet" "web_tier" {
-  availability_zone = "us-east-1a"
-  cidr_block        = "10.190.1.0/24"
-  vpc_id            = aws_vpc.network.id
 }
 
 resource "aws_subnet" "data_tier" {
@@ -33,7 +32,7 @@ resource "aws_route_table" "public_route" {
 
 resource "aws_route_table_association" "assoc_app" {
   route_table_id = aws_route_table.public_route.id
-  subnet_id      = aws_subnet.web_tier.id
+  subnet_id      = aws_subnet.web_tier_app.id
 }
 
 resource "aws_route_table" "data_route" {
@@ -87,9 +86,9 @@ resource "aws_security_group" "data_secgroup" {
 }
 
 resource "aws_instance" "web_instance" {
-  ami                    = "ami-0d5eff06f840b45e9"
+  ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.small"
-  subnet_id              = aws_subnet.web_tier.id
+  subnet_id              = aws_subnet.web_tier_app.id
   vpc_security_group_ids = [aws_security_group.web_secgroup.id]
 }
 
@@ -109,4 +108,10 @@ resource "aws_db_instance" "data_instance" {
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.data_secgroup.id]
+}
+
+resource "aws_subnet" "web_tier_app" {
+  availability_zone = "us-east-1a"
+  cidr_block        = "10.190.1.0/24"
+  vpc_id            = aws_vpc.network.id
 }

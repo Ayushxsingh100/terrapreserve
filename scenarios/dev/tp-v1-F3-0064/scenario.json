@@ -20,33 +20,35 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-09 (app sg reconfigured)\"",
+      "after": "\"Application security group for tpl-06 (app sg reconfigured)\"",
       "attribute": "description",
-      "before": "\"Application security group for tpl-09\"",
+      "before": "\"Application security group for tpl-06\"",
       "operator": "op_f3_app_sg_reassociation_safe",
       "step": 1,
-      "target_address": "aws_security_group.web_secgroup"
+      "target_address": "aws_security_group.prod_app_sg"
     }
   ],
   "oracle": null,
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b"
+      "us-east-1b",
+      "us-east-1c"
     ],
     "cidr_plan": {
       "app": "10.14.1.0/24",
       "db": [
         "10.14.10.0/24",
-        "10.14.11.0/24"
+        "10.14.11.0/24",
+        "10.14.12.0/24"
       ],
       "vpc": "10.14.0.0/16"
     },
     "db_class": "db.t3.small",
-    "instance_class": "t3.small",
-    "naming_scheme": "tier",
-    "sg_style": "all_separate",
-    "template_id": "tpl-09",
+    "instance_class": "t3.medium",
+    "naming_scheme": "env",
+    "sg_style": "all_inline",
+    "template_id": "tpl-06",
     "template_version": "tpl-v1.0",
     "variant": "clean"
   },
@@ -76,20 +78,20 @@
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-09",
+    "repo_lineage_id": "tpl-06",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "13d9f4f07bb3237690e4380cf0a55ea25eceda88f4c93ff48a48f0824b2d441e",
+      "content_hash": "9e82c94ad8a6c604721f1668fc415f1c22ef23c49629340ff82c7a41aff2d068",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "6c6e3c3ff901ab2fd455b9f367eacc9c7e17975fb5a1874e11ad33e143bf88a0",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -75,7 +75,7 @@\n }\n \n resource \"aws_security_group\" \"web_secgroup\" {\n-  description = \"Application security group for tpl-09\"\n+  description = \"Application security group for tpl-09 (app sg reconfigured)\"\n   name        = \"web_secgroup-tpl-09\"\n   vpc_id      = aws_vpc.network.id\n }\n",
+      "content_hash": "223400c3e28d66744a51c95221c14f2756f72166c5984b469a87cdbd5a249f20",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -48,7 +48,7 @@\n }\n \n resource \"aws_security_group\" \"prod_app_sg\" {\n-  description = \"Application security group for tpl-06\"\n+  description = \"Application security group for tpl-06 (app sg reconfigured)\"\n   name        = \"prod_app_sg-tpl-06\"\n   vpc_id      = aws_vpc.prod_vpc.id\n \n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -99,6 +101,6 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-09",
+  "template_id": "tpl-06",
   "template_version": "tpl-v1.0"
 }

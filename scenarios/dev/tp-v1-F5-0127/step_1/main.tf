@@ -1,8 +1,3 @@
-moved {
-  from = aws_subnet.frontend_subnet
-  to   = aws_subnet.frontend_subnet_app
-}
-
 resource "aws_vpc" "corp_vpc" {
   cidr_block           = "10.51.0.0/16"
   enable_dns_hostnames = true
@@ -11,6 +6,12 @@ resource "aws_vpc" "corp_vpc" {
 
 resource "aws_internet_gateway" "corp_igw" {
   vpc_id = aws_vpc.corp_vpc.id
+}
+
+resource "aws_subnet" "frontend_subnet" {
+  availability_zone = "us-east-1a"
+  cidr_block        = "10.51.1.0/24"
+  vpc_id            = aws_vpc.corp_vpc.id
 }
 
 resource "aws_subnet" "backend_subnet_1" {
@@ -36,11 +37,11 @@ resource "aws_route_table" "frontend_rt" {
 
 resource "aws_route_table_association" "assoc_app" {
   route_table_id = aws_route_table.frontend_rt.id
-  subnet_id      = aws_subnet.frontend_subnet_app.id
+  subnet_id      = aws_subnet.frontend_subnet.id
 }
 
 resource "aws_security_group" "frontend_sg" {
-  description = "Application security group for tpl-10"
+  description = "Application security group for tpl-10 (restructured)"
   name        = "frontend_sg-tpl-10"
   vpc_id      = aws_vpc.corp_vpc.id
 
@@ -81,7 +82,7 @@ resource "aws_security_group" "frontend_sg_extra" {
 resource "aws_instance" "frontend_server" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.micro"
-  subnet_id              = aws_subnet.frontend_subnet_app.id
+  subnet_id              = aws_subnet.frontend_subnet.id
   vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]
 }
 
@@ -101,10 +102,4 @@ resource "aws_db_instance" "backend_database" {
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.backend_sg.id]
-}
-
-resource "aws_subnet" "frontend_subnet_app" {
-  availability_zone = "us-east-1a"
-  cidr_block        = "10.51.1.0/24"
-  vpc_id            = aws_vpc.corp_vpc.id
 }

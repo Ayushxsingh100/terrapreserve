@@ -30,7 +30,7 @@
     {
       "after": "\"Two-step safe repair\"",
       "attribute": "description",
-      "before": "\"Two-step safe repair\"",
+      "before": "\"Application security group for tpl-10\"",
       "operator": "op_f8_twostep_repair_safe",
       "step": 2,
       "target_address": "aws_security_group.frontend_sg"

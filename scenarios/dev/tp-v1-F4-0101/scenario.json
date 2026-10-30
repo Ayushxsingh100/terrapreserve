@@ -23,7 +23,7 @@
     {
       "after": "\"SSH repaired\"",
       "attribute": "description",
-      "before": "\"SSH repaired\"",
+      "before": "\"Application security group for tpl-10\"",
       "operator": "op_f4_repair_ssh_break_db_unsafe",
       "step": 1,
       "target_address": "aws_security_group.frontend_sg"

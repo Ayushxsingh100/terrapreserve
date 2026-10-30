@@ -156,6 +156,26 @@ class TestOperatorCatalogue(unittest.TestCase):
         self.assertTrue(hasattr(m1.moved[0].from_addr, "expr"))
         self.assertTrue(hasattr(m1.moved[0].to_addr, "expr"))
 
+    def test_f5_count_for_each_restructuring(self) -> None:
+        ops_mod, tpl_mod, dv = self._get_modules()
+        f5_ops = [op for op in ops_mod.CATALOGUE if op.family == "F5"]
+        safe_op = next((op for op in f5_ops if op.name == "op_f5_count_each_safe"), None)
+        unsafe_op = next((op for op in f5_ops if op.name == "op_f5_count_each_unsafe"), None)
+
+        self.assertIsNotNone(safe_op, "op_f5_count_each_safe must be registered")
+        self.assertIsNotNone(unsafe_op, "op_f5_count_each_unsafe must be registered")
+
+        tpl = tpl_mod.TEMPLATES["tpl-01"]
+        for op in [safe_op, unsafe_op]:
+            rng = random.Random(42)
+            m0, _ = tpl.instantiate(rng, variant="clean")
+            step_models, records = op.apply(m0, rng)
+            self.assertEqual(len(step_models), 1)
+            dv.verify(m0, step_models[0], records[0], step=1, operator_name=op.name)
+            # count must be in the mutation record
+            count_rows = [r for r in records[0] if r.attribute == "count"]
+            self.assertGreater(len(count_rows), 0)
+
     def test_f8_multi_step_sequences(self) -> None:
         ops_mod, tpl_mod, _ = self._get_modules()
         f8_ops = [op for op in ops_mod.CATALOGUE if op.family == "F8"]

@@ -26,7 +26,7 @@
       "before": "true",
       "operator": "op_f6_add_read_replica_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_db_instance.prod_postgres_db"
     },
     {
       "after": "true",
@@ -34,28 +34,30 @@
       "before": "false",
       "operator": "op_f6_add_read_replica_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_db_instance.prod_postgres_db"
     }
   ],
   "oracle": null,
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b"
+      "us-east-1b",
+      "us-east-1c"
     ],
     "cidr_plan": {
       "app": "10.64.1.0/24",
       "db": [
         "10.64.10.0/24",
-        "10.64.11.0/24"
+        "10.64.11.0/24",
+        "10.64.12.0/24"
       ],
       "vpc": "10.64.0.0/16"
     },
     "db_class": "db.t3.small",
-    "instance_class": "t3.small",
-    "naming_scheme": "tier",
-    "sg_style": "all_separate",
-    "template_id": "tpl-09",
+    "instance_class": "t3.medium",
+    "naming_scheme": "env",
+    "sg_style": "all_inline",
+    "template_id": "tpl-06",
     "template_version": "tpl-v1.0",
     "variant": "clean"
   },
@@ -85,20 +87,20 @@
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-09",
+    "repo_lineage_id": "tpl-06",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "d3287095d51432755529f3398e67b7b5059a2f2beebd1d30d9d2858909481ab3",
+      "content_hash": "791e934fdbd56648eda89f7ae84a3175bca6b4c5077c59af0446dba5921f5e78",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "d1e0e9ac5fe2411620cc6f4dd1a143acfac24630a054433993d45f2078f4cfc7",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -105,8 +105,8 @@\n   identifier             = \"data-instance-tpl-09\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n-  skip_final_snapshot    = true\n+  publicly_accessible    = true\n+  skip_final_snapshot    = false\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n",
+      "content_hash": "43ad67d6ef94e9524ecbf0f0cb0b8d1f4b244e03d57d1ea0a5a1cb607e17d2cf",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -99,8 +99,8 @@\n   identifier             = \"prod-postgres-db-tpl-06\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n-  skip_final_snapshot    = true\n+  publicly_accessible    = true\n+  skip_final_snapshot    = false\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -108,6 +110,6 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-09",
+  "template_id": "tpl-06",
   "template_version": "tpl-v1.0"
 }

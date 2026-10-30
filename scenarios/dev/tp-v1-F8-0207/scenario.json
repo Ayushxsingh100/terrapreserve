@@ -26,7 +26,7 @@
       "before": "\"t3.small\"",
       "operator": "op_f8_fourstep_maintenance_unsafe",
       "step": 1,
-      "target_address": "aws_instance.web_instance"
+      "target_address": "aws_instance.ec2_app"
     },
     {
       "after": "40",
@@ -34,7 +34,7 @@
       "before": "20",
       "operator": "op_f8_fourstep_maintenance_unsafe",
       "step": 2,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_db_instance.rds_postgres"
     },
     {
       "after": "false",
@@ -42,7 +42,7 @@
       "before": "true",
       "operator": "op_f8_fourstep_maintenance_unsafe",
       "step": 3,
-      "target_address": "aws_vpc.network"
+      "target_address": "aws_vpc.vpc_main"
     },
     {
       "after": "true",
@@ -50,15 +50,15 @@
       "before": "false",
       "operator": "op_f8_fourstep_maintenance_unsafe",
       "step": 3,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_db_instance.rds_postgres"
     },
     {
-      "after": "[\"10.0.0.0/8\"]",
-      "attribute": "cidr_blocks",
-      "before": "[\"0.0.0.0/0\"]",
+      "after": "\"Four-step maintenance completed\"",
+      "attribute": "description",
+      "before": "\"Application security group for tpl-02\"",
       "operator": "op_f8_fourstep_maintenance_unsafe",
       "step": 4,
-      "target_address": "aws_security_group_rule.web_secgroup_ssh_public"
+      "target_address": "aws_security_group.sg_app"
     }
   ],
   "oracle": null,
@@ -77,9 +77,9 @@
     },
     "db_class": "db.t3.small",
     "instance_class": "t3.small",
-    "naming_scheme": "tier",
-    "sg_style": "all_separate",
-    "template_id": "tpl-09",
+    "naming_scheme": "kebab",
+    "sg_style": "all_inline",
+    "template_id": "tpl-02",
     "template_version": "tpl-v1.0",
     "variant": "sec_001_violated"
   },
@@ -109,38 +109,38 @@
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-09",
+    "repo_lineage_id": "tpl-02",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "ed7c86ff4db0dd56ea35ec88a9129715198b1ccc16f5d90b143fd1cc5f26c8e2",
+      "content_hash": "d102e2c69c3f313e87d1270d99df39d75b93e78172e07913f7b6e1c4a718ce7d",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "e57f59286903f9a2ab16610c7e03e8da0bafecabacff00824ad6007d9c4ae586",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -97,7 +97,7 @@\n \n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.small\"\n+  instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.web_tier.id\n   vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n }\n",
+      "content_hash": "ca93420a84f19cae0bb7b5f629f64b4e46c43ecb26d27da0781d96efe91e85b9",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -96,7 +96,7 @@\n \n resource \"aws_instance\" \"ec2_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.small\"\n+  instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.sub_app.id\n   vpc_security_group_ids = [aws_security_group.sg_app.id]\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
     },
     {
-      "content_hash": "acd51221179912bd7a1435fdb0f6587c03cf96cd9e7e17d32e4e91f009ee211e",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -108,7 +108,7 @@\n }\n \n resource \"aws_db_instance\" \"data_instance\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 40\n   db_subnet_group_name   = aws_db_subnet_group.data_subnets.name\n   engine                 = \"postgres\"\n   identifier             = \"data-instance-tpl-09\"\n",
+      "content_hash": "3a6af0d7aba791803a580cc965dc9b738a081100f43dd3147e297521310d84c3",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -107,7 +107,7 @@\n }\n \n resource \"aws_db_instance\" \"rds_postgres\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 40\n   db_subnet_group_name   = aws_db_subnet_group.dbsng_main.name\n   engine                 = \"postgres\"\n   identifier             = \"rds-postgres-tpl-02\"\n",
       "step": 2,
       "terraform_dir": "step_2"
     },
     {
-      "content_hash": "009fa79f37cfced20af628d8ca53fe5cf581fca5bd802739d553d29cd9c0c485",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"network\" {\n   cidr_block           = \"10.31.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n@@ -114,7 +114,7 @@\n   identifier             = \"data-instance-tpl-09\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n",
+      "content_hash": "1860e3adb3d9baa837d0fef6af54066be288da19c5aa1fefa3661dde7329d5d6",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"vpc_main\" {\n   cidr_block           = \"10.31.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n@@ -113,7 +113,7 @@\n   identifier             = \"rds-postgres-tpl-02\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.sg_db.id]\n",
       "step": 3,
       "terraform_dir": "step_3"
     },
     {
-      "content_hash": "670d372fa9bff7b33a72a100446cc47a32bbfe0c30f64e2b856acfec14fd6053",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -48,7 +48,7 @@\n }\n \n resource \"aws_security_group_rule\" \"web_secgroup_ssh_public\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 22\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.web_secgroup.id\n",
+      "content_hash": "78d55e046d77ed393dd784e9d946b04fc3818ae765781d503d98ecc823241155",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -55,7 +55,7 @@\n }\n \n resource \"aws_security_group\" \"sg_app\" {\n-  description = \"Application security group for tpl-02\"\n+  description = \"Four-step maintenance completed\"\n   name        = \"sg_app-tpl-02\"\n   vpc_id      = aws_vpc.vpc_main.id\n \n",
       "step": 4,
       "terraform_dir": "step_4"
     }
@@ -150,6 +150,6 @@
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
   },
-  "template_id": "tpl-09",
+  "template_id": "tpl-02",
   "template_version": "tpl-v1.0"
 }

@@ -20,12 +20,12 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-03 (restructured)\"",
-      "attribute": "description",
-      "before": "\"Application security group for tpl-03\"",
-      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "after": "\"ami-0d5eff06f840b45e9\"",
+      "attribute": "ami",
+      "before": "\"ami-0c55b159cbfafe1f0\"",
+      "operator": "op_f5_force_replacement_safe",
       "step": 1,
-      "target_address": "aws_security_group.web_secgroup"
+      "target_address": "aws_instance.prod_app_server"
     }
   ],
   "oracle": null,
@@ -44,11 +44,11 @@
       ],
       "vpc": "10.41.0.0/16"
     },
-    "db_class": "db.t3.micro",
-    "instance_class": "t3.nano",
-    "naming_scheme": "tier",
-    "sg_style": "mixed_app_inline_db_separate",
-    "template_id": "tpl-03",
+    "db_class": "db.t3.small",
+    "instance_class": "t3.medium",
+    "naming_scheme": "env",
+    "sg_style": "all_inline",
+    "template_id": "tpl-06",
     "template_version": "tpl-v1.0",
     "variant": "clean"
   },
@@ -78,29 +78,29 @@
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-03",
+    "repo_lineage_id": "tpl-06",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "90ff3aee9b58b11efa7e39968f8ff51534d0d90549e4cf9f75490a7a89f10c54",
+      "content_hash": "b49bc794327884526650e2487eab7ff1d2b0708b4ef94cd58d9a8ab754573c39",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "c2e306cd776e66845bb438278a55bd389f0f01b010caa14cc9bdad6f7aa65e98",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -55,7 +55,7 @@\n }\n \n resource \"aws_security_group\" \"web_secgroup\" {\n-  description = \"Application security group for tpl-03\"\n+  description = \"Application security group for tpl-03 (restructured)\"\n   name        = \"web_secgroup-tpl-03\"\n   vpc_id      = aws_vpc.network.id\n \n",
+      "content_hash": "a174bd3aae4577c727f27d383478ae644f4b40f8c24efde004845989376da23d",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -81,7 +81,7 @@\n }\n \n resource \"aws_instance\" \"prod_app_server\" {\n-  ami                    = \"ami-0c55b159cbfafe1f0\"\n+  ami                    = \"ami-0d5eff06f840b45e9\"\n   instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.prod_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.prod_app_sg.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Restructures SG rules safely.",
+    "description": "Forces resource replacement via AMI update safely.",
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-03",
+  "template_id": "tpl-06",
   "template_version": "tpl-v1.0"
 }

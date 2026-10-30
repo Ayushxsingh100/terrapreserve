@@ -17,7 +17,7 @@ Structure follows Gebru et al., *Datasheets for Datasets* (section headings: Mot
 | Question | Answer |
 |---|---|
 | What do the instances represent? | Labelled scenarios over Terraform configurations. Instance schema: not yet established. |
-| How many instances are there? | Planned: 320 scenarios (160 controlled + 160 real-world). In D4a, the controlled tier is generated: 208 scenarios (160 targets + 48 reserves across 8 families × 2 classes). Dev split (160 scenarios) is committed under `scenarios/dev/`; test split (48 scenarios) is withheld outside the repository (`scenarios/test_manifest.json`). Real-world tier (160 scenarios) follows in D4b. |
+| How many instances are there? | Planned: 320 scenarios (160 controlled + 160 real-world). In D4a, the controlled tier is generated: 208 scenarios (160 targets + 48 reserves across 8 families × 2 classes). Dev split (144 scenarios: 112 targets + 32 reserves) is committed under `scenarios/dev/`; test split (64 scenarios: 48 targets + 16 reserves) is withheld outside the repository (`scenarios/test_manifest.json`). Real-world tier (160 scenarios) follows in D4b. |
 | Is it a sample of a larger set? | Controlled tier: synthetic variations generated from 10 distinct architectural templates sharing the Doc 04 Appendix B topology. Real-world tier: sampled from the TerraDS pool. |
 | What data does each instance contain? | Base state S0, ordered remediation steps (full Terraform directories), step content hashes (SHA-256), unified diffs, intent annotations, and generator-recorded mutation records. Labels and oracle evaluation follow in D5 (ADR-010). |
 | Is there a label or target? | Yes: oracle labels per protected invariant (INV-SEC-001, INV-SEC-002, INV-SEC-003, INV-FUNC-001; D0 amendments A5) and a derived `gt_class` (A7). |
@@ -95,8 +95,8 @@ Measured by `generator/generate.py` on 2026-10-30; records in `scenarios/validat
 - **Split assignment**: 70/30 split assigned strictly by template lineage (`scenarios/split.json`, master seed `20261031`):
   - Dev templates (7): `tpl-03`, `tpl-09`, `tpl-06`, `tpl-02`, `tpl-08`, `tpl-10`, `tpl-01`
   - Test templates (3): `tpl-07`, `tpl-04`, `tpl-05`
-  - Yields 160 dev scenarios (112 targets + 48 reserves) and 48 test scenarios (32 targets + 16 reserves).
-- **Withholding (D4-01, D0 Decision 9)**: 160 dev scenarios committed under `scenarios/dev/` (1,246 files, ~1.77 MiB); 48 test scenarios withheld outside Git in `$TERRAPRESERVE_PRIVATE` (`~/.terrapreserve-private`). The repository carries cryptographic SHA-256 integrity hashes in `scenarios/test_manifest.json`.
+  - Yields 144 dev scenarios (112 targets + 32 reserves) and 64 test scenarios (48 targets + 16 reserves), rotating reserves across all 10 templates (2 dev + 1 test per cell).
+- **Withholding (D4-01, D0 Decision 9)**: 144 dev scenarios committed under `scenarios/dev/` (1,128 files, ~1.51 MiB); 64 test scenarios withheld outside Git in `$TERRAPRESERVE_PRIVATE` (`~/.terrapreserve-private`). The repository carries cryptographic SHA-256 integrity hashes in `scenarios/test_manifest.json`.
 - **Validation**: 466 total steps across all 208 scenarios. 466 of 466 steps passed `terraform validate` under Terraform 1.15.8 and `hashicorp/aws` 6.53.0 (0 invalid, 0 error).
 - **Mutation verification**: 100% of generated steps verified by structural diff verifier (`generator/diff_verify.py`); 0 unrecorded or fabricated changes.
 - **Licencing**: CC-BY-4.0 for scenario definitions; Apache-2.0 notice for reshaped TerraGoat resource vocabulary (`scenarios/NOTICE`).

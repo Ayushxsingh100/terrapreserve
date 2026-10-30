@@ -46,7 +46,7 @@
     {
       "after": "\"Four-step maintenance completed\"",
       "attribute": "description",
-      "before": "\"Four-step maintenance completed\"",
+      "before": "\"Application security group for tpl-03\"",
       "operator": "op_f8_fourstep_maintenance_safe",
       "step": 4,
       "target_address": "aws_security_group.web_secgroup"

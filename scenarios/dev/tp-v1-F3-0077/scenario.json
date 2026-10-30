@@ -21,12 +21,12 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-09 (app sg reconfigured)\"",
+      "after": "\"Application security group for tpl-08 (app sg reconfigured)\"",
       "attribute": "description",
-      "before": "\"Application security group for tpl-09\"",
+      "before": "\"Application security group for tpl-08\"",
       "operator": "op_f3_app_sg_reassociation_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.web_secgroup"
+      "target_address": "aws_security_group.app"
     },
     {
       "after": "true",
@@ -34,28 +34,30 @@
       "before": "false",
       "operator": "op_f3_app_sg_reassociation_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_db_instance.main"
     }
   ],
   "oracle": null,
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b"
+      "us-east-1b",
+      "us-east-1c"
     ],
     "cidr_plan": {
       "app": "10.100.1.0/24",
       "db": [
         "10.100.10.0/24",
-        "10.100.11.0/24"
+        "10.100.11.0/24",
+        "10.100.12.0/24"
       ],
       "vpc": "10.100.0.0/16"
     },
-    "db_class": "db.t3.small",
-    "instance_class": "t3.small",
-    "naming_scheme": "tier",
-    "sg_style": "all_separate",
-    "template_id": "tpl-09",
+    "db_class": "db.t3.micro",
+    "instance_class": "t3.nano",
+    "naming_scheme": "standard",
+    "sg_style": "mixed_app_separate_db_inline",
+    "template_id": "tpl-08",
     "template_version": "tpl-v1.0",
     "variant": "clean"
   },
@@ -85,20 +87,20 @@
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-09",
+    "repo_lineage_id": "tpl-08",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "0e27ee2a4d80b5b8f0139f3b22d81046529d0c214c45c0ea2b5e7f570afaf7c5",
+      "content_hash": "90df2b2994c370b9ceffdd9d0d3907bccb0acc34e0d44465d403f291b458028a",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "664981f59576f62086152aaf2a62b74c59e21efeca6260fa6dabb9af4957a65c",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -75,7 +75,7 @@\n }\n \n resource \"aws_security_group\" \"web_secgroup\" {\n-  description = \"Application security group for tpl-09\"\n+  description = \"Application security group for tpl-09 (app sg reconfigured)\"\n   name        = \"web_secgroup-tpl-09\"\n   vpc_id      = aws_vpc.network.id\n }\n@@ -105,7 +105,7 @@\n   identifier             = \"data-instance-tpl-09\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n",
+      "content_hash": "0e44d6c965035ef4b972bf4c47e128cd834f83f419471f6a5c7a7c4315464885",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -56,7 +56,7 @@\n }\n \n resource \"aws_security_group\" \"app\" {\n-  description = \"Application security group for tpl-08\"\n+  description = \"Application security group for tpl-08 (app sg reconfigured)\"\n   name        = \"app-tpl-08\"\n   vpc_id      = aws_vpc.main.id\n }\n@@ -100,7 +100,7 @@\n   identifier             = \"main-tpl-08\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.db.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -108,6 +110,6 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-09",
+  "template_id": "tpl-08",
   "template_version": "tpl-v1.0"
 }

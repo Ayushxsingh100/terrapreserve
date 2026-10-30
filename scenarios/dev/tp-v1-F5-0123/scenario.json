@@ -21,18 +21,18 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"ami-0d5eff06f840b45e9\"",
-      "attribute": "ami",
-      "before": "\"ami-0c55b159cbfafe1f0\"",
-      "operator": "op_f5_force_replacement_unsafe",
+      "after": "\"Application security group for tpl-06 (restructured)\"",
+      "attribute": "description",
+      "before": "\"Application security group for tpl-06\"",
+      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
       "step": 1,
-      "target_address": "aws_instance.prod_app_server"
+      "target_address": "aws_security_group.prod_app_sg"
     },
     {
       "after": "true",
       "attribute": "publicly_accessible",
       "before": "false",
-      "operator": "op_f5_force_replacement_unsafe",
+      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
       "step": 1,
       "target_address": "aws_db_instance.prod_postgres_db"
     }
@@ -99,14 +99,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "c2bd321f85306eb68149c554abd95efaacd9723ab2b9a63b7669ffc6f21ae12d",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -81,7 +81,7 @@\n }\n \n resource \"aws_instance\" \"prod_app_server\" {\n-  ami                    = \"ami-0c55b159cbfafe1f0\"\n+  ami                    = \"ami-0d5eff06f840b45e9\"\n   instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.prod_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.prod_app_sg.id]\n@@ -99,7 +99,7 @@\n   identifier             = \"prod-postgres-db-tpl-06\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n",
+      "content_hash": "7358921d76803069bdc6b4e0ae19654a9f087ebeb51782a09b4c623a882ac748",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -48,7 +48,7 @@\n }\n \n resource \"aws_security_group\" \"prod_app_sg\" {\n-  description = \"Application security group for tpl-06\"\n+  description = \"Application security group for tpl-06 (restructured)\"\n   name        = \"prod_app_sg-tpl-06\"\n   vpc_id      = aws_vpc.prod_vpc.id\n \n@@ -99,7 +99,7 @@\n   identifier             = \"prod-postgres-db-tpl-06\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Forces resource replacement with unsafe public DB side-effect.",
+    "description": "Restructures SG rules with unsafe public DB side-effect.",
     "invariant_id": null,
     "kind": "change_request"
   },

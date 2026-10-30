@@ -73,9 +73,12 @@ def build_scenario_plan() -> list[dict[str, Any]]:
 
     all_tpl_ids = sorted(templates.TEMPLATES.keys())
     shuffled_tpl_ids = seed.template_shuffle_order(all_tpl_ids)
+    dev_tpl_list = [t for t in shuffled_tpl_ids if t in dev_templates]
+    test_tpl_list = [t for t in shuffled_tpl_ids if t in test_templates]
 
     plan = []
     global_counter = 1
+    cell_num = 0
 
     for family in FAMILIES:
         for cls in CLASSES:
@@ -92,9 +95,13 @@ def build_scenario_plan() -> list[dict[str, Any]]:
                 })
                 global_counter += 1
 
-            # 3 reserve scenarios: template = index mod 10 of seeded order
-            for res_idx in range(RESERVES_PER_CELL):
-                tpl_id = shuffled_tpl_ids[res_idx % len(shuffled_tpl_ids)]
+            # 3 reserve scenarios rotating across all 10 templates (2 dev, 1 test per cell)
+            dev_res_0 = dev_tpl_list[(cell_num * 2) % len(dev_tpl_list)]
+            dev_res_1 = dev_tpl_list[(cell_num * 2 + 1) % len(dev_tpl_list)]
+            test_res_2 = test_tpl_list[cell_num % len(test_tpl_list)]
+            cell_res_tpls = [dev_res_0, dev_res_1, test_res_2]
+
+            for res_idx, tpl_id in enumerate(cell_res_tpls):
                 plan.append({
                     "global_id": global_counter,
                     "family": family,
@@ -105,6 +112,8 @@ def build_scenario_plan() -> list[dict[str, Any]]:
                     "split": "dev" if tpl_id in dev_templates else "test",
                 })
                 global_counter += 1
+
+            cell_num += 1
 
     return plan
 
@@ -254,10 +263,53 @@ def generate_scenario(
     return scenario_data, steps_files, mutation_records
 
 
-def run_pipeline() -> dict[str, Any]:
+def run_pipeline(resume: bool = True) -> dict[str, Any]:
     plan = build_scenario_plan()
     private_root = get_private_dir()
     dev_root = REPO_ROOT / "scenarios" / "dev"
+
+    valid_hash_cache: dict[str, tuple[str, str]] = {}
+    if resume:
+        # Load known valid hashes from dev directory and CSV
+        dev_csv = REPO_ROOT / "scenarios" / "validate_results.csv"
+        if dev_csv.is_file() and dev_root.is_dir():
+            csv_lookup: dict[tuple[str, int], tuple[str, str]] = {}
+            with open(dev_csv, "r", encoding="utf-8") as f:
+                for r in csv.DictReader(f):
+                    csv_lookup[(r["scenario_id"], int(r["step"]))] = (r["status"], r.get("error_class", ""))
+            for sc_dir in dev_root.glob("tp-v1-*"):
+                sc_json = sc_dir / "scenario.json"
+                if sc_json.is_file():
+                    try:
+                        d = json.loads(sc_json.read_text(encoding="utf-8"))
+                        sc_id = d.get("scenario_id", "")
+                        for st in d.get("steps", []):
+                            st_num = st.get("step")
+                            chash = st.get("content_hash")
+                            if chash and csv_lookup.get((sc_id, st_num)) == ("valid", ""):
+                                valid_hash_cache[chash] = ("valid", "")
+                    except Exception:
+                        pass
+        # Load from private directory if available
+        test_csv = private_root / "validate_results.csv"
+        if test_csv.is_file() and private_root.is_dir():
+            csv_lookup_test: dict[tuple[str, int], tuple[str, str]] = {}
+            with open(test_csv, "r", encoding="utf-8") as f:
+                for r in csv.DictReader(f):
+                    csv_lookup_test[(r["scenario_id"], int(r["step"]))] = (r["status"], r.get("error_class", ""))
+            for sc_dir in private_root.glob("tp-v1-*"):
+                sc_json = sc_dir / "scenario.json"
+                if sc_json.is_file():
+                    try:
+                        d = json.loads(sc_json.read_text(encoding="utf-8"))
+                        sc_id = d.get("scenario_id", "")
+                        for st in d.get("steps", []):
+                            st_num = st.get("step")
+                            chash = st.get("content_hash")
+                            if chash and csv_lookup_test.get((sc_id, st_num)) == ("valid", ""):
+                                valid_hash_cache[chash] = ("valid", "")
+                    except Exception:
+                        pass
 
     # Clean existing dev directory
     if dev_root.is_dir():
@@ -307,14 +359,25 @@ def run_pipeline() -> dict[str, Any]:
 
         # Validate every step
         for step_idx, files in enumerate(steps_files):
-            res = harness.validate(files)
-            retries = 0
-            while res.status == "error" and retries < 2:
-                retries += 1
+            chash = sc_data["steps"][step_idx]["content_hash"]
+            if resume and chash in valid_hash_cache:
+                status, error_class = valid_hash_cache[chash]
+            else:
                 res = harness.validate(files)
-            if res.status == "valid":
+                retries = 0
+                while res.status == "error" and retries < 3:
+                    retries += 1
+                    import time
+                    time.sleep(0.5)
+                    res = harness.validate(files)
+                status = res.status
+                error_class = res.error_class
+                if status == "valid":
+                    valid_hash_cache[chash] = ("valid", "")
+
+            if status == "valid":
                 counts["valid_steps"] += 1
-            elif res.status == "invalid":
+            elif status == "invalid":
                 counts["invalid_steps"] += 1
             else:
                 counts["error_steps"] += 1
@@ -322,8 +385,8 @@ def run_pipeline() -> dict[str, Any]:
             row = {
                 "scenario_id": sc_id,
                 "step": step_idx,
-                "status": res.status,
-                "error_class": res.error_class,
+                "status": status,
+                "error_class": error_class,
             }
             if split == "dev":
                 dev_validation_rows.append(row)
@@ -352,8 +415,14 @@ def run_pipeline() -> dict[str, Any]:
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="Run controlled tier generator and validation harness.")
+    parser.add_argument("--no-resume", action="store_true", help="Do not resume from cached validation results")
+    args = parser.parse_args()
     print("Running controlled tier generator and validation harness...")
-    summary = run_pipeline()
+    summary = run_pipeline(resume=not args.no_resume)
+    print("Summary:")
+    print(json.dumps(summary, indent=2))
     print("Summary:")
     print(json.dumps(summary, indent=2))
 

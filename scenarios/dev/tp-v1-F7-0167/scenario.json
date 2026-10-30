@@ -20,35 +20,33 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-03 (central egress gateway)\"",
+      "after": "\"Application security group for tpl-02 (central egress gateway)\"",
       "attribute": "description",
-      "before": "\"Application security group for tpl-03\"",
+      "before": "\"Application security group for tpl-02\"",
       "operator": "op_f7_vpc_cidr_expansion_safe",
       "step": 1,
-      "target_address": "aws_security_group.web_secgroup"
+      "target_address": "aws_security_group.sg_app"
     }
   ],
   "oracle": null,
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b",
-      "us-east-1c"
+      "us-east-1b"
     ],
     "cidr_plan": {
       "app": "10.164.1.0/24",
       "db": [
         "10.164.10.0/24",
-        "10.164.11.0/24",
-        "10.164.12.0/24"
+        "10.164.11.0/24"
       ],
       "vpc": "10.164.0.0/16"
     },
-    "db_class": "db.t3.micro",
-    "instance_class": "t3.nano",
-    "naming_scheme": "tier",
-    "sg_style": "mixed_app_inline_db_separate",
-    "template_id": "tpl-03",
+    "db_class": "db.t3.small",
+    "instance_class": "t3.small",
+    "naming_scheme": "kebab",
+    "sg_style": "all_inline",
+    "template_id": "tpl-02",
     "template_version": "tpl-v1.0",
     "variant": "clean"
   },
@@ -78,20 +76,20 @@
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-03",
+    "repo_lineage_id": "tpl-02",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "05fb0114b0d1dbc86b564f42ef7349e1398630650b955a5e5c92310d0910d13e",
+      "content_hash": "5ca3d354d00a7a7c8b3007c0bc94277539dcd169524ff3fd14d91e41cc89c684",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "f5bf94f271440e0e43f8d6385185decc01cd2b569ce2e9cbc59d8ab08b8c7d14",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -55,7 +55,7 @@\n }\n \n resource \"aws_security_group\" \"web_secgroup\" {\n-  description = \"Application security group for tpl-03\"\n+  description = \"Application security group for tpl-03 (central egress gateway)\"\n   name        = \"web_secgroup-tpl-03\"\n   vpc_id      = aws_vpc.network.id\n \n",
+      "content_hash": "99f5f672f9150aba77513e03fec78843f62f8295904c112293914bef52183e3a",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -55,7 +55,7 @@\n }\n \n resource \"aws_security_group\" \"sg_app\" {\n-  description = \"Application security group for tpl-02\"\n+  description = \"Application security group for tpl-02 (central egress gateway)\"\n   name        = \"sg_app-tpl-02\"\n   vpc_id      = aws_vpc.vpc_main.id\n \n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -101,6 +99,6 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-03",
+  "template_id": "tpl-02",
   "template_version": "tpl-v1.0"
 }

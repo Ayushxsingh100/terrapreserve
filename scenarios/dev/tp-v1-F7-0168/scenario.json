@@ -20,33 +20,35 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"t3.medium\"",
+      "after": "\"t3.micro\"",
       "attribute": "instance_type",
-      "before": "\"t3.small\"",
+      "before": "\"t3.nano\"",
       "operator": "op_f7_shared_sg_egress_tighten_safe",
       "step": 1,
-      "target_address": "aws_instance.web_instance"
+      "target_address": "aws_instance.app"
     }
   ],
   "oracle": null,
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b"
+      "us-east-1b",
+      "us-east-1c"
     ],
     "cidr_plan": {
       "app": "10.93.1.0/24",
       "db": [
         "10.93.10.0/24",
-        "10.93.11.0/24"
+        "10.93.11.0/24",
+        "10.93.12.0/24"
       ],
       "vpc": "10.93.0.0/16"
     },
-    "db_class": "db.t3.small",
-    "instance_class": "t3.small",
-    "naming_scheme": "tier",
-    "sg_style": "all_separate",
-    "template_id": "tpl-09",
+    "db_class": "db.t3.micro",
+    "instance_class": "t3.nano",
+    "naming_scheme": "standard",
+    "sg_style": "mixed_app_separate_db_inline",
+    "template_id": "tpl-08",
     "template_version": "tpl-v1.0",
     "variant": "clean"
   },
@@ -76,20 +78,20 @@
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-09",
+    "repo_lineage_id": "tpl-08",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "e61d071fc3f2900e871832524db1ac23c98bfed721fbeb56c9d2503c227cb418",
+      "content_hash": "24a1eaf9617ca6464970f3284d40ed46b243bdb0a134e31622c0b765ee961dab",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "c3589b60b27b43d5f5ba0ef55061ad504255c334a6b9331674f9d0709c0013e3",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -88,7 +88,7 @@\n \n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.small\"\n+  instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.web_tier.id\n   vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n }\n",
+      "content_hash": "87f139c8e5a78e6926205888701de610d495af97b30e0331723856a6cef4f8d6",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -83,7 +83,7 @@\n \n resource \"aws_instance\" \"app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.nano\"\n+  instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.app.id\n   vpc_security_group_ids = [aws_security_group.app.id]\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -99,6 +101,6 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-09",
+  "template_id": "tpl-08",
   "template_version": "tpl-v1.0"
 }

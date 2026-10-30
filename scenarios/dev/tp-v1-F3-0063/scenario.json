@@ -32,23 +32,21 @@
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b",
-      "us-east-1c"
+      "us-east-1b"
     ],
     "cidr_plan": {
       "app": "10.23.1.0/24",
       "db": [
         "10.23.10.0/24",
-        "10.23.11.0/24",
-        "10.23.12.0/24"
+        "10.23.11.0/24"
       ],
       "vpc": "10.23.0.0/16"
     },
-    "db_class": "db.t3.micro",
-    "instance_class": "t3.nano",
+    "db_class": "db.t3.small",
+    "instance_class": "t3.small",
     "naming_scheme": "tier",
-    "sg_style": "mixed_app_inline_db_separate",
-    "template_id": "tpl-03",
+    "sg_style": "all_separate",
+    "template_id": "tpl-09",
     "template_version": "tpl-v1.0",
     "variant": "clean"
   },
@@ -78,20 +76,20 @@
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-03",
+    "repo_lineage_id": "tpl-09",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "866b73dfe5a2e089db2c118b11ef5a3fd0ca5b3b340f7b988e9f3474e156f7ac",
+      "content_hash": "c9666dd4f573c1eeb258ed61754685285fa0ac5189a06683ba13dd9e30fbbc77",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "4c1c37b61adaa75e42b741ef893ce61f8ee1b4fed5f0bc6397e92bf55efc5a4a",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -76,6 +76,7 @@\n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.nano\"\n+  monitoring             = true\n   subnet_id              = aws_subnet.web_tier.id\n   vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n }\n",
+      "content_hash": "2dfd3a1b06fd79de7d825ac9dbf22738fe3cf3c2e289b28b3ade2174cc98e537",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -89,6 +89,7 @@\n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.small\"\n+  monitoring             = true\n   subnet_id              = aws_subnet.web_tier.id\n   vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -101,6 +99,6 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-03",
+  "template_id": "tpl-09",
   "template_version": "tpl-v1.0"
 }

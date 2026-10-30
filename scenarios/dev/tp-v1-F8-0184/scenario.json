@@ -38,7 +38,7 @@
     {
       "after": "\"Three-step repair completed\"",
       "attribute": "description",
-      "before": "\"Three-step repair completed\"",
+      "before": "\"Application security group for tpl-02\"",
       "operator": "op_f8_threestep_refactor_repair_safe",
       "step": 3,
       "target_address": "aws_security_group.sg_app"

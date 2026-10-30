@@ -21,12 +21,12 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"t3.micro\"",
+      "after": "\"t3.large\"",
       "attribute": "instance_type",
-      "before": "\"t3.nano\"",
+      "before": "\"t3.medium\"",
       "operator": "op_f8_threestep_refactor_repair_unsafe",
       "step": 1,
-      "target_address": "aws_instance.web_instance"
+      "target_address": "aws_instance.prod_app_server"
     },
     {
       "after": "30",
@@ -34,7 +34,7 @@
       "before": "20",
       "operator": "op_f8_threestep_refactor_repair_unsafe",
       "step": 2,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_db_instance.prod_postgres_db"
     },
     {
       "after": "true",
@@ -42,15 +42,15 @@
       "before": "false",
       "operator": "op_f8_threestep_refactor_repair_unsafe",
       "step": 2,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_db_instance.prod_postgres_db"
     },
     {
       "after": "\"Three-step repair completed\"",
       "attribute": "description",
-      "before": "\"Three-step repair completed\"",
+      "before": "\"Application security group for tpl-06\"",
       "operator": "op_f8_threestep_refactor_repair_unsafe",
       "step": 3,
-      "target_address": "aws_security_group.web_secgroup"
+      "target_address": "aws_security_group.prod_app_sg"
     }
   ],
   "oracle": null,
@@ -69,11 +69,11 @@
       ],
       "vpc": "10.161.0.0/16"
     },
-    "db_class": "db.t3.micro",
-    "instance_class": "t3.nano",
-    "naming_scheme": "tier",
-    "sg_style": "mixed_app_inline_db_separate",
-    "template_id": "tpl-03",
+    "db_class": "db.t3.small",
+    "instance_class": "t3.medium",
+    "naming_scheme": "env",
+    "sg_style": "all_inline",
+    "template_id": "tpl-06",
     "template_version": "tpl-v1.0",
     "variant": "sec_001_violated"
   },
@@ -103,32 +103,32 @@
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-03",
+    "repo_lineage_id": "tpl-06",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "b3aee8497bf3b6092f2d68febde90f6745beb8ddcfa785f18257900dda825453",
+      "content_hash": "05507558b17a64145cb41946bc84cc595f018fe41b1e8f71205d845fcef89158",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "9b4858463cfb117093b48050a88f0dee67bb81141a436ecb825eb90256930a96",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -82,7 +82,7 @@\n \n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.nano\"\n+  instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.web_tier.id\n   vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n }\n",
+      "content_hash": "35d221c7f3fe36b815bf472e3a2776d3b033dc028fe6a6c393ccfa52c33a951e",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -89,7 +89,7 @@\n \n resource \"aws_instance\" \"prod_app_server\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.medium\"\n+  instance_type          = \"t3.large\"\n   subnet_id              = aws_subnet.prod_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.prod_app_sg.id]\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
     },
     {
-      "content_hash": "ef84df7f0cc721c1a81986bc7b70004fcb38e41bd6fa17611d4dc6a0b0786520",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -93,13 +93,13 @@\n }\n \n resource \"aws_db_instance\" \"data_instance\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.data_subnets.name\n   engine                 = \"postgres\"\n   identifier             = \"data-instance-tpl-03\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n",
+      "content_hash": "f87ed07f73f6bbbafe1135569763dd1ed8c73b35032f3bb1d53f1d2528c3ebf0",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -100,13 +100,13 @@\n }\n \n resource \"aws_db_instance\" \"prod_postgres_db\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.prod_db_sng.name\n   engine                 = \"postgres\"\n   identifier             = \"prod-postgres-db-tpl-06\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n",
       "step": 2,
       "terraform_dir": "step_2"
     },
     {
-      "content_hash": "50dea9532612c2743bca899ebea40b3d52d96cd9a8e983ee676037d876468b39",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -55,7 +55,7 @@\n }\n \n resource \"aws_security_group\" \"web_secgroup\" {\n-  description = \"Application security group for tpl-03\"\n+  description = \"Three-step repair completed\"\n   name        = \"web_secgroup-tpl-03\"\n   vpc_id      = aws_vpc.network.id\n \n",
+      "content_hash": "a09470e21dd5f97238c1ca0ce4cf4eceb955ca15a2e8e5a5e8db8fb359c4cf58",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -48,7 +48,7 @@\n }\n \n resource \"aws_security_group\" \"prod_app_sg\" {\n-  description = \"Application security group for tpl-06\"\n+  description = \"Three-step repair completed\"\n   name        = \"prod_app_sg-tpl-06\"\n   vpc_id      = aws_vpc.prod_vpc.id\n \n",
       "step": 3,
       "terraform_dir": "step_3"
     }
@@ -138,6 +138,6 @@
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
   },
-  "template_id": "tpl-03",
+  "template_id": "tpl-06",
   "template_version": "tpl-v1.0"
 }

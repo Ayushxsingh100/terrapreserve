@@ -59,6 +59,42 @@ class TestControlledTierPlan(unittest.TestCase):
                 target_tpls = {it["template_id"] for it in cell_targets}
                 self.assertEqual(len(target_tpls), 10)
 
+    def test_reserves_cover_all_ten_templates(self) -> None:
+        gen = self._get_gen_module()
+        plan = gen.build_scenario_plan()
+        reserves = [p for p in plan if p["reserve"]]
+        self.assertEqual(len(reserves), 48)
+
+        reserve_tpls = {p["template_id"] for p in reserves}
+        all_tpls = {f"tpl-{i:02d}" for i in range(1, 11)}
+        self.assertEqual(reserve_tpls, all_tpls, f"Reserves must cover all 10 templates, missing: {all_tpls - reserve_tpls}")
+
+        # Check each template appears in reserves at least 3 times
+        tpl_counts = {}
+        for p in reserves:
+            tpl_counts[p["template_id"]] = tpl_counts.get(p["template_id"], 0) + 1
+        for tpl_id in all_tpls:
+            self.assertGreaterEqual(tpl_counts.get(tpl_id, 0), 3, f"Template {tpl_id} has only {tpl_counts.get(tpl_id, 0)} reserves")
+
+    def test_every_cell_has_reserves_in_both_splits(self) -> None:
+        gen = self._get_gen_module()
+        plan = gen.build_scenario_plan()
+        cells: dict[tuple[str, str], list[dict]] = {}
+        for p in plan:
+            cells.setdefault((p["family"], p["cls"]), []).append(p)
+
+        for (fam, cls), items in cells.items():
+            cell_reserves = [it for it in items if it["reserve"]]
+            with self.subTest(family=fam, cls=cls):
+                self.assertEqual(len(cell_reserves), 3)
+                dev_res = [r for r in cell_reserves if r["split"] == "dev"]
+                test_res = [r for r in cell_reserves if r["split"] == "test"]
+                self.assertGreater(len(dev_res), 0, f"Cell ({fam}, {cls}) has no dev reserves")
+                self.assertGreater(len(test_res), 0, f"Cell ({fam}, {cls}) has no test reserves")
+                # 2 dev and 1 test per cell (about 70/30)
+                self.assertEqual(len(dev_res), 2)
+                self.assertEqual(len(test_res), 1)
+
     def test_global_scenario_ids_are_strictly_monotonic_and_stable(self) -> None:
         gen = self._get_gen_module()
         plan = gen.build_scenario_plan()
@@ -121,6 +157,32 @@ class TestControlledTierOutput(unittest.TestCase):
                 total_bytes += sz
         # Total committed size under 40 MiB
         self.assertLessEqual(total_bytes, 40 * 1024 * 1024)
+
+    def test_generator_determinism_two_runs_byte_identical(self) -> None:
+        import sys
+        sys.path.insert(0, str(REPO_ROOT / "sources"))
+        sys.path.insert(0, str(REPO_ROOT / "pool"))
+        sys.path.insert(0, str(REPO_ROOT / "generator"))
+        import generate
+        import writer
+
+        plan = generate.build_scenario_plan()
+        # Verify across a representative sample of all 16 cells (one per cell)
+        sample_items = [p for p in plan if p["cell_index"] == 0]
+        self.assertEqual(len(sample_items), 16)
+
+        for item in sample_items:
+            # Run 1
+            data1, steps1, records1 = generate.generate_scenario(item)
+            json1 = writer.canonical_json(data1)
+
+            # Run 2
+            data2, steps2, records2 = generate.generate_scenario(item)
+            json2 = writer.canonical_json(data2)
+
+            self.assertEqual(json1, json2, f"Scenario {item['global_id']} JSON not identical across runs")
+            self.assertEqual(steps1, steps2, f"Scenario {item['global_id']} step files not identical across runs")
+            self.assertEqual(records1, records2, f"Scenario {item['global_id']} mutation records not identical across runs")
 
 
 if __name__ == "__main__":

@@ -21,12 +21,12 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-03 (central egress gateway)\"",
+      "after": "\"Application security group for tpl-10 (central egress gateway)\"",
       "attribute": "description",
-      "before": "\"Application security group for tpl-03\"",
+      "before": "\"Application security group for tpl-10\"",
       "operator": "op_f7_vpc_cidr_expansion_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.web_secgroup"
+      "target_address": "aws_security_group.frontend_sg"
     },
     {
       "after": "true",
@@ -34,30 +34,28 @@
       "before": "false",
       "operator": "op_f7_vpc_cidr_expansion_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_db_instance.backend_database"
     }
   ],
   "oracle": null,
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b",
-      "us-east-1c"
+      "us-east-1b"
     ],
     "cidr_plan": {
       "app": "10.74.1.0/24",
       "db": [
         "10.74.10.0/24",
-        "10.74.11.0/24",
-        "10.74.12.0/24"
+        "10.74.11.0/24"
       ],
       "vpc": "10.74.0.0/16"
     },
-    "db_class": "db.t3.micro",
-    "instance_class": "t3.nano",
-    "naming_scheme": "tier",
-    "sg_style": "mixed_app_inline_db_separate",
-    "template_id": "tpl-03",
+    "db_class": "db.t3.nano",
+    "instance_class": "t3.micro",
+    "naming_scheme": "component",
+    "sg_style": "all_inline",
+    "template_id": "tpl-10",
     "template_version": "tpl-v1.0",
     "variant": "clean"
   },
@@ -87,20 +85,20 @@
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-03",
+    "repo_lineage_id": "tpl-10",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "4052d451053399ab94fe3b1e6e8876d0c45c4d5e4806c9ddcc602753e25207cd",
+      "content_hash": "079ec8dd43e14b9cdd12c88c4e82855b7766ea05bf400805158b843608a803e1",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "2034164eef98baeb8ca8b935af211b42ede38f21ea250c7198652f566051fafc",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -55,7 +55,7 @@\n }\n \n resource \"aws_security_group\" \"web_secgroup\" {\n-  description = \"Application security group for tpl-03\"\n+  description = \"Application security group for tpl-03 (central egress gateway)\"\n   name        = \"web_secgroup-tpl-03\"\n   vpc_id      = aws_vpc.network.id\n \n@@ -92,7 +92,7 @@\n   identifier             = \"data-instance-tpl-03\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n",
+      "content_hash": "36d0b5dc4feb2339c2a0559f314a93b327bcbdaacd94cd45cfbad2a6c764c82b",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -41,7 +41,7 @@\n }\n \n resource \"aws_security_group\" \"frontend_sg\" {\n-  description = \"Application security group for tpl-10\"\n+  description = \"Application security group for tpl-10 (central egress gateway)\"\n   name        = \"frontend_sg-tpl-10\"\n   vpc_id      = aws_vpc.corp_vpc.id\n \n@@ -98,7 +98,7 @@\n   identifier             = \"backend-database-tpl-10\"\n   instance_class         = \"db.t3.nano\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.backend_sg.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -110,6 +108,6 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-03",
+  "template_id": "tpl-10",
   "template_version": "tpl-v1.0"
 }

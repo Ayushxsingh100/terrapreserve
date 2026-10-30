@@ -94,9 +94,9 @@ Refactors configuration structure (moved blocks, inline vs separate rule resourc
 - **`op_f5_inline_to_separate_sg_rules`**
   - *Safe*: Converts inline `ingress`/`egress` blocks of a security group into standalone `aws_security_group_rule` resources, preserving all ports, protocols, and sources.
   - *Unsafe*: Converts to standalone rules but drops the 5432 app SG rule or opens port 22 to `0.0.0.0/0`.
-- **`op_f5_count_to_for_each`**
-  - *Safe*: Migrates `count`-based db subnets to `for_each = toset([...])`, updating references cleanly.
-  - *Unsafe*: Migrates to `for_each` but loses a subnet or corrupts the DB subnet group referencing them.
+- **`op_f5_count_each`**
+  - *Safe*: Restructures `aws_instance` with `count` meta-argument (adding or removing `count = 1`), preserving resource references and protected invariants.
+  - *Unsafe*: Restructures `count` meta-argument on `aws_instance` but carries an unsafe side-effect setting `aws_db_instance.publicly_accessible = true` (breaks `INV-SEC-003`).
 - **`op_f5_force_replacement`**
   - *Safe*: Changes an attribute requiring resource replacement (e.g. DB engine minor version or instance AMI) with semantics intact.
   - *Unsafe*: Force-replacement resets a security group or re-provisions DB with `publicly_accessible = true`.

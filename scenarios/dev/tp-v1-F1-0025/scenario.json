@@ -26,7 +26,7 @@
       "before": "true",
       "operator": "op_f1_vpc_dns_toggle_unsafe",
       "step": 1,
-      "target_address": "aws_vpc.network"
+      "target_address": "aws_vpc.vpc_main"
     },
     {
       "after": "true",
@@ -34,7 +34,7 @@
       "before": "false",
       "operator": "op_f1_vpc_dns_toggle_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_db_instance.rds_postgres"
     }
   ],
   "oracle": null,
@@ -53,9 +53,9 @@
     },
     "db_class": "db.t3.small",
     "instance_class": "t3.small",
-    "naming_scheme": "tier",
-    "sg_style": "all_separate",
-    "template_id": "tpl-09",
+    "naming_scheme": "kebab",
+    "sg_style": "all_inline",
+    "template_id": "tpl-02",
     "template_version": "tpl-v1.0",
     "variant": "clean"
   },
@@ -85,20 +85,20 @@
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-09",
+    "repo_lineage_id": "tpl-02",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "ce1d1a5989776d462e6408494f1c85b81fcad1eb09de541b8cfc0ec60756390a",
+      "content_hash": "445470d0d9c1e9fdf493428acd7d35b928d83f02f33347b8ad735fd4e20695a7",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "fa8a4d4e32c4c1cb7d2db90f797fcfb1240c3dc4ccc280b189291debc02fe7df",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"network\" {\n   cidr_block           = \"10.167.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n@@ -105,7 +105,7 @@\n   identifier             = \"data-instance-tpl-09\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n",
+      "content_hash": "013fd6127b97659dfe2e26efac63818b18c3f5c500ac1faf50647109d8e89f78",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"vpc_main\" {\n   cidr_block           = \"10.167.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n@@ -106,7 +106,7 @@\n   identifier             = \"rds-postgres-tpl-02\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.sg_db.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -108,6 +108,6 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-09",
+  "template_id": "tpl-02",
   "template_version": "tpl-v1.0"
 }
