@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "a326499673fffd18d70c3e475127560f4db7ee4ba100e601867280ce0e5894ca",
+  "output.tf": "a0e5760ccfa68513986e395f8abde1cfd053464115569d982ac75002a7c07793",
+  "variables.tf": "8a25e80a6b28fc931bc9ed8a96c8d462d6396d512debcce3df28494bc84b7dfe"
+ },
+ "commit_sha": "4f39c1893bf1bba348216a4ce79657f57a59da6f",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "e20b241a74f8751a69ed7bfd6a5a0d76eb06d15ae4a0b0ef2677676f7519409b",
+ "module_id": 367249,
+ "module_path": "ex02_terraform_basics",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-367249",
+ "repo_full_name": "san99tiago/terraform-playground",
+ "repo_id": 348057122,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

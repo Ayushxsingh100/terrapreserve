@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "deaa4a64caca7b584bac4bdd34ab57ea7c40bb4b87eeb576d29f45f559ea2e7e",
+  "outputs.tf": "184feac23dc71cb7db74d780fbae211d62bb7af3310a9ddc95172d183c120de3",
+  "variables.tf": "cdc1ace914b3d15da89a549bb39f5f092202944e8f38dd1403411d8580c4943d"
+ },
+ "commit_sha": "4696eaacb8a48d3e4e63ffd5bc529480928920f9",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "88e86e28bae7c5c6efef188e40b0b20115b4beefee88af0b72a6ec2a621f2343",
+ "module_id": 673189,
+ "module_path": "modules/rds",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-673189",
+ "repo_full_name": "abhinandan-chougule/aws-3tier-infra-build",
+ "repo_id": 1114547008,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

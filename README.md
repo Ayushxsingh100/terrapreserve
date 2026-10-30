@@ -13,6 +13,7 @@ TerraPreserve is the companion dataset to [DAIL](https://github.com/Ayushxsingh1
 | TerraGoat | acquired in D1 Prompt B |
 | TerraDS | acquired in D1 Prompt B |
 | Checkov rule library | acquired in D1 Prompt B |
+| Pool (redacted, licence-checked, deduplicated selection of the above) | built in D3; see [pool/](pool/) |
 
 ## Licences
 
@@ -28,4 +29,4 @@ Terraform `~> 1.15.0` (CI uses 1.15.8), `hashicorp/aws` 6.53.0, Python 3.12. The
 
 ## Status
 
-Pre-release; scenarios not yet generated.
+Pre-release; scenarios not yet generated. The real-world pool (D3) is built and awaiting external review: see [pool/README.md](pool/README.md) and [pool/POOL_REPORT.md](pool/POOL_REPORT.md).

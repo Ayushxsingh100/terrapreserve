@@ -1,0 +1,23 @@
+{
+ "archive_sha256": {
+  "main.tf": "400c557d901abf837deb48599f6fc2b67f9add9f76a8ca779278a95529d041a7",
+  "variable.tf": "0a1091fdb180f609840f217a92b2faa16920be41aa02e82a1e9ad8fae8016c21"
+ },
+ "commit_sha": "08ec3de5869d312fba4a08e645725329a767c714",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 491138,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-491138",
+ "repo_full_name": "ankurpshah/kitchen_aws_dev_container",
+ "repo_id": 647593142,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

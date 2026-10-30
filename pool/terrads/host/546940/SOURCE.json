@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "07612a6210e7682887ebc2c592de55353e884758c8542923af476af4d733e0a9",
+  "outputs.tf": "4c7b80755aa289e87e4f2105eeb87414424e836212e9da3a84e0cbec3772dc03",
+  "variables.tf": "f3670623e1eed8253ca79c06774658f33ce3d1fc0b1f70f9a53dd01b13ba5e00"
+ },
+ "commit_sha": "b6fa4900dbd727606a6749123113f8eca7005da3",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 546940,
+ "module_path": "Project folder",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-546940",
+ "repo_full_name": "danielamoh1/Automated-IaC-Deployment-with-Security-Compliance",
+ "repo_id": 768975450,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

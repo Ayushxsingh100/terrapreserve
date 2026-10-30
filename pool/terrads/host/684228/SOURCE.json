@@ -1,0 +1,28 @@
+{
+ "archive_sha256": {
+  "main.tf": "feb780d557c47b77d69ef2db0c2099022faaae2c65387a4898639e6aa5857f60",
+  "output.tf": "02469e79e8aa880f222cac715206ffa3275158d0be75e718ad77745cf65e2714",
+  "variables.tf": "14470e393d556811ed9f988936a0c5004f635572b3e2b98f51be443dfa34d7b1"
+ },
+ "commit_sha": "3131eb0cce74c76a795eecba1fb6a11b01b4a734",
+ "crlf_normalised": [
+  "main.tf",
+  "output.tf",
+  "variables.tf"
+ ],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "d0496a7231dc9e8ca3151c8fef6b94d263f64ee8cbb1dfea188c2f04bddfc2f9",
+ "module_id": 684228,
+ "module_path": "modules/security-group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-684228",
+ "repo_full_name": "hiry0404-it/Automated-Secure-AWS-Infrastructure-via-Terraform",
+ "repo_id": 1145736486,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

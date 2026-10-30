@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "973b09c440f61bbfb43b5c0aff10a6172e5115197f14b2de4f36082f3fad9d9b",
+  "outputs.tf": "21cf0d32e0db821988e5cbc8af5f634cab7accfec918b3011ac2617ab28ed152",
+  "variables.tf": "719ca99ef212406a615d4963799ea6f6a2c0bf3164bc50f2b80ba1d771abfe7d"
+ },
+ "commit_sha": "b777e60a3e254672e5b428117b235fafa3234a23",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "e635a29d3556c9b030c44f42c52aee20aa6d22c0e448003baef320e9dc2e1764",
+ "module_id": 672445,
+ "module_path": "modules/vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-672445",
+ "repo_full_name": "wlan01/aws-auto-healing-infra-terraform",
+ "repo_id": 1114106208,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

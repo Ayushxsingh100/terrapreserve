@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "c5ce5ac459dfd50f6eb1d68acc8247db52520f91198769751060d0efab3f9c0a",
+  "outputs.tf": "829093622c2f219d1fd48027a80b0bc2926e30f439e10d8fb1b78774c6001d29",
+  "variables.tf": "99d404a34d06ba0f2f69ff10f068666dca4c186812c087851d2fcb8cea59d564"
+ },
+ "commit_sha": "3881131118313060030f5ca8cfe12bc96d0a942b",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "2de527bc505e298432ad8169037b5eed6eb5812b52a73d39cfbd06ff87aba026",
+ "module_id": 614897,
+ "module_path": "modules/ec2",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-614897",
+ "repo_full_name": "diegomais/multi-environment-infrastructure",
+ "repo_id": 964144832,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

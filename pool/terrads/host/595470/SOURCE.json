@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "a7c36464ee7860865b3ec6c19fdf82a21c5c5be72f407068d92454cac4946076",
+  "outputs.tf": "48f405e85d513811c99b307e488db15f1022b58855a5ba7b17b7433324fcf474",
+  "variables.tf": "07fbf30b9a583eea846b93e13dc214de9d8e39a278dcb5f43ad57ad80f3de891"
+ },
+ "commit_sha": "59755f553ece773751ebbe40acad6aa60b11aa20",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "bd32408ee9cef498750b4a8facee1606bcb2dd3f4199c0419167aa426f610e33",
+ "module_id": 595470,
+ "module_path": "2_IaC/terraform/modules/bastion",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-595470",
+ "repo_full_name": "aqilshaikh/IaC-Terraform_and_Automation",
+ "repo_id": 918408568,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

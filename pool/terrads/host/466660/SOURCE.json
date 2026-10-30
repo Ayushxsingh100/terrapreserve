@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "main.tf": "78c2ac89457c3bd74039f3918dce50aabe1fb42d4358bb326798ad423447785f"
+ },
+ "commit_sha": "d93c6d7c233dc0c8ce2541e9892ecbcf3d64c823",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "28ea2b3791ba701e91b8e3004fd573be33bd4922072b5934581827e956b5c9d3",
+ "module_id": 466660,
+ "module_path": "terraform-import-infra",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-466660",
+ "repo_full_name": "gopikrishhnaChokkalamani/terraform-workspaces",
+ "repo_id": 597424555,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

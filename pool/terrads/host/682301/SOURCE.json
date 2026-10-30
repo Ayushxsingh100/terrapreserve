@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "1b49063c57422c49b63180b487d550de8aa219479228e133a19ded97356c8eb7",
+  "outputs.tf": "8be4c327048ac4679fea4c62cdf2ed8170edcf12c4a155ae73ee23ecac4c1b36",
+  "variables.tf": "0a9301332e8bee3cd88f864440532fff7e1283baa82b3897932ec1118574f267"
+ },
+ "commit_sha": "5b13e4eb4e6aa66e2ffea22013daedf4d9126edc",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "dcc4badca6c4b5e3afdb3660567d70ac663d42487e8afd0af0c9dc51ffa0f006",
+ "module_id": 682301,
+ "module_path": "terraform/modules/security-groups",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-682301",
+ "repo_full_name": "GeorgiYovchev/infra-aws-project",
+ "repo_id": 1140541900,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

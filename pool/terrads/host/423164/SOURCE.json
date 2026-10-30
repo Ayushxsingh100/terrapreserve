@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "main.tf": "6f186bad04d98b910ecfc762553e71827072c19cfe78a1f0b0958f8d1761ed07"
+ },
+ "commit_sha": "9293a172d30f826cd9fea415cd50c14d712c9823",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT-0",
+ "licence_upstream_sha256": "38f8bbc4f6e56e1df518edec5dabd1aa8c0f24d49f448bdd676ad10d8c65b341",
+ "module_id": 423164,
+ "module_path": "hack/00-bastion",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-423164",
+ "repo_full_name": "lindarr915/local-zone-eks",
+ "repo_id": 495612181,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

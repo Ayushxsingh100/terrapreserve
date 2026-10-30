@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "5c0f4755c4bd4b4c9d7b44f303088f1db185989996c73ae1f571a328135fc8b4",
+  "outputs.tf": "411fc6ff77b9298cddf70c7e63702b4660bc03fd68045429f75ce8662ed5d127",
+  "variables.tf": "84954442df1ea0e88edbe15e693acb7a4850c9505cc200cbece35fb36a4eda17"
+ },
+ "commit_sha": "d288411f9875e91a770a90aa1886bb8b899c8221",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "13add7677f00e28e226f376ef76ff5882bf444626779b48f6a2543438a083ed0",
+ "module_id": 614174,
+ "module_path": "terraform/modules/security_groups",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-614174",
+ "repo_full_name": "carloosbaquero/Backend-TFM",
+ "repo_id": 962008774,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

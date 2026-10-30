@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "027fa9477d0443a709e4270666e76cd73e946c3ef2b7f4ef99b492c9afea4790",
+  "outputs.tf": "d2455368b30fb12978928e70b0ad2490374773bc2188720f696f1ad428734168",
+  "variables.tf": "9d4a7d3e4a56a1c89035a0b822ed6b58cdf85dd0feb9fd1cea154872d4e8452c"
+ },
+ "commit_sha": "e5629f260972207fb7fcf2ad30c310c3d646db82",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "fce5a1ca99e50b7e568bdb4488036e29e54bb6e05f345a996ce6c6590547a90a",
+ "module_id": 433435,
+ "module_path": "Tutorials/Aws/AWS5/security",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-433435",
+ "repo_full_name": "JustalK/LABORATORY-TERRAFORM",
+ "repo_id": 515247588,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

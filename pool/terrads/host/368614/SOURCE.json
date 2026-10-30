@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "740123a9bffb457c386f9a2814df70bcffd9dfc756a2ef741efb62a6d6a06e15",
+  "output.tf": "f725011b076e9d401a9e4040193e23ae6d8e5f44b348fcaf2fa22ce829abc052",
+  "variables.tf": "961b7c51a2d2a54931b821dabe85994b3a33b8b1ad0ce6bd2da52f90ac7d3ad6"
+ },
+ "commit_sha": "041996fc2165808e7322f0609557e6a7d2d2d8c2",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "5b368d426ecf0f200bf6321acfd376b418c798222c73c222a586f95441606553",
+ "module_id": 368614,
+ "module_path": "modules/vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-368614",
+ "repo_full_name": "daddychukz/ELK-automation",
+ "repo_id": 351767566,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

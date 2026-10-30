@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "main.tf": "77b65c01ad943b4436a30255da948e1952764b406069241fa08f4dc6f1550461",
+  "output.tf": "2ed53e8e6eaa9d5b831af9a9d7a3a049b61ba8fd0a728f3b6e01e681f666847e",
+  "variables.tf": "e878358b9484fb558cc67cc30002ecb31f5e90c2a4c78aeef762d8ea12022456",
+  "versions.tf": "075efb7e5c0308d43de738f30c6d777b10544d1fb301e8705d7195efeb821d61"
+ },
+ "commit_sha": "6c81ceae5c418ab4dfb5f993c4efd91cd9bd42d0",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "7cce23d397af24d38240b6a664e7f7338176a3f93341860425e83aa8aca61440",
+ "module_id": 472022,
+ "module_path": "Cloud and Branch Connector/terraform/labs/modules/terraform-zsbastion-aws",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-472022",
+ "repo_full_name": "zscaler/zscaler-script-samples",
+ "repo_id": 609271016,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

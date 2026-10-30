@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "main.tf": "6370bc91ddb505e3fc340c856fd5184b3a5310d9066969e6c9c250f96530ff73"
+ },
+ "commit_sha": "2c9622d2bfe57331b44884c91dcf943b45c38378",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "cd7fbee8f341c0d823976fc3fa7bece130dfb7e88e58d97d91d4b2a9ff015572",
+ "module_id": 403960,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-403960",
+ "repo_full_name": "eheimwbn/basicTerraformAWSExample",
+ "repo_id": 446621544,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

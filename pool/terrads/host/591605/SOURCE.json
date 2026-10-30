@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "47f183902dad3f4e3995a1226bb425bf08fff8f4144b9f0663eb99998b7edc5f",
+  "outputs.tf": "7bf201fb2bf86ebd586246224d99ca30271596f899b5c395437895f8e0159fb7",
+  "variables.tf": "754905609015d545667ff2a255e1f0e7b4567332c831444e90e040bda8379740"
+ },
+ "commit_sha": "617c7f1e9f73249a34aa9ccdd0137fdcd3180734",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "e06449293c03b3af31bb76bddcf23817a3cabdbcb80aa3fda7b8da20b2cd4abe",
+ "module_id": 591605,
+ "module_path": "modules/security_group_alb",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-591605",
+ "repo_full_name": "AkalankaDilshan/Orchestrating-Seamless-Access-Public-Load-Balancer-to-Private-EC2-Instances",
+ "repo_id": 907471682,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

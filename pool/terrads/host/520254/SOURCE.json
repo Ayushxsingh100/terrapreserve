@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "c0d7131fe0134f0fd1c91276d1009c85135682ee7b7e640703f95dd7da1666d6",
+  "output.tf": "d854a78a2b40a26a07a286326cac11d2f91e25d02785ac04737e498962d0fd41",
+  "variables.tf": "d1562b3e0344a44a17cbe4cbfd6725f20def39aa55f18b1a40d85d5e4eb0ca30"
+ },
+ "commit_sha": "9afa9b6ac880454b6eed2f6914047167d38c2bfe",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "0919df74d325d548f06408b0b4116d38ddf185f5d2e080e254d38042e3870c15",
+ "module_id": 520254,
+ "module_path": "modules/mysql",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-520254",
+ "repo_full_name": "epomatti/aws-github-runner-migrations",
+ "repo_id": 704729731,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

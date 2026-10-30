@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "a7a72aa6bea1fd8f48ea40b2d57aa021d25e284d7b00cf66f2baf083dcf9b84e",
+  "outputs.tf": "3556d9d94aeb6f870f6150fea88ab6832026e17ecc2c19ba8b1a655363dccddf",
+  "variables.tf": "12635eeb64fc396b20b99cf35840717bbfac34be941a196a95ea28ffd0251700"
+ },
+ "commit_sha": "1d039742352d1913680f060796dd6a2e3b8276fb",
+ "crlf_normalised": [],
+ "kind": "native",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "a25f66da2868931316741a955e9436e11109c791ecac5aab5aaa29b0506e1e48",
+ "module_id": 631897,
+ "module_path": "infra/terraform/modules/ec2-infrastructure",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-native-631897",
+ "repo_full_name": "gabrielvieira1/integracao-continua-docker-github-actions",
+ "repo_id": 1013832077,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

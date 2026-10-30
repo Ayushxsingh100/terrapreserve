@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "d9a286323a7a3c30cd4bfaf0b2c9411b1719de8e2bbc87430213f75a4ebbc32b",
+  "outputs.tf": "663f5bff575239bdb177a0806cfe3a71d738317a76926042b280f3aeda3b7de2",
+  "variables.tf": "a421ee53b781e17ae0ffd713c6476750ba8e79bee9c295709a776c7780144eff"
+ },
+ "commit_sha": "d10c12f226415c0a7d442189ba8f3e73929c3131",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+ "module_id": 365916,
+ "module_path": "deployment/terraform/modules/haystack-datastores/aws/cassandra/security_groups",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-365916",
+ "repo_full_name": "renovate-tests/hackstack-local",
+ "repo_id": 343878406,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

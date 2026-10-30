@@ -1,0 +1,23 @@
+{
+ "archive_sha256": {
+  "insecure-main.tf": "c97923d522c550ef73033d29680932c8aa77e5ace62ac0eeb1a1b64a8be86746",
+  "secure-main.tf": "bf9b36bde479ed58593950dcefede9f6ff5b81b99dfcca7e171404b8411049c2"
+ },
+ "commit_sha": "cef9be9ef10fb12a6e5683833b8c04c532b8c514",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "d976bf38655251d05c3e46c8741b6af0a10acc88c0f0c32f72a6cdfe4e337faa",
+ "module_id": 644640,
+ "module_path": "terraform-security-best-practices-2025/03-iac-scanning",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-644640",
+ "repo_full_name": "Jones-2/terraform-security",
+ "repo_id": 1035901155,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "edde8bec8775e2d5daea327ecddf10cfd3459e208695f4df41753c68b89f7ace",
+  "outputs.tf": "acec409fc183571b34e222e72767bc773e83daf17c81969000ec10f1b5751a9d",
+  "variables.tf": "a87ddb29189ce67756e3248f27908103aeb8465b9904ceb0ee3e16b34a36d37b"
+ },
+ "commit_sha": "d142e3ff3fa3d5a5fc919b4a7873a9af8031cb18",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE.md",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "c79a58caf8ec87fe9cd5819fa2e1af29271b9afb33df2877c016562ce8a11b90",
+ "module_id": 654515,
+ "module_path": "sgrule/module",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-654515",
+ "repo_full_name": "nitrictech/plugins-aws",
+ "repo_id": 1059089879,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

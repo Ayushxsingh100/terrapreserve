@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "b6f2d50c2919827f146c44f02860aae00851fd52384ead6902c552d639efee1c",
+  "output.tf": "0c7328be80262368e198b128dccd655c06b1a32ebb83797bd730889c6d6a1710",
+  "variable.tf": "2a74346ac26b51041fec11e9608bd3b1ee239f929f5d2510a2f88ffa41be343c"
+ },
+ "commit_sha": "1bc658ab3ce9c2cea322d14a7083a40b898098e7",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "18ab71a5d0f60697b7505478252b7998ce9a8315876e12d20d1e811f8dd7d1cd",
+ "module_id": 551088,
+ "module_path": "Infrastructure-terraform/modules/security_group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-551088",
+ "repo_full_name": "Mohan0607/selenium-infra-terraform",
+ "repo_id": 779552117,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

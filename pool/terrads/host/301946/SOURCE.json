@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "2389f8566074beff7321c58291b98402d618485af9b23fa248addb30766c403b",
+  "outputs.tf": "c53dcfe102a4b0ee73ee57e545e67702e872f40e3bd64552fdafde27246f8e37",
+  "variables.tf": "af3afedf49ae0001c6ee0e675c861d307918da243a88d25749eac5f8c891d243"
+ },
+ "commit_sha": "ed43336a3fe1932d47dcd8beebb3d610061dd378",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "912ddd2dee31fc53a77d91519782710bf1d2d36d4ac3e379efcc765aa884ece8",
+ "module_id": 301946,
+ "module_path": "terraform/modules/network/security_group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-301946",
+ "repo_full_name": "JohnONeill/tower-of-terra",
+ "repo_id": 142532738,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

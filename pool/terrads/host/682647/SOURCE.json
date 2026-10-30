@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "b53ee21944f7a86914ce058e4bc37cdebc6f5d38bb880156f83d09f05559290d",
+  "outputs.tf": "6c6896c8e7ba3204595bbcafb5c23207fab48286a925ce97ad8a5937ff75cd30",
+  "variables.tf": "2e50ad8f4a24ef5e1637868abc968a113e18417a4467bb5377c89a1e2f797d48"
+ },
+ "commit_sha": "63e26a93c3a832dbb4c6ba35ee181c041c51202f",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "8d293047592fcbd006f97ed8e2a035d1e36916a4b3b00927bb9249dffdd8d4b3",
+ "module_id": 682647,
+ "module_path": "cloud/aws/platform",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-682647",
+ "repo_full_name": "innonynet/cicd_template",
+ "repo_id": 1141528814,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "6f464c555cae6a25378b10987203b8aca377e137b20f076182cce555151ab2d0",
+  "outputs.tf": "c1dd1e2f8bac62c1ee17bcd33180ffda49f7a818aa80f480dcc6746896d0e4f2",
+  "variables.tf": "bb2d9e0e2584f4eda558975fb334d2cde9fbfc830f10d3c199b56c9d9a6794ce"
+ },
+ "commit_sha": "9ac37833a59e53ec0848c764874e2766a5621b1b",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "38611ae6444e38e735dfb789249fa8532f4aacd8b740095071a8e175102f4ce8",
+ "module_id": 610549,
+ "module_path": "modules/network",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-610549",
+ "repo_full_name": "RicardoModoloNog/AWS-MultiTier-Sample-Terraform",
+ "repo_id": 951597420,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

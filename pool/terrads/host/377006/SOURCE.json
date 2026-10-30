@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "output.tf": "127f37f2bb31f79c9840950e2595e98ac33b9c4f27f1b69dc51104e1f78c985d",
+  "resources.tf": "bb02485ed9a850df97927dc9aa7481541ec3da971ec9e1ceab790378ce505b5f",
+  "variable.tf": "9cc65e8d800395151e487b8a7a8f7cd0a2386760e99229f2ad8936cc85b14a9b"
+ },
+ "commit_sha": "37ce2c6d6e70f4bd9fb902cad9ca296be1a52930",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "508a77d2e7b51d98adeed32648ad124b7b30241a8e70b2e72c99f92d8e5874d1",
+ "module_id": 377006,
+ "module_path": "terraform/modules/securityGroup",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-377006",
+ "repo_full_name": "jonathanlandGit/terraform-ansible-packer-demo",
+ "repo_id": 373253939,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

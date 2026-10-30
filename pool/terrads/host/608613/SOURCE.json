@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "ec2.tf": "42b3397bd29442f7dab1812c9a3f2d263661f93d2ed26e98c030e33a22c60dcc"
+ },
+ "commit_sha": "e66c8414535ed7e0268e656cae633add1f437d87",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 608613,
+ "module_path": "terraform/simple_instance",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-608613",
+ "repo_full_name": "DenisPrisma/DEMOREPO",
+ "repo_id": 943754206,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

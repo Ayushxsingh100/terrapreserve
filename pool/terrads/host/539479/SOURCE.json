@@ -1,0 +1,23 @@
+{
+ "archive_sha256": {
+  "main.tf": "48c486bf6281a81f8519a73a01f08234d307729f6b041a4a96abc904365ab72a",
+  "variables.tf": "b7d9e8f262bb39d278b3aaa110a644ba4d72446c48a2e6cc9da3849570fbabd1"
+ },
+ "commit_sha": "c808b1e4a8334b8b1ef514b649822829d8f0f65d",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "85ddfcb013012e629ce020c208f1a97922f0018adceb6f60a3b0c0fdd681612e",
+ "module_id": 539479,
+ "module_path": "modules/aws/subnets",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-539479",
+ "repo_full_name": "oxdeca/ctlabs-terraform",
+ "repo_id": 749255970,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

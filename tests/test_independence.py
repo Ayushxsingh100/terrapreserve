@@ -118,6 +118,20 @@ class TestIndependence(unittest.TestCase):
         self.assertEqual(violations, [])
 
 
+class TestPoolIsCovered(unittest.TestCase):
+    """D3: the pool builder must sit under the same independence check (D0 gate 1)."""
+
+    def test_walk_reaches_every_pool_module(self) -> None:
+        walked = {f.resolve() for f in _walk(("*.py",))}
+        pool_files = sorted((REPO_ROOT / "pool").glob("*.py"))
+        self.assertGreaterEqual(len(pool_files), 9)
+        self.assertEqual([f for f in pool_files if f.resolve() not in walked], [])
+
+    def test_pool_module_importing_dail_would_be_caught(self) -> None:
+        self.assertEqual(forbidden_imports("import core\n"), {"core"})
+        self.assertEqual(forbidden_imports("from evidence.x import y\n"), {"evidence"})
+
+
 class TestCheckerCanFail(unittest.TestCase):
     """Self-test: the checker catches DAIL imports and ignores innocent ones."""
 

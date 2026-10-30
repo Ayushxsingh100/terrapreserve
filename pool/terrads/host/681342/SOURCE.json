@@ -1,0 +1,28 @@
+{
+ "archive_sha256": {
+  "main.tf": "663b026a377d49da7b952b27ba4df58797c9d6827528b8b7a266b977c6f6d52a",
+  "outputs.tf": "c13e2c405a97a3ee4501c4a555bd6539a13f1824c1873bc16f4d19e8f99ef214",
+  "variables.tf": "6bda4df8afc4bfe92460a8561a475e07fb87d7cbfa43dc386fa8247ba6e76dd2"
+ },
+ "commit_sha": "08914543ba387a38a3d3960180d66034eae10d2b",
+ "crlf_normalised": [
+  "main.tf",
+  "outputs.tf",
+  "variables.tf"
+ ],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "1d857814671179afd77376eddb5078838441afbb07361ece57819028420d4170",
+ "module_id": 681342,
+ "module_path": "modules/security-group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-681342",
+ "repo_full_name": "floowander/AWS_IaC_3",
+ "repo_id": 1137319378,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

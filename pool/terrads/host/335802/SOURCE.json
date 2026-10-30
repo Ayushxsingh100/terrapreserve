@@ -1,0 +1,26 @@
+{
+ "archive_sha256": {
+  "ec2.tf": "5e7290b2a0db4950746914dcbaba13991fa4dc8452bf10d4b7472fe243ea897a",
+  "provider.tf": "8a551a1df44c14683574679188412c9741a8056d59284e3043d548e49b74f5dc",
+  "variables.tf": "4f568973f1f00677faae28ec933d8701e312e5d254b3a9ce8536f71a1d04fbca",
+  "versions.tf": "17b469397cb910ba514495d2a633f988ed22e456a2342a0a02597db217e62472",
+  "vpc.tf": "4878f640b026fc8e755640380922340627c9fe47f032ec605d893829ed3025ed"
+ },
+ "commit_sha": "7ea83d0c677130519e8caca57025eeea8041958b",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "860c5606f2bb825bd5d1b67dafcfad62a666a8f9cd247daf00bc0607b17f2cf1",
+ "module_id": 335802,
+ "module_path": "terraform/modules/vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-335802",
+ "repo_full_name": "pbasunix/tf-project",
+ "repo_id": 248838452,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

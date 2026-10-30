@@ -1,0 +1,23 @@
+{
+ "archive_sha256": {
+  "main.tf": "a1786a2e1f5b8a9fd92b1e7627502120c99b9db71b0b1efd910c40e8dd805088",
+  "variables.tf": "a347cef8afd28c942ea0e2dab2351997a89174fa8e88978530ded7753066be37"
+ },
+ "commit_sha": "28ff7b8b882cb213ae3d3abc26fd5e27105c4a48",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 452829,
+ "module_path": "terraform/modules/ec2",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-452829",
+ "repo_full_name": "aminbenmansour/jenkins-ha",
+ "repo_id": 564013227,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

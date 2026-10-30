@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "a949a9829940ba8b160b439e85668e0c8d021a77d9d85d9069050a30f035d153",
+  "output.tf": "0239ea7d0e80b1120e5571a4959b0ab5a91687be9b767f016549ed66478a7809",
+  "variables.tf": "b9c05ad6582e6c76030b2bd7c7a565441a0a70dc87f13213c1c8600691b2a8b1"
+ },
+ "commit_sha": "5f8cee0666539e937d35b3dd7497b8aae03d3b17",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "9ff22296667c5c1e23aa37d4d6623d832ad21dfb4dd3898fefd2db3d5376bb9d",
+ "module_id": 324422,
+ "module_path": "modules/custom_sg",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-324422",
+ "repo_full_name": "faisalnizam/smart.io",
+ "repo_id": 214677332,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

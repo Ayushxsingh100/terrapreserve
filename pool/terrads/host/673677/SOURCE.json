@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "bb88682b552b74bacc25b28117e95651437a089d0ba5da58731306f3ac0b3057",
+  "outputs.tf": "a463095a4549bae63898f1ebaf26b1fd6782463dce89c57aab2b17c44221c932",
+  "variables.tf": "32860be9f7b640265bf70489c0df6ad6b867921f64f1177c3e7e5b9141b46387"
+ },
+ "commit_sha": "0a0b0cebcb4c1abd17a83f14998672824475b682",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "2b3351dedbc4eafe3a370713bc328f315f00f34e726b7097c3bb7ff7aaa95416",
+ "module_id": 673677,
+ "module_path": "terraform/01-network-foundation",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-673677",
+ "repo_full_name": "jpreston42/aws-cloud-admin-foundations",
+ "repo_id": 1117805595,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

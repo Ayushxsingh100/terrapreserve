@@ -1,0 +1,26 @@
+{
+ "archive_sha256": {
+  "main.tf": "efff20f35ba82ffa1c0fcd68367d69306a2b854febcf5a443028593e7e6e9748",
+  "variables.tf": "80fa1730b1dde762de054ea661debed8176fd4408a8bb3a7466c310b3c8fe71b"
+ },
+ "commit_sha": "675bf9419deefbe3fc3a34c42e4f5abb67bec945",
+ "crlf_normalised": [
+  "main.tf",
+  "variables.tf"
+ ],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Unlicense",
+ "licence_upstream_sha256": "436a6d536138f203ac333858cff92a568be62797752b3adb94bcaa0f6ffe7ef6",
+ "module_id": 381211,
+ "module_path": "old",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-381211",
+ "repo_full_name": "Allanfers/terraform-aws-spoke-vpcs",
+ "repo_id": 387257103,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

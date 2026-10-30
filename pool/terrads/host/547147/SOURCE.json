@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "b044947adb400e411d2dcab10f7604bc9f8e5f1928fef3fa0f977854a2894b1a",
+  "outputs.tf": "9e16147544a11727f3e2904ed82eb83dc881561a6604bfd81c52ded0e9154ef7",
+  "variables.tf": "2f91b27218dba26a74653d4d9a8050f644026eee4a5f7c3018a6f044c64a51f2"
+ },
+ "commit_sha": "23aae82651a90cb59a69c6137893596e021f5386",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "14e270cf9575ebbf48a04e96174070c035ba001b07027b23d3e5063fb88ef7c4",
+ "module_id": 547147,
+ "module_path": "Security Group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-547147",
+ "repo_full_name": "rahul-yadav-hub/terraform-aws-k3s-ingress",
+ "repo_id": 769534662,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

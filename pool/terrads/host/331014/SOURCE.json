@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "367cd76ed1a49dbdf48f9e731f94bceb9c4935fd7391dc86324aee9acfc010b0",
+  "output.tf": "38d4329c7635d5d30f745e7ed3d5ce5e1f1cd401fdee1ca6e6bf5ae9ce6fbe6b",
+  "variables.tf": "4f2b3499c1caee872848147e9bbb5639a667740ce4694ae075c5a3a731fb4f27"
+ },
+ "commit_sha": "c4bd2a1554bdb93b07905c6bc6ae2962e252276f",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "652b769d5ecf91118da9e558b4a507082452534ec65f7989d3d514effb8ae3e4",
+ "module_id": 331014,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-331014",
+ "repo_full_name": "akkiyashi/TerraformPipe",
+ "repo_id": 234063549,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "main.tf": "ae8874757ef1f11b879a825ce0e1541d2de22f3ad1cecbd8db8c2a6fc263272c",
+  "outputs.tf": "0a9f67dde80333500cb388040ca9185abe135876c0bb30c29ff2e959465ab814",
+  "provider.tf": "2672e0a902d9c3c38797aea03241aabd3d579cb6fa05506e1e8f406e2db004e0",
+  "variables.tf": "a64bc13f023f10e7d51141a0fffb8f727962275d6ac0acbed63dcedf51966bf7"
+ },
+ "commit_sha": "d82d317f146c0362b26db79a57b182330431fc8b",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "d1503e9bff5093a67bfdf42b653a18a352581fe7f018f4009a658f0635862225",
+ "module_id": 531021,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-531021",
+ "repo_full_name": "dann1/minione-aws",
+ "repo_id": 730242067,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

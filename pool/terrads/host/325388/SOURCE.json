@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "fc490717d59f6aa944093e2e8d89e7078f273cc4ec054443283fb6904b2bd8d2",
+  "outputs.tf": "ab5a2be2fea7fb7d88e2a5367ceb7d3f9c20a1e11bab71a165dca3a07e3d9a1b",
+  "variables.tf": "643b1fdd9457e074c5b76e5880f5a6a26e82013085bf503716e01a005e675ded"
+ },
+ "commit_sha": "7b39a12df5acc345cf388eef5e8b95efc5ccfd48",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 325388,
+ "module_path": "Terraform-Sandbox/L7-Load-Balancing/modules/vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-325388",
+ "repo_full_name": "Jardo72/AWS-Sandbox",
+ "repo_id": 216329685,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

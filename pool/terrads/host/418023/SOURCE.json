@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "ec2.tf": "91d88e5d86383e7a7318f96422b028e04fc1309f2e9567d237c351040638e715"
+ },
+ "commit_sha": "22a5e42dfb1e980200adfba237e7470ee796ff85",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 418023,
+ "module_path": "terraform/simple_instance",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-418023",
+ "repo_full_name": "rbenavente/demo_drift_detection",
+ "repo_id": 482828276,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

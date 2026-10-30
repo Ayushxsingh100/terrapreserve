@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "ai_vlm_test.tf": "cae3215711ec0925d5efbc7947c8056e3153f0c3cd4d006dc0c854e6c0b93072"
+ },
+ "commit_sha": "be7dddd84bcfb1def82a2ee31a67cd6b8398a03f",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "2099cd75b2a01f1840c11aeb26ad6e5e21f2b05f4d6591ff2f2480dd5a277ebd",
+ "module_id": 577802,
+ "module_path": "terraform/ai_server_test",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-577802",
+ "repo_full_name": "All-in-one-move/AIM-14-Cloud",
+ "repo_id": 862099044,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "archive_sha256": {
+  "main.tf": "c24725c38917c7448c8645943036cb01f360dad82b4447daf2897ab602478227",
+  "output.tf": "a7538f55e74046a45800ffa89d32f23c6f5afebbae2398671a550699215bc290"
+ },
+ "commit_sha": "06f68574334546600ffadf08962b0a9d47d8c355",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "c7953373df181e9944785ea43b1843d390ec06b96a69ed4b227b0dd38c0e4cdb",
+ "module_id": 360141,
+ "module_path": "settings/network",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-360141",
+ "repo_full_name": "sanyuktaa/ec2-setup-using-terraform",
+ "repo_id": 322815406,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

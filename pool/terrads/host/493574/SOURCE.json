@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "outputs.tf": "17c5643b462908bbb5027e515e9eb502424ddabf14f5cdda63dfac41fc7223b7",
+  "vars.tf": "d623b1cad510bf8c366b26903701e80efd16826418d17c0ccf7d5ae2d64ee108",
+  "web-server.tf": "577d48aaa233e04741f0800fb030b301b18add22eac10893428edf36d2620db8"
+ },
+ "commit_sha": "f0714f51d3250679ee23b9bb0ce8755301c3c88b",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "76370635a169297fce59300e95543100bfbcb9a82321a1706d7ee571d2568081",
+ "module_id": 493574,
+ "module_path": "provision/modules/web-server",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-493574",
+ "repo_full_name": "UCL-MIRSG/xnat-aws",
+ "repo_id": 652666575,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

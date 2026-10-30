@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "vpc.tf": "53cbcf2428cab1ae4c7be26b003a8b3be21983e3453f46427705a7fb877a4b90"
+ },
+ "commit_sha": "f21331f66f25d39999a7fc4c149375290a28ac5c",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "17aaa3ccaaa8eff7d99a95344d8946bc793e7be8c70de4a30cc616d1a1e2418c",
+ "module_id": 654487,
+ "module_path": "modules/vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-654487",
+ "repo_full_name": "assign-stone/nomad-terraform-cluster",
+ "repo_id": 1058855230,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "d8553ae7fea22e265476b72b974baa792d3f65c3c6c5ed716ae54265e59e5851",
+  "outputs.tf": "9d4c9db9eeb9848d7690546e7c7c8731c2b838ebbd7626fbb0ecb0b346bd7313",
+  "variables.tf": "da73244cb2607d1af1c0741d60eaaa6a3d07dd3c1253813d91fb5cb78fefbe8b"
+ },
+ "commit_sha": "6c051477c2d45e0bc80edd7209dd6c5f5b972f7b",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "a2dfebaf7aa29a69afe88914acf0246cd4c06953c2d9d65ec5ac17266b0b4201",
+ "module_id": 664001,
+ "module_path": "cloudnorth-root/modules/rds",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-664001",
+ "repo_full_name": "Bettymusari/cloudnorth-platform",
+ "repo_id": 1091401895,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

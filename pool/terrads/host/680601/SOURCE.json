@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "efd49733204de963ed414592312f73878fce86cfc1a6e381e12225151153c53e",
+  "outputs.tf": "d07816b3c72dcee6906557e600bc7bd24706b9126548846c1f2f185298731b46",
+  "variables.tf": "1628317237b7070b473cce7bb24707ea75c655c64cb94d83214e1b1124a4772a"
+ },
+ "commit_sha": "212af6771eafe8674915b143962f941629cf9af4",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "0be47f442cf20812c436e28b023ef8b76cf220c71fb6c116e92f8cb6bfcd0a28",
+ "module_id": 680601,
+ "module_path": "terraform/modules/vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-680601",
+ "repo_full_name": "NimishNagar23/ListWebFormDockerApp",
+ "repo_id": 1134856166,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "edefe81a1855b778583aec15759160fdb5e03784cd388b43cfc67348d54ea5ad",
+  "outputs.tf": "5fd5d55730287e341c8d5d84c504ba3e082cd23f0ab67adac770555f1d8c5eec",
+  "variables.tf": "839eb0c7ee5d8ad0ba241f68b7c157f760715832a88707a4d9b828531cf8b80f"
+ },
+ "commit_sha": "d7d611b7ddffe8aba51b04c17bdd11dfa58b62ba",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "6470e91526adfd929e4cd246425f688653a83c7d2ab9a9bfe9ae101caf7a866a",
+ "module_id": 667031,
+ "module_path": "modules/database",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-667031",
+ "repo_full_name": "mmeii/aws-3-tier-web-application",
+ "repo_id": 1100780822,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

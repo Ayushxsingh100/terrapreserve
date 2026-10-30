@@ -1,0 +1,249 @@
+{
+ "accepted": {
+  "host": 400,
+  "native": 1,
+  "terragoat": 1
+ },
+ "by_code": {
+  "host": {
+   "E03_ANALYSER_DIAGNOSTICS": 48,
+   "E04_LEXER_ANOMALY": 3,
+   "E05_METADATA_DISAGREES": 6,
+   "E06_MODULE_CALLS": 1396,
+   "E07_DANGLING_REFERENCE": 131,
+   "E08_OVERSIZE": 1,
+   "E09_SECRET_FOUND": 108,
+   "E10_LINEAGE_DUPLICATE": 3925,
+   "E11_LICENCE_UNVERIFIED": 24,
+   "E12_INVALID_UNDER_PIN": 119,
+   "NOT_PROCESSED": 2381
+  },
+  "native": {
+   "E03_ANALYSER_DIAGNOSTICS": 1,
+   "E06_MODULE_CALLS": 3,
+   "E07_DANGLING_REFERENCE": 1,
+   "E09_SECRET_FOUND": 120,
+   "E11_LICENCE_UNVERIFIED": 1,
+   "E12_INVALID_UNDER_PIN": 6
+  }
+ },
+ "candidate_sets": {
+  "host": {
+   "considered": 8542,
+   "level": "G",
+   "modules_at_level": 10206,
+   "removed_by_E01_licence_bucket": 1664
+  },
+  "native": {
+   "considered": 133,
+   "level": "F3",
+   "modules_at_level": 160,
+   "removed_by_E01_licence_bucket": 27
+  }
+ },
+ "ledger": {
+  "host": {
+   "accepted": 400,
+   "considered": 8542,
+   "excluded": 5761,
+   "not_processed": 2381
+  },
+  "native": {
+   "accepted": 1,
+   "considered": 133,
+   "excluded": 132,
+   "not_processed": 0
+  }
+ },
+ "processing_order": "E01, E02..E08, then E10 (hosts only), then E09, E11, E12 (D3-10)",
+ "sampling": {
+  "host_accept_target": 400,
+  "host_process_cap": 1500,
+  "hosts_after_E10": 3032,
+  "hosts_not_processed": 2381,
+  "hosts_processed": 651,
+  "seed": 20261030
+ },
+ "stages": {
+  "host": [
+   {
+    "excluded": 0,
+    "remaining": 8542,
+    "stage": "considered (permissive, in the candidate set)"
+   },
+   {
+    "excluded": 0,
+    "remaining": 8542,
+    "stage": "E02_NOT_IN_ARCHIVE"
+   },
+   {
+    "excluded": 48,
+    "remaining": 8494,
+    "stage": "E03_ANALYSER_DIAGNOSTICS"
+   },
+   {
+    "excluded": 3,
+    "remaining": 8491,
+    "stage": "E04_LEXER_ANOMALY"
+   },
+   {
+    "excluded": 6,
+    "remaining": 8485,
+    "stage": "E05_METADATA_DISAGREES"
+   },
+   {
+    "excluded": 1396,
+    "remaining": 7089,
+    "stage": "E06_MODULE_CALLS"
+   },
+   {
+    "excluded": 131,
+    "remaining": 6958,
+    "stage": "E07_DANGLING_REFERENCE"
+   },
+   {
+    "excluded": 1,
+    "remaining": 6957,
+    "stage": "E08_OVERSIZE"
+   },
+   {
+    "excluded": 3925,
+    "remaining": 3032,
+    "stage": "E10_LINEAGE_DUPLICATE"
+   },
+   {
+    "excluded": 108,
+    "remaining": 2924,
+    "stage": "E09_SECRET_FOUND"
+   },
+   {
+    "excluded": 24,
+    "remaining": 2900,
+    "stage": "E11_LICENCE_UNVERIFIED"
+   },
+   {
+    "excluded": 119,
+    "remaining": 2781,
+    "stage": "E12_INVALID_UNDER_PIN"
+   },
+   {
+    "excluded": 2381,
+    "remaining": 400,
+    "stage": "NOT_PROCESSED"
+   }
+  ],
+  "native": [
+   {
+    "excluded": 0,
+    "remaining": 133,
+    "stage": "considered (permissive, in the candidate set)"
+   },
+   {
+    "excluded": 0,
+    "remaining": 133,
+    "stage": "E02_NOT_IN_ARCHIVE"
+   },
+   {
+    "excluded": 1,
+    "remaining": 132,
+    "stage": "E03_ANALYSER_DIAGNOSTICS"
+   },
+   {
+    "excluded": 0,
+    "remaining": 132,
+    "stage": "E04_LEXER_ANOMALY"
+   },
+   {
+    "excluded": 0,
+    "remaining": 132,
+    "stage": "E05_METADATA_DISAGREES"
+   },
+   {
+    "excluded": 3,
+    "remaining": 129,
+    "stage": "E06_MODULE_CALLS"
+   },
+   {
+    "excluded": 1,
+    "remaining": 128,
+    "stage": "E07_DANGLING_REFERENCE"
+   },
+   {
+    "excluded": 0,
+    "remaining": 128,
+    "stage": "E08_OVERSIZE"
+   },
+   {
+    "excluded": 0,
+    "remaining": 128,
+    "stage": "E10_LINEAGE_DUPLICATE"
+   },
+   {
+    "excluded": 120,
+    "remaining": 8,
+    "stage": "E09_SECRET_FOUND"
+   },
+   {
+    "excluded": 1,
+    "remaining": 7,
+    "stage": "E11_LICENCE_UNVERIFIED"
+   },
+   {
+    "excluded": 6,
+    "remaining": 1,
+    "stage": "E12_INVALID_UNDER_PIN"
+   },
+   {
+    "excluded": 0,
+    "remaining": 1,
+    "stage": "NOT_PROCESSED"
+   }
+  ]
+ },
+ "terrads_levels": {
+  "F0": {
+   "modules": 394004,
+   "repos": 82749
+  },
+  "F1": {
+   "modules": 136941,
+   "repos": 44903
+  },
+  "F2": {
+   "modules": 20903,
+   "repos": 9220
+  },
+  "F2a": {
+   "modules": 14630,
+   "repos": 6175
+  },
+  "F2ab": {
+   "modules": 13383,
+   "repos": 5807
+  },
+  "F2b": {
+   "modules": 18736,
+   "repos": 8378
+  },
+  "F3": {
+   "modules": 160,
+   "repos": 106
+  },
+  "F3ab": {
+   "modules": 124,
+   "repos": 86
+  },
+  "F4": {
+   "modules": 107,
+   "repos": 62
+  },
+  "G": {
+   "modules": 10206,
+   "repos": 6048
+  },
+  "X": {
+   "modules": 1508,
+   "repos": 1139
+  }
+ }
+}
