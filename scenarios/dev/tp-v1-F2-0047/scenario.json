@@ -1,0 +1,107 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F2",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [
+      "INV-SEC-002"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": "INV-SEC-002",
+    "target_kind": "repair"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "\"Database security group for tpl-08 - secure\"",
+      "attribute": "description",
+      "before": "\"Database security group for tpl-08\"",
+      "operator": "op_f2_repair_db_ingress_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.db"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b",
+      "us-east-1c"
+    ],
+    "cidr_plan": {
+      "app": "10.56.1.0/24",
+      "db": [
+        "10.56.10.0/24",
+        "10.56.11.0/24",
+        "10.56.12.0/24"
+      ],
+      "vpc": "10.56.0.0/16"
+    },
+    "db_class": "db.t3.micro",
+    "instance_class": "t3.nano",
+    "naming_scheme": "standard",
+    "sg_style": "mixed_app_separate_db_inline",
+    "template_id": "tpl-08",
+    "template_version": "tpl-v1.0",
+    "variant": "sec_002_violated"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F2-0047",
+  "seed": 47,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-08",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "707e4181d13134554ff0016c70c52f1998d2d524774b1213c670c54c9dc5370d",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "6cb2ba6d2c0b0bc653ce6a69a8345ff41b0121ef5c61a862f906d20bf79635e7",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -62,7 +62,7 @@\n }\n \n resource \"aws_security_group\" \"db\" {\n-  description = \"Database security group for tpl-08\"\n+  description = \"Database security group for tpl-08 - secure\"\n   name        = \"db-tpl-08\"\n   vpc_id      = aws_vpc.main.id\n \n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Repair public database ingress on port 5432",
+    "invariant_id": "INV-SEC-002",
+    "kind": "repair"
+  },
+  "template_id": "tpl-08",
+  "template_version": "tpl-v1.0"
+}

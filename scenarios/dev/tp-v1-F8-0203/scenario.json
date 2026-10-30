@@ -1,0 +1,143 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F8",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [
+      "INV-SEC-003"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": "INV-SEC-001",
+    "target_kind": "repair"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "\"t3.micro\"",
+      "attribute": "instance_type",
+      "before": "\"t3.nano\"",
+      "operator": "op_f8_threestep_refactor_repair_unsafe",
+      "step": 1,
+      "target_address": "aws_instance.app"
+    },
+    {
+      "after": "30",
+      "attribute": "allocated_storage",
+      "before": "20",
+      "operator": "op_f8_threestep_refactor_repair_unsafe",
+      "step": 2,
+      "target_address": "aws_db_instance.main"
+    },
+    {
+      "after": "true",
+      "attribute": "publicly_accessible",
+      "before": "false",
+      "operator": "op_f8_threestep_refactor_repair_unsafe",
+      "step": 2,
+      "target_address": "aws_db_instance.main"
+    },
+    {
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f8_threestep_refactor_repair_unsafe",
+      "step": 3,
+      "target_address": "aws_security_group_rule.app_ssh_public"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b",
+      "us-east-1c"
+    ],
+    "cidr_plan": {
+      "app": "10.123.1.0/24",
+      "db": [
+        "10.123.10.0/24",
+        "10.123.11.0/24",
+        "10.123.12.0/24"
+      ],
+      "vpc": "10.123.0.0/16"
+    },
+    "db_class": "db.t3.micro",
+    "instance_class": "t3.nano",
+    "naming_scheme": "standard",
+    "sg_style": "mixed_app_separate_db_inline",
+    "template_id": "tpl-08",
+    "template_version": "tpl-v1.0",
+    "variant": "sec_001_violated"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F8-0203",
+  "seed": 203,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-08",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "0191f2cc48df782fdd87e6b905c462b5195cc1c823d7de465201afabe2c5f052",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "d8242c07ecc04b81c88d7e963f411e32c0311070bc35e06db0294a344cfca6fb",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -92,7 +92,7 @@\n \n resource \"aws_instance\" \"app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.nano\"\n+  instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.app.id\n   vpc_security_group_ids = [aws_security_group.app.id]\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    },
+    {
+      "content_hash": "8acccb83533b265760fa9ae3a5e316cb2c88149db02cfc464126258d83d807dc",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -103,13 +103,13 @@\n }\n \n resource \"aws_db_instance\" \"main\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.main.name\n   engine                 = \"postgres\"\n   identifier             = \"main-tpl-08\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.db.id]\n",
+      "step": 2,
+      "terraform_dir": "step_2"
+    },
+    {
+      "content_hash": "2d080c343ca6b403b4faffeb99ada130108d2ec68a7bdefcffa02f21e51a7975",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -47,7 +47,7 @@\n }\n \n resource \"aws_security_group_rule\" \"app_ssh_public\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 22\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.app.id\n",
+      "step": 3,
+      "terraform_dir": "step_3"
+    }
+  ],
+  "target": {
+    "description": "Repair public SSH ingress on port 22",
+    "invariant_id": "INV-SEC-001",
+    "kind": "repair"
+  },
+  "template_id": "tpl-08",
+  "template_version": "tpl-v1.0"
+}

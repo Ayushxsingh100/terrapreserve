@@ -1,0 +1,106 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F7",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "\"Application security group for tpl-08 (central egress gateway)\"",
+      "attribute": "description",
+      "before": "\"Application security group for tpl-08\"",
+      "operator": "op_f7_vpc_cidr_expansion_safe",
+      "step": 1,
+      "target_address": "aws_security_group.app"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b",
+      "us-east-1c"
+    ],
+    "cidr_plan": {
+      "app": "10.165.1.0/24",
+      "db": [
+        "10.165.10.0/24",
+        "10.165.11.0/24",
+        "10.165.12.0/24"
+      ],
+      "vpc": "10.165.0.0/16"
+    },
+    "db_class": "db.t3.micro",
+    "instance_class": "t3.nano",
+    "naming_scheme": "standard",
+    "sg_style": "mixed_app_separate_db_inline",
+    "template_id": "tpl-08",
+    "template_version": "tpl-v1.0",
+    "variant": "clean"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F7-0164",
+  "seed": 164,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-08",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "3300c2cfdf2d21221b33502ee45ac911c8c863ae9c2f3ac1a1e9dcfbe6ce2056",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "6ceee91c388bb0848206393a2c2badb25ad3541867fe6714c48e29f94dfa07f8",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -56,7 +56,7 @@\n }\n \n resource \"aws_security_group\" \"app\" {\n-  description = \"Application security group for tpl-08\"\n+  description = \"Application security group for tpl-08 (central egress gateway)\"\n   name        = \"app-tpl-08\"\n   vpc_id      = aws_vpc.main.id\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Updates security perimeter safely.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "template_id": "tpl-08",
+  "template_version": "tpl-v1.0"
+}

@@ -1,0 +1,115 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F5",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [
+      "INV-SEC-003"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "\"Application security group for tpl-08 (restructured)\"",
+      "attribute": "description",
+      "before": "\"Application security group for tpl-08\"",
+      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.app"
+    },
+    {
+      "after": "true",
+      "attribute": "publicly_accessible",
+      "before": "false",
+      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.main"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b",
+      "us-east-1c"
+    ],
+    "cidr_plan": {
+      "app": "10.166.1.0/24",
+      "db": [
+        "10.166.10.0/24",
+        "10.166.11.0/24",
+        "10.166.12.0/24"
+      ],
+      "vpc": "10.166.0.0/16"
+    },
+    "db_class": "db.t3.micro",
+    "instance_class": "t3.nano",
+    "naming_scheme": "standard",
+    "sg_style": "mixed_app_separate_db_inline",
+    "template_id": "tpl-08",
+    "template_version": "tpl-v1.0",
+    "variant": "clean"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F5-0125",
+  "seed": 125,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-08",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "433dc7992d1a726f718e36518c04c7791548e14ca511f404839c5a11a36442a4",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "d41684e82c75cf733464278d51215a28006b6e55e202884c7ec16430c6b65921",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -56,7 +56,7 @@\n }\n \n resource \"aws_security_group\" \"app\" {\n-  description = \"Application security group for tpl-08\"\n+  description = \"Application security group for tpl-08 (restructured)\"\n   name        = \"app-tpl-08\"\n   vpc_id      = aws_vpc.main.id\n }\n@@ -100,7 +100,7 @@\n   identifier             = \"main-tpl-08\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.db.id]\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Restructures SG rules with unsafe public DB side-effect.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "template_id": "tpl-08",
+  "template_version": "tpl-v1.0"
+}

@@ -1,0 +1,104 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F3",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "\"t3.small\"",
+      "attribute": "instance_type",
+      "before": "\"t3.micro\"",
+      "operator": "op_f3_move_ec2_subnet_safe",
+      "step": 1,
+      "target_address": "aws_instance.frontend_server"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b"
+    ],
+    "cidr_plan": {
+      "app": "10.182.1.0/24",
+      "db": [
+        "10.182.10.0/24",
+        "10.182.11.0/24"
+      ],
+      "vpc": "10.182.0.0/16"
+    },
+    "db_class": "db.t3.nano",
+    "instance_class": "t3.micro",
+    "naming_scheme": "component",
+    "sg_style": "all_inline",
+    "template_id": "tpl-10",
+    "template_version": "tpl-v1.0",
+    "variant": "clean"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F3-0062",
+  "seed": 62,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-10",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "c98885a12286a6a9304d8b396133719f76c28a224eac5a31af97e03c747af447",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "fc1ac4c69021c61f2e5f7b6962a2a27ef78a870b34e8335517f02fac0b21ba83",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -81,7 +81,7 @@\n \n resource \"aws_instance\" \"frontend_server\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.frontend_subnet.id\n   vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Modifies EC2 dependency environment safely.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "template_id": "tpl-10",
+  "template_version": "tpl-v1.0"
+}

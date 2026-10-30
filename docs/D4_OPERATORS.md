@@ -148,3 +148,4 @@ Multi-step patch sequences (2 to 4 steps) composing remediation steps. Unsafe va
 - **`op_f8_fourstep_maintenance`** (4 steps)
   - *Safe*: 4 distinct steps: Step 1 (unrelated), Step 2 (restructure), Step 3 (repair), Step 4 (verification tags).
   - *Unsafe*: Middle step (Step 2 or 3) damages invariant (e.g. sets `publicly_accessible = true`).
+

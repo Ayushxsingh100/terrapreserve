@@ -1,0 +1,104 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F6",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "false",
+      "attribute": "skip_final_snapshot",
+      "before": "true",
+      "operator": "op_f6_add_read_replica_safe",
+      "step": 1,
+      "target_address": "aws_db_instance.data_instance"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b"
+    ],
+    "cidr_plan": {
+      "app": "10.105.1.0/24",
+      "db": [
+        "10.105.10.0/24",
+        "10.105.11.0/24"
+      ],
+      "vpc": "10.105.0.0/16"
+    },
+    "db_class": "db.t3.small",
+    "instance_class": "t3.small",
+    "naming_scheme": "tier",
+    "sg_style": "all_separate",
+    "template_id": "tpl-09",
+    "template_version": "tpl-v1.0",
+    "variant": "clean"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": true,
+  "scenario_id": "tp-v1-F6-0142",
+  "seed": 142,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-09",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "8c8501c68b7af6e081a87d69dc96e69b9ed15917e5ecefda0dab0472be2b961d",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "d02c9449802f28cc33a3cb41dee2c02916ecb9b98ccd50ea19e04ff31ed4cf25",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -106,7 +106,7 @@\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n   publicly_accessible    = false\n-  skip_final_snapshot    = true\n+  skip_final_snapshot    = false\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Enables database snapshots safely.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "template_id": "tpl-09",
+  "template_version": "tpl-v1.0"
+}

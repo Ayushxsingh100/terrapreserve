@@ -399,13 +399,14 @@ class TemplateDef:
         # 9. RDS Instance
         rds_name = names["rds"]
         is_public = (variant == "sec_003_violated")
+        rds_identifier = f"{rds_name.replace('_', '-')}-{self.id.lower()}"
         model.add(Resource(
             "aws_db_instance", rds_name,
             {
                 "allocated_storage": 20,
                 "db_subnet_group_name": Ref(f"aws_db_subnet_group.{dbsg_name}.name"),
                 "engine": "postgres",
-                "identifier": f"{rds_name}-{self.id}",
+                "identifier": rds_identifier,
                 "instance_class": self.db_class,
                 "password": VarRef("db_password"),
                 "publicly_accessible": is_public,

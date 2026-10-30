@@ -1,0 +1,104 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F6",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "true",
+      "attribute": "monitoring",
+      "before": null,
+      "operator": "op_f6_add_bastion_host_safe",
+      "step": 1,
+      "target_address": "aws_instance.ec2_app"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b"
+    ],
+    "cidr_plan": {
+      "app": "10.48.1.0/24",
+      "db": [
+        "10.48.10.0/24",
+        "10.48.11.0/24"
+      ],
+      "vpc": "10.48.0.0/16"
+    },
+    "db_class": "db.t3.small",
+    "instance_class": "t3.small",
+    "naming_scheme": "kebab",
+    "sg_style": "all_inline",
+    "template_id": "tpl-02",
+    "template_version": "tpl-v1.0",
+    "variant": "clean"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F6-0132",
+  "seed": 132,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-02",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "02ab0858b748e6599b281c30fc4ad67a3d6d5313c4617a15bc410704d8d3712f",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "53526cd0fdeb652520b019d5a780f48fde847b08a7afc3c21c7ed90c039f89dd",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -90,6 +90,7 @@\n resource \"aws_instance\" \"ec2_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.small\"\n+  monitoring             = true\n   subnet_id              = aws_subnet.sub_app.id\n   vpc_security_group_ids = [aws_security_group.sg_app.id]\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Configures monitoring on bastion resources safely.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "template_id": "tpl-02",
+  "template_version": "tpl-v1.0"
+}

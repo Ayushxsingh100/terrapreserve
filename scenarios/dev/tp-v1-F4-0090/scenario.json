@@ -1,0 +1,104 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F4",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": "INV-SEC-003",
+    "target_kind": "repair"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "false",
+      "attribute": "publicly_accessible",
+      "before": "true",
+      "operator": "op_f4_repair_rds_public_open_db_safe",
+      "step": 1,
+      "target_address": "aws_db_instance.data_instance"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b"
+    ],
+    "cidr_plan": {
+      "app": "10.194.1.0/24",
+      "db": [
+        "10.194.10.0/24",
+        "10.194.11.0/24"
+      ],
+      "vpc": "10.194.0.0/16"
+    },
+    "db_class": "db.t3.small",
+    "instance_class": "t3.small",
+    "naming_scheme": "tier",
+    "sg_style": "all_separate",
+    "template_id": "tpl-09",
+    "template_version": "tpl-v1.0",
+    "variant": "sec_003_violated"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": true,
+  "scenario_id": "tp-v1-F4-0090",
+  "seed": 90,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-09",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "7b7ec71aa793387978faf9149db379e28a4045734c6c25ab70828d9086a25e28",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "8afef76fd32ec66162ff34819675b164fb021e289ff73dd0964c410153bd5317",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -105,7 +105,7 @@\n   identifier             = \"data-instance-tpl-09\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = true\n+  publicly_accessible    = false\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Repair publicly accessible database instance",
+    "invariant_id": "INV-SEC-003",
+    "kind": "repair"
+  },
+  "template_id": "tpl-09",
+  "template_version": "tpl-v1.0"
+}

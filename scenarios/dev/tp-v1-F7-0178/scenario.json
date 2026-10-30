@@ -1,0 +1,113 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F7",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [
+      "INV-SEC-003"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "\"t3.medium\"",
+      "attribute": "instance_type",
+      "before": "\"t3.small\"",
+      "operator": "op_f7_shared_sg_egress_tighten_unsafe",
+      "step": 1,
+      "target_address": "aws_instance.web_instance"
+    },
+    {
+      "after": "true",
+      "attribute": "publicly_accessible",
+      "before": "false",
+      "operator": "op_f7_shared_sg_egress_tighten_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.data_instance"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b"
+    ],
+    "cidr_plan": {
+      "app": "10.11.1.0/24",
+      "db": [
+        "10.11.10.0/24",
+        "10.11.11.0/24"
+      ],
+      "vpc": "10.11.0.0/16"
+    },
+    "db_class": "db.t3.small",
+    "instance_class": "t3.small",
+    "naming_scheme": "tier",
+    "sg_style": "all_separate",
+    "template_id": "tpl-09",
+    "template_version": "tpl-v1.0",
+    "variant": "clean"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F7-0178",
+  "seed": 178,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-09",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "00cc11be7009141e6ff083e3dcc7654a6b4a176b6048dec04cbea4ef19123c9e",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "508a8a2bc13367a9939256514321488d15332c2ddb21b50f3ee25f552ace8b16",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -88,7 +88,7 @@\n \n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.small\"\n+  instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.web_tier.id\n   vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n }\n@@ -105,7 +105,7 @@\n   identifier             = \"data-instance-tpl-09\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Updates core resources with unsafe public DB side-effect.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "template_id": "tpl-09",
+  "template_version": "tpl-v1.0"
+}

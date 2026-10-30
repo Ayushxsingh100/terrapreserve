@@ -1,0 +1,106 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F5",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "\"Application security group for tpl-08 (restructured)\"",
+      "attribute": "description",
+      "before": "\"Application security group for tpl-08\"",
+      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "step": 1,
+      "target_address": "aws_security_group.app"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b",
+      "us-east-1c"
+    ],
+    "cidr_plan": {
+      "app": "10.30.1.0/24",
+      "db": [
+        "10.30.10.0/24",
+        "10.30.11.0/24",
+        "10.30.12.0/24"
+      ],
+      "vpc": "10.30.0.0/16"
+    },
+    "db_class": "db.t3.micro",
+    "instance_class": "t3.nano",
+    "naming_scheme": "standard",
+    "sg_style": "mixed_app_separate_db_inline",
+    "template_id": "tpl-08",
+    "template_version": "tpl-v1.0",
+    "variant": "clean"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F5-0112",
+  "seed": 112,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-08",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "a4ef9bd369cf2439fe09aa0ac7a45a377c7149a6c30ee94f309fc90e38edecdd",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "fd327bfd77f83d23aeedbd1a93dc95d9d274d4cd86c548232fdb369bd84038b9",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -56,7 +56,7 @@\n }\n \n resource \"aws_security_group\" \"app\" {\n-  description = \"Application security group for tpl-08\"\n+  description = \"Application security group for tpl-08 (restructured)\"\n   name        = \"app-tpl-08\"\n   vpc_id      = aws_vpc.main.id\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Restructures SG rules safely.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "template_id": "tpl-08",
+  "template_version": "tpl-v1.0"
+}

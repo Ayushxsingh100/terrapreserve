@@ -122,3 +122,4 @@ def write_test_scenario(
         "scenario_json_sha256": sha256_text(scenario_json_text),
         "steps": step_manifests,
     }
+

@@ -1,0 +1,134 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F8",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": "INV-SEC-001",
+    "target_kind": "repair"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "\"t3.micro\"",
+      "attribute": "instance_type",
+      "before": "\"t3.nano\"",
+      "operator": "op_f8_threestep_refactor_repair_safe",
+      "step": 1,
+      "target_address": "aws_instance.web_instance"
+    },
+    {
+      "after": "30",
+      "attribute": "allocated_storage",
+      "before": "20",
+      "operator": "op_f8_threestep_refactor_repair_safe",
+      "step": 2,
+      "target_address": "aws_db_instance.data_instance"
+    },
+    {
+      "after": "\"Three-step repair completed\"",
+      "attribute": "description",
+      "before": "\"Three-step repair completed\"",
+      "operator": "op_f8_threestep_refactor_repair_safe",
+      "step": 3,
+      "target_address": "aws_security_group.web_secgroup"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b",
+      "us-east-1c"
+    ],
+    "cidr_plan": {
+      "app": "10.115.1.0/24",
+      "db": [
+        "10.115.10.0/24",
+        "10.115.11.0/24",
+        "10.115.12.0/24"
+      ],
+      "vpc": "10.115.0.0/16"
+    },
+    "db_class": "db.t3.micro",
+    "instance_class": "t3.nano",
+    "naming_scheme": "tier",
+    "sg_style": "mixed_app_inline_db_separate",
+    "template_id": "tpl-03",
+    "template_version": "tpl-v1.0",
+    "variant": "sec_001_violated"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": true,
+  "scenario_id": "tp-v1-F8-0193",
+  "seed": 193,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-03",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "4a8d107ca28c8c4b88911f17a73db04d26efd984158495fce3a8c378ae16e58e",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "acd874b00289d70a509ca2e921afa29a5ec76594f788c89d4b3feda07523382d",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -82,7 +82,7 @@\n \n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.nano\"\n+  instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.web_tier.id\n   vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    },
+    {
+      "content_hash": "4d7b4bcda6824bb43b5276824cb05f061bf1561f577446ecdcdc1b7676e228ea",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -93,7 +93,7 @@\n }\n \n resource \"aws_db_instance\" \"data_instance\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.data_subnets.name\n   engine                 = \"postgres\"\n   identifier             = \"data-instance-tpl-03\"\n",
+      "step": 2,
+      "terraform_dir": "step_2"
+    },
+    {
+      "content_hash": "15e38bcda3bb00b1faba3bda2cd3f23e8bb5e163e2d14ad82208ffc5ca8294bb",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -55,7 +55,7 @@\n }\n \n resource \"aws_security_group\" \"web_secgroup\" {\n-  description = \"Application security group for tpl-03\"\n+  description = \"Three-step repair completed\"\n   name        = \"web_secgroup-tpl-03\"\n   vpc_id      = aws_vpc.network.id\n \n",
+      "step": 3,
+      "terraform_dir": "step_3"
+    }
+  ],
+  "target": {
+    "description": "Repair public SSH ingress on port 22",
+    "invariant_id": "INV-SEC-001",
+    "kind": "repair"
+  },
+  "template_id": "tpl-03",
+  "template_version": "tpl-v1.0"
+}

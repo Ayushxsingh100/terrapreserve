@@ -1,0 +1,106 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F2",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": "INV-SEC-002",
+    "target_kind": "repair"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f2_repair_db_ingress_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.data_secgroup_public_5432"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b",
+      "us-east-1c"
+    ],
+    "cidr_plan": {
+      "app": "10.83.1.0/24",
+      "db": [
+        "10.83.10.0/24",
+        "10.83.11.0/24",
+        "10.83.12.0/24"
+      ],
+      "vpc": "10.83.0.0/16"
+    },
+    "db_class": "db.t3.micro",
+    "instance_class": "t3.nano",
+    "naming_scheme": "tier",
+    "sg_style": "mixed_app_inline_db_separate",
+    "template_id": "tpl-03",
+    "template_version": "tpl-v1.0",
+    "variant": "sec_002_violated"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": true,
+  "scenario_id": "tp-v1-F2-0037",
+  "seed": 37,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-03",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "710dc97f4d58f923e883cf1bb91d3da703b2b7ccc60e3dffa525d8e7e7b12aa4",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "74ceb48eb74ba47fcdad48b589d2be3031c67c1201d8dba70948e35ffdb3a7a0",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -37,7 +37,7 @@\n }\n \n resource \"aws_security_group_rule\" \"data_secgroup_public_5432\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 5432\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.data_secgroup.id\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Repair public database ingress on port 5432",
+    "invariant_id": "INV-SEC-002",
+    "kind": "repair"
+  },
+  "template_id": "tpl-03",
+  "template_version": "tpl-v1.0"
+}
