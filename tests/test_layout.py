@@ -51,6 +51,9 @@ FILES = (
     "generator/diff_verify.py",
     "generator/templates/__init__.py",
     "generator/operators/__init__.py",
+    "generator/writer.py",
+    "scenarios/split.json",
+    "scenarios/NOTICE",
 )
 DIRS = ("LICENSES", "sources", "pool", "generator", "oracle", "scenarios", "validation/smoke", "tests")
 

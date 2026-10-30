@@ -1,0 +1,18 @@
+{
+  "dev_templates": [
+    "tpl-03",
+    "tpl-09",
+    "tpl-06",
+    "tpl-02",
+    "tpl-08",
+    "tpl-10",
+    "tpl-01"
+  ],
+  "method": "template_level_lineage",
+  "seed": 20261031,
+  "test_templates": [
+    "tpl-07",
+    "tpl-04",
+    "tpl-05"
+  ]
+}
