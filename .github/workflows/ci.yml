@@ -70,7 +70,7 @@ jobs:
       - run: terraform version
       # Scoped to first-party directories (user decision, 30 Oct 2026): pool/ holds verbatim third-party
       # text that must not be reformatted (D3-04).
-      - run: terraform fmt -check -recursive validation
+      - run: terraform fmt -check -recursive validation generator scenarios
       - name: Init and validate the smoke configuration
         working-directory: validation/smoke
         run: |

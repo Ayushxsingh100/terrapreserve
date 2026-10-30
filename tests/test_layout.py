@@ -41,6 +41,14 @@ FILES = (
     "pool/report.py",
     "pool/assemble.py",
     "docs/D4_CARRYOVER.md",
+    # D4a (scenario generator and controlled tier)
+    "docs/D4_DECISIONS.md",
+    "generator/__init__.py",
+    "generator/model.py",
+    "generator/emitter.py",
+    "generator/VERSION.py",
+    "generator/seed.py",
+    "generator/diff_verify.py",
 )
 DIRS = ("LICENSES", "sources", "pool", "generator", "oracle", "scenarios", "validation/smoke", "tests")
 
@@ -72,7 +80,7 @@ class TestLayout(unittest.TestCase):
         """pool/ holds verbatim third-party text (D3-04); the fmt check must not cover it."""
         ci = (REPO_ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
         fmt_lines = [ln.strip() for ln in ci.splitlines() if "terraform fmt" in ln and not ln.strip().startswith("#")]
-        self.assertEqual(fmt_lines, ["- run: terraform fmt -check -recursive validation"])
+        self.assertEqual(fmt_lines, ["- run: terraform fmt -check -recursive validation generator scenarios"])
 
     def test_terraform_lock_file_is_not_ignored(self) -> None:
         # check-ignore exits 0 if the path is ignored, 1 if it is not.
