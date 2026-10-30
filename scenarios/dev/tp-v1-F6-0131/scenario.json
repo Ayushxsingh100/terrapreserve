@@ -1,0 +1,128 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F6",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "\"Monitoring security group\"",
+      "attribute": "description",
+      "before": null,
+      "operator": "op_f6_add_monitoring_sg_safe",
+      "step": 1,
+      "target_address": "aws_security_group.monitoring_sg"
+    },
+    {
+      "after": "\"monitoring_sg-mon\"",
+      "attribute": "name",
+      "before": null,
+      "operator": "op_f6_add_monitoring_sg_safe",
+      "step": 1,
+      "target_address": "aws_security_group.monitoring_sg"
+    },
+    {
+      "after": "aws_vpc.main.id",
+      "attribute": "vpc_id",
+      "before": null,
+      "operator": "op_f6_add_monitoring_sg_safe",
+      "step": 1,
+      "target_address": "aws_security_group.monitoring_sg"
+    },
+    {
+      "after": "[aws_security_group.app.id, aws_security_group.monitoring_sg.id]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.app.id]",
+      "operator": "op_f6_add_monitoring_sg_safe",
+      "step": 1,
+      "target_address": "aws_instance.app"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b"
+    ],
+    "cidr_plan": {
+      "app": "10.176.1.0/24",
+      "db": [
+        "10.176.10.0/24",
+        "10.176.11.0/24"
+      ],
+      "vpc": "10.176.0.0/16"
+    },
+    "db_class": "db.t3.micro",
+    "instance_class": "t3.micro",
+    "naming_scheme": "standard",
+    "sg_style": "all_separate",
+    "template_id": "tpl-01",
+    "template_version": "tpl-v1.0",
+    "variant": "clean"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F6-0131",
+  "seed": 131,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-01",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "c687c8b1040ccf069bae6a4a9d7543408984b7fc51f8497bf9a30ecc315561bf",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "0b658277b42bed1faa2d103bf780a57d402b2383ffd64f60a264384dc58fdf91",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.app.id\n-  vpc_security_group_ids = [aws_security_group.app.id]\n+  vpc_security_group_ids = [aws_security_group.app.id, aws_security_group.monitoring_sg.id]\n }\n \n resource \"aws_db_subnet_group\" \"main\" {\n@@ -103,3 +103,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.db.id]\n }\n+\n+resource \"aws_security_group\" \"monitoring_sg\" {\n+  description = \"Monitoring security group\"\n+  name        = \"monitoring_sg-mon\"\n+  vpc_id      = aws_vpc.main.id\n+}\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Adds new monitoring security group safely.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "template_id": "tpl-01",
+  "template_version": "tpl-v1.0"
+}

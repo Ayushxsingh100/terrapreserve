@@ -1,0 +1,113 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F4",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [
+      "INV-SEC-003"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": "INV-SEC-002",
+    "target_kind": "repair"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "\"DB 5432 repaired\"",
+      "attribute": "description",
+      "before": "\"Database security group for tpl-02\"",
+      "operator": "op_f4_repair_db_port_open_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.sg_db"
+    },
+    {
+      "after": "true",
+      "attribute": "publicly_accessible",
+      "before": "false",
+      "operator": "op_f4_repair_db_port_open_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.rds_postgres"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b"
+    ],
+    "cidr_plan": {
+      "app": "10.95.1.0/24",
+      "db": [
+        "10.95.10.0/24",
+        "10.95.11.0/24"
+      ],
+      "vpc": "10.95.0.0/16"
+    },
+    "db_class": "db.t3.small",
+    "instance_class": "t3.small",
+    "naming_scheme": "kebab",
+    "sg_style": "all_inline",
+    "template_id": "tpl-02",
+    "template_version": "tpl-v1.0",
+    "variant": "sec_002_violated"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F4-0093",
+  "seed": 93,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-02",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "1c8cca08a1d6e092b1e0b964501e4c03c0980973b41696f81d3d5ab12328e832",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "330f094baf93e4bbbf56cb08fd27192a5ba3f6267a6bfce36922fb697d131965",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -68,7 +68,7 @@\n }\n \n resource \"aws_security_group\" \"sg_db\" {\n-  description = \"Database security group for tpl-02\"\n+  description = \"DB 5432 repaired\"\n   name        = \"sg_db-tpl-02\"\n   vpc_id      = aws_vpc.vpc_main.id\n \n@@ -113,7 +113,7 @@\n   identifier             = \"rds-postgres-tpl-02\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.sg_db.id]\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Repair public database ingress on port 5432",
+    "invariant_id": "INV-SEC-002",
+    "kind": "repair"
+  },
+  "template_id": "tpl-02",
+  "template_version": "tpl-v1.0"
+}

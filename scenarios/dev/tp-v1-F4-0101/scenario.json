@@ -1,0 +1,113 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F4",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [
+      "INV-SEC-003"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": "INV-SEC-001",
+    "target_kind": "repair"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "\"SSH repaired\"",
+      "attribute": "description",
+      "before": "\"Application security group for tpl-10\"",
+      "operator": "op_f4_repair_ssh_break_db_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.frontend_sg"
+    },
+    {
+      "after": "true",
+      "attribute": "publicly_accessible",
+      "before": "false",
+      "operator": "op_f4_repair_ssh_break_db_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.backend_database"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b"
+    ],
+    "cidr_plan": {
+      "app": "10.183.1.0/24",
+      "db": [
+        "10.183.10.0/24",
+        "10.183.11.0/24"
+      ],
+      "vpc": "10.183.0.0/16"
+    },
+    "db_class": "db.t3.nano",
+    "instance_class": "t3.micro",
+    "naming_scheme": "component",
+    "sg_style": "all_inline",
+    "template_id": "tpl-10",
+    "template_version": "tpl-v1.0",
+    "variant": "sec_001_violated"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F4-0101",
+  "seed": 101,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-10",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "cca70b9e8b995b27e67686465512c985b11bf51013194a3f8d3e073db69db670",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "ddd2ffe666591593fbeced839dac85c36d86f5cac174e7ed4f7804e3624826c8",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -41,7 +41,7 @@\n }\n \n resource \"aws_security_group\" \"frontend_sg\" {\n-  description = \"Application security group for tpl-10\"\n+  description = \"SSH repaired\"\n   name        = \"frontend_sg-tpl-10\"\n   vpc_id      = aws_vpc.corp_vpc.id\n \n@@ -105,7 +105,7 @@\n   identifier             = \"backend-database-tpl-10\"\n   instance_class         = \"db.t3.nano\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.backend_sg.id]\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Repair public SSH ingress on port 22",
+    "invariant_id": "INV-SEC-001",
+    "kind": "repair"
+  },
+  "template_id": "tpl-10",
+  "template_version": "tpl-v1.0"
+}

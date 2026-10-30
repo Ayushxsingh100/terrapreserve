@@ -1,0 +1,113 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F7",
+  "generator_version": "d4a-1",
+  "grafted": false,
+  "gt_class": null,
+  "intent": {
+    "breaks": [
+      "INV-SEC-003"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "mutation_record": [
+    {
+      "after": "false",
+      "attribute": "enable_dns_support",
+      "before": "true",
+      "operator": "op_f7_shared_route_table_edit_unsafe",
+      "step": 1,
+      "target_address": "aws_vpc.corp_vpc"
+    },
+    {
+      "after": "true",
+      "attribute": "publicly_accessible",
+      "before": "false",
+      "operator": "op_f7_shared_route_table_edit_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.backend_database"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b"
+    ],
+    "cidr_plan": {
+      "app": "10.26.1.0/24",
+      "db": [
+        "10.26.10.0/24",
+        "10.26.11.0/24"
+      ],
+      "vpc": "10.26.0.0/16"
+    },
+    "db_class": "db.t3.nano",
+    "instance_class": "t3.micro",
+    "naming_scheme": "component",
+    "sg_style": "all_inline",
+    "template_id": "tpl-10",
+    "template_version": "tpl-v1.0",
+    "variant": "clean"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F7-0179",
+  "seed": 179,
+  "source": {
+    "commit_or_version": "d4a-1+tpl-v1.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-10",
+    "tier": "controlled"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "ad32dae793d6cdac4e47adae0a20c63c2f3133c1e2d218f4238d9c74a7c6e003",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "37c32836f3f04c572841966b91899003eba7be28bbb1cf392dff33482c27a87d",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,7 +1,7 @@\n resource \"aws_vpc\" \"corp_vpc\" {\n   cidr_block           = \"10.26.0.0/16\"\n   enable_dns_hostnames = true\n-  enable_dns_support   = true\n+  enable_dns_support   = false\n }\n \n resource \"aws_internet_gateway\" \"corp_igw\" {\n@@ -98,7 +98,7 @@\n   identifier             = \"backend-database-tpl-10\"\n   instance_class         = \"db.t3.nano\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.backend_sg.id]\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Updates VPC configuration with unsafe public DB side-effect.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "template_id": "tpl-10",
+  "template_version": "tpl-v1.0"
+}

@@ -132,6 +132,22 @@ class TestPoolIsCovered(unittest.TestCase):
         self.assertEqual(forbidden_imports("from evidence.x import y\n"), {"evidence"})
 
 
+class TestGeneratorIsCovered(unittest.TestCase):
+    """D4: the scenario generator must sit under the same independence check (D0 gate 1)."""
+
+    def test_walk_reaches_every_generator_module(self) -> None:
+        walked = {f.resolve() for f in _walk(("*.py",))}
+        gen_files = sorted((REPO_ROOT / "generator").glob("*.py"))
+        self.assertGreaterEqual(len(gen_files), 5)
+        self.assertEqual([f for f in gen_files if f.resolve() not in walked], [])
+
+    def test_generator_module_importing_dail_would_be_caught(self) -> None:
+        self.assertEqual(forbidden_imports("import core\n"), {"core"})
+        self.assertEqual(forbidden_imports("from core.impact import x\n"), {"core"})
+        self.assertEqual(forbidden_imports("from core.verification import y\n"), {"core"})
+        self.assertEqual(forbidden_imports("from core.promotion import z\n"), {"core"})
+
+
 class TestCheckerCanFail(unittest.TestCase):
     """Self-test: the checker catches DAIL imports and ignores innocent ones."""
 

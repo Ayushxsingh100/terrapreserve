@@ -1,0 +1,16 @@
+TerraPreserve Scenarios Notice
+===============================
+
+The benchmark scenarios in this directory are generated and licensed under the
+Creative Commons Attribution 4.0 International License (CC-BY-4.0).
+See LICENSES/CC-BY-4.0.txt for details.
+
+Portions of the resource block definitions and attribute vocabulary are derived
+from TerraGoat (https://github.com/bridgecrewio/terragoat), commit 729f8da62c6a85ce4af5ad3d123de97776d954c4,
+directory terraform/aws/, licensed under the Apache License, Version 2.0.
+The Apache-2.0 licence applies to those attribute structures.
+See LICENSES/Apache-2.0.txt for details.
+
+In accordance with Apache-2.0 section 4(b), the derived configurations reshape
+the resources into the benchmark topology and omit any credential-like literals.
+
