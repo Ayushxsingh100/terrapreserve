@@ -9,7 +9,7 @@ resource "aws_internet_gateway" "corp_igw" {
 }
 
 resource "aws_subnet" "frontend_subnet" {
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-1b"
   cidr_block        = "10.182.1.0/24"
   vpc_id            = aws_vpc.corp_vpc.id
 }
@@ -81,7 +81,7 @@ resource "aws_security_group" "frontend_sg_extra" {
 
 resource "aws_instance" "frontend_server" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.small"
+  instance_type          = "t3.micro"
   subnet_id              = aws_subnet.frontend_subnet.id
   vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]
 }

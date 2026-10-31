@@ -82,14 +82,13 @@ resource "aws_security_group_rule" "tp_db_ingress_postgres" {
 resource "aws_instance" "tp_app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.micro"
-  monitoring             = true
   subnet_id              = aws_subnet.tp_app_subnet.id
   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]
 }
 
 resource "aws_db_subnet_group" "tp_db_subnet_group" {
   name       = "tp-db-subnet-group"
-  subnet_ids = [aws_subnet.tp_db_subnet_1.id, aws_subnet.tp_db_subnet_2.id]
+  subnet_ids = [aws_subnet.tp_db_subnet_2.id, aws_subnet.tp_db_subnet_1.id]
 }
 
 resource "aws_db_instance" "tp_db" {

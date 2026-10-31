@@ -2,18 +2,18 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4a-2",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": null,
     "target_kind": "change_request"
@@ -85,12 +85,12 @@
       "target_address": "aws_subnet.web_tier_app"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.web_secgroup.id]",
       "operator": "op_f5_restructure_moved_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_instance.web_instance"
     }
   ],
   "oracle": null,
@@ -137,7 +137,7 @@
   "scenario_id": "tp-v1-F5-0126",
   "seed": 126,
   "source": {
-    "commit_or_version": "d4a-2+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -153,14 +153,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "b133974309decacb786ebca2a8cfbf00693e5158bef47e149491bd87a49e55cb",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,3 +1,8 @@\n+moved {\n+  from = aws_subnet.web_tier\n+  to   = aws_subnet.web_tier_app\n+}\n+\n resource \"aws_vpc\" \"network\" {\n   cidr_block           = \"10.190.0.0/16\"\n   enable_dns_hostnames = true\n@@ -6,12 +11,6 @@\n \n resource \"aws_internet_gateway\" \"gateway\" {\n   vpc_id = aws_vpc.network.id\n-}\n-\n-resource \"aws_subnet\" \"web_tier\" {\n-  availability_zone = \"us-east-1a\"\n-  cidr_block        = \"10.190.1.0/24\"\n-  vpc_id            = aws_vpc.network.id\n }\n \n resource \"aws_subnet\" \"data_tier\" {\n@@ -33,7 +32,7 @@\n \n resource \"aws_route_table_association\" \"assoc_app\" {\n   route_table_id = aws_route_table.public_route.id\n-  subnet_id      = aws_subnet.web_tier.id\n+  subnet_id      = aws_subnet.web_tier_app.id\n }\n \n resource \"aws_route_table\" \"data_route\" {\n@@ -89,7 +88,7 @@\n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.small\"\n-  subnet_id              = aws_subnet.web_tier.id\n+  subnet_id              = aws_subnet.web_tier_app.id\n   vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n }\n \n@@ -105,8 +104,14 @@\n   identifier             = \"data-instance-tpl-09\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n+\n+resource \"aws_subnet\" \"web_tier_app\" {\n+  availability_zone = \"us-east-1a\"\n+  cidr_block        = \"10.190.1.0/24\"\n+  vpc_id            = aws_vpc.network.id\n+}\n",
+      "content_hash": "a4c185a958a7d4099981adc41be1d44716a5368541d84b2423d78c04d2fabe38",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,3 +1,8 @@\n+moved {\n+  from = aws_subnet.web_tier\n+  to   = aws_subnet.web_tier_app\n+}\n+\n resource \"aws_vpc\" \"network\" {\n   cidr_block           = \"10.190.0.0/16\"\n   enable_dns_hostnames = true\n@@ -6,12 +11,6 @@\n \n resource \"aws_internet_gateway\" \"gateway\" {\n   vpc_id = aws_vpc.network.id\n-}\n-\n-resource \"aws_subnet\" \"web_tier\" {\n-  availability_zone = \"us-east-1a\"\n-  cidr_block        = \"10.190.1.0/24\"\n-  vpc_id            = aws_vpc.network.id\n }\n \n resource \"aws_subnet\" \"data_tier\" {\n@@ -33,7 +32,7 @@\n \n resource \"aws_route_table_association\" \"assoc_app\" {\n   route_table_id = aws_route_table.public_route.id\n-  subnet_id      = aws_subnet.web_tier.id\n+  subnet_id      = aws_subnet.web_tier_app.id\n }\n \n resource \"aws_route_table\" \"data_route\" {\n@@ -89,8 +88,8 @@\n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.small\"\n-  subnet_id              = aws_subnet.web_tier.id\n-  vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n+  subnet_id              = aws_subnet.web_tier_app.id\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"data_subnets\" {\n@@ -110,3 +109,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n+\n+resource \"aws_subnet\" \"web_tier_app\" {\n+  availability_zone = \"us-east-1a\"\n+  cidr_block        = \"10.190.1.0/24\"\n+  vpc_id            = aws_vpc.network.id\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Restructures with moved block but carries unsafe public DB side-effect.",
+    "description": "Restructures with moved block but detaches application SG, breaking connectivity.",
     "invariant_id": null,
     "kind": "change_request"
   },

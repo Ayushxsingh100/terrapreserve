@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import copy
 import random
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any, Callable
 
 from diff_verify import MutationRow
@@ -141,6 +141,98 @@ def _find_db_sg(model: HCLModel) -> tuple[str, Resource]:
         if res.type == "aws_security_group":
             return addr, res
     raise KeyError("No db security group found")
+
+
+def _break_func_detach_sg(m: HCLModel, name: str, step: int) -> list[MutationRow]:
+    """Break INV-FUNC-001 by completely detaching application security group from EC2."""
+    addr, ec2 = _find_res(m, "aws_instance")
+    old_sgs = list(ec2.attrs.get("vpc_security_group_ids", []))
+    old_val_str = f"[{', '.join(str(s) for s in old_sgs)}]"
+    ec2.set_attr("vpc_security_group_ids", [])
+    return [
+        MutationRow(
+            step=step, operator=name, target_address=addr,
+            attribute="vpc_security_group_ids", before=old_val_str, after="[]"
+        )
+    ]
+
+
+def _break_sec_001_open_ssh(m: HCLModel, name: str, step: int) -> list[MutationRow]:
+    """Break INV-SEC-001 by introducing public SSH (port 22) ingress on application SG."""
+    app_addr, app_sg = _find_app_sg(m)
+    if app_sg.blocks:
+        b = Block("ingress", {
+            "cidr_blocks": SortedList(["0.0.0.0/0"]),
+            "from_port": 22,
+            "protocol": "tcp",
+            "to_port": 22,
+        })
+        app_sg.blocks.append(b)
+        return [
+            MutationRow(step=step, operator=name, target_address=app_addr, attribute="cidr_blocks", before=None, after='["0.0.0.0/0"]'),
+            MutationRow(step=step, operator=name, target_address=app_addr, attribute="from_port", before=None, after="22"),
+            MutationRow(step=step, operator=name, target_address=app_addr, attribute="protocol", before=None, after='"tcp"'),
+            MutationRow(step=step, operator=name, target_address=app_addr, attribute="to_port", before=None, after="22"),
+        ]
+    else:
+        rule_name = f"{app_sg.name}_ingress_ssh"
+        rule_addr = f"aws_security_group_rule.{rule_name}"
+        rule = Resource("aws_security_group_rule", rule_name, {
+            "cidr_blocks": SortedList(["0.0.0.0/0"]),
+            "from_port": 22,
+            "protocol": "tcp",
+            "security_group_id": Ref(f"{app_addr}.id"),
+            "to_port": 22,
+            "type": "ingress",
+        })
+        m.add(rule)
+        return [
+            MutationRow(step=step, operator=name, target_address=rule_addr, attribute="cidr_blocks", before=None, after='["0.0.0.0/0"]'),
+            MutationRow(step=step, operator=name, target_address=rule_addr, attribute="from_port", before=None, after="22"),
+            MutationRow(step=step, operator=name, target_address=rule_addr, attribute="protocol", before=None, after='"tcp"'),
+            MutationRow(step=step, operator=name, target_address=rule_addr, attribute="security_group_id", before=None, after=f"{app_addr}.id"),
+            MutationRow(step=step, operator=name, target_address=rule_addr, attribute="to_port", before=None, after="22"),
+            MutationRow(step=step, operator=name, target_address=rule_addr, attribute="type", before=None, after='"ingress"'),
+        ]
+
+
+def _break_sec_002_open_db(m: HCLModel, name: str, step: int) -> list[MutationRow]:
+    """Break INV-SEC-002 by introducing public DB (port 5432) ingress on database SG."""
+    db_addr, db_sg = _find_db_sg(m)
+    if db_sg.blocks:
+        b = Block("ingress", {
+            "cidr_blocks": SortedList(["0.0.0.0/0"]),
+            "from_port": 5432,
+            "protocol": "tcp",
+            "to_port": 5432,
+        })
+        db_sg.blocks.append(b)
+        return [
+            MutationRow(step=step, operator=name, target_address=db_addr, attribute="cidr_blocks", before=None, after='["0.0.0.0/0"]'),
+            MutationRow(step=step, operator=name, target_address=db_addr, attribute="from_port", before=None, after="5432"),
+            MutationRow(step=step, operator=name, target_address=db_addr, attribute="protocol", before=None, after='"tcp"'),
+            MutationRow(step=step, operator=name, target_address=db_addr, attribute="to_port", before=None, after="5432"),
+        ]
+    else:
+        rule_name = f"{db_sg.name}_ingress_db_public"
+        rule_addr = f"aws_security_group_rule.{rule_name}"
+        rule = Resource("aws_security_group_rule", rule_name, {
+            "cidr_blocks": SortedList(["0.0.0.0/0"]),
+            "from_port": 5432,
+            "protocol": "tcp",
+            "security_group_id": Ref(f"{db_addr}.id"),
+            "to_port": 5432,
+            "type": "ingress",
+        })
+        m.add(rule)
+        return [
+            MutationRow(step=step, operator=name, target_address=rule_addr, attribute="cidr_blocks", before=None, after='["0.0.0.0/0"]'),
+            MutationRow(step=step, operator=name, target_address=rule_addr, attribute="from_port", before=None, after="5432"),
+            MutationRow(step=step, operator=name, target_address=rule_addr, attribute="protocol", before=None, after='"tcp"'),
+            MutationRow(step=step, operator=name, target_address=rule_addr, attribute="security_group_id", before=None, after=f"{db_addr}.id"),
+            MutationRow(step=step, operator=name, target_address=rule_addr, attribute="to_port", before=None, after="5432"),
+            MutationRow(step=step, operator=name, target_address=rule_addr, attribute="type", before=None, after='"ingress"'),
+        ]
 
 
 def _next_instance_type(old_size: str) -> str:
@@ -364,24 +456,19 @@ register_op(OperatorDef(
 
 def _f3_subnet_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
-    addr, ec2 = _find_res(m1, "aws_instance")
-    rows: list[MutationRow] = []
+    sub_addr, sub = _find_res(m1, "aws_subnet")
+    old_az = str(sub.attrs.get("availability_zone", "us-east-1a"))
+    new_az = "us-east-1b" if old_az == "us-east-1a" else "us-east-1a"
+    sub.set_attr("availability_zone", new_az)
 
-    old_desc = str(ec2.attrs.get("instance_type", "t3.micro"))
-    new_desc = _next_instance_type(old_desc)
-    ec2.set_attr("instance_type", new_desc)
-    rows.append(MutationRow(
-        step=1, operator=name, target_address=addr,
-        attribute="instance_type", before=f'"{old_desc}"', after=f'"{new_desc}"'
-    ))
-
+    rows = [
+        MutationRow(
+            step=1, operator=name, target_address=sub_addr,
+            attribute="availability_zone", before=f'"{old_az}"', after=f'"{new_az}"'
+        )
+    ]
     if "unsafe" in name:
-        db_addr, db = _find_res(m1, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+        rows.extend(_break_func_detach_sg(m1, name, step=1))
 
     return [m1], [rows]
 
@@ -389,52 +476,52 @@ def _f3_subnet_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[lis
 register_op(OperatorDef(
     name="op_f3_move_ec2_subnet_safe", family="F3", variant="safe",
     target_kind="change_request", target_invariant=None,
-    description="Modifies EC2 dependency environment safely.",
+    description="Updates application subnet placement safely.",
     intent_breaks=[], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003", "INV-FUNC-001"],
     apply_fn=_f3_subnet_apply,
 ))
 register_op(OperatorDef(
     name="op_f3_move_ec2_subnet_unsafe", family="F3", variant="unsafe",
     target_kind="change_request", target_invariant=None,
-    description="Breaks connectivity or security on dependency path.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Updates subnet placement but breaks EC2-to-RDS functional path.",
+    intent_breaks=["INV-FUNC-001"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"],
     apply_fn=_f3_subnet_apply,
 ))
 
 
 def _f3_dbsng_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
-    addr, ec2 = _find_res(m1, "aws_instance")
-    old_mon = str(ec2.attrs.get("monitoring", False)).lower()
-    ec2.set_attr("monitoring", True)
+    dbsng_addr, dbsng = _find_res(m1, "aws_db_subnet_group")
+    old_ids = dbsng.attrs.get("subnet_ids", [])
+    old_list = list(old_ids.items) if hasattr(old_ids, "items") else list(old_ids)
+    new_list = list(reversed(old_list))
+    old_str = f"[{', '.join(str(s) for s in old_list)}]"
+    new_str = f"[{', '.join(str(s) for s in new_list)}]"
+    dbsng.set_attr("subnet_ids", new_list)
+
     rows = [
         MutationRow(
-            step=1, operator=name, target_address=addr,
-            attribute="monitoring", before=None if old_mon == "false" else "false", after="true"
+            step=1, operator=name, target_address=dbsng_addr,
+            attribute="subnet_ids", before=old_str, after=new_str
         )
     ]
     if "unsafe" in name:
-        db_addr, db = _find_res(m1, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+        rows.extend(_break_func_detach_sg(m1, name, step=1))
     return [m1], [rows]
 
 
 register_op(OperatorDef(
     name="op_f3_modify_db_subnet_group_safe", family="F3", variant="safe",
     target_kind="change_request", target_invariant=None,
-    description="Enables detailed monitoring on dependency instance.",
+    description="Reorders subnets in DB subnet group safely.",
     intent_breaks=[], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003", "INV-FUNC-001"],
     apply_fn=_f3_dbsng_apply,
 ))
 register_op(OperatorDef(
     name="op_f3_modify_db_subnet_group_unsafe", family="F3", variant="unsafe",
     target_kind="change_request", target_invariant=None,
-    description="Modifies dependency path with unsafe public DB side-effect.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Modifies DB subnet group and detaches application SG, breaking connectivity.",
+    intent_breaks=["INV-FUNC-001"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"],
     apply_fn=_f3_dbsng_apply,
 ))
 
@@ -446,39 +533,41 @@ def _f3_route_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list
     if not second_sg:
         raise OperatorNotApplicable("Model does not have a secondary application security group for reassociation")
 
-    old_sgs = ec2.attrs.get("vpc_security_group_ids")
-    # Emit Ref list
-    new_sgs = [Ref(f"{second_sg}.id")]
-    ec2.set_attr("vpc_security_group_ids", new_sgs)
+    old_sgs = list(ec2.attrs.get("vpc_security_group_ids", []))
+    old_val_str = f"[{', '.join(str(s) for s in old_sgs)}]"
 
-    rows = [
-        MutationRow(
-            step=1, operator=name, target_address=addr,
-            attribute="vpc_security_group_ids", before=None, after=f"[{second_sg}.id]"
-        )
-    ]
     if "unsafe" in name:
-        db_addr, db = _find_res(m1, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+        ec2.set_attr("vpc_security_group_ids", [])
+        rows = [
+            MutationRow(
+                step=1, operator=name, target_address=addr,
+                attribute="vpc_security_group_ids", before=old_val_str, after="[]"
+            )
+        ]
+    else:
+        new_sgs = [Ref(f"{second_sg}.id")]
+        ec2.set_attr("vpc_security_group_ids", new_sgs)
+        rows = [
+            MutationRow(
+                step=1, operator=name, target_address=addr,
+                attribute="vpc_security_group_ids", before=old_val_str, after=f"[{second_sg}.id]"
+            )
+        ]
     return [m1], [rows]
 
 
 register_op(OperatorDef(
     name="op_f3_app_sg_reassociation_safe", family="F3", variant="safe",
     target_kind="change_request", target_invariant=None,
-    description="Updates application SG metadata safely.",
+    description="Reassociates EC2 with secondary application security group safely.",
     intent_breaks=[], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003", "INV-FUNC-001"],
     apply_fn=_f3_route_apply,
 ))
 register_op(OperatorDef(
     name="op_f3_app_sg_reassociation_unsafe", family="F3", variant="unsafe",
     target_kind="change_request", target_invariant=None,
-    description="Alters dependency routing with unsafe public DB side-effect.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Disassociates application SG leaving EC2 with no SG, breaking connectivity.",
+    intent_breaks=["INV-FUNC-001"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"],
     apply_fn=_f3_route_apply,
 ))
 
@@ -490,15 +579,8 @@ register_op(OperatorDef(
 def _f4_repair_ssh_break_db_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
     rows = _repair_ssh(m1, name, step=1)
-
     if "unsafe" in name:
-        db_addr, db = _find_res(m1, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
-
+        rows.extend(_break_func_detach_sg(m1, name, step=1))
     return [m1], [rows]
 
 
@@ -512,8 +594,8 @@ register_op(OperatorDef(
 register_op(OperatorDef(
     name="op_f4_repair_ssh_break_db_unsafe", family="F4", variant="unsafe",
     target_kind="repair", target_invariant="INV-SEC-001",
-    description="Repairs SSH but introduces regression breaking INV-SEC-003.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Repairs SSH but introduces regression breaking INV-FUNC-001.",
+    intent_breaks=["INV-FUNC-001"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"],
     apply_fn=_f4_repair_ssh_break_db_apply,
 ))
 
@@ -521,15 +603,8 @@ register_op(OperatorDef(
 def _f4_repair_db_port_open_ssh_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
     rows = _repair_db_ingress(m1, name, step=1)
-
     if "unsafe" in name:
-        db_addr, db = _find_res(m1, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
-
+        rows.extend(_break_sec_001_open_ssh(m1, name, step=1))
     return [m1], [rows]
 
 
@@ -543,8 +618,8 @@ register_op(OperatorDef(
 register_op(OperatorDef(
     name="op_f4_repair_db_port_open_ssh_unsafe", family="F4", variant="unsafe",
     target_kind="repair", target_invariant="INV-SEC-002",
-    description="Repairs DB port but introduces regression breaking INV-SEC-003.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Repairs DB port but opens port 22 to the world, breaking INV-SEC-001.",
+    intent_breaks=["INV-SEC-001"], intent_preserves=["INV-SEC-002", "INV-SEC-003", "INV-FUNC-001"],
     apply_fn=_f4_repair_db_port_open_ssh_apply,
 ))
 
@@ -560,13 +635,7 @@ def _f4_repair_rds_public_open_db_apply(base: HCLModel, rng: random.Random, name
         )
     ]
     if "unsafe" in name:
-        db.set_attr("publicly_accessible", True)
-        rows[0] = MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="storage_type", before=None, after='"gp2"'
-        )
-        db.set_attr("storage_type", "gp2")
-
+        rows.extend(_break_sec_002_open_db(m1, name, step=1))
     return [m1], [rows]
 
 
@@ -580,8 +649,8 @@ register_op(OperatorDef(
 register_op(OperatorDef(
     name="op_f4_repair_rds_public_open_db_unsafe", family="F4", variant="unsafe",
     target_kind="repair", target_invariant="INV-SEC-003",
-    description="Attempts repair but introduces regression.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Repairs RDS publicly accessible but opens port 5432 to the world, breaking INV-SEC-002.",
+    intent_breaks=["INV-SEC-002"], intent_preserves=["INV-SEC-001", "INV-SEC-003", "INV-FUNC-001"],
     apply_fn=_f4_repair_rds_public_open_db_apply,
 ))
 
@@ -630,12 +699,7 @@ def _f5_moved_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list
         ))
 
     if "unsafe" in name:
-        db_addr, db = _find_res(m1, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+        rows.extend(_break_func_detach_sg(m1, name, step=1))
 
     return [m1], [rows]
 
@@ -650,8 +714,8 @@ register_op(OperatorDef(
 register_op(OperatorDef(
     name="op_f5_restructure_moved_unsafe", family="F5", variant="unsafe",
     target_kind="change_request", target_invariant=None,
-    description="Restructures with moved block but carries unsafe public DB side-effect.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Restructures with moved block but detaches application SG, breaking connectivity.",
+    intent_breaks=["INV-FUNC-001"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"],
     apply_fn=_f5_moved_apply,
 ))
 
@@ -707,12 +771,8 @@ def _f5_rules_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list
             ))
 
     if "unsafe" in name:
-        db_addr, db = _find_res(m1, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+        rows.extend(_break_func_detach_sg(m1, name, step=1))
+
     return [m1], [rows]
 
 
@@ -726,8 +786,8 @@ register_op(OperatorDef(
 register_op(OperatorDef(
     name="op_f5_inline_to_separate_sg_rules_unsafe", family="F5", variant="unsafe",
     target_kind="change_request", target_invariant=None,
-    description="Restructures SG rules with unsafe public DB side-effect.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Restructures SG rules but detaches application SG, breaking connectivity.",
+    intent_breaks=["INV-FUNC-001"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"],
     apply_fn=_f5_rules_apply,
 ))
 
@@ -746,12 +806,7 @@ def _f5_replace_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[li
         )
     ]
     if "unsafe" in name:
-        db_addr, db = _find_res(m1, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+        rows.extend(_break_func_detach_sg(m1, name, step=1))
     return [m1], [rows]
 
 
@@ -765,8 +820,8 @@ register_op(OperatorDef(
 register_op(OperatorDef(
     name="op_f5_force_replacement_unsafe", family="F5", variant="unsafe",
     target_kind="change_request", target_invariant=None,
-    description="Forces resource replacement with unsafe public DB side-effect.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Forces resource replacement but detaches application SG, breaking connectivity.",
+    intent_breaks=["INV-FUNC-001"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"],
     apply_fn=_f5_replace_apply,
 ))
 
@@ -791,12 +846,7 @@ def _f5_count_each_apply(base: HCLModel, rng: random.Random, name: str) -> tuple
         ))
 
     if "unsafe" in name:
-        db_addr, db = _find_res(m1, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+        rows.extend(_break_func_detach_sg(m1, name, step=1))
 
     return [m1], [rows]
 
@@ -811,8 +861,8 @@ register_op(OperatorDef(
 register_op(OperatorDef(
     name="op_f5_count_each_unsafe", family="F5", variant="unsafe",
     target_kind="change_request", target_invariant=None,
-    description="Restructures count but introduces unsafe public DB side-effect.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Restructures count but detaches application SG, breaking connectivity.",
+    intent_breaks=["INV-FUNC-001"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"],
     apply_fn=_f5_count_each_apply,
 ))
 
@@ -824,14 +874,27 @@ register_op(OperatorDef(
 def _f6_sg_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
     vpc_addr, _ = _find_res(m1, "aws_vpc")
-    sg_name = "monitoring_sg"
+    _, ec2_res = _find_res(m1, "aws_instance")
+    is_graft = ec2_res.name.startswith("tp_")
+    sg_name = "tp_monitoring_sg" if is_graft else "monitoring_sg"
+    is_unsafe = "unsafe" in name
+    blocks: list[Block] = []
+    if is_unsafe:
+        blocks.append(Block("ingress", {
+            "cidr_blocks": SortedList(["0.0.0.0/0"]),
+            "from_port": 5432,
+            "protocol": "tcp",
+            "to_port": 5432,
+        }))
+
     sg_res = Resource(
         "aws_security_group", sg_name,
         {
             "description": "Monitoring security group",
             "name": f"{sg_name}-mon",
             "vpc_id": Ref(f"{vpc_addr}.id"),
-        }
+        },
+        blocks=blocks,
     )
     m1.add(sg_res)
     ec2_addr, ec2 = _find_res(m1, "aws_instance")
@@ -859,13 +922,25 @@ def _f6_sg_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HC
             after=f"[{', '.join(str(s) for s in new_sgs)}]",
         )
     ]
-    if "unsafe" in name:
-        db_addr, db = _find_res(m1, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+    if is_unsafe:
+        rows.extend([
+            MutationRow(
+                step=1, operator=name, target_address=f"aws_security_group.{sg_name}",
+                attribute="cidr_blocks", before=None, after='["0.0.0.0/0"]',
+            ),
+            MutationRow(
+                step=1, operator=name, target_address=f"aws_security_group.{sg_name}",
+                attribute="from_port", before=None, after="5432",
+            ),
+            MutationRow(
+                step=1, operator=name, target_address=f"aws_security_group.{sg_name}",
+                attribute="protocol", before=None, after='"tcp"',
+            ),
+            MutationRow(
+                step=1, operator=name, target_address=f"aws_security_group.{sg_name}",
+                attribute="to_port", before=None, after="5432",
+            ),
+        ])
     return [m1], [rows]
 
 
@@ -879,80 +954,116 @@ register_op(OperatorDef(
 register_op(OperatorDef(
     name="op_f6_add_monitoring_sg_unsafe", family="F6", variant="unsafe",
     target_kind="change_request", target_invariant=None,
-    description="Adds monitoring security group with unsafe public DB side-effect.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Adds monitoring security group open on 5432, breaking INV-SEC-002.",
+    intent_breaks=["INV-SEC-002"], intent_preserves=["INV-SEC-001", "INV-SEC-003", "INV-FUNC-001"],
     apply_fn=_f6_sg_apply,
 ))
 
 
-def _f6_route_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
+def _f6_bastion_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
-    addr, ec2 = _find_res(m1, "aws_instance")
-    old_mon = str(ec2.attrs.get("monitoring", False)).lower()
-    ec2.set_attr("monitoring", True)
+    sub_addr, _ = _find_res(m1, "aws_subnet")
+    _, ec2_res = _find_res(m1, "aws_instance")
+    is_graft = ec2_res.name.startswith("tp_")
+    bastion_name = "tp_bastion" if is_graft else "bastion"
+    bsg_name = "tp_bastion_sg" if is_graft else "bastion_sg"
+    bastion = Resource(
+        "aws_instance", bastion_name,
+        {
+            "ami": "ami-0c55b159cbfafe1f0",
+            "instance_type": "t3.nano",
+            "subnet_id": Ref(f"{sub_addr}.id"),
+        }
+    )
+    m1.add(bastion)
     rows = [
-        MutationRow(
-            step=1, operator=name, target_address=addr,
-            attribute="monitoring", before=None if old_mon == "false" else "false", after="true"
-        )
+        MutationRow(step=1, operator=name, target_address=f"aws_instance.{bastion_name}", attribute="ami", before=None, after='"ami-0c55b159cbfafe1f0"'),
+        MutationRow(step=1, operator=name, target_address=f"aws_instance.{bastion_name}", attribute="instance_type", before=None, after='"t3.nano"'),
+        MutationRow(step=1, operator=name, target_address=f"aws_instance.{bastion_name}", attribute="subnet_id", before=None, after=f"{sub_addr}.id"),
     ]
     if "unsafe" in name:
-        db_addr, db = _find_res(m1, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+        vpc_addr, _ = _find_res(m1, "aws_vpc")
+        bsg = Resource(
+            "aws_security_group", bsg_name,
+            {
+                "description": "Bastion security group",
+                "name": f"{bsg_name}-host",
+                "vpc_id": Ref(f"{vpc_addr}.id"),
+            },
+            blocks=[Block("ingress", {"cidr_blocks": SortedList(["0.0.0.0/0"]), "from_port": 22, "protocol": "tcp", "to_port": 22})]
+        )
+        m1.add(bsg)
+        bastion.set_attr("vpc_security_group_ids", [Ref(f"aws_security_group.{bsg_name}.id")])
+        rows.extend([
+            MutationRow(step=1, operator=name, target_address=f"aws_instance.{bastion_name}", attribute="vpc_security_group_ids", before=None, after=f"[aws_security_group.{bsg_name}.id]"),
+            MutationRow(step=1, operator=name, target_address=f"aws_security_group.{bsg_name}", attribute="description", before=None, after='"Bastion security group"'),
+            MutationRow(step=1, operator=name, target_address=f"aws_security_group.{bsg_name}", attribute="name", before=None, after=f'"{bsg_name}-host"'),
+            MutationRow(step=1, operator=name, target_address=f"aws_security_group.{bsg_name}", attribute="vpc_id", before=None, after=f"{vpc_addr}.id"),
+            MutationRow(step=1, operator=name, target_address=f"aws_security_group.{bsg_name}", attribute="cidr_blocks", before=None, after='["0.0.0.0/0"]'),
+            MutationRow(step=1, operator=name, target_address=f"aws_security_group.{bsg_name}", attribute="from_port", before=None, after="22"),
+            MutationRow(step=1, operator=name, target_address=f"aws_security_group.{bsg_name}", attribute="protocol", before=None, after='"tcp"'),
+            MutationRow(step=1, operator=name, target_address=f"aws_security_group.{bsg_name}", attribute="to_port", before=None, after="22"),
+        ])
     return [m1], [rows]
 
 
 register_op(OperatorDef(
     name="op_f6_add_bastion_host_safe", family="F6", variant="safe",
     target_kind="change_request", target_invariant=None,
-    description="Configures monitoring on bastion resources safely.",
+    description="Adds new bastion EC2 instance safely.",
     intent_breaks=[], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003", "INV-FUNC-001"],
-    apply_fn=_f6_route_apply,
+    apply_fn=_f6_bastion_apply,
 ))
 register_op(OperatorDef(
     name="op_f6_add_bastion_host_unsafe", family="F6", variant="unsafe",
     target_kind="change_request", target_invariant=None,
-    description="Configures bastion with unsafe public DB side-effect.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
-    apply_fn=_f6_route_apply,
+    description="Adds new bastion instance with port 22 open to the world, breaking INV-SEC-001.",
+    intent_breaks=["INV-SEC-001"], intent_preserves=["INV-SEC-002", "INV-SEC-003", "INV-FUNC-001"],
+    apply_fn=_f6_bastion_apply,
 ))
 
 
 def _f6_replica_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
-    addr, db = _find_res(m1, "aws_db_instance")
-    old_snap = str(db.attrs.get("skip_final_snapshot", True)).lower()
-    db.set_attr("skip_final_snapshot", False)
+    dbsng_addr, _ = _find_res(m1, "aws_db_subnet_group")
+    _, ec2_res = _find_res(m1, "aws_instance")
+    is_graft = ec2_res.name.startswith("tp_")
+    replica_name = "tp_replica" if is_graft else "replica"
+    is_unsafe = "unsafe" in name
+    replica = Resource(
+        "aws_db_instance", replica_name,
+        {
+            "allocated_storage": 20,
+            "db_subnet_group_name": Ref(f"{dbsng_addr}.name"),
+            "engine": "postgres",
+            "identifier": "tp-replica-db" if is_graft else "db-replica",
+            "instance_class": "db.t3.micro",
+            "publicly_accessible": is_unsafe,
+        }
+    )
+    m1.add(replica)
     rows = [
-        MutationRow(
-            step=1, operator=name, target_address=addr,
-            attribute="skip_final_snapshot", before=old_snap, after="false"
-        )
+        MutationRow(step=1, operator=name, target_address=f"aws_db_instance.{replica_name}", attribute="allocated_storage", before=None, after="20"),
+        MutationRow(step=1, operator=name, target_address=f"aws_db_instance.{replica_name}", attribute="db_subnet_group_name", before=None, after=f"{dbsng_addr}.name"),
+        MutationRow(step=1, operator=name, target_address=f"aws_db_instance.{replica_name}", attribute="engine", before=None, after='"postgres"'),
+        MutationRow(step=1, operator=name, target_address=f"aws_db_instance.{replica_name}", attribute="identifier", before=None, after='"tp-replica-db"' if is_graft else '"db-replica"'),
+        MutationRow(step=1, operator=name, target_address=f"aws_db_instance.{replica_name}", attribute="instance_class", before=None, after='"db.t3.micro"'),
+        MutationRow(step=1, operator=name, target_address=f"aws_db_instance.{replica_name}", attribute="publicly_accessible", before=None, after="true" if is_unsafe else "false"),
     ]
-    if "unsafe" in name:
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
     return [m1], [rows]
 
 
 register_op(OperatorDef(
     name="op_f6_add_read_replica_safe", family="F6", variant="safe",
     target_kind="change_request", target_invariant=None,
-    description="Enables database snapshots safely.",
+    description="Adds new private read-replica RDS instance safely.",
     intent_breaks=[], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003", "INV-FUNC-001"],
     apply_fn=_f6_replica_apply,
 ))
 register_op(OperatorDef(
     name="op_f6_add_read_replica_unsafe", family="F6", variant="unsafe",
     target_kind="change_request", target_invariant=None,
-    description="Alters database replica settings with public DB side-effect.",
+    description="Adds new read-replica RDS instance with publicly_accessible=true, breaking INV-SEC-003.",
     intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
     apply_fn=_f6_replica_apply,
 ))
@@ -975,12 +1086,7 @@ def _f7_vpc_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[H
         )
     ]
     if "unsafe" in name:
-        db_addr, db = _find_res(m1, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+        rows.extend(_break_func_detach_sg(m1, name, step=1))
     return [m1], [rows]
 
 
@@ -994,8 +1100,8 @@ register_op(OperatorDef(
 register_op(OperatorDef(
     name="op_f7_shared_route_table_edit_unsafe", family="F7", variant="unsafe",
     target_kind="change_request", target_invariant=None,
-    description="Updates VPC configuration with unsafe public DB side-effect.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Updates VPC DNS support but detaches application SG, breaking connectivity.",
+    intent_breaks=["INV-FUNC-001"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"],
     apply_fn=_f7_vpc_apply,
 ))
 
@@ -1013,12 +1119,7 @@ def _f7_igw_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[H
         )
     ]
     if "unsafe" in name:
-        db_addr, db = _find_res(m1, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+        rows.extend(_break_func_detach_sg(m1, name, step=1))
     return [m1], [rows]
 
 
@@ -1032,8 +1133,8 @@ register_op(OperatorDef(
 register_op(OperatorDef(
     name="op_f7_vpc_cidr_expansion_unsafe", family="F7", variant="unsafe",
     target_kind="change_request", target_invariant=None,
-    description="Updates security perimeter with unsafe public DB side-effect.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Updates security perimeter but detaches application SG, breaking connectivity.",
+    intent_breaks=["INV-FUNC-001"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"],
     apply_fn=_f7_igw_apply,
 ))
 
@@ -1069,27 +1170,22 @@ def _f7_egress_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[lis
         raise OperatorNotApplicable("No egress rule found on security group to tighten")
 
     if "unsafe" in name:
-        db_addr, db = _find_res(m1, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+        rows.extend(_break_func_detach_sg(m1, name, step=1))
     return [m1], [rows]
 
 
 register_op(OperatorDef(
     name="op_f7_shared_sg_egress_tighten_safe", family="F7", variant="safe",
     target_kind="change_request", target_invariant=None,
-    description="Updates core resources safely.",
+    description="Tightens egress on shared security group safely.",
     intent_breaks=[], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003", "INV-FUNC-001"],
     apply_fn=_f7_egress_apply,
 ))
 register_op(OperatorDef(
     name="op_f7_shared_sg_egress_tighten_unsafe", family="F7", variant="unsafe",
     target_kind="change_request", target_invariant=None,
-    description="Updates core resources with unsafe public DB side-effect.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Tightens egress but detaches application SG, breaking connectivity.",
+    intent_breaks=["INV-FUNC-001"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"],
     apply_fn=_f7_egress_apply,
 ))
 
@@ -1112,12 +1208,7 @@ def _f8_twostep_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[li
     r2 = _repair_ssh(m2, name, step=2)
 
     if "unsafe" in name:
-        db_addr, db = _find_res(m2, "aws_db_instance")
-        db.set_attr("publicly_accessible", True)
-        r2.append(MutationRow(
-            step=2, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+        r2.extend(_break_func_detach_sg(m2, name, step=2))
 
     return [m1, m2], [r1, r2]
 
@@ -1132,8 +1223,8 @@ register_op(OperatorDef(
 register_op(OperatorDef(
     name="op_f8_twostep_repair_unsafe", family="F8", variant="unsafe",
     target_kind="repair", target_invariant="INV-SEC-001",
-    description="Two-step remediation with regression in final step.",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Two-step remediation with regression in final step breaking INV-FUNC-001.",
+    intent_breaks=["INV-FUNC-001"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"],
     apply_fn=_f8_twostep_apply,
 ))
 
@@ -1147,7 +1238,7 @@ def _f8_threestep_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[
     ec2.set_attr("instance_type", new_size)
     r1 = [MutationRow(step=1, operator=name, target_address=ec2_addr, attribute="instance_type", before=f'"{old_size}"', after=f'"{new_size}"')]
 
-    # Step 2: In unsafe, middle step introduces regression!
+    # Step 2: DB storage expand (in unsafe, middle step introduces regression)
     m2 = m1.copy()
     db_addr, db = _find_res(m2, "aws_db_instance")
     old_storage = int(db.attrs.get("allocated_storage", 20))
@@ -1155,11 +1246,7 @@ def _f8_threestep_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[
     db.set_attr("allocated_storage", new_storage)
     r2 = [MutationRow(step=2, operator=name, target_address=db_addr, attribute="allocated_storage", before=str(old_storage), after=str(new_storage))]
     if "unsafe" in name:
-        db.set_attr("publicly_accessible", True)
-        r2.append(MutationRow(
-            step=2, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+        r2.extend(_break_func_detach_sg(m2, name, step=2))
 
     # Step 3: Repair SSH
     m3 = m2.copy()
@@ -1178,8 +1265,8 @@ register_op(OperatorDef(
 register_op(OperatorDef(
     name="op_f8_threestep_refactor_repair_unsafe", family="F8", variant="unsafe",
     target_kind="repair", target_invariant="INV-SEC-001",
-    description="Three-step remediation sequence with regression in middle step (Step 2).",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Three-step remediation sequence with regression in middle step (Step 2) breaking INV-FUNC-001.",
+    intent_breaks=["INV-FUNC-001"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"],
     apply_fn=_f8_threestep_apply,
 ))
 
@@ -1201,19 +1288,14 @@ def _f8_fourstep_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[l
     db2.set_attr("allocated_storage", new_storage)
     r2 = [MutationRow(step=2, operator=name, target_address=db_addr, attribute="allocated_storage", before=str(old_storage), after=str(new_storage))]
 
-    # Step 3: In unsafe, middle step introduces regression
+    # Step 3: VPC DNS hostnames toggle (in unsafe, middle step introduces regression)
     m3 = m2.copy()
     vpc_addr, vpc3 = _find_res(m3, "aws_vpc")
     old_dns = str(vpc3.attrs.get("enable_dns_hostnames", True)).lower()
     vpc3.set_attr("enable_dns_hostnames", False)
     r3 = [MutationRow(step=3, operator=name, target_address=vpc_addr, attribute="enable_dns_hostnames", before=old_dns, after="false")]
     if "unsafe" in name:
-        db3 = m3.resources[db_addr]
-        db3.set_attr("publicly_accessible", True)
-        r3.append(MutationRow(
-            step=3, operator=name, target_address=db_addr,
-            attribute="publicly_accessible", before="false", after="true"
-        ))
+        r3.extend(_break_func_detach_sg(m3, name, step=3))
 
     # Step 4: Repair SSH
     m4 = m3.copy()
@@ -1232,7 +1314,7 @@ register_op(OperatorDef(
 register_op(OperatorDef(
     name="op_f8_fourstep_maintenance_unsafe", family="F8", variant="unsafe",
     target_kind="repair", target_invariant="INV-SEC-001",
-    description="Four-step maintenance sequence with regression in middle step (Step 3).",
-    intent_breaks=["INV-SEC-003"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-FUNC-001"],
+    description="Four-step maintenance sequence with regression in middle step (Step 3) breaking INV-FUNC-001.",
+    intent_breaks=["INV-FUNC-001"], intent_preserves=["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"],
     apply_fn=_f8_fourstep_apply,
 ))

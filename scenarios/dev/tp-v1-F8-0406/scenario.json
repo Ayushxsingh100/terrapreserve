@@ -2,19 +2,19 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F8",
-  "generator_version": "d4b-2",
+  "generator_version": "d4b-3",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
   "intent": {
     "breaks": [
-      "INV-SEC-001"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
+      "INV-SEC-001",
       "INV-SEC-002",
-      "INV-SEC-003",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": "INV-SEC-001",
     "target_kind": "repair"
@@ -39,12 +39,12 @@
       "target_address": "aws_db_instance.tp_db"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.tp_app_sg.id]",
       "operator": "op_f8_threestep_refactor_repair_unsafe",
       "step": 2,
-      "target_address": "aws_db_instance.tp_db"
+      "target_address": "aws_instance.tp_app"
     },
     {
       "after": "[\"10.0.0.0/8\"]",
@@ -127,13 +127,13 @@
       "terraform_dir": "step_1"
     },
     {
-      "content_hash": "7a36d1066f1e700f9899b110d2f6523d164b65d0fbfa178e9d1234cf2d3fc758",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -92,13 +92,13 @@\n }\n \n resource \"aws_db_instance\" \"tp_db\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.tp_db_subnet_group.name\n   engine                 = \"postgres\"\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
+      "content_hash": "27ec23dab6413a063ab5c171fa4fbe610741b268a8d799e94d120ec91cf1deeb",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n@@ -92,7 +92,7 @@\n }\n \n resource \"aws_db_instance\" \"tp_db\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.tp_db_subnet_group.name\n   engine                 = \"postgres\"\n   identifier             = \"tp-db-instance\"\n",
       "step": 2,
       "terraform_dir": "step_2"
     },
     {
-      "content_hash": "8ed22cccef35db40c87542f4766b62e7704796feef85319543affe6d5f4bfb4e",
+      "content_hash": "03fa06e4e464a792715515b44a6c9b54226d4c24dc280918596f65431c9f73a0",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -53,7 +53,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_ingress_ssh\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 22\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
       "step": 3,
       "terraform_dir": "step_3"

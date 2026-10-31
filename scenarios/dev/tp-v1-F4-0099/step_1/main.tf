@@ -107,8 +107,17 @@ resource "aws_db_instance" "main" {
   identifier             = "main-tpl-08"
   instance_class         = "db.t3.micro"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.db.id]
+}
+
+resource "aws_security_group_rule" "app_ingress_ssh" {
+  cidr_blocks       = ["0.0.0.0/0"]
+  from_port         = 22
+  protocol          = "tcp"
+  security_group_id = aws_security_group.app.id
+  to_port           = 22
+  type              = "ingress"
 }

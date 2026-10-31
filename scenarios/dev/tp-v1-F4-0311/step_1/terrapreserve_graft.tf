@@ -98,9 +98,17 @@ resource "aws_db_instance" "tp_db" {
   identifier             = "tp-db-instance"
   instance_class         = "db.t3.micro"
   password               = var.tp_db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
-  storage_type           = "gp2"
   username               = "tp_admin"
   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]
+}
+
+resource "aws_security_group_rule" "tp_db_sg_ingress_db_public" {
+  cidr_blocks       = ["0.0.0.0/0"]
+  from_port         = 5432
+  protocol          = "tcp"
+  security_group_id = aws_security_group.tp_db_sg.id
+  to_port           = 5432
+  type              = "ingress"
 }

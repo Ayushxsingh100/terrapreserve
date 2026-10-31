@@ -92,16 +92,16 @@ Refactors configuration structure (`moved` blocks, inline vs separate rule resou
 ### Operators:
 - **`op_f5_restructure_moved`**
   - *Safe*: Renames a resource (e.g. `aws_subnet.app` -> `aws_subnet.application`) and emits corresponding `moved { from = ... to = ... }` block.
-  - *Unsafe*: Renames resource without `moved` block and drops association or drops rules (triggers unintended recreation/loss).
+  - *Unsafe*: Renames resource with `moved` block and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 - **`op_f5_inline_to_separate_sg_rules`**
   - *Safe*: Converts inline `ingress`/`egress` blocks of a security group into standalone `aws_security_group_rule` resources, preserving all ports, protocols, and sources.
-  - *Unsafe*: Converts to standalone rules but drops the 5432 app SG rule or opens port 22 to `0.0.0.0/0`.
+  - *Unsafe*: Converts to standalone rules and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 - **`op_f5_count_each`**
   - *Safe*: Restructures `aws_instance` with `count` meta-argument (adding or removing `count = 1`), preserving resource references and protected invariants.
-  - *Unsafe*: Restructures `count` meta-argument on `aws_instance` but carries an unsafe side-effect setting `aws_db_instance.publicly_accessible = true` (breaks `INV-SEC-003`).
+  - *Unsafe*: Restructures `count` meta-argument on `aws_instance` and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 - **`op_f5_force_replacement`**
-  - *Safe*: Changes an attribute requiring resource replacement (e.g. DB engine minor version or instance AMI) with semantics intact.
-  - *Unsafe*: Force-replacement resets a security group or re-provisions DB with `publicly_accessible = true`.
+  - *Safe*: Changes an attribute requiring resource replacement (e.g. instance AMI) with semantics intact.
+  - *Unsafe*: Force-replacement updates AMI and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 
 ---
 
@@ -126,14 +126,14 @@ Edits a central hub resource (VPC, shared route table, default security group) a
 
 ### Operators:
 - **`op_f7_shared_route_table_edit`**
-  - *Safe*: Adds an internal route (e.g. to a VPC peering connection or S3 prefix list) to the shared route table.
-  - *Unsafe*: Removes or misconfigures the default route or associations needed for communication.
+  - *Safe*: Toggles core VPC DNS support (`enable_dns_support = false`).
+  - *Unsafe*: Toggles core VPC DNS support and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 - **`op_f7_vpc_cidr_expansion`**
-  - *Safe*: Adds a secondary CIDR block or edits VPC attributes cleanly without affecting existing subnets.
-  - *Unsafe*: Alters VPC settings or default security group ingress, introducing public 22/5432 rules.
+  - *Safe*: Toggles core VPC DNS hostnames (`enable_dns_hostnames = false`).
+  - *Unsafe*: Toggles core VPC DNS hostnames and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 - **`op_f7_shared_sg_egress_tighten`**
-  - *Safe*: Restricts outbound traffic on app SG to specific CIDRs/ports while maintaining DB 5432 access.
-  - *Unsafe*: Restricts egress completely, blocking EC2 from reaching RDS on 5432 (breaks `INV-FUNC-001`).
+  - *Safe*: Restricts outbound traffic on app SG to specific CIDRs (`10.0.0.0/8`) while maintaining DB 5432 access.
+  - *Unsafe*: Restricts outbound traffic and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 
 ---
 
@@ -142,14 +142,14 @@ Multi-step patch sequences (2 to 4 steps) composing remediation steps. Unsafe va
 
 ### Operators:
 - **`op_f8_twostep_repair`** (2 steps)
-  - *Safe*: Step 1 resizes instance / tags; Step 2 repairs public SSH target.
-  - *Unsafe*: Step 1 repairs public SSH target; Step 2 breaks EC2->RDS rule (`INV-FUNC-001`).
+  - *Safe*: Step 1 resizes instance; Step 2 repairs public SSH target.
+  - *Unsafe*: Step 1 resizes instance; Step 2 repairs public SSH target and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 - **`op_f8_threestep_refactor_repair`** (3 steps)
-  - *Safe*: Step 1 converts inline SG to separate rules; Step 2 repairs target; Step 3 cleans tags.
-  - *Unsafe*: Step 1 converts SG; Step 2 introduces regression (opens 5432 to world); Step 3 attempts cleanup but regression remains.
+  - *Safe*: Step 1 resizes instance; Step 2 expands DB storage; Step 3 repairs SSH target.
+  - *Unsafe*: Step 1 resizes instance; Step 2 introduces regression by expanding DB storage and detaching application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`; Step 3 repairs SSH.
 - **`op_f8_fourstep_maintenance`** (4 steps)
-  - *Safe*: 4 distinct steps: Step 1 (unrelated), Step 2 (restructure), Step 3 (repair), Step 4 (verification tags).
-  - *Unsafe*: Middle step (Step 2 or 3) damages invariant (e.g. sets `publicly_accessible = true`).
+  - *Safe*: 4 distinct steps: Step 1 (resize), Step 2 (storage expand), Step 3 (VPC DNS toggle), Step 4 (repair SSH).
+  - *Unsafe*: Middle step (Step 3) toggles VPC DNS hostnames and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`; Step 4 repairs SSH.
 
 ---
 

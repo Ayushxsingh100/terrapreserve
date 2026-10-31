@@ -36,7 +36,7 @@ import writer
 from realworld import graft, plan as rw_plan, real_diff_verify, screen, span_edit
 
 DATASET_VERSION = "1.0"
-GENERATOR_VERSION = "d4b-2"
+GENERATOR_VERSION = "d4b-3"
 
 PROTECTED_INVARIANTS = [
     {"invariant_id": "INV-SEC-001", "version": "1.0"},
@@ -367,8 +367,8 @@ def generate_real_world_scenario(
             "class": cls,
             "target_kind": target_info["kind"],
             "target_invariant": target_info["invariant_id"],
-            "breaks": [target_info["invariant_id"]] if (cls == "unsafe" and target_info["invariant_id"]) else [],
-            "preserves": [inv["invariant_id"] for inv in PROTECTED_INVARIANTS if inv["invariant_id"] != target_info["invariant_id"]],
+            "breaks": list(op.intent_breaks) if (kind == "host" and cls == "unsafe") else (["INV-SEC-003"] if (kind != "host" and cls == "unsafe") else []),
+            "preserves": list(op.intent_preserves) if (kind == "host") else [inv["invariant_id"] for inv in PROTECTED_INVARIANTS if inv["invariant_id"] not in (["INV-SEC-003"] if cls == "unsafe" else [])],
         },
         "reserve": reserve,
         "module_id": module_id,

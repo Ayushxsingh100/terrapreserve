@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F6",
-  "generator_version": "d4b-2",
+  "generator_version": "d4b-3",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -24,10 +24,11 @@
     }
   ],
   "intent": {
-    "breaks": [],
+    "breaks": [
+      "INV-SEC-001"
+    ],
     "class": "unsafe",
     "preserves": [
-      "INV-SEC-001",
       "INV-SEC-002",
       "INV-SEC-003",
       "INV-FUNC-001"
@@ -39,20 +40,92 @@
   "module_id": 472022,
   "mutation_record": [
     {
-      "after": "true",
-      "attribute": "monitoring",
+      "after": "\"ami-0c55b159cbfafe1f0\"",
+      "attribute": "ami",
       "before": null,
       "operator": "op_f6_add_bastion_host_unsafe",
       "step": 1,
-      "target_address": "aws_instance.tp_app"
+      "target_address": "aws_instance.tp_bastion"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "\"t3.nano\"",
+      "attribute": "instance_type",
+      "before": null,
       "operator": "op_f6_add_bastion_host_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.tp_db"
+      "target_address": "aws_instance.tp_bastion"
+    },
+    {
+      "after": "aws_subnet.tp_app_subnet.id",
+      "attribute": "subnet_id",
+      "before": null,
+      "operator": "op_f6_add_bastion_host_unsafe",
+      "step": 1,
+      "target_address": "aws_instance.tp_bastion"
+    },
+    {
+      "after": "[aws_security_group.tp_bastion_sg.id]",
+      "attribute": "vpc_security_group_ids",
+      "before": null,
+      "operator": "op_f6_add_bastion_host_unsafe",
+      "step": 1,
+      "target_address": "aws_instance.tp_bastion"
+    },
+    {
+      "after": "\"Bastion security group\"",
+      "attribute": "description",
+      "before": null,
+      "operator": "op_f6_add_bastion_host_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_bastion_sg"
+    },
+    {
+      "after": "\"tp_bastion_sg-host\"",
+      "attribute": "name",
+      "before": null,
+      "operator": "op_f6_add_bastion_host_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_bastion_sg"
+    },
+    {
+      "after": "aws_vpc.tp_vpc.id",
+      "attribute": "vpc_id",
+      "before": null,
+      "operator": "op_f6_add_bastion_host_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_bastion_sg"
+    },
+    {
+      "after": "[\"0.0.0.0/0\"]",
+      "attribute": "cidr_blocks",
+      "before": null,
+      "operator": "op_f6_add_bastion_host_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_bastion_sg"
+    },
+    {
+      "after": "22",
+      "attribute": "from_port",
+      "before": null,
+      "operator": "op_f6_add_bastion_host_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_bastion_sg"
+    },
+    {
+      "after": "\"tcp\"",
+      "attribute": "protocol",
+      "before": null,
+      "operator": "op_f6_add_bastion_host_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_bastion_sg"
+    },
+    {
+      "after": "22",
+      "attribute": "to_port",
+      "before": null,
+      "operator": "op_f6_add_bastion_host_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_bastion_sg"
     }
   ],
   "oracle": null,
@@ -121,14 +194,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "448e397ae078eb7759aed4aa4ef9bf79ea401809e0ac2de85e06cc8fff57f14f",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -82,6 +82,7 @@\n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n+  monitoring             = true\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n@@ -98,7 +99,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
+      "content_hash": "cc78068f8bf20893bad90288af7951bb37fca56609d0368a8ede2a1a9945603d",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -103,3 +103,23 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_instance\" \"tp_bastion\" {\n+  ami                    = \"ami-0c55b159cbfafe1f0\"\n+  instance_type          = \"t3.nano\"\n+  subnet_id              = aws_subnet.tp_app_subnet.id\n+  vpc_security_group_ids = [aws_security_group.tp_bastion_sg.id]\n+}\n+\n+resource \"aws_security_group\" \"tp_bastion_sg\" {\n+  description = \"Bastion security group\"\n+  name        = \"tp_bastion_sg-host\"\n+  vpc_id      = aws_vpc.tp_vpc.id\n+\n+  ingress {\n+    cidr_blocks = [\"0.0.0.0/0\"]\n+    from_port   = 22\n+    protocol    = \"tcp\"\n+    to_port     = 22\n+  }\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Configures bastion with unsafe public DB side-effect.",
+    "description": "Adds new bastion instance with port 22 open to the world, breaking INV-SEC-001.",
     "invariant_id": null,
     "kind": "change_request"
   }

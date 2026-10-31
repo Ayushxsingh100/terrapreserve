@@ -9,7 +9,7 @@ resource "aws_internet_gateway" "corp_igw" {
 }
 
 resource "aws_subnet" "frontend_subnet" {
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-1b"
   cidr_block        = "10.173.1.0/24"
   vpc_id            = aws_vpc.corp_vpc.id
 }
@@ -81,9 +81,9 @@ resource "aws_security_group" "frontend_sg_extra" {
 
 resource "aws_instance" "frontend_server" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.small"
+  instance_type          = "t3.micro"
   subnet_id              = aws_subnet.frontend_subnet.id
-  vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]
+  vpc_security_group_ids = []
 }
 
 resource "aws_db_subnet_group" "backend_sng" {
@@ -98,7 +98,7 @@ resource "aws_db_instance" "backend_database" {
   identifier             = "backend-database-tpl-10"
   instance_class         = "db.t3.nano"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.backend_sg.id]

@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F6",
-  "generator_version": "d4a-2",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -20,12 +20,52 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "false",
-      "attribute": "skip_final_snapshot",
-      "before": "true",
+      "after": "20",
+      "attribute": "allocated_storage",
+      "before": null,
       "operator": "op_f6_add_read_replica_safe",
       "step": 1,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_db_instance.replica"
+    },
+    {
+      "after": "aws_db_subnet_group.data_subnets.name",
+      "attribute": "db_subnet_group_name",
+      "before": null,
+      "operator": "op_f6_add_read_replica_safe",
+      "step": 1,
+      "target_address": "aws_db_instance.replica"
+    },
+    {
+      "after": "\"postgres\"",
+      "attribute": "engine",
+      "before": null,
+      "operator": "op_f6_add_read_replica_safe",
+      "step": 1,
+      "target_address": "aws_db_instance.replica"
+    },
+    {
+      "after": "\"db-replica\"",
+      "attribute": "identifier",
+      "before": null,
+      "operator": "op_f6_add_read_replica_safe",
+      "step": 1,
+      "target_address": "aws_db_instance.replica"
+    },
+    {
+      "after": "\"db.t3.micro\"",
+      "attribute": "instance_class",
+      "before": null,
+      "operator": "op_f6_add_read_replica_safe",
+      "step": 1,
+      "target_address": "aws_db_instance.replica"
+    },
+    {
+      "after": "false",
+      "attribute": "publicly_accessible",
+      "before": null,
+      "operator": "op_f6_add_read_replica_safe",
+      "step": 1,
+      "target_address": "aws_db_instance.replica"
     }
   ],
   "oracle": null,
@@ -72,7 +112,7 @@
   "scenario_id": "tp-v1-F6-0139",
   "seed": 139,
   "source": {
-    "commit_or_version": "d4a-2+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -88,14 +128,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "8847782798d7ed0c80f0da834ef2898186e36f17aa82228dfd91871d0e4012fb",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -106,7 +106,7 @@\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n   publicly_accessible    = false\n-  skip_final_snapshot    = true\n+  skip_final_snapshot    = false\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n",
+      "content_hash": "3949d70ad5a1a1761ceca598f00a3df14db0d0d156198c45663490bb143052af",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -110,3 +110,12 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n+\n+resource \"aws_db_instance\" \"replica\" {\n+  allocated_storage    = 20\n+  db_subnet_group_name = aws_db_subnet_group.data_subnets.name\n+  engine               = \"postgres\"\n+  identifier           = \"db-replica\"\n+  instance_class       = \"db.t3.micro\"\n+  publicly_accessible  = false\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Enables database snapshots safely.",
+    "description": "Adds new private read-replica RDS instance safely.",
     "invariant_id": null,
     "kind": "change_request"
   },

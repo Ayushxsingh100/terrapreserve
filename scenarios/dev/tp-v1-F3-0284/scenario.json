@@ -2,18 +2,19 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-2",
+  "generator_version": "d4b-3",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
   "intent": {
-    "breaks": [],
+    "breaks": [
+      "INV-FUNC-001"
+    ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-SEC-003",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": null,
     "target_kind": "change_request"
@@ -22,20 +23,20 @@
   "module_id": 379348,
   "mutation_record": [
     {
-      "after": "\"t3.small\"",
-      "attribute": "instance_type",
-      "before": "\"t3.micro\"",
+      "after": "\"us-east-1b\"",
+      "attribute": "availability_zone",
+      "before": "\"us-east-1a\"",
+      "operator": "op_f3_move_ec2_subnet_unsafe",
+      "step": 1,
+      "target_address": "aws_subnet.tp_app_subnet"
+    },
+    {
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.tp_app_sg.id]",
       "operator": "op_f3_move_ec2_subnet_unsafe",
       "step": 1,
       "target_address": "aws_instance.tp_app"
-    },
-    {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
-      "operator": "op_f3_move_ec2_subnet_unsafe",
-      "step": 1,
-      "target_address": "aws_db_instance.tp_db"
     }
   ],
   "oracle": null,
@@ -104,14 +105,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "11b08615d328cd63f435ceaf182f859cc0d864c9d3599ee132d87b2c0b789f96",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,7 +81,7 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n@@ -98,7 +98,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
+      "content_hash": "0d09df43df418e1924e65d1e34209566d3153f3ca992d7d6ed86391a06d5c1e0",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -9,7 +9,7 @@\n }\n \n resource \"aws_subnet\" \"tp_app_subnet\" {\n-  availability_zone = \"us-east-1a\"\n+  availability_zone = \"us-east-1b\"\n   cidr_block        = \"172.28.1.0/24\"\n   vpc_id            = aws_vpc.tp_vpc.id\n }\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Breaks connectivity or security on dependency path.",
+    "description": "Updates subnet placement but breaks EC2-to-RDS functional path.",
     "invariant_id": null,
     "kind": "change_request"
   }

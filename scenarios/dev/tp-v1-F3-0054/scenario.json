@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4a-2",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -20,12 +20,12 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "true",
-      "attribute": "monitoring",
-      "before": null,
+      "after": "[aws_subnet.sub_db_2.id, aws_subnet.sub_db_1.id]",
+      "attribute": "subnet_ids",
+      "before": "[aws_subnet.sub_db_1.id, aws_subnet.sub_db_2.id]",
       "operator": "op_f3_modify_db_subnet_group_safe",
       "step": 1,
-      "target_address": "aws_instance.ec2_app"
+      "target_address": "aws_db_subnet_group.dbsng_main"
     }
   ],
   "oracle": null,
@@ -72,7 +72,7 @@
   "scenario_id": "tp-v1-F3-0054",
   "seed": 54,
   "source": {
-    "commit_or_version": "d4a-2+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -88,14 +88,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "76465e38266b70b1878a4d4b1c5a7c7c64056827e6948369796b3764635b5261",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -90,6 +90,7 @@\n resource \"aws_instance\" \"ec2_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.small\"\n+  monitoring             = true\n   subnet_id              = aws_subnet.sub_app.id\n   vpc_security_group_ids = [aws_security_group.sg_app.id]\n }\n",
+      "content_hash": "2de11e4ac729c62a410634c3725592fb8b904a0575e3ff687a706295b5c3c7a1",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -96,7 +96,7 @@\n \n resource \"aws_db_subnet_group\" \"dbsng_main\" {\n   name       = \"dbsng_main-tpl-02\"\n-  subnet_ids = [aws_subnet.sub_db_1.id, aws_subnet.sub_db_2.id]\n+  subnet_ids = [aws_subnet.sub_db_2.id, aws_subnet.sub_db_1.id]\n }\n \n resource \"aws_db_instance\" \"rds_postgres\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Enables detailed monitoring on dependency instance.",
+    "description": "Reorders subnets in DB subnet group safely.",
     "invariant_id": null,
     "kind": "change_request"
   },

@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F6",
-  "generator_version": "d4b-2",
+  "generator_version": "d4b-3",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -27,15 +27,15 @@
       "before": null,
       "operator": "op_f6_add_monitoring_sg_safe",
       "step": 1,
-      "target_address": "aws_security_group.monitoring_sg"
+      "target_address": "aws_security_group.tp_monitoring_sg"
     },
     {
-      "after": "\"monitoring_sg-mon\"",
+      "after": "\"tp_monitoring_sg-mon\"",
       "attribute": "name",
       "before": null,
       "operator": "op_f6_add_monitoring_sg_safe",
       "step": 1,
-      "target_address": "aws_security_group.monitoring_sg"
+      "target_address": "aws_security_group.tp_monitoring_sg"
     },
     {
       "after": "aws_vpc.tp_vpc.id",
@@ -43,10 +43,10 @@
       "before": null,
       "operator": "op_f6_add_monitoring_sg_safe",
       "step": 1,
-      "target_address": "aws_security_group.monitoring_sg"
+      "target_address": "aws_security_group.tp_monitoring_sg"
     },
     {
-      "after": "[aws_security_group.tp_app_sg.id, aws_security_group.monitoring_sg.id]",
+      "after": "[aws_security_group.tp_app_sg.id, aws_security_group.tp_monitoring_sg.id]",
       "attribute": "vpc_security_group_ids",
       "before": "[aws_security_group.tp_app_sg.id]",
       "operator": "op_f6_add_monitoring_sg_safe",
@@ -120,8 +120,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "9e4521775fcf517e0ce49c29ad7931fb0cef7b40983155b59f042f7968e1238b",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = [aws_security_group.tp_app_sg.id, aws_security_group.monitoring_sg.id]\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n@@ -103,3 +103,9 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"monitoring_sg\" {\n+  description = \"Monitoring security group\"\n+  name        = \"monitoring_sg-mon\"\n+  vpc_id      = aws_vpc.tp_vpc.id\n+}\n",
+      "content_hash": "46c1b2bb6e4c84b9c8c9d2d283b10397fcbad89511ace52f868bc2d5bb1e0e89",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = [aws_security_group.tp_app_sg.id, aws_security_group.tp_monitoring_sg.id]\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n@@ -103,3 +103,9 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"tp_monitoring_sg\" {\n+  description = \"Monitoring security group\"\n+  name        = \"tp_monitoring_sg-mon\"\n+  vpc_id      = aws_vpc.tp_vpc.id\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

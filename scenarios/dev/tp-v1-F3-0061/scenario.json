@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4a-2",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -20,12 +20,12 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"t3.medium\"",
-      "attribute": "instance_type",
-      "before": "\"t3.small\"",
+      "after": "\"us-east-1b\"",
+      "attribute": "availability_zone",
+      "before": "\"us-east-1a\"",
       "operator": "op_f3_move_ec2_subnet_safe",
       "step": 1,
-      "target_address": "aws_instance.web_instance"
+      "target_address": "aws_subnet.web_tier"
     }
   ],
   "oracle": null,
@@ -72,7 +72,7 @@
   "scenario_id": "tp-v1-F3-0061",
   "seed": 61,
   "source": {
-    "commit_or_version": "d4a-2+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -88,14 +88,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "f22b287bc00cc635952b50551c5d088befe4e241691b2b694a6abd5cb9a86582",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -88,7 +88,7 @@\n \n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.small\"\n+  instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.web_tier.id\n   vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n }\n",
+      "content_hash": "2f7d4cbf947662a0809d810addd27eae6828cea74c9212287d1480931261427a",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -9,7 +9,7 @@\n }\n \n resource \"aws_subnet\" \"web_tier\" {\n-  availability_zone = \"us-east-1a\"\n+  availability_zone = \"us-east-1b\"\n   cidr_block        = \"10.61.1.0/24\"\n   vpc_id            = aws_vpc.network.id\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Modifies EC2 dependency environment safely.",
+    "description": "Updates application subnet placement safely.",
     "invariant_id": null,
     "kind": "change_request"
   },

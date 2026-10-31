@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-2",
+  "generator_version": "d4b-3",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -17,13 +17,14 @@
     }
   ],
   "intent": {
-    "breaks": [],
+    "breaks": [
+      "INV-FUNC-001"
+    ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-SEC-003",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": null,
     "target_kind": "change_request"
@@ -32,20 +33,20 @@
   "module_id": 374862,
   "mutation_record": [
     {
-      "after": "true",
-      "attribute": "monitoring",
-      "before": null,
+      "after": "[aws_subnet.tp_db_subnet_2.id, aws_subnet.tp_db_subnet_1.id]",
+      "attribute": "subnet_ids",
+      "before": "[aws_subnet.tp_db_subnet_1.id, aws_subnet.tp_db_subnet_2.id]",
+      "operator": "op_f3_modify_db_subnet_group_unsafe",
+      "step": 1,
+      "target_address": "aws_db_subnet_group.tp_db_subnet_group"
+    },
+    {
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.tp_app_sg.id]",
       "operator": "op_f3_modify_db_subnet_group_unsafe",
       "step": 1,
       "target_address": "aws_instance.tp_app"
-    },
-    {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
-      "operator": "op_f3_modify_db_subnet_group_unsafe",
-      "step": 1,
-      "target_address": "aws_db_instance.tp_db"
     }
   ],
   "oracle": null,
@@ -114,14 +115,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "ad02ba752801670fe1783f0b27f9a35392015a169a4ded774c6a9657669e6f81",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -82,6 +82,7 @@\n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n+  monitoring             = true\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n@@ -98,7 +99,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
+      "content_hash": "0dc51e1de4c029c71469f8c708c0c8d65841862071dc8503eb97eb38d95e34cc",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -83,12 +83,12 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n   name       = \"tp-db-subnet-group\"\n-  subnet_ids = [aws_subnet.tp_db_subnet_1.id, aws_subnet.tp_db_subnet_2.id]\n+  subnet_ids = [aws_subnet.tp_db_subnet_2.id, aws_subnet.tp_db_subnet_1.id]\n }\n \n resource \"aws_db_instance\" \"tp_db\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Modifies dependency path with unsafe public DB side-effect.",
+    "description": "Modifies DB subnet group and detaches application SG, breaking connectivity.",
     "invariant_id": null,
     "kind": "change_request"
   }

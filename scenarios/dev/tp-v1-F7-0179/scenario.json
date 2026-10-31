@@ -2,18 +2,18 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4a-2",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": null,
     "target_kind": "change_request"
@@ -29,12 +29,12 @@
       "target_address": "aws_vpc.corp_vpc"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]",
       "operator": "op_f7_shared_route_table_edit_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.backend_database"
+      "target_address": "aws_instance.frontend_server"
     }
   ],
   "oracle": null,
@@ -81,7 +81,7 @@
   "scenario_id": "tp-v1-F7-0179",
   "seed": 179,
   "source": {
-    "commit_or_version": "d4a-2+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -97,14 +97,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "37c32836f3f04c572841966b91899003eba7be28bbb1cf392dff33482c27a87d",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,7 +1,7 @@\n resource \"aws_vpc\" \"corp_vpc\" {\n   cidr_block           = \"10.26.0.0/16\"\n   enable_dns_hostnames = true\n-  enable_dns_support   = true\n+  enable_dns_support   = false\n }\n \n resource \"aws_internet_gateway\" \"corp_igw\" {\n@@ -98,7 +98,7 @@\n   identifier             = \"backend-database-tpl-10\"\n   instance_class         = \"db.t3.nano\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.backend_sg.id]\n",
+      "content_hash": "4049f92c81c08434ef6dbbc807de940961930981822f454681d3eec685b57480",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,7 +1,7 @@\n resource \"aws_vpc\" \"corp_vpc\" {\n   cidr_block           = \"10.26.0.0/16\"\n   enable_dns_hostnames = true\n-  enable_dns_support   = true\n+  enable_dns_support   = false\n }\n \n resource \"aws_internet_gateway\" \"corp_igw\" {\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.frontend_subnet.id\n-  vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"backend_sng\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates VPC configuration with unsafe public DB side-effect.",
+    "description": "Updates VPC DNS support but detaches application SG, breaking connectivity.",
     "invariant_id": null,
     "kind": "change_request"
   },

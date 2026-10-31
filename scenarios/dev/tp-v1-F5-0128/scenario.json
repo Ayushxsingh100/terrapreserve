@@ -2,18 +2,18 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4a-2",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": null,
     "target_kind": "change_request"
@@ -29,12 +29,12 @@
       "target_address": "aws_instance.app"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.app.id]",
       "operator": "op_f5_force_replacement_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.main"
+      "target_address": "aws_instance.app"
     }
   ],
   "oracle": null,
@@ -83,7 +83,7 @@
   "scenario_id": "tp-v1-F5-0128",
   "seed": 128,
   "source": {
-    "commit_or_version": "d4a-2+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -99,14 +99,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "dcd97b6aed891c797f8753573332e0d2d6107850086f8fdb46947923bb40cfa3",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -82,7 +82,7 @@\n }\n \n resource \"aws_instance\" \"app\" {\n-  ami                    = \"ami-0c55b159cbfafe1f0\"\n+  ami                    = \"ami-0d5eff06f840b45e9\"\n   instance_type          = \"t3.nano\"\n   subnet_id              = aws_subnet.app.id\n   vpc_security_group_ids = [aws_security_group.app.id]\n@@ -100,7 +100,7 @@\n   identifier             = \"main-tpl-08\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.db.id]\n",
+      "content_hash": "bf1d7d559c49872853e5be402bce9f62e294ad30240dec2c5149de597a38cb1c",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -82,10 +82,10 @@\n }\n \n resource \"aws_instance\" \"app\" {\n-  ami                    = \"ami-0c55b159cbfafe1f0\"\n+  ami                    = \"ami-0d5eff06f840b45e9\"\n   instance_type          = \"t3.nano\"\n   subnet_id              = aws_subnet.app.id\n-  vpc_security_group_ids = [aws_security_group.app.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"main\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Forces resource replacement with unsafe public DB side-effect.",
+    "description": "Forces resource replacement but detaches application SG, breaking connectivity.",
     "invariant_id": null,
     "kind": "change_request"
   },

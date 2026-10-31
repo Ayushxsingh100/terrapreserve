@@ -91,7 +91,7 @@ resource "aws_instance" "prod_app_server" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.large"
   subnet_id              = aws_subnet.prod_app_subnet.id
-  vpc_security_group_ids = [aws_security_group.prod_app_sg.id]
+  vpc_security_group_ids = []
 }
 
 resource "aws_db_subnet_group" "prod_db_sng" {
@@ -106,7 +106,7 @@ resource "aws_db_instance" "prod_postgres_db" {
   identifier             = "prod-postgres-db-tpl-06"
   instance_class         = "db.t3.small"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]

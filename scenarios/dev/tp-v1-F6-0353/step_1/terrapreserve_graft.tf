@@ -98,8 +98,17 @@ resource "aws_db_instance" "tp_db" {
   identifier             = "tp-db-instance"
   instance_class         = "db.t3.micro"
   password               = var.tp_db_password
-  publicly_accessible    = true
-  skip_final_snapshot    = false
+  publicly_accessible    = false
+  skip_final_snapshot    = true
   username               = "tp_admin"
   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]
+}
+
+resource "aws_db_instance" "tp_replica" {
+  allocated_storage    = 20
+  db_subnet_group_name = aws_db_subnet_group.tp_db_subnet_group.name
+  engine               = "postgres"
+  identifier           = "tp-replica-db"
+  instance_class       = "db.t3.micro"
+  publicly_accessible  = true
 }

@@ -2,18 +2,18 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4a-2",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": null,
     "target_kind": "change_request"
@@ -21,20 +21,20 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "true",
-      "attribute": "monitoring",
-      "before": null,
+      "after": "[aws_subnet.sub_db_2.id, aws_subnet.sub_db_1.id]",
+      "attribute": "subnet_ids",
+      "before": "[aws_subnet.sub_db_1.id, aws_subnet.sub_db_2.id]",
+      "operator": "op_f3_modify_db_subnet_group_unsafe",
+      "step": 1,
+      "target_address": "aws_db_subnet_group.dbsng_main"
+    },
+    {
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.sg_app.id]",
       "operator": "op_f3_modify_db_subnet_group_unsafe",
       "step": 1,
       "target_address": "aws_instance.ec2_app"
-    },
-    {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
-      "operator": "op_f3_modify_db_subnet_group_unsafe",
-      "step": 1,
-      "target_address": "aws_db_instance.rds_postgres"
     }
   ],
   "oracle": null,
@@ -81,7 +81,7 @@
   "scenario_id": "tp-v1-F3-0076",
   "seed": 76,
   "source": {
-    "commit_or_version": "d4a-2+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -97,14 +97,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "386435647f692f18b23bbb3e680f3f1359b90edaa470093b948e58ceda5fc97b",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -90,6 +90,7 @@\n resource \"aws_instance\" \"ec2_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.small\"\n+  monitoring             = true\n   subnet_id              = aws_subnet.sub_app.id\n   vpc_security_group_ids = [aws_security_group.sg_app.id]\n }\n@@ -106,7 +107,7 @@\n   identifier             = \"rds-postgres-tpl-02\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.sg_db.id]\n",
+      "content_hash": "a537c591de7618271a97d0895c6c9d168e14aa7d90968cf52439336e3daf65de",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -91,12 +91,12 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.sub_app.id\n-  vpc_security_group_ids = [aws_security_group.sg_app.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"dbsng_main\" {\n   name       = \"dbsng_main-tpl-02\"\n-  subnet_ids = [aws_subnet.sub_db_1.id, aws_subnet.sub_db_2.id]\n+  subnet_ids = [aws_subnet.sub_db_2.id, aws_subnet.sub_db_1.id]\n }\n \n resource \"aws_db_instance\" \"rds_postgres\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Modifies dependency path with unsafe public DB side-effect.",
+    "description": "Modifies DB subnet group and detaches application SG, breaking connectivity.",
     "invariant_id": null,
     "kind": "change_request"
   },

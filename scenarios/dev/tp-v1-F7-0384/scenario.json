@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4b-2",
+  "generator_version": "d4b-3",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -16,13 +16,14 @@
     }
   ],
   "intent": {
-    "breaks": [],
+    "breaks": [
+      "INV-FUNC-001"
+    ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-SEC-003",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": null,
     "target_kind": "change_request"
@@ -39,12 +40,12 @@
       "target_address": "aws_vpc.tp_vpc"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.tp_app_sg.id]",
       "operator": "op_f7_shared_route_table_edit_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.tp_db"
+      "target_address": "aws_instance.tp_app"
     }
   ],
   "oracle": null,
@@ -113,14 +114,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "4a507de5a0410b496cf782196bb3e911c017cd3e50f9c9a804fa501cfdb93f2c",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,7 +1,7 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.24.0.0/16\"\n   enable_dns_hostnames = true\n-  enable_dns_support   = true\n+  enable_dns_support   = false\n }\n \n resource \"aws_internet_gateway\" \"tp_igw\" {\n@@ -98,7 +98,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
+      "content_hash": "69d8638b57f0135876aeed7c3cd06315f31b15271a84a3e15fde6f7a178d975e",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,7 +1,7 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.24.0.0/16\"\n   enable_dns_hostnames = true\n-  enable_dns_support   = true\n+  enable_dns_support   = false\n }\n \n resource \"aws_internet_gateway\" \"tp_igw\" {\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates VPC configuration with unsafe public DB side-effect.",
+    "description": "Updates VPC DNS support but detaches application SG, breaking connectivity.",
     "invariant_id": null,
     "kind": "change_request"
   }

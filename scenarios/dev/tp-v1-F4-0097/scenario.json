@@ -2,17 +2,17 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F4",
-  "generator_version": "d4a-2",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-SEC-002"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
-      "INV-SEC-002",
+      "INV-SEC-003",
       "INV-FUNC-001"
     ],
     "target_invariant": "INV-SEC-003",
@@ -21,12 +21,44 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"gp2\"",
-      "attribute": "storage_type",
-      "before": null,
+      "after": "false",
+      "attribute": "publicly_accessible",
+      "before": "true",
       "operator": "op_f4_repair_rds_public_open_db_unsafe",
       "step": 1,
       "target_address": "aws_db_instance.prod_postgres_db"
+    },
+    {
+      "after": "[\"0.0.0.0/0\"]",
+      "attribute": "cidr_blocks",
+      "before": null,
+      "operator": "op_f4_repair_rds_public_open_db_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.prod_db_sg"
+    },
+    {
+      "after": "5432",
+      "attribute": "from_port",
+      "before": null,
+      "operator": "op_f4_repair_rds_public_open_db_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.prod_db_sg"
+    },
+    {
+      "after": "\"tcp\"",
+      "attribute": "protocol",
+      "before": null,
+      "operator": "op_f4_repair_rds_public_open_db_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.prod_db_sg"
+    },
+    {
+      "after": "5432",
+      "attribute": "to_port",
+      "before": null,
+      "operator": "op_f4_repair_rds_public_open_db_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.prod_db_sg"
     }
   ],
   "oracle": null,
@@ -75,7 +107,7 @@
   "scenario_id": "tp-v1-F4-0097",
   "seed": 97,
   "source": {
-    "commit_or_version": "d4a-2+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -91,8 +123,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "15d5618a04e6ead5f0784d3112071e9501e962eb605fd798343d2ef9e2db6e8f",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -101,6 +101,7 @@\n   password               = var.db_password\n   publicly_accessible    = true\n   skip_final_snapshot    = true\n+  storage_type           = \"gp2\"\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n }\n",
+      "content_hash": "b7496aa4ea390810177e94f4b957b9cdca8a2226927a9aa22daeed13c48db283",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -78,6 +78,13 @@\n     protocol    = \"-1\"\n     to_port     = 0\n   }\n+\n+  ingress {\n+    cidr_blocks = [\"0.0.0.0/0\"]\n+    from_port   = 5432\n+    protocol    = \"tcp\"\n+    to_port     = 5432\n+  }\n }\n \n resource \"aws_instance\" \"prod_app_server\" {\n@@ -99,7 +106,7 @@\n   identifier             = \"prod-postgres-db-tpl-06\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = true\n+  publicly_accessible    = false\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

@@ -9,7 +9,7 @@ resource "aws_internet_gateway" "prod_igw" {
 }
 
 resource "aws_subnet" "prod_app_subnet" {
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-1b"
   cidr_block        = "10.50.1.0/24"
   vpc_id            = aws_vpc.prod_vpc.id
 }
@@ -82,7 +82,7 @@ resource "aws_security_group" "prod_db_sg" {
 
 resource "aws_instance" "prod_app_server" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.large"
+  instance_type          = "t3.medium"
   subnet_id              = aws_subnet.prod_app_subnet.id
   vpc_security_group_ids = [aws_security_group.prod_app_sg.id]
 }

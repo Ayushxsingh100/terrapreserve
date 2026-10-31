@@ -89,14 +89,13 @@ resource "aws_security_group" "data_secgroup" {
 resource "aws_instance" "web_instance" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.small"
-  monitoring             = true
   subnet_id              = aws_subnet.web_tier.id
   vpc_security_group_ids = [aws_security_group.web_secgroup.id]
 }
 
 resource "aws_db_subnet_group" "data_subnets" {
   name       = "data_subnets-tpl-09"
-  subnet_ids = [aws_subnet.data_tier[0].id, aws_subnet.data_tier[1].id]
+  subnet_ids = [aws_subnet.data_tier[1].id, aws_subnet.data_tier[0].id]
 }
 
 resource "aws_db_instance" "data_instance" {

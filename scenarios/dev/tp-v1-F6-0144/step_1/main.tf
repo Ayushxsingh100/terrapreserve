@@ -98,7 +98,7 @@ resource "aws_db_instance" "main" {
   identifier             = "main-tpl-01"
   instance_class         = "db.t3.micro"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.db.id]
@@ -108,4 +108,11 @@ resource "aws_security_group" "monitoring_sg" {
   description = "Monitoring security group"
   name        = "monitoring_sg-mon"
   vpc_id      = aws_vpc.main.id
+
+  ingress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 5432
+    protocol    = "tcp"
+    to_port     = 5432
+  }
 }

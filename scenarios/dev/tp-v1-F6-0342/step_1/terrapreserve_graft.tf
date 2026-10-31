@@ -83,7 +83,7 @@ resource "aws_instance" "tp_app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.tp_app_subnet.id
-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id, aws_security_group.monitoring_sg.id]
+  vpc_security_group_ids = [aws_security_group.tp_app_sg.id, aws_security_group.tp_monitoring_sg.id]
 }
 
 resource "aws_db_subnet_group" "tp_db_subnet_group" {
@@ -104,8 +104,8 @@ resource "aws_db_instance" "tp_db" {
   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]
 }
 
-resource "aws_security_group" "monitoring_sg" {
+resource "aws_security_group" "tp_monitoring_sg" {
   description = "Monitoring security group"
-  name        = "monitoring_sg-mon"
+  name        = "tp_monitoring_sg-mon"
   vpc_id      = aws_vpc.tp_vpc.id
 }

@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F6",
-  "generator_version": "d4a-2",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -20,12 +20,28 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "true",
-      "attribute": "monitoring",
+      "after": "\"ami-0c55b159cbfafe1f0\"",
+      "attribute": "ami",
       "before": null,
       "operator": "op_f6_add_bastion_host_safe",
       "step": 1,
-      "target_address": "aws_instance.app"
+      "target_address": "aws_instance.bastion"
+    },
+    {
+      "after": "\"t3.nano\"",
+      "attribute": "instance_type",
+      "before": null,
+      "operator": "op_f6_add_bastion_host_safe",
+      "step": 1,
+      "target_address": "aws_instance.bastion"
+    },
+    {
+      "after": "aws_subnet.app.id",
+      "attribute": "subnet_id",
+      "before": null,
+      "operator": "op_f6_add_bastion_host_safe",
+      "step": 1,
+      "target_address": "aws_instance.bastion"
     }
   ],
   "oracle": null,
@@ -72,7 +88,7 @@
   "scenario_id": "tp-v1-F6-0141",
   "seed": 141,
   "source": {
-    "commit_or_version": "d4a-2+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -88,14 +104,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "7078292d4427dc3605f86901625740f63c63c61587ed36ddc2ddff1ca3e429a7",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -82,6 +82,7 @@\n resource \"aws_instance\" \"app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n+  monitoring             = true\n   subnet_id              = aws_subnet.app.id\n   vpc_security_group_ids = [aws_security_group.app.id]\n }\n",
+      "content_hash": "03a30494c6925664723418e473ac403f914a992fec02db524c3516262916288a",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -103,3 +103,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.db.id]\n }\n+\n+resource \"aws_instance\" \"bastion\" {\n+  ami           = \"ami-0c55b159cbfafe1f0\"\n+  instance_type = \"t3.nano\"\n+  subnet_id     = aws_subnet.app.id\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Configures monitoring on bastion resources safely.",
+    "description": "Adds new bastion EC2 instance safely.",
     "invariant_id": null,
     "kind": "change_request"
   },

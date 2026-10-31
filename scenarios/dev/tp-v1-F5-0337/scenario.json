@@ -2,18 +2,19 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4b-2",
+  "generator_version": "d4b-3",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
   "intent": {
-    "breaks": [],
+    "breaks": [
+      "INV-FUNC-001"
+    ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-SEC-003",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": null,
     "target_kind": "change_request"
@@ -30,12 +31,12 @@
       "target_address": "aws_instance.tp_app"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.tp_app_sg.id]",
       "operator": "op_f5_force_replacement_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.tp_db"
+      "target_address": "aws_instance.tp_app"
     }
   ],
   "oracle": null,
@@ -104,14 +105,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "a9385404edbe01996f0d8219ffd071c3372839ee06b905df1ac764371e45996e",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -80,7 +80,7 @@\n }\n \n resource \"aws_instance\" \"tp_app\" {\n-  ami                    = \"ami-0c55b159cbfafe1f0\"\n+  ami                    = \"ami-0d5eff06f840b45e9\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n@@ -98,7 +98,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
+      "content_hash": "7019ef7ce0131cd13e20480c1b2b7baf97dd80ea0cf5363164cd4571883b88a5",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -80,10 +80,10 @@\n }\n \n resource \"aws_instance\" \"tp_app\" {\n-  ami                    = \"ami-0c55b159cbfafe1f0\"\n+  ami                    = \"ami-0d5eff06f840b45e9\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Forces resource replacement with unsafe public DB side-effect.",
+    "description": "Forces resource replacement but detaches application SG, breaking connectivity.",
     "invariant_id": null,
     "kind": "change_request"
   }

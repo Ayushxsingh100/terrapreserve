@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F6",
-  "generator_version": "d4b-2",
+  "generator_version": "d4b-3",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -17,11 +17,12 @@
     }
   ],
   "intent": {
-    "breaks": [],
+    "breaks": [
+      "INV-SEC-002"
+    ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
-      "INV-SEC-002",
       "INV-SEC-003",
       "INV-FUNC-001"
     ],
@@ -37,15 +38,15 @@
       "before": null,
       "operator": "op_f6_add_monitoring_sg_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.monitoring_sg"
+      "target_address": "aws_security_group.tp_monitoring_sg"
     },
     {
-      "after": "\"monitoring_sg-mon\"",
+      "after": "\"tp_monitoring_sg-mon\"",
       "attribute": "name",
       "before": null,
       "operator": "op_f6_add_monitoring_sg_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.monitoring_sg"
+      "target_address": "aws_security_group.tp_monitoring_sg"
     },
     {
       "after": "aws_vpc.tp_vpc.id",
@@ -53,10 +54,10 @@
       "before": null,
       "operator": "op_f6_add_monitoring_sg_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.monitoring_sg"
+      "target_address": "aws_security_group.tp_monitoring_sg"
     },
     {
-      "after": "[aws_security_group.tp_app_sg.id, aws_security_group.monitoring_sg.id]",
+      "after": "[aws_security_group.tp_app_sg.id, aws_security_group.tp_monitoring_sg.id]",
       "attribute": "vpc_security_group_ids",
       "before": "[aws_security_group.tp_app_sg.id]",
       "operator": "op_f6_add_monitoring_sg_unsafe",
@@ -64,12 +65,36 @@
       "target_address": "aws_instance.tp_app"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "[\"0.0.0.0/0\"]",
+      "attribute": "cidr_blocks",
+      "before": null,
       "operator": "op_f6_add_monitoring_sg_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.tp_db"
+      "target_address": "aws_security_group.tp_monitoring_sg"
+    },
+    {
+      "after": "5432",
+      "attribute": "from_port",
+      "before": null,
+      "operator": "op_f6_add_monitoring_sg_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_monitoring_sg"
+    },
+    {
+      "after": "\"tcp\"",
+      "attribute": "protocol",
+      "before": null,
+      "operator": "op_f6_add_monitoring_sg_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_monitoring_sg"
+    },
+    {
+      "after": "5432",
+      "attribute": "to_port",
+      "before": null,
+      "operator": "op_f6_add_monitoring_sg_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_monitoring_sg"
     }
   ],
   "oracle": null,
@@ -138,14 +163,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "73d91d4666fe4db6e6587a75b0b3b8b5056f3799f0e1d19b28ecb092ee21d269",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = [aws_security_group.tp_app_sg.id, aws_security_group.monitoring_sg.id]\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n@@ -98,8 +98,14 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"monitoring_sg\" {\n+  description = \"Monitoring security group\"\n+  name        = \"monitoring_sg-mon\"\n+  vpc_id      = aws_vpc.tp_vpc.id\n+}\n",
+      "content_hash": "922999c077304a7ff24fca3c7caf3763e116b2bd501159a13da656ddc5674f76",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = [aws_security_group.tp_app_sg.id, aws_security_group.tp_monitoring_sg.id]\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n@@ -103,3 +103,16 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"tp_monitoring_sg\" {\n+  description = \"Monitoring security group\"\n+  name        = \"tp_monitoring_sg-mon\"\n+  vpc_id      = aws_vpc.tp_vpc.id\n+\n+  ingress {\n+    cidr_blocks = [\"0.0.0.0/0\"]\n+    from_port   = 5432\n+    protocol    = \"tcp\"\n+    to_port     = 5432\n+  }\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Adds monitoring security group with unsafe public DB side-effect.",
+    "description": "Adds monitoring security group open on 5432, breaking INV-SEC-002.",
     "invariant_id": null,
     "kind": "change_request"
   }
