@@ -62,12 +62,12 @@ resource "aws_security_group" "app" {
 }
 
 resource "aws_security_group" "db" {
-  description = "DB 5432 repaired"
+  description = "Database security group for tpl-08"
   name        = "db-tpl-08"
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
     from_port   = 5432
     protocol    = "tcp"
     to_port     = 5432
@@ -107,8 +107,17 @@ resource "aws_db_instance" "main" {
   identifier             = "main-tpl-08"
   instance_class         = "db.t3.micro"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.db.id]
+}
+
+resource "aws_security_group_rule" "app_ingress_ssh" {
+  cidr_blocks       = ["0.0.0.0/0"]
+  from_port         = 22
+  protocol          = "tcp"
+  security_group_id = aws_security_group.app.id
+  to_port           = 22
+  type              = "ingress"
 }

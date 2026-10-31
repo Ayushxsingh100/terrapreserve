@@ -90,7 +90,6 @@ resource "aws_security_group" "sg_db" {
 resource "aws_instance" "ec2_app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.small"
-  monitoring             = true
   subnet_id              = aws_subnet.sub_app.id
   vpc_security_group_ids = [aws_security_group.sg_app.id]
 }
@@ -107,8 +106,28 @@ resource "aws_db_instance" "rds_postgres" {
   identifier             = "rds-postgres-tpl-02"
   instance_class         = "db.t3.small"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.sg_db.id]
+}
+
+resource "aws_instance" "bastion" {
+  ami                    = "ami-0c55b159cbfafe1f0"
+  instance_type          = "t3.nano"
+  subnet_id              = aws_subnet.sub_app.id
+  vpc_security_group_ids = [aws_security_group.bastion_sg.id]
+}
+
+resource "aws_security_group" "bastion_sg" {
+  description = "Bastion security group"
+  name        = "bastion-sg"
+  vpc_id      = aws_vpc.vpc_main.id
+
+  ingress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 22
+    protocol    = "tcp"
+    to_port     = 22
+  }
 }

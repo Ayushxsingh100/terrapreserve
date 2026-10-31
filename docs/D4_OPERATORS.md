@@ -92,16 +92,16 @@ Refactors configuration structure (`moved` blocks, inline vs separate rule resou
 ### Operators:
 - **`op_f5_restructure_moved`**
   - *Safe*: Renames a resource (e.g. `aws_subnet.app` -> `aws_subnet.application`) and emits corresponding `moved { from = ... to = ... }` block.
-  - *Unsafe*: Renames resource without `moved` block and drops association or drops rules (triggers unintended recreation/loss).
+  - *Unsafe*: Renames resource with `moved` block and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 - **`op_f5_inline_to_separate_sg_rules`**
   - *Safe*: Converts inline `ingress`/`egress` blocks of a security group into standalone `aws_security_group_rule` resources, preserving all ports, protocols, and sources.
-  - *Unsafe*: Converts to standalone rules but drops the 5432 app SG rule or opens port 22 to `0.0.0.0/0`.
+  - *Unsafe*: Converts to standalone rules and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 - **`op_f5_count_each`**
   - *Safe*: Restructures `aws_instance` with `count` meta-argument (adding or removing `count = 1`), preserving resource references and protected invariants.
-  - *Unsafe*: Restructures `count` meta-argument on `aws_instance` but carries an unsafe side-effect setting `aws_db_instance.publicly_accessible = true` (breaks `INV-SEC-003`).
+  - *Unsafe*: Restructures `count` meta-argument on `aws_instance` and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 - **`op_f5_force_replacement`**
-  - *Safe*: Changes an attribute requiring resource replacement (e.g. DB engine minor version or instance AMI) with semantics intact.
-  - *Unsafe*: Force-replacement resets a security group or re-provisions DB with `publicly_accessible = true`.
+  - *Safe*: Changes an attribute requiring resource replacement (e.g. instance AMI) with semantics intact.
+  - *Unsafe*: Force-replacement updates AMI and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 
 ---
 
@@ -126,14 +126,14 @@ Edits a central hub resource (VPC, shared route table, default security group) a
 
 ### Operators:
 - **`op_f7_shared_route_table_edit`**
-  - *Safe*: Adds an internal route (e.g. to a VPC peering connection or S3 prefix list) to the shared route table.
-  - *Unsafe*: Removes or misconfigures the default route or associations needed for communication.
+  - *Safe*: Toggles core VPC DNS support (`enable_dns_support = false`).
+  - *Unsafe*: Toggles core VPC DNS support and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 - **`op_f7_vpc_cidr_expansion`**
-  - *Safe*: Adds a secondary CIDR block or edits VPC attributes cleanly without affecting existing subnets.
-  - *Unsafe*: Alters VPC settings or default security group ingress, introducing public 22/5432 rules.
+  - *Safe*: Toggles core VPC DNS hostnames (`enable_dns_hostnames = false`).
+  - *Unsafe*: Toggles core VPC DNS hostnames and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 - **`op_f7_shared_sg_egress_tighten`**
-  - *Safe*: Restricts outbound traffic on app SG to specific CIDRs/ports while maintaining DB 5432 access.
-  - *Unsafe*: Restricts egress completely, blocking EC2 from reaching RDS on 5432 (breaks `INV-FUNC-001`).
+  - *Safe*: Restricts outbound traffic on app SG to specific CIDRs (`10.0.0.0/8`) while maintaining DB 5432 access.
+  - *Unsafe*: Restricts outbound traffic and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 
 ---
 
@@ -142,12 +142,63 @@ Multi-step patch sequences (2 to 4 steps) composing remediation steps. Unsafe va
 
 ### Operators:
 - **`op_f8_twostep_repair`** (2 steps)
-  - *Safe*: Step 1 resizes instance / tags; Step 2 repairs public SSH target.
-  - *Unsafe*: Step 1 repairs public SSH target; Step 2 breaks EC2->RDS rule (`INV-FUNC-001`).
+  - *Safe*: Step 1 resizes instance; Step 2 repairs public SSH target.
+  - *Unsafe*: Step 1 resizes instance; Step 2 repairs public SSH target and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`.
 - **`op_f8_threestep_refactor_repair`** (3 steps)
-  - *Safe*: Step 1 converts inline SG to separate rules; Step 2 repairs target; Step 3 cleans tags.
-  - *Unsafe*: Step 1 converts SG; Step 2 introduces regression (opens 5432 to world); Step 3 attempts cleanup but regression remains.
+  - *Safe*: Step 1 resizes instance; Step 2 expands DB storage; Step 3 repairs SSH target.
+  - *Unsafe*: Step 1 resizes instance; Step 2 introduces regression by expanding DB storage and detaching application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`; Step 3 repairs SSH.
 - **`op_f8_fourstep_maintenance`** (4 steps)
-  - *Safe*: 4 distinct steps: Step 1 (unrelated), Step 2 (restructure), Step 3 (repair), Step 4 (verification tags).
-  - *Unsafe*: Middle step (Step 2 or 3) damages invariant (e.g. sets `publicly_accessible = true`).
+  - *Safe*: 4 distinct steps: Step 1 (resize), Step 2 (storage expand), Step 3 (VPC DNS toggle), Step 4 (repair SSH).
+  - *Unsafe*: Middle step (Step 3) toggles VPC DNS hostnames and detaches application security group (`vpc_security_group_ids = []`), breaking `INV-FUNC-001`; Step 4 repairs SSH.
+
+---
+
+## Real-World Tier: Graft Rules and Operators (D4b-03, D4b-04, D4b-05)
+
+### 1. Graft Architecture for Host Modules (D4b-03)
+When a real-world host module is used as base state, its validated files are included verbatim (with top-level `terraform` and `provider` blocks removed via `hcl_lex.remove_top_level_blocks`, plus `terrapreserve_versions.tf`).
+The benchmark functional and security invariants require an EC2 -> RDS core. This core is synthesized as separate files:
+- `terrapreserve_graft.tf`
+- `terrapreserve_graft_variables.tf`
+
+**Graft Naming & Clash Rules:**
+1. Every resource, data source, local, output, and variable name declared in graft files is strictly prefixed with `tp_` (e.g. `aws_instance.tp_app`, `aws_db_instance.tp_db`, `var.tp_db_password`).
+2. Clash check: before grafting, all identifiers in the host module (resources, variables, locals, outputs, modules) are checked against the graft identifiers. Any overlap is a fatal error (`GraftClashError`), never an auto-rename.
+3. The graft core is standalone in v1 (see Open Row 1) and does not attach to host networking.
+4. Host files are never mutated; `grafted: true` is recorded in scenario metadata.
+
+### 2. Operators on Host Modules (D4b-04)
+Host scenarios reuse the 50 D4a operators directly. Operators act solely upon the graft model in `terrapreserve_graft.tf`. Host files are never modified, ensuring mutation records remain 100% truthful and verified.
+
+### 3. Span-Edit Operators for Native Modules (D4b-05)
+Natives (un-grafted real-world modules and derived natives) contain real, non-canonical HCL. Operators cannot use the generative model and instead perform strict, byte-exact span edits:
+
+**Preconditions:**
+- Target block and attribute exist and are parsed by `hcl_lex`.
+- Attribute value is a literal (string or number), not an interpolation, heredoc, or dynamic block.
+- Block does not use `count` or `for_each`.
+- If preconditions fail, the operator does not apply and the module is not used for that cell.
+
+**Native Operators:**
+- **`op_native_f1_resize_safe` / `op_native_f1_resize_unsafe`** (Family F1)
+  - Preconditions: `aws_instance.*` exists with literal `instance_type`.
+  - Safe: Changes `instance_type` (e.g. `"t3.micro"` -> `"t3.small"`). Mutation record: 1 row.
+  - Unsafe: Changes `instance_type` AND mutates `aws_db_instance.*` `publicly_accessible` span to `true` (breaks `INV-SEC-003`).
+- **`op_native_f2_narrow_ssh_safe` / `op_native_f2_widen_ssh_unsafe`** (Family F2)
+  - Preconditions: Target SG rule or inline ingress on port 22 exists.
+  - Safe: Replaces CIDR span `"0.0.0.0/0"` with a private CIDR `"10.0.0.0/8"`.
+  - Unsafe: Replaces CIDR span with `"0.0.0.0/0"` or widens scope (fails repair).
+- **`op_native_f4_repair_ssh_safe` / `op_native_f4_repair_ssh_break_db_unsafe`** (Family F4)
+  - Preconditions: Ingress on port 22 and port 5432 rule exist.
+  - Safe: Repairs SSH rule only (replaces `"0.0.0.0/0"` with `"10.0.0.0/8"`).
+  - Unsafe: Repairs SSH rule AND widens port 5432 ingress to `"0.0.0.0/0"` (breaks `INV-SEC-002`).
+- **`op_native_f6_create_locked_sg_safe` / `op_native_f6_create_open_sg_unsafe`** (Family F6)
+  - Preconditions: Host has valid VPC and CIDR.
+  - Safe: Adds a separate file `terrapreserve_aux_sg.tf` creating an auxiliary locked-down SG (port 443 only).
+  - Unsafe: Adds `terrapreserve_aux_sg.tf` creating an SG open to `0.0.0.0/0` on port 22 (breaks `INV-SEC-001`).
+- **`op_native_f8_twostep_safe` / `op_native_f8_twostep_unsafe`** (Family F8)
+  - Preconditions: Module supports F1 and F2 preconditions.
+  - Safe: Step 1 executes F1 span edit; Step 2 executes F2 safe repair.
+  - Unsafe: Step 1 executes F2 repair; Step 2 modifies database configuration to `publicly_accessible = true`.
+
 

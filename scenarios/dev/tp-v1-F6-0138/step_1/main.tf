@@ -84,7 +84,6 @@ resource "aws_security_group" "db" {
 resource "aws_instance" "app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.nano"
-  monitoring             = true
   subnet_id              = aws_subnet.app.id
   vpc_security_group_ids = [aws_security_group.app.id]
 }
@@ -105,4 +104,10 @@ resource "aws_db_instance" "main" {
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.db.id]
+}
+
+resource "aws_instance" "bastion" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t3.nano"
+  subnet_id     = aws_subnet.app.id
 }

@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "main.tf": "8787b54444e206a8dbc8ff13d3ffb7db5db3fa2ffa51da4f56a89a5c8ae80f93"
+ },
+ "commit_sha": "48dadfd5b6ad6a2fe2966f4b32de69cb5439d170",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "CC0-1.0",
+ "licence_upstream_sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+ "module_id": 467496,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-467496",
+ "repo_full_name": "zeemshomelab/gitops-argocd-web",
+ "repo_id": 599208748,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

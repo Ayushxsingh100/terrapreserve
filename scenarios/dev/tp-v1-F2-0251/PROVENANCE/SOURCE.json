@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "main.tf": "ca943af9c77ec05a8ad1a3e450c8a0462748b3c1a81248e4122c98b2c83ad7a8",
+  "outputs.tf": "d98451a6ddd0c2b04714978bcfcbb555fac9103f0d483a1a5eeedd7d74c8732f",
+  "security-groups.tf": "796d0fc2188d5e9b981f4204fe62ab732ca3c1ada5ea0698c974c2b26d650f7c",
+  "variables.tf": "b958fdf06655ba037c343734a41ffde0e28f647daa62ae592c6d26faa75774c0"
+ },
+ "commit_sha": "1e92365f96bfe7b15b0cfbde5c5c2a71e7561fed",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "286a25e20d931106b9194d40b6795969d05331f0c1601575be251e245cdfe30a",
+ "module_id": 348050,
+ "module_path": "Terraform/AWS/Core/network",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-348050",
+ "repo_full_name": "ctxis/DynamicLabs",
+ "repo_id": 284706231,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

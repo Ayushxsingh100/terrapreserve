@@ -2,18 +2,18 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F4",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": "INV-SEC-001",
     "target_kind": "repair"
@@ -29,12 +29,12 @@
       "target_address": "aws_security_group_rule.app_ssh_public"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.app.id]",
       "operator": "op_f4_repair_ssh_break_db_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.main"
+      "target_address": "aws_instance.app"
     }
   ],
   "oracle": null,
@@ -81,7 +81,7 @@
   "scenario_id": "tp-v1-F4-0092",
   "seed": 92,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -97,8 +97,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "b45fcceec212e073660794226ec4d302b9258760626a98737d3416289c3b5f2c",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -41,7 +41,7 @@\n }\n \n resource \"aws_security_group_rule\" \"app_ssh_public\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 22\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.app.id\n@@ -107,7 +107,7 @@\n   identifier             = \"main-tpl-01\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.db.id]\n",
+      "content_hash": "b005aaa8dd42d2bf7c2cb63cdc206b81f7e7d2cdacfc71dbba6485bb195b13b5",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -41,7 +41,7 @@\n }\n \n resource \"aws_security_group_rule\" \"app_ssh_public\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 22\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.app.id\n@@ -92,7 +92,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.app.id\n-  vpc_security_group_ids = [aws_security_group.app.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"main\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

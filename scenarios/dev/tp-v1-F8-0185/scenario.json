@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F8",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -44,9 +44,9 @@
       "target_address": "aws_vpc.network"
     },
     {
-      "after": "\"Four-step maintenance completed\"",
-      "attribute": "description",
-      "before": "\"Application security group for tpl-03\"",
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f8_fourstep_maintenance_safe",
       "step": 4,
       "target_address": "aws_security_group.web_secgroup"
@@ -98,7 +98,7 @@
   "scenario_id": "tp-v1-F8-0185",
   "seed": 185,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -132,8 +132,8 @@
       "terraform_dir": "step_3"
     },
     {
-      "content_hash": "58576ccae0bdd6a261bc6c43845a7083cfa7f208e9ad93575a75f5299615dec0",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -55,7 +55,7 @@\n }\n \n resource \"aws_security_group\" \"web_secgroup\" {\n-  description = \"Application security group for tpl-03\"\n+  description = \"Four-step maintenance completed\"\n   name        = \"web_secgroup-tpl-03\"\n   vpc_id      = aws_vpc.network.id\n \n",
+      "content_hash": "145dcd30d3dd772bcefc598d64d285a98b3be77c8630386bcbdab89c2c47d48f",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -60,7 +60,7 @@\n   vpc_id      = aws_vpc.network.id\n \n   ingress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 22\n     protocol    = \"tcp\"\n     to_port     = 22\n",
       "step": 4,
       "terraform_dir": "step_4"
     }

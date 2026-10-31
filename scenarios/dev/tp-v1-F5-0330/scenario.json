@@ -1,0 +1,119 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F5",
+  "generator_version": "d4b-3",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [],
+  "intent": {
+    "breaks": [
+      "INV-FUNC-001"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 445018,
+  "mutation_record": [
+    {
+      "after": "\"ami-0d5eff06f840b45e9\"",
+      "attribute": "ami",
+      "before": "\"ami-0c55b159cbfafe1f0\"",
+      "operator": "op_f5_force_replacement_unsafe",
+      "step": 1,
+      "target_address": "aws_instance.tp_app"
+    },
+    {
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.tp_app_sg.id]",
+      "operator": "op_f5_force_replacement_unsafe",
+      "step": 1,
+      "target_address": "aws_instance.tp_app"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000545447328",
+    "module_id": 445018,
+    "pool_id": "terrads-host-445018"
+  },
+  "pool_id": "terrads-host-445018",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F5-0330",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 330,
+  "source": {
+    "commit_or_version": "c179196c4a63323b5574aeb20053bec317f82e0e",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000545447328",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "2cff1ddef57f23f2a45bc3d1dd97a1da61a4c5c2b0124bf4fcf2d7169d3efef6",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "cde7ca8521d6fc7feb95ccd88262cef57a3b6086e3d55e47dc86a79971b651fa",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -80,10 +80,10 @@\n }\n \n resource \"aws_instance\" \"tp_app\" {\n-  ami                    = \"ami-0c55b159cbfafe1f0\"\n+  ami                    = \"ami-0d5eff06f840b45e9\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Forces resource replacement but detaches application SG, breaking connectivity.",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

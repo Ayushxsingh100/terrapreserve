@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -20,12 +20,12 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"t3.medium\"",
-      "attribute": "instance_type",
-      "before": "\"t3.small\"",
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f7_shared_sg_egress_tighten_safe",
       "step": 1,
-      "target_address": "aws_instance.web_instance"
+      "target_address": "aws_security_group_rule.data_secgroup_egress"
     }
   ],
   "oracle": null,
@@ -72,7 +72,7 @@
   "scenario_id": "tp-v1-F7-0165",
   "seed": 165,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -88,14 +88,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "55c2d7bf0ce80c3abb3afb20b4e0d0537f9235f75f071bb0aa81aa1e6292cfa7",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -88,7 +88,7 @@\n \n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.small\"\n+  instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.web_tier.id\n   vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n }\n",
+      "content_hash": "59aacae0e5754c95b2922db2178897c4cf370bc4b0fbe07d63d398a885a8873e",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -57,7 +57,7 @@\n }\n \n resource \"aws_security_group_rule\" \"data_secgroup_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.data_secgroup.id\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates core resources safely.",
+    "description": "Tightens egress on shared security group safely.",
     "invariant_id": null,
     "kind": "change_request"
   },

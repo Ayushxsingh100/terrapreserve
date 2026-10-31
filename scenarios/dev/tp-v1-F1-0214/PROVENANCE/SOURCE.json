@@ -1,0 +1,26 @@
+{
+ "archive_sha256": {
+  "main.tf": "8c35124a8db353d664ee17979e1de2dfe5cb1d885e24107a929cc579950de7fa",
+  "outputs.tf": "ae5be03583620fdf6827b96eaf2e1a3cffa97cb4a5eef06f115444f13713bcd3",
+  "security_group.tf": "2db68eedf78afb430e14655571c65557760a25229df218b1170e1eb11bbb7038",
+  "variables.tf": "0dda2357873cd374c9de8bccc319e11d172568b8d405d7425fe4246572f19d2b",
+  "versions.tf": "17b469397cb910ba514495d2a633f988ed22e456a2342a0a02597db217e62472"
+ },
+ "commit_sha": "8dc7c26e73ed7897d7ef07f95360e2116cff3113",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "71d17c212bc4a5fc650b4247d0fe323ef3ca7b709536aecb303f350f79eb0ba7",
+ "module_id": 286434,
+ "module_path": "rds-replica",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-286434",
+ "repo_full_name": "skyscrapers/terraform-rds",
+ "repo_id": 71997470,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

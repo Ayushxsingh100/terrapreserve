@@ -1,0 +1,23 @@
+{
+ "archive_sha256": {
+  "providers.tf": "8e142ceff57363e6cfe4dbdce8d3e5d045bbe5dd3dd350015529683286a7ad30",
+  "security_grp_rule.tf": "f665ae9b16190f1b0a3b02abde18f5940537019ac856c412e9f9dd029db1b146"
+ },
+ "commit_sha": "262d21c3d9c745687ad22366017f3a4da32cfaf8",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "69407d44860cad9584a7e318245f8f6f8ca2d97f94dede2c1ed3e01f5654e41a",
+ "module_id": 410997,
+ "module_path": "sg_rule_v_1.0(hard.coded)",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-410997",
+ "repo_full_name": "jaswinderkour1608/terraform_security_grp_rule",
+ "repo_id": 465065121,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

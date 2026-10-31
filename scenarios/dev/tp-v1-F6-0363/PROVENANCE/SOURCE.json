@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "dfc116373000745499137e894c741e9c484af35b60d5ddebc8737df31019065e"
+ },
+ "commit_sha": "5ff4bbac8abd87430a6b9184339071a1c0ec6158",
+ "crlf_normalised": [
+  "main.tf"
+ ],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "87fcb3b0e4b762d937eac4eeea2a12a8c158ecdcf8c600492862ec44ae29b5c1",
+ "module_id": 472608,
+ "module_path": "labs/dynamic-blocks",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-472608",
+ "repo_full_name": "omerbsezer/Fast-Terraform",
+ "repo_id": 611289101,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

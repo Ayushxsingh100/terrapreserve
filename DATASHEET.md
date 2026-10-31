@@ -17,7 +17,7 @@ Structure follows Gebru et al., *Datasheets for Datasets* (section headings: Mot
 | Question | Answer |
 |---|---|
 | What do the instances represent? | Labelled scenarios over Terraform configurations. Instance schema: not yet established. |
-| How many instances are there? | Planned: 320 scenarios (160 controlled + 160 real-world). In D4a, the controlled tier is generated: 208 scenarios (160 targets + 48 reserves across 8 families × 2 classes). Dev split (144 scenarios: 112 targets + 32 reserves) is committed under `scenarios/dev/`; test split (64 scenarios: 48 targets + 16 reserves) is withheld outside the repository (`scenarios/test_manifest.json`). Real-world tier (160 scenarios) follows in D4b. |
+| How many instances are there? | Planned: 320 scenarios (160 controlled + 160 real-world) + 96 reserves. In D4b, the complete 416-scenario dataset is generated: 320 benchmark targets (224 dev, 96 test: 160 controlled + 160 real-world) and 96 reserves (64 dev, 32 test: 48 controlled + 48 real-world). Dev split (288 scenarios: 144 controlled + 144 real-world) is committed under `scenarios/dev/`; test split (128 scenarios: 64 controlled + 64 real-world) is withheld outside the repository (`scenarios/test_manifest.json`). Full breakdown in `scenarios/ASSEMBLY.md`. |
 | Is it a sample of a larger set? | Controlled tier: synthetic variations generated from 10 distinct architectural templates sharing the Doc 04 Appendix B topology. Real-world tier: sampled from the TerraDS pool. |
 | What data does each instance contain? | Base state S0, ordered remediation steps (full Terraform directories), step content hashes (SHA-256), unified diffs, intent annotations, and generator-recorded mutation records. Labels and oracle evaluation follow in D5 (ADR-010). |
 | Is there a label or target? | Yes: oracle labels per protected invariant (INV-SEC-001, INV-SEC-002, INV-SEC-003, INV-FUNC-001; D0 amendments A5) and a derived `gt_class` (A7). |
@@ -101,6 +101,36 @@ Measured by `generator/generate.py` on 2026-10-30; records in `scenarios/validat
 - **Mutation verification**: 100% of generated steps verified by structural diff verifier (`generator/diff_verify.py`); 0 unrecorded or fabricated changes.
 - **Deviations**: In Family F5 (restructuring), only `count` meta-argument restructuring is implemented (`op_f5_count_each_safe`, `op_f5_count_each_unsafe`); `for_each` restructuring is not implemented in D4a.
 - **Licencing**: CC-BY-4.0 for scenario definitions; Apache-2.0 notice for reshaped TerraGoat resource vocabulary (`scenarios/NOTICE`).
+
+## Real-World Tier (D4b)
+
+Measured by `generator/realworld/generate_rw.py` on 2026-10-31; records in `scenarios/validate_results.csv`, `scenarios/split_real_world.json`, `scenarios/test_manifest.json`, and `docs/D4B_DECISIONS.md`.
+
+- **Total scenarios generated**: 208 scenarios (160 targets + 48 reserves).
+- **Cells**: 16 cells (8 families F1..F8 × 2 classes safe/unsafe). Each cell contains 13 scenarios (10 targets, 3 reserves).
+- **Real-world composition in numbers**:
+  - **Grafted hosts**: 203 host modules grafted with standalone canonical core (`terrapreserve_graft.tf`, `terrapreserve_graft_variables.tf`) prefixed `tp_`.
+  - **Ungrafted natives**: 5 derived native modules (`290262`, `358849`, `588227`, `613257`, `653852`, un-grafted, database password redacted to `var.db_password`).
+  - **Original natives**: 0 (candidate `631897` failed `terraform validate` during pool qualification and was excluded).
+  - **Native coverage**: The 5 ungrafted derived natives cover exclusively the **Family F1 dev safe split** (`tp-v1-F1-0209` through `tp-v1-F1-0213`). All remaining 203 scenarios are grafted hosts across F1 (unsafe, test) and F2..F8.
+  - Exactly 208 distinct base modules used across 208 scenarios (zero reuse).
+- **Split assignment**: 70/30 split assigned strictly by repository lineage (`scenarios/split_real_world.json`, master seed `20261031`):
+  - `scenarios/split_real_world.json` explicitly lists the test lineages (122 lineages) and dev lineages (285 lineages; ~70.02% dev ratio).
+  - Yields 144 dev scenarios (112 targets + 32 reserves) and 64 test scenarios (48 targets + 16 reserves).
+- **Withholding (D4-01, D0 Decision 9)**: 144 dev scenarios committed under `scenarios/dev/`; 64 test scenarios withheld outside Git in `$TERRAPRESERVE_PRIVATE` (`~/.terrapreserve-private`). The repository carries cryptographic SHA-256 integrity hashes in `scenarios/test_manifest.json` (128 total test entries).
+- **Provenance**: Upstream licence text preserved in `PROVENANCE/LICENSE.upstream` and upstream metadata in `PROVENANCE/SOURCE.json`.
+- **Validation**: All steps validated under Terraform 1.15.8 and `hashicorp/aws` 6.53.0 mirror.
+- **Diff verification**: All graft steps verified by AST diff verifier (`generator/diff_verify.py`); all native steps verified by byte-level span verifier (`generator/realworld/real_diff_verify.py`). Zero unrecorded or fabricated changes.
+- **Limitations & Context**: For host modules, mutations apply to the canonical graft model while the host files provide real-world surrounding context. The graft uses a standalone VPC/network in v1.0.
+
+## Assembly (D4b Step 6)
+
+Full dataset assembly documented in `scenarios/ASSEMBLY.md` and `scenarios/ASSEMBLY.json`:
+- **Grand Total**: 416 scenarios (288 dev, 128 test).
+- **Benchmark Targets**: 320 scenarios (224 dev, 96 test: 160 controlled + 160 real-world).
+- **Reserves**: 96 scenarios (64 dev, 32 test: 48 controlled + 48 real-world).
+- **Lineage audit**: 0 overlapping lineages between dev and test splits across all 416 scenarios.
+- **Fallbacks**: None. Yielded modules fully satisfied the 208 real-world requirement without shortfall.
 
 ## Uses
 

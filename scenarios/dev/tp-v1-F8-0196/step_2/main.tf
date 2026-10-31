@@ -92,7 +92,7 @@ resource "aws_instance" "app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.small"
   subnet_id              = aws_subnet.app.id
-  vpc_security_group_ids = [aws_security_group.app.id]
+  vpc_security_group_ids = []
 }
 
 resource "aws_db_subnet_group" "main" {
@@ -107,7 +107,7 @@ resource "aws_db_instance" "main" {
   identifier             = "main-tpl-01"
   instance_class         = "db.t3.micro"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.db.id]

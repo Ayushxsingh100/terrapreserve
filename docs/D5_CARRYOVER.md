@@ -37,5 +37,15 @@ The generator records an intended class (`intent.class`) and truthful mutation r
 
 ## 4. Real-world tier notice (D4b)
 
-D4a delivers the 160 controlled targets (+ 48 reserves). D4b will deliver the 160 real-world targets (+ 48 reserves) by grafting onto pooled hosts and derived natives. D5 will label both tiers using the unified oracle suite.
+D4b delivers the 160 real-world targets (+ 48 reserves) by grafting onto pooled hosts and derived natives:
+- 208 real-world scenarios generated (144 dev, 64 test) across 16 cells.
+- 203 host modules (grafted with standalone core prefixed `tp_`).
+- 0 original native modules (module `631897` uses variable references for attributes, failing literal-span preconditions).
+- 5 derived native modules (`290262`, `358849`, `574780`, `588227`, `613257`, un-grafted, password redacted; module `653852` uses variable references, failing literal-span preconditions).
+- Scope addresses: each scenario defines `scope_addresses` (for grafts: graft resources; for natives: in-scope EC2, RDS, and SG resources).
+- S0 eligibility screen: native modules were screened to ensure S0 is clean except when an invariant is the scenario's repair target (`s0_screen`).
+- Decisions and Open items:
+  - Open 1 (Graft attachment): Standalone network core used in v1.0.
+  - Open 2 (Invariant scope on real-world modules): D5 oracle evaluates invariants within `scope_addresses`.
+- Total dataset across both tiers: 416 scenarios (320 targets + 96 reserves: 288 dev, 128 test). D5 will label both tiers using the unified oracle suite.
 

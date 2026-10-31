@@ -2,18 +2,18 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": null,
     "target_kind": "change_request"
@@ -29,12 +29,12 @@
       "target_address": "aws_instance.frontend_server"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]",
       "operator": "op_f5_count_each_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.backend_database"
+      "target_address": "aws_instance.frontend_server"
     }
   ],
   "oracle": null,
@@ -81,7 +81,7 @@
   "scenario_id": "tp-v1-F5-0129",
   "seed": 129,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -97,14 +97,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "f26503f0e29883831b1f1e03be30f9abbad21644a7da2829d38e2fa775f08a38",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -81,6 +81,7 @@\n \n resource \"aws_instance\" \"frontend_server\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n+  count                  = 1\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.frontend_subnet.id\n   vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]\n@@ -98,7 +99,7 @@\n   identifier             = \"backend-database-tpl-10\"\n   instance_class         = \"db.t3.nano\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.backend_sg.id]\n",
+      "content_hash": "b8fe1e145229f3cd999f99c88d822d94560386c1e8042df8df7a7e8fa447399e",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -81,9 +81,10 @@\n \n resource \"aws_instance\" \"frontend_server\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n+  count                  = 1\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.frontend_subnet.id\n-  vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"backend_sng\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Restructures count but introduces unsafe public DB side-effect.",
+    "description": "Restructures count but detaches application SG, breaking connectivity.",
     "invariant_id": null,
     "kind": "change_request"
   },

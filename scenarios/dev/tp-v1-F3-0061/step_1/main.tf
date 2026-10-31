@@ -9,7 +9,7 @@ resource "aws_internet_gateway" "gateway" {
 }
 
 resource "aws_subnet" "web_tier" {
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-1b"
   cidr_block        = "10.61.1.0/24"
   vpc_id            = aws_vpc.network.id
 }
@@ -75,7 +75,7 @@ resource "aws_security_group_rule" "web_secgroup_egress" {
 }
 
 resource "aws_security_group" "web_secgroup" {
-  description = "Application security group for tpl-09 (app sg reconfigured)"
+  description = "Application security group for tpl-09"
   name        = "web_secgroup-tpl-09"
   vpc_id      = aws_vpc.network.id
 }

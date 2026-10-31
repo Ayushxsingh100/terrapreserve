@@ -1,0 +1,99 @@
+{
+  "dataset_version": "1.0",
+  "derived": true,
+  "family": "F1",
+  "generator_version": "d4b-3",
+  "grafted": false,
+  "gt_class": null,
+  "host_transform": [],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 588227,
+  "mutation_record": [
+    {
+      "after": "\"t2.small\"",
+      "attribute": "instance_type",
+      "before": "\"t2.micro\"",
+      "operator": "op_native_f1_safe",
+      "step": 1,
+      "target_address": "aws_instance.web_server"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": true,
+    "grafted": false,
+    "kind": "native",
+    "lineage_id": "lin-000893886026",
+    "module_id": 588227,
+    "pool_id": "terrads-derived-588227"
+  },
+  "pool_id": "terrads-derived-588227",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible",
+  "scenario_id": "tp-v1-F1-0212",
+  "scope_addresses": [
+    "aws_db_instance.my_db",
+    "aws_instance.web_server",
+    "aws_security_group.db_sg",
+    "aws_security_group.web_sg"
+  ],
+  "seed": 212,
+  "source": {
+    "commit_or_version": "1bccc36df31b5690067e9f84e1d9bf3700a3bcc1",
+    "grafted": false,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000893886026",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "38c7057c0acbd7fa479ea3f17cb00b84d21fb948a55b58f68209af2ed64dd217",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "400a254fb71d8951812726f1d5cb4c4350cb0c0ab9363dd1892883a788ba5d38",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -123,7 +123,7 @@\n \n resource \"aws_instance\" \"web_server\" {\n   ami                    = \"ami-0e54eba7c51c234f6\" # Specify the AMI to use (Amazon Linux 2)\n-  instance_type          = \"t2.micro\"\n+  instance_type          = \"t2.small\"\n   subnet_id              = aws_subnet.public_subnet_1.id  # Launch in the public subnet\n   vpc_security_group_ids = [aws_security_group.web_sg.id] # Associate the security group\n   tags = {\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Native change request for family F1",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

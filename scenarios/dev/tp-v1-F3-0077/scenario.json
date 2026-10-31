@@ -2,18 +2,18 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": null,
     "target_kind": "change_request"
@@ -21,20 +21,20 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-08 (app sg reconfigured)\"",
-      "attribute": "description",
-      "before": "\"Application security group for tpl-08\"",
-      "operator": "op_f3_app_sg_reassociation_unsafe",
+      "after": "\"us-east-1b\"",
+      "attribute": "availability_zone",
+      "before": "\"us-east-1a\"",
+      "operator": "op_f3_move_ec2_subnet_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.app"
+      "target_address": "aws_subnet.app"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
-      "operator": "op_f3_app_sg_reassociation_unsafe",
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.app.id]",
+      "operator": "op_f3_move_ec2_subnet_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.main"
+      "target_address": "aws_instance.app"
     }
   ],
   "oracle": null,
@@ -83,7 +83,7 @@
   "scenario_id": "tp-v1-F3-0077",
   "seed": 77,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -99,14 +99,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "0e44d6c965035ef4b972bf4c47e128cd834f83f419471f6a5c7a7c4315464885",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -56,7 +56,7 @@\n }\n \n resource \"aws_security_group\" \"app\" {\n-  description = \"Application security group for tpl-08\"\n+  description = \"Application security group for tpl-08 (app sg reconfigured)\"\n   name        = \"app-tpl-08\"\n   vpc_id      = aws_vpc.main.id\n }\n@@ -100,7 +100,7 @@\n   identifier             = \"main-tpl-08\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.db.id]\n",
+      "content_hash": "e4a837612e32c3e99699c4a4919bbfe6a4488a5a03e3689a7d2e556efc3622cf",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -9,7 +9,7 @@\n }\n \n resource \"aws_subnet\" \"app\" {\n-  availability_zone = \"us-east-1a\"\n+  availability_zone = \"us-east-1b\"\n   cidr_block        = \"10.100.1.0/24\"\n   vpc_id            = aws_vpc.main.id\n }\n@@ -85,7 +85,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.nano\"\n   subnet_id              = aws_subnet.app.id\n-  vpc_security_group_ids = [aws_security_group.app.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"main\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Alters dependency routing with unsafe public DB side-effect.",
+    "description": "Updates subnet placement but breaks EC2-to-RDS functional path.",
     "invariant_id": null,
     "kind": "change_request"
   },

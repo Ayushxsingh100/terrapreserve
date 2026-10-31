@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -20,12 +20,84 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-10 (restructured)\"",
-      "attribute": "description",
-      "before": "\"Application security group for tpl-10\"",
+      "after": null,
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f5_inline_to_separate_sg_rules_safe",
       "step": 1,
       "target_address": "aws_security_group.frontend_sg"
+    },
+    {
+      "after": null,
+      "attribute": "from_port",
+      "before": "0",
+      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "step": 1,
+      "target_address": "aws_security_group.frontend_sg"
+    },
+    {
+      "after": null,
+      "attribute": "protocol",
+      "before": "\"-1\"",
+      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "step": 1,
+      "target_address": "aws_security_group.frontend_sg"
+    },
+    {
+      "after": null,
+      "attribute": "to_port",
+      "before": "0",
+      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "step": 1,
+      "target_address": "aws_security_group.frontend_sg"
+    },
+    {
+      "after": "[\"0.0.0.0/0\"]",
+      "attribute": "cidr_blocks",
+      "before": null,
+      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.frontend_sg_egress_0"
+    },
+    {
+      "after": "0",
+      "attribute": "from_port",
+      "before": null,
+      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.frontend_sg_egress_0"
+    },
+    {
+      "after": "\"-1\"",
+      "attribute": "protocol",
+      "before": null,
+      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.frontend_sg_egress_0"
+    },
+    {
+      "after": "aws_security_group.frontend_sg.id",
+      "attribute": "security_group_id",
+      "before": null,
+      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.frontend_sg_egress_0"
+    },
+    {
+      "after": "0",
+      "attribute": "to_port",
+      "before": null,
+      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.frontend_sg_egress_0"
+    },
+    {
+      "after": "\"egress\"",
+      "attribute": "type",
+      "before": null,
+      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.frontend_sg_egress_0"
     }
   ],
   "oracle": null,
@@ -72,7 +144,7 @@
   "scenario_id": "tp-v1-F5-0114",
   "seed": 114,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -88,8 +160,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "4d7725ac355fb8250ac79a58ef9a854f429f4dbdf2db8d7003b5bf772976da20",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -41,7 +41,7 @@\n }\n \n resource \"aws_security_group\" \"frontend_sg\" {\n-  description = \"Application security group for tpl-10\"\n+  description = \"Application security group for tpl-10 (restructured)\"\n   name        = \"frontend_sg-tpl-10\"\n   vpc_id      = aws_vpc.corp_vpc.id\n \n",
+      "content_hash": "79e502b55d5d10362ca3c1f357599a18ff34c751267f136925c7ff2ecf15ec6e",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -44,13 +44,6 @@\n   description = \"Application security group for tpl-10\"\n   name        = \"frontend_sg-tpl-10\"\n   vpc_id      = aws_vpc.corp_vpc.id\n-\n-  egress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n-    from_port   = 0\n-    protocol    = \"-1\"\n-    to_port     = 0\n-  }\n }\n \n resource \"aws_security_group\" \"backend_sg\" {\n@@ -103,3 +96,12 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.backend_sg.id]\n }\n+\n+resource \"aws_security_group_rule\" \"frontend_sg_egress_0\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 0\n+  protocol          = \"-1\"\n+  security_group_id = aws_security_group.frontend_sg.id\n+  to_port           = 0\n+  type              = \"egress\"\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

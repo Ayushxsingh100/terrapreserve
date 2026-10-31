@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "ec2instance.tf": "ec5ea1ec6a1e87a9f31881d334dcf24d57fb3577c27220366e1e536234bd9783",
+  "provider.tf": "178cc431b084dfcce4f3c791c59e95b0820e3b20e0d9f3fa99efbc39734b27ce",
+  "security_group.tf": "e28560476e0b0e56972d571fe7f28a9a362c489e78f553d768231706699d4f68",
+  "variables.tf": "bf41a3774a57be61228356e2b4874c70c4e613fe8254dd9da29de0c3d6b37d12"
+ },
+ "commit_sha": "3c91a34bd93bab6d5f77f3bb07cf71103578d3f3",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "d404becdb149768629601ed4a694ee1801778b63fd2b5531f55850632ad5ddf3",
+ "module_id": 335716,
+ "module_path": "outputs",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-335716",
+ "repo_full_name": "pradeepnnv/terraform-training",
+ "repo_id": 248612047,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "archive_sha256": {
+  "ec2.tf": "27528e0e56fc5b5ac66bfea5736c220992402fdb55cdd84487cc1d90d438e9cf",
+  "variables.tf": "79517d46ac4bb772d927a212a9a6d4167b02e095b68dd78cc59611ede267a565"
+ },
+ "commit_sha": "edc964b18e30c539d036216920563004b67e8eff",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 379348,
+ "module_path": "modules/services/ec2/bat/bat_admin",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-379348",
+ "repo_full_name": "hosinokoe/aws_tf_v3",
+ "repo_id": 381566960,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

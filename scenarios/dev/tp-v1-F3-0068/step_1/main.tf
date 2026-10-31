@@ -9,7 +9,7 @@ resource "aws_internet_gateway" "gateway" {
 }
 
 resource "aws_subnet" "web_tier" {
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-1b"
   cidr_block        = "10.73.1.0/24"
   vpc_id            = aws_vpc.network.id
 }
@@ -55,7 +55,7 @@ resource "aws_security_group_rule" "data_secgroup_egress" {
 }
 
 resource "aws_security_group" "web_secgroup" {
-  description = "Application security group for tpl-03 (app sg reconfigured)"
+  description = "Application security group for tpl-03"
   name        = "web_secgroup-tpl-03"
   vpc_id      = aws_vpc.network.id
 
@@ -77,7 +77,7 @@ resource "aws_instance" "web_instance" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.nano"
   subnet_id              = aws_subnet.web_tier.id
-  vpc_security_group_ids = [aws_security_group.web_secgroup.id]
+  vpc_security_group_ids = []
 }
 
 resource "aws_db_subnet_group" "data_subnets" {
@@ -92,7 +92,7 @@ resource "aws_db_instance" "data_instance" {
   identifier             = "data-instance-tpl-03"
   instance_class         = "db.t3.micro"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.data_secgroup.id]

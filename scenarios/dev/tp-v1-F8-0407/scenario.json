@@ -1,0 +1,161 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F8",
+  "generator_version": "d4b-3",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [],
+  "intent": {
+    "breaks": [
+      "INV-FUNC-001"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003"
+    ],
+    "target_invariant": "INV-SEC-001",
+    "target_kind": "repair"
+  },
+  "labels": null,
+  "module_id": 539678,
+  "mutation_record": [
+    {
+      "after": "\"t3.small\"",
+      "attribute": "instance_type",
+      "before": "\"t3.micro\"",
+      "operator": "op_f8_fourstep_maintenance_unsafe",
+      "step": 1,
+      "target_address": "aws_instance.tp_app"
+    },
+    {
+      "after": "40",
+      "attribute": "allocated_storage",
+      "before": "20",
+      "operator": "op_f8_fourstep_maintenance_unsafe",
+      "step": 2,
+      "target_address": "aws_db_instance.tp_db"
+    },
+    {
+      "after": "false",
+      "attribute": "enable_dns_hostnames",
+      "before": "true",
+      "operator": "op_f8_fourstep_maintenance_unsafe",
+      "step": 3,
+      "target_address": "aws_vpc.tp_vpc"
+    },
+    {
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.tp_app_sg.id]",
+      "operator": "op_f8_fourstep_maintenance_unsafe",
+      "step": 3,
+      "target_address": "aws_instance.tp_app"
+    },
+    {
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f8_fourstep_maintenance_unsafe",
+      "step": 4,
+      "target_address": "aws_security_group_rule.tp_app_ingress_ssh"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000750189620",
+    "module_id": 539678,
+    "pool_id": "terrads-host-539678"
+  },
+  "pool_id": "terrads-host-539678",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F8-0407",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 407,
+  "source": {
+    "commit_or_version": "5dc1c7dc8669cdc5c6de2c605e286c006ecc6ac2",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000750189620",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "5c56856a3f9667a1340823c215ae4a55f4b23f97f6bba199a3677e4cc0bb7cf0",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "a4af4b54ccf8c45d58a1b1bbb6f24dfe664a95489173b156140f7cb7620ff7cf",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,7 +81,7 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    },
+    {
+      "content_hash": "adee3a9e9b1cf1b3856047c64b897ae5fe05f465f4e490caed3f0c73bcd23065",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -92,7 +92,7 @@\n }\n \n resource \"aws_db_instance\" \"tp_db\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 40\n   db_subnet_group_name   = aws_db_subnet_group.tp_db_subnet_group.name\n   engine                 = \"postgres\"\n   identifier             = \"tp-db-instance\"\n",
+      "step": 2,
+      "terraform_dir": "step_2"
+    },
+    {
+      "content_hash": "c61599471dda0f9d27728aed24a24f6a0a881ffbe470286168cca9e857b70be5",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.28.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n",
+      "step": 3,
+      "terraform_dir": "step_3"
+    },
+    {
+      "content_hash": "89ff9cf7c677496a455a902a35d4e64607b5b49c9ca18f81e51f8015a86e5f91",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -53,7 +53,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_ingress_ssh\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 22\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
+      "step": 4,
+      "terraform_dir": "step_4"
+    }
+  ],
+  "target": {
+    "description": "Repair public SSH ingress on port 22",
+    "invariant_id": "INV-SEC-001",
+    "kind": "repair"
+  }
+}

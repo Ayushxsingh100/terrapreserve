@@ -1,0 +1,129 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F3",
+  "generator_version": "d4b-3",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [
+    {
+      "bytes_after": 2166,
+      "bytes_before": 2344,
+      "file": "main.tf",
+      "removed_blocks": [
+        "terraform",
+        "provider"
+      ]
+    }
+  ],
+  "intent": {
+    "breaks": [
+      "INV-FUNC-001"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 374862,
+  "mutation_record": [
+    {
+      "after": "[aws_subnet.tp_db_subnet_2.id, aws_subnet.tp_db_subnet_1.id]",
+      "attribute": "subnet_ids",
+      "before": "[aws_subnet.tp_db_subnet_1.id, aws_subnet.tp_db_subnet_2.id]",
+      "operator": "op_f3_modify_db_subnet_group_unsafe",
+      "step": 1,
+      "target_address": "aws_db_subnet_group.tp_db_subnet_group"
+    },
+    {
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.tp_app_sg.id]",
+      "operator": "op_f3_modify_db_subnet_group_unsafe",
+      "step": 1,
+      "target_address": "aws_instance.tp_app"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000366301182",
+    "module_id": 374862,
+    "pool_id": "terrads-host-374862"
+  },
+  "pool_id": "terrads-host-374862",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F3-0274",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 274,
+  "source": {
+    "commit_or_version": "0bddf632dbbd330bef4dc3873a04df2953c2a91a",
+    "grafted": true,
+    "license": "Apache-2.0",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000366301182",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "d0922d2750b62468cad196a0865f167b954db4157279d4804753981d37ad73a6",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "0dc51e1de4c029c71469f8c708c0c8d65841862071dc8503eb97eb38d95e34cc",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -83,12 +83,12 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n   name       = \"tp-db-subnet-group\"\n-  subnet_ids = [aws_subnet.tp_db_subnet_1.id, aws_subnet.tp_db_subnet_2.id]\n+  subnet_ids = [aws_subnet.tp_db_subnet_2.id, aws_subnet.tp_db_subnet_1.id]\n }\n \n resource \"aws_db_instance\" \"tp_db\" {\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Modifies DB subnet group and detaches application SG, breaking connectivity.",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

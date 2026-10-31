@@ -2,17 +2,17 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F4",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-SEC-001"
     ],
     "class": "unsafe",
     "preserves": [
-      "INV-SEC-001",
       "INV-SEC-002",
+      "INV-SEC-003",
       "INV-FUNC-001"
     ],
     "target_invariant": "INV-SEC-002",
@@ -21,20 +21,44 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"DB 5432 repaired\"",
-      "attribute": "description",
-      "before": "\"Database security group for tpl-02\"",
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f4_repair_db_port_open_ssh_unsafe",
       "step": 1,
       "target_address": "aws_security_group.sg_db"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "[\"0.0.0.0/0\"]",
+      "attribute": "cidr_blocks",
+      "before": null,
       "operator": "op_f4_repair_db_port_open_ssh_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.rds_postgres"
+      "target_address": "aws_security_group.sg_app"
+    },
+    {
+      "after": "22",
+      "attribute": "from_port",
+      "before": null,
+      "operator": "op_f4_repair_db_port_open_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.sg_app"
+    },
+    {
+      "after": "\"tcp\"",
+      "attribute": "protocol",
+      "before": null,
+      "operator": "op_f4_repair_db_port_open_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.sg_app"
+    },
+    {
+      "after": "22",
+      "attribute": "to_port",
+      "before": null,
+      "operator": "op_f4_repair_db_port_open_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.sg_app"
     }
   ],
   "oracle": null,
@@ -81,7 +105,7 @@
   "scenario_id": "tp-v1-F4-0093",
   "seed": 93,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -97,8 +121,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "330f094baf93e4bbbf56cb08fd27192a5ba3f6267a6bfce36922fb697d131965",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -68,7 +68,7 @@\n }\n \n resource \"aws_security_group\" \"sg_db\" {\n-  description = \"Database security group for tpl-02\"\n+  description = \"DB 5432 repaired\"\n   name        = \"sg_db-tpl-02\"\n   vpc_id      = aws_vpc.vpc_main.id\n \n@@ -113,7 +113,7 @@\n   identifier             = \"rds-postgres-tpl-02\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.sg_db.id]\n",
+      "content_hash": "58547cdb777b91b06c063b4993c77e366586af4ad2bdd73feeafdfb6dd00ce7f",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -65,6 +65,13 @@\n     protocol    = \"-1\"\n     to_port     = 0\n   }\n+\n+  ingress {\n+    cidr_blocks = [\"0.0.0.0/0\"]\n+    from_port   = 22\n+    protocol    = \"tcp\"\n+    to_port     = 22\n+  }\n }\n \n resource \"aws_security_group\" \"sg_db\" {\n@@ -73,7 +80,7 @@\n   vpc_id      = aws_vpc.vpc_main.id\n \n   ingress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 5432\n     protocol    = \"tcp\"\n     to_port     = 5432\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

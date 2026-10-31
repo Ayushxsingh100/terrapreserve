@@ -84,7 +84,7 @@ resource "aws_instance" "frontend_server" {
   count                  = 1
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.frontend_subnet.id
-  vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]
+  vpc_security_group_ids = []
 }
 
 resource "aws_db_subnet_group" "backend_sng" {
@@ -99,7 +99,7 @@ resource "aws_db_instance" "backend_database" {
   identifier             = "backend-database-tpl-10"
   instance_class         = "db.t3.nano"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.backend_sg.id]

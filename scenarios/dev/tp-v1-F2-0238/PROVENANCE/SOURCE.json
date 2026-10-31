@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "main.tf": "6396e586ffa13dd96501b5d22972b2b5f5cda8ef62d1ef533dacee4a2fed58f6"
+ },
+ "commit_sha": "ba8c01a7951a78d07ad52f9ae0103c71e67e9494",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 330512,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-330512",
+ "repo_full_name": "kevincloud/terraform-aws-jenkinssg",
+ "repo_id": 233119855,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

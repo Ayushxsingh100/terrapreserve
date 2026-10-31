@@ -2,18 +2,18 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F8",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": "INV-SEC-001",
     "target_kind": "repair"
@@ -45,12 +45,12 @@
       "target_address": "aws_vpc.network"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.web_secgroup.id]",
       "operator": "op_f8_fourstep_maintenance_unsafe",
       "step": 3,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_instance.web_instance"
     },
     {
       "after": "[\"10.0.0.0/8\"]",
@@ -105,7 +105,7 @@
   "scenario_id": "tp-v1-F8-0204",
   "seed": 204,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -133,13 +133,13 @@
       "terraform_dir": "step_2"
     },
     {
-      "content_hash": "9df39d14617e105acee4bf28aa5ea144c753dc6b76b3e9889a53912f131827d6",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"network\" {\n   cidr_block           = \"10.56.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n@@ -114,7 +114,7 @@\n   identifier             = \"data-instance-tpl-09\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n",
+      "content_hash": "14ccaca42df2205f698c87d2ff97f4c36ad7ea9c4794bbf5f67bcb5f3501a2c6",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"network\" {\n   cidr_block           = \"10.56.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n@@ -99,7 +99,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.web_tier.id\n-  vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"data_subnets\" {\n",
       "step": 3,
       "terraform_dir": "step_3"
     },
     {
-      "content_hash": "a73ac457ba1c3a3d54a278f8edaedf996e74315c8dc331bc52345e41eae1488f",
+      "content_hash": "44215f6c8a14ce496cbc1272e2849582432bb776f8f88c238a738a543b46b58b",
       "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -48,7 +48,7 @@\n }\n \n resource \"aws_security_group_rule\" \"web_secgroup_ssh_public\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 22\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.web_secgroup.id\n",
       "step": 4,
       "terraform_dir": "step_4"

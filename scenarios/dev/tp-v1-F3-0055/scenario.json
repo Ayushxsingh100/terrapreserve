@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -20,12 +20,12 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-03 (app sg reconfigured)\"",
-      "attribute": "description",
-      "before": "\"Application security group for tpl-03\"",
-      "operator": "op_f3_app_sg_reassociation_safe",
+      "after": "\"us-east-1b\"",
+      "attribute": "availability_zone",
+      "before": "\"us-east-1a\"",
+      "operator": "op_f3_move_ec2_subnet_safe",
       "step": 1,
-      "target_address": "aws_security_group.web_secgroup"
+      "target_address": "aws_subnet.web_tier"
     }
   ],
   "oracle": null,
@@ -74,7 +74,7 @@
   "scenario_id": "tp-v1-F3-0055",
   "seed": 55,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -90,14 +90,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "c6ab34eacc2db21caa75c053c33e3d0a96188f5fdba84b22e1ac852910db5835",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -55,7 +55,7 @@\n }\n \n resource \"aws_security_group\" \"web_secgroup\" {\n-  description = \"Application security group for tpl-03\"\n+  description = \"Application security group for tpl-03 (app sg reconfigured)\"\n   name        = \"web_secgroup-tpl-03\"\n   vpc_id      = aws_vpc.network.id\n \n",
+      "content_hash": "3b4c505d2e757ae90716280c8f535eba09dcd79c425a436a76919430fcb4ea92",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -9,7 +9,7 @@\n }\n \n resource \"aws_subnet\" \"web_tier\" {\n-  availability_zone = \"us-east-1a\"\n+  availability_zone = \"us-east-1b\"\n   cidr_block        = \"10.32.1.0/24\"\n   vpc_id            = aws_vpc.network.id\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates application SG metadata safely.",
+    "description": "Updates application subnet placement safely.",
     "invariant_id": null,
     "kind": "change_request"
   },

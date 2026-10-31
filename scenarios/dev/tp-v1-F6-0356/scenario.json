@@ -1,0 +1,151 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F6",
+  "generator_version": "d4b-3",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [],
+  "intent": {
+    "breaks": [
+      "INV-SEC-003"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 470336,
+  "mutation_record": [
+    {
+      "after": "20",
+      "attribute": "allocated_storage",
+      "before": null,
+      "operator": "op_f6_add_read_replica_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.tp_replica"
+    },
+    {
+      "after": "aws_db_subnet_group.tp_db_subnet_group.name",
+      "attribute": "db_subnet_group_name",
+      "before": null,
+      "operator": "op_f6_add_read_replica_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.tp_replica"
+    },
+    {
+      "after": "\"postgres\"",
+      "attribute": "engine",
+      "before": null,
+      "operator": "op_f6_add_read_replica_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.tp_replica"
+    },
+    {
+      "after": "\"tp-replica-db\"",
+      "attribute": "identifier",
+      "before": null,
+      "operator": "op_f6_add_read_replica_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.tp_replica"
+    },
+    {
+      "after": "\"db.t3.micro\"",
+      "attribute": "instance_class",
+      "before": null,
+      "operator": "op_f6_add_read_replica_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.tp_replica"
+    },
+    {
+      "after": "true",
+      "attribute": "publicly_accessible",
+      "before": null,
+      "operator": "op_f6_add_read_replica_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.tp_replica"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000606466601",
+    "module_id": 470336,
+    "pool_id": "terrads-host-470336"
+  },
+  "pool_id": "terrads-host-470336",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F6-0356",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 356,
+  "source": {
+    "commit_or_version": "2a2d1fc056db4defb77b533226bd843014d5af66",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000606466601",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "9f255181f5942ed0a3ed96fb15b325bd9a920eb77712bb9cedd9c76bebf20fc2",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "3165b0e25bd4e10743e3970a841b3cc7ce2f815526bae73f0b3944a678ffa668",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -103,3 +103,12 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_db_instance\" \"tp_replica\" {\n+  allocated_storage    = 20\n+  db_subnet_group_name = aws_db_subnet_group.tp_db_subnet_group.name\n+  engine               = \"postgres\"\n+  identifier           = \"tp-replica-db\"\n+  instance_class       = \"db.t3.micro\"\n+  publicly_accessible  = true\n+}\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Adds new read-replica RDS instance with publicly_accessible=true, breaking INV-SEC-003.",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

@@ -16,7 +16,14 @@ Ground-truth evaluation is deferred to the independent oracle in D5 (ADR-010); t
 - **`seed.py`**: Deterministic master seed (`20261031`), template shuffle for 70/30 dev/test split assignment, and per-scenario PRNG.
 - **`writer.py`**: Scenario writer producing canonical sorted JSON, computing SHA-256 step directory hashes, and generating unified diffs. Strictly enforces split withholding by refusing to write test-split scenarios to the repository.
 - **`generate.py`**: Pipeline driver generating the 208 controlled tier scenarios (160 targets + 48 reserves) and validating every step under Terraform 1.15.8 and `hashicorp/aws` 6.53.0.
-- **`VERSION.py`**: Generator version tag (`d4a-1`).
+- **`realworld/`**: Package for real-world tier generation (D4b):
+  - `graft.py`: Graft builder neutralizing host modules and synthesizing standalone benchmark cores prefixed `tp_`.
+  - `span_edit.py`: Precondition-guarded lexical span editor for real (non-canonical) native HCL files.
+  - `real_diff_verify.py`: Whole-file and lexical diff verifier confirming exact mutation spans and zero unrecorded edits.
+  - `screen.py`: S0 lexical eligibility screen checking for insecure open ingress on ports 22/5432 and publicly accessible RDS.
+  - `plan.py`: Deterministic 208-scenario plan assigner prioritizing natives and derived natives over hosts.
+  - `generate_rw.py`: Real-world tier pipeline driver generating and validating all 208 real-world scenarios.
+- **`VERSION.py`**: Generator version tag (`d4a-1` for controlled tier, `d4b-1` for real-world tier).
 
 ## Independence
 

@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "c132deb4ade9fdd834c00df4f381e33db5f27c905b38cdf0ba5f16c17ea18d0e",
+  "outputs.tf": "0eb0af9b43bb263651cdc2d0f76fa14aeba6b1bf7564c6911fd36063340b590a",
+  "variables.tf": "3fb081c92883d2a4b207264d9ce4fb9f00229055c715a225bd074c4d31960f5c"
+ },
+ "commit_sha": "f780ece9e0fab6cba4a20d89cad6b33b0aee767c",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 376971,
+ "module_path": "powerhouse/app/modules/vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-376971",
+ "repo_full_name": "akhan4u/ecs-assessment",
+ "repo_id": 373209616,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

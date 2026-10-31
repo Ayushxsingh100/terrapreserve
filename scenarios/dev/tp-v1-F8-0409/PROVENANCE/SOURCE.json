@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "deefe571dcafd43cd73e1bed4422a44c6f8dd15808624733f5b2f1ade09ec7a6",
+  "outputs.tf": "d38eccbdf6cc07d87c9032c1605833cfcf964425fc1ffe5753d42e16678ba566",
+  "variables.tf": "581912c8cefc80077959b716a42e26edf4c87ed8b152bb11a63594d2254ed6a5"
+ },
+ "commit_sha": "6f6b92f9095aea0ccf2719906963f77ed0d879da",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "12c60a42ee23c1a7afc9db088d428a472c60f7a4c73f7250661aa76d2fac7826",
+ "module_id": 544513,
+ "module_path": "terraform-with-modules/modules/sg",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-544513",
+ "repo_full_name": "gunn3r71/xpe-ec2-instance-iac-tf",
+ "repo_id": 762068763,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

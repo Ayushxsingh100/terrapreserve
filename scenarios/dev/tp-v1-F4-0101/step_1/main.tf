@@ -41,12 +41,12 @@ resource "aws_route_table_association" "assoc_app" {
 }
 
 resource "aws_security_group" "frontend_sg" {
-  description = "SSH repaired"
+  description = "Application security group for tpl-10"
   name        = "frontend_sg-tpl-10"
   vpc_id      = aws_vpc.corp_vpc.id
 
   ingress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
     from_port   = 22
     protocol    = "tcp"
     to_port     = 22
@@ -90,7 +90,7 @@ resource "aws_instance" "frontend_server" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.frontend_subnet.id
-  vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]
+  vpc_security_group_ids = []
 }
 
 resource "aws_db_subnet_group" "backend_sng" {
@@ -105,7 +105,7 @@ resource "aws_db_instance" "backend_database" {
   identifier             = "backend-database-tpl-10"
   instance_class         = "db.t3.nano"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.backend_sg.id]

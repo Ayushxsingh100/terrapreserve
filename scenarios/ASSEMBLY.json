@@ -1,0 +1,460 @@
+{
+  "cells": {
+    "F1_safe": {
+      "class": "safe",
+      "dev_total": 18,
+      "family": "F1",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F1_unsafe": {
+      "class": "unsafe",
+      "dev_total": 18,
+      "family": "F1",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F2_safe": {
+      "class": "safe",
+      "dev_total": 18,
+      "family": "F2",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F2_unsafe": {
+      "class": "unsafe",
+      "dev_total": 18,
+      "family": "F2",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F3_safe": {
+      "class": "safe",
+      "dev_total": 18,
+      "family": "F3",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F3_unsafe": {
+      "class": "unsafe",
+      "dev_total": 18,
+      "family": "F3",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F4_safe": {
+      "class": "safe",
+      "dev_total": 18,
+      "family": "F4",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F4_unsafe": {
+      "class": "unsafe",
+      "dev_total": 18,
+      "family": "F4",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F5_safe": {
+      "class": "safe",
+      "dev_total": 18,
+      "family": "F5",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F5_unsafe": {
+      "class": "unsafe",
+      "dev_total": 18,
+      "family": "F5",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F6_safe": {
+      "class": "safe",
+      "dev_total": 18,
+      "family": "F6",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F6_unsafe": {
+      "class": "unsafe",
+      "dev_total": 18,
+      "family": "F6",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F7_safe": {
+      "class": "safe",
+      "dev_total": 18,
+      "family": "F7",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F7_unsafe": {
+      "class": "unsafe",
+      "dev_total": 18,
+      "family": "F7",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F8_safe": {
+      "class": "safe",
+      "dev_total": 18,
+      "family": "F8",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    },
+    "F8_unsafe": {
+      "class": "unsafe",
+      "dev_total": 18,
+      "family": "F8",
+      "reserves": {
+        "controlled": 3,
+        "dev": 4,
+        "real_world": 3,
+        "test": 2,
+        "total": 6
+      },
+      "targets": {
+        "controlled": 10,
+        "dev": 14,
+        "real_world": 10,
+        "test": 6,
+        "total": 20
+      },
+      "test_total": 8,
+      "total": 26
+    }
+  },
+  "controlled": {
+    "dev": 144,
+    "reserves": 48,
+    "targets": 160,
+    "test": 64,
+    "total": 208
+  },
+  "dataset_version": "1.0",
+  "families": {
+    "F1": {
+      "dev": 36,
+      "reserves": 12,
+      "safe": 26,
+      "targets": 40,
+      "test": 16,
+      "total": 52,
+      "unsafe": 26
+    },
+    "F2": {
+      "dev": 36,
+      "reserves": 12,
+      "safe": 26,
+      "targets": 40,
+      "test": 16,
+      "total": 52,
+      "unsafe": 26
+    },
+    "F3": {
+      "dev": 36,
+      "reserves": 12,
+      "safe": 26,
+      "targets": 40,
+      "test": 16,
+      "total": 52,
+      "unsafe": 26
+    },
+    "F4": {
+      "dev": 36,
+      "reserves": 12,
+      "safe": 26,
+      "targets": 40,
+      "test": 16,
+      "total": 52,
+      "unsafe": 26
+    },
+    "F5": {
+      "dev": 36,
+      "reserves": 12,
+      "safe": 26,
+      "targets": 40,
+      "test": 16,
+      "total": 52,
+      "unsafe": 26
+    },
+    "F6": {
+      "dev": 36,
+      "reserves": 12,
+      "safe": 26,
+      "targets": 40,
+      "test": 16,
+      "total": 52,
+      "unsafe": 26
+    },
+    "F7": {
+      "dev": 36,
+      "reserves": 12,
+      "safe": 26,
+      "targets": 40,
+      "test": 16,
+      "total": 52,
+      "unsafe": 26
+    },
+    "F8": {
+      "dev": 36,
+      "reserves": 12,
+      "safe": 26,
+      "targets": 40,
+      "test": 16,
+      "total": 52,
+      "unsafe": 26
+    }
+  },
+  "lineage_audit": {
+    "dev_lineages_count": 151,
+    "leakage_count": 0,
+    "leaked_lineages": [],
+    "test_lineages_count": 67
+  },
+  "real_world": {
+    "composition": {
+      "derived_natives": 5,
+      "hosts": 203,
+      "original_natives": 0,
+      "unique_modules": 208
+    },
+    "dev": 144,
+    "reserves": 48,
+    "targets": 160,
+    "test": 64,
+    "total": 208
+  },
+  "reserves": {
+    "controlled": 48,
+    "dev": 64,
+    "real_world": 48,
+    "test": 32,
+    "total": 96
+  },
+  "splits": {
+    "dev_total": 288,
+    "test_total": 128
+  },
+  "targets": {
+    "controlled": 160,
+    "dev": 224,
+    "real_world": 160,
+    "test": 96,
+    "total": 320
+  },
+  "total_scenarios": 416
+}

@@ -2,18 +2,18 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": null,
     "target_kind": "change_request"
@@ -21,20 +21,20 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"t3.large\"",
-      "attribute": "instance_type",
-      "before": "\"t3.medium\"",
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f7_shared_sg_egress_tighten_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.prod_app_sg"
+    },
+    {
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.prod_app_sg.id]",
       "operator": "op_f7_shared_sg_egress_tighten_unsafe",
       "step": 1,
       "target_address": "aws_instance.prod_app_server"
-    },
-    {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
-      "operator": "op_f7_shared_sg_egress_tighten_unsafe",
-      "step": 1,
-      "target_address": "aws_db_instance.prod_postgres_db"
     }
   ],
   "oracle": null,
@@ -83,7 +83,7 @@
   "scenario_id": "tp-v1-F7-0175",
   "seed": 175,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -99,14 +99,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "1eff257a485c9ee8b250b09e29b13045f69fbe5b3e6df13c2a8e4c8ed90d0ef4",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -82,7 +82,7 @@\n \n resource \"aws_instance\" \"prod_app_server\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.medium\"\n+  instance_type          = \"t3.large\"\n   subnet_id              = aws_subnet.prod_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.prod_app_sg.id]\n }\n@@ -99,7 +99,7 @@\n   identifier             = \"prod-postgres-db-tpl-06\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n",
+      "content_hash": "2a4ea0faadd03b293158701c9bde9d00fd8bea85df336d6088c04da95ae9125a",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -53,7 +53,7 @@\n   vpc_id      = aws_vpc.prod_vpc.id\n \n   egress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 0\n     protocol    = \"-1\"\n     to_port     = 0\n@@ -84,7 +84,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.prod_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.prod_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"prod_db_sng\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates core resources with unsafe public DB side-effect.",
+    "description": "Tightens egress but detaches application SG, breaking connectivity.",
     "invariant_id": null,
     "kind": "change_request"
   },

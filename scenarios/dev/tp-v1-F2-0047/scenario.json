@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F2",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -21,9 +21,9 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Database security group for tpl-08 - secure\"",
-      "attribute": "description",
-      "before": "\"Database security group for tpl-08\"",
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f2_repair_db_ingress_unsafe",
       "step": 1,
       "target_address": "aws_security_group.db"
@@ -75,7 +75,7 @@
   "scenario_id": "tp-v1-F2-0047",
   "seed": 47,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -91,8 +91,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "6cb2ba6d2c0b0bc653ce6a69a8345ff41b0121ef5c61a862f906d20bf79635e7",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -62,7 +62,7 @@\n }\n \n resource \"aws_security_group\" \"db\" {\n-  description = \"Database security group for tpl-08\"\n+  description = \"Database security group for tpl-08 - secure\"\n   name        = \"db-tpl-08\"\n   vpc_id      = aws_vpc.main.id\n \n",
+      "content_hash": "0ef855acab55202ba52fa1f5255346b34c93bd6b386df5e22efad8f39ead4cfc",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -67,7 +67,7 @@\n   vpc_id      = aws_vpc.main.id\n \n   ingress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 5432\n     protocol    = \"tcp\"\n     to_port     = 5432\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

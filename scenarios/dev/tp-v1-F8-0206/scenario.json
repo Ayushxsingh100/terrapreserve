@@ -2,18 +2,18 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F8",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-3",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": "INV-SEC-001",
     "target_kind": "repair"
@@ -37,17 +37,17 @@
       "target_address": "aws_db_instance.prod_postgres_db"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "[]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.prod_app_sg.id]",
       "operator": "op_f8_threestep_refactor_repair_unsafe",
       "step": 2,
-      "target_address": "aws_db_instance.prod_postgres_db"
+      "target_address": "aws_instance.prod_app_server"
     },
     {
-      "after": "\"Three-step repair completed\"",
-      "attribute": "description",
-      "before": "\"Application security group for tpl-06\"",
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f8_threestep_refactor_repair_unsafe",
       "step": 3,
       "target_address": "aws_security_group.prod_app_sg"
@@ -99,7 +99,7 @@
   "scenario_id": "tp-v1-F8-0206",
   "seed": 206,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-3+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -121,14 +121,14 @@
       "terraform_dir": "step_1"
     },
     {
-      "content_hash": "f87ed07f73f6bbbafe1135569763dd1ed8c73b35032f3bb1d53f1d2528c3ebf0",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -100,13 +100,13 @@\n }\n \n resource \"aws_db_instance\" \"prod_postgres_db\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.prod_db_sng.name\n   engine                 = \"postgres\"\n   identifier             = \"prod-postgres-db-tpl-06\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n",
+      "content_hash": "1918ab67101bb50b1c78183391727c2b35b42d4e670757d923760eedf8fe3b3e",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -91,7 +91,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.large\"\n   subnet_id              = aws_subnet.prod_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.prod_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"prod_db_sng\" {\n@@ -100,7 +100,7 @@\n }\n \n resource \"aws_db_instance\" \"prod_postgres_db\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.prod_db_sng.name\n   engine                 = \"postgres\"\n   identifier             = \"prod-postgres-db-tpl-06\"\n",
       "step": 2,
       "terraform_dir": "step_2"
     },
     {
-      "content_hash": "a09470e21dd5f97238c1ca0ce4cf4eceb955ca15a2e8e5a5e8db8fb359c4cf58",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -48,7 +48,7 @@\n }\n \n resource \"aws_security_group\" \"prod_app_sg\" {\n-  description = \"Application security group for tpl-06\"\n+  description = \"Three-step repair completed\"\n   name        = \"prod_app_sg-tpl-06\"\n   vpc_id      = aws_vpc.prod_vpc.id\n \n",
+      "content_hash": "05bbd1f9b64554ba64e228e82c60f02dae24be9d4414c9d5f1e1b789feb97026",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -53,7 +53,7 @@\n   vpc_id      = aws_vpc.prod_vpc.id\n \n   ingress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 22\n     protocol    = \"tcp\"\n     to_port     = 22\n",
       "step": 3,
       "terraform_dir": "step_3"
     }

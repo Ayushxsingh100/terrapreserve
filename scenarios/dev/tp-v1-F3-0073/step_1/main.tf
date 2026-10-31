@@ -84,14 +84,13 @@ resource "aws_security_group" "db" {
 resource "aws_instance" "app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.nano"
-  monitoring             = true
   subnet_id              = aws_subnet.app.id
-  vpc_security_group_ids = [aws_security_group.app.id]
+  vpc_security_group_ids = []
 }
 
 resource "aws_db_subnet_group" "main" {
   name       = "main-tpl-08"
-  subnet_ids = [aws_subnet.db_1.id, aws_subnet.db_2.id, aws_subnet.db_3.id]
+  subnet_ids = [aws_subnet.db_3.id, aws_subnet.db_2.id, aws_subnet.db_1.id]
 }
 
 resource "aws_db_instance" "main" {
@@ -101,7 +100,7 @@ resource "aws_db_instance" "main" {
   identifier             = "main-tpl-08"
   instance_class         = "db.t3.micro"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.db.id]

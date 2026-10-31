@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "network.tf": "e4b4c7778e26fa3cefdf729e6bf5d2a83a9e667884b98264bf5e281c58bb59e7",
+  "outputs.tf": "bdcf6e2bbaa863966b7734f8e0e93977a48881f33a52e3cd1e85fa65bdcef7f7",
+  "security_groups.tf": "2f8f873f6c79c5e2491f649c52e49d04803f05d0fcc30d10660db0edf8a6ee62",
+  "variables.tf": "6a9191fd3c1f82e2e3418b16dac2592c543653937eec28531e257e5c2483811b"
+ },
+ "commit_sha": "035ba8ef4ee0e671fc98a4a2601d3b10ae29c74c",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "5395baf865736674add8168c867bf08ec46dfd5ba61e121314c0e9c9c59f6198",
+ "module_id": 467559,
+ "module_path": "modules/Network",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-467559",
+ "repo_full_name": "develeap/rds-logs-optimizer",
+ "repo_id": 599315260,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}
