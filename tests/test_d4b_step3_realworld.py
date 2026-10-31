@@ -88,7 +88,11 @@ resource "aws_security_group" "web" {
 
     def test_graft_files_pass_fmt(self) -> None:
         """Emitted graft files pass terraform fmt -check."""
+        import shutil
         import subprocess
+        tf = shutil.which("terraform")
+        if not tf:
+            self.skipTest("terraform binary not available in PATH")
         graft_files = graft.build_graft_files(seed=54321)
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
