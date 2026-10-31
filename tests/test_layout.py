@@ -98,10 +98,11 @@ class TestLayout(unittest.TestCase):
                     self.assertIn(title, text)
 
     def test_fmt_check_is_scoped_to_first_party_directories(self) -> None:
-        """pool/ and scenarios/ hold verbatim third-party text (D3-04, D4b-03); fmt check must not cover them."""
+        """First-party code (validation, controlled tier, and graft files) is format-checked via tools/check_fmt.py."""
         ci = (REPO_ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
-        fmt_lines = [ln.strip() for ln in ci.splitlines() if "terraform fmt" in ln and not ln.strip().startswith("#")]
-        self.assertEqual(fmt_lines, ["- run: terraform fmt -check -recursive validation"])
+        self.assertIn("python tools/check_fmt.py", ci)
+        # CI tests job installs terraform so fmt checks are not skipped
+        self.assertIn("hashicorp/setup-terraform@v4", ci)
 
     def test_terraform_lock_file_is_not_ignored(self) -> None:
         # check-ignore exits 0 if the path is ignored, 1 if it is not.

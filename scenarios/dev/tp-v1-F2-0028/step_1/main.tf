@@ -68,12 +68,12 @@ resource "aws_security_group" "sg_app" {
 }
 
 resource "aws_security_group" "sg_db" {
-  description = "Database security group for tpl-02 - secure"
+  description = "Database security group for tpl-02"
   name        = "sg_db-tpl-02"
   vpc_id      = aws_vpc.vpc_main.id
 
   ingress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
     from_port   = 5432
     protocol    = "tcp"
     to_port     = 5432

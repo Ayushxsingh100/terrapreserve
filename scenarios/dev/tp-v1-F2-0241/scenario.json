@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F2",
-  "generator_version": "d4b-1",
+  "generator_version": "d4b-2",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -31,12 +31,12 @@
   "module_id": 333894,
   "mutation_record": [
     {
-      "after": "\"TerraPreserve database security group - secure\"",
-      "attribute": "description",
-      "before": "\"TerraPreserve database security group\"",
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f2_repair_db_ingress_safe",
       "step": 1,
-      "target_address": "aws_security_group.tp_db_sg"
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
     }
   ],
   "oracle": null,
@@ -105,8 +105,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "409180c8a2cb33acc85fc54221540baa2bad109138942bf730e6ebf3ad7fbe55",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -47,7 +47,7 @@\n }\n \n resource \"aws_security_group\" \"tp_db_sg\" {\n-  description = \"TerraPreserve database security group\"\n+  description = \"TerraPreserve database security group - secure\"\n   name        = \"tp-db-sg\"\n   vpc_id      = aws_vpc.tp_vpc.id\n }\n",
+      "content_hash": "d5244e8fe460c3df8dd2d222bb91d161df8bfdcd873ae3026c707c86352dc156",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -71,7 +71,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 5432\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_db_sg.id\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

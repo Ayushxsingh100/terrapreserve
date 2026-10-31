@@ -298,6 +298,17 @@ def derive_all_candidates(
     stage_dir = work_dir / "stage"
     licence_cache_dir = work_dir / "licence_cache"
 
+    # Load candidates info (commit sha, spdx licence) from sources/terrads/candidates.csv
+    cand_info: dict[int, dict[str, str]] = {}
+    cand_csv = REPO_ROOT / "sources" / "terrads" / "candidates.csv"
+    if cand_csv.is_file():
+        with open(cand_csv, encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                cand_info[int(r["module_id"])] = {
+                    "commit_sha": r.get("repo_commit_sha", "unknown"),
+                    "licence": r.get("licence", "permissive"),
+                }
+
     # 1. Load candidate list from pool/exclusions.csv
     e09_candidates: list[dict[str, str]] = []
     with open(REPO_ROOT / "pool" / "exclusions.csv", encoding="utf-8") as f:
@@ -368,10 +379,15 @@ def derive_all_candidates(
         if lic_file.is_file():
             lic_bytes = lic_file.read_bytes().replace(b"\r\n", b"\n")
 
+        # Upstream licence and commit from candidates.csv
+        cand_meta = cand_info.get(mid, {})
+        commit_sha = cand_meta.get("commit_sha", "unknown")
+        licence_spdx = cand_meta.get("licence", "permissive")
+
         # Run cascade
         code, detail = run_cascade_on_derived(
-            mid, repo_id, repo_full_name, mod_path, "unknown",
-            "permissive", lineage_id, res.derived_files, harness, accepted_lineages,
+            mid, repo_id, repo_full_name, mod_path, commit_sha,
+            licence_spdx, lineage_id, res.derived_files, harness, accepted_lineages,
         )
 
         if code is not None:
@@ -416,6 +432,8 @@ def derive_all_candidates(
             "repo_id": repo_id,
             "repo_full_name": repo_full_name,
             "module_path": mod_path,
+            "commit_sha": commit_sha,
+            "license": licence_spdx,
             "lineage_id": lineage_id,
             "derived": True,
             "derived_from": _sha256("".join(f.read_text(encoding="utf-8", errors="replace") for f in sorted(mod_dir.glob("*.tf")))),
@@ -445,7 +463,8 @@ def derive_all_candidates(
             "repo_id": repo_id,
             "repo_full_name": repo_full_name,
             "module_path": mod_path,
-            "licence_spdx": "permissive",
+            "commit_sha": commit_sha,
+            "licence_spdx": licence_spdx,
             "licence_file": "LICENSE.upstream",
             "lineage_id": lineage_id,
             "files": files_meta,

@@ -55,7 +55,7 @@ resource "aws_security_group_rule" "data_secgroup_egress" {
 }
 
 resource "aws_security_group" "web_secgroup" {
-  description = "Application security group for tpl-03 (app sg reconfigured)"
+  description = "Application security group for tpl-03"
   name        = "web_secgroup-tpl-03"
   vpc_id      = aws_vpc.network.id
 
@@ -75,7 +75,7 @@ resource "aws_security_group" "data_secgroup" {
 
 resource "aws_instance" "web_instance" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.nano"
+  instance_type          = "t3.micro"
   subnet_id              = aws_subnet.web_tier.id
   vpc_security_group_ids = [aws_security_group.web_secgroup.id]
 }

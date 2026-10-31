@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F6",
-  "generator_version": "d4b-1",
+  "generator_version": "d4b-2",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],

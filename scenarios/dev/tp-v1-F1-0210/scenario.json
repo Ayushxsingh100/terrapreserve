@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": true,
   "family": "F1",
-  "generator_version": "d4b-1",
+  "generator_version": "d4b-2",
   "grafted": false,
   "gt_class": null,
   "host_transform": [],
@@ -59,7 +59,7 @@
     }
   ],
   "reserve": false,
-  "s0_screen": "eligible",
+  "s0_screen": "RW-S0: violates INV-SEC-003 in S0 (non-target)",
   "scenario_id": "tp-v1-F1-0210",
   "scope_addresses": [
     "aws_db_instance.mydb",
@@ -67,9 +67,9 @@
   ],
   "seed": 210,
   "source": {
-    "commit_or_version": "unknown",
+    "commit_or_version": "291b6d1c0d1792421a7c2737a41a154c8278d0a3",
     "grafted": false,
-    "license": "permissive",
+    "license": "MIT",
     "origin": "terrads",
     "repo_lineage_id": "lin-000316823064",
     "tier": "real_world"

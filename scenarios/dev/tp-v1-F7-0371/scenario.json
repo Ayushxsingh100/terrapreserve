@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4b-1",
+  "generator_version": "d4b-2",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -47,12 +47,12 @@
   "module_id": 483978,
   "mutation_record": [
     {
-      "after": "\"t3.small\"",
-      "attribute": "instance_type",
-      "before": "\"t3.micro\"",
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f7_shared_sg_egress_tighten_safe",
       "step": 1,
-      "target_address": "aws_instance.tp_app"
+      "target_address": "aws_security_group_rule.tp_app_egress"
     }
   ],
   "oracle": null,
@@ -121,8 +121,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "5a116f79f8ce1b4b3fc73524ad9a71747f33bee229e88b37a6082ec74ae5f5e6",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,7 +81,7 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n",
+      "content_hash": "97b2930c920eb57b8ae9ad92c455a0a8da64434a5955f6433b4ea8524d9009b2",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -62,7 +62,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

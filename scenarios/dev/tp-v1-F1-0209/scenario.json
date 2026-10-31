@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": true,
   "family": "F1",
-  "generator_version": "d4b-1",
+  "generator_version": "d4b-2",
   "grafted": false,
   "gt_class": null,
   "host_transform": [],
@@ -69,9 +69,9 @@
   ],
   "seed": 209,
   "source": {
-    "commit_or_version": "unknown",
+    "commit_or_version": "f97d19e8dfc133e9442759cfbe7669329bcf3347",
     "grafted": false,
-    "license": "permissive",
+    "license": "Apache-2.0",
     "origin": "terrads",
     "repo_lineage_id": "lin-000102797961",
     "tier": "real_world"

@@ -1,6 +1,6 @@
 resource "aws_vpc" "tp_vpc" {
   cidr_block           = "172.28.0.0/16"
-  enable_dns_hostnames = true
+  enable_dns_hostnames = false
   enable_dns_support   = true
 }
 
@@ -41,7 +41,7 @@ resource "aws_route_table_association" "tp_rta_app" {
 }
 
 resource "aws_security_group" "tp_app_sg" {
-  description = "TerraPreserve app security group (central egress gateway)"
+  description = "TerraPreserve app security group"
   name        = "tp-app-sg"
   vpc_id      = aws_vpc.tp_vpc.id
 }

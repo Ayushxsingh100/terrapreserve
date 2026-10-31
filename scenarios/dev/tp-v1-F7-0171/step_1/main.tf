@@ -1,6 +1,6 @@
 resource "aws_vpc" "vpc_main" {
   cidr_block           = "10.58.0.0/16"
-  enable_dns_hostnames = true
+  enable_dns_hostnames = false
   enable_dns_support   = true
 }
 
@@ -55,7 +55,7 @@ resource "aws_route_table_association" "rta_db_2" {
 }
 
 resource "aws_security_group" "sg_app" {
-  description = "Application security group for tpl-02 (central egress gateway)"
+  description = "Application security group for tpl-02"
   name        = "sg_app-tpl-02"
   vpc_id      = aws_vpc.vpc_main.id
 

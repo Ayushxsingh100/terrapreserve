@@ -1,6 +1,6 @@
 resource "aws_vpc" "corp_vpc" {
   cidr_block           = "10.74.0.0/16"
-  enable_dns_hostnames = true
+  enable_dns_hostnames = false
   enable_dns_support   = true
 }
 
@@ -41,7 +41,7 @@ resource "aws_route_table_association" "assoc_app" {
 }
 
 resource "aws_security_group" "frontend_sg" {
-  description = "Application security group for tpl-10 (central egress gateway)"
+  description = "Application security group for tpl-10"
   name        = "frontend_sg-tpl-10"
   vpc_id      = aws_vpc.corp_vpc.id
 

@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-1",
+  "generator_version": "d4b-2",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -22,12 +22,12 @@
   "module_id": 368468,
   "mutation_record": [
     {
-      "after": "\"TerraPreserve app security group (app sg reconfigured)\"",
-      "attribute": "description",
-      "before": "\"TerraPreserve app security group\"",
-      "operator": "op_f3_app_sg_reassociation_safe",
+      "after": "\"t3.small\"",
+      "attribute": "instance_type",
+      "before": "\"t3.micro\"",
+      "operator": "op_f3_move_ec2_subnet_safe",
       "step": 1,
-      "target_address": "aws_security_group.tp_app_sg"
+      "target_address": "aws_instance.tp_app"
     }
   ],
   "oracle": null,
@@ -96,14 +96,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "504e5e50ad4cf6fbaa5d4b4051f476814d7c88533455d8f95168f62a3cf8528c",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -41,7 +41,7 @@\n }\n \n resource \"aws_security_group\" \"tp_app_sg\" {\n-  description = \"TerraPreserve app security group\"\n+  description = \"TerraPreserve app security group (app sg reconfigured)\"\n   name        = \"tp-app-sg\"\n   vpc_id      = aws_vpc.tp_vpc.id\n }\n",
+      "content_hash": "7855e289ee1dca7386fd6c2d026696dab19c2f52b1585d5330722f20bfdfb858",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,7 +81,7 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates application SG metadata safely.",
+    "description": "Modifies EC2 dependency environment safely.",
     "invariant_id": null,
     "kind": "change_request"
   }

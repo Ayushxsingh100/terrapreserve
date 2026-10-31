@@ -55,12 +55,12 @@ resource "aws_route_table_association" "rta_db_2" {
 }
 
 resource "aws_security_group" "sg_app" {
-  description = "Three-step repair completed"
+  description = "Application security group for tpl-02"
   name        = "sg_app-tpl-02"
   vpc_id      = aws_vpc.vpc_main.id
 
   ingress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
     from_port   = 22
     protocol    = "tcp"
     to_port     = 22

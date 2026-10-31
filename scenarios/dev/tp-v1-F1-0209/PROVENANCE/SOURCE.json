@@ -1,7 +1,9 @@
 {
+  "commit_sha": "f97d19e8dfc133e9442759cfbe7669329bcf3347",
   "derived": true,
   "derived_from": "a978c0630dc13135b514f8978529f9a070d5ae6ff762d343182533b623a100f5",
   "kind": "derived_native",
+  "license": "Apache-2.0",
   "lineage_id": "lin-000102797961",
   "modifications": [
     {

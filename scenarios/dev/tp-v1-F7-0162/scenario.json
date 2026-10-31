@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-2",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -20,12 +20,12 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"t3.large\"",
-      "attribute": "instance_type",
-      "before": "\"t3.medium\"",
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f7_shared_sg_egress_tighten_safe",
       "step": 1,
-      "target_address": "aws_instance.prod_app_server"
+      "target_address": "aws_security_group.prod_app_sg"
     }
   ],
   "oracle": null,
@@ -74,7 +74,7 @@
   "scenario_id": "tp-v1-F7-0162",
   "seed": 162,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-2+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -90,8 +90,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "f310d5ee28b91838a809984ccbfd5a3aafc68a9e9b79bf0fcf94118151d145b9",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -82,7 +82,7 @@\n \n resource \"aws_instance\" \"prod_app_server\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.medium\"\n+  instance_type          = \"t3.large\"\n   subnet_id              = aws_subnet.prod_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.prod_app_sg.id]\n }\n",
+      "content_hash": "a55cc3a9c810471257c086dfb02610ba59e2e794949eb1ce682fdceb2a9fc8cb",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -53,7 +53,7 @@\n   vpc_id      = aws_vpc.prod_vpc.id\n \n   egress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 0\n     protocol    = \"-1\"\n     to_port     = 0\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

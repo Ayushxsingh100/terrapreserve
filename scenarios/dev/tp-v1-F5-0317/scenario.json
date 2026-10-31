@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4b-1",
+  "generator_version": "d4b-2",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -22,12 +22,12 @@
   "module_id": 420891,
   "mutation_record": [
     {
-      "after": "\"TerraPreserve app security group (restructured)\"",
-      "attribute": "description",
-      "before": "\"TerraPreserve app security group\"",
-      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "after": "\"ami-0d5eff06f840b45e9\"",
+      "attribute": "ami",
+      "before": "\"ami-0c55b159cbfafe1f0\"",
+      "operator": "op_f5_force_replacement_safe",
       "step": 1,
-      "target_address": "aws_security_group.tp_app_sg"
+      "target_address": "aws_instance.tp_app"
     }
   ],
   "oracle": null,
@@ -96,14 +96,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "b31148eac73cd3666514e393e1b5e40e440d679d58db83a8db1027cb9e32f7fb",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -41,7 +41,7 @@\n }\n \n resource \"aws_security_group\" \"tp_app_sg\" {\n-  description = \"TerraPreserve app security group\"\n+  description = \"TerraPreserve app security group (restructured)\"\n   name        = \"tp-app-sg\"\n   vpc_id      = aws_vpc.tp_vpc.id\n }\n",
+      "content_hash": "0a5ef5917731e2d404541f424988e90931e5529ed81076b238a2d3f914f32809",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -80,7 +80,7 @@\n }\n \n resource \"aws_instance\" \"tp_app\" {\n-  ami                    = \"ami-0c55b159cbfafe1f0\"\n+  ami                    = \"ami-0d5eff06f840b45e9\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Restructures SG rules safely.",
+    "description": "Forces resource replacement via AMI update safely.",
     "invariant_id": null,
     "kind": "change_request"
   }

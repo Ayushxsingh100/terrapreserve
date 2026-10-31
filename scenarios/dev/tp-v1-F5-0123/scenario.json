@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-2",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -21,12 +21,84 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-06 (restructured)\"",
-      "attribute": "description",
-      "before": "\"Application security group for tpl-06\"",
+      "after": null,
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
       "step": 1,
       "target_address": "aws_security_group.prod_app_sg"
+    },
+    {
+      "after": null,
+      "attribute": "from_port",
+      "before": "0",
+      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.prod_app_sg"
+    },
+    {
+      "after": null,
+      "attribute": "protocol",
+      "before": "\"-1\"",
+      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.prod_app_sg"
+    },
+    {
+      "after": null,
+      "attribute": "to_port",
+      "before": "0",
+      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.prod_app_sg"
+    },
+    {
+      "after": "[\"0.0.0.0/0\"]",
+      "attribute": "cidr_blocks",
+      "before": null,
+      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
+    },
+    {
+      "after": "0",
+      "attribute": "from_port",
+      "before": null,
+      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
+    },
+    {
+      "after": "\"-1\"",
+      "attribute": "protocol",
+      "before": null,
+      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
+    },
+    {
+      "after": "aws_security_group.prod_app_sg.id",
+      "attribute": "security_group_id",
+      "before": null,
+      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
+    },
+    {
+      "after": "0",
+      "attribute": "to_port",
+      "before": null,
+      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
+    },
+    {
+      "after": "\"egress\"",
+      "attribute": "type",
+      "before": null,
+      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
     },
     {
       "after": "true",
@@ -83,7 +155,7 @@
   "scenario_id": "tp-v1-F5-0123",
   "seed": 123,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-2+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -99,8 +171,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "7358921d76803069bdc6b4e0ae19654a9f087ebeb51782a09b4c623a882ac748",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -48,7 +48,7 @@\n }\n \n resource \"aws_security_group\" \"prod_app_sg\" {\n-  description = \"Application security group for tpl-06\"\n+  description = \"Application security group for tpl-06 (restructured)\"\n   name        = \"prod_app_sg-tpl-06\"\n   vpc_id      = aws_vpc.prod_vpc.id\n \n@@ -99,7 +99,7 @@\n   identifier             = \"prod-postgres-db-tpl-06\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n",
+      "content_hash": "0e4a74ca7ace0709135674d9c42b7ac4fdcec9355e8969d31055577f088fb606",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -51,13 +51,6 @@\n   description = \"Application security group for tpl-06\"\n   name        = \"prod_app_sg-tpl-06\"\n   vpc_id      = aws_vpc.prod_vpc.id\n-\n-  egress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n-    from_port   = 0\n-    protocol    = \"-1\"\n-    to_port     = 0\n-  }\n }\n \n resource \"aws_security_group\" \"prod_db_sg\" {\n@@ -99,8 +92,17 @@\n   identifier             = \"prod-postgres-db-tpl-06\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n }\n+\n+resource \"aws_security_group_rule\" \"prod_app_sg_egress_0\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 0\n+  protocol          = \"-1\"\n+  security_group_id = aws_security_group.prod_app_sg.id\n+  to_port           = 0\n+  type              = \"egress\"\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

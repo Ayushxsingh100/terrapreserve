@@ -1,7 +1,9 @@
 {
+  "commit_sha": "f30ef08f9bcd973239a14dfa1a6aaa10dce62163",
   "derived": true,
   "derived_from": "7d210bb6479dcc807b84aa429b4e3646ca9244c538d998d042ecb9507dfe35c4",
   "kind": "derived_native",
+  "license": "MIT",
   "lineage_id": "lin-000961020473",
   "modifications": [
     {

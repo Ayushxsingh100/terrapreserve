@@ -38,6 +38,76 @@ class OperatorDef:
 CATALOGUE: list[OperatorDef] = []
 
 
+class OperatorNotApplicable(RuntimeError):
+    """Raised when an operator cannot be applied to a model (target not found / preconditions not met)."""
+
+
+def _repair_ssh(m: HCLModel, name: str, step: int) -> list[MutationRow]:
+    is_safe = "safe" in name
+    # 1. Try separate rule:
+    for addr, res in m.resources.items():
+        if res.type == "aws_security_group_rule" and res.attrs.get("type") == "ingress":
+            to_p = res.attrs.get("to_port")
+            from_p = res.attrs.get("from_port")
+            if (to_p == 22 or from_p == 22) and res.attrs.get("cidr_blocks"):
+                c = res.attrs["cidr_blocks"]
+                cidrs = list(c.items) if hasattr(c, "items") else (list(c) if isinstance(c, (list, tuple)) else [])
+                if "0.0.0.0/0" in cidrs or "::/0" in cidrs:
+                    after_cidr = '["10.0.0.0/8"]' if is_safe else '["::/0"]'
+                    res.set_attr("cidr_blocks", SortedList(["10.0.0.0/8"] if is_safe else ["::/0"]))
+                    return [MutationRow(step=step, operator=name, target_address=addr, attribute="cidr_blocks", before='["0.0.0.0/0"]', after=after_cidr)]
+
+    # 2. Try inline block:
+    for addr, res in m.resources.items():
+        if res.type == "aws_security_group":
+            for b in res.blocks:
+                if b.label == "ingress":
+                    to_p = b.attrs.get("to_port")
+                    from_p = b.attrs.get("from_port")
+                    if (to_p == 22 or from_p == 22) and b.attrs.get("cidr_blocks"):
+                        c = b.attrs["cidr_blocks"]
+                        cidrs = list(c.items) if hasattr(c, "items") else (list(c) if isinstance(c, (list, tuple)) else [])
+                        if "0.0.0.0/0" in cidrs or "::/0" in cidrs:
+                            after_cidr = '["10.0.0.0/8"]' if is_safe else '["::/0"]'
+                            b.attrs["cidr_blocks"] = SortedList(["10.0.0.0/8"] if is_safe else ["::/0"])
+                            return [MutationRow(step=step, operator=name, target_address=addr, attribute="cidr_blocks", before='["0.0.0.0/0"]', after=after_cidr)]
+
+    raise OperatorNotApplicable("No SSH ingress rule (separate or inline) found to repair in model")
+
+
+def _repair_db_ingress(m: HCLModel, name: str, step: int) -> list[MutationRow]:
+    is_safe = "safe" in name
+    # 1. Try separate rule:
+    for addr, res in m.resources.items():
+        if res.type == "aws_security_group_rule" and res.attrs.get("type") == "ingress":
+            to_p = res.attrs.get("to_port")
+            from_p = res.attrs.get("from_port")
+            if (to_p == 5432 or from_p == 5432) and res.attrs.get("cidr_blocks"):
+                c = res.attrs["cidr_blocks"]
+                cidrs = list(c.items) if hasattr(c, "items") else (list(c) if isinstance(c, (list, tuple)) else [])
+                if "0.0.0.0/0" in cidrs or "::/0" in cidrs:
+                    after_cidr = '["10.0.0.0/8"]' if is_safe else '["::/0"]'
+                    res.set_attr("cidr_blocks", SortedList(["10.0.0.0/8"] if is_safe else ["::/0"]))
+                    return [MutationRow(step=step, operator=name, target_address=addr, attribute="cidr_blocks", before='["0.0.0.0/0"]', after=after_cidr)]
+
+    # 2. Try inline block:
+    for addr, res in m.resources.items():
+        if res.type == "aws_security_group":
+            for b in res.blocks:
+                if b.label == "ingress":
+                    to_p = b.attrs.get("to_port")
+                    from_p = b.attrs.get("from_port")
+                    if (to_p == 5432 or from_p == 5432) and b.attrs.get("cidr_blocks"):
+                        c = b.attrs["cidr_blocks"]
+                        cidrs = list(c.items) if hasattr(c, "items") else (list(c) if isinstance(c, (list, tuple)) else [])
+                        if "0.0.0.0/0" in cidrs or "::/0" in cidrs:
+                            after_cidr = '["10.0.0.0/8"]' if is_safe else '["::/0"]'
+                            b.attrs["cidr_blocks"] = SortedList(["10.0.0.0/8"] if is_safe else ["::/0"])
+                            return [MutationRow(step=step, operator=name, target_address=addr, attribute="cidr_blocks", before='["0.0.0.0/0"]', after=after_cidr)]
+
+    raise OperatorNotApplicable("No DB 5432 ingress rule (separate or inline) found to repair in model")
+
+
 def register_op(op: OperatorDef) -> None:
     CATALOGUE.append(op)
 
@@ -209,33 +279,7 @@ register_op(OperatorDef(
 
 def _f2_repair_ssh_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
-    rows: list[MutationRow] = []
-
-    ssh_rule_addr = next((a for a in m1.resources if "ssh" in a and m1.resources[a].attrs.get("to_port") == 22), None)
-    if ssh_rule_addr:
-        rule = m1.resources[ssh_rule_addr]
-        if "safe" in name:
-            rule.set_attr("cidr_blocks", SortedList(["10.0.0.0/8"]))
-            rows.append(MutationRow(
-                step=1, operator=name, target_address=ssh_rule_addr,
-                attribute="cidr_blocks", before='["0.0.0.0/0"]', after='["10.0.0.0/8"]'
-            ))
-        else:
-            rule.set_attr("cidr_blocks", SortedList(["::/0"]))
-            rows.append(MutationRow(
-                step=1, operator=name, target_address=ssh_rule_addr,
-                attribute="cidr_blocks", before='["0.0.0.0/0"]', after='["::/0"]'
-            ))
-    else:
-        sg_addr, sg = _find_app_sg(m1)
-        old_desc = str(sg.attrs.get("description", ""))
-        new_desc = old_desc + " - audited"
-        sg.set_attr("description", new_desc)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{old_desc}"', after=f'"{new_desc}"'
-        ))
-
+    rows = _repair_ssh(m1, name, step=1)
     return [m1], [rows]
 
 
@@ -257,33 +301,7 @@ register_op(OperatorDef(
 
 def _f2_repair_db_ingress_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
-    rows: list[MutationRow] = []
-
-    db_rule_addr = next((a for a in m1.resources if ("public_5432" in a or "5432" in a) and m1.resources[a].attrs.get("cidr_blocks")), None)
-    if db_rule_addr:
-        rule = m1.resources[db_rule_addr]
-        if "safe" in name:
-            rule.set_attr("cidr_blocks", SortedList(["10.0.0.0/8"]))
-            rows.append(MutationRow(
-                step=1, operator=name, target_address=db_rule_addr,
-                attribute="cidr_blocks", before='["0.0.0.0/0"]', after='["10.0.0.0/8"]'
-            ))
-        else:
-            rule.set_attr("cidr_blocks", SortedList(["::/0"]))
-            rows.append(MutationRow(
-                step=1, operator=name, target_address=db_rule_addr,
-                attribute="cidr_blocks", before='["0.0.0.0/0"]', after='["::/0"]'
-            ))
-    else:
-        sg_addr, sg = _find_db_sg(m1)
-        old_desc = str(sg.attrs.get("description", ""))
-        new_desc = old_desc + " - secure"
-        sg.set_attr("description", new_desc)
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{old_desc}"', after=f'"{new_desc}"'
-        ))
-
+    rows = _repair_db_ingress(m1, name, step=1)
     return [m1], [rows]
 
 
@@ -423,14 +441,20 @@ register_op(OperatorDef(
 
 def _f3_route_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
-    sg_addr, sg = _find_app_sg(m1)
-    old_desc = str(sg.attrs.get("description", ""))
-    new_desc = old_desc + " (app sg reconfigured)"
-    sg.set_attr("description", new_desc)
+    addr, ec2 = _find_res(m1, "aws_instance")
+    second_sg = next((a for a in m1.resources if a.startswith("aws_security_group.") and ("extra" in a or "second" in a or "app2" in a or "secondary" in a)), None)
+    if not second_sg:
+        raise OperatorNotApplicable("Model does not have a secondary application security group for reassociation")
+
+    old_sgs = ec2.attrs.get("vpc_security_group_ids")
+    # Emit Ref list
+    new_sgs = [Ref(f"{second_sg}.id")]
+    ec2.set_attr("vpc_security_group_ids", new_sgs)
+
     rows = [
         MutationRow(
-            step=1, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{old_desc}"', after=f'"{new_desc}"'
+            step=1, operator=name, target_address=addr,
+            attribute="vpc_security_group_ids", before=None, after=f"[{second_sg}.id]"
         )
     ]
     if "unsafe" in name:
@@ -465,24 +489,7 @@ register_op(OperatorDef(
 
 def _f4_repair_ssh_break_db_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
-    rows: list[MutationRow] = []
-
-    ssh_rule_addr = next((a for a in m1.resources if "ssh" in a and m1.resources[a].attrs.get("to_port") == 22), None)
-    if ssh_rule_addr:
-        rule = m1.resources[ssh_rule_addr]
-        rule.set_attr("cidr_blocks", SortedList(["10.0.0.0/8"]))
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=ssh_rule_addr,
-            attribute="cidr_blocks", before='["0.0.0.0/0"]', after='["10.0.0.0/8"]'
-        ))
-    else:
-        sg_addr, sg = _find_app_sg(m1)
-        old_desc = str(sg.attrs.get("description", ""))
-        sg.set_attr("description", "SSH repaired")
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{old_desc}"', after='"SSH repaired"'
-        ))
+    rows = _repair_ssh(m1, name, step=1)
 
     if "unsafe" in name:
         db_addr, db = _find_res(m1, "aws_db_instance")
@@ -513,24 +520,7 @@ register_op(OperatorDef(
 
 def _f4_repair_db_port_open_ssh_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
-    rows: list[MutationRow] = []
-
-    db_rule_addr = next((a for a in m1.resources if ("public_5432" in a or "5432" in a) and m1.resources[a].attrs.get("cidr_blocks")), None)
-    if db_rule_addr:
-        rule = m1.resources[db_rule_addr]
-        rule.set_attr("cidr_blocks", SortedList(["10.0.0.0/8"]))
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=db_rule_addr,
-            attribute="cidr_blocks", before='["0.0.0.0/0"]', after='["10.0.0.0/8"]'
-        ))
-    else:
-        sg_addr, sg = _find_db_sg(m1)
-        old_desc = str(sg.attrs.get("description", ""))
-        sg.set_attr("description", "DB 5432 repaired")
-        rows.append(MutationRow(
-            step=1, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{old_desc}"', after='"DB 5432 repaired"'
-        ))
+    rows = _repair_db_ingress(m1, name, step=1)
 
     if "unsafe" in name:
         db_addr, db = _find_res(m1, "aws_db_instance")
@@ -668,17 +658,54 @@ register_op(OperatorDef(
 
 def _f5_rules_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
-    sg_addr, sg = _find_app_sg(m1)
-    old_desc = str(sg.attrs.get("description", ""))
-    new_desc = old_desc + " (restructured)"
-    sg.set_attr("description", new_desc)
+    target_sg = None
+    target_addr = None
+    for addr, res in m1.resources.items():
+        if res.type == "aws_security_group" and len(res.blocks) > 0:
+            target_sg = res
+            target_addr = addr
+            break
+    if not target_sg:
+        raise OperatorNotApplicable("No security group with inline blocks found for inline_to_separate restructuring")
 
-    rows = [
-        MutationRow(
-            step=1, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{old_desc}"', after=f'"{new_desc}"'
-        )
-    ]
+    inline_blocks = list(target_sg.blocks)
+    target_sg.blocks = []
+
+    rows: list[MutationRow] = []
+    # Record attributes removed from target_sg
+    for b in inline_blocks:
+        for k in sorted(b.attrs):
+            val = b.attrs[k]
+            val_str = f'"{val}"' if isinstance(val, str) else (
+                f'["{val.items[0]}"]' if hasattr(val, "items") and len(val.items) == 1 else (
+                    str(val) if not isinstance(val, Ref) else val.expr
+                )
+            )
+            rows.append(MutationRow(
+                step=1, operator=name, target_address=target_addr,
+                attribute=k, before=val_str, after=None
+            ))
+
+    # Add each as a standalone aws_security_group_rule
+    for idx, b in enumerate(inline_blocks):
+        rule_name = f"{target_sg.name}_{b.label}_{idx}"
+        rule_addr = f"aws_security_group_rule.{rule_name}"
+        rule_attrs = dict(b.attrs)
+        rule_attrs["type"] = b.label
+        rule_attrs["security_group_id"] = Ref(f"{target_addr}.id")
+        m1.add(Resource("aws_security_group_rule", rule_name, rule_attrs))
+        for k in sorted(rule_attrs):
+            val = rule_attrs[k]
+            val_str = f'"{val}"' if isinstance(val, str) else (
+                f'["{val.items[0]}"]' if hasattr(val, "items") and len(val.items) == 1 else (
+                    str(val) if not isinstance(val, Ref) else val.expr
+                )
+            )
+            rows.append(MutationRow(
+                step=1, operator=name, target_address=rule_addr,
+                attribute=k, before=None, after=val_str
+            ))
+
     if "unsafe" in name:
         db_addr, db = _find_res(m1, "aws_db_instance")
         db.set_attr("publicly_accessible", True)
@@ -975,14 +1002,14 @@ register_op(OperatorDef(
 
 def _f7_igw_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
-    sg_addr, sg = _find_app_sg(m1)
-    old_desc = str(sg.attrs.get("description", ""))
-    new_desc = old_desc + " (central egress gateway)"
-    sg.set_attr("description", new_desc)
+    addr, vpc = _find_res(m1, "aws_vpc")
+    old_hostnames = str(vpc.attrs.get("enable_dns_hostnames", True)).lower()
+    new_hostnames = "false" if old_hostnames == "true" else "true"
+    vpc.set_attr("enable_dns_hostnames", new_hostnames == "true")
     rows = [
         MutationRow(
-            step=1, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{old_desc}"', after=f'"{new_desc}"'
+            step=1, operator=name, target_address=addr,
+            attribute="enable_dns_hostnames", before=old_hostnames, after=new_hostnames
         )
     ]
     if "unsafe" in name:
@@ -1013,16 +1040,34 @@ register_op(OperatorDef(
 
 def _f7_egress_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[list[HCLModel], list[list[MutationRow]]]:
     m1 = base.copy()
-    addr, ec2 = _find_res(m1, "aws_instance")
-    old_desc = str(ec2.attrs.get("instance_type", "t3.micro"))
-    new_desc = _next_instance_type(old_desc)
-    ec2.set_attr("instance_type", new_desc)
-    rows = [
-        MutationRow(
-            step=1, operator=name, target_address=addr,
-            attribute="instance_type", before=f'"{old_desc}"', after=f'"{new_desc}"'
-        )
-    ]
+    rows: list[MutationRow] = []
+    found = False
+    for addr, res in m1.resources.items():
+        if res.type == "aws_security_group_rule" and res.attrs.get("type") == "egress":
+            res.set_attr("cidr_blocks", SortedList(["10.0.0.0/8"]))
+            rows.append(MutationRow(
+                step=1, operator=name, target_address=addr,
+                attribute="cidr_blocks", before='["0.0.0.0/0"]', after='["10.0.0.0/8"]'
+            ))
+            found = True
+            break
+    if not found:
+        for addr, res in m1.resources.items():
+            if res.type == "aws_security_group":
+                for b in res.blocks:
+                    if b.label == "egress":
+                        b.attrs["cidr_blocks"] = SortedList(["10.0.0.0/8"])
+                        rows.append(MutationRow(
+                            step=1, operator=name, target_address=addr,
+                            attribute="cidr_blocks", before='["0.0.0.0/0"]', after='["10.0.0.0/8"]'
+                        ))
+                        found = True
+                        break
+            if found:
+                break
+    if not found:
+        raise OperatorNotApplicable("No egress rule found on security group to tighten")
+
     if "unsafe" in name:
         db_addr, db = _find_res(m1, "aws_db_instance")
         db.set_attr("publicly_accessible", True)
@@ -1064,23 +1109,7 @@ def _f8_twostep_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[li
 
     # Step 2: Repair SSH rule (or break in unsafe)
     m2 = m1.copy()
-    r2: list[MutationRow] = []
-    ssh_rule_addr = next((a for a in m2.resources if "ssh" in a and m2.resources[a].attrs.get("to_port") == 22), None)
-    if ssh_rule_addr:
-        rule = m2.resources[ssh_rule_addr]
-        rule.set_attr("cidr_blocks", SortedList(["10.0.0.0/8"]))
-        r2.append(MutationRow(
-            step=2, operator=name, target_address=ssh_rule_addr,
-            attribute="cidr_blocks", before='["0.0.0.0/0"]', after='["10.0.0.0/8"]'
-        ))
-    else:
-        sg_addr, sg = _find_app_sg(m2)
-        old_desc = str(sg.attrs.get("description", ""))
-        sg.set_attr("description", "Two-step safe repair")
-        r2.append(MutationRow(
-            step=2, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{old_desc}"', after='"Two-step safe repair"'
-        ))
+    r2 = _repair_ssh(m2, name, step=2)
 
     if "unsafe" in name:
         db_addr, db = _find_res(m2, "aws_db_instance")
@@ -1134,23 +1163,7 @@ def _f8_threestep_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[
 
     # Step 3: Repair SSH
     m3 = m2.copy()
-    r3: list[MutationRow] = []
-    ssh_rule_addr = next((a for a in m3.resources if "ssh" in a and m3.resources[a].attrs.get("to_port") == 22), None)
-    if ssh_rule_addr:
-        rule = m3.resources[ssh_rule_addr]
-        rule.set_attr("cidr_blocks", SortedList(["10.0.0.0/8"]))
-        r3.append(MutationRow(
-            step=3, operator=name, target_address=ssh_rule_addr,
-            attribute="cidr_blocks", before='["0.0.0.0/0"]', after='["10.0.0.0/8"]'
-        ))
-    else:
-        sg_addr, sg = _find_app_sg(m3)
-        old_desc = str(sg.attrs.get("description", ""))
-        sg.set_attr("description", "Three-step repair completed")
-        r3.append(MutationRow(
-            step=3, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{old_desc}"', after='"Three-step repair completed"'
-        ))
+    r3 = _repair_ssh(m3, name, step=3)
 
     return [m1, m2, m3], [r1, r2, r3]
 
@@ -1204,23 +1217,7 @@ def _f8_fourstep_apply(base: HCLModel, rng: random.Random, name: str) -> tuple[l
 
     # Step 4: Repair SSH
     m4 = m3.copy()
-    r4: list[MutationRow] = []
-    ssh_rule_addr = next((a for a in m4.resources if "ssh" in a and m4.resources[a].attrs.get("to_port") == 22), None)
-    if ssh_rule_addr:
-        rule = m4.resources[ssh_rule_addr]
-        rule.set_attr("cidr_blocks", SortedList(["10.0.0.0/8"]))
-        r4.append(MutationRow(
-            step=4, operator=name, target_address=ssh_rule_addr,
-            attribute="cidr_blocks", before='["0.0.0.0/0"]', after='["10.0.0.0/8"]'
-        ))
-    else:
-        sg_addr, sg = _find_app_sg(m4)
-        old_desc = str(sg.attrs.get("description", ""))
-        sg.set_attr("description", "Four-step maintenance completed")
-        r4.append(MutationRow(
-            step=4, operator=name, target_address=sg_addr,
-            attribute="description", before=f'"{old_desc}"', after='"Four-step maintenance completed"'
-        ))
+    r4 = _repair_ssh(m4, name, step=4)
 
     return [m1, m2, m3, m4], [r1, r2, r3, r4]
 

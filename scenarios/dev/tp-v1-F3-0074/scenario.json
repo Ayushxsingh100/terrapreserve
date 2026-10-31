@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-2",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -21,18 +21,18 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-09 (app sg reconfigured)\"",
-      "attribute": "description",
-      "before": "\"Application security group for tpl-09\"",
-      "operator": "op_f3_app_sg_reassociation_unsafe",
+      "after": "\"t3.medium\"",
+      "attribute": "instance_type",
+      "before": "\"t3.small\"",
+      "operator": "op_f3_move_ec2_subnet_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.web_secgroup"
+      "target_address": "aws_instance.web_instance"
     },
     {
       "after": "true",
       "attribute": "publicly_accessible",
       "before": "false",
-      "operator": "op_f3_app_sg_reassociation_unsafe",
+      "operator": "op_f3_move_ec2_subnet_unsafe",
       "step": 1,
       "target_address": "aws_db_instance.data_instance"
     }
@@ -81,7 +81,7 @@
   "scenario_id": "tp-v1-F3-0074",
   "seed": 74,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-2+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -97,14 +97,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "e57bab28c8a2b0fdaeeb6ff665bc044faa8660bfb0b6b61d08efa9ef3f1b9ff5",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -75,7 +75,7 @@\n }\n \n resource \"aws_security_group\" \"web_secgroup\" {\n-  description = \"Application security group for tpl-09\"\n+  description = \"Application security group for tpl-09 (app sg reconfigured)\"\n   name        = \"web_secgroup-tpl-09\"\n   vpc_id      = aws_vpc.network.id\n }\n@@ -105,7 +105,7 @@\n   identifier             = \"data-instance-tpl-09\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n",
+      "content_hash": "48765caca8e4a802fa0bb934aa124464cdc6e1da4e503af92ed3957e5a7708b7",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -88,7 +88,7 @@\n \n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.small\"\n+  instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.web_tier.id\n   vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n }\n@@ -105,7 +105,7 @@\n   identifier             = \"data-instance-tpl-09\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Alters dependency routing with unsafe public DB side-effect.",
+    "description": "Breaks connectivity or security on dependency path.",
     "invariant_id": null,
     "kind": "change_request"
   },

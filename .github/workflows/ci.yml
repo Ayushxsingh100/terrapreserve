@@ -21,6 +21,10 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: 1.15.8
+          terraform_wrapper: false
       - name: Tests (standard library only, no packages installed)
         run: python -m unittest discover -s tests -p "test_*.py" -v
 
@@ -68,9 +72,8 @@ jobs:
           terraform_version: 1.15.8
           terraform_wrapper: false
       - run: terraform version
-      # Scoped to first-party directories (user decision, 30 Oct 2026): pool/ and scenarios/ hold verbatim third-party
-      # text that must not be reformatted (D3-04, D4b-03).
-      - run: terraform fmt -check -recursive validation
+      - name: Format check validation, controlled scenarios, and graft files
+        run: python tools/check_fmt.py
       - name: Init and validate the smoke configuration
         working-directory: validation/smoke
         run: |

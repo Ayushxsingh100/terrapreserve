@@ -166,15 +166,26 @@ from core.verification import verify
         self.assertIn("core.verification", forbidden)
 
     def test_emitted_scenarios_have_no_secrets(self) -> None:
+        """Every emitted dev scenario and derived pool module has zero secret literals."""
+        import sys
+        sys.path.insert(0, str(REPO_ROOT / "sources"))
+        sys.path.insert(0, str(REPO_ROOT / "sources" / "terragoat"))
+        import attribute_inventory
+
         dev_dir = REPO_ROOT / "scenarios" / "dev"
+        derived_dir = REPO_ROOT / "pool" / "terrads" / "derived"
         forbidden_substrings = [
             "supersecret",
             "password123",
             "AKIA",
-            "aws_secret_access_key",
         ]
-        controlled_dirs = [p for p in dev_dir.glob("tp-v1-*") if int(p.name.split("-")[-1]) <= 208]
-        for cdir in controlled_dirs:
+        all_dirs = list(dev_dir.glob("tp-v1-*"))
+        if derived_dir.exists():
+            all_dirs.extend([p for p in derived_dir.iterdir() if p.is_dir()])
+
+        deny_list = {"http_tokens", "http_put_response_hop_limit"}
+
+        for cdir in all_dirs:
             for p in cdir.rglob("*.tf"):
                 text = p.read_text(encoding="utf-8")
                 for sub in forbidden_substrings:
@@ -183,6 +194,15 @@ from core.verification import verify
                         text,
                         f"Forbidden secret literal or credential {sub!r} found in {p}",
                     )
+                # Attribute inventory scan: no credential-named attribute holding a literal
+                attrs = attribute_inventory.matching_attributes(text)
+                flagged, _ = attribute_inventory.split_flagged(attrs)
+                flagged = [a for a in flagged if a.name not in deny_list]
+                self.assertEqual(
+                    flagged,
+                    [],
+                    f"Credential-like attribute holding literal found in {p}: {flagged}",
+                )
 
 
 if __name__ == "__main__":

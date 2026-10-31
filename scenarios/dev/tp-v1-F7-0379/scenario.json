@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4b-1",
+  "generator_version": "d4b-2",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -22,12 +22,12 @@
   "module_id": 493574,
   "mutation_record": [
     {
-      "after": "\"TerraPreserve app security group (central egress gateway)\"",
-      "attribute": "description",
-      "before": "\"TerraPreserve app security group\"",
+      "after": "false",
+      "attribute": "enable_dns_hostnames",
+      "before": "true",
       "operator": "op_f7_vpc_cidr_expansion_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.tp_app_sg"
+      "target_address": "aws_vpc.tp_vpc"
     },
     {
       "after": "true",
@@ -104,8 +104,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "d015ae095e43e5ca9a75b805260ac6c64f7a23625a8ae4005c2ec2cfb819586b",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -41,7 +41,7 @@\n }\n \n resource \"aws_security_group\" \"tp_app_sg\" {\n-  description = \"TerraPreserve app security group\"\n+  description = \"TerraPreserve app security group (central egress gateway)\"\n   name        = \"tp-app-sg\"\n   vpc_id      = aws_vpc.tp_vpc.id\n }\n@@ -98,7 +98,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
+      "content_hash": "6b68f9679594b733a80cf86dddb8dae449b477a51762b98093bfaca00b9c8de3",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.27.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n@@ -98,7 +98,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

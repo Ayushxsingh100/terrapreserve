@@ -104,17 +104,18 @@ Measured by `generator/generate.py` on 2026-10-30; records in `scenarios/validat
 
 ## Real-World Tier (D4b)
 
-Measured by `generator/realworld/generate_rw.py` on 2026-10-30; records in `scenarios/validate_results.csv`, `scenarios/split_real_world.json`, `scenarios/test_manifest.json`, and `docs/D4B_DECISIONS.md`.
+Measured by `generator/realworld/generate_rw.py` on 2026-10-31; records in `scenarios/validate_results.csv`, `scenarios/split_real_world.json`, `scenarios/test_manifest.json`, and `docs/D4B_DECISIONS.md`.
 
 - **Total scenarios generated**: 208 scenarios (160 targets + 48 reserves).
 - **Cells**: 16 cells (8 families F1..F8 × 2 classes safe/unsafe). Each cell contains 13 scenarios (10 targets, 3 reserves).
-- **Module composition**:
-  - 201 host modules grafted with standalone canonical core (`terrapreserve_graft.tf`, `terrapreserve_graft_variables.tf`) prefixed `tp_`.
-  - 1 original native module (`631897`, un-grafted).
-  - 6 derived native modules (`290262`, `358849`, `574780`, `588227`, `613257`, `653852`, un-grafted, database password redacted to `var.db_password`).
+- **Real-world composition in numbers**:
+  - **Grafted hosts**: 203 host modules grafted with standalone canonical core (`terrapreserve_graft.tf`, `terrapreserve_graft_variables.tf`) prefixed `tp_`.
+  - **Ungrafted natives**: 5 derived native modules (`290262`, `358849`, `588227`, `613257`, `653852`, un-grafted, database password redacted to `var.db_password`).
+  - **Original natives**: 0 (candidate `631897` failed `terraform validate` during pool qualification and was excluded).
+  - **Native coverage**: The 5 ungrafted derived natives cover exclusively the **Family F1 dev safe split** (`tp-v1-F1-0209` through `tp-v1-F1-0213`). All remaining 203 scenarios are grafted hosts across F1 (unsafe, test) and F2..F8.
   - Exactly 208 distinct base modules used across 208 scenarios (zero reuse).
 - **Split assignment**: 70/30 split assigned strictly by repository lineage (`scenarios/split_real_world.json`, master seed `20261031`):
-  - 285 dev lineages, 122 test lineages (~70.02% dev ratio).
+  - `scenarios/split_real_world.json` explicitly lists the test lineages (122 lineages) and dev lineages (285 lineages; ~70.02% dev ratio).
   - Yields 144 dev scenarios (112 targets + 32 reserves) and 64 test scenarios (48 targets + 16 reserves).
 - **Withholding (D4-01, D0 Decision 9)**: 144 dev scenarios committed under `scenarios/dev/`; 64 test scenarios withheld outside Git in `$TERRAPRESERVE_PRIVATE` (`~/.terrapreserve-private`). The repository carries cryptographic SHA-256 integrity hashes in `scenarios/test_manifest.json` (128 total test entries).
 - **Provenance**: Upstream licence text preserved in `PROVENANCE/LICENSE.upstream` and upstream metadata in `PROVENANCE/SOURCE.json`.

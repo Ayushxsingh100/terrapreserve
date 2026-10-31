@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F2",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-2",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -21,9 +21,9 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-10 - audited\"",
-      "attribute": "description",
-      "before": "\"Application security group for tpl-10\"",
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f2_repair_ssh_unsafe",
       "step": 1,
       "target_address": "aws_security_group.frontend_sg"
@@ -73,7 +73,7 @@
   "scenario_id": "tp-v1-F2-0049",
   "seed": 49,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-2+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -89,8 +89,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "46468855616bfef6fcc615642ad47a0ee4c285befa18760f16d19f60841f0396",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -41,7 +41,7 @@\n }\n \n resource \"aws_security_group\" \"frontend_sg\" {\n-  description = \"Application security group for tpl-10\"\n+  description = \"Application security group for tpl-10 - audited\"\n   name        = \"frontend_sg-tpl-10\"\n   vpc_id      = aws_vpc.corp_vpc.id\n \n",
+      "content_hash": "31b469eac5fa3fc990a4aa91aa74e12ffbb6d28ca18ab06b0478ca61ac83f5c6",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -46,7 +46,7 @@\n   vpc_id      = aws_vpc.corp_vpc.id\n \n   ingress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 22\n     protocol    = \"tcp\"\n     to_port     = 22\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

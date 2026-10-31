@@ -48,16 +48,9 @@ resource "aws_route_table_association" "prod_rta_db" {
 }
 
 resource "aws_security_group" "prod_app_sg" {
-  description = "Application security group for tpl-06 (restructured)"
+  description = "Application security group for tpl-06"
   name        = "prod_app_sg-tpl-06"
   vpc_id      = aws_vpc.prod_vpc.id
-
-  egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
-  }
 }
 
 resource "aws_security_group" "prod_db_sg" {
@@ -103,4 +96,13 @@ resource "aws_db_instance" "prod_postgres_db" {
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]
+}
+
+resource "aws_security_group_rule" "prod_app_sg_egress_0" {
+  cidr_blocks       = ["0.0.0.0/0"]
+  from_port         = 0
+  protocol          = "-1"
+  security_group_id = aws_security_group.prod_app_sg.id
+  to_port           = 0
+  type              = "egress"
 }

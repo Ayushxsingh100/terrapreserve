@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-1",
+  "generator_version": "d4b-2",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -39,18 +39,18 @@
   "module_id": 376193,
   "mutation_record": [
     {
-      "after": "\"TerraPreserve app security group (app sg reconfigured)\"",
-      "attribute": "description",
-      "before": "\"TerraPreserve app security group\"",
-      "operator": "op_f3_app_sg_reassociation_unsafe",
+      "after": "\"t3.small\"",
+      "attribute": "instance_type",
+      "before": "\"t3.micro\"",
+      "operator": "op_f3_move_ec2_subnet_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.tp_app_sg"
+      "target_address": "aws_instance.tp_app"
     },
     {
       "after": "true",
       "attribute": "publicly_accessible",
       "before": "false",
-      "operator": "op_f3_app_sg_reassociation_unsafe",
+      "operator": "op_f3_move_ec2_subnet_unsafe",
       "step": 1,
       "target_address": "aws_db_instance.tp_db"
     }
@@ -121,14 +121,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "d5a55d38e253ff86ea8fb5bdd0bbcb442d0ab2d21cdd4a7cce7e4d755204abfd",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -41,7 +41,7 @@\n }\n \n resource \"aws_security_group\" \"tp_app_sg\" {\n-  description = \"TerraPreserve app security group\"\n+  description = \"TerraPreserve app security group (app sg reconfigured)\"\n   name        = \"tp-app-sg\"\n   vpc_id      = aws_vpc.tp_vpc.id\n }\n@@ -98,7 +98,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
+      "content_hash": "911c02ba433d562b1075bba639b73ea3267e80867a9674861f107f1f5f4430a9",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,7 +81,7 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n@@ -98,7 +98,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Alters dependency routing with unsafe public DB side-effect.",
+    "description": "Breaks connectivity or security on dependency path.",
     "invariant_id": null,
     "kind": "change_request"
   }

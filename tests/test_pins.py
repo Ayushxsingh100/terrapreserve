@@ -35,7 +35,8 @@ class TestPins(unittest.TestCase):
 
     def test_ci_terraform_version(self) -> None:
         versions = re.findall(r'terraform_version:\s*"?([\d.]+)"?', _read(CI))
-        self.assertEqual(versions, ["1.15.8"])
+        self.assertTrue(versions)
+        self.assertEqual(set(versions), {"1.15.8"})
 
     def test_ci_python_version(self) -> None:
         versions = re.findall(r'python-version:\s*"?([\d.]+)"?', _read(CI))

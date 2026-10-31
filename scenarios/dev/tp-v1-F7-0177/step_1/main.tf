@@ -1,6 +1,6 @@
 resource "aws_vpc" "main" {
   cidr_block           = "10.59.0.0/16"
-  enable_dns_hostnames = true
+  enable_dns_hostnames = false
   enable_dns_support   = true
 }
 
@@ -56,7 +56,7 @@ resource "aws_security_group_rule" "app_egress" {
 }
 
 resource "aws_security_group" "app" {
-  description = "Application security group for tpl-08 (central egress gateway)"
+  description = "Application security group for tpl-08"
   name        = "app-tpl-08"
   vpc_id      = aws_vpc.main.id
 }

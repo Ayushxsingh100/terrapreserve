@@ -47,7 +47,7 @@ resource "aws_security_group" "tp_app_sg" {
 }
 
 resource "aws_security_group" "tp_db_sg" {
-  description = "TerraPreserve database security group - secure"
+  description = "TerraPreserve database security group"
   name        = "tp-db-sg"
   vpc_id      = aws_vpc.tp_vpc.id
 }
@@ -71,7 +71,7 @@ resource "aws_security_group_rule" "tp_app_egress" {
 }
 
 resource "aws_security_group_rule" "tp_db_ingress_postgres" {
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = ["10.0.0.0/8"]
   from_port         = 5432
   protocol          = "tcp"
   security_group_id = aws_security_group.tp_db_sg.id

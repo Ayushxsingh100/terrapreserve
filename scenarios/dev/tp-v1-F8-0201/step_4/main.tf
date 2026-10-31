@@ -48,12 +48,12 @@ resource "aws_route_table_association" "prod_rta_db" {
 }
 
 resource "aws_security_group" "prod_app_sg" {
-  description = "Four-step maintenance completed"
+  description = "Application security group for tpl-06"
   name        = "prod_app_sg-tpl-06"
   vpc_id      = aws_vpc.prod_vpc.id
 
   ingress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
     from_port   = 22
     protocol    = "tcp"
     to_port     = 22

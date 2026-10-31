@@ -36,7 +36,7 @@ import writer
 from realworld import graft, plan as rw_plan, real_diff_verify, screen, span_edit
 
 DATASET_VERSION = "1.0"
-GENERATOR_VERSION = "d4b-1"
+GENERATOR_VERSION = "d4b-2"
 
 PROTECTED_INVARIANTS = [
     {"invariant_id": "INV-SEC-001", "version": "1.0"},
@@ -126,31 +126,53 @@ def generate_real_world_scenario(
         # Validate no clash between host and graft
         graft.validate_no_clash(neutralised_files, seed=global_id)
 
-        # Select D4a operator
+        # Select D4a operator (deterministically finding first applicable)
         cell_ops = [op for op in operators.CATALOGUE if op.family == family and op.variant == cls]
         assert cell_ops, f"No operators found for cell ({family}, {cls})"
-        op = cell_ops[global_id % len(cell_ops)]
+        start_offset = global_id % len(cell_ops)
+        chosen_op = None
+        chosen_models = None
+        chosen_records = None
+        chosen_graft_m0 = None
+        chosen_s0_files = None
 
-        # S0 graft variant
-        s0_variant = "clean"
-        if op.target_invariant == "INV-SEC-001":
-            s0_variant = "sec_001_violated"
-        elif op.target_invariant == "INV-SEC-002":
-            s0_variant = "sec_002_violated"
-        elif op.target_invariant == "INV-SEC-003":
-            s0_variant = "sec_003_violated"
+        for offset in range(len(cell_ops)):
+            cand_op = cell_ops[(start_offset + offset) % len(cell_ops)]
+            s0_variant = "clean"
+            if cand_op.target_invariant == "INV-SEC-001":
+                s0_variant = "sec_001_violated"
+            elif cand_op.target_invariant == "INV-SEC-002":
+                s0_variant = "sec_002_violated"
+            elif cand_op.target_invariant == "INV-SEC-003":
+                s0_variant = "sec_003_violated"
 
-        graft_m0 = graft.build_graft_model(seed=global_id, variant=s0_variant)
-        graft_files0 = graft.build_graft_files(seed=global_id, variant=s0_variant)
+            graft_m0 = graft.build_graft_model(seed=global_id, variant=s0_variant)
+            graft_files0 = graft.build_graft_files(seed=global_id, variant=s0_variant)
 
-        # Build S0 files
-        s0_files = dict(neutralised_files)
-        s0_files["terrapreserve_versions.tf"] = VERSIONS_TF
-        s0_files["terrapreserve_graft.tf"] = graft_files0["terrapreserve_graft.tf"]
-        s0_files["terrapreserve_graft_variables.tf"] = graft_files0["terrapreserve_graft_variables.tf"]
+            s0_f = dict(neutralised_files)
+            s0_f["terrapreserve_versions.tf"] = VERSIONS_TF
+            s0_f["terrapreserve_graft.tf"] = graft_files0["terrapreserve_graft.tf"]
+            s0_f["terrapreserve_graft_variables.tf"] = graft_files0["terrapreserve_graft_variables.tf"]
 
-        # Apply operator to graft model
-        models, mutation_records = op.apply(graft_m0.copy(), rng)
+            try:
+                models, mut_recs = cand_op.apply(graft_m0.copy(), rng)
+                chosen_op = cand_op
+                chosen_models = models
+                chosen_records = mut_recs
+                chosen_graft_m0 = graft_m0
+                chosen_s0_files = s0_f
+                break
+            except operators.OperatorNotApplicable:
+                continue
+
+        if chosen_op is None:
+            raise ValueError(f"No applicable operator for host scenario {scenario_id}")
+
+        op = chosen_op
+        models = chosen_models
+        mutation_records = chosen_records
+        graft_m0 = chosen_graft_m0
+        s0_files = chosen_s0_files
         all_models = [graft_m0] + models
 
         # Build step directories

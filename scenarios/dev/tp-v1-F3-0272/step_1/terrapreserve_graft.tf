@@ -41,7 +41,7 @@ resource "aws_route_table_association" "tp_rta_app" {
 }
 
 resource "aws_security_group" "tp_app_sg" {
-  description = "TerraPreserve app security group (app sg reconfigured)"
+  description = "TerraPreserve app security group"
   name        = "tp-app-sg"
   vpc_id      = aws_vpc.tp_vpc.id
 }
@@ -81,7 +81,7 @@ resource "aws_security_group_rule" "tp_db_ingress_postgres" {
 
 resource "aws_instance" "tp_app" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.micro"
+  instance_type          = "t3.small"
   subnet_id              = aws_subnet.tp_app_subnet.id
   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]
 }

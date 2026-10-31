@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4b-1",
+  "generator_version": "d4b-2",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -22,12 +22,12 @@
   "module_id": 481906,
   "mutation_record": [
     {
-      "after": "\"TerraPreserve app security group (central egress gateway)\"",
-      "attribute": "description",
-      "before": "\"TerraPreserve app security group\"",
+      "after": "false",
+      "attribute": "enable_dns_hostnames",
+      "before": "true",
       "operator": "op_f7_vpc_cidr_expansion_safe",
       "step": 1,
-      "target_address": "aws_security_group.tp_app_sg"
+      "target_address": "aws_vpc.tp_vpc"
     }
   ],
   "oracle": null,
@@ -96,8 +96,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "37f54101273977be0671c58fc7932b3406c59b09c214015ee95e33d9d890b544",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -41,7 +41,7 @@\n }\n \n resource \"aws_security_group\" \"tp_app_sg\" {\n-  description = \"TerraPreserve app security group\"\n+  description = \"TerraPreserve app security group (central egress gateway)\"\n   name        = \"tp-app-sg\"\n   vpc_id      = aws_vpc.tp_vpc.id\n }\n",
+      "content_hash": "f56919cb940d52bf78ace2bbb7de046fd492f26c8c7418d2d039f24b1adb5b9b",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.19.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n",
       "step": 1,
       "terraform_dir": "step_1"
     }

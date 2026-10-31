@@ -46,7 +46,7 @@ resource "aws_security_group_rule" "data_secgroup_from_app_5432" {
 }
 
 resource "aws_security_group_rule" "data_secgroup_egress" {
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = ["10.0.0.0/8"]
   from_port         = 0
   protocol          = "-1"
   security_group_id = aws_security_group.data_secgroup.id
@@ -75,7 +75,7 @@ resource "aws_security_group" "data_secgroup" {
 
 resource "aws_instance" "web_instance" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.micro"
+  instance_type          = "t3.nano"
   subnet_id              = aws_subnet.web_tier.id
   vpc_security_group_ids = [aws_security_group.web_secgroup.id]
 }
