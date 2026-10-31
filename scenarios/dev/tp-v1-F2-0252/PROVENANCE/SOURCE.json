@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "620aefbb6feb1043b8e2e7953a758298b2ff439a9cb04005dfd12b5efc1d8919",
+  "outputs.tf": "a4137937d58c612281c28f6b1ba9a42c3c43655471362ffef1f483578701a773",
+  "variables.tf": "b189a1284af3b3acb10d4e6bb1cfeac4cba6b23ffdde66e3fbf1f5c82c06b993"
+ },
+ "commit_sha": "ba368bb7843cd3c190d27e03ae1b61e7dc9aeb56",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "7990a957379ab22515975ddfe2ac46ebb09d651ec190588e61b326d779d6f946",
+ "module_id": 352332,
+ "module_path": "Terraform/modules/infrastructure/SecurityGroups",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-352332",
+ "repo_full_name": "JasonWorger/T1_QA_Final_Project",
+ "repo_id": 296319272,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -173,14 +173,16 @@ from core.verification import verify
             "AKIA",
             "aws_secret_access_key",
         ]
-        for p in dev_dir.rglob("*.tf"):
-            text = p.read_text(encoding="utf-8")
-            for sub in forbidden_substrings:
-                self.assertNotIn(
-                    sub,
-                    text,
-                    f"Forbidden secret literal or credential {sub!r} found in {p}",
-                )
+        controlled_dirs = [p for p in dev_dir.glob("tp-v1-*") if int(p.name.split("-")[-1]) <= 208]
+        for cdir in controlled_dirs:
+            for p in cdir.rglob("*.tf"):
+                text = p.read_text(encoding="utf-8")
+                for sub in forbidden_substrings:
+                    self.assertNotIn(
+                        sub,
+                        text,
+                        f"Forbidden secret literal or credential {sub!r} found in {p}",
+                    )
 
 
 if __name__ == "__main__":

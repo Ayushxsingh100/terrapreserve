@@ -1,0 +1,110 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F6",
+  "generator_version": "d4b-1",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 454253,
+  "mutation_record": [
+    {
+      "after": "true",
+      "attribute": "monitoring",
+      "before": null,
+      "operator": "op_f6_add_bastion_host_safe",
+      "step": 1,
+      "target_address": "aws_instance.tp_app"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000567767911",
+    "module_id": 454253,
+    "pool_id": "terrads-host-454253"
+  },
+  "pool_id": "terrads-host-454253",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F6-0343",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 343,
+  "source": {
+    "commit_or_version": "42089296ac939340b93cafadc12307973ebc8f75",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000567767911",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "a3d948a788b1c28ad900abf6d84030e7534f56b03afdbdb021a5ae5f71f07eda",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "ef4c3f683c3dc617db09eeb3f5426cec9f2c00eec55144357dfd93922465c4ee",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -82,6 +82,7 @@\n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n+  monitoring             = true\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Configures monitoring on bastion resources safely.",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

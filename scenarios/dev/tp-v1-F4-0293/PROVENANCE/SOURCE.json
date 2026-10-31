@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "output.tf": "648094eb23063c8432cff0acea5354c4e8e5dcf22d4870e94df247970faaa910",
+  "provider.tf": "2672e0a902d9c3c38797aea03241aabd3d579cb6fa05506e1e8f406e2db004e0",
+  "sec_group.tf": "819a1b0e4e2d5c2440ae9fe89f7203e0d9d8c846b19bebc29d8f384b47d01389"
+ },
+ "commit_sha": "ccf2ca5c5d1278481a1601bcf1c06e27a0f3ec42",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "1c719fcdce41a4feb3c2161c4fb64c0235b8de92502d9d371d438f159d06ea6c",
+ "module_id": 394514,
+ "module_path": "sec_group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-394514",
+ "repo_full_name": "Natalie-Rodideal/interactive-learning-tasks",
+ "repo_id": 424321374,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

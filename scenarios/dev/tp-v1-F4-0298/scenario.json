@@ -1,0 +1,109 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F4",
+  "generator_version": "d4b-1",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": "INV-SEC-002",
+    "target_kind": "repair"
+  },
+  "labels": null,
+  "module_id": 395169,
+  "mutation_record": [
+    {
+      "after": "\"DB 5432 repaired\"",
+      "attribute": "description",
+      "before": "\"TerraPreserve database security group\"",
+      "operator": "op_f4_repair_db_port_open_ssh_safe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_db_sg"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000426324302",
+    "module_id": 395169,
+    "pool_id": "terrads-host-395169"
+  },
+  "pool_id": "terrads-host-395169",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": true,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F4-0298",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 298,
+  "source": {
+    "commit_or_version": "4806bdb712a6d101fe26c630042ed52c1bbf5889",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000426324302",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "7fd8a9e3fe155b3708ad8e046972d19b9708f1d1e49bbbd3546c1716b5f2ed72",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "ec24182b9127e25b231fe33067caa3ac90221fedfe8cef776636c2a0a8a79424",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -47,7 +47,7 @@\n }\n \n resource \"aws_security_group\" \"tp_db_sg\" {\n-  description = \"TerraPreserve database security group\"\n+  description = \"DB 5432 repaired\"\n   name        = \"tp-db-sg\"\n   vpc_id      = aws_vpc.tp_vpc.id\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Repair public database ingress on port 5432",
+    "invariant_id": "INV-SEC-002",
+    "kind": "repair"
+  }
+}

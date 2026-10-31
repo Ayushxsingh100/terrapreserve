@@ -1,0 +1,98 @@
+{
+  "dataset_version": "1.0",
+  "derived": true,
+  "family": "F1",
+  "generator_version": "d4b-1",
+  "grafted": false,
+  "gt_class": null,
+  "host_transform": [],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 574780,
+  "mutation_record": [
+    {
+      "after": "\"t3.small\"",
+      "attribute": "instance_type",
+      "before": "\"t3.micro\"",
+      "operator": "op_native_f1_safe",
+      "step": 1,
+      "target_address": "aws_instance.medusa_instance"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": true,
+    "grafted": false,
+    "kind": "native",
+    "lineage_id": "lin-000852752600",
+    "module_id": 574780,
+    "pool_id": "terrads-derived-574780"
+  },
+  "pool_id": "terrads-derived-574780",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible",
+  "scenario_id": "tp-v1-F1-0211",
+  "scope_addresses": [
+    "aws_db_instance.medusa_db",
+    "aws_instance.medusa_instance",
+    "aws_security_group.medusa_sg"
+  ],
+  "seed": 211,
+  "source": {
+    "commit_or_version": "unknown",
+    "grafted": false,
+    "license": "permissive",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000852752600",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "170897315a922e01f4e2d035c3fe5c9f9ad4b30e08da3d0b864a74d158eb4a7d",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "f32fc85aac06a6ec6d9f0192674785ab4f80de22e693501f9ebd0b2f0785d359",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -54,7 +54,7 @@\n # Create EC2 Instance\n resource \"aws_instance\" \"medusa_instance\" {\n   ami           = \"ami-0e86e20dae9224db8\" # Replace with Medusa-compatible AMI\n-  instance_type = \"t3.micro\"\n+  instance_type = \"t3.small\"\n   vpc_security_group_ids = [aws_security_group.medusa_sg.id]\n   subnet_id = aws_subnet.medusa_subnet.id\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Native change request for family F1",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

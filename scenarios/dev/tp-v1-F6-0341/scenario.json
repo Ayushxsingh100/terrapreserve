@@ -1,0 +1,119 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F6",
+  "generator_version": "d4b-1",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [
+    {
+      "bytes_after": 0,
+      "bytes_before": 199,
+      "file": "versions.tf",
+      "removed_blocks": [
+        "terraform"
+      ]
+    }
+  ],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 451757,
+  "mutation_record": [
+    {
+      "after": "false",
+      "attribute": "skip_final_snapshot",
+      "before": "true",
+      "operator": "op_f6_add_read_replica_safe",
+      "step": 1,
+      "target_address": "aws_db_instance.tp_db"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000561933876",
+    "module_id": 451757,
+    "pool_id": "terrads-host-451757"
+  },
+  "pool_id": "terrads-host-451757",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F6-0341",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 341,
+  "source": {
+    "commit_or_version": "3b6fb66fa8c6358074a8c22abdb3f67582e5824c",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000561933876",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "5b425f8d8a257c47b8e8ed3e83882d29d787150245d854145d1e92f2add927b8",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "3e6260a8c4cd67127bee3f6762aa9aadeec3229e8ad0c0d239a66d1661a557a3",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -99,7 +99,7 @@\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n   publicly_accessible    = false\n-  skip_final_snapshot    = true\n+  skip_final_snapshot    = false\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Enables database snapshots safely.",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

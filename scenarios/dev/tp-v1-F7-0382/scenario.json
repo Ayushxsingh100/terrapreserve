@@ -1,0 +1,135 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F7",
+  "generator_version": "d4b-1",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [
+    {
+      "bytes_after": 0,
+      "bytes_before": 41,
+      "file": "provider.tf",
+      "removed_blocks": [
+        "provider"
+      ]
+    },
+    {
+      "bytes_after": 0,
+      "bytes_before": 46,
+      "file": "terraform.tf",
+      "removed_blocks": [
+        "terraform"
+      ]
+    }
+  ],
+  "intent": {
+    "breaks": [],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 500370,
+  "mutation_record": [
+    {
+      "after": "\"TerraPreserve app security group (central egress gateway)\"",
+      "attribute": "description",
+      "before": "\"TerraPreserve app security group\"",
+      "operator": "op_f7_vpc_cidr_expansion_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_app_sg"
+    },
+    {
+      "after": "true",
+      "attribute": "publicly_accessible",
+      "before": "false",
+      "operator": "op_f7_vpc_cidr_expansion_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.tp_db"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000666589002",
+    "module_id": 500370,
+    "pool_id": "terrads-host-500370"
+  },
+  "pool_id": "terrads-host-500370",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F7-0382",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 382,
+  "source": {
+    "commit_or_version": "c48b1975375fe12eb37d96d1b4021e13b4ff8003",
+    "grafted": true,
+    "license": "Apache-2.0",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000666589002",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "d0f60debd1e6916c5aa739f9e7eb54df6d49b4d25b5aca292ea4b3afeeff4080",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "f0b817cbb6dfcd3c33021ecfd80a8f644d9db21ce116e4b1e645b9e8a1203d5d",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -41,7 +41,7 @@\n }\n \n resource \"aws_security_group\" \"tp_app_sg\" {\n-  description = \"TerraPreserve app security group\"\n+  description = \"TerraPreserve app security group (central egress gateway)\"\n   name        = \"tp-app-sg\"\n   vpc_id      = aws_vpc.tp_vpc.id\n }\n@@ -98,7 +98,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Updates security perimeter with unsafe public DB side-effect.",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

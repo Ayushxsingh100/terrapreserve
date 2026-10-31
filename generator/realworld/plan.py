@@ -17,12 +17,28 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT / "sources"))
+import hcl_lex
+
 SPLIT_REAL_WORLD = REPO_ROOT / "scenarios" / "split_real_world.json"
 POOL_JSON = REPO_ROOT / "pool" / "pool.json"
 DERIVED_JSON = REPO_ROOT / "pool" / "derived.json"
 
 FAMILIES = ["F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8"]
 CLASSES = ["safe", "unsafe"]
+
+
+def is_eligible_native(mod: dict[str, Any]) -> bool:
+    """Precondition check: native module must have an aws_instance with a literal instance_type (D4b-05)."""
+    mod_id = mod["module_id"]
+    derived = mod.get("derived", False)
+    mod_dir = REPO_ROOT / "pool" / "terrads" / ("derived" if derived else "native") / str(mod_id)
+    for p in mod_dir.glob("*.tf"):
+        text = p.read_text(encoding="utf-8", errors="replace")
+        for a in hcl_lex.attributes_from_hcl(text):
+            if a.top_level.startswith("aws_instance.") and a.name == "instance_type" and a.value_kind == "literal":
+                return True
+    return False
 
 
 def load_pool_modules() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
@@ -76,8 +92,8 @@ def build_real_world_plan() -> list[dict[str, Any]]:
     all_natives.sort(key=lambda m: (m["module_id"]))
     all_hosts.sort(key=lambda m: (m["module_id"]))
 
-    dev_native_pool = [m for m in all_natives if m["lineage_id"] in dev_lins]
-    test_native_pool = [m for m in all_natives if m["lineage_id"] in test_lins]
+    dev_native_pool = [m for m in all_natives if m["lineage_id"] in dev_lins and is_eligible_native(m)]
+    test_native_pool = [m for m in all_natives if m["lineage_id"] in test_lins and is_eligible_native(m)]
     dev_host_pool = [m for m in all_hosts if m["lineage_id"] in dev_lins]
     test_host_pool = [m for m in all_hosts if m["lineage_id"] in test_lins]
 

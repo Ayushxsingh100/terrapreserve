@@ -1,0 +1,111 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F4",
+  "generator_version": "d4b-1",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [],
+  "intent": {
+    "breaks": [
+      "INV-SEC-003"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": "INV-SEC-003",
+    "target_kind": "repair"
+  },
+  "labels": null,
+  "module_id": 417605,
+  "mutation_record": [
+    {
+      "after": "\"gp2\"",
+      "attribute": "storage_type",
+      "before": null,
+      "operator": "op_f4_repair_rds_public_open_db_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.tp_db"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000481962845",
+    "module_id": 417605,
+    "pool_id": "terrads-host-417605"
+  },
+  "pool_id": "terrads-host-417605",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": true,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F4-0311",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 311,
+  "source": {
+    "commit_or_version": "ddb88e487ae51e06aed7bd8d70e216c96f60c119",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000481962845",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "b1697d9f0525bd7e6bc957176ba7627198ed99f96aa8e7ffd89dbf5b0685fddb",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "3fd33e3a5242b76d62cb7fbb8acd9cfea8d6021b7c771b99ad4b44eaff103d67",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -100,6 +100,7 @@\n   password               = var.tp_db_password\n   publicly_accessible    = true\n   skip_final_snapshot    = true\n+  storage_type           = \"gp2\"\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Repair publicly accessible database instance",
+    "invariant_id": "INV-SEC-003",
+    "kind": "repair"
+  }
+}

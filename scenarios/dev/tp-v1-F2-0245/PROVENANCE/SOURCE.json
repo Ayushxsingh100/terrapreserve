@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "ffc8927714063d0920a61c99da057d410b2267ca3ff61c35f9c3c0c7237b46dd",
+  "outputs.tf": "abadbe9b26207c6f2a5365997f77d1bea556d2775736f1c20bde5bf8f5908f12",
+  "variables.tf": "1210051b6d342214c07ecc81b988a0485f6b93d41a9ad4f3363d2d24fcdc01c0"
+ },
+ "commit_sha": "e5a731c727e73e50d95020a0f2913f86f4ec9c1c",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 335142,
+ "module_path": "modules/networking",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-335142",
+ "repo_full_name": "puppetlabs/terraform-aws-pe_arch",
+ "repo_id": 246287418,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

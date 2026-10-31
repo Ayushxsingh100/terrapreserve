@@ -1,0 +1,118 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F7",
+  "generator_version": "d4b-1",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [],
+  "intent": {
+    "breaks": [],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 500493,
+  "mutation_record": [
+    {
+      "after": "\"t3.small\"",
+      "attribute": "instance_type",
+      "before": "\"t3.micro\"",
+      "operator": "op_f7_shared_sg_egress_tighten_unsafe",
+      "step": 1,
+      "target_address": "aws_instance.tp_app"
+    },
+    {
+      "after": "true",
+      "attribute": "publicly_accessible",
+      "before": "false",
+      "operator": "op_f7_shared_sg_egress_tighten_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.tp_db"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000666633786",
+    "module_id": 500493,
+    "pool_id": "terrads-host-500493"
+  },
+  "pool_id": "terrads-host-500493",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F7-0383",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 383,
+  "source": {
+    "commit_or_version": "a4a13dc38ecdfb5edffedae35cf23927c2593822",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000666633786",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "267acaf32de87b79802201301f7e9855d9ab1fb6cf4ea3490b0a4d056a961bda",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "16894ccb139627a0d4085dece10b49337a80870231b28db286a5995177374fb2",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,7 +81,7 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n@@ -98,7 +98,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Updates core resources with unsafe public DB side-effect.",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

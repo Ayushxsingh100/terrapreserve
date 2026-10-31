@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "caf7e28eab439ff5cc3da0391983309d5f96d029f2d7fb5f818c41ebbbf508ff",
+  "outputs.tf": "d7366698d7351da422958da65d9894cef5c173085c287a823c535cb999b90689",
+  "variables.tf": "e2e868ed49889f91352052df02217f50597ceb276a7e1b4649596fe1746b1da4"
+ },
+ "commit_sha": "0137f831e50eaabfa4a59d6d7b6ebca7d1fe75ea",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "24e1255f09ee1425c18cc44935ca5fefed8dfc5992615ccb6c0b5958b6aa9513",
+ "module_id": 501595,
+ "module_path": "tf/modules/network",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-501595",
+ "repo_full_name": "PedroTeixeiraa/taskplanner-iac-terraform",
+ "repo_id": 669634323,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

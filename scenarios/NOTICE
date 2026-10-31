@@ -14,3 +14,23 @@ See LICENSES/Apache-2.0.txt for details.
 In accordance with Apache-2.0 section 4(b), the derived configurations reshape
 the resources into the benchmark topology and omit any credential-like literals.
 
+Real-World Tier (TerraDS Upstream Modules)
+=========================================
+
+Real-world scenarios incorporate open-source Terraform modules sourced from
+TerraDS (Zenodo record 20339474, concept DOI 10.5281/zenodo.14217385). Each scenario
+preserves the module's original upstream licence text in its `PROVENANCE/LICENSE.upstream`
+file and upstream metadata in `PROVENANCE/SOURCE.json`.
+
+In accordance with Apache-2.0 Section 4(b) and upstream notices:
+1. Host modules: Modified by removing top-level `provider` and `terraform` blocks to
+   enable deterministic local evaluation against pinned provider versions. The canonical
+   benchmark core (`terrapreserve_graft.tf`, `terrapreserve_graft_variables.tf`) is added
+   alongside the host module.
+2. Derived native modules: Modified by redacting literal database passwords on `aws_db_instance`
+   resources and replacing them with `var.db_password`, accompanied by sensitive variable
+   declarations in `terrapreserve_derived.tf`.
+3. All custom benchmark synthesis code, graft definitions, and scenario records are licensed
+   under CC-BY-4.0.
+
+

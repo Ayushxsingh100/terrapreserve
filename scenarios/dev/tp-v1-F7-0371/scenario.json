@@ -1,0 +1,135 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F7",
+  "generator_version": "d4b-1",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [
+    {
+      "bytes_after": 0,
+      "bytes_before": 165,
+      "file": "providers.tf",
+      "removed_blocks": [
+        "provider"
+      ]
+    },
+    {
+      "bytes_after": 0,
+      "bytes_before": 225,
+      "file": "state.tf",
+      "removed_blocks": [
+        "terraform"
+      ]
+    },
+    {
+      "bytes_after": 0,
+      "bytes_before": 146,
+      "file": "versions.tf",
+      "removed_blocks": [
+        "terraform"
+      ]
+    }
+  ],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 483978,
+  "mutation_record": [
+    {
+      "after": "\"t3.small\"",
+      "attribute": "instance_type",
+      "before": "\"t3.micro\"",
+      "operator": "op_f7_shared_sg_egress_tighten_safe",
+      "step": 1,
+      "target_address": "aws_instance.tp_app"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000635474331",
+    "module_id": 483978,
+    "pool_id": "terrads-host-483978"
+  },
+  "pool_id": "terrads-host-483978",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F7-0371",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 371,
+  "source": {
+    "commit_or_version": "e8962b62857f3db6a70bce796f03ec5efbcebd91",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000635474331",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "1acdcfe0545449e7aba7e2134211aca392d439a941e20da7dbeff0ac5e56dd92",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "5a116f79f8ce1b4b3fc73524ad9a71747f33bee229e88b37a6082ec74ae5f5e6",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,7 +81,7 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Updates core resources safely.",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

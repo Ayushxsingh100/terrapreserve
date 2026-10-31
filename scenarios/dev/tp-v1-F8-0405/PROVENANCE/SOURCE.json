@@ -1,0 +1,28 @@
+{
+ "archive_sha256": {
+  "locals.tf": "11c9963a14a6344fcc3c58433e05b3b566d5face64df875750756527cb178f38",
+  "main.tf": "407c85bf2784d4b21c7cfc13f55b8f7f9b017fb09241f60cd693234ea208aaed",
+  "outputs.tf": "61b7d57c1bb61430f4907fd0a7bcc01f769eae8d8a7695b79f45814fd988c92c",
+  "provider.tf": "410494901b1a044f8cbc759e44ce9fa42a1293be83b674c69d5749c665afcd13",
+  "subnets.tf": "1b84698af907e070ff32a5667325bb4edce3d0c43ce51f784b90efbad073aa8d",
+  "variables.tf": "b629232ac2945c6f161f15618bb7e34f1f23df590dcc8fd0d41fe190ee333667",
+  "vpc.tf": "aead8d859e07d0e1d2860eb2ff687b36449d031c0a85d232e66b503c7d0819fa"
+ },
+ "commit_sha": "a9fcbb4fc579512f99f3060ed54dd72b1d1aae07",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "84b5a7eb2e4088796490b425fbdcaa57578c44debd2ecd555839577adc5843d5",
+ "module_id": 537150,
+ "module_path": "demo/2-complex-module-repo/vpc-module",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-537150",
+ "repo_full_name": "pietervincken/iac-testing",
+ "repo_id": 744144248,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -1,0 +1,119 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F5",
+  "generator_version": "d4b-1",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [
+    {
+      "bytes_after": 922,
+      "bytes_before": 967,
+      "file": "ec2.tf",
+      "removed_blocks": [
+        "provider"
+      ]
+    }
+  ],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 418023,
+  "mutation_record": [
+    {
+      "after": "\"TerraPreserve app security group (restructured)\"",
+      "attribute": "description",
+      "before": "\"TerraPreserve app security group\"",
+      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_app_sg"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000482828276",
+    "module_id": 418023,
+    "pool_id": "terrads-host-418023"
+  },
+  "pool_id": "terrads-host-418023",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F5-0313",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 313,
+  "source": {
+    "commit_or_version": "22a5e42dfb1e980200adfba237e7470ee796ff85",
+    "grafted": true,
+    "license": "Apache-2.0",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000482828276",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "c8a95ef60315c8d53ca0189f667972f99ad20bfe5e4a5646a03a014a58c6f89c",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "9b8fb6605d518b7a3d8a6a5245808e7a3a4d80dbd63bca8fb985442fb3f85f9a",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -41,7 +41,7 @@\n }\n \n resource \"aws_security_group\" \"tp_app_sg\" {\n-  description = \"TerraPreserve app security group\"\n+  description = \"TerraPreserve app security group (restructured)\"\n   name        = \"tp-app-sg\"\n   vpc_id      = aws_vpc.tp_vpc.id\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Restructures SG rules safely.",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

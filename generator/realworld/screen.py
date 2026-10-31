@@ -28,26 +28,58 @@ def screen_native_s0(
         if not fname.endswith(".tf"):
             continue
 
-        # 1. Check aws_db_instance publicly_accessible
         attrs = hcl_lex.attributes_from_hcl(text)
+
+        # 1. Check aws_db_instance publicly_accessible
         for a in attrs:
             if a.top_level.startswith("aws_db_instance.") and a.name == "publicly_accessible":
-                if a.value_kind == "literal" and "true" in text.splitlines()[a.line - 1 : a.end_line][0].lower():
+                lines = text.splitlines()[a.line - 1 : a.end_line]
+                if lines and "true" in lines[0].lower():
                     if target_invariant != "INV-SEC-003":
                         return False, "RW-S0: violates INV-SEC-003 in S0 (non-target)"
 
-            # 2. Check ingress rules
-            if a.top_level.startswith("aws_security_group_rule.") or "ingress" in a.block_path:
+        # 2. Check security group ingress blocks and aws_security_group_rule resources
+        blocks: dict[tuple[str, tuple[str, ...]], dict[str, str]] = {}
+        for a in attrs:
+            is_rule = a.top_level.startswith("aws_security_group_rule.")
+            is_ingress = "ingress" in a.block_path
+            if is_rule or is_ingress:
+                key = (a.top_level, tuple(a.block_path))
+                if key not in blocks:
+                    blocks[key] = {}
                 lines = text.splitlines()[a.line - 1 : a.end_line]
-                combined = " ".join(lines)
-                if "0.0.0.0/0" in combined or "::/0" in combined:
-                    # Check port in surrounding block/lines
-                    # If line has 22 or ssh
-                    if "22" in combined:
-                        if target_invariant != "INV-SEC-001":
-                            return False, "RW-S0: violates INV-SEC-001 in S0 (non-target)"
-                    elif "5432" in combined:
-                        if target_invariant != "INV-SEC-002":
-                            return False, "RW-S0: violates INV-SEC-002 in S0 (non-target)"
+                blocks[key][a.name] = " ".join(lines)
+
+        for (top_lvl, bpath), attr_map in blocks.items():
+            rule_type = attr_map.get("type", "").lower()
+            if top_lvl.startswith("aws_security_group_rule.") and '"egress"' in rule_type:
+                continue
+
+            cidr_text = attr_map.get("cidr_blocks", "") + " " + attr_map.get("ipv6_cidr_blocks", "")
+            has_public = ("0.0.0.0/0" in cidr_text) or ("::/0" in cidr_text)
+            if not has_public:
+                continue
+
+            fp_text = attr_map.get("from_port", "")
+            tp_text = attr_map.get("to_port", "")
+
+            covers_22 = False
+            covers_5432 = False
+
+            all_port_text = f" {fp_text} {tp_text} "
+            if "22" in all_port_text:
+                covers_22 = True
+            if "5432" in all_port_text:
+                covers_5432 = True
+
+            if " 0 " in f" {fp_text} " and " 0 " in f" {tp_text} ":
+                covers_22 = True
+                covers_5432 = True
+
+            if covers_22 and target_invariant != "INV-SEC-001":
+                return False, "RW-S0: violates INV-SEC-001 in S0 (non-target)"
+            if covers_5432 and target_invariant != "INV-SEC-002":
+                return False, "RW-S0: violates INV-SEC-002 in S0 (non-target)"
 
     return True, "eligible"
+

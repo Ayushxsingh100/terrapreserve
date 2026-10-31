@@ -1,0 +1,21 @@
+{
+  "derived": true,
+  "derived_from": "d5c7f0d06833800b5459ef5d37ad219a7688089ad3024f1f7de02faae7d1d4ff",
+  "kind": "derived_native",
+  "lineage_id": "lin-000852752600",
+  "modifications": [
+    {
+      "address": "aws_db_instance.medusa_db",
+      "attribute": "password",
+      "file": "main.tf",
+      "line": 69,
+      "sha256_after": "64959c37f77d9743b1c3613698ed6cf84d696387957aae1d6c6fcc5312d0cdef",
+      "sha256_before": "a8cf51136343f0c80f3c43e6dfb5124d53476cac0cc91c67982c871c9276377c"
+    }
+  ],
+  "module_id": 574780,
+  "module_path": ".",
+  "pool_id": "terrads-derived-574780",
+  "repo_full_name": "Sarthak-017s/Terraform-IaC-for-Medusa-open-source",
+  "repo_id": 852752600
+}

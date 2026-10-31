@@ -1,0 +1,97 @@
+{
+  "dataset_version": "1.0",
+  "derived": true,
+  "family": "F1",
+  "generator_version": "d4b-1",
+  "grafted": false,
+  "gt_class": null,
+  "host_transform": [],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 358849,
+  "mutation_record": [
+    {
+      "after": "\"t3.small\"",
+      "attribute": "instance_type",
+      "before": "\"t3.micro\"",
+      "operator": "op_native_f1_safe",
+      "step": 1,
+      "target_address": "aws_instance.example"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": true,
+    "grafted": false,
+    "kind": "native",
+    "lineage_id": "lin-000316823064",
+    "module_id": 358849,
+    "pool_id": "terrads-derived-358849"
+  },
+  "pool_id": "terrads-derived-358849",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible",
+  "scenario_id": "tp-v1-F1-0210",
+  "scope_addresses": [
+    "aws_db_instance.mydb",
+    "aws_instance.example"
+  ],
+  "seed": 210,
+  "source": {
+    "commit_or_version": "unknown",
+    "grafted": false,
+    "license": "permissive",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000316823064",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "c95fc013bc4300a617ea6438f4c7ec8cce8841d11830cb7ce3db750a1a64ca54",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "f33d4aeba122fb6903368ce5beab7160bfa838b70793733d9bff06cce5134686",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -4,7 +4,7 @@\n \n resource \"aws_instance\" \"example\" {\n   ami           = \"ami-0a695f0d95cefc163\"\n-  instance_type = \"t3.micro\"\n+  instance_type = \"t3.small\"\n }\n \n resource \"aws_db_instance\" \"mydb\" {\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Native change request for family F1",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

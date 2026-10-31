@@ -1,0 +1,166 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F5",
+  "generator_version": "d4b-1",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 419715,
+  "mutation_record": [
+    {
+      "after": "aws_subnet.tp_app_subnet_app.id",
+      "attribute": "subnet_id",
+      "before": "aws_subnet.tp_app_subnet.id",
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_instance.tp_app"
+    },
+    {
+      "after": "aws_subnet.tp_app_subnet_app.id",
+      "attribute": "subnet_id",
+      "before": "aws_subnet.tp_app_subnet.id",
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_route_table_association.tp_rta_app"
+    },
+    {
+      "after": null,
+      "attribute": "availability_zone",
+      "before": "\"us-east-1a\"",
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_subnet.tp_app_subnet"
+    },
+    {
+      "after": null,
+      "attribute": "cidr_block",
+      "before": "\"172.26.1.0/24\"",
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_subnet.tp_app_subnet"
+    },
+    {
+      "after": null,
+      "attribute": "vpc_id",
+      "before": "aws_vpc.tp_vpc.id",
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_subnet.tp_app_subnet"
+    },
+    {
+      "after": "\"us-east-1a\"",
+      "attribute": "availability_zone",
+      "before": null,
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_subnet.tp_app_subnet_app"
+    },
+    {
+      "after": "\"172.26.1.0/24\"",
+      "attribute": "cidr_block",
+      "before": null,
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_subnet.tp_app_subnet_app"
+    },
+    {
+      "after": "aws_vpc.tp_vpc.id",
+      "attribute": "vpc_id",
+      "before": null,
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_subnet.tp_app_subnet_app"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000487977275",
+    "module_id": 419715,
+    "pool_id": "terrads-host-419715"
+  },
+  "pool_id": "terrads-host-419715",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F5-0316",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 316,
+  "source": {
+    "commit_or_version": "7c9f040f82539593d437343878b96ce2bfd0accd",
+    "grafted": true,
+    "license": "Apache-2.0",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000487977275",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "d5c160c163f954687eb04aa51dd33210bf67fc1a0d4eda9d4cd2841156299272",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "9c9f469590f178c77383906ace862f260bf124ac15f996b697cc6ee6f07b7c89",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,3 +1,8 @@\n+moved {\n+  from = aws_subnet.tp_app_subnet\n+  to   = aws_subnet.tp_app_subnet_app\n+}\n+\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.26.0.0/16\"\n   enable_dns_hostnames = true\n@@ -6,12 +11,6 @@\n \n resource \"aws_internet_gateway\" \"tp_igw\" {\n   vpc_id = aws_vpc.tp_vpc.id\n-}\n-\n-resource \"aws_subnet\" \"tp_app_subnet\" {\n-  availability_zone = \"us-east-1a\"\n-  cidr_block        = \"172.26.1.0/24\"\n-  vpc_id            = aws_vpc.tp_vpc.id\n }\n \n resource \"aws_subnet\" \"tp_db_subnet_1\" {\n@@ -37,7 +36,7 @@\n \n resource \"aws_route_table_association\" \"tp_rta_app\" {\n   route_table_id = aws_route_table.tp_public_rt.id\n-  subnet_id      = aws_subnet.tp_app_subnet.id\n+  subnet_id      = aws_subnet.tp_app_subnet_app.id\n }\n \n resource \"aws_security_group\" \"tp_app_sg\" {\n@@ -82,7 +81,7 @@\n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n-  subnet_id              = aws_subnet.tp_app_subnet.id\n+  subnet_id              = aws_subnet.tp_app_subnet_app.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n \n@@ -103,3 +102,9 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_subnet\" \"tp_app_subnet_app\" {\n+  availability_zone = \"us-east-1a\"\n+  cidr_block        = \"172.26.1.0/24\"\n+  vpc_id            = aws_vpc.tp_vpc.id\n+}\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Renames subnet with moved block and updates references.",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

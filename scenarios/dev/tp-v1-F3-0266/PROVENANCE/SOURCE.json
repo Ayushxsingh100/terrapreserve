@@ -1,0 +1,23 @@
+{
+ "archive_sha256": {
+  "main.tf": "ace9d6cfc5fde5fd7ba082f48fd90da1b67f84d234580afbc3e44aa295737bc4",
+  "output.tf": "94c227a51b90235d189b2a16014a0de36f3dd633f208c7ee70ec45ecb4a7d46c"
+ },
+ "commit_sha": "f5cff0bf5960b4bc056f3ae47d15502404281891",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "ec2bda370659de0cac82c130b89b0c738a41ba31a1c8d5c4f0dab96ded55097f",
+ "module_id": 368468,
+ "module_path": "Terraform/vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-368468",
+ "repo_full_name": "WaledSalem/sigma-project",
+ "repo_id": 351295096,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

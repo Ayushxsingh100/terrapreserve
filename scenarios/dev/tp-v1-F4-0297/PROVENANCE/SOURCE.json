@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "586c5f727776b35cb19d53b5e4e9aad0e5742a480ecbcc8eab6bb0b93ded05ab",
+  "outputs.tf": "e818cf36d83c9eef20d53058a2e4b489bce982de91dccdb379aee97481e3a10e",
+  "variables.tf": "f102892f58ddb3ff92d465962a57eaa498d3ed9470a8af408aec0a7b7319b6c9"
+ },
+ "commit_sha": "2f775e5a867a28d657911db7e154117c06725d85",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "92cef335be600e4ae014e29625a931866a93f650c883aa34c02e335ed2842f7d",
+ "module_id": 394740,
+ "module_path": "aws/01-terraform/modules/ec2",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-394740",
+ "repo_full_name": "AlanKev117/data-engineering-deliverables",
+ "repo_id": 423973256,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

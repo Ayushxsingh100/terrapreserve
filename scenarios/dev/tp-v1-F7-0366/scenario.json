@@ -1,0 +1,120 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F7",
+  "generator_version": "d4b-1",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [
+    {
+      "bytes_after": 2,
+      "bytes_before": 350,
+      "file": "providers.tf",
+      "removed_blocks": [
+        "terraform",
+        "provider"
+      ]
+    }
+  ],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 478332,
+  "mutation_record": [
+    {
+      "after": "false",
+      "attribute": "enable_dns_support",
+      "before": "true",
+      "operator": "op_f7_shared_route_table_edit_safe",
+      "step": 1,
+      "target_address": "aws_vpc.tp_vpc"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000624434439",
+    "module_id": 478332,
+    "pool_id": "terrads-host-478332"
+  },
+  "pool_id": "terrads-host-478332",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F7-0366",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 366,
+  "source": {
+    "commit_or_version": "1db2e7317b1c23ae01beca3d81fc0c16474bdd7b",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000624434439",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "6ed3bd2991ae06c2e65ae769d36991be363d158609426525419e60825f8c5813",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "fae199320b5ddb300894a833eddc7a4bdf67ce38d6da895fe43c06299c656072",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,7 +1,7 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.21.0.0/16\"\n   enable_dns_hostnames = true\n-  enable_dns_support   = true\n+  enable_dns_support   = false\n }\n \n resource \"aws_internet_gateway\" \"tp_igw\" {\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Updates VPC core DNS support configuration safely.",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

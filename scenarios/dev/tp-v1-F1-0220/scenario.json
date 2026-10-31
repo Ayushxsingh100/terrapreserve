@@ -1,0 +1,119 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F1",
+  "generator_version": "d4b-1",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [
+    {
+      "bytes_after": 2993,
+      "bytes_before": 3067,
+      "file": "ipv6.tf",
+      "removed_blocks": [
+        "provider"
+      ]
+    }
+  ],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 298003,
+  "mutation_record": [
+    {
+      "after": "30",
+      "attribute": "allocated_storage",
+      "before": "20",
+      "operator": "op_f1_storage_expand_safe",
+      "step": 1,
+      "target_address": "aws_db_instance.tp_db"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000133740279",
+    "module_id": 298003,
+    "pool_id": "terrads-host-298003"
+  },
+  "pool_id": "terrads-host-298003",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": true,
+  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F1-0220",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 220,
+  "source": {
+    "commit_or_version": "751abd8aaf02f3bbf91dd68e30f943ac8dbbbdd5",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000133740279",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "7b0bf437db0927514749a85d7e4a5ecab7212385c6f5cff71a6bbef31b99c25c",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "4eb2b4af926b04acb6f69e9c64818c4b48bce2a73d7ba76d00f7dab9d4c9d284",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -92,7 +92,7 @@\n }\n \n resource \"aws_db_instance\" \"tp_db\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.tp_db_subnet_group.name\n   engine                 = \"postgres\"\n   identifier             = \"tp-db-instance\"\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Expands RDS allocated storage safely.",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}
