@@ -39,9 +39,9 @@ The generator records an intended class (`intent.class`) and truthful mutation r
 
 D4b delivers the 160 real-world targets (+ 48 reserves) by grafting onto pooled hosts and derived natives:
 - 208 real-world scenarios generated (144 dev, 64 test) across 16 cells.
-- 201 host modules (grafted with standalone core prefixed `tp_`).
-- 1 original native module (`631897`, un-grafted).
-- 6 derived native modules (`290262`, `358849`, `574780`, `588227`, `613257`, `653852`, un-grafted, password redacted).
+- 203 host modules (grafted with standalone core prefixed `tp_`).
+- 0 original native modules (module `631897` uses variable references for attributes, failing literal-span preconditions).
+- 5 derived native modules (`290262`, `358849`, `574780`, `588227`, `613257`, un-grafted, password redacted; module `653852` uses variable references, failing literal-span preconditions).
 - Scope addresses: each scenario defines `scope_addresses` (for grafts: graft resources; for natives: in-scope EC2, RDS, and SG resources).
 - S0 eligibility screen: native modules were screened to ensure S0 is clean except when an invariant is the scenario's repair target (`s0_screen`).
 - Decisions and Open items:
