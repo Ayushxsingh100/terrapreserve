@@ -47,7 +47,7 @@ resource "aws_route_table_association" "rta_app" {
 }
 
 resource "aws_security_group_rule" "app_egress" {
-  cidr_blocks       = ["10.0.0.0/8"]
+  cidr_blocks       = ["0.0.0.0/0"]
   from_port         = 0
   protocol          = "-1"
   security_group_id = aws_security_group.app.id
@@ -67,10 +67,10 @@ resource "aws_security_group" "db" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port       = 5432
-    protocol        = "tcp"
-    security_groups = [aws_security_group.app.id]
-    to_port         = 5432
+    cidr_blocks = ["10.93.1.0/24"]
+    from_port   = 5432
+    protocol    = "tcp"
+    to_port     = 5432
   }
 
   egress {

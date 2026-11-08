@@ -71,8 +71,9 @@ resource "aws_security_group_rule" "tp_app_egress" {
 }
 
 resource "aws_security_group_rule" "tp_db_ingress_postgres" {
-  cidr_blocks       = ["10.0.0.0/8"]
+  cidr_blocks       = ["172.16.0.0/12"]
   from_port         = 5432
+  ipv6_cidr_blocks  = ["::/0"]
   protocol          = "tcp"
   security_group_id = aws_security_group.tp_db_sg.id
   to_port           = 5432

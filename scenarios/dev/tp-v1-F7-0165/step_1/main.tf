@@ -1,6 +1,6 @@
 resource "aws_vpc" "network" {
   cidr_block           = "10.55.0.0/16"
-  enable_dns_hostnames = true
+  enable_dns_hostnames = false
   enable_dns_support   = true
 }
 
@@ -57,7 +57,7 @@ resource "aws_security_group_rule" "data_secgroup_from_app_5432" {
 }
 
 resource "aws_security_group_rule" "data_secgroup_egress" {
-  cidr_blocks       = ["10.0.0.0/8"]
+  cidr_blocks       = ["0.0.0.0/0"]
   from_port         = 0
   protocol          = "-1"
   security_group_id = aws_security_group.data_secgroup.id

@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -31,12 +31,12 @@
   "module_id": 480850,
   "mutation_record": [
     {
-      "after": "false",
-      "attribute": "enable_dns_support",
-      "before": "true",
-      "operator": "op_f7_shared_route_table_edit_safe",
+      "after": "[\"172.16.0.0/12\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f7_app_egress_cidr_tighten_safe",
       "step": 1,
-      "target_address": "aws_vpc.tp_vpc"
+      "target_address": "aws_security_group_rule.tp_app_egress"
     }
   ],
   "oracle": null,
@@ -105,14 +105,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "6a4ba87407195996e660c4096aa369959b40b08acbca478279590144b9c00ae9",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,7 +1,7 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.25.0.0/16\"\n   enable_dns_hostnames = true\n-  enable_dns_support   = true\n+  enable_dns_support   = false\n }\n \n resource \"aws_internet_gateway\" \"tp_igw\" {\n",
+      "content_hash": "12012d7973014c2c0ca0d7c934c29596dd7277ef47d4cd89c72a4997be8188fe",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -62,7 +62,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"172.16.0.0/12\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates VPC core DNS support configuration safely.",
+    "description": "Tightens the app group egress to the RFC 1918 block that contains CIDR(VPC(D)).",
     "invariant_id": null,
     "kind": "change_request"
   }

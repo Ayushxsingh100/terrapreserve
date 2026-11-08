@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -22,12 +22,12 @@
   "module_id": 368614,
   "mutation_record": [
     {
-      "after": "\"us-east-1b\"",
-      "attribute": "availability_zone",
-      "before": "\"us-east-1a\"",
-      "operator": "op_f3_move_ec2_subnet_safe",
+      "after": "[\"172.22.0.0/16\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f3_app_egress_cidr_safe",
       "step": 1,
-      "target_address": "aws_subnet.tp_app_subnet"
+      "target_address": "aws_security_group_rule.tp_app_egress"
     }
   ],
   "oracle": null,
@@ -96,14 +96,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "069b7b9340485ee88d8f39e6872845669a69cba089d37bd1b90fe9509573400c",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -9,7 +9,7 @@\n }\n \n resource \"aws_subnet\" \"tp_app_subnet\" {\n-  availability_zone = \"us-east-1a\"\n+  availability_zone = \"us-east-1b\"\n   cidr_block        = \"172.22.1.0/24\"\n   vpc_id            = aws_vpc.tp_vpc.id\n }\n",
+      "content_hash": "a2f2786c3b31bd1e9b1e4d5716206fc4ed1889e2fdd4c1a995053155b7168bd9",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -62,7 +62,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"172.22.0.0/16\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates application subnet placement safely.",
+    "description": "Narrows the app group egress CIDR to exactly CIDR(VPC(D)), computed from the scenario.",
     "invariant_id": null,
     "kind": "change_request"
   }

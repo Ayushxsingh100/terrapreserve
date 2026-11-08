@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -23,20 +23,12 @@
   "module_id": 492806,
   "mutation_record": [
     {
-      "after": "false",
-      "attribute": "enable_dns_support",
-      "before": "true",
-      "operator": "op_f7_shared_route_table_edit_unsafe",
+      "after": "[\"192.168.0.0/16\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f7_app_egress_cidr_tighten_unsafe",
       "step": 1,
-      "target_address": "aws_vpc.tp_vpc"
-    },
-    {
-      "after": "[]",
-      "attribute": "vpc_security_group_ids",
-      "before": "[aws_security_group.tp_app_sg.id]",
-      "operator": "op_f7_shared_route_table_edit_unsafe",
-      "step": 1,
-      "target_address": "aws_instance.tp_app"
+      "target_address": "aws_security_group_rule.tp_app_egress"
     }
   ],
   "oracle": null,
@@ -105,14 +97,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "5756c6d345c5c127058e8773d6c82b54da8142521a2c6c83e8188fef30a767b2",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,7 +1,7 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.25.0.0/16\"\n   enable_dns_hostnames = true\n-  enable_dns_support   = true\n+  enable_dns_support   = false\n }\n \n resource \"aws_internet_gateway\" \"tp_igw\" {\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n",
+      "content_hash": "894589e27b91511d71cab2bbbacc8ba36de8931fd1bd5cf1d31cca3453fdf23d",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -62,7 +62,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"192.168.0.0/16\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates VPC DNS support but detaches application SG, breaking connectivity.",
+    "description": "Tightens the app group egress to a CIDR disjoint from CIDR(VPC(D)).",
     "invariant_id": null,
     "kind": "change_request"
   }

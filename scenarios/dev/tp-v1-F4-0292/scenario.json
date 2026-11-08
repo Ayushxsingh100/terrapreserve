@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F4",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -22,7 +22,7 @@
   "module_id": 392709,
   "mutation_record": [
     {
-      "after": "[\"10.0.0.0/8\"]",
+      "after": "[\"172.16.0.0/12\"]",
       "attribute": "cidr_blocks",
       "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f4_repair_db_port_open_ssh_safe",
@@ -96,8 +96,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "69c74435d6401741a6976792c26d39b0ebfd24c65d69047354745dbf9e33885d",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -71,7 +71,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 5432\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_db_sg.id\n",
+      "content_hash": "2a220dc44ee448766f30b1b0f01fea914188430057147eaadc1c1454b1ebc9a5",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -71,7 +71,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"172.16.0.0/12\"]\n   from_port         = 5432\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_db_sg.id\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

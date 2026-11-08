@@ -1,7 +1,7 @@
 resource "aws_vpc" "corp_vpc" {
   cidr_block           = "10.18.0.0/16"
   enable_dns_hostnames = true
-  enable_dns_support   = false
+  enable_dns_support   = true
 }
 
 resource "aws_internet_gateway" "corp_igw" {
@@ -46,7 +46,7 @@ resource "aws_security_group" "frontend_sg" {
   vpc_id      = aws_vpc.corp_vpc.id
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0

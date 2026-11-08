@@ -66,10 +66,10 @@ resource "aws_security_group" "backend_sg" {
   vpc_id      = aws_vpc.corp_vpc.id
 
   ingress {
-    from_port       = 5432
+    from_port       = 5433
     protocol        = "tcp"
     security_groups = [aws_security_group.frontend_sg.id]
-    to_port         = 5432
+    to_port         = 5433
   }
 
   egress {
@@ -90,7 +90,7 @@ resource "aws_instance" "frontend_server" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.frontend_subnet.id
-  vpc_security_group_ids = []
+  vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]
 }
 
 resource "aws_db_subnet_group" "backend_sng" {

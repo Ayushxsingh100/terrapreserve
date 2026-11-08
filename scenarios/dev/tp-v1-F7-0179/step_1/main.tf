@@ -1,7 +1,7 @@
 resource "aws_vpc" "corp_vpc" {
   cidr_block           = "10.26.0.0/16"
   enable_dns_hostnames = true
-  enable_dns_support   = false
+  enable_dns_support   = true
 }
 
 resource "aws_internet_gateway" "corp_igw" {
@@ -46,7 +46,7 @@ resource "aws_security_group" "frontend_sg" {
   vpc_id      = aws_vpc.corp_vpc.id
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["192.168.0.0/16"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0
@@ -83,7 +83,7 @@ resource "aws_instance" "frontend_server" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.frontend_subnet.id
-  vpc_security_group_ids = []
+  vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]
 }
 
 resource "aws_db_subnet_group" "backend_sng" {

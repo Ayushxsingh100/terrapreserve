@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F4",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -25,7 +25,7 @@
       "after": "[\"10.0.0.0/8\"]",
       "attribute": "cidr_blocks",
       "before": "[\"0.0.0.0/0\"]",
-      "operator": "op_f4_repair_ssh_break_db_safe",
+      "operator": "op_f4_repair_ssh_break_db_ingress_safe",
       "step": 1,
       "target_address": "aws_security_group_rule.tp_app_ingress_ssh"
     }

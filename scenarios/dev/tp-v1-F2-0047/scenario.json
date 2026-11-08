@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F2",
-  "generator_version": "d4a-3",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -24,6 +24,14 @@
       "after": "[\"10.0.0.0/8\"]",
       "attribute": "cidr_blocks",
       "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f2_repair_db_ingress_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.db"
+    },
+    {
+      "after": "[\"::/0\"]",
+      "attribute": "ipv6_cidr_blocks",
+      "before": null,
       "operator": "op_f2_repair_db_ingress_unsafe",
       "step": 1,
       "target_address": "aws_security_group.db"
@@ -75,7 +83,7 @@
   "scenario_id": "tp-v1-F2-0047",
   "seed": 47,
   "source": {
-    "commit_or_version": "d4a-3+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -91,8 +99,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "0ef855acab55202ba52fa1f5255346b34c93bd6b386df5e22efad8f39ead4cfc",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -67,7 +67,7 @@\n   vpc_id      = aws_vpc.main.id\n \n   ingress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 5432\n     protocol    = \"tcp\"\n     to_port     = 5432\n",
+      "content_hash": "2402149076c0f34673bbd65ae22dd965c15c01adf3569866acae28f24b28ee32",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -67,10 +67,11 @@\n   vpc_id      = aws_vpc.main.id\n \n   ingress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n-    from_port   = 5432\n-    protocol    = \"tcp\"\n-    to_port     = 5432\n+    cidr_blocks      = [\"10.0.0.0/8\"]\n+    from_port        = 5432\n+    ipv6_cidr_blocks = [\"::/0\"]\n+    protocol         = \"tcp\"\n+    to_port          = 5432\n   }\n \n   ingress {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

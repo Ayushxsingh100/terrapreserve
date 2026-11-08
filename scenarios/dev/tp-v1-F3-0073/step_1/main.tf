@@ -48,10 +48,10 @@ resource "aws_route_table_association" "rta_app" {
 
 resource "aws_security_group_rule" "app_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
-  from_port         = 0
-  protocol          = "-1"
+  from_port         = 443
+  protocol          = "tcp"
   security_group_id = aws_security_group.app.id
-  to_port           = 0
+  to_port           = 443
   type              = "egress"
 }
 
@@ -85,12 +85,12 @@ resource "aws_instance" "app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.nano"
   subnet_id              = aws_subnet.app.id
-  vpc_security_group_ids = []
+  vpc_security_group_ids = [aws_security_group.app.id]
 }
 
 resource "aws_db_subnet_group" "main" {
   name       = "main-tpl-08"
-  subnet_ids = [aws_subnet.db_3.id, aws_subnet.db_2.id, aws_subnet.db_1.id]
+  subnet_ids = [aws_subnet.db_1.id, aws_subnet.db_2.id, aws_subnet.db_3.id]
 }
 
 resource "aws_db_instance" "main" {

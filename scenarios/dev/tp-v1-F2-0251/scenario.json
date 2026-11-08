@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F2",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -23,9 +23,9 @@
   "module_id": 348050,
   "mutation_record": [
     {
-      "after": "false",
-      "attribute": "publicly_accessible",
-      "before": "true",
+      "after": "7",
+      "attribute": "backup_retention_period",
+      "before": null,
       "operator": "op_f2_repair_db_public_unsafe",
       "step": 1,
       "target_address": "aws_db_instance.tp_db"
@@ -97,8 +97,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "7f1027d9a6665a6191a5c6f8b7961418a0a99a47e31602dcfbb07f3870696fdc",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -98,7 +98,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = true\n+  publicly_accessible    = false\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
+      "content_hash": "074c7cb8cabf479bffa5ef88b2ab2bcf244360e2fecfbda3158a8db46444afa6",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -92,14 +92,15 @@\n }\n \n resource \"aws_db_instance\" \"tp_db\" {\n-  allocated_storage      = 20\n-  db_subnet_group_name   = aws_db_subnet_group.tp_db_subnet_group.name\n-  engine                 = \"postgres\"\n-  identifier             = \"tp-db-instance\"\n-  instance_class         = \"db.t3.micro\"\n-  password               = var.tp_db_password\n-  publicly_accessible    = true\n-  skip_final_snapshot    = true\n-  username               = \"tp_admin\"\n-  vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n+  allocated_storage       = 20\n+  backup_retention_period = 7\n+  db_subnet_group_name    = aws_db_subnet_group.tp_db_subnet_group.name\n+  engine                  = \"postgres\"\n+  identifier              = \"tp-db-instance\"\n+  instance_class          = \"db.t3.micro\"\n+  password                = var.tp_db_password\n+  publicly_accessible     = true\n+  skip_final_snapshot     = true\n+  username                = \"tp_admin\"\n+  vpc_security_group_ids  = [aws_security_group.tp_db_sg.id]\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

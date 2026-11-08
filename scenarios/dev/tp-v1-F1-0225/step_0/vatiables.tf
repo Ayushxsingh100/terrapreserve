@@ -1,3 +1,0 @@
-variable "VPC" {
-  description = "VPC"
-}

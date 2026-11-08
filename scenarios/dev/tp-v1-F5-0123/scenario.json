@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4a-3",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -21,92 +21,28 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": null,
-      "attribute": "cidr_blocks",
-      "before": "[\"0.0.0.0/0\"]",
-      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
+      "after": "\"prod_db_sg-tpl-06-v2\"",
+      "attribute": "name",
+      "before": "\"prod_db_sg-tpl-06\"",
+      "operator": "op_f5_db_sg_replacement_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.prod_app_sg"
+      "target_address": "aws_security_group.prod_db_sg"
     },
     {
-      "after": null,
+      "after": "5433",
       "attribute": "from_port",
-      "before": "0",
-      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
+      "before": "5432",
+      "operator": "op_f5_db_sg_replacement_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.prod_app_sg"
+      "target_address": "aws_security_group.prod_db_sg"
     },
     {
-      "after": null,
-      "attribute": "protocol",
-      "before": "\"-1\"",
-      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
-      "step": 1,
-      "target_address": "aws_security_group.prod_app_sg"
-    },
-    {
-      "after": null,
+      "after": "5433",
       "attribute": "to_port",
-      "before": "0",
-      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
+      "before": "5432",
+      "operator": "op_f5_db_sg_replacement_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.prod_app_sg"
-    },
-    {
-      "after": "[\"0.0.0.0/0\"]",
-      "attribute": "cidr_blocks",
-      "before": null,
-      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
-      "step": 1,
-      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
-    },
-    {
-      "after": "0",
-      "attribute": "from_port",
-      "before": null,
-      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
-      "step": 1,
-      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
-    },
-    {
-      "after": "\"-1\"",
-      "attribute": "protocol",
-      "before": null,
-      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
-      "step": 1,
-      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
-    },
-    {
-      "after": "aws_security_group.prod_app_sg.id",
-      "attribute": "security_group_id",
-      "before": null,
-      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
-      "step": 1,
-      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
-    },
-    {
-      "after": "0",
-      "attribute": "to_port",
-      "before": null,
-      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
-      "step": 1,
-      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
-    },
-    {
-      "after": "\"egress\"",
-      "attribute": "type",
-      "before": null,
-      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
-      "step": 1,
-      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
-    },
-    {
-      "after": "[]",
-      "attribute": "vpc_security_group_ids",
-      "before": "[aws_security_group.prod_app_sg.id]",
-      "operator": "op_f5_inline_to_separate_sg_rules_unsafe",
-      "step": 1,
-      "target_address": "aws_instance.prod_app_server"
+      "target_address": "aws_security_group.prod_db_sg"
     }
   ],
   "oracle": null,
@@ -155,7 +91,7 @@
   "scenario_id": "tp-v1-F5-0123",
   "seed": 123,
   "source": {
-    "commit_or_version": "d4a-3+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -171,14 +107,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "56cccd027db75864cab76c9f7e75cc7b482c9322a506469f4282b713d9c413cd",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -51,13 +51,6 @@\n   description = \"Application security group for tpl-06\"\n   name        = \"prod_app_sg-tpl-06\"\n   vpc_id      = aws_vpc.prod_vpc.id\n-\n-  egress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n-    from_port   = 0\n-    protocol    = \"-1\"\n-    to_port     = 0\n-  }\n }\n \n resource \"aws_security_group\" \"prod_db_sg\" {\n@@ -84,7 +77,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.prod_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.prod_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"prod_db_sng\" {\n@@ -104,3 +97,12 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n }\n+\n+resource \"aws_security_group_rule\" \"prod_app_sg_egress_0\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 0\n+  protocol          = \"-1\"\n+  security_group_id = aws_security_group.prod_app_sg.id\n+  to_port           = 0\n+  type              = \"egress\"\n+}\n",
+      "content_hash": "7be4b5e1a23e340d97af63ea6ee15c51ec1ea33095c2e0091d5453b7fb7b8f29",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -62,14 +62,14 @@\n \n resource \"aws_security_group\" \"prod_db_sg\" {\n   description = \"Database security group for tpl-06\"\n-  name        = \"prod_db_sg-tpl-06\"\n+  name        = \"prod_db_sg-tpl-06-v2\"\n   vpc_id      = aws_vpc.prod_vpc.id\n \n   ingress {\n-    from_port       = 5432\n+    from_port       = 5433\n     protocol        = \"tcp\"\n     security_groups = [aws_security_group.prod_app_sg.id]\n-    to_port         = 5432\n+    to_port         = 5433\n   }\n \n   egress {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Restructures SG rules but detaches application SG, breaking connectivity.",
+    "description": "Forces replacement of the DB group; the recreated 5432 ingress carries port 5433.",
     "invariant_id": null,
     "kind": "change_request"
   },

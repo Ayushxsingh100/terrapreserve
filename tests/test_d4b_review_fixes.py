@@ -122,7 +122,7 @@ class TestD4bReviewFixes(unittest.TestCase):
             diff = sc.get("steps", [{}])[-1].get("diff_from_previous", "")
             has_moved = "moved {" in diff
             has_count = "+  count" in diff or "-  count" in diff or "count =" in diff or "count" in diff
-            has_replacement = bool(re.search(r'(ami|engine_version|allocated_storage)\s*=', diff))
+            has_replacement = bool(re.search(r'(ami|engine_version|allocated_storage|name)\s*=', diff))
             has_sg_split = "aws_security_group_rule" in diff or "ingress {" in diff or "ingress" in diff
             if not (has_moved or has_count or has_replacement or has_sg_split):
                 failing.append((sc["scenario_id"], "F5 restructuring not visible in diff"))

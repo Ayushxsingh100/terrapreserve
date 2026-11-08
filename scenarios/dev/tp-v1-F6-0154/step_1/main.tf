@@ -120,7 +120,7 @@ resource "aws_instance" "bastion" {
 
 resource "aws_security_group" "bastion_sg" {
   description = "Bastion security group"
-  name        = "bastion-sg"
+  name        = "bastion_sg-host"
   vpc_id      = aws_vpc.network.id
 
   ingress {

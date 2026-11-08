@@ -9,7 +9,7 @@ resource "aws_internet_gateway" "prod_igw" {
 }
 
 resource "aws_subnet" "prod_app_subnet" {
-  availability_zone = "us-east-1b"
+  availability_zone = "us-east-1a"
   cidr_block        = "10.14.1.0/24"
   vpc_id            = aws_vpc.prod_vpc.id
 }
@@ -89,7 +89,7 @@ resource "aws_instance" "prod_app_server" {
 
 resource "aws_db_subnet_group" "prod_db_sng" {
   name       = "prod_db_sng-tpl-06"
-  subnet_ids = [aws_subnet.prod_db_subnet[0].id, aws_subnet.prod_db_subnet[1].id, aws_subnet.prod_db_subnet[2].id]
+  subnet_ids = [aws_subnet.prod_db_subnet[2].id, aws_subnet.prod_db_subnet[1].id, aws_subnet.prod_db_subnet[0].id]
 }
 
 resource "aws_db_instance" "prod_postgres_db" {

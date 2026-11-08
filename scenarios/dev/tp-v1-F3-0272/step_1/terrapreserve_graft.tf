@@ -9,7 +9,7 @@ resource "aws_internet_gateway" "tp_igw" {
 }
 
 resource "aws_subnet" "tp_app_subnet" {
-  availability_zone = "us-east-1b"
+  availability_zone = "us-east-1a"
   cidr_block        = "172.30.1.0/24"
   vpc_id            = aws_vpc.tp_vpc.id
 }
@@ -62,7 +62,7 @@ resource "aws_security_group_rule" "tp_app_ingress_ssh" {
 }
 
 resource "aws_security_group_rule" "tp_app_egress" {
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = ["172.30.0.0/16"]
   from_port         = 0
   protocol          = "-1"
   security_group_id = aws_security_group.tp_app_sg.id

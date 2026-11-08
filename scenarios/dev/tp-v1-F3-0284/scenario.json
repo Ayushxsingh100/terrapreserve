@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -23,20 +23,36 @@
   "module_id": 379348,
   "mutation_record": [
     {
-      "after": "\"us-east-1b\"",
-      "attribute": "availability_zone",
-      "before": "\"us-east-1a\"",
-      "operator": "op_f3_move_ec2_subnet_unsafe",
+      "after": "\"Dependent client security group\"",
+      "attribute": "description",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_unsafe",
       "step": 1,
-      "target_address": "aws_subnet.tp_app_subnet"
+      "target_address": "aws_security_group.tp_db_sg_peer"
     },
     {
-      "after": "[]",
-      "attribute": "vpc_security_group_ids",
-      "before": "[aws_security_group.tp_app_sg.id]",
-      "operator": "op_f3_move_ec2_subnet_unsafe",
+      "after": "\"tp-db-sg-peer\"",
+      "attribute": "name",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_unsafe",
       "step": 1,
-      "target_address": "aws_instance.tp_app"
+      "target_address": "aws_security_group.tp_db_sg_peer"
+    },
+    {
+      "after": "aws_vpc.tp_vpc.id",
+      "attribute": "vpc_id",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_db_sg_peer"
+    },
+    {
+      "after": "aws_security_group.tp_db_sg_peer.id",
+      "attribute": "source_security_group_id",
+      "before": "aws_security_group.tp_app_sg.id",
+      "operator": "op_f3_db_ingress_peer_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
     }
   ],
   "oracle": null,
@@ -105,14 +121,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "0d09df43df418e1924e65d1e34209566d3153f3ca992d7d6ed86391a06d5c1e0",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -9,7 +9,7 @@\n }\n \n resource \"aws_subnet\" \"tp_app_subnet\" {\n-  availability_zone = \"us-east-1a\"\n+  availability_zone = \"us-east-1b\"\n   cidr_block        = \"172.28.1.0/24\"\n   vpc_id            = aws_vpc.tp_vpc.id\n }\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n",
+      "content_hash": "2e049c4a90796e53455deeff8893f3e0b5d4cdd5fc602b7006cd55241b74786a",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -74,7 +74,7 @@\n   from_port                = 5432\n   protocol                 = \"tcp\"\n   security_group_id        = aws_security_group.tp_db_sg.id\n-  source_security_group_id = aws_security_group.tp_app_sg.id\n+  source_security_group_id = aws_security_group.tp_db_sg_peer.id\n   to_port                  = 5432\n   type                     = \"ingress\"\n }\n@@ -103,3 +103,9 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"tp_db_sg_peer\" {\n+  description = \"Dependent client security group\"\n+  name        = \"tp-db-sg-peer\"\n+  vpc_id      = aws_vpc.tp_vpc.id\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates subnet placement but breaks EC2-to-RDS functional path.",
+    "description": "Adds a new client group and re-points the DB group's 5432 ingress source to it.",
     "invariant_id": null,
     "kind": "change_request"
   }

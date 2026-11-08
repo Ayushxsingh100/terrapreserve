@@ -62,7 +62,7 @@ resource "aws_security_group_rule" "tp_app_ingress_ssh" {
 }
 
 resource "aws_security_group_rule" "tp_app_egress" {
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = ["172.20.0.0/16"]
   from_port         = 0
   protocol          = "-1"
   security_group_id = aws_security_group.tp_app_sg.id
@@ -88,7 +88,7 @@ resource "aws_instance" "tp_app" {
 
 resource "aws_db_subnet_group" "tp_db_subnet_group" {
   name       = "tp-db-subnet-group"
-  subnet_ids = [aws_subnet.tp_db_subnet_2.id, aws_subnet.tp_db_subnet_1.id]
+  subnet_ids = [aws_subnet.tp_db_subnet_1.id, aws_subnet.tp_db_subnet_2.id]
 }
 
 resource "aws_db_instance" "tp_db" {

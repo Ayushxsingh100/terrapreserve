@@ -65,13 +65,6 @@ resource "aws_security_group" "web_secgroup" {
     protocol    = "-1"
     to_port     = 0
   }
-
-  ingress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 5432
-    protocol    = "tcp"
-    to_port     = 5432
-  }
 }
 
 resource "aws_security_group" "data_secgroup" {
@@ -103,4 +96,13 @@ resource "aws_db_instance" "data_instance" {
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.data_secgroup.id]
+}
+
+resource "aws_security_group_rule" "data_secgroup_ingress_db_public" {
+  cidr_blocks       = ["0.0.0.0/0"]
+  from_port         = 5432
+  protocol          = "tcp"
+  security_group_id = aws_security_group.data_secgroup.id
+  to_port           = 5432
+  type              = "ingress"
 }

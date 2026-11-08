@@ -170,13 +170,15 @@ class TestOperatorCatalogue(unittest.TestCase):
         ops_mod, tpl_mod, dv = self._get_modules()
         f5_ops = [op for op in ops_mod.CATALOGUE if op.family == "F5"]
         safe_op = next((op for op in f5_ops if op.name == "op_f5_count_each_safe"), None)
-        unsafe_op = next((op for op in f5_ops if op.name == "op_f5_count_each_unsafe"), None)
-
         self.assertIsNotNone(safe_op, "op_f5_count_each_safe must be registered")
-        self.assertIsNotNone(unsafe_op, "op_f5_count_each_unsafe must be registered")
+        # Round 4: the count restructuring edits S itself, so it is safe-only (D4b-13).
+        self.assertIsNone(
+            next((op for op in f5_ops if op.name == "op_f5_count_each_unsafe"), None),
+            "op_f5_count_each_unsafe was removed in review round 4",
+        )
 
         tpl = tpl_mod.TEMPLATES["tpl-01"]
-        for op in [safe_op, unsafe_op]:
+        for op in [safe_op]:
             rng = random.Random(42)
             m0, _ = tpl.instantiate(rng, variant="clean")
             step_models, records = op.apply(m0, rng)

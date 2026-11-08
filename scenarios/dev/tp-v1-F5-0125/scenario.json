@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4a-3",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -21,20 +21,28 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "1",
-      "attribute": "count",
-      "before": null,
-      "operator": "op_f5_count_each_unsafe",
+      "after": "\"db-tpl-08-v2\"",
+      "attribute": "name",
+      "before": "\"db-tpl-08\"",
+      "operator": "op_f5_db_sg_replacement_unsafe",
       "step": 1,
-      "target_address": "aws_instance.app"
+      "target_address": "aws_security_group.db"
     },
     {
-      "after": "[]",
-      "attribute": "vpc_security_group_ids",
-      "before": "[aws_security_group.app.id]",
-      "operator": "op_f5_count_each_unsafe",
+      "after": "5433",
+      "attribute": "from_port",
+      "before": "5432",
+      "operator": "op_f5_db_sg_replacement_unsafe",
       "step": 1,
-      "target_address": "aws_instance.app"
+      "target_address": "aws_security_group.db"
+    },
+    {
+      "after": "5433",
+      "attribute": "to_port",
+      "before": "5432",
+      "operator": "op_f5_db_sg_replacement_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.db"
     }
   ],
   "oracle": null,
@@ -83,7 +91,7 @@
   "scenario_id": "tp-v1-F5-0125",
   "seed": 125,
   "source": {
-    "commit_or_version": "d4a-3+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -99,14 +107,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "15d41c4284c93dce9d4b1e02573c4959c5ef78c3ba0a4fa804f45453d8f4b464",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -83,9 +83,10 @@\n \n resource \"aws_instance\" \"app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n+  count                  = 1\n   instance_type          = \"t3.nano\"\n   subnet_id              = aws_subnet.app.id\n-  vpc_security_group_ids = [aws_security_group.app.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"main\" {\n",
+      "content_hash": "0f5a95009b71b2fa63d789b4e8bc4dbeefc7678add9e6b20fc0006045a57bc07",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -63,14 +63,14 @@\n \n resource \"aws_security_group\" \"db\" {\n   description = \"Database security group for tpl-08\"\n-  name        = \"db-tpl-08\"\n+  name        = \"db-tpl-08-v2\"\n   vpc_id      = aws_vpc.main.id\n \n   ingress {\n-    from_port       = 5432\n+    from_port       = 5433\n     protocol        = \"tcp\"\n     security_groups = [aws_security_group.app.id]\n-    to_port         = 5432\n+    to_port         = 5433\n   }\n \n   egress {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Restructures count but detaches application SG, breaking connectivity.",
+    "description": "Forces replacement of the DB group; the recreated 5432 ingress carries port 5433.",
     "invariant_id": null,
     "kind": "change_request"
   },

@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -25,7 +25,7 @@
       "after": "false",
       "attribute": "enable_dns_hostnames",
       "before": "true",
-      "operator": "op_f7_vpc_cidr_expansion_safe",
+      "operator": "op_f7_vpc_dns_hostnames_disable_safe",
       "step": 1,
       "target_address": "aws_vpc.tp_vpc"
     }
@@ -103,7 +103,7 @@
     }
   ],
   "target": {
-    "description": "Updates security perimeter safely.",
+    "description": "Sets enable_dns_hostnames = false on the VPC. enable_dns_support is never changed.",
     "invariant_id": null,
     "kind": "change_request"
   }

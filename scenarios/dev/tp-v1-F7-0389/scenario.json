@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -23,20 +23,36 @@
   "module_id": 501595,
   "mutation_record": [
     {
-      "after": "[\"10.0.0.0/8\"]",
-      "attribute": "cidr_blocks",
-      "before": "[\"0.0.0.0/0\"]",
-      "operator": "op_f7_shared_sg_egress_tighten_unsafe",
+      "after": "\"Shared client security group\"",
+      "attribute": "description",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.tp_app_egress"
+      "target_address": "aws_security_group.tp_db_sg_hub"
     },
     {
-      "after": "[]",
-      "attribute": "vpc_security_group_ids",
-      "before": "[aws_security_group.tp_app_sg.id]",
-      "operator": "op_f7_shared_sg_egress_tighten_unsafe",
+      "after": "\"tp-db-sg-hub\"",
+      "attribute": "name",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_unsafe",
       "step": 1,
-      "target_address": "aws_instance.tp_app"
+      "target_address": "aws_security_group.tp_db_sg_hub"
+    },
+    {
+      "after": "aws_vpc.tp_vpc.id",
+      "attribute": "vpc_id",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_db_sg_hub"
+    },
+    {
+      "after": "aws_security_group.tp_db_sg_hub.id",
+      "attribute": "source_security_group_id",
+      "before": "aws_security_group.tp_app_sg.id",
+      "operator": "op_f7_db_ingress_source_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
     }
   ],
   "oracle": null,
@@ -105,14 +121,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "40c1fb317a0977b2f5ea8d16d4b119437d15a82165973d53c2393256ffaca63c",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -62,7 +62,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.tp_app_sg.id\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n",
+      "content_hash": "852bff59fab6af066fe120189c01f22de99036b0a05a94d6e083f95e5661bfd6",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -74,7 +74,7 @@\n   from_port                = 5432\n   protocol                 = \"tcp\"\n   security_group_id        = aws_security_group.tp_db_sg.id\n-  source_security_group_id = aws_security_group.tp_app_sg.id\n+  source_security_group_id = aws_security_group.tp_db_sg_hub.id\n   to_port                  = 5432\n   type                     = \"ingress\"\n }\n@@ -103,3 +103,9 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"tp_db_sg_hub\" {\n+  description = \"Shared client security group\"\n+  name        = \"tp-db-sg-hub\"\n+  vpc_id      = aws_vpc.tp_vpc.id\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Tightens egress but detaches application SG, breaking connectivity.",
+    "description": "Re-points the DB group's 5432 ingress source to a new shared group outside SG(S).",
     "invariant_id": null,
     "kind": "change_request"
   }

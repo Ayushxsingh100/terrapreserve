@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F1",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -103,7 +103,7 @@
     }
   ],
   "target": {
-    "description": "Toggles VPC dns hostnames safely.",
+    "description": "Disables VPC DNS hostnames safely.",
     "invariant_id": null,
     "kind": "change_request"
   }

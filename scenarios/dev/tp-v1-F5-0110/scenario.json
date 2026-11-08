@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4a-3",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -20,84 +20,12 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": null,
-      "attribute": "cidr_blocks",
-      "before": "[\"0.0.0.0/0\"]",
-      "operator": "op_f5_inline_to_separate_sg_rules_safe",
-      "step": 1,
-      "target_address": "aws_security_group.prod_app_sg"
-    },
-    {
-      "after": null,
-      "attribute": "from_port",
-      "before": "0",
-      "operator": "op_f5_inline_to_separate_sg_rules_safe",
-      "step": 1,
-      "target_address": "aws_security_group.prod_app_sg"
-    },
-    {
-      "after": null,
-      "attribute": "protocol",
-      "before": "\"-1\"",
-      "operator": "op_f5_inline_to_separate_sg_rules_safe",
-      "step": 1,
-      "target_address": "aws_security_group.prod_app_sg"
-    },
-    {
-      "after": null,
-      "attribute": "to_port",
-      "before": "0",
-      "operator": "op_f5_inline_to_separate_sg_rules_safe",
-      "step": 1,
-      "target_address": "aws_security_group.prod_app_sg"
-    },
-    {
-      "after": "[\"0.0.0.0/0\"]",
-      "attribute": "cidr_blocks",
+      "after": "1",
+      "attribute": "count",
       "before": null,
-      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "operator": "op_f5_count_each_safe",
       "step": 1,
-      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
-    },
-    {
-      "after": "0",
-      "attribute": "from_port",
-      "before": null,
-      "operator": "op_f5_inline_to_separate_sg_rules_safe",
-      "step": 1,
-      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
-    },
-    {
-      "after": "\"-1\"",
-      "attribute": "protocol",
-      "before": null,
-      "operator": "op_f5_inline_to_separate_sg_rules_safe",
-      "step": 1,
-      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
-    },
-    {
-      "after": "aws_security_group.prod_app_sg.id",
-      "attribute": "security_group_id",
-      "before": null,
-      "operator": "op_f5_inline_to_separate_sg_rules_safe",
-      "step": 1,
-      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
-    },
-    {
-      "after": "0",
-      "attribute": "to_port",
-      "before": null,
-      "operator": "op_f5_inline_to_separate_sg_rules_safe",
-      "step": 1,
-      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
-    },
-    {
-      "after": "\"egress\"",
-      "attribute": "type",
-      "before": null,
-      "operator": "op_f5_inline_to_separate_sg_rules_safe",
-      "step": 1,
-      "target_address": "aws_security_group_rule.prod_app_sg_egress_0"
+      "target_address": "aws_instance.prod_app_server"
     }
   ],
   "oracle": null,
@@ -146,7 +74,7 @@
   "scenario_id": "tp-v1-F5-0110",
   "seed": 110,
   "source": {
-    "commit_or_version": "d4a-3+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -162,14 +90,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "fbb36ecb79c6bfba3a7e686ccb417806a2cd4f9e24cc621018e3ffcf76faccf9",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -51,13 +51,6 @@\n   description = \"Application security group for tpl-06\"\n   name        = \"prod_app_sg-tpl-06\"\n   vpc_id      = aws_vpc.prod_vpc.id\n-\n-  egress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n-    from_port   = 0\n-    protocol    = \"-1\"\n-    to_port     = 0\n-  }\n }\n \n resource \"aws_security_group\" \"prod_db_sg\" {\n@@ -104,3 +97,12 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n }\n+\n+resource \"aws_security_group_rule\" \"prod_app_sg_egress_0\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 0\n+  protocol          = \"-1\"\n+  security_group_id = aws_security_group.prod_app_sg.id\n+  to_port           = 0\n+  type              = \"egress\"\n+}\n",
+      "content_hash": "431b3063e2e8c56f4e22e03b54178bc2f715ee7b257b5b934c04e3c28d3765b0",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -82,6 +82,7 @@\n \n resource \"aws_instance\" \"prod_app_server\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n+  count                  = 1\n   instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.prod_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.prod_app_sg.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Restructures SG rules safely.",
+    "description": "Adds or removes count = 1 on the application instance.",
     "invariant_id": null,
     "kind": "change_request"
   },

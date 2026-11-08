@@ -47,7 +47,7 @@ resource "aws_route_table_association" "rta_app" {
 }
 
 resource "aws_security_group_rule" "app_egress" {
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = ["10.33.0.0/16"]
   from_port         = 0
   protocol          = "-1"
   security_group_id = aws_security_group.app.id
@@ -90,7 +90,7 @@ resource "aws_instance" "app" {
 
 resource "aws_db_subnet_group" "main" {
   name       = "main-tpl-08"
-  subnet_ids = [aws_subnet.db_3.id, aws_subnet.db_2.id, aws_subnet.db_1.id]
+  subnet_ids = [aws_subnet.db_1.id, aws_subnet.db_2.id, aws_subnet.db_3.id]
 }
 
 resource "aws_db_instance" "main" {

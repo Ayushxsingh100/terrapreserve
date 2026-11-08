@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4a-3",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -21,20 +21,12 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"us-east-1b\"",
-      "attribute": "availability_zone",
-      "before": "\"us-east-1a\"",
-      "operator": "op_f3_move_ec2_subnet_unsafe",
+      "after": "[\"192.168.0.0/16\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f3_app_egress_cidr_unsafe",
       "step": 1,
-      "target_address": "aws_subnet.frontend_subnet"
-    },
-    {
-      "after": "[]",
-      "attribute": "vpc_security_group_ids",
-      "before": "[aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]",
-      "operator": "op_f3_move_ec2_subnet_unsafe",
-      "step": 1,
-      "target_address": "aws_instance.frontend_server"
+      "target_address": "aws_security_group.frontend_sg"
     }
   ],
   "oracle": null,
@@ -81,7 +73,7 @@
   "scenario_id": "tp-v1-F3-0075",
   "seed": 75,
   "source": {
-    "commit_or_version": "d4a-3+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -97,14 +89,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "f2e7cf99f89435c589441964480e33e7703d92df4f8de07177d23c85f7c42ce9",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -9,7 +9,7 @@\n }\n \n resource \"aws_subnet\" \"frontend_subnet\" {\n-  availability_zone = \"us-east-1a\"\n+  availability_zone = \"us-east-1b\"\n   cidr_block        = \"10.173.1.0/24\"\n   vpc_id            = aws_vpc.corp_vpc.id\n }\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.frontend_subnet.id\n-  vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"backend_sng\" {\n",
+      "content_hash": "12c242529c384821b19789f1218b304cda6cb3e0002548f1bbfd8212b8af0d84",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -46,7 +46,7 @@\n   vpc_id      = aws_vpc.corp_vpc.id\n \n   egress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"192.168.0.0/16\"]\n     from_port   = 0\n     protocol    = \"-1\"\n     to_port     = 0\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates subnet placement but breaks EC2-to-RDS functional path.",
+    "description": "Restricts the app group egress to a CIDR disjoint from CIDR(VPC(D)).",
     "invariant_id": null,
     "kind": "change_request"
   },

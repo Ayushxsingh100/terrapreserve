@@ -43,6 +43,12 @@ GRAFT_DECLARED_IDENTIFIERS: set[str] = {
     "tp_db_subnet_group",
     "tp_db",
     "tp_db_password",
+    # Names that operators may add to the graft (d4b-4): checked against the host too.
+    "tp_db_ingress_postgres_v2",
+    "tp_db_ingress_postgres_peer",
+    "tp_db_ingress_postgres_hub",
+    "tp_db_sg_peer",
+    "tp_db_sg_hub",
 }
 
 

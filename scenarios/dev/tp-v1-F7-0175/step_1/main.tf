@@ -53,7 +53,7 @@ resource "aws_security_group" "prod_app_sg" {
   vpc_id      = aws_vpc.prod_vpc.id
 
   egress {
-    cidr_blocks = ["10.0.0.0/8"]
+    cidr_blocks = ["0.0.0.0/0"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0
@@ -68,7 +68,7 @@ resource "aws_security_group" "prod_db_sg" {
   ingress {
     from_port       = 5432
     protocol        = "tcp"
-    security_groups = [aws_security_group.prod_app_sg.id]
+    security_groups = [aws_security_group.prod_db_sg_hub.id]
     to_port         = 5432
   }
 
@@ -84,7 +84,7 @@ resource "aws_instance" "prod_app_server" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.medium"
   subnet_id              = aws_subnet.prod_app_subnet.id
-  vpc_security_group_ids = []
+  vpc_security_group_ids = [aws_security_group.prod_app_sg.id]
 }
 
 resource "aws_db_subnet_group" "prod_db_sng" {
@@ -103,4 +103,10 @@ resource "aws_db_instance" "prod_postgres_db" {
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]
+}
+
+resource "aws_security_group" "prod_db_sg_hub" {
+  description = "Shared client security group"
+  name        = "prod_db_sg-tpl-06-hub"
+  vpc_id      = aws_vpc.prod_vpc.id
 }

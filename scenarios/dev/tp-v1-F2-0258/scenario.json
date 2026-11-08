@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F2",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -35,6 +35,14 @@
       "after": "[\"10.0.0.0/8\"]",
       "attribute": "cidr_blocks",
       "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f2_repair_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_app_ingress_ssh"
+    },
+    {
+      "after": "[\"::/0\"]",
+      "attribute": "ipv6_cidr_blocks",
+      "before": null,
       "operator": "op_f2_repair_ssh_unsafe",
       "step": 1,
       "target_address": "aws_security_group_rule.tp_app_ingress_ssh"
@@ -106,8 +114,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "4a8f41bafba5589d72b926447cc1ef3905bd0201400c0659435c3b915d6701c8",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -53,7 +53,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_ingress_ssh\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 22\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
+      "content_hash": "60298ff1bf9c7a97058242747c0f25be4f6b016a8cfc7d8ff568e5eb66f70a1c",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -53,8 +53,9 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_ingress_ssh\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 22\n+  ipv6_cidr_blocks  = [\"::/0\"]\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_app_sg.id\n   to_port           = 22\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

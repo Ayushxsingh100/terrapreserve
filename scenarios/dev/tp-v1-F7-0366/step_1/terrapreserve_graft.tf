@@ -1,7 +1,7 @@
 resource "aws_vpc" "tp_vpc" {
   cidr_block           = "172.21.0.0/16"
   enable_dns_hostnames = true
-  enable_dns_support   = false
+  enable_dns_support   = true
 }
 
 resource "aws_internet_gateway" "tp_igw" {
@@ -63,10 +63,10 @@ resource "aws_security_group_rule" "tp_app_ingress_ssh" {
 
 resource "aws_security_group_rule" "tp_app_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
-  from_port         = 0
-  protocol          = "-1"
+  from_port         = 1024
+  protocol          = "tcp"
   security_group_id = aws_security_group.tp_app_sg.id
-  to_port           = 0
+  to_port           = 65535
   type              = "egress"
 }
 

@@ -67,7 +67,7 @@ resource "aws_security_group" "web_secgroup" {
   }
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["192.168.0.0/16"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0
@@ -84,7 +84,7 @@ resource "aws_instance" "web_instance" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.web_tier.id
-  vpc_security_group_ids = []
+  vpc_security_group_ids = [aws_security_group.web_secgroup.id]
 }
 
 resource "aws_db_subnet_group" "data_subnets" {

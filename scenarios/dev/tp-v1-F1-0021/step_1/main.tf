@@ -79,6 +79,13 @@ resource "aws_security_group" "db" {
     protocol    = "-1"
     to_port     = 0
   }
+
+  ingress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 5432
+    protocol    = "tcp"
+    to_port     = 5432
+  }
 }
 
 resource "aws_instance" "app" {
@@ -100,7 +107,7 @@ resource "aws_db_instance" "main" {
   identifier             = "main-tpl-08"
   instance_class         = "db.t3.micro"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.db.id]

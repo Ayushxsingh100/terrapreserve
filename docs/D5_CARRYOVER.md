@@ -49,3 +49,33 @@ D4b delivers the 160 real-world targets (+ 48 reserves) by grafting onto pooled 
   - Open 2 (Invariant scope on real-world modules): D5 oracle evaluates invariants within `scope_addresses`.
 - Total dataset across both tiers: 416 scenarios (320 targets + 96 reserves: 288 dev, 128 test). D5 will label both tiers using the unified oracle suite.
 
+
+## 5. Generator intent for the D5 comparison (review round 4, generator `d4a-4` and `d4b-4`)
+
+Facts for D5 so that oracle labels can be compared with generator intent and every disagreement reported. Decides nothing; D5 labels come from the oracle only (`oracle/`, ADR-010).
+
+- Generator versions: controlled tier `d4a-4`, real-world tier `d4b-4` (`generator/VERSION.py`, `generator/realworld/generate_rw.py`).
+- The generator is designed so that no generated step is UNSUPPORTED or UNKNOWN for INV-FUNC-001 for a reason the generator controls (D4b-13, Open 3). It never emits `vpc_security_group_ids = []`, never leaves a group MIXED or RETAINED-INLINE, never adds a non-local route inside the VPC CIDR, and never uses an egress or ingress CIDR that only partly covers `CIDR(VPC(D))` or the app subnet. `tests/test_d4b_review_round4.py` checks this with a small self-check evaluator written from registry section 6.3 text (E1 to E6) and section 6.4 rows 1, 2, 3, 6, 8 and 9. That evaluator is not the oracle. If the oracle returns UNSUPPORTED or UNKNOWN for any generated step, that is a disagreement to report.
+- Every safe operator is designed to give INV-FUNC-001 = PASS (row 6) on every step. Every unsafe operator that does not list INV-FUNC-001 below is designed to leave INV-FUNC-001 = PASS and to violate the SEC invariant in its `intent.breaks`.
+- The INV-FUNC-001-breaking operators, their break mechanism and the registry section 6.4 row they are designed to reach on the last step (`intent.breaks` contains `INV-FUNC-001` for exactly these). Mechanisms: B1 egress port range excluding 5432; B2 egress CIDR disjoint from `CIDR(VPC(D))`; B3 DB group 5432 ingress dropped or moved off 5432; B4 DB group 5432 ingress re-pointed to a group outside `SG(S)`; B5 `aws_db_instance.port` not 5432.
+
+| Operator | Mechanism | Designed row |
+|---|---|---|
+| `op_f3_app_egress_cidr_unsafe` | B2 | 9 |
+| `op_f3_app_egress_ports_unsafe` | B1 | 9 |
+| `op_f3_db_ingress_peer_unsafe` | B4 | 9 |
+| `op_f4_repair_ssh_break_db_ingress_unsafe` | B3 | 9 |
+| `op_f5_separate_to_inline_rules_unsafe` | B3 | 9 |
+| `op_f5_db_rule_moved_unsafe` | B4 | 9 |
+| `op_f5_db_sg_replacement_unsafe` | B3 | 9 |
+| `op_f7_app_egress_cidr_tighten_unsafe` | B2 | 9 |
+| `op_f7_app_egress_port_range_unsafe` | B1 | 9 |
+| `op_f7_db_ingress_source_unsafe` | B4 | 9 |
+| `op_f8_twostep_repair_unsafe` | B3 | 9 |
+| `op_f8_threestep_refactor_repair_unsafe` | B5 | 3 |
+| `op_f8_fourstep_maintenance_unsafe` | B2 | 9 |
+
+- For F3, F5 and F7 the break is made through a security group or security group rule; no mutation row of those scenarios is on the `aws_instance` or `aws_db_instance` endpoint (D4b-13).
+- The F1 unsafe operators break INV-SEC-003, INV-SEC-002 and INV-SEC-001 (one each: resize, storage expansion, VPC DNS toggle). The F2 unsafe operators leave the target SEC invariant violated through `ipv6_cidr_blocks = ["::/0"]` (SSH and DB ingress) or an untouched `publicly_accessible = true`; in review round 4 an earlier defect was found where they repaired the target instead (a `"safe" in name` test also matches `unsafe`).
+- Direction of F5 restructuring: only separate rules to inline blocks is generated. Inline blocks to separate rules leaves the group RETAINED-INLINE (registry section 2.6, row 2, D0 amendment A10).
+- The self-check evaluator treats the DNS settings as irrelevant, as the registry does. An AWS calibration run could still diverge on DNS-dependent behaviour (for example a name that does not resolve with `enable_dns_hostnames = false`); the generator never sets `enable_dns_support = false` in a safe variant.

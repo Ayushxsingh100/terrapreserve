@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -31,12 +31,12 @@
   "module_id": 480294,
   "mutation_record": [
     {
-      "after": "[\"10.0.0.0/8\"]",
-      "attribute": "cidr_blocks",
-      "before": "[\"0.0.0.0/0\"]",
-      "operator": "op_f7_shared_sg_egress_tighten_safe",
+      "after": "false",
+      "attribute": "enable_dns_hostnames",
+      "before": "true",
+      "operator": "op_f7_vpc_dns_hostnames_disable_safe",
       "step": 1,
-      "target_address": "aws_security_group_rule.tp_app_egress"
+      "target_address": "aws_vpc.tp_vpc"
     }
   ],
   "oracle": null,
@@ -105,14 +105,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "021d682dec18cbb5b93d0b9610ba5c6d07ff4a8a1b43787c0a5da78657f9492b",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -62,7 +62,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
+      "content_hash": "e152bfaf8eb29944e7c54daede9347badde36f3e4a277f670844862374b79d94",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.30.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Tightens egress on shared security group safely.",
+    "description": "Sets enable_dns_hostnames = false on the VPC. enable_dns_support is never changed.",
     "invariant_id": null,
     "kind": "change_request"
   }

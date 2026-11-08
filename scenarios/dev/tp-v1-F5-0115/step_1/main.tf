@@ -62,7 +62,7 @@ resource "aws_security_group" "prod_app_sg" {
 
 resource "aws_security_group" "prod_db_sg" {
   description = "Database security group for tpl-06"
-  name        = "prod_db_sg-tpl-06"
+  name        = "prod_db_sg-tpl-06-v2"
   vpc_id      = aws_vpc.prod_vpc.id
 
   ingress {
@@ -81,7 +81,7 @@ resource "aws_security_group" "prod_db_sg" {
 }
 
 resource "aws_instance" "prod_app_server" {
-  ami                    = "ami-0d5eff06f840b45e9"
+  ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.medium"
   subnet_id              = aws_subnet.prod_app_subnet.id
   vpc_security_group_ids = [aws_security_group.prod_app_sg.id]

@@ -1,7 +1,7 @@
 resource "aws_vpc" "main" {
   cidr_block           = "10.143.0.0/16"
   enable_dns_hostnames = true
-  enable_dns_support   = false
+  enable_dns_support   = true
 }
 
 resource "aws_internet_gateway" "igw" {
@@ -59,7 +59,7 @@ resource "aws_security_group_rule" "db_egress" {
 }
 
 resource "aws_security_group_rule" "app_egress" {
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = ["192.168.0.0/16"]
   from_port         = 0
   protocol          = "-1"
   security_group_id = aws_security_group.app.id
@@ -83,7 +83,7 @@ resource "aws_instance" "app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.app.id
-  vpc_security_group_ids = []
+  vpc_security_group_ids = [aws_security_group.app.id]
 }
 
 resource "aws_db_subnet_group" "main" {

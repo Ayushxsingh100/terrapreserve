@@ -1,6 +1,6 @@
 resource "aws_vpc" "vpc_main" {
   cidr_block           = "10.164.0.0/16"
-  enable_dns_hostnames = false
+  enable_dns_hostnames = true
   enable_dns_support   = true
 }
 
@@ -61,9 +61,9 @@ resource "aws_security_group" "sg_app" {
 
   egress {
     cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+    from_port   = 1024
+    protocol    = "tcp"
+    to_port     = 65535
   }
 }
 

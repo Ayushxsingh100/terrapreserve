@@ -2,7 +2,8 @@
 
 Tests over EVERY generated scenario, both tiers:
 1. (a) Mutation touches the attribute/resource class the family requires:
-       - F3: dependency path (subnet, db subnet group, or instance subnet/SG association)
+       - F3: dependency path (subnet, db subnet group, security group or security group rule;
+         round 4: an edit on the endpoint aws_instance no longer counts)
        - F5: structure (moved block, inline/separate rules, count, replacement)
        - F6: new resource (new resource added to configuration)
        - F7: hub resource (aws_vpc, aws_route_table, aws_security_group, aws_security_group_rule)
@@ -55,10 +56,10 @@ class TestD4bReviewRound3(unittest.TestCase):
             for m in muts:
                 tgt = m.get("target_address", "")
                 attr = m.get("attribute", "")
-                if "aws_subnet" in tgt or "aws_db_subnet_group" in tgt:
-                    dep_touched = True
-                    break
-                if tgt.startswith("aws_instance.") and attr in ("subnet_id", "vpc_security_group_ids"):
+                # Round 4: the endpoints S and D are not a dependency path, so an
+                # aws_instance edit no longer counts. Subnets, DB subnet groups and
+                # security groups or their rules do.
+                if tgt.startswith(("aws_subnet.", "aws_db_subnet_group.", "aws_security_group.", "aws_security_group_rule.")):
                     dep_touched = True
                     break
             if not dep_touched:
@@ -125,7 +126,7 @@ class TestD4bReviewRound3(unittest.TestCase):
                 tgt = m.get("target_address", "")
                 attr = m.get("attribute", "")
                 op = m.get("operator", "")
-                if attr in ("count", "ami", "subnet_id") or "moved" in op or "rules" in op or "aws_security_group_rule" in tgt:
+                if attr in ("count", "ami", "subnet_id") or "moved" in op or "rules" in op or "replacement" in op or "aws_security_group_rule" in tgt:
                     struct_touched = True
                     break
             if not struct_touched:
@@ -188,10 +189,6 @@ class TestD4bReviewRound3(unittest.TestCase):
                             introduced.add("INV-SEC-001")
                         elif is_db:
                             introduced.add("INV-SEC-002")
-                elif attr == "vpc_security_group_ids" and after == "[]":
-                    introduced.add("INV-FUNC-001")
-                elif attr == "cidr_blocks" and after == '["127.0.0.1/32"]':
-                    introduced.add("INV-FUNC-001")
 
             # Check new resources added (e.g. F6)
             for m in muts:

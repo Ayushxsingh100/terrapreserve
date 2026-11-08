@@ -1,6 +1,6 @@
 resource "aws_vpc" "vpc_main" {
   cidr_block           = "10.165.0.0/16"
-  enable_dns_hostnames = false
+  enable_dns_hostnames = true
   enable_dns_support   = true
 }
 
@@ -60,7 +60,7 @@ resource "aws_security_group" "sg_app" {
   vpc_id      = aws_vpc.vpc_main.id
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0

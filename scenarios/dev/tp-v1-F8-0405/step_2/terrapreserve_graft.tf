@@ -71,11 +71,11 @@ resource "aws_security_group_rule" "tp_app_egress" {
 }
 
 resource "aws_security_group_rule" "tp_db_ingress_postgres" {
-  from_port                = 5432
+  from_port                = 5433
   protocol                 = "tcp"
   security_group_id        = aws_security_group.tp_db_sg.id
   source_security_group_id = aws_security_group.tp_app_sg.id
-  to_port                  = 5432
+  to_port                  = 5433
   type                     = "ingress"
 }
 
@@ -83,7 +83,7 @@ resource "aws_instance" "tp_app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.small"
   subnet_id              = aws_subnet.tp_app_subnet.id
-  vpc_security_group_ids = []
+  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]
 }
 
 resource "aws_db_subnet_group" "tp_db_subnet_group" {

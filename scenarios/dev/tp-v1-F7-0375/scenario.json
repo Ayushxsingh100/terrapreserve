@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -22,12 +22,20 @@
   "module_id": 484921,
   "mutation_record": [
     {
-      "after": "false",
-      "attribute": "enable_dns_support",
-      "before": "true",
-      "operator": "op_f7_shared_route_table_edit_safe",
+      "after": null,
+      "attribute": "source_security_group_id",
+      "before": "aws_security_group.tp_app_sg.id",
+      "operator": "op_f7_db_ingress_source_safe",
       "step": 1,
-      "target_address": "aws_vpc.tp_vpc"
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    },
+    {
+      "after": "[\"172.31.1.0/24\"]",
+      "attribute": "cidr_blocks",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
     }
   ],
   "oracle": null,
@@ -96,14 +104,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "035fff7c3698fc7b84fd387d794d5190efb495e537629d9191f33775d439d8fd",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,7 +1,7 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.31.0.0/16\"\n   enable_dns_hostnames = true\n-  enable_dns_support   = true\n+  enable_dns_support   = false\n }\n \n resource \"aws_internet_gateway\" \"tp_igw\" {\n",
+      "content_hash": "5f092b818df0a371cbc8d4b13f6b721c9181ec49c4381e8cba8f9f44024f1e7c",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -71,12 +71,12 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  from_port                = 5432\n-  protocol                 = \"tcp\"\n-  security_group_id        = aws_security_group.tp_db_sg.id\n-  source_security_group_id = aws_security_group.tp_app_sg.id\n-  to_port                  = 5432\n-  type                     = \"ingress\"\n+  cidr_blocks       = [\"172.31.1.0/24\"]\n+  from_port         = 5432\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.tp_db_sg.id\n+  to_port           = 5432\n+  type              = \"ingress\"\n }\n \n resource \"aws_instance\" \"tp_app\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates VPC core DNS support configuration safely.",
+    "description": "Replaces the DB group's 5432 ingress source group with the application subnet CIDR.",
     "invariant_id": null,
     "kind": "change_request"
   }

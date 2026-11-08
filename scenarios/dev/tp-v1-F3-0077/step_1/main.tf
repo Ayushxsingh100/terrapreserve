@@ -9,7 +9,7 @@ resource "aws_internet_gateway" "igw" {
 }
 
 resource "aws_subnet" "app" {
-  availability_zone = "us-east-1b"
+  availability_zone = "us-east-1a"
   cidr_block        = "10.100.1.0/24"
   vpc_id            = aws_vpc.main.id
 }
@@ -69,7 +69,7 @@ resource "aws_security_group" "db" {
   ingress {
     from_port       = 5432
     protocol        = "tcp"
-    security_groups = [aws_security_group.app.id]
+    security_groups = [aws_security_group.db_peer.id]
     to_port         = 5432
   }
 
@@ -85,7 +85,7 @@ resource "aws_instance" "app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.nano"
   subnet_id              = aws_subnet.app.id
-  vpc_security_group_ids = []
+  vpc_security_group_ids = [aws_security_group.app.id]
 }
 
 resource "aws_db_subnet_group" "main" {
@@ -104,4 +104,10 @@ resource "aws_db_instance" "main" {
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.db.id]
+}
+
+resource "aws_security_group" "db_peer" {
+  description = "Dependent client security group"
+  name        = "db-tpl-08-peer"
+  vpc_id      = aws_vpc.main.id
 }

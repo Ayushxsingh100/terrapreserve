@@ -9,7 +9,7 @@ resource "aws_internet_gateway" "gateway" {
 }
 
 resource "aws_subnet" "web_tier" {
-  availability_zone = "us-east-1b"
+  availability_zone = "us-east-1a"
   cidr_block        = "10.61.1.0/24"
   vpc_id            = aws_vpc.network.id
 }
@@ -67,10 +67,10 @@ resource "aws_security_group_rule" "data_secgroup_egress" {
 
 resource "aws_security_group_rule" "web_secgroup_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
-  from_port         = 0
-  protocol          = "-1"
+  from_port         = 5432
+  protocol          = "tcp"
   security_group_id = aws_security_group.web_secgroup.id
-  to_port           = 0
+  to_port           = 5432
   type              = "egress"
 }
 

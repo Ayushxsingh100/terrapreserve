@@ -9,7 +9,7 @@ resource "aws_internet_gateway" "corp_igw" {
 }
 
 resource "aws_subnet" "frontend_subnet" {
-  availability_zone = "us-east-1b"
+  availability_zone = "us-east-1a"
   cidr_block        = "10.182.1.0/24"
   vpc_id            = aws_vpc.corp_vpc.id
 }
@@ -71,6 +71,13 @@ resource "aws_security_group" "backend_sg" {
     protocol    = "-1"
     to_port     = 0
   }
+
+  ingress {
+    from_port       = 5432
+    protocol        = "tcp"
+    security_groups = [aws_security_group.backend_sg_peer.id]
+    to_port         = 5432
+  }
 }
 
 resource "aws_security_group" "frontend_sg_extra" {
@@ -102,4 +109,10 @@ resource "aws_db_instance" "backend_database" {
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.backend_sg.id]
+}
+
+resource "aws_security_group" "backend_sg_peer" {
+  description = "Dependent client security group"
+  name        = "backend_sg-tpl-10-peer"
+  vpc_id      = aws_vpc.corp_vpc.id
 }

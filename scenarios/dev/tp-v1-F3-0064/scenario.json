@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4a-3",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -20,12 +20,12 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"us-east-1b\"",
-      "attribute": "availability_zone",
-      "before": "\"us-east-1a\"",
-      "operator": "op_f3_move_ec2_subnet_safe",
+      "after": "[aws_subnet.prod_db_subnet[2].id, aws_subnet.prod_db_subnet[1].id, aws_subnet.prod_db_subnet[0].id]",
+      "attribute": "subnet_ids",
+      "before": "[aws_subnet.prod_db_subnet[0].id, aws_subnet.prod_db_subnet[1].id, aws_subnet.prod_db_subnet[2].id]",
+      "operator": "op_f3_modify_db_subnet_group_safe",
       "step": 1,
-      "target_address": "aws_subnet.prod_app_subnet"
+      "target_address": "aws_db_subnet_group.prod_db_sng"
     }
   ],
   "oracle": null,
@@ -74,7 +74,7 @@
   "scenario_id": "tp-v1-F3-0064",
   "seed": 64,
   "source": {
-    "commit_or_version": "d4a-3+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -90,14 +90,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "6933e53d41e2dd4c1a7f3132047dc0d1228467423f7a4734242bc1d24c0bedd5",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -9,7 +9,7 @@\n }\n \n resource \"aws_subnet\" \"prod_app_subnet\" {\n-  availability_zone = \"us-east-1a\"\n+  availability_zone = \"us-east-1b\"\n   cidr_block        = \"10.14.1.0/24\"\n   vpc_id            = aws_vpc.prod_vpc.id\n }\n",
+      "content_hash": "0671e4aba0c5fc29a336cb709cb0e5e35429a4640afa23f31b82b4b057e565d6",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -89,7 +89,7 @@\n \n resource \"aws_db_subnet_group\" \"prod_db_sng\" {\n   name       = \"prod_db_sng-tpl-06\"\n-  subnet_ids = [aws_subnet.prod_db_subnet[0].id, aws_subnet.prod_db_subnet[1].id, aws_subnet.prod_db_subnet[2].id]\n+  subnet_ids = [aws_subnet.prod_db_subnet[2].id, aws_subnet.prod_db_subnet[1].id, aws_subnet.prod_db_subnet[0].id]\n }\n \n resource \"aws_db_instance\" \"prod_postgres_db\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates application subnet placement safely.",
+    "description": "Reorders subnets in DB subnet group safely.",
     "invariant_id": null,
     "kind": "change_request"
   },

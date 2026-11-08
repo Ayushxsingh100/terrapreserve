@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -22,12 +22,12 @@
   "module_id": 368468,
   "mutation_record": [
     {
-      "after": "\"us-east-1b\"",
-      "attribute": "availability_zone",
-      "before": "\"us-east-1a\"",
-      "operator": "op_f3_move_ec2_subnet_safe",
+      "after": "[aws_subnet.tp_db_subnet_2.id, aws_subnet.tp_db_subnet_1.id]",
+      "attribute": "subnet_ids",
+      "before": "[aws_subnet.tp_db_subnet_1.id, aws_subnet.tp_db_subnet_2.id]",
+      "operator": "op_f3_modify_db_subnet_group_safe",
       "step": 1,
-      "target_address": "aws_subnet.tp_app_subnet"
+      "target_address": "aws_db_subnet_group.tp_db_subnet_group"
     }
   ],
   "oracle": null,
@@ -96,14 +96,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "7f1dcf2e75c5a1a2e47f97a3b505b7dd9a1c7b410b89cf44f02842278c430be2",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -9,7 +9,7 @@\n }\n \n resource \"aws_subnet\" \"tp_app_subnet\" {\n-  availability_zone = \"us-east-1a\"\n+  availability_zone = \"us-east-1b\"\n   cidr_block        = \"172.21.1.0/24\"\n   vpc_id            = aws_vpc.tp_vpc.id\n }\n",
+      "content_hash": "a284a3a01906f588e3fd6d1603a6cf7372d1f2223646fea02e697f259353f296",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -88,7 +88,7 @@\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n   name       = \"tp-db-subnet-group\"\n-  subnet_ids = [aws_subnet.tp_db_subnet_1.id, aws_subnet.tp_db_subnet_2.id]\n+  subnet_ids = [aws_subnet.tp_db_subnet_2.id, aws_subnet.tp_db_subnet_1.id]\n }\n \n resource \"aws_db_instance\" \"tp_db\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates application subnet placement safely.",
+    "description": "Reorders subnets in DB subnet group safely.",
     "invariant_id": null,
     "kind": "change_request"
   }

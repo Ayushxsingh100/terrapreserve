@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4a-3",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -21,20 +21,36 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "[\"10.0.0.0/8\"]",
-      "attribute": "cidr_blocks",
-      "before": "[\"0.0.0.0/0\"]",
-      "operator": "op_f7_shared_sg_egress_tighten_unsafe",
+      "after": "\"Shared client security group\"",
+      "attribute": "description",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.data_secgroup_egress"
+      "target_address": "aws_security_group.data_secgroup_hub"
     },
     {
-      "after": "[]",
-      "attribute": "vpc_security_group_ids",
-      "before": "[aws_security_group.web_secgroup.id]",
-      "operator": "op_f7_shared_sg_egress_tighten_unsafe",
+      "after": "\"data_secgroup-tpl-03-hub\"",
+      "attribute": "name",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_unsafe",
       "step": 1,
-      "target_address": "aws_instance.web_instance"
+      "target_address": "aws_security_group.data_secgroup_hub"
+    },
+    {
+      "after": "aws_vpc.network.id",
+      "attribute": "vpc_id",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.data_secgroup_hub"
+    },
+    {
+      "after": "aws_security_group.data_secgroup_hub.id",
+      "attribute": "source_security_group_id",
+      "before": "aws_security_group.web_secgroup.id",
+      "operator": "op_f7_db_ingress_source_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432"
     }
   ],
   "oracle": null,
@@ -83,7 +99,7 @@
   "scenario_id": "tp-v1-F7-0172",
   "seed": 172,
   "source": {
-    "commit_or_version": "d4a-3+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -99,14 +115,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "5763d2a63048a166f53ba190258513e9e7b1a38ca1413f7d55a28ca038ff296e",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -46,7 +46,7 @@\n }\n \n resource \"aws_security_group_rule\" \"data_secgroup_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.data_secgroup.id\n@@ -77,7 +77,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.nano\"\n   subnet_id              = aws_subnet.web_tier.id\n-  vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"data_subnets\" {\n",
+      "content_hash": "c0e91e201e924a1a7c927974bd249a599f3073f19acfebe8bda067d130476f59",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -40,7 +40,7 @@\n   from_port                = 5432\n   protocol                 = \"tcp\"\n   security_group_id        = aws_security_group.data_secgroup.id\n-  source_security_group_id = aws_security_group.web_secgroup.id\n+  source_security_group_id = aws_security_group.data_secgroup_hub.id\n   to_port                  = 5432\n   type                     = \"ingress\"\n }\n@@ -97,3 +97,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n+\n+resource \"aws_security_group\" \"data_secgroup_hub\" {\n+  description = \"Shared client security group\"\n+  name        = \"data_secgroup-tpl-03-hub\"\n+  vpc_id      = aws_vpc.network.id\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Tightens egress but detaches application SG, breaking connectivity.",
+    "description": "Re-points the DB group's 5432 ingress source to a new shared group outside SG(S).",
     "invariant_id": null,
     "kind": "change_request"
   },

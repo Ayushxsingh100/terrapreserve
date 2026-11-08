@@ -63,10 +63,10 @@ resource "aws_security_group_rule" "tp_app_ingress_ssh" {
 
 resource "aws_security_group_rule" "tp_app_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
-  from_port         = 0
-  protocol          = "-1"
+  from_port         = 443
+  protocol          = "tcp"
   security_group_id = aws_security_group.tp_app_sg.id
-  to_port           = 0
+  to_port           = 443
   type              = "egress"
 }
 
@@ -83,12 +83,12 @@ resource "aws_instance" "tp_app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.tp_app_subnet.id
-  vpc_security_group_ids = []
+  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]
 }
 
 resource "aws_db_subnet_group" "tp_db_subnet_group" {
   name       = "tp-db-subnet-group"
-  subnet_ids = [aws_subnet.tp_db_subnet_2.id, aws_subnet.tp_db_subnet_1.id]
+  subnet_ids = [aws_subnet.tp_db_subnet_1.id, aws_subnet.tp_db_subnet_2.id]
 }
 
 resource "aws_db_instance" "tp_db" {

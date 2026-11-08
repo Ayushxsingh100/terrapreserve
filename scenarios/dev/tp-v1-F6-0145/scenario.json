@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F6",
-  "generator_version": "d4a-3",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -61,7 +61,7 @@
       "target_address": "aws_security_group.bastion_sg"
     },
     {
-      "after": "\"bastion-sg\"",
+      "after": "\"bastion_sg-host\"",
       "attribute": "name",
       "before": null,
       "operator": "op_f6_add_bastion_host_unsafe",
@@ -153,7 +153,7 @@
   "scenario_id": "tp-v1-F6-0145",
   "seed": 145,
   "source": {
-    "commit_or_version": "d4a-3+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -169,8 +169,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "d6e92ace571fe571b736fa891f40c07dee3b2419450e212cec06233899493f4d",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -111,3 +111,23 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.sg_db.id]\n }\n+\n+resource \"aws_instance\" \"bastion\" {\n+  ami                    = \"ami-0c55b159cbfafe1f0\"\n+  instance_type          = \"t3.nano\"\n+  subnet_id              = aws_subnet.sub_app.id\n+  vpc_security_group_ids = [aws_security_group.bastion_sg.id]\n+}\n+\n+resource \"aws_security_group\" \"bastion_sg\" {\n+  description = \"Bastion security group\"\n+  name        = \"bastion-sg\"\n+  vpc_id      = aws_vpc.vpc_main.id\n+\n+  ingress {\n+    cidr_blocks = [\"0.0.0.0/0\"]\n+    from_port   = 22\n+    protocol    = \"tcp\"\n+    to_port     = 22\n+  }\n+}\n",
+      "content_hash": "085a24aae3cd1e29445ecbe33e8e83c12ff522a0206539b07a5de23ca029d04c",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -111,3 +111,23 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.sg_db.id]\n }\n+\n+resource \"aws_instance\" \"bastion\" {\n+  ami                    = \"ami-0c55b159cbfafe1f0\"\n+  instance_type          = \"t3.nano\"\n+  subnet_id              = aws_subnet.sub_app.id\n+  vpc_security_group_ids = [aws_security_group.bastion_sg.id]\n+}\n+\n+resource \"aws_security_group\" \"bastion_sg\" {\n+  description = \"Bastion security group\"\n+  name        = \"bastion_sg-host\"\n+  vpc_id      = aws_vpc.vpc_main.id\n+\n+  ingress {\n+    cidr_blocks = [\"0.0.0.0/0\"]\n+    from_port   = 22\n+    protocol    = \"tcp\"\n+    to_port     = 22\n+  }\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

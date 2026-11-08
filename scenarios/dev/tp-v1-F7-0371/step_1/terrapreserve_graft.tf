@@ -62,7 +62,7 @@ resource "aws_security_group_rule" "tp_app_ingress_ssh" {
 }
 
 resource "aws_security_group_rule" "tp_app_egress" {
-  cidr_blocks       = ["10.0.0.0/8"]
+  cidr_blocks       = ["0.0.0.0/0"]
   from_port         = 0
   protocol          = "-1"
   security_group_id = aws_security_group.tp_app_sg.id
@@ -71,12 +71,12 @@ resource "aws_security_group_rule" "tp_app_egress" {
 }
 
 resource "aws_security_group_rule" "tp_db_ingress_postgres" {
-  from_port                = 5432
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.tp_db_sg.id
-  source_security_group_id = aws_security_group.tp_app_sg.id
-  to_port                  = 5432
-  type                     = "ingress"
+  cidr_blocks       = ["172.19.1.0/24"]
+  from_port         = 5432
+  protocol          = "tcp"
+  security_group_id = aws_security_group.tp_db_sg.id
+  to_port           = 5432
+  type              = "ingress"
 }
 
 resource "aws_instance" "tp_app" {

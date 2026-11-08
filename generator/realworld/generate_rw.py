@@ -36,7 +36,7 @@ import writer
 from realworld import graft, plan as rw_plan, real_diff_verify, screen, span_edit
 
 DATASET_VERSION = "1.0"
-GENERATOR_VERSION = "d4b-3"
+GENERATOR_VERSION = "d4b-4"
 
 PROTECTED_INVARIANTS = [
     {"invariant_id": "INV-SEC-001", "version": "1.0"},

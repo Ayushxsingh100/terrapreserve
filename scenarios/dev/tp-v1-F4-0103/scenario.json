@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F4",
-  "generator_version": "d4a-3",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -34,7 +34,7 @@
       "before": null,
       "operator": "op_f4_repair_rds_public_open_db_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.web_secgroup_ingress_db_public"
+      "target_address": "aws_security_group_rule.data_secgroup_ingress_db_public"
     },
     {
       "after": "5432",
@@ -42,7 +42,7 @@
       "before": null,
       "operator": "op_f4_repair_rds_public_open_db_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.web_secgroup_ingress_db_public"
+      "target_address": "aws_security_group_rule.data_secgroup_ingress_db_public"
     },
     {
       "after": "\"tcp\"",
@@ -50,15 +50,15 @@
       "before": null,
       "operator": "op_f4_repair_rds_public_open_db_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.web_secgroup_ingress_db_public"
+      "target_address": "aws_security_group_rule.data_secgroup_ingress_db_public"
     },
     {
-      "after": "aws_security_group.web_secgroup.id",
+      "after": "aws_security_group.data_secgroup.id",
       "attribute": "security_group_id",
       "before": null,
       "operator": "op_f4_repair_rds_public_open_db_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.web_secgroup_ingress_db_public"
+      "target_address": "aws_security_group_rule.data_secgroup_ingress_db_public"
     },
     {
       "after": "5432",
@@ -66,7 +66,7 @@
       "before": null,
       "operator": "op_f4_repair_rds_public_open_db_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.web_secgroup_ingress_db_public"
+      "target_address": "aws_security_group_rule.data_secgroup_ingress_db_public"
     },
     {
       "after": "\"ingress\"",
@@ -74,7 +74,7 @@
       "before": null,
       "operator": "op_f4_repair_rds_public_open_db_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.web_secgroup_ingress_db_public"
+      "target_address": "aws_security_group_rule.data_secgroup_ingress_db_public"
     }
   ],
   "oracle": null,
@@ -121,7 +121,7 @@
   "scenario_id": "tp-v1-F4-0103",
   "seed": 103,
   "source": {
-    "commit_or_version": "d4a-3+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -137,8 +137,8 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "95fa943add52ef6d801e9db6c6d5a4cf0cc0d4c7a82a7607e71497b045f5bd53",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -105,8 +105,17 @@\n   identifier             = \"data-instance-tpl-09\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = true\n+  publicly_accessible    = false\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n+\n+resource \"aws_security_group_rule\" \"web_secgroup_ingress_db_public\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 5432\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.web_secgroup.id\n+  to_port           = 5432\n+  type              = \"ingress\"\n+}\n",
+      "content_hash": "f0f5d225c58d8336eeb09acdfea6ff75380df8cccddb559af67752c10ae73547",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -105,8 +105,17 @@\n   identifier             = \"data-instance-tpl-09\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = true\n+  publicly_accessible    = false\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n+\n+resource \"aws_security_group_rule\" \"data_secgroup_ingress_db_public\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 5432\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.data_secgroup.id\n+  to_port           = 5432\n+  type              = \"ingress\"\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }

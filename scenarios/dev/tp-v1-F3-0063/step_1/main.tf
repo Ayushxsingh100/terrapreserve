@@ -9,7 +9,7 @@ resource "aws_internet_gateway" "gateway" {
 }
 
 resource "aws_subnet" "web_tier" {
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-1b"
   cidr_block        = "10.23.1.0/24"
   vpc_id            = aws_vpc.network.id
 }
@@ -95,7 +95,7 @@ resource "aws_instance" "web_instance" {
 
 resource "aws_db_subnet_group" "data_subnets" {
   name       = "data_subnets-tpl-09"
-  subnet_ids = [aws_subnet.data_tier[1].id, aws_subnet.data_tier[0].id]
+  subnet_ids = [aws_subnet.data_tier[0].id, aws_subnet.data_tier[1].id]
 }
 
 resource "aws_db_instance" "data_instance" {

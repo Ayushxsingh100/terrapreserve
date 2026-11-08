@@ -9,7 +9,7 @@ resource "aws_internet_gateway" "tp_igw" {
 }
 
 resource "aws_subnet" "tp_app_subnet" {
-  availability_zone = "us-east-1b"
+  availability_zone = "us-east-1a"
   cidr_block        = "172.21.1.0/24"
   vpc_id            = aws_vpc.tp_vpc.id
 }
@@ -88,7 +88,7 @@ resource "aws_instance" "tp_app" {
 
 resource "aws_db_subnet_group" "tp_db_subnet_group" {
   name       = "tp-db-subnet-group"
-  subnet_ids = [aws_subnet.tp_db_subnet_1.id, aws_subnet.tp_db_subnet_2.id]
+  subnet_ids = [aws_subnet.tp_db_subnet_2.id, aws_subnet.tp_db_subnet_1.id]
 }
 
 resource "aws_db_instance" "tp_db" {

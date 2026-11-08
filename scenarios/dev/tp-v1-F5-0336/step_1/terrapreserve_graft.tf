@@ -1,8 +1,3 @@
-moved {
-  from = aws_subnet.tp_app_subnet
-  to   = aws_subnet.tp_app_subnet_app
-}
-
 resource "aws_vpc" "tp_vpc" {
   cidr_block           = "172.21.0.0/16"
   enable_dns_hostnames = true
@@ -11,6 +6,12 @@ resource "aws_vpc" "tp_vpc" {
 
 resource "aws_internet_gateway" "tp_igw" {
   vpc_id = aws_vpc.tp_vpc.id
+}
+
+resource "aws_subnet" "tp_app_subnet" {
+  availability_zone = "us-east-1a"
+  cidr_block        = "172.21.1.0/24"
+  vpc_id            = aws_vpc.tp_vpc.id
 }
 
 resource "aws_subnet" "tp_db_subnet_1" {
@@ -36,7 +37,7 @@ resource "aws_route_table" "tp_public_rt" {
 
 resource "aws_route_table_association" "tp_rta_app" {
   route_table_id = aws_route_table.tp_public_rt.id
-  subnet_id      = aws_subnet.tp_app_subnet_app.id
+  subnet_id      = aws_subnet.tp_app_subnet.id
 }
 
 resource "aws_security_group" "tp_app_sg" {
@@ -69,20 +70,11 @@ resource "aws_security_group_rule" "tp_app_egress" {
   type              = "egress"
 }
 
-resource "aws_security_group_rule" "tp_db_ingress_postgres" {
-  from_port                = 5432
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.tp_db_sg.id
-  source_security_group_id = aws_security_group.tp_app_sg.id
-  to_port                  = 5432
-  type                     = "ingress"
-}
-
 resource "aws_instance" "tp_app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.micro"
-  subnet_id              = aws_subnet.tp_app_subnet_app.id
-  vpc_security_group_ids = []
+  subnet_id              = aws_subnet.tp_app_subnet.id
+  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]
 }
 
 resource "aws_db_subnet_group" "tp_db_subnet_group" {
@@ -101,10 +93,4 @@ resource "aws_db_instance" "tp_db" {
   skip_final_snapshot    = true
   username               = "tp_admin"
   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]
-}
-
-resource "aws_subnet" "tp_app_subnet_app" {
-  availability_zone = "us-east-1a"
-  cidr_block        = "172.21.1.0/24"
-  vpc_id            = aws_vpc.tp_vpc.id
 }

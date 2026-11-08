@@ -1,6 +1,6 @@
 resource "aws_vpc" "main" {
   cidr_block           = "10.59.0.0/16"
-  enable_dns_hostnames = false
+  enable_dns_hostnames = true
   enable_dns_support   = true
 }
 
@@ -48,10 +48,10 @@ resource "aws_route_table_association" "rta_app" {
 
 resource "aws_security_group_rule" "app_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
-  from_port         = 0
-  protocol          = "-1"
+  from_port         = 1
+  protocol          = "tcp"
   security_group_id = aws_security_group.app.id
-  to_port           = 0
+  to_port           = 1023
   type              = "egress"
 }
 
@@ -85,7 +85,7 @@ resource "aws_instance" "app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.nano"
   subnet_id              = aws_subnet.app.id
-  vpc_security_group_ids = []
+  vpc_security_group_ids = [aws_security_group.app.id]
 }
 
 resource "aws_db_subnet_group" "main" {

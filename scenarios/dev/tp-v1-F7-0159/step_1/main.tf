@@ -46,7 +46,7 @@ resource "aws_security_group_rule" "data_secgroup_from_app_5432" {
 }
 
 resource "aws_security_group_rule" "data_secgroup_egress" {
-  cidr_blocks       = ["10.0.0.0/8"]
+  cidr_blocks       = ["0.0.0.0/0"]
   from_port         = 0
   protocol          = "-1"
   security_group_id = aws_security_group.data_secgroup.id
@@ -61,9 +61,9 @@ resource "aws_security_group" "web_secgroup" {
 
   egress {
     cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+    from_port   = 1024
+    protocol    = "tcp"
+    to_port     = 65535
   }
 }
 

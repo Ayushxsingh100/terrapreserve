@@ -67,7 +67,7 @@ resource "aws_security_group" "sg_app" {
   }
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["192.168.0.0/16"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0
@@ -98,7 +98,7 @@ resource "aws_instance" "ec2_app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.medium"
   subnet_id              = aws_subnet.sub_app.id
-  vpc_security_group_ids = []
+  vpc_security_group_ids = [aws_security_group.sg_app.id]
 }
 
 resource "aws_db_subnet_group" "dbsng_main" {

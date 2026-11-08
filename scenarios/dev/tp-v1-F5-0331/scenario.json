@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -23,20 +23,124 @@
   "module_id": 445888,
   "mutation_record": [
     {
-      "after": "1",
-      "attribute": "count",
+      "after": "\"Client group of the recreated rule\"",
+      "attribute": "description",
       "before": null,
-      "operator": "op_f5_count_each_unsafe",
+      "operator": "op_f5_db_rule_moved_unsafe",
       "step": 1,
-      "target_address": "aws_instance.tp_app"
+      "target_address": "aws_security_group.tp_db_sg_peer"
     },
     {
-      "after": "[]",
-      "attribute": "vpc_security_group_ids",
-      "before": "[aws_security_group.tp_app_sg.id]",
-      "operator": "op_f5_count_each_unsafe",
+      "after": "\"tp-db-sg-peer\"",
+      "attribute": "name",
+      "before": null,
+      "operator": "op_f5_db_rule_moved_unsafe",
       "step": 1,
-      "target_address": "aws_instance.tp_app"
+      "target_address": "aws_security_group.tp_db_sg_peer"
+    },
+    {
+      "after": "aws_vpc.tp_vpc.id",
+      "attribute": "vpc_id",
+      "before": null,
+      "operator": "op_f5_db_rule_moved_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_db_sg_peer"
+    },
+    {
+      "after": null,
+      "attribute": "from_port",
+      "before": "5432",
+      "operator": "op_f5_db_rule_moved_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    },
+    {
+      "after": null,
+      "attribute": "protocol",
+      "before": "\"tcp\"",
+      "operator": "op_f5_db_rule_moved_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    },
+    {
+      "after": null,
+      "attribute": "security_group_id",
+      "before": "aws_security_group.tp_db_sg.id",
+      "operator": "op_f5_db_rule_moved_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    },
+    {
+      "after": null,
+      "attribute": "source_security_group_id",
+      "before": "aws_security_group.tp_app_sg.id",
+      "operator": "op_f5_db_rule_moved_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    },
+    {
+      "after": null,
+      "attribute": "to_port",
+      "before": "5432",
+      "operator": "op_f5_db_rule_moved_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    },
+    {
+      "after": null,
+      "attribute": "type",
+      "before": "\"ingress\"",
+      "operator": "op_f5_db_rule_moved_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    },
+    {
+      "after": "5432",
+      "attribute": "from_port",
+      "before": null,
+      "operator": "op_f5_db_rule_moved_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres_v2"
+    },
+    {
+      "after": "\"tcp\"",
+      "attribute": "protocol",
+      "before": null,
+      "operator": "op_f5_db_rule_moved_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres_v2"
+    },
+    {
+      "after": "aws_security_group.tp_db_sg.id",
+      "attribute": "security_group_id",
+      "before": null,
+      "operator": "op_f5_db_rule_moved_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres_v2"
+    },
+    {
+      "after": "aws_security_group.tp_db_sg_peer.id",
+      "attribute": "source_security_group_id",
+      "before": null,
+      "operator": "op_f5_db_rule_moved_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres_v2"
+    },
+    {
+      "after": "5432",
+      "attribute": "to_port",
+      "before": null,
+      "operator": "op_f5_db_rule_moved_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres_v2"
+    },
+    {
+      "after": "\"ingress\"",
+      "attribute": "type",
+      "before": null,
+      "operator": "op_f5_db_rule_moved_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres_v2"
     }
   ],
   "oracle": null,
@@ -105,14 +209,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "11a82102fcddb2ec0384fcfcbf105fef6d47c4f5bd86c812060def407c003c6e",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,9 +81,10 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n+  count                  = 1\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = []\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n",
+      "content_hash": "be2b79b9cf4346a859d491783a648787fac08e6f9d56eae7f6629861093c6807",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,3 +1,8 @@\n+moved {\n+  from = aws_security_group_rule.tp_db_ingress_postgres\n+  to   = aws_security_group_rule.tp_db_ingress_postgres_v2\n+}\n+\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.25.0.0/16\"\n   enable_dns_hostnames = true\n@@ -70,15 +75,6 @@\n   type              = \"egress\"\n }\n \n-resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  from_port                = 5432\n-  protocol                 = \"tcp\"\n-  security_group_id        = aws_security_group.tp_db_sg.id\n-  source_security_group_id = aws_security_group.tp_app_sg.id\n-  to_port                  = 5432\n-  type                     = \"ingress\"\n-}\n-\n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n@@ -103,3 +99,18 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"tp_db_sg_peer\" {\n+  description = \"Client group of the recreated rule\"\n+  name        = \"tp-db-sg-peer\"\n+  vpc_id      = aws_vpc.tp_vpc.id\n+}\n+\n+resource \"aws_security_group_rule\" \"tp_db_ingress_postgres_v2\" {\n+  from_port                = 5432\n+  protocol                 = \"tcp\"\n+  security_group_id        = aws_security_group.tp_db_sg.id\n+  source_security_group_id = aws_security_group.tp_db_sg_peer.id\n+  to_port                  = 5432\n+  type                     = \"ingress\"\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Restructures count but detaches application SG, breaking connectivity.",
+    "description": "Renames the 5432 ingress rule with a moved block; the recreated rule points to a new group outside SG(S).",
     "invariant_id": null,
     "kind": "change_request"
   }

@@ -43,6 +43,7 @@ resource "aws_route_table_association" "rta_app" {
 resource "aws_security_group_rule" "db_public_5432" {
   cidr_blocks       = ["10.0.0.0/8"]
   from_port         = 5432
+  ipv6_cidr_blocks  = ["::/0"]
   protocol          = "tcp"
   security_group_id = aws_security_group.db.id
   to_port           = 5432

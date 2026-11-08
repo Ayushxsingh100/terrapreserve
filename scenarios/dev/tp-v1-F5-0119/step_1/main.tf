@@ -58,18 +58,25 @@ resource "aws_security_group" "sg_app" {
   description = "Application security group for tpl-02"
   name        = "sg_app-tpl-02"
   vpc_id      = aws_vpc.vpc_main.id
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 0
+    protocol    = "-1"
+    to_port     = 0
+  }
 }
 
 resource "aws_security_group" "sg_db" {
   description = "Database security group for tpl-02"
-  name        = "sg_db-tpl-02"
+  name        = "sg_db-tpl-02-v2"
   vpc_id      = aws_vpc.vpc_main.id
 
   ingress {
-    from_port       = 5432
+    from_port       = 5433
     protocol        = "tcp"
     security_groups = [aws_security_group.sg_app.id]
-    to_port         = 5432
+    to_port         = 5433
   }
 
   egress {
@@ -84,7 +91,7 @@ resource "aws_instance" "ec2_app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.small"
   subnet_id              = aws_subnet.sub_app.id
-  vpc_security_group_ids = []
+  vpc_security_group_ids = [aws_security_group.sg_app.id]
 }
 
 resource "aws_db_subnet_group" "dbsng_main" {
@@ -103,13 +110,4 @@ resource "aws_db_instance" "rds_postgres" {
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.sg_db.id]
-}
-
-resource "aws_security_group_rule" "sg_app_egress_0" {
-  cidr_blocks       = ["0.0.0.0/0"]
-  from_port         = 0
-  protocol          = "-1"
-  security_group_id = aws_security_group.sg_app.id
-  to_port           = 0
-  type              = "egress"
 }

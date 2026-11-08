@@ -37,11 +37,11 @@ resource "aws_route_table_association" "assoc_app" {
 }
 
 resource "aws_security_group_rule" "data_secgroup_from_app_5432" {
-  from_port                = 5432
+  from_port                = 5433
   protocol                 = "tcp"
   security_group_id        = aws_security_group.data_secgroup.id
   source_security_group_id = aws_security_group.web_secgroup.id
-  to_port                  = 5432
+  to_port                  = 5433
   type                     = "ingress"
 }
 
@@ -69,15 +69,15 @@ resource "aws_security_group" "web_secgroup" {
 
 resource "aws_security_group" "data_secgroup" {
   description = "Database security group for tpl-03"
-  name        = "data_secgroup-tpl-03"
+  name        = "data_secgroup-tpl-03-v2"
   vpc_id      = aws_vpc.network.id
 }
 
 resource "aws_instance" "web_instance" {
-  ami                    = "ami-0d5eff06f840b45e9"
+  ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.nano"
   subnet_id              = aws_subnet.web_tier.id
-  vpc_security_group_ids = []
+  vpc_security_group_ids = [aws_security_group.web_secgroup.id]
 }
 
 resource "aws_db_subnet_group" "data_subnets" {

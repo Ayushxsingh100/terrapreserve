@@ -9,7 +9,7 @@ resource "aws_internet_gateway" "gateway" {
 }
 
 resource "aws_subnet" "web_tier" {
-  availability_zone = "us-east-1b"
+  availability_zone = "us-east-1a"
   cidr_block        = "10.111.1.0/24"
   vpc_id            = aws_vpc.network.id
 }
@@ -51,7 +51,7 @@ resource "aws_security_group_rule" "data_secgroup_from_app_5432" {
   from_port                = 5432
   protocol                 = "tcp"
   security_group_id        = aws_security_group.data_secgroup.id
-  source_security_group_id = aws_security_group.web_secgroup.id
+  source_security_group_id = aws_security_group.data_secgroup_peer.id
   to_port                  = 5432
   type                     = "ingress"
 }
@@ -90,7 +90,7 @@ resource "aws_instance" "web_instance" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.small"
   subnet_id              = aws_subnet.web_tier.id
-  vpc_security_group_ids = []
+  vpc_security_group_ids = [aws_security_group.web_secgroup.id]
 }
 
 resource "aws_db_subnet_group" "data_subnets" {
@@ -109,4 +109,10 @@ resource "aws_db_instance" "data_instance" {
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.data_secgroup.id]
+}
+
+resource "aws_security_group" "data_secgroup_peer" {
+  description = "Dependent client security group"
+  name        = "data_secgroup-tpl-09-peer"
+  vpc_id      = aws_vpc.network.id
 }

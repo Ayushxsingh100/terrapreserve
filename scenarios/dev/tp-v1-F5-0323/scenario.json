@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -103,7 +103,7 @@
     }
   ],
   "target": {
-    "description": "Restructures resource with count meta-argument safely.",
+    "description": "Adds or removes count = 1 on the application instance.",
     "invariant_id": null,
     "kind": "change_request"
   }

@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -47,12 +47,20 @@
   "module_id": 483978,
   "mutation_record": [
     {
-      "after": "[\"10.0.0.0/8\"]",
-      "attribute": "cidr_blocks",
-      "before": "[\"0.0.0.0/0\"]",
-      "operator": "op_f7_shared_sg_egress_tighten_safe",
+      "after": null,
+      "attribute": "source_security_group_id",
+      "before": "aws_security_group.tp_app_sg.id",
+      "operator": "op_f7_db_ingress_source_safe",
       "step": 1,
-      "target_address": "aws_security_group_rule.tp_app_egress"
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    },
+    {
+      "after": "[\"172.19.1.0/24\"]",
+      "attribute": "cidr_blocks",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
     }
   ],
   "oracle": null,
@@ -121,14 +129,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "97b2930c920eb57b8ae9ad92c455a0a8da64434a5955f6433b4ea8524d9009b2",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -62,7 +62,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
+      "content_hash": "894e60b0bdc75c45b74318d3bae57ed815300bd617aff97b048ea97c67bb7f03",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -71,12 +71,12 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  from_port                = 5432\n-  protocol                 = \"tcp\"\n-  security_group_id        = aws_security_group.tp_db_sg.id\n-  source_security_group_id = aws_security_group.tp_app_sg.id\n-  to_port                  = 5432\n-  type                     = \"ingress\"\n+  cidr_blocks       = [\"172.19.1.0/24\"]\n+  from_port         = 5432\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.tp_db_sg.id\n+  to_port           = 5432\n+  type              = \"ingress\"\n }\n \n resource \"aws_instance\" \"tp_app\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Tightens egress on shared security group safely.",
+    "description": "Replaces the DB group's 5432 ingress source group with the application subnet CIDR.",
     "invariant_id": null,
     "kind": "change_request"
   }

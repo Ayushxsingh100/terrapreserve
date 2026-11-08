@@ -1,3 +1,8 @@
+moved {
+  from = aws_subnet.tp_app_subnet
+  to   = aws_subnet.tp_app_subnet_app
+}
+
 resource "aws_vpc" "tp_vpc" {
   cidr_block           = "172.17.0.0/16"
   enable_dns_hostnames = true
@@ -6,12 +11,6 @@ resource "aws_vpc" "tp_vpc" {
 
 resource "aws_internet_gateway" "tp_igw" {
   vpc_id = aws_vpc.tp_vpc.id
-}
-
-resource "aws_subnet" "tp_app_subnet" {
-  availability_zone = "us-east-1a"
-  cidr_block        = "172.17.1.0/24"
-  vpc_id            = aws_vpc.tp_vpc.id
 }
 
 resource "aws_subnet" "tp_db_subnet_1" {
@@ -37,7 +36,7 @@ resource "aws_route_table" "tp_public_rt" {
 
 resource "aws_route_table_association" "tp_rta_app" {
   route_table_id = aws_route_table.tp_public_rt.id
-  subnet_id      = aws_subnet.tp_app_subnet.id
+  subnet_id      = aws_subnet.tp_app_subnet_app.id
 }
 
 resource "aws_security_group" "tp_app_sg" {
@@ -81,9 +80,8 @@ resource "aws_security_group_rule" "tp_db_ingress_postgres" {
 
 resource "aws_instance" "tp_app" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  count                  = 1
   instance_type          = "t3.micro"
-  subnet_id              = aws_subnet.tp_app_subnet.id
+  subnet_id              = aws_subnet.tp_app_subnet_app.id
   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]
 }
 
@@ -103,4 +101,10 @@ resource "aws_db_instance" "tp_db" {
   skip_final_snapshot    = true
   username               = "tp_admin"
   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]
+}
+
+resource "aws_subnet" "tp_app_subnet_app" {
+  availability_zone = "us-east-1a"
+  cidr_block        = "172.17.1.0/24"
+  vpc_id            = aws_vpc.tp_vpc.id
 }

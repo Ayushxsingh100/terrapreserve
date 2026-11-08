@@ -62,7 +62,7 @@ resource "aws_security_group_rule" "tp_app_ingress_ssh" {
 }
 
 resource "aws_security_group_rule" "tp_app_egress" {
-  cidr_blocks       = ["10.0.0.0/8"]
+  cidr_blocks       = ["172.16.0.0/12"]
   from_port         = 0
   protocol          = "-1"
   security_group_id = aws_security_group.tp_app_sg.id

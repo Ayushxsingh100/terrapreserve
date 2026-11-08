@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -22,10 +22,10 @@
   "module_id": 475701,
   "mutation_record": [
     {
-      "after": "[\"10.0.0.0/8\"]",
+      "after": "[\"172.16.0.0/12\"]",
       "attribute": "cidr_blocks",
       "before": "[\"0.0.0.0/0\"]",
-      "operator": "op_f7_shared_sg_egress_tighten_safe",
+      "operator": "op_f7_app_egress_cidr_tighten_safe",
       "step": 1,
       "target_address": "aws_security_group_rule.tp_app_egress"
     }
@@ -96,14 +96,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "9d289434fbb449ba075ea48f87491d17a205cf23a65df18337e89d4e5163825f",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -62,7 +62,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
+      "content_hash": "589e1df306cf23b452584ba80977076d423e59b72ffc5e8c3500397f52f5cba0",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -62,7 +62,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"172.16.0.0/12\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Tightens egress on shared security group safely.",
+    "description": "Tightens the app group egress to the RFC 1918 block that contains CIDR(VPC(D)).",
     "invariant_id": null,
     "kind": "change_request"
   }

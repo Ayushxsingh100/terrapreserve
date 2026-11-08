@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F1",
-  "generator_version": "d4b-3",
+  "generator_version": "d4b-4",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -17,12 +17,12 @@
   ],
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-SEC-001"
     ],
     "class": "unsafe",
     "preserves": [
-      "INV-SEC-001",
       "INV-SEC-002",
+      "INV-SEC-003",
       "INV-FUNC-001"
     ],
     "target_invariant": null,
@@ -40,12 +40,52 @@
       "target_address": "aws_vpc.tp_vpc"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "[\"0.0.0.0/0\"]",
+      "attribute": "cidr_blocks",
+      "before": null,
       "operator": "op_f1_vpc_dns_toggle_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.tp_db"
+      "target_address": "aws_security_group_rule.tp_app_sg_ingress_ssh"
+    },
+    {
+      "after": "22",
+      "attribute": "from_port",
+      "before": null,
+      "operator": "op_f1_vpc_dns_toggle_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_app_sg_ingress_ssh"
+    },
+    {
+      "after": "\"tcp\"",
+      "attribute": "protocol",
+      "before": null,
+      "operator": "op_f1_vpc_dns_toggle_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_app_sg_ingress_ssh"
+    },
+    {
+      "after": "aws_security_group.tp_app_sg.id",
+      "attribute": "security_group_id",
+      "before": null,
+      "operator": "op_f1_vpc_dns_toggle_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_app_sg_ingress_ssh"
+    },
+    {
+      "after": "22",
+      "attribute": "to_port",
+      "before": null,
+      "operator": "op_f1_vpc_dns_toggle_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_app_sg_ingress_ssh"
+    },
+    {
+      "after": "\"ingress\"",
+      "attribute": "type",
+      "before": null,
+      "operator": "op_f1_vpc_dns_toggle_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_app_sg_ingress_ssh"
     }
   ],
   "oracle": null,
@@ -114,14 +154,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "f143e4ba11cc71d9a7821a4331952b3190034d640a3c547fa76221f5c4973fa6",
-      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.18.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n@@ -98,7 +98,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
+      "content_hash": "57369a2f656f943f1a0021ac599e958fd7a0bf64125a1484227671aad3be0b00",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.18.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n@@ -103,3 +103,12 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group_rule\" \"tp_app_sg_ingress_ssh\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 22\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.tp_app_sg.id\n+  to_port           = 22\n+  type              = \"ingress\"\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Toggles VPC dns hostnames with side effect setting DB public.",
+    "description": "Disables VPC DNS hostnames with side effect opening SSH to the world on the app group.",
     "invariant_id": null,
     "kind": "change_request"
   }

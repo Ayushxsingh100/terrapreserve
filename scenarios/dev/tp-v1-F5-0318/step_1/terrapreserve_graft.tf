@@ -50,6 +50,13 @@ resource "aws_security_group" "tp_db_sg" {
   description = "TerraPreserve database security group"
   name        = "tp-db-sg"
   vpc_id      = aws_vpc.tp_vpc.id
+
+  ingress {
+    from_port       = 5432
+    protocol        = "tcp"
+    security_groups = [aws_security_group.tp_app_sg.id]
+    to_port         = 5432
+  }
 }
 
 resource "aws_security_group_rule" "tp_app_ingress_ssh" {
@@ -70,17 +77,8 @@ resource "aws_security_group_rule" "tp_app_egress" {
   type              = "egress"
 }
 
-resource "aws_security_group_rule" "tp_db_ingress_postgres" {
-  from_port                = 5432
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.tp_db_sg.id
-  source_security_group_id = aws_security_group.tp_app_sg.id
-  to_port                  = 5432
-  type                     = "ingress"
-}
-
 resource "aws_instance" "tp_app" {
-  ami                    = "ami-0d5eff06f840b45e9"
+  ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.tp_app_subnet.id
   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]
