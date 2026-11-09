@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F6",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -165,15 +165,88 @@
     "kind": "change_request"
   },
   "variable_values": {
-    "app_sg_id": "tp-placeholder",
-    "db_name": "tp-placeholder",
-    "db_password": "tp-placeholder",
-    "db_username": "tp-placeholder",
+    "app_sg_id": "sg-0201201201201201a",
+    "db_name": "tp-primary",
+    "db_password": "tp-secret-primary",
+    "db_username": "tp-primary",
     "private_db_subnet_ids": [],
-    "project_name": "tp-placeholder",
-    "tp_db_password": "tp-placeholder",
-    "vpc_id": "tp-placeholder"
+    "project_name": "tp-primary",
+    "tp_db_password": "tp-secret-primary",
+    "vpc_id": "vpc-0201201201201201a"
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "app_sg_id": "sg-0777777777777777b",
+    "db_name": "tp-alt",
+    "db_password": "tp-secret-alt",
+    "db_username": "tp-alt",
+    "private_db_subnet_ids": [
+      "subnet-0777777777777777b"
+    ],
+    "project_name": "tp-alt",
+    "tp_db_password": "tp-secret-alt",
+    "vpc_id": "vpc-0777777777777777b"
+  },
+  "variable_values_kinds": {
+    "app_sg_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.rds.ingress.security_groups"
+      ],
+      "kind": "sg_id"
+    },
+    "db_name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "db_username": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "private_db_subnet_ids": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_db_subnet_group.main.subnet_ids"
+      ],
+      "kind": {
+        "length": "empty-able",
+        "list": "subnet_id"
+      }
+    },
+    "project_name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.rds.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

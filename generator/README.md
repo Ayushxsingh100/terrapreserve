@@ -23,8 +23,9 @@ Ground-truth evaluation is deferred to the independent oracle in D5 (ADR-010); t
   - `screen.py`: S0 lexical eligibility screen checking for insecure open ingress on ports 22/5432 and publicly accessible RDS.
   - `plan.py`: Deterministic 208-scenario plan assigner prioritizing natives and derived natives over hosts.
   - `generate_rw.py`: Real-world tier pipeline driver generating and validating all 208 real-world scenarios.
-- **`VERSION.py`**: Generator version tag (`d4a-5` for controlled tier; the real-world tier version `d4b-6` is `GENERATOR_VERSION` in `realworld/generate_rw.py`).
-- **`varvalues.py`**: Rule vv-1 for `variable_values` in `scenario.json` (D5-01), and the relevance report of placeholders that reach registry-read attributes.
+- **`VERSION.py`**: Generator version tag (`d4a-6` for controlled tier; the real-world tier version `d4b-7` is `GENERATOR_VERSION` in `realworld/generate_rw.py`).
+- **`varvalues.py`**: Rule vv-2 for the two value sets `variable_values` and `variable_values_alt` in `scenario.json` (D5-07; it superseded vv-1, D5-01).
+- **`realworld/data_vars.py`**: The D5-08 transform: every `data` block becomes a `tp_ds_*` variable without a default, recorded in `host_transform`.
 
 ## Independence
 

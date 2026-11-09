@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F6",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -13,6 +13,14 @@
       "removed_blocks": [
         "provider"
       ]
+    },
+    {
+      "block_sha256": "a0fe9b2a45c1c777c5650a33165edc776d4220bb76a8ebe6f8cf2f15433b6314",
+      "data_name": "available",
+      "data_type": "aws_availability_zones",
+      "file": "vpc.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_available"
     }
   ],
   "intent": {
@@ -156,13 +164,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "02f40423cfc90d1d8439bc2730fefea09eefb5d85bc8991a860ebd5414874c2d",
+      "content_hash": "ee9255872fbb98698e0b58ae29919d861ec87fec45b2586d26db661d3b89c324",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "8e6b420bf42e195f9c2e4b260d741b2dbb7e4078cc334bcb8f9620bf330b9d26",
+      "content_hash": "f1eea292c499c164ea331c077bf8f800411245d950cc38933cd6156ce1ddb1bd",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = [aws_security_group.tp_app_sg.id, aws_security_group.tp_monitoring_sg.id]\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n@@ -103,3 +103,16 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"tp_monitoring_sg\" {\n+  description = \"Monitoring security group\"\n+  name        = \"tp_monitoring_sg-mon\"\n+  vpc_id      = aws_vpc.tp_vpc.id\n+\n+  ingress {\n+    cidr_blocks = [\"0.0.0.0/0\"]\n+    from_port   = 5432\n+    protocol    = \"tcp\"\n+    to_port     = 5432\n+  }\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -174,10 +182,66 @@
     "kind": "change_request"
   },
   "variable_values": {
-    "aws_access_key": "tp-placeholder",
-    "aws_secret_key": "tp-placeholder",
-    "tp_db_password": "tp-placeholder"
+    "aws_access_key": "tp-primary",
+    "aws_secret_key": "tp-secret-primary",
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1a",
+        "us-east-1a",
+        "us-east-1a"
+      ]
+    }
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "aws_access_key": "tp-alt",
+    "aws_secret_key": "tp-secret-alt",
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1b",
+        "us-east-1b",
+        "us-east-1b"
+      ]
+    }
+  },
+  "variable_values_kinds": {
+    "aws_access_key": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "aws_secret_key": {
+      "evidence": [
+        "declared_type:string",
+        "secret:name"
+      ],
+      "kind": "secret"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "evidence": [
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({names=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "names": {
+            "length": 3,
+            "list": "az"
+          }
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

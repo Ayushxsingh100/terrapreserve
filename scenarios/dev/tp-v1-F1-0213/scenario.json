@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F1",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -13,6 +13,14 @@
       "removed_blocks": [
         "provider"
       ]
+    },
+    {
+      "block_sha256": "3a0f4b6541bedaecabbad12764178fc658505936477825d31f64d546fad1ddfd",
+      "data_name": "ap_northeast",
+      "data_type": "aws_ip_ranges",
+      "file": "securitygroup.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_ip_ranges_ap_northeast"
     }
   ],
   "intent": {
@@ -99,13 +107,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "ae7bfbd8d04bf4b3f15200b56102280c28879b0767a9514886d9fc15d52091fe",
+      "content_hash": "3c77b2f488861f15d69d5ed31c9a27cf8238f42d70b2f61319de5f6157ed6b7a",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "7a84857808de82e38e580f308a1ad5005fecc3df90a17f30770ed8c671100f66",
+      "content_hash": "62cf7539fbe00bf3393387a3323b69a89c050aece42aa108de0d0995a45ca0f1",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,7 +81,7 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -117,8 +125,50 @@
     "kind": "change_request"
   },
   "variable_values": {
-    "tp_db_password": "tp-placeholder"
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_ip_ranges_ap_northeast": {
+      "cidr_blocks": [],
+      "create_date": "tp-primary",
+      "sync_token": "tp-primary"
+    }
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_ip_ranges_ap_northeast": {
+      "cidr_blocks": [
+        "192.168.77.0/24"
+      ],
+      "create_date": "tp-alt",
+      "sync_token": "tp-alt"
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_ip_ranges_ap_northeast": {
+      "evidence": [
+        "data_source:aws_ip_ranges.cidr_blocks",
+        "declared_type:object({cidr_blocks=list(string)create_date=stringsync_token=string})",
+        "no table attribute reached at .create_date",
+        "no table attribute reached at .sync_token"
+      ],
+      "kind": {
+        "object": {
+          "cidr_blocks": {
+            "length": "empty-able",
+            "list": "ipv4_cidr"
+          },
+          "create_date": "string",
+          "sync_token": "string"
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

@@ -43,7 +43,7 @@ class TestRealWorldGeneration(unittest.TestCase):
         self.assertTrue(data["grafted"])
         self.assertIn("scope_addresses", data)
         self.assertIn("host_transform", data)
-        self.assertEqual(data["generator_version"], "d4b-6")
+        self.assertEqual(data["generator_version"], "d4b-7")
 
         # Step 0 files must include graft
         s0_files = steps_files[0]
@@ -72,7 +72,7 @@ class TestRealWorldGeneration(unittest.TestCase):
         self.assertEqual(data["scenario_id"], item["scenario_id"])
         self.assertEqual(data["source"]["tier"], "real_world")
         self.assertFalse(data["grafted"])
-        self.assertEqual(data["generator_version"], "d4b-6")
+        self.assertEqual(data["generator_version"], "d4b-7")
 
         # Check steps
         self.assertGreaterEqual(len(steps_files), 2)

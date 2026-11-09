@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F8",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -14,6 +14,14 @@
         "terraform",
         "provider"
       ]
+    },
+    {
+      "block_sha256": "407c85bf2784d4b21c7cfc13f55b8f7f9b017fb09241f60cd693234ea208aaed",
+      "data_name": "available",
+      "data_type": "aws_availability_zones",
+      "file": "vpc.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_available"
     }
   ],
   "intent": {
@@ -116,25 +124,25 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "ea20bb6bf8833cee6c35e573f01703182956cbb9fd3fa351961692efe9afe695",
+      "content_hash": "cc3432e09e5964383d79b16f0a89863d1f46be83283f978324d0c54914c6a0d4",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "4c6ab465dfb52118fc56ce949ccb97907914376c1e8964e5783336a6f4d2f711",
+      "content_hash": "a1db0ae508d2c06eb56e070dd0842d6586b4c0bb4107708b2465f623df5eff30",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,7 +81,7 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
     },
     {
-      "content_hash": "1f4db618c74a79160ae56ee8f5e43478281fcbe3a0d155c0309ca24198c1ee65",
+      "content_hash": "ab7e55a47560bc51f7c4d346dbf5cffcac48830e53b4135dc96ac0ec577aa12e",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -92,7 +92,7 @@\n }\n \n resource \"aws_db_instance\" \"tp_db\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.tp_db_subnet_group.name\n   engine                 = \"postgres\"\n   identifier             = \"tp-db-instance\"\n",
       "step": 2,
       "terraform_dir": "step_2"
     },
     {
-      "content_hash": "5e2b03d84ba5e9cf2eed722444db7c9df9ae27470b2578579d89ec0376f0e96e",
+      "content_hash": "36f4fbee15bd36accee1e7ff2edf6cfc9a43de92f81cbca90c114ba279003e39",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -53,7 +53,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_ingress_ssh\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 22\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
       "step": 3,
       "terraform_dir": "step_3"
@@ -147,10 +155,110 @@
   },
   "variable_values": {
     "subnet_config": {},
-    "tp_db_password": "tp-placeholder"
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_available": {
+      "id": "us-east-1",
+      "names": []
+    },
+    "vpc_config": {
+      "cidr_block": "10.201.0.0/16",
+      "name": "tp-primary"
+    }
   },
-  "variable_values_rule": "vv-1",
-  "variable_values_unresolved": {
-    "vpc_config": "object type with required attributes ['cidr_block', 'name']: {} does not satisfy it"
-  }
+  "variable_values_alt": {
+    "subnet_config": {
+      "tp-alt": {
+        "az": "us-east-1b",
+        "cidr_block": "192.168.77.0/24"
+      }
+    },
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_available": {
+      "id": "us-east-1",
+      "names": [
+        "us-east-1b"
+      ]
+    },
+    "vpc_config": {
+      "cidr_block": "192.168.77.0/24",
+      "name": "tp-alt"
+    }
+  },
+  "variable_values_kinds": {
+    "subnet_config": {
+      "evidence": [
+        "declared_type:map(object({cidr_block=stringaz=stringpublic=optional(bool,false)}))",
+        "usage:aws_subnet.this.availability_zone",
+        "usage:aws_subnet.this.cidr_block",
+        "validation"
+      ],
+      "kind": {
+        "keys": "empty-able",
+        "map": {
+          "object": {
+            "az": "az",
+            "cidr_block": "ipv4_cidr"
+          }
+        }
+      },
+      "validation": {
+        "alternate": {
+          "tp-alt": {
+            "az": "us-east-1b",
+            "cidr_block": "192.168.77.0/24"
+          }
+        },
+        "primary": {}
+      }
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "evidence": [
+        "data_source:aws_availability_zones.id",
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({id=stringnames=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "id": "region",
+          "names": {
+            "length": "empty-able",
+            "list": "az"
+          }
+        }
+      }
+    },
+    "vpc_config": {
+      "evidence": [
+        "declared_type:object({cidr_block=stringname=string})",
+        "no table attribute reached at .name",
+        "usage:aws_vpc.this.cidr_block",
+        "validation"
+      ],
+      "kind": {
+        "object": {
+          "cidr_block": "ipv4_cidr",
+          "name": "string"
+        }
+      },
+      "validation": {
+        "alternate": {
+          "cidr_block": "192.168.77.0/24",
+          "name": "tp-alt"
+        },
+        "primary": {
+          "cidr_block": "10.201.0.0/16",
+          "name": "tp-primary"
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-2",
+  "variable_values_unresolved": {}
 }

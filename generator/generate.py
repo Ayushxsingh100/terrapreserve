@@ -251,8 +251,9 @@ def generate_scenario(
                 "after": r.after,
             })
 
-    # D5-01: variable values (rule vv-1), one set for the whole scenario; steps are not changed.
-    vv_values, vv_unresolved = varvalues.compute(steps_files)
+    # D5-07: variable values (rule vv-2), a primary and an alternate set for the whole scenario; steps are
+    # not changed.
+    vv_record = varvalues.compute(steps_files)
 
     scenario_data = {
         "scenario_id": scenario_id,
@@ -287,9 +288,7 @@ def generate_scenario(
         "protected_invariants": PROTECTED_INVARIANTS,
         "steps": steps_meta,
         "mutation_record": flat_records,
-        "variable_values": vv_values,
-        "variable_values_rule": varvalues.RULE,
-        "variable_values_unresolved": vv_unresolved,
+        **vv_record,
         "labels": None,
         "oracle": None,
     }

@@ -1,6 +1,6 @@
 # D4 Operators Catalogue
 
-Catalogue of mutation operators for benchmark scenario families F1 through F8 in TerraPreserve (D0 Decision 5; D4-07). It describes generator versions `d4a-5` (controlled tier) and `d4b-6` (real-world tier). Operator names in this file are checked against `generator/operators/__init__.py` by `tests/test_d4b_review_round4.py` (test 9); the section "Renames and removals" at the end is history and is excluded from that check.
+Catalogue of mutation operators for benchmark scenario families F1 through F8 in TerraPreserve (D0 Decision 5; D4-07). It describes generator versions `d4a-6` (controlled tier) and `d4b-7` (real-world tier); the operators are unchanged since `d4a-4` and `d4b-5`. Operator names in this file are checked against `generator/operators/__init__.py` by `tests/test_d4b_review_round4.py` (test 9); the section "Renames and removals" at the end is history and is excluded from that check.
 
 Every operator:
 1. Declares its family (`F1`..`F8`).

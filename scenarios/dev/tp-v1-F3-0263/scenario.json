@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -124,12 +124,59 @@
     "kind": "change_request"
   },
   "variable_values": {
-    "prefix": "tp-placeholder",
-    "private_subnet_cidr": "tp-placeholder",
-    "tp_db_password": "tp-placeholder",
-    "vpc_cidr": "tp-placeholder",
-    "vpc_id": "tp-placeholder"
+    "prefix": "tp-primary",
+    "private_subnet_cidr": "10.201.0.0/16",
+    "tp_db_password": "tp-secret-primary",
+    "vpc_cidr": "10.201.0.0/16",
+    "vpc_id": "vpc-0201201201201201a"
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "prefix": "tp-alt",
+    "private_subnet_cidr": "192.168.77.0/24",
+    "tp_db_password": "tp-secret-alt",
+    "vpc_cidr": "192.168.77.0/24",
+    "vpc_id": "vpc-0777777777777777b"
+  },
+  "variable_values_kinds": {
+    "prefix": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "private_subnet_cidr": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.ssm_sg.egress.cidr_blocks"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_cidr": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.ssm_sg.ingress.cidr_blocks"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "vpc_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.alb_sg.vpc_id",
+        "usage:aws_security_group.ec2_sg.vpc_id",
+        "usage:aws_security_group.firewall-1.vpc_id",
+        "usage:aws_security_group.ssm_sg.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

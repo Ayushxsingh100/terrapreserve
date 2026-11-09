@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F8",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -159,11 +159,49 @@
     "kind": "repair"
   },
   "variable_values": {
-    "availability_zone": "tp-placeholder",
-    "availability_zone_alternate": "tp-placeholder",
-    "project": "tp-placeholder",
-    "tp_db_password": "tp-placeholder"
+    "availability_zone": "us-east-1a",
+    "availability_zone_alternate": "us-east-1a",
+    "project": "tp-primary",
+    "tp_db_password": "tp-secret-primary"
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "availability_zone": "us-east-1b",
+    "availability_zone_alternate": "us-east-1b",
+    "project": "tp-alt",
+    "tp_db_password": "tp-secret-alt"
+  },
+  "variable_values_kinds": {
+    "availability_zone": {
+      "evidence": [
+        "untyped",
+        "usage:aws_subnet.private_rds_1.availability_zone",
+        "usage:aws_subnet.public.availability_zone"
+      ],
+      "kind": "az"
+    },
+    "availability_zone_alternate": {
+      "evidence": [
+        "untyped",
+        "usage:aws_subnet.alternate.availability_zone",
+        "usage:aws_subnet.private_rds_2.availability_zone"
+      ],
+      "kind": "az"
+    },
+    "project": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

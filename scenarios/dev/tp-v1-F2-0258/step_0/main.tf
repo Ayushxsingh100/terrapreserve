@@ -7,11 +7,6 @@ locals {
 }
 
 # using the data source in order to fetch the availability zones using `aws_availability_zones` data source
-data "aws_availability_zones" "available" {
-
-  # define the state as available
-  state = "available"
-}
 
 
 # define the child module vpc in order to provision the AWS VPC through this module
@@ -56,14 +51,14 @@ resource "aws_subnet" "this" {
 
     precondition {
 
-      condition = contains(data.aws_availability_zones.available.names, each.value.azs)
+      condition = contains(var.tp_ds_aws_availability_zones_available.names, each.value.azs)
       # define the condition as contains(aws_availability_zones.available.names, each.value.az) in this case
       # which will check whether the az provided in the subnet_config object is present in the aws_availability_zones.available.names or not
 
       error_message = <<-EOT
             The Provided AZ ${each.value.azs} inside Subnet ${each.key} is incorrect
-            Inside the Region ${data.aws_availability_zones.available.id} below are the available AZ
-            The available AZ in the region are:= [${join(",", data.aws_availability_zones.available.names)}]
+            Inside the Region ${var.tp_ds_aws_availability_zones_available.id} below are the available AZ
+            The available AZ in the region are:= [${join(",", var.tp_ds_aws_availability_zones_available.names)}]
             EOT
       # define the error message when the condition get failed in this case
     }

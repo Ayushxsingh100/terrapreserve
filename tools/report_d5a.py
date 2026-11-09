@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Computed report for D5a (every number comes from the repository and the private test split).
 
+Historical: it runs on the vv-1 records of commit ``e96c017`` (check that commit out to reproduce the D5a part of
+``docs/D5A_FEASIBILITY.md``). From D5a-2 on, the records follow vv-2 and ``tools/report_d5a2.py`` appends the
+D5a-2 results to the same document, leaving the D5a part as it was.
+
 Prints, and writes to ``docs/D5A_FEASIBILITY.md`` (test split: counts only):
   1. baseline: scenarios and steps per split and tier; scenarios with a variable without a default; scenarios
      using data sources, by type; scenarios with module blocks; Terraform and provider versions in validation/;
@@ -279,6 +283,9 @@ def decisions() -> None:
 
 def main() -> None:
     scs = load()
+    if any(d.get("variable_values_rule") != "vv-1" for _s, _p, d, _steps in scs):
+        raise SystemExit("tools/report_d5a.py reproduces the D5a part of docs/D5A_FEASIBILITY.md from the vv-1 "
+                         "records of commit e96c017 only; the D5a-2 part is written by tools/report_d5a2.py")
     emit("# D5a measurements (computed by `tools/report_d5a.py`)")
     emit()
     emit("Every number below is computed from the repository and, for the test split, from the withheld "

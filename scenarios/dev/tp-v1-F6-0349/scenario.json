@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F6",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -14,6 +14,14 @@
         "terraform",
         "provider"
       ]
+    },
+    {
+      "block_sha256": "407c85bf2784d4b21c7cfc13f55b8f7f9b017fb09241f60cd693234ea208aaed",
+      "data_name": "available",
+      "data_type": "aws_availability_zones",
+      "file": "main.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_available"
     }
   ],
   "intent": {
@@ -116,13 +124,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "c91be1f416ca35bdf4ac0ccfe9d6934589866753169e950146f9539e232b5c92",
+      "content_hash": "a1673299afb19ddfbbef21f6456d8634462aac3d383621f766188d6e68e2ea8a",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "c0064de9a93758057db6a51239d904cf34ba0ad4e06774501f3a031c662c83b7",
+      "content_hash": "ee9e5d24f40f6400ee84d2a9ca60a429d7f49d12eeb51ab5f83b721520738b5f",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -103,3 +103,9 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_instance\" \"tp_bastion\" {\n+  ami           = \"ami-0c55b159cbfafe1f0\"\n+  instance_type = \"t3.nano\"\n+  subnet_id     = aws_subnet.tp_app_subnet.id\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -134,9 +142,57 @@
     "kind": "change_request"
   },
   "variable_values": {
-    "aws_region": "tp-placeholder",
-    "tp_db_password": "tp-placeholder"
+    "aws_region": "tp-primary",
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1a",
+        "us-east-1a",
+        "us-east-1a"
+      ]
+    }
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "aws_region": "tp-alt",
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1b",
+        "us-east-1b",
+        "us-east-1b"
+      ]
+    }
+  },
+  "variable_values_kinds": {
+    "aws_region": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "evidence": [
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({names=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "names": {
+            "length": 3,
+            "list": "az"
+          }
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

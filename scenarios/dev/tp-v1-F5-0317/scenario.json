@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -14,6 +14,14 @@
         "terraform",
         "provider"
       ]
+    },
+    {
+      "block_sha256": "bc14f674cfdea40ee9536693ac5dc44cefa3222a654a48098f42774d49eb38e0",
+      "data_name": "current",
+      "data_type": "aws_region",
+      "file": "region.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_region_current"
     }
   ],
   "intent": {
@@ -100,13 +108,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "93c493d45840099e670311b4dac2121ffaaed8ca9471dc54d2b3ad60fe7f1434",
+      "content_hash": "6aab2bfc449ce0e4baf2e70531259e5e9a834b884ed681f3c8f5500954a719c3",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "cc04d946ce9049590cecd32e9895bf8a928687cb992629fe2ad8dc61930dda0e",
+      "content_hash": "426a4a175de9d20d4afa29ce364f049142daed2687e70a38d1bb784d85837775",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,6 +81,7 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n+  count                  = 1\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -118,10 +126,60 @@
     "kind": "change_request"
   },
   "variable_values": {
-    "cidr_block": "tp-placeholder",
-    "project_name": "tp-placeholder",
-    "tp_db_password": "tp-placeholder"
+    "cidr_block": "10.201.0.0/16",
+    "project_name": "tp-primary",
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_region_current": {
+      "name": "us-east-1"
+    }
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "cidr_block": "192.168.77.0/24",
+    "project_name": "tp-alt",
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_region_current": {
+      "name": "us-east-1"
+    }
+  },
+  "variable_values_kinds": {
+    "cidr_block": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.eks_subnet_private_1a.cidr_block",
+        "usage:aws_subnet.eks_subnet_private_1b.cidr_block",
+        "usage:aws_subnet.eks_subnet_public_1a.cidr_block",
+        "usage:aws_subnet.eks_subnet_public_1b.cidr_block",
+        "usage:aws_vpc.eks-vpc.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "project_name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_region_current": {
+      "evidence": [
+        "data_source:aws_region.name",
+        "declared_type:object({name=string})"
+      ],
+      "kind": {
+        "object": {
+          "name": "region"
+        }
+      },
+      "same_in_both_sets": "kind region: the provider pin us-east-1 in both sets"
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

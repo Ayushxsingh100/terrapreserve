@@ -1,9 +1,6 @@
 # ---------------------------
 # REUTILIZAR MESMA KEYPAIR
 # ---------------------------
-data "aws_key_pair" "ansible_controller_key_pair" {
-  key_name = "ansible_controller_key"
-}
 
 # ---------------------------
 # SECURITY GROUP DO TARGET
@@ -63,7 +60,7 @@ resource "aws_instance" "k8s_master" {
   subnet_id              = var.subnet_id
   vpc_security_group_ids = [aws_security_group.k8s_master_sg.id]
   associate_public_ip_address = true
-  key_name               = data.aws_key_pair.ansible_controller_key_pair.key_name
+  key_name               = var.tp_ds_aws_key_pair_ansible_controller_key_pair.key_name
 
   tags = {
     Name = "k8s_master"

@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -13,6 +13,30 @@
       "removed_blocks": [
         "provider"
       ]
+    },
+    {
+      "block_sha256": "1cba41ab801c4cc2b06b75893671518da1f6fd8816fdebaabb7452ffa5655246",
+      "data_name": "bigip",
+      "data_type": "aws_instance",
+      "file": "main.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_instance_bigip"
+    },
+    {
+      "block_sha256": "fe90931f6db9eb4ae186bdd7c5d24297a7aa1ddf8aa13979464c86bad41e4387",
+      "data_name": "node_vm",
+      "data_type": "aws_instance",
+      "file": "main.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_instance_node_vm"
+    },
+    {
+      "block_sha256": "6467d87ae3b8ff4fee48abaff5d9b70164b737354912a63b1e5162010530e5aa",
+      "data_name": "selected",
+      "data_type": "aws_security_group",
+      "file": "main.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_security_group_selected"
     }
   ],
   "intent": {
@@ -107,13 +131,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "2078c43bdb95723aa74babfc82f3447d6af34c05a1eef5a8e65aee59330417a1",
+      "content_hash": "13c853e40e40c1dbf39b44ed065acdae42c95460a912eee49447c1805632dd12",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "1c96f6760fcfff4a5f53e0dfe301f89cd3bafa9fd85481dfd954536006b83667",
+      "content_hash": "e1da88a72d8c7ba993cb07df3c83cc37bb2a69b6aa3676dac2fcf747d009506c",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -71,12 +71,12 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  from_port                = 5432\n-  protocol                 = \"tcp\"\n-  security_group_id        = aws_security_group.tp_db_sg.id\n-  source_security_group_id = aws_security_group.tp_app_sg.id\n-  to_port                  = 5432\n-  type                     = \"ingress\"\n+  cidr_blocks       = [\"172.28.1.0/24\"]\n+  from_port         = 5432\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.tp_db_sg.id\n+  to_port           = 5432\n+  type              = \"ingress\"\n }\n \n resource \"aws_instance\" \"tp_app\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -125,8 +149,75 @@
     "kind": "change_request"
   },
   "variable_values": {
-    "tp_db_password": "tp-placeholder"
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_instance_bigip": {
+      "private_ip": "tp-primary",
+      "public_ip": "tp-primary"
+    },
+    "tp_ds_aws_instance_node_vm": {
+      "public_ip": "tp-primary"
+    },
+    "tp_ds_aws_security_group_selected": {
+      "id": "sg-0201201201201201a"
+    }
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_instance_bigip": {
+      "private_ip": "tp-alt",
+      "public_ip": "tp-alt"
+    },
+    "tp_ds_aws_instance_node_vm": {
+      "public_ip": "tp-alt"
+    },
+    "tp_ds_aws_security_group_selected": {
+      "id": "sg-0777777777777777b"
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_instance_bigip": {
+      "evidence": [
+        "declared_type:object({private_ip=stringpublic_ip=string})",
+        "no table attribute reached at .private_ip",
+        "no table attribute reached at .public_ip"
+      ],
+      "kind": {
+        "object": {
+          "private_ip": "string",
+          "public_ip": "string"
+        }
+      }
+    },
+    "tp_ds_aws_instance_node_vm": {
+      "evidence": [
+        "declared_type:object({public_ip=string})",
+        "no table attribute reached at .public_ip"
+      ],
+      "kind": {
+        "object": {
+          "public_ip": "string"
+        }
+      }
+    },
+    "tp_ds_aws_security_group_selected": {
+      "evidence": [
+        "data_source:aws_security_group.id",
+        "declared_type:object({id=string})"
+      ],
+      "kind": {
+        "object": {
+          "id": "sg_id"
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

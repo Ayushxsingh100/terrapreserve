@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -133,18 +133,120 @@
     "kind": "change_request"
   },
   "variable_values": {
-    "admin_sg": "tp-placeholder",
-    "azs": "tp-placeholder",
+    "admin_sg": "sg-0201201201201201a",
+    "azs": [
+      "subnet-0201201201201201a",
+      "subnet-0201201201201201a",
+      "subnet-0201201201201201a"
+    ],
     "bat_count": 1,
-    "bat_tag": "tp-placeholder",
-    "bat_type": "tp-placeholder",
-    "ec2_ami": "tp-placeholder",
-    "key": "tp-placeholder",
-    "protect_enable": "tp-placeholder",
-    "tp_db_password": "tp-placeholder",
-    "vpc_id": "tp-placeholder",
-    "web_sg": "tp-placeholder"
+    "bat_tag": "tp-primary",
+    "bat_type": "t3.micro",
+    "ec2_ami": "ami-0201201201201201a",
+    "key": "tp-key-primary",
+    "protect_enable": "tp-primary",
+    "tp_db_password": "tp-secret-primary",
+    "vpc_id": "vpc-0201201201201201a",
+    "web_sg": "sg-0201201201201201a"
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "admin_sg": "sg-0777777777777777b",
+    "azs": [
+      "subnet-0777777777777777b",
+      "subnet-0777777777777777b",
+      "subnet-0777777777777777b"
+    ],
+    "bat_count": 2,
+    "bat_tag": "tp-alt",
+    "bat_type": "t3.small",
+    "ec2_ami": "ami-0777777777777777b",
+    "key": "tp-key-alt",
+    "protect_enable": "tp-alt",
+    "tp_db_password": "tp-secret-alt",
+    "vpc_id": "vpc-0777777777777777b",
+    "web_sg": "sg-0777777777777777b"
+  },
+  "variable_values_kinds": {
+    "admin_sg": {
+      "evidence": [
+        "untyped",
+        "usage:aws_security_group.bat.ingress.security_groups"
+      ],
+      "kind": "sg_id"
+    },
+    "azs": {
+      "evidence": [
+        "untyped",
+        "usage:aws_instance.ec2_bat.subnet_id"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "subnet_id"
+      }
+    },
+    "bat_count": {
+      "evidence": [
+        "declared_type:number"
+      ],
+      "kind": "number"
+    },
+    "bat_tag": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "bat_type": {
+      "evidence": [
+        "untyped",
+        "usage:aws_instance.ec2_bat.instance_type"
+      ],
+      "kind": "instance_type"
+    },
+    "ec2_ami": {
+      "evidence": [
+        "untyped",
+        "usage:aws_instance.ec2_bat.ami"
+      ],
+      "kind": "ami"
+    },
+    "key": {
+      "evidence": [
+        "untyped",
+        "usage:aws_instance.ec2_bat.key_name"
+      ],
+      "kind": "key_name"
+    },
+    "protect_enable": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_id": {
+      "evidence": [
+        "untyped",
+        "usage:aws_security_group.bat.vpc_id"
+      ],
+      "kind": "vpc_id"
+    },
+    "web_sg": {
+      "evidence": [
+        "untyped",
+        "usage:aws_security_group.bat.ingress.security_groups"
+      ],
+      "kind": "sg_id"
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

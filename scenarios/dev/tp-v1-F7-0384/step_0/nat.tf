@@ -1,15 +1,3 @@
-data "aws_ami" "nat" {
-  most_recent = true
-  owners      = [local.nat_ami_owner]
-  filter {
-    name   = "architecture"
-    values = [local.nat_ami_arch]
-  }
-  filter {
-    name   = "name"
-    values = [local.nat_ami_name]
-  }
-}
 
 resource "aws_security_group" "nat" {
   name   = "nat-${local.identifier}"
@@ -39,7 +27,7 @@ resource "aws_security_group" "nat" {
 }
 
 resource "aws_instance" "nat" {
-  ami                         = data.aws_ami.nat.id
+  ami                         = var.tp_ds_aws_ami_nat.id
   instance_type               = local.nat_instance_type
   associate_public_ip_address = true
   ebs_optimized               = true

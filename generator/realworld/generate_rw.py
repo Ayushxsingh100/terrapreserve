@@ -34,10 +34,10 @@ import seed
 import validate
 import varvalues
 import writer
-from realworld import graft, plan as rw_plan, real_diff_verify, screen, span_edit
+from realworld import data_vars, graft, plan as rw_plan, real_diff_verify, screen, span_edit
 
 DATASET_VERSION = "1.0"
-GENERATOR_VERSION = "d4b-6"
+GENERATOR_VERSION = "d4b-7"
 
 PROTECTED_INVARIANTS = [
     {"invariant_id": "INV-SEC-001", "version": "1.0"},
@@ -124,10 +124,15 @@ def generate_real_world_scenario(
             if tlog["removed_blocks"]:
                 transform_records.append(tlog)
 
+        # D5-08: every data block becomes a variable without a default (recorded host transform).
+        neutralised_files, ds_records = data_vars.transform(neutralised_files)
+        transform_records.extend(ds_records)
+
         # Validate no clash between host and graft
         graft.validate_no_clash(neutralised_files, seed=global_id)
 
-        # Whole-module S0 screen (D4b-15): hosts are never exempt, whatever the scenario's target.
+        # Whole-module S0 screen (D4b-15): hosts are never exempt, whatever the scenario's target. It runs on
+        # the module after the D5-08 transform; a host that fails it now is not replaced (D5a-2 stop rule).
         host_screen = screen.screen_module(neutralised_files)
         if not host_screen.accepted:
             raise ValueError(f"host module {module_id} fails the S0 screen for {scenario_id}: "
@@ -236,9 +241,9 @@ def generate_real_world_scenario(
         for p in sorted(mod_dir.glob("*.tf")):
             raw_files[p.name] = p.read_text(encoding="utf-8", errors="replace")
 
-        s0_files = dict(raw_files)
+        # D5-08: every data block becomes a variable without a default (recorded transform).
+        s0_files, transform_records = data_vars.transform(dict(raw_files))
         s0_files["terrapreserve_versions.tf"] = VERSIONS_TF
-        transform_records = []
 
         # Find in-scope resources
         instance_addrs: list[str] = []
@@ -363,8 +368,8 @@ def generate_real_world_scenario(
             else:
                 flat_records.append(r)
 
-    # D5-01: variable values (rule vv-1), one set for the whole scenario; steps are not changed.
-    vv_values, vv_unresolved = varvalues.compute(steps_files)
+    # D5-07: variable values (rule vv-2), a primary and an alternate set for the whole scenario.
+    vv_record = varvalues.compute(steps_files)
 
     scenario_data = {
         "scenario_id": scenario_id,
@@ -409,9 +414,7 @@ def generate_real_world_scenario(
         "protected_invariants": PROTECTED_INVARIANTS,
         "steps": steps_meta,
         "mutation_record": flat_records,
-        "variable_values": vv_values,
-        "variable_values_rule": varvalues.RULE,
-        "variable_values_unresolved": vv_unresolved,
+        **vv_record,
         "labels": None,
         "oracle": None,
     }

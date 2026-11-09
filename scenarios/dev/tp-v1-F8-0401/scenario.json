@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F8",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -150,13 +150,88 @@
     "kind": "repair"
   },
   "variable_values": {
-    "azs": [],
-    "cidrs": [],
-    "environment": "tp-placeholder",
-    "nat_gateway_id": "tp-placeholder",
-    "tp_db_password": "tp-placeholder",
-    "vpc_id": "tp-placeholder"
+    "azs": [
+      "us-east-1a",
+      "us-east-1a",
+      "us-east-1a"
+    ],
+    "cidrs": [
+      "10.201.0.0/16",
+      "10.201.0.0/16",
+      "10.201.0.0/16"
+    ],
+    "environment": "tp-primary",
+    "nat_gateway_id": "tp-primary",
+    "tp_db_password": "tp-secret-primary",
+    "vpc_id": "vpc-0201201201201201a"
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "azs": [
+      "us-east-1b",
+      "us-east-1b",
+      "us-east-1b"
+    ],
+    "cidrs": [
+      "192.168.77.0/24",
+      "192.168.77.0/24",
+      "192.168.77.0/24"
+    ],
+    "environment": "tp-alt",
+    "nat_gateway_id": "tp-alt",
+    "tp_db_password": "tp-secret-alt",
+    "vpc_id": "vpc-0777777777777777b"
+  },
+  "variable_values_kinds": {
+    "azs": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_subnet.private.availability_zone"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "az"
+      }
+    },
+    "cidrs": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_subnet.private.cidr_block"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "ipv4_cidr"
+      }
+    },
+    "environment": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "nat_gateway_id": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_id": {
+      "evidence": [
+        "untyped",
+        "usage:aws_route_table.private.vpc_id",
+        "usage:aws_subnet.private.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

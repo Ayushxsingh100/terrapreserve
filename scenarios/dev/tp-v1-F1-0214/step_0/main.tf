@@ -5,9 +5,6 @@ resource "aws_db_subnet_group" "rds" {
   subnet_ids  = var.subnets
 }
 
-data "aws_db_instance" "master" {
-  db_instance_identifier = var.replicate_source_db
-}
 
 resource "aws_db_instance" "rds" {
   count                           = var.number_of_replicas
@@ -22,7 +19,7 @@ resource "aws_db_instance" "rds" {
   storage_encrypted               = var.storage_encrypted
   allocated_storage               = var.allocated_storage
   max_allocated_storage           = var.max_allocated_storage
-  parameter_group_name            = var.custom_parameter_group_name == "" ? data.aws_db_instance.master.db_parameter_groups[0] : var.custom_parameter_group_name
+  parameter_group_name            = var.custom_parameter_group_name == "" ? var.tp_ds_aws_db_instance_master.db_parameter_groups[0] : var.custom_parameter_group_name
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
   backup_retention_period         = var.backup_retention_period
   auto_minor_version_upgrade      = var.auto_minor_version_upgrade

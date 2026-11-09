@@ -5,7 +5,8 @@ A working copy is a fresh directory outside the repository's scenario trees. It 
 * the step's ``.tf`` files, byte for byte;
 * ``zz_oracle_provider.tf``, the oracle-only ``provider "aws"`` block (region ``us-east-1``, placeholder keys
   built at run time, the four ``skip_*`` flags);
-* ``terraform.tfvars.json``, written from the scenario's ``variable_values`` (rule vv-1, D5-01).
+* ``terraform.tfvars.json``, written from one value set of the scenario (``variable_values`` or
+  ``variable_values_alt``, rule vv-2, D5-07).
 
 Nothing is ever written into ``scenarios/`` or into the withheld test split. Terraform runs with
 ``terraform_env``: no AWS environment variables, empty shared credentials and config files, the instance

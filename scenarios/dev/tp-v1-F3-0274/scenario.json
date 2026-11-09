@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -126,13 +126,76 @@
   },
   "variable_values": {
     "allocated_storage": 1,
-    "db_password": "tp-placeholder",
-    "instance_class": "tp-placeholder",
+    "db_password": "tp-secret-primary",
+    "instance_class": "tp-primary",
     "multi_az": false,
-    "resource_prefix": "tp-placeholder",
+    "resource_prefix": "tp-primary",
     "subnet_ids": [],
-    "tp_db_password": "tp-placeholder"
+    "tp_db_password": "tp-secret-primary"
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "allocated_storage": 2,
+    "db_password": "tp-secret-alt",
+    "instance_class": "tp-alt",
+    "multi_az": true,
+    "resource_prefix": "tp-alt",
+    "subnet_ids": [
+      "subnet-0777777777777777b"
+    ],
+    "tp_db_password": "tp-secret-alt"
+  },
+  "variable_values_kinds": {
+    "allocated_storage": {
+      "evidence": [
+        "declared_type:number"
+      ],
+      "kind": "number"
+    },
+    "db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "instance_class": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "multi_az": {
+      "evidence": [
+        "declared_type:bool"
+      ],
+      "kind": "bool"
+    },
+    "resource_prefix": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "subnet_ids": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_db_subnet_group.dagster.subnet_ids"
+      ],
+      "kind": {
+        "length": "empty-able",
+        "list": "subnet_id"
+      }
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

@@ -2,10 +2,19 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
-  "host_transform": [],
+  "host_transform": [
+    {
+      "block_sha256": "b267fdd7027d692f431d011182b648d54a86f063c8500cbac6a89c6e0ca79544",
+      "data_name": "default",
+      "data_type": "aws_availability_zones",
+      "file": "main.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_default"
+    }
+  ],
   "intent": {
     "breaks": [
       "INV-FUNC-001"
@@ -107,13 +116,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "6432f0343421b5092151dc6ec74f667715980515bdf279270e0164ed9b0ac4c1",
+      "content_hash": "bb589dd1fc364731284c8adf8306cc75d82788d921f3a32cf9603ece8e34719e",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "de8a9047678d2f2a4a1f8617501c8bbe3c91ff58192052730d06c5c1ceb3b707",
+      "content_hash": "3983859bdc37a31ceee9faac3a397e44044e767270b48aac600f3298992c004f",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -63,10 +63,10 @@\n \n resource \"aws_security_group_rule\" \"tp_app_egress\" {\n   cidr_blocks       = [\"0.0.0.0/0\"]\n-  from_port         = 0\n-  protocol          = \"-1\"\n+  from_port         = 443\n+  protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_app_sg.id\n-  to_port           = 0\n+  to_port           = 443\n   type              = \"egress\"\n }\n \n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -125,12 +134,83 @@
     "kind": "change_request"
   },
   "variable_values": {
-    "cost_account": "tp-placeholder",
-    "environment": "tp-placeholder",
+    "cost_account": "tp-primary",
+    "environment": "tp-primary",
     "terraform_managed": false,
-    "tp_db_password": "tp-placeholder",
-    "vpc_cidr": "tp-placeholder"
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_default": {
+      "names": [
+        "us-east-1a",
+        "us-east-1a",
+        "us-east-1a"
+      ]
+    },
+    "vpc_cidr": "10.201.0.0/16"
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "cost_account": "tp-alt",
+    "environment": "tp-alt",
+    "terraform_managed": true,
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_default": {
+      "names": [
+        "us-east-1b",
+        "us-east-1b",
+        "us-east-1b"
+      ]
+    },
+    "vpc_cidr": "192.168.77.0/24"
+  },
+  "variable_values_kinds": {
+    "cost_account": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "environment": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "terraform_managed": {
+      "evidence": [
+        "declared_type:bool"
+      ],
+      "kind": "bool"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_default": {
+      "evidence": [
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({names=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "names": {
+            "length": 3,
+            "list": "az"
+          }
+        }
+      }
+    },
+    "vpc_cidr": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_vpc.vpc.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

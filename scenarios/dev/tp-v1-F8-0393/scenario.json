@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F8",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -122,13 +122,66 @@
     "kind": "repair"
   },
   "variable_values": {
-    "cidr_private_subnet": "tp-placeholder",
-    "cidr_public_subnet": "tp-placeholder",
-    "eu_availability_zone": "tp-placeholder",
-    "tp_db_password": "tp-placeholder",
-    "vpc_cidr": "tp-placeholder",
-    "vpc_name": "tp-placeholder"
+    "cidr_private_subnet": "10.201.0.0/16",
+    "cidr_public_subnet": "10.201.0.0/16",
+    "eu_availability_zone": "us-east-1a",
+    "tp_db_password": "tp-secret-primary",
+    "vpc_cidr": "10.201.0.0/16",
+    "vpc_name": "tp-primary"
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "cidr_private_subnet": "192.168.77.0/24",
+    "cidr_public_subnet": "192.168.77.0/24",
+    "eu_availability_zone": "us-east-1b",
+    "tp_db_password": "tp-secret-alt",
+    "vpc_cidr": "192.168.77.0/24",
+    "vpc_name": "tp-alt"
+  },
+  "variable_values_kinds": {
+    "cidr_private_subnet": {
+      "evidence": [
+        "untyped",
+        "usage:aws_subnet.dev_proj_1_private_subnets.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "cidr_public_subnet": {
+      "evidence": [
+        "untyped",
+        "usage:aws_subnet.dev_proj_1_public_subnets.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "eu_availability_zone": {
+      "evidence": [
+        "untyped",
+        "usage:aws_subnet.dev_proj_1_private_subnets.availability_zone",
+        "usage:aws_subnet.dev_proj_1_public_subnets.availability_zone"
+      ],
+      "kind": "az"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_cidr": {
+      "evidence": [
+        "untyped",
+        "usage:aws_vpc.dev_proj_1_vpc_eu_central_1.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "vpc_name": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

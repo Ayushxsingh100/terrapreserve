@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F1",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -13,6 +13,14 @@
       "removed_blocks": [
         "provider"
       ]
+    },
+    {
+      "block_sha256": "756a79b43ff066bf0b83331deb382c2235370a3dd9e8bf85b1f71a4474c82e30",
+      "data_name": "ubuntu",
+      "data_type": "aws_ami",
+      "file": "servers.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_ami_ubuntu"
     }
   ],
   "intent": {
@@ -148,13 +156,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "29d163f02f6efe613b4d7fd6f6e9343224580e7adab6a511e8a878b0cc84313e",
+      "content_hash": "1680e5106400678523341cd31d739f667015789ce2168ad47b3995f29c5cb583",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "fdd54d84b49793b0557806a67eca00caa79bfd4402537024e32a7559a4376372",
+      "content_hash": "b06e2b133c808f101a73f3e3001179e5215de77cfbb64ea84fb7cd9bafadad0c",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.26.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n@@ -103,3 +103,12 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group_rule\" \"tp_app_sg_ingress_ssh\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 22\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.tp_app_sg.id\n+  to_port           = 22\n+  type              = \"ingress\"\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -166,8 +174,37 @@
     "kind": "change_request"
   },
   "variable_values": {
-    "tp_db_password": "tp-placeholder"
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_ami_ubuntu": {
+      "id": "ami-0201201201201201a"
+    }
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_ami_ubuntu": {
+      "id": "ami-0777777777777777b"
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_ami_ubuntu": {
+      "evidence": [
+        "data_source:aws_ami.id",
+        "declared_type:object({id=string})"
+      ],
+      "kind": {
+        "object": {
+          "id": "ami"
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

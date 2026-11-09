@@ -7,7 +7,7 @@ The independent oracle that will produce every ground-truth label (D5). It is wr
 | File | Role |
 |---|---|
 | `VERSION.py` | `ORACLE_VERSION = "oracle-0.1"` (D5-02). |
-| `inputs.py` | Builds the oracle's private working copy of a step (the step's `.tf` files, the oracle-only provider block `zz_oracle_provider.tf`, `terraform.tfvars.json` from the scenario's `variable_values`). Also writes the Terraform environment and CLI configuration for offline runs (D5-04). It never writes into `scenarios/` or the private test split. |
+| `inputs.py` | Builds the oracle's private working copy of a step (the step's `.tf` files, the oracle-only provider block `zz_oracle_provider.tf`, `terraform.tfvars.json` from one of the scenario's two value sets, `variable_values` or `variable_values_alt` (D5-07)). Also writes the Terraform environment and CLI configuration for offline runs (D5-04). It never writes into `scenarios/` or the private test split. |
 | `record.py` | Writes the D0 Decision 6 `labels` and `oracle` structures. D5a: dry run only, every truth value `null`. |
 
 Rules (enforced by `tests/test_independence.py`, `TestOracleIndependence`, D5-03):

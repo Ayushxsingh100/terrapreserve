@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F1",
-  "generator_version": "d4b-6",
+  "generator_version": "d4b-7",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -108,18 +108,109 @@
     "kind": "change_request"
   },
   "variable_values": {
-    "app_name": "tp-placeholder",
-    "deployment_branch": "tp-placeholder",
-    "game_server_name_container": "tp-placeholder",
+    "app_name": "tp-primary",
+    "deployment_branch": "tp-primary",
+    "game_server_name_container": "tp-primary",
     "game_server_port": 1,
-    "proxy_server_port": "tp-placeholder",
-    "public_subnet_id_a": "tp-placeholder",
-    "public_subnet_id_b": "tp-placeholder",
-    "subdomain_game_stacks": "tp-placeholder",
-    "tp_db_password": "tp-placeholder",
-    "vpc_cidr_block": "tp-placeholder",
-    "vpc_id": "tp-placeholder"
+    "proxy_server_port": "tp-primary",
+    "public_subnet_id_a": "tp-primary",
+    "public_subnet_id_b": "tp-primary",
+    "subdomain_game_stacks": "tp-primary",
+    "tp_db_password": "tp-secret-primary",
+    "vpc_cidr_block": "tp-primary",
+    "vpc_id": "vpc-0201201201201201a"
   },
-  "variable_values_rule": "vv-1",
+  "variable_values_alt": {
+    "app_name": "tp-alt",
+    "deployment_branch": "tp-alt",
+    "game_server_name_container": "tp-alt",
+    "game_server_port": 2,
+    "proxy_server_port": "tp-alt",
+    "public_subnet_id_a": "tp-alt",
+    "public_subnet_id_b": "tp-alt",
+    "subdomain_game_stacks": "tp-alt",
+    "tp_db_password": "tp-secret-alt",
+    "vpc_cidr_block": "tp-alt",
+    "vpc_id": "vpc-0777777777777777b"
+  },
+  "variable_values_kinds": {
+    "app_name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "deployment_branch": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "game_server_name_container": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "game_server_port": {
+      "evidence": [
+        "declared_type:number"
+      ],
+      "kind": "number"
+    },
+    "proxy_server_port": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "public_subnet_id_a": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "public_subnet_id_b": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "subdomain_game_stacks": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_cidr_block": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "vpc_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.sg_alb.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-2",
   "variable_values_unresolved": {}
 }

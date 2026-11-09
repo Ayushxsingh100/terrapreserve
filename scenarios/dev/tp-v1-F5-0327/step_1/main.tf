@@ -1,8 +1,6 @@
 # Configure the AWS Provider
 
 #Retrieve the list of AZs in the current AWS region
-data "aws_availability_zones" "available" {}
-data "aws_region" "current" {}
 
 #Define the VPC
 resource "aws_vpc" "vpc" {
@@ -20,7 +18,7 @@ resource "aws_subnet" "private_subnets" {
   for_each          = var.private_subnets
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = cidrsubnet(var.vpc_cidr, 8, each.value)
-  availability_zone = tolist(data.aws_availability_zones.available.names)[each.value]
+  availability_zone = tolist(var.tp_ds_aws_availability_zones_available.names)[each.value]
 
   tags = {
     Name      = each.key
@@ -33,7 +31,7 @@ resource "aws_subnet" "public_subnets" {
   for_each                = var.public_subnets
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = cidrsubnet(var.vpc_cidr, 8, each.value + 100)
-  availability_zone       = tolist(data.aws_availability_zones.available.names)[each.value]
+  availability_zone       = tolist(var.tp_ds_aws_availability_zones_available.names)[each.value]
   map_public_ip_on_launch = true
 
   tags = {
@@ -116,25 +114,10 @@ resource "aws_nat_gateway" "nat_gateway" {
 
 
 # Terraform Data Block - To Lookup Latest Ubuntu 20.04 AMI Image
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"]
-}
 
 # Terraform Resource Block - To Build EC2 instance in Public Subnet
 resource "aws_instance" "web_server" {
-  ami           = data.aws_ami.ubuntu.id
+  ami           = var.tp_ds_aws_ami_ubuntu.id
   instance_type = "t3.micro"
   subnet_id     = aws_subnet.public_subnets["public_subnet_1"].id
   tags = {
