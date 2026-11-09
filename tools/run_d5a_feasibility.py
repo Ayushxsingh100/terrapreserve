@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
-"""D5a Step 4: input-path feasibility (measure only; no evaluator, no label).
+"""Input-path feasibility (measure only; no evaluator, no label): D5a Step 4 and D5a-2 Step 4.
 
 For every step of every scenario (dev, and the private test split when ``$TERRAPRESERVE_PRIVATE`` is set):
 
 1. build the oracle working copy (``oracle.inputs``, D5-04): step ``.tf`` files, oracle provider block,
-   ``terraform.tfvars.json`` from ``variable_values``;
+   ``terraform.tfvars.json`` from one value set (``--value-set primary``: ``variable_values``;
+   ``--value-set alternate``: ``variable_values_alt``, D5-06/D5-07);
 2. ``terraform init -backend=false`` (offline mirror only), ``terraform plan -input=false -refresh=false
    -lock=false -out=plan.bin``, ``terraform show -json plan.bin``;
-3. Checkov 3.3.30 on a pristine copy of the step directory with only the invariant-relevant checks
-   (``CHECKOV_CHECKS``); only whether it ran and its run time are recorded, never its findings.
+3. with ``--checkov`` (the D5a run), Checkov 3.3.30 on a pristine copy of the step directory with only the
+   invariant-relevant checks (``CHECKOV_CHECKS``); only whether it ran and its run time are recorded.
 
 Per step it records the result, for a failure the stage, the first error's class and first line, and wall time.
-Dev rows go to ``docs/d5a/feasibility_dev.csv``. Test rows go to
-``$TERRAPRESERVE_PRIVATE/d5a_feasibility_test.csv`` and never enter the repository. Rows are appended as they
-finish, so a run can be resumed. No AWS credential is used: see ``oracle/inputs.py``.
+D5a-2 (default ``--run d5a2``): dev rows go to ``docs/d5a2/feasibility_dev_<set>.csv``, test rows to
+``$TERRAPRESERVE_PRIVATE/d5a2_feasibility_test_<set>.csv``. The D5a run (``--run d5a``, vv-1, commit
+``e96c017``) wrote ``docs/d5a/feasibility_dev.csv`` and ``$TERRAPRESERVE_PRIVATE/d5a_feasibility_test.csv``;
+those files are kept as they were. Test rows never enter the repository. Rows are appended as they finish, so a
+run can be resumed. No AWS credential is used: see ``oracle/inputs.py``.
 """
 
 from __future__ import annotations
@@ -47,7 +50,29 @@ CHECKOV_CHECKS = ("CKV_AWS_24", "CKV_AWS_277", "CKV_AWS_17")
 VENV_BIN = REPO_ROOT / ".venv-tools" / ("Scripts" if os.name == "nt" else "bin")
 CHECKOV = VENV_BIN / "checkov"  # a Python entry script: run it with the venv interpreter
 VENV_PYTHON = VENV_BIN / ("python.exe" if os.name == "nt" else "python")
-RUN_ROOT = Path.home() / ".terrapreserve-cache" / "d5a-feasibility"
+CACHE = Path.home() / ".terrapreserve-cache"
+RUN_ROOT = CACHE / "d5a-feasibility"  # set by configure()
+VALUE_KEY = "variable_values"  # set by configure()
+OUT: dict[str, Path | None] = {"dev": REPO_ROOT / "docs" / "d5a" / "feasibility_dev.csv", "test": None}
+_VV_LITERAL = re.compile(r"tp-placeholder|tp-primary|tp-alt|tp-secret-primary|tp-secret-alt")
+
+
+def configure(run: str, value_set: str) -> None:
+    """Output paths and the value set of one measurement run."""
+    global RUN_ROOT, VALUE_KEY
+    priv = os.environ.get("TERRAPRESERVE_PRIVATE")
+    if run == "d5a":
+        if value_set != "primary":
+            raise SystemExit("the D5a run had one value set (vv-1)")
+        RUN_ROOT = CACHE / "d5a-feasibility"
+        VALUE_KEY = "variable_values"
+        OUT["dev"] = REPO_ROOT / "docs" / "d5a" / "feasibility_dev.csv"
+        OUT["test"] = Path(priv) / "d5a_feasibility_test.csv" if priv else None
+        return
+    RUN_ROOT = CACHE / f"d5a2-feasibility-{value_set}"
+    VALUE_KEY = {"primary": "variable_values", "alternate": "variable_values_alt"}[value_set]
+    OUT["dev"] = REPO_ROOT / "docs" / "d5a2" / f"feasibility_dev_{value_set}.csv"
+    OUT["test"] = Path(priv) / f"d5a2_feasibility_test_{value_set}.csv" if priv else None
 FIELDS = ["scenario_id", "tier", "step", "status", "stage", "error_class", "error_cause", "error_first_line",
           "wall_seconds", "plan_json_bytes", "checkov_ran", "checkov_seconds"]
 CLASSES = ("data source needs API", "provider tried to call AWS", "variable error", "other")
@@ -62,9 +87,9 @@ def classify(text: str, valued: set[str] | None = None) -> tuple[str, str, str]:
     Classes (work package Step 4): "data source needs API" (the first error is raised while reading a
     ``data`` block); "provider tried to call AWS" (an AWS request was attempted and refused by the proxy
     guard, outside a data block); "variable error" (a required variable has no value, or Terraform reports a
-    vv-1 value in the failing expression, or a variable's declared default is rejected); "other". The cause is a
-    short sub-class for the authors. ``valued`` is the set of variables that have a vv-1 value in this scenario;
-    with it, an expression error is attributed to a vv-1 value or to a declared default.
+    value set by the rule in the failing expression, or a variable's declared default is rejected); "other". The
+    cause is a short sub-class for the authors. ``valued`` is the set of variables that have a vv-2 value in this
+    scenario; with it, an expression error is attributed to a vv-2 value or to a declared default.
     """
     lines = text.splitlines()
     idx = next((i for i, ln in enumerate(lines) if ln.strip().startswith("Error:")), None)
@@ -95,14 +120,14 @@ def classify(text: str, valued: set[str] | None = None) -> tuple[str, str, str]:
     if re.search(r"No value for required variable", first):
         return "variable error", "unresolved variable has no value", first[:300]
     if re.search(r"Invalid value for (input )?variable", first):
-        return "variable error", "vv-1 value rejected by the variable's type or validation", first[:300]
+        return "variable error", "vv-2 value rejected by the variable's type or validation", first[:300]
     # Which variables does the failing expression read? (source snippet lines and value details)
     snippet_vars = set(re.findall(r"\bvar\.([A-Za-z_][A-Za-z0-9_-]*)", body))
-    if "tp-placeholder" in body or (snippet_vars and valued is not None and snippet_vars & valued) \
+    if _VV_LITERAL.search(body) or (snippet_vars and valued is not None and snippet_vars & valued) \
             or (valued is None and _VAR_IN_DETAIL.search(body)):
-        return "variable error", "vv-1 value rejected in an expression or by the provider", first[:300]
+        return "variable error", "vv-2 value rejected in an expression or by the provider", first[:300]
     if snippet_vars and valued is not None:
-        return "variable error", "a declared default (not set by vv-1) rejected in an expression or by the provider", \
+        return "variable error", "a declared default (not set by vv-2) rejected in an expression or by the provider", \
             first[:300]
     if re.search(r"Failed to query available provider packages|Failed to install provider|"
                  r"provider registry|could not find", body, re.I):
@@ -177,7 +202,7 @@ class Worker:
         logs.mkdir(parents=True, exist_ok=True)
         (logs / f"{row['scenario_id']}_step{row['step']}_{row['stage']}.txt").write_text(text, encoding="utf-8")
 
-    def step(self, sc: dict, step_dir: Path, tier: str) -> dict:
+    def step(self, sc: dict, step_dir: Path, tier: str, checkov: bool = False) -> dict:
         row = {"scenario_id": sc["scenario_id"], "tier": tier, "step": int(step_dir.name.split("_")[1]),
                "status": "", "stage": "", "error_class": "", "error_cause": "", "error_first_line": "",
                "wall_seconds": "",
@@ -187,7 +212,7 @@ class Worker:
             shutil.rmtree(work)
         t0 = time.monotonic()
         try:
-            inputs.build_working_copy(step_dir, sc.get("variable_values") or {}, work)
+            inputs.build_working_copy(step_dir, sc.get(VALUE_KEY) or {}, work)
         except ValueError as exc:
             row.update(status="failure", stage="working copy", error_class="other",
                        error_first_line=str(exc).splitlines()[0][:300], wall_seconds=f"{time.monotonic() - t0:.2f}")
@@ -201,7 +226,7 @@ class Worker:
                 proc = self.tf(work, *args)
             except subprocess.TimeoutExpired as exc:
                 text = f"{exc.stderr or ''}\n{exc.output or ''}"
-                cls, cause, _first = classify(text, set(sc.get('variable_values') or {}))
+                cls, cause, _first = classify(text, set(sc.get(VALUE_KEY) or {}))
                 row.update(status="failure", stage=stage, error_class=cls if cause else "other",
                            error_cause=f"timeout after {exc.timeout} s" + (f"; {cause}" if cause else ""),
                            error_first_line="timeout")
@@ -209,7 +234,7 @@ class Worker:
                 break
             if proc.returncode != 0:
                 text = (proc.stderr or "") + "\n" + (proc.stdout or "")
-                cls, cause, first = classify(text, set(sc.get('variable_values') or {}))
+                cls, cause, first = classify(text, set(sc.get(VALUE_KEY) or {}))
                 row.update(status="failure", stage=stage, error_class=cls, error_cause=cause,
                            error_first_line=first.replace(str(work), "<work>"))
                 self.keep_log(row, text)
@@ -218,6 +243,8 @@ class Worker:
                 json.loads(proc.stdout)  # must be valid plan JSON
                 row.update(status="success", plan_json_bytes=len(proc.stdout.encode("utf-8")))
         row["wall_seconds"] = f"{time.monotonic() - t0:.2f}"
+        if not checkov:
+            return row
         # Checkov on a pristine copy of the step (the scenario directory is never written).
         with tempfile.TemporaryDirectory(prefix="tp-ckv-", dir=self.base) as tmp:
             for f in step_dir.glob("*.tf"):
@@ -236,10 +263,7 @@ class Worker:
 
 
 def _csv_paths(splits: list[str]) -> list[Path]:
-    out = [REPO_ROOT / "docs" / "d5a" / "feasibility_dev.csv"] if "dev" in splits else []
-    if "test" in splits:
-        out.append(Path(os.environ["TERRAPRESERVE_PRIVATE"]) / "d5a_feasibility_test.csv")
-    return out
+    return [p for s in ("dev", "test") if s in splits and (p := OUT[s]) is not None]
 
 
 def _rewrite(path: Path, rows: list[dict]) -> None:
@@ -259,7 +283,7 @@ def drop_rows(splits: list[str], keys: set[tuple[str, str]]) -> None:
 
 
 def reclassify(splits: list[str]) -> int:
-    values = {d["scenario_id"]: set(d.get("variable_values") or {}) for _s, _p, d in scenarios(splits)}
+    values = {d["scenario_id"]: set(d.get(VALUE_KEY) or {}) for _s, _p, d in scenarios(splits)}
     for path in _csv_paths(splits):
         with open(path, encoding="utf-8") as f:
             rows = list(csv.DictReader(f))
@@ -286,7 +310,11 @@ def main() -> int:
                     help="recompute error_class and error_cause of failed rows from the saved logs, then exit")
     ap.add_argument("--rerun", default="",
                     help="comma-separated scenario_id:step rows to drop and measure again (reported as reruns)")
+    ap.add_argument("--run", choices=("d5a", "d5a2"), default="d5a2")
+    ap.add_argument("--value-set", choices=("primary", "alternate"), default="primary")
+    ap.add_argument("--checkov", action="store_true", help="also time Checkov (the D5a run did)")
     args = ap.parse_args()
+    configure(args.run, args.value_set)
     if args.reclassify:
         return reclassify(args.splits.split(","))
     if args.rerun:
@@ -294,12 +322,12 @@ def main() -> int:
     terraform = shutil.which("terraform")
     if terraform is None:
         raise SystemExit("terraform not found")
-    if not CHECKOV.exists() or not VENV_PYTHON.exists():
+    if args.checkov and (not CHECKOV.exists() or not VENV_PYTHON.exists()):
         raise SystemExit(f"checkov not found at {CHECKOV}")
     splits = args.splits.split(",")
-    out_paths = {"dev": REPO_ROOT / "docs" / "d5a" / "feasibility_dev.csv"}
-    if "test" in splits:
-        out_paths["test"] = Path(os.environ["TERRAPRESERVE_PRIVATE"]) / "d5a_feasibility_test.csv"
+    if "test" in splits and OUT["test"] is None:
+        raise SystemExit("TERRAPRESERVE_PRIVATE is not set to an existing directory")
+    out_paths = {s: OUT[s] for s in ("dev", "test") if s in splits}
     done: set[tuple[str, int]] = set()
     for split, path in out_paths.items():
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -326,7 +354,7 @@ def main() -> int:
         with lock:
             w = free.pop()
         try:
-            return split, w.step(sc, sd, sc["source"]["tier"])
+            return split, w.step(sc, sd, sc["source"]["tier"], args.checkov)
         finally:
             with lock:
                 free.append(w)

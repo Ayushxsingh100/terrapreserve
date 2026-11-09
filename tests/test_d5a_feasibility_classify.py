@@ -76,7 +76,19 @@ Error: expected cidr_block to contain a valid Value, got:  with err: invalid CID
 """
 
 
+VV2_LITERAL = """
+Error: "tp-alt" is not a valid CIDR block: invalid CIDR address: tp-alt
+
+  with aws_subnet.s,
+  on main.tf line 3, in resource "aws_subnet" "s":
+"""
+
+
 class TestClassify(unittest.TestCase):
+    def test_vv2_value_in_the_message(self) -> None:
+        self.assertEqual(classify(VV2_LITERAL)[:2],
+                         ("variable error", "vv-2 value rejected in an expression or by the provider"))
+
     def test_remote_state_credential_lookup_is_a_data_source(self) -> None:
         cls, cause, _ = classify(REMOTE_STATE, set())
         self.assertEqual(cls, "data source needs API")
@@ -89,9 +101,9 @@ class TestClassify(unittest.TestCase):
     def test_declared_default_versus_vv1_value(self) -> None:
         self.assertEqual(classify(DEFAULT_CIDR, {"tp_db_password"})[:2],
                          ("variable error",
-                          "a declared default (not set by vv-1) rejected in an expression or by the provider"))
+                          "a declared default (not set by vv-2) rejected in an expression or by the provider"))
         self.assertEqual(classify(DEFAULT_CIDR, {"network_address_space"})[1],
-                         "vv-1 value rejected in an expression or by the provider")
+                         "vv-2 value rejected in an expression or by the provider")
 
     def test_data_source(self) -> None:
         cls, cause, first = classify(AZ)

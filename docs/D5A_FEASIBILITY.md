@@ -355,3 +355,213 @@ Dev failures (154 steps):
 - Open D5-A: Open
 - Open D5-B: Open
 
+<!-- D5a-2 results below: written by tools/report_d5a2.py; the D5a part above is kept as it was -->
+
+## D5a-2 measurements (computed by `tools/report_d5a2.py`)
+
+Value rule vv-2 (D5-07), data-source variables (D5-08), both value sets (D5-06). Every number below is computed from the repository and, for the test split, from the withheld directory (counts only). Regenerate with `python tools/report_d5a2.py` (with `TERRAPRESERVE_PRIVATE` set). The D5a part above describes vv-1 at `e96c017` and is kept as it was.
+
+### D5a-2.1 Decision rows (as written in `docs/D5_DECISIONS.md`)
+- D5-01: Superseded
+- D5-02: Proposed
+- D5-03: Proposed
+- D5-04: Proposed
+- D5-05: Decided
+- D5-06: Decided
+- D5-07: Proposed
+- D5-08: Proposed
+- Open D5-A: Decided
+- Open D5-B: Decided
+- Open D5-C: Open
+
+### D5a-2.2 Variable values, rule vv-2 (D5-07)
+| split | tier | scenarios | with rule vv-2 | variables valued (both sets) | of which tp_ds_* | unresolved | conflict |
+|---|---|---|---|---|---|---|---|
+| dev | controlled | 144 | 144 | 144 | 0 | 0 | 0 |
+| dev | real_world | 144 | 144 | 536 | 38 | 1 | 2 |
+| test | controlled | 64 | 64 | 64 | 0 | 0 | 0 |
+| test | real_world | 64 | 64 | 208 | 25 | 1 | 0 |
+
+Leaves by kind (a leaf is one scalar position of a value; per split and tier):
+- dev controlled: `secret` 144
+- dev real_world: `ami` 11, `az` 52, `bool` 3, `instance_type` 4, `ipv4_cidr` 81, `key_name` 3, `number` 15, `region` 6, `secret` 153, `sg_id` 8, `string` 157, `subnet_id` 14, `vpc_id` 61
+- test controlled: `secret` 64
+- test real_world: `ami` 1, `az` 18, `bool` 1, `ipv4_cidr` 29, `number` 6, `region` 3, `secret` 71, `sg_id` 4, `string` 57, `subnet_id` 7, `vpc_id` 24
+
+Variables by evidence class (a variable counts once per class it records):
+- dev controlled: `declared_type` 144, `secret` 144, `validation` 144
+- dev real_world: `data_source` 32, `declared_type` 452, `no table attribute reached` 153, `secret` 153, `untyped` 84, `usage` 191, `validation` 22
+- test controlled: `declared_type` 64, `secret` 64, `validation` 64
+- test real_world: `data_source` 19, `declared_type` 198, `no table attribute reached` 56, `secret` 71, `untyped` 10, `usage` 58, `validation` 8
+
+Validation candidates taken (variables with a validation block):
+- dev controlled: 144 x the kind's value in both sets (first candidate)
+- dev real_world: 1 x a later candidate: primary 'tst', alternate 'dev'
+- dev real_world: 1 x a later candidate: primary 'us-gov-east-1', alternate 'us-gov-west-1'
+- dev real_world: 20 x the kind's value in both sets (first candidate)
+- test controlled: 64 x the kind's value in both sets (first candidate)
+- test real_world: 8 x the kind's value in both sets (first candidate)
+
+Values equal in both sets (recorded exceptions):
+- dev real_world: 2 x kind region: the provider pin us-east-1 in both sets
+- dev real_world: 2 x object with no attributes used
+
+Unresolved and conflict reasons (count of variables):
+- dev: 1 x conflict: conflict at []: az by usage:...; ipv4_cidr by usage:...
+- dev: 1 x conflict: conflict at []: ipv4_cidr by usage:...; ipv6_cidr by usage:...
+- dev: 1 x unresolved: map at (value) is indexed by a computed key
+- test: 1 x unresolved: map at (value) is indexed by a computed key
+
+Dev variables without a value:
+- tp-v1-F3-0271 `cidr_blocks` (conflict: conflict at []: ipv4_cidr by usage:aws_subnet.this.cidr_block; ipv6_cidr by usage:aws_subnet.this.ipv6_cidr_block)
+- tp-v1-F7-0369 `private_subnet_cidr_blocks` (conflict: conflict at []: az by usage:aws_subnet.private_subnets.availability_zone; ipv4_cidr by usage:aws_subnet.private_subnets.cidr_block)
+- tp-v1-F8-0406 `tp_ds_aws_vpc_net` (unresolved: map at (value) is indexed by a computed key)
+
+### D5a-2.3 Data-source transform (D5-08)
+- dev: blocks removed by type: `aws_ami` 5, `aws_availability_zones` 19, `aws_db_instance` 1, `aws_instance` 2, `aws_ip_ranges` 1, `aws_key_pair` 1, `aws_region` 4, `aws_security_group` 1, `aws_subnets` 1, `aws_vpc` 3, `terraform_remote_state` 1; variables created: 39; scenarios affected: 32
+- test: blocks removed by type: `aws_ami` 1, `aws_availability_zones` 10, `aws_caller_identity` 2, `aws_ec2_transit_gateway` 1, `aws_ec2_transit_gateway_route_table` 1, `aws_ec2_transit_gateway_vpc_attachment` 1, `aws_region` 1, `aws_subnet` 1, `aws_vpc` 6, `aws_vpcs` 1; variables created: 25; scenarios affected: 17
+- dev scenarios affected: tp-v1-F1-0210, tp-v1-F1-0213, tp-v1-F1-0214, tp-v1-F1-0223, tp-v1-F1-0227, tp-v1-F1-0228, tp-v1-F2-0240, tp-v1-F2-0245, tp-v1-F2-0258, tp-v1-F2-0259, tp-v1-F3-0266, tp-v1-F3-0275, tp-v1-F3-0277, tp-v1-F4-0300, tp-v1-F4-0304, tp-v1-F4-0305, tp-v1-F5-0317, tp-v1-F5-0327, tp-v1-F6-0342, tp-v1-F6-0349, tp-v1-F6-0357, tp-v1-F6-0362, tp-v1-F7-0367, tp-v1-F7-0379, tp-v1-F7-0384, tp-v1-F7-0388, tp-v1-F8-0396, tp-v1-F8-0397, tp-v1-F8-0405, tp-v1-F8-0406, tp-v1-F8-0408, tp-v1-F8-0409
+
+### D5a-2.4 Whole-module S0 screen, re-run after the transform
+- dev host: result after the transform: accepted 144; same result as before the transform: 144, changed: 0
+- test host: result after the transform: accepted 64; same result as before the transform: 64, changed: 0
+- natives are rejected by design (RW-S0-FUNC, D4b-15); they are not re-selected either.
+- stop list (hosts that fail the screen after the transform): 0
+
+### D5a-2.5 Feasibility under each value set (D5-04 offline rules unchanged)
+#### Value set: primary (`variable_values`)
+| split | tier | steps | plan JSON | data source needs API | provider tried to call AWS | variable error | other | median wall s | max wall s |
+|---|---|---|---|---|---|---|---|---|---|
+| dev | controlled | 328 | 328 | 0 | 0 | 0 | 0 | 20.5 | 37.8 |
+| dev | real_world | 324 | 283 | 0 | 0 | 39 | 2 | 19.7 | 33.3 |
+| test | controlled | 138 | 138 | 0 | 0 | 0 | 0 | 23.8 | 44.8 |
+| test | real_world | 145 | 121 | 0 | 0 | 22 | 2 | 20.1 | 33.5 |
+
+Failures by class and cause:
+- dev: 2 x other: (no sub-cause)
+- dev: 8 x variable error: a declared default (not set by vv-2) rejected in an expression or by the provider
+- dev: 8 x variable error: unresolved variable has no value
+- dev: 23 x variable error: vv-2 value rejected in an expression or by the provider
+- test: 2 x other: (no sub-cause)
+- test: 12 x variable error: a declared default (not set by vv-2) rejected in an expression or by the provider
+- test: 2 x variable error: unresolved variable has no value
+- test: 8 x variable error: vv-2 value rejected in an expression or by the provider
+
+Dev failures (first error):
+- tp-v1-F1-0214 step 0: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: first character of "identifier" must be a letter`
+- tp-v1-F1-0214 step 1: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: first character of "identifier" must be a letter`
+- tp-v1-F1-0219 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect value type`
+- tp-v1-F1-0219 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect value type`
+- tp-v1-F1-0220 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F1-0220 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F1-0228 step 0: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:`
+- tp-v1-F1-0228 step 1: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:`
+- tp-v1-F2-0252 step 0: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: "This variable must be defined at environment level." is not a valid CIDR block: invalid CIDR address: This variable must be defined at environment level`
+- tp-v1-F2-0252 step 1: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: "This variable must be defined at environment level." is not a valid CIDR block: invalid CIDR address: This variable must be defined at environment level`
+- tp-v1-F2-0254 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Error in function call`
+- tp-v1-F2-0254 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Error in function call`
+- tp-v1-F3-0266 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Resource precondition failed`
+- tp-v1-F3-0266 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Resource precondition failed`
+- tp-v1-F3-0271 step 0: variable error; unresolved variable has no value; `Error: No value for required variable`
+- tp-v1-F3-0271 step 1: variable error; unresolved variable has no value; `Error: No value for required variable`
+- tp-v1-F3-0284 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F3-0284 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F5-0327 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Invalid index`
+- tp-v1-F5-0327 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Invalid index`
+- tp-v1-F5-0330 step 0: other; ; `Error: Invalid index`
+- tp-v1-F5-0330 step 1: other; ; `Error: Invalid index`
+- tp-v1-F5-0337 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F5-0337 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F6-0342 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: "tp-primary/32" is not a valid CIDR block: invalid CIDR address: tp-primary/32`
+- tp-v1-F6-0342 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: "tp-primary/32" is not a valid CIDR block: invalid CIDR address: tp-primary/32`
+- tp-v1-F6-0344 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F6-0344 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F7-0369 step 0: variable error; unresolved variable has no value; `Error: No value for required variable`
+- tp-v1-F7-0369 step 1: variable error; unresolved variable has no value; `Error: No value for required variable`
+- tp-v1-F7-0378 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Invalid function argument`
+- tp-v1-F7-0378 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Invalid function argument`
+- tp-v1-F7-0382 step 0: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:`
+- tp-v1-F7-0382 step 1: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:`
+- tp-v1-F8-0393 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Error in function call`
+- tp-v1-F8-0393 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Error in function call`
+- tp-v1-F8-0393 step 2: variable error; vv-2 value rejected in an expression or by the provider; `Error: Error in function call`
+- tp-v1-F8-0406 step 0: variable error; unresolved variable has no value; `Error: No value for required variable`
+- tp-v1-F8-0406 step 1: variable error; unresolved variable has no value; `Error: No value for required variable`
+- tp-v1-F8-0406 step 2: variable error; unresolved variable has no value; `Error: No value for required variable`
+- tp-v1-F8-0406 step 3: variable error; unresolved variable has no value; `Error: No value for required variable`
+
+#### Value set: alternate (`variable_values_alt`)
+| split | tier | steps | plan JSON | data source needs API | provider tried to call AWS | variable error | other | median wall s | max wall s |
+|---|---|---|---|---|---|---|---|---|---|
+| dev | controlled | 328 | 328 | 0 | 0 | 0 | 0 | 16.9 | 37.1 |
+| dev | real_world | 324 | 283 | 0 | 0 | 39 | 2 | 16.3 | 32.3 |
+| test | controlled | 138 | 138 | 0 | 0 | 0 | 0 | 16.8 | 31.5 |
+| test | real_world | 145 | 119 | 0 | 0 | 24 | 2 | 16.0 | 30.6 |
+
+Failures by class and cause:
+- dev: 2 x other: (no sub-cause)
+- dev: 8 x variable error: a declared default (not set by vv-2) rejected in an expression or by the provider
+- dev: 8 x variable error: unresolved variable has no value
+- dev: 23 x variable error: vv-2 value rejected in an expression or by the provider
+- test: 2 x other: (no sub-cause)
+- test: 12 x variable error: a declared default (not set by vv-2) rejected in an expression or by the provider
+- test: 2 x variable error: unresolved variable has no value
+- test: 10 x variable error: vv-2 value rejected in an expression or by the provider
+
+Dev failures (first error):
+- tp-v1-F1-0214 step 0: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: first character of "identifier" must be a letter`
+- tp-v1-F1-0214 step 1: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: first character of "identifier" must be a letter`
+- tp-v1-F1-0219 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect value type`
+- tp-v1-F1-0219 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect value type`
+- tp-v1-F1-0220 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F1-0220 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F1-0228 step 0: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:`
+- tp-v1-F1-0228 step 1: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:`
+- tp-v1-F2-0252 step 0: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: "This variable must be defined at environment level." is not a valid CIDR block: invalid CIDR address: This variable must be defined at environment level`
+- tp-v1-F2-0252 step 1: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: "This variable must be defined at environment level." is not a valid CIDR block: invalid CIDR address: This variable must be defined at environment level`
+- tp-v1-F2-0254 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Error in function call`
+- tp-v1-F2-0254 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Error in function call`
+- tp-v1-F3-0266 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Resource precondition failed`
+- tp-v1-F3-0266 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Resource precondition failed`
+- tp-v1-F3-0271 step 0: variable error; unresolved variable has no value; `Error: No value for required variable`
+- tp-v1-F3-0271 step 1: variable error; unresolved variable has no value; `Error: No value for required variable`
+- tp-v1-F3-0284 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F3-0284 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F5-0327 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Invalid index`
+- tp-v1-F5-0327 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Invalid index`
+- tp-v1-F5-0330 step 0: other; ; `Error: Invalid index`
+- tp-v1-F5-0330 step 1: other; ; `Error: Invalid index`
+- tp-v1-F5-0337 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F5-0337 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F6-0342 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: "tp-alt/32" is not a valid CIDR block: invalid CIDR address: tp-alt/32`
+- tp-v1-F6-0342 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: "tp-alt/32" is not a valid CIDR block: invalid CIDR address: tp-alt/32`
+- tp-v1-F6-0344 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F6-0344 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Incorrect attribute value type`
+- tp-v1-F7-0369 step 0: variable error; unresolved variable has no value; `Error: No value for required variable`
+- tp-v1-F7-0369 step 1: variable error; unresolved variable has no value; `Error: No value for required variable`
+- tp-v1-F7-0378 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Invalid function argument`
+- tp-v1-F7-0378 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Invalid function argument`
+- tp-v1-F7-0382 step 0: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:`
+- tp-v1-F7-0382 step 1: variable error; a declared default (not set by vv-2) rejected in an expression or by the provider; `Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:`
+- tp-v1-F8-0393 step 0: variable error; vv-2 value rejected in an expression or by the provider; `Error: Error in function call`
+- tp-v1-F8-0393 step 1: variable error; vv-2 value rejected in an expression or by the provider; `Error: Error in function call`
+- tp-v1-F8-0393 step 2: variable error; vv-2 value rejected in an expression or by the provider; `Error: Error in function call`
+- tp-v1-F8-0406 step 0: variable error; unresolved variable has no value; `Error: No value for required variable`
+- tp-v1-F8-0406 step 1: variable error; unresolved variable has no value; `Error: No value for required variable`
+- tp-v1-F8-0406 step 2: variable error; unresolved variable has no value; `Error: No value for required variable`
+- tp-v1-F8-0406 step 3: variable error; unresolved variable has no value; `Error: No value for required variable`
+
+#### Step 4 outcome
+- Not every step plans offline: 67 steps in 31 scenarios fail under at least one value set (dev 41 steps, test 26 steps). As the work package requires, D5a-2 stopped here: the first error, class and sub-cause are recorded above, and no step was fixed, dropped or given a fallback. Open D5-C in `docs/D5_DECISIONS.md` records the decision this needs.
+
+### D5a-2.6 Drift against `e96c017`
+- dev controlled: M scenario.json: 144
+- dev real_world: A terrapreserve_data_variables.tf: 73
+- dev real_world: M other step file: 94
+- dev real_world: M scenario.json: 144
+- repo -: M scenarios/test_manifest.json: 1
+- test controlled: M scenario.json: 64
+- test real_world: A terrapreserve_data_variables.tf: 40
+- test real_world: M other step file: 52
+- test real_world: M scenario.json: 64
+
