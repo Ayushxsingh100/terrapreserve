@@ -115,11 +115,9 @@ class TestOperatorCatalogue(unittest.TestCase):
     def test_operators_verify_with_diff_verifier(self) -> None:
         ops_mod, tpl_mod, dv = self._get_modules()
         catalogue = ops_mod.CATALOGUE
-        tpl = tpl_mod.TEMPLATES["tpl-01"]
 
         for op in catalogue:
             with self.subTest(operator=op.name):
-                rng = random.Random(20261031)
                 # Determine appropriate base variant
                 variant = "clean"
                 if op.target_invariant == "INV-SEC-001":
@@ -129,8 +127,20 @@ class TestOperatorCatalogue(unittest.TestCase):
                 elif op.target_invariant == "INV-SEC-003":
                     variant = "sec_003_violated"
 
-                m0, _ = tpl.instantiate(rng, variant=variant)
-                step_models, mutation_records = op.apply(m0, rng)
+                # Find a template where this operator is applicable
+                applied = False
+                for tpl_id in sorted(tpl_mod.TEMPLATES.keys()):
+                    tpl = tpl_mod.TEMPLATES[tpl_id]
+                    rng = random.Random(20261031)
+                    m0, _ = tpl.instantiate(rng, variant=variant)
+                    try:
+                        step_models, mutation_records = op.apply(m0, rng)
+                        applied = True
+                        break
+                    except ops_mod.OperatorNotApplicable:
+                        continue
+
+                self.assertTrue(applied, f"Operator {op.name} could not be applied to any template")
 
                 # Verify each step with diff_verify
                 curr = m0
@@ -160,13 +170,15 @@ class TestOperatorCatalogue(unittest.TestCase):
         ops_mod, tpl_mod, dv = self._get_modules()
         f5_ops = [op for op in ops_mod.CATALOGUE if op.family == "F5"]
         safe_op = next((op for op in f5_ops if op.name == "op_f5_count_each_safe"), None)
-        unsafe_op = next((op for op in f5_ops if op.name == "op_f5_count_each_unsafe"), None)
-
         self.assertIsNotNone(safe_op, "op_f5_count_each_safe must be registered")
-        self.assertIsNotNone(unsafe_op, "op_f5_count_each_unsafe must be registered")
+        # Round 4: the count restructuring edits S itself, so it is safe-only (D4b-13).
+        self.assertIsNone(
+            next((op for op in f5_ops if op.name == "op_f5_count_each_unsafe"), None),
+            "op_f5_count_each_unsafe was removed in review round 4",
+        )
 
         tpl = tpl_mod.TEMPLATES["tpl-01"]
-        for op in [safe_op, unsafe_op]:
+        for op in [safe_op]:
             rng = random.Random(42)
             m0, _ = tpl.instantiate(rng, variant="clean")
             step_models, records = op.apply(m0, rng)

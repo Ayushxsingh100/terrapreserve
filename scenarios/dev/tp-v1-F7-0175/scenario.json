@@ -2,18 +2,18 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": null,
     "target_kind": "change_request"
@@ -21,20 +21,36 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"t3.large\"",
-      "attribute": "instance_type",
-      "before": "\"t3.medium\"",
-      "operator": "op_f7_shared_sg_egress_tighten_unsafe",
+      "after": "\"Shared client security group\"",
+      "attribute": "description",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_unsafe",
       "step": 1,
-      "target_address": "aws_instance.prod_app_server"
+      "target_address": "aws_security_group.prod_db_sg_hub"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
-      "operator": "op_f7_shared_sg_egress_tighten_unsafe",
+      "after": "\"prod_db_sg-tpl-06-hub\"",
+      "attribute": "name",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.prod_postgres_db"
+      "target_address": "aws_security_group.prod_db_sg_hub"
+    },
+    {
+      "after": "aws_vpc.prod_vpc.id",
+      "attribute": "vpc_id",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.prod_db_sg_hub"
+    },
+    {
+      "after": "[aws_security_group.prod_db_sg_hub.id]",
+      "attribute": "security_groups",
+      "before": "[aws_security_group.prod_app_sg.id]",
+      "operator": "op_f7_db_ingress_source_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.prod_db_sg"
     }
   ],
   "oracle": null,
@@ -83,7 +99,7 @@
   "scenario_id": "tp-v1-F7-0175",
   "seed": 175,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -99,14 +115,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "1eff257a485c9ee8b250b09e29b13045f69fbe5b3e6df13c2a8e4c8ed90d0ef4",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -82,7 +82,7 @@\n \n resource \"aws_instance\" \"prod_app_server\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.medium\"\n+  instance_type          = \"t3.large\"\n   subnet_id              = aws_subnet.prod_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.prod_app_sg.id]\n }\n@@ -99,7 +99,7 @@\n   identifier             = \"prod-postgres-db-tpl-06\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n",
+      "content_hash": "78b6a625c0b27d10027b3047a6712b6f81d45c96b00e39a32082b84a96e1af6d",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -68,7 +68,7 @@\n   ingress {\n     from_port       = 5432\n     protocol        = \"tcp\"\n-    security_groups = [aws_security_group.prod_app_sg.id]\n+    security_groups = [aws_security_group.prod_db_sg_hub.id]\n     to_port         = 5432\n   }\n \n@@ -104,3 +104,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"prod_db_sg_hub\" {\n+  description = \"Shared client security group\"\n+  name        = \"prod_db_sg-tpl-06-hub\"\n+  vpc_id      = aws_vpc.prod_vpc.id\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates core resources with unsafe public DB side-effect.",
+    "description": "Re-points the DB group's 5432 ingress source to a new shared group outside SG(S).",
     "invariant_id": null,
     "kind": "change_request"
   },

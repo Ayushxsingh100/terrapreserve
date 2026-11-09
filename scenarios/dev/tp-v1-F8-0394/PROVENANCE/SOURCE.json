@@ -1,0 +1,23 @@
+{
+ "archive_sha256": {
+  "main.tf": "37a33eced5f0e8cc6dad37474505fc3476e1dfd64f0063c9e6353b72cd4e8e01",
+  "outputs.tf": "fc179384386bb7f756316a1a7e84bb4a7bafc8bba6f21f5cd6619da0e7455322"
+ },
+ "commit_sha": "2eeea1b217c4a9af952ca47be758a4d4bf0183c3",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "a3e95bfd899955bd750108eed8e5a99e668eeb69bda2541cba5636a24daefffc",
+ "module_id": 515294,
+ "module_path": "src/account-services/modules/subnets",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-515294",
+ "repo_full_name": "jlopezcrd/openvpn-terraform-demo",
+ "repo_id": 694931289,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

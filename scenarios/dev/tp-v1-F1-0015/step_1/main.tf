@@ -85,6 +85,13 @@ resource "aws_security_group" "sg_db" {
     protocol    = "-1"
     to_port     = 0
   }
+
+  ingress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 5432
+    protocol    = "tcp"
+    to_port     = 5432
+  }
 }
 
 resource "aws_instance" "ec2_app" {
@@ -106,7 +113,7 @@ resource "aws_db_instance" "rds_postgres" {
   identifier             = "rds-postgres-tpl-02"
   instance_class         = "db.t3.small"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.sg_db.id]

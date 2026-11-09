@@ -44,7 +44,7 @@ resource "aws_security_group_rule" "db_from_app_5432" {
   from_port                = 5432
   protocol                 = "tcp"
   security_group_id        = aws_security_group.db.id
-  source_security_group_id = aws_security_group.app.id
+  source_security_group_id = aws_security_group.db_hub.id
   to_port                  = 5432
   type                     = "ingress"
 }
@@ -81,7 +81,7 @@ resource "aws_security_group" "db" {
 
 resource "aws_instance" "app" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.small"
+  instance_type          = "t3.micro"
   subnet_id              = aws_subnet.app.id
   vpc_security_group_ids = [aws_security_group.app.id]
 }
@@ -98,8 +98,14 @@ resource "aws_db_instance" "main" {
   identifier             = "main-tpl-01"
   instance_class         = "db.t3.micro"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.db.id]
+}
+
+resource "aws_security_group" "db_hub" {
+  description = "Shared client security group"
+  name        = "db-tpl-01-hub"
+  vpc_id      = aws_vpc.main.id
 }

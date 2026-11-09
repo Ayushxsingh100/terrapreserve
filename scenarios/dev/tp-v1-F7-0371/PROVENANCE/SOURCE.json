@@ -1,0 +1,28 @@
+{
+ "archive_sha256": {
+  "locals.tf": "9a41489d5f23f0b90992aed97ab729e3be74ba36b2cfd197adafc9d90207c322",
+  "outputs.tf": "8928a546580b70ad7a2a30f8d2e5b88c49bf6bd0d8e8878325304d9fbc1d2ac5",
+  "providers.tf": "c4159e1d1fbea4ed0e8032544089ecaa631537441e99a8ea724eb0ffa6978289",
+  "state.tf": "edef56265f53b0e153211044eca4cd202ac3fd0ab2324c40db997247dffae4d0",
+  "variables.tf": "32738bce5ff4eb81e23d6bc4f487796ca77a184009bdc09d294cd7a1caf4ebb0",
+  "versions.tf": "b269f0a4a687e70ea4eaa8cd96453ce6997764b23a866e1edc953a1a09c32092",
+  "vpc.tf": "0109e51af53293794ddd4016eb15344d21b674d6d37f48c1797cb4dc7e372ce6"
+ },
+ "commit_sha": "e8962b62857f3db6a70bce796f03ec5efbcebd91",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "14ae25e415b65e99ab7e2ed13a5c1311ed9ce8e3f9ce1f54f05d63efd2d00534",
+ "module_id": 483978,
+ "module_path": "374626184495",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-483978",
+ "repo_full_name": "ZervakisGeorgios/DevStaffHeraklion-terraform-for-beginners",
+ "repo_id": 635474331,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

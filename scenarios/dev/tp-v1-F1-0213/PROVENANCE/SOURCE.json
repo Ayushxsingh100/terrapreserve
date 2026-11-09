@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "provider.tf": "00adb7908c6854f82d45f5b4550fa905d394084507c908828b16d51a756436a7",
+  "securitygroup.tf": "8caea24080f91a5a4b37c49cfe91f33ee48f40d147c5a800d91d5347bbcca539",
+  "vars.tf": "297a2045133a15968764b9d814eb90802cde1c663b05d5d903ac414692acd73f"
+ },
+ "commit_sha": "30ca4f4b4405e4d3627a3d5b1ebd8a33eec5642b",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "c8a684b8df002df37eb77825bdbe5f0385e43fc036ebf55be1e0020b7b161594",
+ "module_id": 557875,
+ "module_path": "08-DataSource",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-557875",
+ "repo_full_name": "Finfra/awsTerraform-course",
+ "repo_id": 799593584,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

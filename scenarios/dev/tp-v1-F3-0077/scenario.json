@@ -2,18 +2,18 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": null,
     "target_kind": "change_request"
@@ -21,20 +21,36 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-08 (app sg reconfigured)\"",
+      "after": "\"Dependent client security group\"",
       "attribute": "description",
-      "before": "\"Application security group for tpl-08\"",
-      "operator": "op_f3_app_sg_reassociation_unsafe",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.app"
+      "target_address": "aws_security_group.db_peer"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
-      "operator": "op_f3_app_sg_reassociation_unsafe",
+      "after": "\"db-tpl-08-peer\"",
+      "attribute": "name",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.main"
+      "target_address": "aws_security_group.db_peer"
+    },
+    {
+      "after": "aws_vpc.main.id",
+      "attribute": "vpc_id",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.db_peer"
+    },
+    {
+      "after": "[aws_security_group.db_peer.id]",
+      "attribute": "security_groups",
+      "before": "[aws_security_group.app.id]",
+      "operator": "op_f3_db_ingress_peer_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.db"
     }
   ],
   "oracle": null,
@@ -83,7 +99,7 @@
   "scenario_id": "tp-v1-F3-0077",
   "seed": 77,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -99,14 +115,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "0e44d6c965035ef4b972bf4c47e128cd834f83f419471f6a5c7a7c4315464885",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -56,7 +56,7 @@\n }\n \n resource \"aws_security_group\" \"app\" {\n-  description = \"Application security group for tpl-08\"\n+  description = \"Application security group for tpl-08 (app sg reconfigured)\"\n   name        = \"app-tpl-08\"\n   vpc_id      = aws_vpc.main.id\n }\n@@ -100,7 +100,7 @@\n   identifier             = \"main-tpl-08\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.db.id]\n",
+      "content_hash": "a9e852eb536e94633d30a7176ddb1e9df5efcb5a84b02c0b169a965d52f9477a",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -69,7 +69,7 @@\n   ingress {\n     from_port       = 5432\n     protocol        = \"tcp\"\n-    security_groups = [aws_security_group.app.id]\n+    security_groups = [aws_security_group.db_peer.id]\n     to_port         = 5432\n   }\n \n@@ -105,3 +105,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.db.id]\n }\n+\n+resource \"aws_security_group\" \"db_peer\" {\n+  description = \"Dependent client security group\"\n+  name        = \"db-tpl-08-peer\"\n+  vpc_id      = aws_vpc.main.id\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Alters dependency routing with unsafe public DB side-effect.",
+    "description": "Adds a new client group and re-points the DB group's 5432 ingress source to it.",
     "invariant_id": null,
     "kind": "change_request"
   },

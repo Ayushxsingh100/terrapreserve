@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "main.tf": "6f86bea131e84aa951ae8b6696dec38d452fad94eb218529203a7cce69628828"
+ },
+ "commit_sha": "62790128b7c36d5037d03074cedbd1f2bed8287c",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 480058,
+ "module_path": "bigip/securing-graphql-with-AWAF/terraform/applications",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-480058",
+ "repo_full_name": "f5devcentral/bigip_automation_examples",
+ "repo_id": 625926227,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

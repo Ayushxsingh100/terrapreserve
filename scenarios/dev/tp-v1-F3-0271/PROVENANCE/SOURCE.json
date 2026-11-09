@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "main.tf": "92cd5365abe8cfd7f029f7bd06557d69f72626b56f5f4bee671c86486f834cb4",
+  "outputs.tf": "924376110db32e45ec8f2509076f4ae3ad4927e7cd6ad4ffa18b0a6b183d3b7b",
+  "variables.tf": "7dbc1cfb7cf59c04cf42f4e264a1e8a289f830c7a1dcaa68d6ea00980439cffe",
+  "versions.tf": "a42b4dd47d6ec2e112015dc0887ced69f5c7283f475470bf4bd99584846270fa"
+ },
+ "commit_sha": "bf43433b09a18c4814f6109003e139880433d990",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "dc191ee7f7be6bc32f3e4bdc03169176cfbd4a148d69a98fc7f24ebfded06bf9",
+ "module_id": 373546,
+ "module_path": "aws/network/modules/private-subnets",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-373546",
+ "repo_full_name": "thoughtbot/flightdeck",
+ "repo_id": 362182854,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

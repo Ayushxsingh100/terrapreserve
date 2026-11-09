@@ -9,7 +9,7 @@ resource "aws_internet_gateway" "prod_igw" {
 }
 
 resource "aws_subnet" "prod_app_subnet" {
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-1b"
   cidr_block        = "10.50.1.0/24"
   vpc_id            = aws_vpc.prod_vpc.id
 }
@@ -48,7 +48,7 @@ resource "aws_route_table_association" "prod_rta_db" {
 }
 
 resource "aws_security_group" "prod_app_sg" {
-  description = "Application security group for tpl-06 (app sg reconfigured)"
+  description = "Application security group for tpl-06"
   name        = "prod_app_sg-tpl-06"
   vpc_id      = aws_vpc.prod_vpc.id
 

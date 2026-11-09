@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "5740d0f4376905155d4e4d5f8f656d01f3d6ff58e6645072c2b3535bb3bf4789",
+  "outputs.tf": "fff8affb344061e7bbfe8c73845da92eb936563c3f485b385384dfdb3f7b7e88",
+  "variables.tf": "c3455a7af2e323df32b5c0b760edd167d15dd88fbe2e5079993b34a8f3530698"
+ },
+ "commit_sha": "aadb3ccc4444cebd18939c95d0a3dc9bdb9767c9",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "5243e91edb29d4922562dcbc4c37c8294af424595e3391f3c679dc51b945578a",
+ "module_id": 426385,
+ "module_path": "terraform/modules/security_group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-426385",
+ "repo_full_name": "nimblehq/nimble-growth-39-k8s-aws-eks",
+ "repo_id": 502779107,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

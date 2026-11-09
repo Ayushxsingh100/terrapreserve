@@ -135,40 +135,67 @@ def generate_scenario(
 
     tpl = templates.TEMPLATES[tpl_id]
 
-    # Select operator
+    # Select operator (deterministically finding first applicable)
     candidate_ops = [op for op in operators.CATALOGUE if op.family == family and op.variant == cls]
     if not candidate_ops:
         raise ValueError(f"No operator found for {family} {cls}")
-    op = candidate_ops[cell_idx % len(candidate_ops)]
 
-    # Determine target & S0 variant
-    if op.target_kind == "repair":
-        target_inv = op.target_invariant or (["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"][cell_idx % 3])
-        if target_inv == "INV-SEC-001":
-            s0_var = "sec_001_violated"
-        elif target_inv == "INV-SEC-002":
-            s0_var = "sec_002_violated"
+    start_offset = cell_idx % len(candidate_ops)
+    chosen_op = None
+    chosen_m0 = None
+    chosen_param_meta = None
+    chosen_target_info = None
+    chosen_step_models = None
+    chosen_mutation_records = None
+
+    for offset in range(len(candidate_ops)):
+        cand_op = candidate_ops[(start_offset + offset) % len(candidate_ops)]
+        if cand_op.target_kind == "repair":
+            target_inv = cand_op.target_invariant or (["INV-SEC-001", "INV-SEC-002", "INV-SEC-003"][cell_idx % 3])
+            if target_inv == "INV-SEC-001":
+                s0_var = "sec_001_violated"
+            elif target_inv == "INV-SEC-002":
+                s0_var = "sec_002_violated"
+            else:
+                s0_var = "sec_003_violated"
+
+            t_info = {
+                "kind": "repair",
+                "invariant_id": target_inv,
+                "description": REPAIR_TARGET_DESCRIPTIONS.get(target_inv, f"Repair {target_inv}"),
+            }
         else:
-            s0_var = "sec_003_violated"
+            s0_var = "clean"
+            t_info = {
+                "kind": "change_request",
+                "invariant_id": None,
+                "description": cand_op.description,
+            }
 
-        target_info = {
-            "kind": "repair",
-            "invariant_id": target_inv,
-            "description": REPAIR_TARGET_DESCRIPTIONS.get(target_inv, f"Repair {target_inv}"),
-        }
-    else:
-        s0_var = "clean"
-        target_info = {
-            "kind": "change_request",
-            "invariant_id": None,
-            "description": op.description,
-        }
+        rng_copy = seed.scenario_rng(global_id)
+        m0_candidate, param_meta_candidate = tpl.instantiate(rng_copy, variant=s0_var)
 
-    # Instantiate base model S0
-    m0, param_meta = tpl.instantiate(rng, variant=s0_var)
+        try:
+            step_models, mut_recs = cand_op.apply(m0_candidate, rng_copy)
+            chosen_op = cand_op
+            chosen_m0 = m0_candidate
+            chosen_param_meta = param_meta_candidate
+            chosen_target_info = t_info
+            chosen_step_models = step_models
+            chosen_mutation_records = mut_recs
+            break
+        except operators.OperatorNotApplicable:
+            continue
 
-    # Apply operator to produce steps S1..Sk
-    step_models, mutation_records = op.apply(m0, rng)
+    if chosen_op is None:
+        raise ValueError(f"No applicable operator for {family} {cls} on template {tpl_id}")
+
+    op = chosen_op
+    m0 = chosen_m0
+    param_meta = chosen_param_meta
+    target_info = chosen_target_info
+    step_models = chosen_step_models
+    mutation_records = chosen_mutation_records
 
     # All models: [m0, m1, ...]
     all_models = [m0] + step_models
@@ -311,11 +338,16 @@ def run_pipeline(resume: bool = True) -> dict[str, Any]:
                     except Exception:
                         pass
 
-    # Clean existing dev directory
+    # Clean existing controlled dev scenarios (id <= 208)
     if dev_root.is_dir():
         for item in dev_root.glob("tp-v1-*"):
             if item.is_dir():
-                shutil.rmtree(item)
+                try:
+                    num = int(item.name.split("-")[-1])
+                    if num <= 208:
+                        shutil.rmtree(item)
+                except ValueError:
+                    pass
 
     test_manifest_entries = []
     dev_validation_rows = []
@@ -393,23 +425,43 @@ def run_pipeline(resume: bool = True) -> dict[str, Any]:
             else:
                 test_validation_rows.append(row)
 
-    # Write scenarios/test_manifest.json
+    # Write scenarios/test_manifest.json (preserving real-world test entries if present)
     manifest_path = REPO_ROOT / "scenarios" / "test_manifest.json"
-    manifest_path.write_text(writer.canonical_json(test_manifest_entries), encoding="utf-8", newline="\n")
+    rw_test_entries = []
+    if manifest_path.is_file():
+        try:
+            existing_doc = json.loads(manifest_path.read_text(encoding="utf-8"))
+            rw_test_entries = [e for e in existing_doc.get("scenarios", []) if int(e["scenario_id"].split("-")[-1]) > 208]
+        except Exception:
+            pass
+    all_test_entries = test_manifest_entries + rw_test_entries
+    manifest_path.write_text(writer.canonical_json(all_test_entries), encoding="utf-8", newline="\n")
 
-    # Write dev validate_results.csv
+    # Write dev validate_results.csv (preserving real-world rows)
     dev_csv_path = REPO_ROOT / "scenarios" / "validate_results.csv"
+    existing_rw_dev = []
+    if dev_csv_path.is_file():
+        with open(dev_csv_path, encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                if int(r["scenario_id"].split("-")[-1]) > 208:
+                    existing_rw_dev.append(r)
     with open(dev_csv_path, "w", newline="\n", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=["scenario_id", "step", "status", "error_class"])
         w.writeheader()
-        w.writerows(dev_validation_rows)
+        w.writerows(dev_validation_rows + existing_rw_dev)
 
-    # Write test validate_results.csv in private dir
+    # Write test validate_results.csv in private dir (preserving real-world rows)
     test_csv_path = private_root / "validate_results.csv"
+    existing_rw_test = []
+    if test_csv_path.is_file():
+        with open(test_csv_path, encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                if int(r["scenario_id"].split("-")[-1]) > 208:
+                    existing_rw_test.append(r)
     with open(test_csv_path, "w", newline="\n", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=["scenario_id", "step", "status", "error_class"])
         w.writeheader()
-        w.writerows(test_validation_rows)
+        w.writerows(test_validation_rows + existing_rw_test)
 
     return counts
 

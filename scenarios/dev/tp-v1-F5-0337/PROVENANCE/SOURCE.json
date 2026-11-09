@@ -1,0 +1,23 @@
+{
+ "archive_sha256": {
+  "main.tf": "6376c5be7b112535955b39261b7bc5b8ba21cd264b472916de15ebe14c150eec",
+  "variables.tf": "f9c001497e3b63e3809361852820494f6a4e1556f34c8bf93f0413186538dd4e"
+ },
+ "commit_sha": "1768dcafd1db1194b410889fb038b717fef6db0b",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "f604da1b475858dc6398f84a584ec8fda0bc57f69fee8adc5687b0d1854ce37d",
+ "module_id": 449448,
+ "module_path": "security-groups",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-449448",
+ "repo_full_name": "jimmoffet/tf-ecs-fargate",
+ "repo_id": 556489382,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

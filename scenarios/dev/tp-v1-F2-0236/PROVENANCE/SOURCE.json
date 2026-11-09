@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "inputs.tf": "681fe1d4f246c83cde3211b082d3e738f0042182bd552d61ef1b8704b0c9c539",
+  "main.tf": "f30039dadcb5f62a83e5dce30b5809c9c1bb28c76bee3a6ec72217eb901771c2",
+  "outputs.tf": "ab67fb7200027f6fafc863272f9193bab45d92e0c48fd5cdb28eb29a832ba5b3"
+ },
+ "commit_sha": "ba724d8a4d10602ac2dfd144adfdfdc9bcdb5564",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE.md",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "4a2dfa1fc85aa9c8c6310330d68d5103d940cb6f66ca70e9b220891b550995a6",
+ "module_id": 325742,
+ "module_path": "infrastructure/resources/networking/subnet",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-325742",
+ "repo_full_name": "Mornor/ml-auto-subtitles",
+ "repo_id": 217549106,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

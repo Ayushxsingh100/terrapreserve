@@ -1,0 +1,118 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "family": "F7",
+  "generator_version": "d4b-5",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 661785,
+  "mutation_record": [
+    {
+      "after": null,
+      "attribute": "source_security_group_id",
+      "before": "aws_security_group.tp_app_sg.id",
+      "operator": "op_f7_db_ingress_source_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    },
+    {
+      "after": "[\"172.31.1.0/24\"]",
+      "attribute": "cidr_blocks",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-001084654910",
+    "module_id": 661785,
+    "pool_id": "terrads-host-661785"
+  },
+  "pool_id": "terrads-host-661785",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": true,
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F7-0375",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 375,
+  "source": {
+    "commit_or_version": "4cf8c912503e0c7be14d5c1afcebd9e7aef87e31",
+    "grafted": true,
+    "license": "Apache-2.0",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-001084654910",
+    "tier": "real_world"
+  },
+  "split": "dev",
+  "steps": [
+    {
+      "content_hash": "f5b5ad850f85e6ba9b62967491c8977c824a25372dd664e573cc6df865b0f492",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "4662efc4a567fd05f00e9e7a045c59f3f844a226c6f3a6ef29835f4f5497f7a7",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -71,12 +71,12 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  from_port                = 5432\n-  protocol                 = \"tcp\"\n-  security_group_id        = aws_security_group.tp_db_sg.id\n-  source_security_group_id = aws_security_group.tp_app_sg.id\n-  to_port                  = 5432\n-  type                     = \"ingress\"\n+  cidr_blocks       = [\"172.31.1.0/24\"]\n+  from_port         = 5432\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.tp_db_sg.id\n+  to_port           = 5432\n+  type              = \"ingress\"\n }\n \n resource \"aws_instance\" \"tp_app\" {\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Replaces the DB group's 5432 ingress source group with the application subnet CIDR.",
+    "invariant_id": null,
+    "kind": "change_request"
+  }
+}

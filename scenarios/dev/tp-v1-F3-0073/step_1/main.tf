@@ -48,10 +48,10 @@ resource "aws_route_table_association" "rta_app" {
 
 resource "aws_security_group_rule" "app_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
-  from_port         = 0
-  protocol          = "-1"
+  from_port         = 443
+  protocol          = "tcp"
   security_group_id = aws_security_group.app.id
-  to_port           = 0
+  to_port           = 443
   type              = "egress"
 }
 
@@ -84,7 +84,6 @@ resource "aws_security_group" "db" {
 resource "aws_instance" "app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.nano"
-  monitoring             = true
   subnet_id              = aws_subnet.app.id
   vpc_security_group_ids = [aws_security_group.app.id]
 }
@@ -101,7 +100,7 @@ resource "aws_db_instance" "main" {
   identifier             = "main-tpl-08"
   instance_class         = "db.t3.micro"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.db.id]

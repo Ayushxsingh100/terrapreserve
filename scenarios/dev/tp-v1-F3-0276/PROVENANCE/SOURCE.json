@@ -1,0 +1,28 @@
+{
+ "archive_sha256": {
+  "main.tf": "1a2a5e82585b6fc5c10feee0a372e8c14e54b3d91774da601027d20c97d53e69",
+  "outputs.tf": "f9ae79a81011a2e9fd8bd9c553f828086364e17d8b23506ddb287df40c5738c3",
+  "variables.tf": "c969b556e75c03ed3c6e3fb7768aaec344678a7dd8770f0770861b1aabf8b377"
+ },
+ "commit_sha": "74bfdda84613e4223c2da9e0900b74812b70d3f3",
+ "crlf_normalised": [
+  "main.tf",
+  "outputs.tf",
+  "variables.tf"
+ ],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "956a2bca4d9c7f0a43cfdbb2fcef2b8fb688300e6f8b94be059cb0b6d597b158",
+ "module_id": 613589,
+ "module_path": "Infrastructure Setup/modules/2. subnets",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-613589",
+ "repo_full_name": "dmz-v-x/The-Kubernetes-Resume-Challenge",
+ "repo_id": 961290495,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

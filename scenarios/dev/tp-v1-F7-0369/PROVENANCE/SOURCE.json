@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "022bda12d70a9870ae25926101c80998daf5961c951b588fc01aa5480eb2e470",
+  "outputs.tf": "3ba0fa5e29f73306e5b9ee289c1360fd3e9eea6f2776e7d203af3f42e258d79a",
+  "variables.tf": "0a90ab4b87b20a138af02f101778ea4042ec4152512c24436e9d36ab3a014862"
+ },
+ "commit_sha": "6f59582b41ab7367cc6336e1d9d0682121043e26",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "CC0-1.0",
+ "licence_upstream_sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+ "module_id": 480850,
+ "module_path": "modules/networking/vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-480850",
+ "repo_full_name": "osiris43/infra-modules",
+ "repo_id": 629745635,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

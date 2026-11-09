@@ -75,7 +75,7 @@ resource "aws_security_group_rule" "data_secgroup_egress" {
 }
 
 resource "aws_security_group_rule" "web_secgroup_egress" {
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = ["192.168.0.0/16"]
   from_port         = 0
   protocol          = "-1"
   security_group_id = aws_security_group.web_secgroup.id
@@ -114,7 +114,7 @@ resource "aws_db_instance" "data_instance" {
   identifier             = "data-instance-tpl-09"
   instance_class         = "db.t3.small"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.data_secgroup.id]

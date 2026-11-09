@@ -1,3 +1,8 @@
+moved {
+  from = aws_subnet.sub_app
+  to   = aws_subnet.sub_app_app
+}
+
 resource "aws_vpc" "vpc_main" {
   cidr_block           = "10.176.0.0/16"
   enable_dns_hostnames = true
@@ -6,12 +11,6 @@ resource "aws_vpc" "vpc_main" {
 
 resource "aws_internet_gateway" "igw_main" {
   vpc_id = aws_vpc.vpc_main.id
-}
-
-resource "aws_subnet" "sub_app" {
-  availability_zone = "us-east-1a"
-  cidr_block        = "10.176.1.0/24"
-  vpc_id            = aws_vpc.vpc_main.id
 }
 
 resource "aws_subnet" "sub_db_1" {
@@ -37,7 +36,7 @@ resource "aws_route_table" "rt_public" {
 
 resource "aws_route_table_association" "rta_app" {
   route_table_id = aws_route_table.rt_public.id
-  subnet_id      = aws_subnet.sub_app.id
+  subnet_id      = aws_subnet.sub_app_app.id
 }
 
 resource "aws_route_table" "rt_db" {
@@ -55,7 +54,7 @@ resource "aws_route_table_association" "rta_db_2" {
 }
 
 resource "aws_security_group" "sg_app" {
-  description = "Application security group for tpl-02 (restructured)"
+  description = "Application security group for tpl-02"
   name        = "sg_app-tpl-02"
   vpc_id      = aws_vpc.vpc_main.id
 
@@ -90,7 +89,7 @@ resource "aws_security_group" "sg_db" {
 resource "aws_instance" "ec2_app" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.small"
-  subnet_id              = aws_subnet.sub_app.id
+  subnet_id              = aws_subnet.sub_app_app.id
   vpc_security_group_ids = [aws_security_group.sg_app.id]
 }
 
@@ -110,4 +109,10 @@ resource "aws_db_instance" "rds_postgres" {
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.sg_db.id]
+}
+
+resource "aws_subnet" "sub_app_app" {
+  availability_zone = "us-east-1a"
+  cidr_block        = "10.176.1.0/24"
+  vpc_id            = aws_vpc.vpc_main.id
 }

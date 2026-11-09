@@ -41,7 +41,7 @@ resource "aws_route_table_association" "assoc_app" {
 }
 
 resource "aws_security_group" "frontend_sg" {
-  description = "DB 5432 repaired"
+  description = "Application security group for tpl-10"
   name        = "frontend_sg-tpl-10"
   vpc_id      = aws_vpc.corp_vpc.id
 
@@ -59,7 +59,7 @@ resource "aws_security_group" "backend_sg" {
   vpc_id      = aws_vpc.corp_vpc.id
 
   ingress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
     from_port   = 5432
     protocol    = "tcp"
     to_port     = 5432

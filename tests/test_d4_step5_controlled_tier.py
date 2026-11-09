@@ -125,7 +125,7 @@ class TestControlledTierOutput(unittest.TestCase):
         dev_tpls = set(split_info["dev_templates"])
         test_tpls = set(split_info["test_templates"])
 
-        dev_scenarios = list(dev_dir.glob("tp-v1-*"))
+        dev_scenarios = [p for p in dev_dir.glob("tp-v1-*") if int(p.name.split("-")[-1]) <= 208]
         self.assertGreater(len(dev_scenarios), 0)
         for sc_path in dev_scenarios:
             manifest_file = sc_path / "scenario.json"

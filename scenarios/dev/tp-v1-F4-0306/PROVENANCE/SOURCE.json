@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "eaa7dabd1b5b36895b4b1527b6adfc438e9c0ddbdb1f969ba79a8732f4c805f7",
+  "outputs.tf": "07c6e91d84f6cd95654d8da1ba9028ce62459ac0a3958dcd408653d4f1d4c2d3",
+  "variables.tf": "38b78885fae513244b50868674fe89ac0aa8cb87ba00700e9a0b16fcfbe34edb"
+ },
+ "commit_sha": "6d8ac72df75364b2f84f378882a2568ab773e728",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "4d5dbb9250de6196b0ab7fbd0d488c15ef95633a094ecc0966143efe6ef73177",
+ "module_id": 628145,
+ "module_path": "Terraform/modules/rds",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-628145",
+ "repo_full_name": "Mohammed78vr/chatbot-app-in-AWS",
+ "repo_id": 1006913302,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

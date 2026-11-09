@@ -55,14 +55,14 @@ resource "aws_security_group" "frontend_sg" {
 
 resource "aws_security_group" "backend_sg" {
   description = "Database security group for tpl-10"
-  name        = "backend_sg-tpl-10"
+  name        = "backend_sg-tpl-10-v2"
   vpc_id      = aws_vpc.corp_vpc.id
 
   ingress {
-    from_port       = 5432
+    from_port       = 5433
     protocol        = "tcp"
     security_groups = [aws_security_group.frontend_sg.id]
-    to_port         = 5432
+    to_port         = 5433
   }
 
   egress {
@@ -81,7 +81,6 @@ resource "aws_security_group" "frontend_sg_extra" {
 
 resource "aws_instance" "frontend_server" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  count                  = 1
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.frontend_subnet.id
   vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]
@@ -99,7 +98,7 @@ resource "aws_db_instance" "backend_database" {
   identifier             = "backend-database-tpl-10"
   instance_class         = "db.t3.nano"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.backend_sg.id]

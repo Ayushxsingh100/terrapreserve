@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "73e8d604c30d6451a667da4bf7bf1440cb7f1ab7ba197077bfbbda66aa9bb898",
+  "outputs.tf": "c58de36d2ef317af8abd7dcec325dc860073ebafd76e50c1bdd95b769bfaa0d2",
+  "variables.tf": "dd0c850728f80ac8825772e0d88f4e79cdbf978a238143fee473cff3ea4158dc"
+ },
+ "commit_sha": "df51014ead92d625482327f452c0e6564e1b8d83",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "f0c11476f9260e9e1d888ae840969f76ed7b60e941b5007592254de801798b6f",
+ "module_id": 578007,
+ "module_path": "infrastructure/modules/security_groups",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-578007",
+ "repo_full_name": "GroupLang/minimal-provider-llm-router",
+ "repo_id": 863109001,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

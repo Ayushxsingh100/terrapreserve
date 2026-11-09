@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "9b7a45cec2c363b22aba4155e019ac22db92e29094853cea8a6c1a964a56c13e",
+  "outputs.tf": "6cb29625bff6fe5196c266831ac970228f468b551bb005d608e1ebcf2e039a82",
+  "variables.tf": "f8c12ba4cbb6a4de60985cc208c2999f6136d8f693823b0d855321b0a2a81543"
+ },
+ "commit_sha": "e7b25de9373111a5e8c2097b07ba15b01fcb9500",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "f545c12315595ea0f46fe2d6e349a8f9241101f42c09e02f3b6444d91ca3cddb",
+ "module_id": 676566,
+ "module_path": "terraform/modules/security_group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-676566",
+ "repo_full_name": "ta2uya/aws-infrastructure-portfolio",
+ "repo_id": 1122985569,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

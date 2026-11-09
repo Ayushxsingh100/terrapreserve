@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "4f8508f442a85d034ef1403faec71e27b94bf4a00fb3ec73229743f56c2e39d3",
+  "outputs.tf": "ce34e6016bbdfc7f0d1f4b4b14824d32c623751795f1822d307205765015052a",
+  "variables.tf": "0d4a25413a2e05ee2f359cb38e09940f6fcad53279989ae48a05cbb4d6d83cf4"
+ },
+ "commit_sha": "76664631b7e27b026a3ec32b69f63960ed0e5433",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "74446ae0fccff4b1c18982b1c4ce86dbfd99400d57b54d251fe3f44fa64ce100",
+ "module_id": 620052,
+ "module_path": "secure-vpc-clinical/modules/subnets",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-620052",
+ "repo_full_name": "DhiaOuerghemmi/AWS-SAA-Projects",
+ "repo_id": 979990883,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

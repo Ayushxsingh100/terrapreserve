@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "7da4837d26e283a176931742f477db25a4ee4fca63c0baa522c15b4c2e789999",
+  "outputs.tf": "20df404e50000bb2a7f566d09e3153b8d0a8677948db05ada0fe04c4454fd4d2",
+  "variables.tf": "d422cce39300c653eee79fe83878757b0be0443bc2003849f6121c4194d4f924"
+ },
+ "commit_sha": "756809e70cbc0c15c09ded774853358c806b07ab",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "7ab4abc2b12ed08772e9fccdb055173129107b04826f75b4f391c66b459c58b5",
+ "module_id": 659747,
+ "module_path": "terraform/modules/security-groups",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-659747",
+ "repo_full_name": "arthurperch/ecommerce-analytics-platform",
+ "repo_id": 1077405237,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

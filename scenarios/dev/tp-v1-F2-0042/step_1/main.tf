@@ -86,14 +86,15 @@ resource "aws_db_subnet_group" "data_subnets" {
 }
 
 resource "aws_db_instance" "data_instance" {
-  allocated_storage      = 20
-  db_subnet_group_name   = aws_db_subnet_group.data_subnets.name
-  engine                 = "postgres"
-  identifier             = "data-instance-tpl-03"
-  instance_class         = "db.t3.micro"
-  password               = var.db_password
-  publicly_accessible    = false
-  skip_final_snapshot    = true
-  username               = "postgres"
-  vpc_security_group_ids = [aws_security_group.data_secgroup.id]
+  allocated_storage       = 20
+  backup_retention_period = 7
+  db_subnet_group_name    = aws_db_subnet_group.data_subnets.name
+  engine                  = "postgres"
+  identifier              = "data-instance-tpl-03"
+  instance_class          = "db.t3.micro"
+  password                = var.db_password
+  publicly_accessible     = true
+  skip_final_snapshot     = true
+  username                = "postgres"
+  vpc_security_group_ids  = [aws_security_group.data_secgroup.id]
 }

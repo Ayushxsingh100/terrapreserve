@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "pt1-3-ex2.tf": "b4a7ddd798d8bff86fcaf6fd4dc4a8201ca05e0c829f58b81a37b09129cdaf65"
+ },
+ "commit_sha": "da5d9324bc2ab631e48729efd96d2ce4fd974fdc",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "0e7bcc554cf271cd81dae30b0102d9a736f7414e47c54da8a44989482bfae508",
+ "module_id": 657415,
+ "module_path": "Exercicis/pt1-3-ex2",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-657415",
+ "repo_full_name": "Frva6723/optcloud",
+ "repo_id": 1067900351,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

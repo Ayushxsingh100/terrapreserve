@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "outputs.tf": "81f9ef76e698c14c16be41a93cc22fcb6783c691802db02d91073dd77af3e18c",
+  "private_subnet.tf": "47eb47a185b7de422c7b2f18c900cb6d0de695e66bc85d2fa392720c1617b464",
+  "variables.tf": "865c4b43c85e47a394ad080532d2b5a503f890d20f2c5c6fd087089d190c4841"
+ },
+ "commit_sha": "89e1476b9322a7f71b9d5a8df1e6c1c02dd34bca",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "29e628f7068ba1432e7a350717462db7fd45842c840d84043d91d0cdd26bcc29",
+ "module_id": 534505,
+ "module_path": "aws/deploy_basic_networking_aws_components/modules/network/private_subnet",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-534505",
+ "repo_full_name": "somnathpawar/terraform-examples",
+ "repo_id": 737712009,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

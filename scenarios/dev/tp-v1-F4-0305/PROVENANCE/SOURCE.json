@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "compute.tf": "af8ca7f687bef6e1fcc9c3bab57a50b132a09b4ed8e63e717e597e8e658862dc",
+  "networking.tf": "d22609361ededd5f4c959b7982f430480610293a9947b38eb231589ab7685f32",
+  "provider.tf": "a840a1cbe902d436bc9b5b69c838bc679c47b40ba2dbba36b9851b9c77ac2ddf",
+  "vaariables.tf": "2a501d93827a5a2081d6f7dc4efeae162df0229e6b71c2d35bb10aa6108ba7d2"
+ },
+ "commit_sha": "3ba7dae059cd2e34608e8fe803fb1f286aa156a3",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "8c102167a731bd70d6e85ca2f3d26f5723fa3a59188fe23db1b2f11278197255",
+ "module_id": 626476,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-626476",
+ "repo_full_name": "Shubhrajit1pallob/Object-validation-in-Terraform",
+ "repo_id": 1001134954,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

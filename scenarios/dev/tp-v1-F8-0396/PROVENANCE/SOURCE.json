@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "gateway_and_routing.tf": "ad07a661612c504bca8b3d87398d1a284202cb5486ce3895867ee8b7c86142b0",
+  "main.tf": "f54f42832c3bbb2716424bbaf7c7b74c4cfb0d7f8f518f48a5c7d932180f3cbc",
+  "variables.tf": "85fd9ac491301c563710872e2a0df28e5c4fae00535234b5d61f6bfc2c999467"
+ },
+ "commit_sha": "4314e4f1e9abfa22a95180b13938ec5058504fe1",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "aee140d926e7c2d644abdc432e9d0ade6bd337de05dfc4aac0d18c106a829da6",
+ "module_id": 670362,
+ "module_path": "aws/networking",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-670362",
+ "repo_full_name": "Jepcloud/tf-modules",
+ "repo_id": 1108255200,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

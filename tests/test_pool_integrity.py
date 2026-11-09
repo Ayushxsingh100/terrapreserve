@@ -113,7 +113,7 @@ class TestCommittedPool(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             copy = Path(tmp) / "pool"
             shutil.copytree(POOL, copy)
-            target = next(p for p in sorted(copy.glob("terrads/*/*/*.tf")))
+            target = next(p for p in sorted(copy.glob("terrads/host/*/*.tf")))
             target.write_bytes(target.read_bytes() + b"# edited after hashing\n")
             self.assertTrue(any("sha256" in p for p in report.verify_pool(copy)))
 

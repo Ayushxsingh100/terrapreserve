@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "aa2338f80eb2316e734999ad0456725d7a8a742835e75d922f3d210351e52d2c",
+  "outputs.tf": "00307da3c244c6d3e9287e5d4b7092728cba0d0c70cdec1f7c982abe6f2d6f6f",
+  "variables.tf": "24efaa65a80bb981bd5484a258d5c078678c3c9dd52763efd710584eb52d34a9"
+ },
+ "commit_sha": "ddb88e487ae51e06aed7bd8d70e216c96f60c119",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE.md",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "041323669dd0da863e2e86bbb986caa80fd44b9cfdd28932813c327bf2743cfd",
+ "module_id": 417605,
+ "module_path": "modules/vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-417605",
+ "repo_full_name": "tchiunam/terraform-axolotl",
+ "repo_id": 481962845,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

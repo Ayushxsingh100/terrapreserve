@@ -41,7 +41,7 @@ resource "aws_route_table_association" "assoc_app" {
 }
 
 resource "aws_security_group" "frontend_sg" {
-  description = "Application security group for tpl-10 (restructured)"
+  description = "Application security group for tpl-10"
   name        = "frontend_sg-tpl-10"
   vpc_id      = aws_vpc.corp_vpc.id
 
@@ -80,7 +80,7 @@ resource "aws_security_group" "frontend_sg_extra" {
 }
 
 resource "aws_instance" "frontend_server" {
-  ami                    = "ami-0c55b159cbfafe1f0"
+  ami                    = "ami-0d5eff06f840b45e9"
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.frontend_subnet.id
   vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]

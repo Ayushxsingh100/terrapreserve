@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "main.tf": "07f0a832bbe940683650d747c41292ce6f0b50649706462ea892f5a9353cf598",
+  "outputs.tf": "5caeb59a903267d0cc5a69dd9a487669f03c2394a93d03819446f2366fa2630e",
+  "provider.tf": "e03e9e5dee01cd0dd7ff389d97bfb809a8f3bed686e2f4bc5934eef5d2766ff2",
+  "variables.tf": "c1d012799af15fb322965517af28ac7eb43962afeee973dce0e4081a13fa3227"
+ },
+ "commit_sha": "4740f089fcce407b2610428aae1cba990c5181c3",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "a27eb59765ab890715c7069c9ea88fe39f6f2c14c52b204e049e7d96b9a18d82",
+ "module_id": 536692,
+ "module_path": "modules/aws_subnet",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-536692",
+ "repo_full_name": "chrisurf/advanced-terraform-with-aws",
+ "repo_id": 742918458,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

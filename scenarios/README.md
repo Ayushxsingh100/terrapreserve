@@ -16,20 +16,43 @@ The dataset benchmark consists of 8 families (F1 through F8), each partitioned i
   - Test templates (3): `tpl-07`, `tpl-04`, `tpl-05`
   - Yields 144 dev scenarios (112 targets + 32 reserves) and 64 test scenarios (48 targets + 16 reserves), rotating reserves across all 10 templates (2 dev + 1 test per cell).
 
+### Real-World Tier (D4b)
+- **Total scenarios generated**: 208 scenarios (160 primary targets + 48 reserve scenarios).
+- **Cells**: 16 cells (8 families × 2 classes: safe, unsafe). Each cell contains 13 scenarios (10 primary targets + 3 reserves).
+- **Split assignment**: 70/30 split assigned strictly by TerraDS module lineage (`scenarios/split_real_world.json`):
+  - 285 dev lineages, 122 test lineages (~70.02% dev ratio) using seed `20261031`.
+  - Yields 144 dev scenarios (112 targets + 32 reserves) and 64 test scenarios (48 targets + 16 reserves).
+- **Base module composition**:
+  - 201 host modules (grafted with canonical EC2/RDS/SG core prefixed `tp_`).
+  - 1 original native module (`631897`, un-grafted).
+  - 6 derived native modules (`290262`, `358849`, `574780`, `588227`, `613257`, `653852`, un-grafted, password redacted).
+  - Exactly 208 distinct base modules used across 208 scenarios (zero reuse).
+
+### Assembly (D4b Step 6)
+- **Combined Grand Total**: 416 scenarios (288 dev, 128 test).
+- **Benchmark Targets**: 320 scenarios (224 dev, 96 test: 160 controlled + 160 real-world).
+- **Reserves**: 96 scenarios (64 dev, 32 test: 48 controlled + 48 real-world).
+- **Detailed Assembly Counts**: Recorded in `scenarios/ASSEMBLY.json` and `scenarios/ASSEMBLY.md`.
+
 ### Split Withholding (D4-01, D0 Decision 9)
 Because the repository is public, test-split scenarios are strictly withheld outside the repository (`$TERRAPRESERVE_PRIVATE`, default `~/.terrapreserve-private`).
-The repository carries only `scenarios/test_manifest.json`, which records each withheld scenario's ID, the SHA-256 of its `scenario.json`, and the SHA-256 of each step directory. The manifest leaks no intent, family, class, template, or diff content. Test-split scenarios will be released alongside the full benchmark at publication.
+The repository carries only `scenarios/test_manifest.json`, which records each withheld scenario's ID, the SHA-256 of its `scenario.json`, and the SHA-256 of each step directory (128 test entries total: 64 controlled + 64 real-world). The manifest leaks no intent, family, class, template, or diff content. Test-split scenarios will be released alongside the full benchmark at publication.
 
 ## Files and Directories
 
-- **`dev/`**: Committed dev-split scenarios. Each scenario is housed in its own directory `tp-v1-<FAMILY>-<ID>/` containing:
+- **`dev/`**: Committed dev-split scenarios (288 total: 144 controlled + 144 real-world). Each scenario is housed in its own directory `tp-v1-<FAMILY>-<ID>/` containing:
   - `scenario.json`: Manifest recording scenario ID, lineage, intent, target invariant, step hashes, and truthful mutation records.
-  - `step_0/`: Base state S0 Terraform configuration (`main.tf`, `variables.tf`, `versions.tf`).
+  - `step_0/`: Base state S0 Terraform configuration (`main.tf`, `variables.tf`, `versions.tf` or upstream module files + graft).
   - `step_1/`, `step_2/`, ...: Full sequential Terraform configurations representing each remediation patch.
-- **`split.json`**: Frozen template shuffle and lineage split assignment generated with seed `20261031`.
-- **`test_manifest.json`**: Cryptographic integrity manifest for withheld test-split scenarios.
+  - `PROVENANCE/`: Adjacent directory holding upstream provenance files (`LICENSE.upstream`, `SOURCE.json`, and `DERIVED.md` where applicable).
+- **`split.json`**: Frozen template shuffle and lineage split assignment for the controlled tier.
+- **`split_real_world.json`**: Lineage split assignment for real-world TerraDS modules.
+- **`ASSEMBLY.json`**: Canonical assembly counts and cross-tier metrics.
+- **`ASSEMBLY.md`**: Human-readable assembly audit report.
+- **`assemble.py`**: Assembly aggregation script.
+- **`test_manifest.json`**: Cryptographic integrity manifest for withheld test-split scenarios (128 entries).
 - **`validate_results.csv`**: Validation audit log recording the result of running `terraform validate` against every step of every scenario.
-- **`NOTICE`**: Licencing attribution for CC-BY-4.0 scenario structures and Apache-2.0 TerraGoat resource vocabulary.
+- **`NOTICE`**: Licencing attribution for CC-BY-4.0 scenario structures, Apache-2.0 TerraGoat vocabulary, and TerraDS modifications.
 
 ## Protected Invariants
 

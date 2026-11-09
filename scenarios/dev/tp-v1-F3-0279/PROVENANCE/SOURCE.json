@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "main.tf": "0a6a334fb55f13dcb19127c5311050595c9cbffabb772cd75d4f93c8f8f03afd",
+  "outputs.tf": "7808e0905fe963564a8c9043aa54e80e6e7f4c10d48c361ba1052c7f0534908d",
+  "variables.tf": "db1b31d34215aa59bf46d49ce0b04e7b0e891c697ce66e3200f20b40d47a0076",
+  "versions.tf": "0b92836d903ff396a2dd2784f329932d4fd0c28b86641f9fa5da9d330fb1163f"
+ },
+ "commit_sha": "97da7336a712d78b8d2808e4e2b2505724ac1fef",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "648f9ccbe8b2f50532439f051115738002f3108467e48d9784106c0449261277",
+ "module_id": 614864,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-614864",
+ "repo_full_name": "gusainDeekshu/terraform-aws-test-vpc",
+ "repo_id": 964060252,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

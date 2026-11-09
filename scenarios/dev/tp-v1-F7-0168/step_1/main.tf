@@ -67,10 +67,10 @@ resource "aws_security_group" "db" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port       = 5432
-    protocol        = "tcp"
-    security_groups = [aws_security_group.app.id]
-    to_port         = 5432
+    cidr_blocks = ["10.93.1.0/24"]
+    from_port   = 5432
+    protocol    = "tcp"
+    to_port     = 5432
   }
 
   egress {
@@ -83,7 +83,7 @@ resource "aws_security_group" "db" {
 
 resource "aws_instance" "app" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.micro"
+  instance_type          = "t3.nano"
   subnet_id              = aws_subnet.app.id
   vpc_security_group_ids = [aws_security_group.app.id]
 }

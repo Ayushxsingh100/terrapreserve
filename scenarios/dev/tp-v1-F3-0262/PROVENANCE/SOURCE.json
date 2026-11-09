@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "5d6a5ecc80ebf2018724cfc88a8aced8fea3d6b4a8667fcecca0dc95284fa0e1",
+  "outputs.tf": "45bc233e6516435ae83d4a7b97d8f837bec97d84cbb96fa04828ae39038b3540",
+  "variables.tf": "420effa3e3c3313f16b6bb9ec2d5dccd98eb43875428aa6c7cc5ba2ef47d0b32"
+ },
+ "commit_sha": "2e52e6b4f74cad453381a406a9c701a905a57c19",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Unlicense",
+ "licence_upstream_sha256": "6b0382b16279f26ff69014300541967a356a666eb0b91b422f6862f6b7dad17e",
+ "module_id": 362352,
+ "module_path": "subnet",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-362352",
+ "repo_full_name": "giuseppeborgese/terraform-aws-network-firewall-poc",
+ "repo_id": 331017763,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -2,18 +2,18 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": null,
     "target_kind": "change_request"
@@ -21,20 +21,36 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-09 (app sg reconfigured)\"",
+      "after": "\"Dependent client security group\"",
       "attribute": "description",
-      "before": "\"Application security group for tpl-09\"",
-      "operator": "op_f3_app_sg_reassociation_unsafe",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.web_secgroup"
+      "target_address": "aws_security_group.data_secgroup_peer"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
-      "operator": "op_f3_app_sg_reassociation_unsafe",
+      "after": "\"data_secgroup-tpl-09-peer\"",
+      "attribute": "name",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_security_group.data_secgroup_peer"
+    },
+    {
+      "after": "aws_vpc.network.id",
+      "attribute": "vpc_id",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.data_secgroup_peer"
+    },
+    {
+      "after": "aws_security_group.data_secgroup_peer.id",
+      "attribute": "source_security_group_id",
+      "before": "aws_security_group.web_secgroup.id",
+      "operator": "op_f3_db_ingress_peer_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432"
     }
   ],
   "oracle": null,
@@ -81,7 +97,7 @@
   "scenario_id": "tp-v1-F3-0074",
   "seed": 74,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -97,14 +113,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "e57bab28c8a2b0fdaeeb6ff665bc044faa8660bfb0b6b61d08efa9ef3f1b9ff5",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -75,7 +75,7 @@\n }\n \n resource \"aws_security_group\" \"web_secgroup\" {\n-  description = \"Application security group for tpl-09\"\n+  description = \"Application security group for tpl-09 (app sg reconfigured)\"\n   name        = \"web_secgroup-tpl-09\"\n   vpc_id      = aws_vpc.network.id\n }\n@@ -105,7 +105,7 @@\n   identifier             = \"data-instance-tpl-09\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n",
+      "content_hash": "40e8a11133350e31377a91b60db045e14a603ce059ed4753fcc6b263dca6b97a",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -51,7 +51,7 @@\n   from_port                = 5432\n   protocol                 = \"tcp\"\n   security_group_id        = aws_security_group.data_secgroup.id\n-  source_security_group_id = aws_security_group.web_secgroup.id\n+  source_security_group_id = aws_security_group.data_secgroup_peer.id\n   to_port                  = 5432\n   type                     = \"ingress\"\n }\n@@ -110,3 +110,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n+\n+resource \"aws_security_group\" \"data_secgroup_peer\" {\n+  description = \"Dependent client security group\"\n+  name        = \"data_secgroup-tpl-09-peer\"\n+  vpc_id      = aws_vpc.network.id\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Alters dependency routing with unsafe public DB side-effect.",
+    "description": "Adds a new client group and re-points the DB group's 5432 ingress source to it.",
     "invariant_id": null,
     "kind": "change_request"
   },

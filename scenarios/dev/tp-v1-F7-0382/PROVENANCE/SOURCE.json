@@ -1,0 +1,28 @@
+{
+ "archive_sha256": {
+  "backend.tf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "local.tf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "main.tf": "b8604fbbd286adb1028760dccd2435df2e15ef22ff315a6ec2a3f208d988924e",
+  "output.tf": "b417e16071a2798d9aa8a03bf39ea0f3c7da27ddb186f5e81e7d38f5f1fa00e5",
+  "provider.tf": "556ca8428884d5398dee8948c00e94165ed7ad1aceec03fcef87a82cff766f48",
+  "terraform.tf": "1374da5220365715d380af9b1c27a42c933f57a0104d3b9d95bf5a587b1649cc",
+  "variable.tf": "f5131c5e702c99e86b665ca2420eb57768aef21c02b74a7c829bce55ad405149"
+ },
+ "commit_sha": "c48b1975375fe12eb37d96d1b4021e13b4ff8003",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 500370,
+ "module_path": "VPC",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-500370",
+ "repo_full_name": "cuneytoghan/terraform-aws",
+ "repo_id": 666589002,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

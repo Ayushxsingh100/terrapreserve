@@ -55,12 +55,12 @@ resource "aws_route_table_association" "rta_db_2" {
 }
 
 resource "aws_security_group" "sg_app" {
-  description = "Three-step repair completed"
+  description = "Application security group for tpl-02"
   name        = "sg_app-tpl-02"
   vpc_id      = aws_vpc.vpc_main.id
 
   ingress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
     from_port   = 22
     protocol    = "tcp"
     to_port     = 22
@@ -113,7 +113,8 @@ resource "aws_db_instance" "rds_postgres" {
   identifier             = "rds-postgres-tpl-02"
   instance_class         = "db.t3.small"
   password               = var.db_password
-  publicly_accessible    = true
+  port                   = 5433
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.sg_db.id]

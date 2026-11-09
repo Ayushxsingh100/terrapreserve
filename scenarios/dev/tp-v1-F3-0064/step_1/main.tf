@@ -48,7 +48,7 @@ resource "aws_route_table_association" "prod_rta_db" {
 }
 
 resource "aws_security_group" "prod_app_sg" {
-  description = "Application security group for tpl-06 (app sg reconfigured)"
+  description = "Application security group for tpl-06"
   name        = "prod_app_sg-tpl-06"
   vpc_id      = aws_vpc.prod_vpc.id
 
@@ -89,7 +89,7 @@ resource "aws_instance" "prod_app_server" {
 
 resource "aws_db_subnet_group" "prod_db_sng" {
   name       = "prod_db_sng-tpl-06"
-  subnet_ids = [aws_subnet.prod_db_subnet[0].id, aws_subnet.prod_db_subnet[1].id, aws_subnet.prod_db_subnet[2].id]
+  subnet_ids = [aws_subnet.prod_db_subnet[2].id, aws_subnet.prod_db_subnet[1].id, aws_subnet.prod_db_subnet[0].id]
 }
 
 resource "aws_db_instance" "prod_postgres_db" {

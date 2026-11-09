@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "ec2-simple.tf": "deb7d1831389622ede7f9e6dec96d63b92f02d6ea3a955ec8f6c2717f7b64c27"
+ },
+ "commit_sha": "2ad75f971d269b94f0fc5e103e8d4f04d0bc8c89",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 403550,
+ "module_path": "terraform-template",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-403550",
+ "repo_full_name": "hoanglinhdigital/aws-training",
+ "repo_id": 445395033,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

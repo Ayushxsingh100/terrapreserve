@@ -41,12 +41,12 @@ resource "aws_route_table_association" "assoc_app" {
 }
 
 resource "aws_security_group" "frontend_sg" {
-  description = "SSH repaired"
+  description = "Application security group for tpl-10"
   name        = "frontend_sg-tpl-10"
   vpc_id      = aws_vpc.corp_vpc.id
 
   ingress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
     from_port   = 22
     protocol    = "tcp"
     to_port     = 22

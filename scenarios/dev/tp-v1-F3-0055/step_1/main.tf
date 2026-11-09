@@ -55,12 +55,12 @@ resource "aws_security_group_rule" "data_secgroup_egress" {
 }
 
 resource "aws_security_group" "web_secgroup" {
-  description = "Application security group for tpl-03 (app sg reconfigured)"
+  description = "Application security group for tpl-03"
   name        = "web_secgroup-tpl-03"
   vpc_id      = aws_vpc.network.id
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.32.0.0/16"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0

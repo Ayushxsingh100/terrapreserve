@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "300a7dc03f1b86fea9902776b7874842689a378cf63ebbbd5b910cb8005e3c83",
+  "outputs.tf": "48601598f8a9f1f9fde42cfd13b796fd5c5e6077e2fce877dea382ac48df3887",
+  "variables.tf": "11e2ed830afde58019a1e9effa777026916d34a8aa5eb82c1f297472bb7a5be5"
+ },
+ "commit_sha": "3c3d35215e5097f80d07fbca8ea98a0768957ad3",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "9936d54adbf8a86f5ca9c33f7827961791fb5887b0e3c557096f537b88d95b29",
+ "module_id": 656536,
+ "module_path": "infrastructure/terraform/modules/rds",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-656536",
+ "repo_full_name": "jongwoo108/enterprise-rag-platform",
+ "repo_id": 1066965801,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

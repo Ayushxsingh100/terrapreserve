@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "main.tf": "05e8e2db6d85207ad2cc7c49dd70d6cc8ff621f9b4068adbc31b5f49510d119c",
+  "outputs.tf": "52490bc53077b8381dbc887c5ed30e3157ed857cc39e9cfcc7a98ffee466dcb5",
+  "variables.tf": "8f99d1a9b6f643e4f31c1e5fc21ff13ce2fc347a306736e938b4a659f0057dd8",
+  "versions.tf": "10e7e6c57b4f43b2262378e47e8f8b5025451f9698601d5b2f7d7cf2e3f00903"
+ },
+ "commit_sha": "e6a5e3b67049a1bb6020a64bd8a19f694699fb20",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 496814,
+ "module_path": "modules/security_group",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-496814",
+ "repo_full_name": "weka/terraform-aws-weka",
+ "repo_id": 658586339,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

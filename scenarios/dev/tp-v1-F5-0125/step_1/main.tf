@@ -63,14 +63,14 @@ resource "aws_security_group" "app" {
 
 resource "aws_security_group" "db" {
   description = "Database security group for tpl-08"
-  name        = "db-tpl-08"
+  name        = "db-tpl-08-v2"
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port       = 5432
+    from_port       = 5433
     protocol        = "tcp"
     security_groups = [aws_security_group.app.id]
-    to_port         = 5432
+    to_port         = 5433
   }
 
   egress {
@@ -83,7 +83,6 @@ resource "aws_security_group" "db" {
 
 resource "aws_instance" "app" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  count                  = 1
   instance_type          = "t3.nano"
   subnet_id              = aws_subnet.app.id
   vpc_security_group_ids = [aws_security_group.app.id]
@@ -101,7 +100,7 @@ resource "aws_db_instance" "main" {
   identifier             = "main-tpl-08"
   instance_class         = "db.t3.micro"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.db.id]

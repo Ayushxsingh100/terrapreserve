@@ -68,7 +68,7 @@ resource "aws_security_group" "prod_db_sg" {
   ingress {
     from_port       = 5432
     protocol        = "tcp"
-    security_groups = [aws_security_group.prod_app_sg.id]
+    security_groups = [aws_security_group.prod_db_sg_hub.id]
     to_port         = 5432
   }
 
@@ -82,7 +82,7 @@ resource "aws_security_group" "prod_db_sg" {
 
 resource "aws_instance" "prod_app_server" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.large"
+  instance_type          = "t3.medium"
   subnet_id              = aws_subnet.prod_app_subnet.id
   vpc_security_group_ids = [aws_security_group.prod_app_sg.id]
 }
@@ -99,8 +99,14 @@ resource "aws_db_instance" "prod_postgres_db" {
   identifier             = "prod-postgres-db-tpl-06"
   instance_class         = "db.t3.small"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]
+}
+
+resource "aws_security_group" "prod_db_sg_hub" {
+  description = "Shared client security group"
+  name        = "prod_db_sg-tpl-06-hub"
+  vpc_id      = aws_vpc.prod_vpc.id
 }

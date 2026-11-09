@@ -1,0 +1,91 @@
+module_id,repo_id,repo_full_name,module_path,kind,status,code,detail,group
+288547,93937607,khdevel/terraform_examples,databases,derived_native,excluded,DX01,Password literal appears elsewhere in module (3 occurrences),DX01
+290194,102797961,asquarezone/TerraformZone,Dec21/activity2,derived_native,excluded,DX01,Password literal appears elsewhere in module (3 occurrences),DX01
+290197,102797961,asquarezone/TerraformZone,Dec21/activity5/modules/awsntier,derived_native,excluded,DX01,Password literal appears elsewhere in module (3 occurrences),DX01
+290247,102797961,asquarezone/TerraformZone,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E12_INVALID_UNDER_PIN,"Validation status: invalid, error_class: Invalid quoted type constraints",E12_INVALID_UNDER_PIN
+290249,102797961,asquarezone/TerraformZone,June2018/Threetier,derived_native,excluded,E12_INVALID_UNDER_PIN,"Validation status: invalid, error_class: Invalid quoted type constraints",E12_INVALID_UNDER_PIN
+302945,145335611,dashpradeep99/TerraformZone,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+302947,145335611,dashpradeep99/TerraformZone,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+307593,156005101,reddyvs/Terraform,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+307595,156005101,reddyvs/Terraform,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+309670,163438175,dashpradeep99/TerraformZone-imp,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+309672,163438175,dashpradeep99/TerraformZone-imp,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+310155,165488756,chaitanya-mwa/DevOps-TerraformZone,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+310157,165488756,chaitanya-mwa/DevOps-TerraformZone,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+310940,168817310,awsdevops009/TerraformZone,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+310942,168817310,awsdevops009/TerraformZone,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+311542,171444039,anilnagaraj23/Terraform,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+311544,171444039,anilnagaraj23/Terraform,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+313414,177341982,wasimdocker/TerraformZone,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+313416,177341982,wasimdocker/TerraformZone,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+315578,186967916,PanthangiPraveen/Terraformzone,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+315580,186967916,PanthangiPraveen/Terraformzone,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+316973,190574432,praveen509/Terraform,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+316975,190574432,praveen509/Terraform,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+318735,196150403,madhugit123/TerraformZone,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+318737,196150403,madhugit123/TerraformZone,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+334844,245571404,khadak-bogati/TerraformZone,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+334846,245571404,khadak-bogati/TerraformZone,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+342765,270947639,edbighead/infrastructure-tdd,.,derived_native,excluded,E12_INVALID_UNDER_PIN,"Validation status: invalid, error_class: Unsupported argument",E12_INVALID_UNDER_PIN
+359544,320178727,sureshbiyyala/TerraformZone,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+359546,320178727,sureshbiyyala/TerraformZone,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+369733,354937878,victor-asir/Terraform,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+369735,354937878,victor-asir/Terraform,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+378328,377614434,mydevops2021/terraform,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+378330,377614434,mydevops2021/terraform,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+381516,387944844,ItaloFreitas95/Terraform_Aws,.,derived_native,excluded,E12_INVALID_UNDER_PIN,"Validation status: invalid, error_class: Unsupported argument",E12_INVALID_UNDER_PIN
+391350,417042676,venkat6scm/TerraformZone,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+391352,417042676,venkat6scm/TerraformZone,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+393079,421640134,raghugurram/applogin,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+393081,421640134,raghugurram/applogin,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+493384,652468771,govardhana2023/TerraformZone,Dec21/activity2,derived_native,excluded,DX01,Password literal appears elsewhere in module (3 occurrences),DX01
+493387,652468771,govardhana2023/TerraformZone,Dec21/activity5/modules/awsntier,derived_native,excluded,DX01,Password literal appears elsewhere in module (3 occurrences),DX01
+493411,652468771,govardhana2023/TerraformZone,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+493413,652468771,govardhana2023/TerraformZone,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+493426,652468771,govardhana2023/TerraformZone,Mar23/ntier/aws,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+495207,655148905,arunvel1988/ANTON,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+495762,656210979,Karlito1994/devops,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+497968,661643467,Selvamraju007/Tutorials,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+499232,664970407,Gabinsime75/K8s_tutorials,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+505073,674966534,cbasavak/tutorials-installation,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+505185,674966836,Wajid-devops/anton-putra-tutorials,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+510834,685887478,yasir27uk/tutorials,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+513571,692509597,murulii/KubernetesDeploymentStaergywithcode,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+514233,693434982,Amit-Kumar-Singh-git/Mavenproject,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+516068,696597883,kishana0427/TerraformZone,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+516070,696597883,kishana0427/TerraformZone,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+516462,696608230,PrinceMani661995/Devops,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+517205,697811568,qf-devops/ekstutorials,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+525722,716809442,FurquanMazhar/AWS_EFS_CODE,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+535769,739952615,navin260/test,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+536501,742352983,devlup-labs/terraform-session-demo,.,derived_native,excluded,DX01,Password literal appears elsewhere in module (2 occurrences),DX01
+541876,754029275,maco971/argocicd,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+543934,759819689,pilotgab/Devops-tools-tutorial,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+548270,772029771,hareeshab/Kubernetes-HPA-Metric-server,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+552794,784537580,ralphg1002/SQLI-demo,.,derived_native,excluded,DX01,Password literal appears elsewhere in module (3 occurrences),DX01
+554137,788945691,raghu2611/Applogin,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+554139,788945691,raghu2611/Applogin,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+555352,792347755,Saddam9940/Kubernetes,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+557714,799429182,habedi/terraform-usecases,use-cases/use-case-2,derived_native,excluded,DX01,No literal password attribute found on aws_db_instance,DX01
+560166,806463592,moyillavimala/moyillavimala,Dec21/activity2,derived_native,excluded,DX01,Password literal appears elsewhere in module (3 occurrences),DX01
+560169,806463592,moyillavimala/moyillavimala,Dec21/activity5/modules/awsntier,derived_native,excluded,DX01,Password literal appears elsewhere in module (3 occurrences),DX01
+560204,806463592,moyillavimala/moyillavimala,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+560206,806463592,moyillavimala/moyillavimala,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+560219,806463592,moyillavimala/moyillavimala,Mar23/ntier/aws,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+560608,806465451,moyillavimala/moyillavimalaa,Dec21/activity2,derived_native,excluded,DX01,Password literal appears elsewhere in module (3 occurrences),DX01
+560611,806465451,moyillavimala/moyillavimalaa,Dec21/activity5/modules/awsntier,derived_native,excluded,DX01,Password literal appears elsewhere in module (3 occurrences),DX01
+560646,806465451,moyillavimala/moyillavimalaa,June2018/Multicloud/Modules/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+560648,806465451,moyillavimala/moyillavimalaa,June2018/Threetier,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+560661,806465451,moyillavimala/moyillavimalaa,Mar23/ntier/aws,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000102797961 already represented,E10_LINEAGE_DUPLICATE
+562180,811985381,MAVRICK-1/tutorials,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+578617,865902968,todd-duck/anton-tutorials,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+582862,876278955,ahouab/eks_tutorials,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+593028,912346615,gerarsim/aws-terraform,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+601777,932764196,dhairya137/k8s_benchmarking,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+618169,972624742,sheruchutanku/antro,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+619646,977779154,anandray/antonputra-tutorials,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+624077,991804814,akshaypuridevops/tutorials,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+636083,1021226378,RaviHCU/Devops-TerraForm,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+636700,1022340073,Chaitanya980/tutorials,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+669123,1104880519,nsbertone/antonov_repo,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE
+673387,1116780857,ManikandarajThirumeni/awsdevops,lessons/165/infra,derived_native,excluded,E10_LINEAGE_DUPLICATE,Lineage lin-000316823064 already represented,E10_LINEAGE_DUPLICATE

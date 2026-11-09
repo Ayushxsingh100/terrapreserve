@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "main.tf": "5157304e0e13d3847062a45d82ab2e9b0d478ae824b2c3b896df1b0bdecbb0c8"
+ },
+ "commit_sha": "8c0ef4041b248fba0212639ad6c2728b0889750c",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "7f491545d2648d0e5ba5de81c54d57b0db39d654f3fb4b11c9af27bbf523ed4a",
+ "module_id": 346382,
+ "module_path": "TerraformComplianceTests/aws/VPC/failing_setups/Security_Groups_no_descriptions",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-346382",
+ "repo_full_name": "AErmie/Terraform-Real-World-Edition",
+ "repo_id": 280270774,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

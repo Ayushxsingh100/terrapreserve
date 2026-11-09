@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "be3dd950d33cffd8c8eced8b5de4eae52f5061e75c28dcab099a5238dae9fcfc",
+  "output.tf": "83536724861df578e1bcf487e95fade6615269196f7e304b15da2878bacaeb2e",
+  "variable.tf": "dbd1202bea8d7802cd9484a3c59bec3c4458f54278a89f5a5e48e47daba3ca82"
+ },
+ "commit_sha": "0d7b35ba5a0464b4a5cee3e1e14235c9bef9c8ac",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "06dcddbb6908a0c6dd4a9e8ec822eea41d5a460a53089fecccc8a68049e99241",
+ "module_id": 667306,
+ "module_path": "modules/network",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-667306",
+ "repo_full_name": "JordanSum/AWS-EFS-Project",
+ "repo_id": 1100904098,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

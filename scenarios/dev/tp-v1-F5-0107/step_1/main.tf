@@ -1,3 +1,8 @@
+moved {
+  from = aws_security_group_rule.data_secgroup_from_app_5432
+  to   = aws_security_group_rule.data_secgroup_from_app_5432_v2
+}
+
 resource "aws_vpc" "network" {
   cidr_block           = "10.113.0.0/16"
   enable_dns_hostnames = true
@@ -36,15 +41,6 @@ resource "aws_route_table_association" "assoc_app" {
   subnet_id      = aws_subnet.web_tier.id
 }
 
-resource "aws_security_group_rule" "data_secgroup_from_app_5432" {
-  from_port                = 5432
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.data_secgroup.id
-  source_security_group_id = aws_security_group.web_secgroup.id
-  to_port                  = 5432
-  type                     = "ingress"
-}
-
 resource "aws_security_group_rule" "data_secgroup_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
   from_port         = 0
@@ -74,7 +70,7 @@ resource "aws_security_group" "data_secgroup" {
 }
 
 resource "aws_instance" "web_instance" {
-  ami                    = "ami-0d5eff06f840b45e9"
+  ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.nano"
   subnet_id              = aws_subnet.web_tier.id
   vpc_security_group_ids = [aws_security_group.web_secgroup.id]
@@ -96,4 +92,13 @@ resource "aws_db_instance" "data_instance" {
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.data_secgroup.id]
+}
+
+resource "aws_security_group_rule" "data_secgroup_from_app_5432_v2" {
+  from_port                = 5432
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.data_secgroup.id
+  source_security_group_id = aws_security_group.web_secgroup.id
+  to_port                  = 5432
+  type                     = "ingress"
 }

@@ -1,0 +1,26 @@
+{
+ "archive_sha256": {
+  "locals.tf": "d682f1a202e0ad630d396ad59913982d345a2b766b9293eedb9905e3d01181f1",
+  "main.tf": "505377fcdd8450be42f6ec830cdacdc0f221123a56eed4f331e14a8bce364a67",
+  "outputs.tf": "d05ce3a117673a19669970d1396e8d62725600879237d05fff473d42c1c5f87d",
+  "providers.tf": "2cc15b126c6906b3ce694c4b1e3f893e404f0c1882215553b4ca540ba47169c2",
+  "variables.tf": "90bb677522895b497afeada1aecd25ba94ca384e49b0fa8ef3dbd704299de815"
+ },
+ "commit_sha": "342b8f9707c53dc417ea61f7a1999f79e275f0a9",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 665769,
+ "module_path": "AWS/network",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-665769",
+ "repo_full_name": "Devops-projects-Sri/Terraform_QT",
+ "repo_id": 1097239042,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

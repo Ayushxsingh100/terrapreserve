@@ -1,0 +1,23 @@
+{
+  "commit_sha": "ad37df327564b52cdd166d66167ffab32c1ae585",
+  "derived": true,
+  "derived_from": "10443eb2b03ec7f166512d051d133c5d99a92424dcb6e29308cc9aad7603b4e0",
+  "kind": "derived_native",
+  "license": "MIT",
+  "lineage_id": "lin-001057181459",
+  "modifications": [
+    {
+      "address": "aws_db_instance.database_instance",
+      "attribute": "password",
+      "file": "main.tf",
+      "line": 32,
+      "sha256_after": "ace00c1ec1662af5aa047e6be8216ae4036c462131a97b02486bac386a760406",
+      "sha256_before": "933850f171f804e35f1df06213867af24ed528779c4a9b60f634e169e05919da"
+    }
+  ],
+  "module_id": 653852,
+  "module_path": "lab2/module/webapp-module",
+  "pool_id": "terrads-derived-653852",
+  "repo_full_name": "abdoulWaris/handleTerraform",
+  "repo_id": 1057181459
+}

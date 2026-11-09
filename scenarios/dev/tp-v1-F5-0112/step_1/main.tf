@@ -1,3 +1,8 @@
+moved {
+  from = aws_subnet.app
+  to   = aws_subnet.app_app
+}
+
 resource "aws_vpc" "main" {
   cidr_block           = "10.30.0.0/16"
   enable_dns_hostnames = true
@@ -6,12 +11,6 @@ resource "aws_vpc" "main" {
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
-}
-
-resource "aws_subnet" "app" {
-  availability_zone = "us-east-1a"
-  cidr_block        = "10.30.1.0/24"
-  vpc_id            = aws_vpc.main.id
 }
 
 resource "aws_subnet" "db_1" {
@@ -43,7 +42,7 @@ resource "aws_route_table" "public" {
 
 resource "aws_route_table_association" "rta_app" {
   route_table_id = aws_route_table.public.id
-  subnet_id      = aws_subnet.app.id
+  subnet_id      = aws_subnet.app_app.id
 }
 
 resource "aws_security_group_rule" "app_egress" {
@@ -83,9 +82,8 @@ resource "aws_security_group" "db" {
 
 resource "aws_instance" "app" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  count                  = 1
   instance_type          = "t3.nano"
-  subnet_id              = aws_subnet.app.id
+  subnet_id              = aws_subnet.app_app.id
   vpc_security_group_ids = [aws_security_group.app.id]
 }
 
@@ -105,4 +103,10 @@ resource "aws_db_instance" "main" {
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.db.id]
+}
+
+resource "aws_subnet" "app_app" {
+  availability_zone = "us-east-1a"
+  cidr_block        = "10.30.1.0/24"
+  vpc_id            = aws_vpc.main.id
 }

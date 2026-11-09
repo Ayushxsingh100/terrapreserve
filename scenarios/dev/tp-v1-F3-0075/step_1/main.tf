@@ -46,7 +46,7 @@ resource "aws_security_group" "frontend_sg" {
   vpc_id      = aws_vpc.corp_vpc.id
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["192.168.0.0/16"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0
@@ -81,7 +81,7 @@ resource "aws_security_group" "frontend_sg_extra" {
 
 resource "aws_instance" "frontend_server" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.small"
+  instance_type          = "t3.micro"
   subnet_id              = aws_subnet.frontend_subnet.id
   vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]
 }
@@ -98,7 +98,7 @@ resource "aws_db_instance" "backend_database" {
   identifier             = "backend-database-tpl-10"
   instance_class         = "db.t3.nano"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.backend_sg.id]

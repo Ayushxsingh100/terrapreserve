@@ -56,7 +56,7 @@ resource "aws_security_group_rule" "app_egress" {
 }
 
 resource "aws_security_group" "app" {
-  description = "Application security group for tpl-08 (app sg reconfigured)"
+  description = "Application security group for tpl-08"
   name        = "app-tpl-08"
   vpc_id      = aws_vpc.main.id
 }
@@ -69,7 +69,7 @@ resource "aws_security_group" "db" {
   ingress {
     from_port       = 5432
     protocol        = "tcp"
-    security_groups = [aws_security_group.app.id]
+    security_groups = [aws_security_group.db_peer.id]
     to_port         = 5432
   }
 
@@ -100,8 +100,14 @@ resource "aws_db_instance" "main" {
   identifier             = "main-tpl-08"
   instance_class         = "db.t3.micro"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.db.id]
+}
+
+resource "aws_security_group" "db_peer" {
+  description = "Dependent client security group"
+  name        = "db-tpl-08-peer"
+  vpc_id      = aws_vpc.main.id
 }

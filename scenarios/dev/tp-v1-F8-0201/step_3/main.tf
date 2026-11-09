@@ -60,7 +60,7 @@ resource "aws_security_group" "prod_app_sg" {
   }
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["192.168.0.0/16"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0
@@ -106,7 +106,7 @@ resource "aws_db_instance" "prod_postgres_db" {
   identifier             = "prod-postgres-db-tpl-06"
   instance_class         = "db.t3.small"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]

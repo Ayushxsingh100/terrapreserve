@@ -55,19 +55,19 @@ resource "aws_security_group_rule" "data_secgroup_egress" {
 }
 
 resource "aws_security_group" "web_secgroup" {
-  description = "Four-step maintenance completed"
+  description = "Application security group for tpl-03"
   name        = "web_secgroup-tpl-03"
   vpc_id      = aws_vpc.network.id
 
   ingress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
     from_port   = 22
     protocol    = "tcp"
     to_port     = 22
   }
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["192.168.0.0/16"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0
@@ -99,7 +99,7 @@ resource "aws_db_instance" "data_instance" {
   identifier             = "data-instance-tpl-03"
   instance_class         = "db.t3.micro"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.data_secgroup.id]

@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "72efd9887ed2ecaab2b84aa6ce0dbb86189f733e933990c342f1733920179160",
+  "output.tf": "f10794ee8645aa827e2f7b44b146feeb524928a9a52d74223e4e20536bf4ff6c",
+  "variables.tf": "3bd7b5c2fca7dba3a80b90c76b9bd32ce7c806e6d75645369f853dacb2e43a5e"
+ },
+ "commit_sha": "0695704a0890db09c5aa664d7a2c65999b785f15",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "55478114197526b3e5d7f1dbf6e60db543b249a816a6ae1cc35df9081f148e6a",
+ "module_id": 665991,
+ "module_path": "infra/modules/k8s_master",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-665991",
+ "repo_full_name": "Miurae3/devops-project-infra",
+ "repo_id": 1097780303,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -20,12 +20,20 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"t3.micro\"",
-      "attribute": "instance_type",
-      "before": "\"t3.nano\"",
-      "operator": "op_f7_shared_sg_egress_tighten_safe",
+      "after": null,
+      "attribute": "security_groups",
+      "before": "[aws_security_group.app.id]",
+      "operator": "op_f7_db_ingress_source_safe",
       "step": 1,
-      "target_address": "aws_instance.app"
+      "target_address": "aws_security_group.db"
+    },
+    {
+      "after": "[\"10.93.1.0/24\"]",
+      "attribute": "cidr_blocks",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_safe",
+      "step": 1,
+      "target_address": "aws_security_group.db"
     }
   ],
   "oracle": null,
@@ -74,7 +82,7 @@
   "scenario_id": "tp-v1-F7-0168",
   "seed": 168,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -90,14 +98,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "87f139c8e5a78e6926205888701de610d495af97b30e0331723856a6cef4f8d6",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -83,7 +83,7 @@\n \n resource \"aws_instance\" \"app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.nano\"\n+  instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.app.id\n   vpc_security_group_ids = [aws_security_group.app.id]\n }\n",
+      "content_hash": "4142a25e52926cb070ad6f85ef677c4db33fdad776a82166ad5d1749e8be1e28",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -67,10 +67,10 @@\n   vpc_id      = aws_vpc.main.id\n \n   ingress {\n-    from_port       = 5432\n-    protocol        = \"tcp\"\n-    security_groups = [aws_security_group.app.id]\n-    to_port         = 5432\n+    cidr_blocks = [\"10.93.1.0/24\"]\n+    from_port   = 5432\n+    protocol    = \"tcp\"\n+    to_port     = 5432\n   }\n \n   egress {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Updates core resources safely.",
+    "description": "Replaces the DB group's 5432 ingress source group with the application subnet CIDR.",
     "invariant_id": null,
     "kind": "change_request"
   },

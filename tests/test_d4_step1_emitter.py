@@ -398,6 +398,10 @@ class TestFormattingCheck(unittest.TestCase):
             except Exception:
                 cls.terraform = None
 
+    def setUp(self) -> None:
+        if not self.terraform and (os.environ.get("CI") or os.environ.get("GITHUB_ACTIONS")):
+            self.fail("terraform binary required in CI; cannot skip format test")
+
     def _fmt_check(self, text: str, filename: str = "main.tf") -> tuple[bool, str]:
         if not self.terraform:
             return True, "skipped"

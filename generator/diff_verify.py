@@ -59,53 +59,83 @@ _RESOURCE_BLOCK_RE = re.compile(
     r'resource\s+"(?P<type>[^"]+)"\s+"(?P<name>[^"]+)"\s*\{(?P<body>[^{}]*(?:\{[^{}]*\}[^{}]*)*)\}',
     re.DOTALL,
 )
-_ATTR_LINE_RE = re.compile(
+_TOP_ATTR_RE = re.compile(
     r'^\s{2}(?P<key>[a-z_][a-z0-9_]*)\s+=\s+(?P<val>.+?)\s*$',
     re.MULTILINE,
 )
-
-
-def _extract_resource_attrs(text: str) -> dict[str, dict[str, str]]:
-    """Return ``{address: {attr: value_text}}`` from emitted HCL text.
-
-    Only top-level (2-space-indent) attribute assignments inside resource
-    blocks are extracted.  Nested blocks (4-space indent) are not included
-    in the per-attribute map; their presence is detected separately.
-    """
-    result: dict[str, dict[str, str]] = {}
-    for m in _RESOURCE_BLOCK_RE.finditer(text):
-        addr = f"{m.group('type')}.{m.group('name')}"
-        body = m.group("body")
-        attrs: dict[str, str] = {}
-        for am in _ATTR_LINE_RE.finditer(body):
-            attrs[am.group("key")] = am.group("val").strip()
-        result[addr] = attrs
-    return result
+_NESTED_BLOCK_RE = re.compile(
+    r'^\s{2}(?P<label>[a-z_][a-z0-9_]*)\s*\{(?P<inner>[^{}]*)\}',
+    re.MULTILINE | re.DOTALL,
+)
+_INNER_ATTR_RE = re.compile(
+    r'^\s{4}(?P<key>[a-z_][a-z0-9_]*)\s+=\s+(?P<val>.+?)\s*$',
+    re.MULTILINE,
+)
 
 
 def _diff_attrs(
     before_text: str,
     after_text: str,
 ) -> list[tuple[str, str, str | None, str | None]]:
-    """Return ``(address, attribute, before_val, after_val)`` for every changed attr.
+    """Return ``(address, attribute, before_val, after_val)`` for every changed attr."""
+    b_resources = {f"{m.group('type')}.{m.group('name')}": m.group("body") for m in _RESOURCE_BLOCK_RE.finditer(before_text)}
+    a_resources = {f"{m.group('type')}.{m.group('name')}": m.group("body") for m in _RESOURCE_BLOCK_RE.finditer(after_text)}
 
-    ``before_val`` or ``after_val`` is ``None`` when the attribute was absent
-    in that step.
-    """
-    before_map = _extract_resource_attrs(before_text)
-    after_map = _extract_resource_attrs(after_text)
     changes: list[tuple[str, str, str | None, str | None]] = []
+    all_addrs = sorted(set(b_resources) | set(a_resources))
 
-    all_addrs = sorted(set(before_map) | set(after_map))
     for addr in all_addrs:
-        b_attrs = before_map.get(addr, {})
-        a_attrs = after_map.get(addr, {})
-        all_keys = sorted(set(b_attrs) | set(a_attrs))
-        for key in all_keys:
-            b_val = b_attrs.get(key)
-            a_val = a_attrs.get(key)
-            if b_val != a_val:
-                changes.append((addr, key, b_val, a_val))
+        b_body = b_resources.get(addr)
+        a_body = a_resources.get(addr)
+        if b_body is None:
+            # Whole resource added
+            assert a_body is not None
+            for am in _TOP_ATTR_RE.finditer(a_body):
+                changes.append((addr, am.group("key"), None, am.group("val").strip()))
+            for bm in _NESTED_BLOCK_RE.finditer(a_body):
+                for im in _INNER_ATTR_RE.finditer(bm.group("inner")):
+                    changes.append((addr, im.group("key"), None, im.group("val").strip()))
+            continue
+        if a_body is None:
+            # Whole resource removed
+            assert b_body is not None
+            for am in _TOP_ATTR_RE.finditer(b_body):
+                changes.append((addr, am.group("key"), am.group("val").strip(), None))
+            for bm in _NESTED_BLOCK_RE.finditer(b_body):
+                for im in _INNER_ATTR_RE.finditer(bm.group("inner")):
+                    changes.append((addr, im.group("key"), im.group("val").strip(), None))
+            continue
+
+        # Resource modified:
+        # 1. Top-level attrs
+        b_top = {am.group("key"): am.group("val").strip() for am in _TOP_ATTR_RE.finditer(b_body)}
+        a_top = {am.group("key"): am.group("val").strip() for am in _TOP_ATTR_RE.finditer(a_body)}
+        for k in sorted(set(b_top) | set(a_top)):
+            if b_top.get(k) != a_top.get(k):
+                changes.append((addr, k, b_top.get(k), a_top.get(k)))
+
+        # 2. Nested blocks
+        b_blocks = list(_NESTED_BLOCK_RE.finditer(b_body))
+        a_blocks = list(_NESTED_BLOCK_RE.finditer(a_body))
+        if len(b_blocks) == len(a_blocks):
+            for bb, ab in zip(b_blocks, a_blocks):
+                if bb.group("inner") != ab.group("inner"):
+                    b_in = {im.group("key"): im.group("val").strip() for im in _INNER_ATTR_RE.finditer(bb.group("inner"))}
+                    a_in = {im.group("key"): im.group("val").strip() for im in _INNER_ATTR_RE.finditer(ab.group("inner"))}
+                    for k in sorted(set(b_in) | set(a_in)):
+                        if b_in.get(k) != a_in.get(k):
+                            changes.append((addr, k, b_in.get(k), a_in.get(k)))
+        else:
+            b_texts = [bb.group("inner") for bb in b_blocks]
+            a_texts = [ab.group("inner") for ab in a_blocks]
+            for bb in b_blocks:
+                if bb.group("inner") not in a_texts:
+                    for im in _INNER_ATTR_RE.finditer(bb.group("inner")):
+                        changes.append((addr, im.group("key"), im.group("val").strip(), None))
+            for ab in a_blocks:
+                if ab.group("inner") not in b_texts:
+                    for im in _INNER_ATTR_RE.finditer(ab.group("inner")):
+                        changes.append((addr, im.group("key"), None, im.group("val").strip()))
 
     return changes
 

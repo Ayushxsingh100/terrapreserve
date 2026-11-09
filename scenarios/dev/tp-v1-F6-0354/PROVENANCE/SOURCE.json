@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "ff91864fe57d802948ba5c449f0c28173f487ed02f3697e6e188524d4d2e7642",
+  "outputs.tf": "705f76e2cdef30cd25ad8bec768673fd25d6fa8f6f211dc8c098267652b85e61",
+  "variables.tf": "a68cda57ba13b4fc7043d53c666983dc8f87032902e8831a194465dd52f513e1"
+ },
+ "commit_sha": "fb45c4101650fe7ae0a74bf7a5602849ec755ec4",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "4f605ed9102eecfde8dbdee6c1b787fe7bb39151b04ff222a19882afeb7cfd95",
+ "module_id": 658975,
+ "module_path": "terraform/modules/networking",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-658975",
+ "repo_full_name": "salsiy/steampipe-aws-monitor",
+ "repo_id": 1074711129,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

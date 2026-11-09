@@ -1,8 +1,3 @@
-moved {
-  from = aws_subnet.web_tier
-  to   = aws_subnet.web_tier_app
-}
-
 resource "aws_vpc" "network" {
   cidr_block           = "10.190.0.0/16"
   enable_dns_hostnames = true
@@ -11,6 +6,12 @@ resource "aws_vpc" "network" {
 
 resource "aws_internet_gateway" "gateway" {
   vpc_id = aws_vpc.network.id
+}
+
+resource "aws_subnet" "web_tier" {
+  availability_zone = "us-east-1a"
+  cidr_block        = "10.190.1.0/24"
+  vpc_id            = aws_vpc.network.id
 }
 
 resource "aws_subnet" "data_tier" {
@@ -32,7 +33,7 @@ resource "aws_route_table" "public_route" {
 
 resource "aws_route_table_association" "assoc_app" {
   route_table_id = aws_route_table.public_route.id
-  subnet_id      = aws_subnet.web_tier_app.id
+  subnet_id      = aws_subnet.web_tier.id
 }
 
 resource "aws_route_table" "data_route" {
@@ -47,11 +48,11 @@ resource "aws_route_table_association" "assoc_db" {
 }
 
 resource "aws_security_group_rule" "data_secgroup_from_app_5432" {
-  from_port                = 5432
+  from_port                = 5433
   protocol                 = "tcp"
   security_group_id        = aws_security_group.data_secgroup.id
   source_security_group_id = aws_security_group.web_secgroup.id
-  to_port                  = 5432
+  to_port                  = 5433
   type                     = "ingress"
 }
 
@@ -81,14 +82,14 @@ resource "aws_security_group" "web_secgroup" {
 
 resource "aws_security_group" "data_secgroup" {
   description = "Database security group for tpl-09"
-  name        = "data_secgroup-tpl-09"
+  name        = "data_secgroup-tpl-09-v2"
   vpc_id      = aws_vpc.network.id
 }
 
 resource "aws_instance" "web_instance" {
   ami                    = "ami-0c55b159cbfafe1f0"
   instance_type          = "t3.small"
-  subnet_id              = aws_subnet.web_tier_app.id
+  subnet_id              = aws_subnet.web_tier.id
   vpc_security_group_ids = [aws_security_group.web_secgroup.id]
 }
 
@@ -104,14 +105,8 @@ resource "aws_db_instance" "data_instance" {
   identifier             = "data-instance-tpl-09"
   instance_class         = "db.t3.small"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.data_secgroup.id]
-}
-
-resource "aws_subnet" "web_tier_app" {
-  availability_zone = "us-east-1a"
-  cidr_block        = "10.190.1.0/24"
-  vpc_id            = aws_vpc.network.id
 }

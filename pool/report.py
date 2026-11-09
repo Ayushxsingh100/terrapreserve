@@ -43,10 +43,14 @@ def verify_pool(pool_dir: Path, max_total: int = MAX_TOTAL_BYTES, max_file: int 
     if not pool_json.is_file():
         return ["pool.json missing"]
     # pool/ also holds the builder's Python modules and their bytecode; they are code, not pool data
+    # D4b derived natives (pool/terrads/derived/) and their records are verified separately from the D3 pool
+    derived_root = {"derived.json", "derived_exclusions.csv", "DERIVED_REPORT.md"}
     files_on_disk = {
         p.relative_to(pool_dir).as_posix(): p
         for p in sorted(pool_dir.rglob("*"))
         if p.is_file() and "__pycache__" not in p.parts and not (p.parent == pool_dir and p.suffix == ".py")
+        and not (p.relative_to(pool_dir).parts[:2] == ("terrads", "derived"))
+        and p.relative_to(pool_dir).as_posix() not in derived_root
     }
 
     # sizes and line endings: every file under pool/

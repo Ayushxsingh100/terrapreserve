@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "ec2.tf": "20c4761d5bdb2fbc0362f746d48c3974bd4cd9ed5db443d37fa0ecfaf781bcc9"
+ },
+ "commit_sha": "224c6980f360dfeb6660a528fc3e599e261fcd2c",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "e7fe376781c147488e75500a31fe99e1fcb11d483d239373be7d6798adf2e96b",
+ "module_id": 495011,
+ "module_path": "azure",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-495011",
+ "repo_full_name": "philemonnwanne/tripevibe",
+ "repo_id": 655245703,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

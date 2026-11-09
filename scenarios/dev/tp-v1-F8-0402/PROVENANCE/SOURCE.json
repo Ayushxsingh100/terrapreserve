@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "b6d800714a4939ea829d30db810625d3673bf5596a35bf3dcac419c3a098b8aa",
+  "outputs.tf": "5e594e05635c44adbb82940582936c2209bb21fa4c1b981f613b03c3e5a6679a",
+  "variables.tf": "986ad45226c193f78fea0aee29d9acb92fa01c114480841e81d582d4e648e3e8"
+ },
+ "commit_sha": "b2053f0ab617a430c501fe93742c2f57e8a46167",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "f3fe5e1cc472e9f8a18faca5e8b0e4a5b4399301d6b40033d1cdc1c7d6a6e0c8",
+ "module_id": 536120,
+ "module_path": "modules/security-groups",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-536120",
+ "repo_full_name": "FonNkwenti/vpc-lattice-tutorial",
+ "repo_id": 741189205,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

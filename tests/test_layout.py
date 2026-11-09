@@ -59,8 +59,19 @@ FILES = (
     "scenarios/validate_results.csv",
     "docs/D5_CARRYOVER.md",
     "tools/run_mutation_checks.py",
+    # D4b (real-world tier, derived natives, assembly)
+    "docs/D4B_DECISIONS.md",
+    "pool/derive.py",
+    "pool/derived.json",
+    "pool/derived_exclusions.csv",
+    "pool/DERIVED_REPORT.md",
+    "generator/realworld/__init__.py",
+    "generator/realworld/graft.py",
+    "generator/realworld/span_edit.py",
+    "generator/realworld/real_diff_verify.py",
+    "generator/realworld/screen.py",
 )
-DIRS = ("LICENSES", "sources", "pool", "generator", "oracle", "scenarios", "validation/smoke", "tests")
+DIRS = ("LICENSES", "sources", "pool", "generator", "generator/realworld", "oracle", "scenarios", "validation/smoke", "tests")
 
 LICENCE_TITLES = {
     "LICENSE": ("Apache License", "Version 2.0, January 2004"),
@@ -87,10 +98,11 @@ class TestLayout(unittest.TestCase):
                     self.assertIn(title, text)
 
     def test_fmt_check_is_scoped_to_first_party_directories(self) -> None:
-        """pool/ holds verbatim third-party text (D3-04); the fmt check must not cover it."""
+        """First-party code (validation, controlled tier, and graft files) is format-checked via tools/check_fmt.py."""
         ci = (REPO_ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
-        fmt_lines = [ln.strip() for ln in ci.splitlines() if "terraform fmt" in ln and not ln.strip().startswith("#")]
-        self.assertEqual(fmt_lines, ["- run: terraform fmt -check -recursive validation generator scenarios"])
+        self.assertIn("python tools/check_fmt.py", ci)
+        # CI tests job installs terraform so fmt checks are not skipped
+        self.assertIn("hashicorp/setup-terraform@v4", ci)
 
     def test_terraform_lock_file_is_not_ignored(self) -> None:
         # check-ignore exits 0 if the path is ignored, 1 if it is not.

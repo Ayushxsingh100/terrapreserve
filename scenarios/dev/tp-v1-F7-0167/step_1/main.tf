@@ -55,15 +55,15 @@ resource "aws_route_table_association" "rta_db_2" {
 }
 
 resource "aws_security_group" "sg_app" {
-  description = "Application security group for tpl-02 (central egress gateway)"
+  description = "Application security group for tpl-02"
   name        = "sg_app-tpl-02"
   vpc_id      = aws_vpc.vpc_main.id
 
   egress {
     cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+    from_port   = 1024
+    protocol    = "tcp"
+    to_port     = 65535
   }
 }
 

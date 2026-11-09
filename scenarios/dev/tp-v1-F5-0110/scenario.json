@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -20,12 +20,12 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "\"Application security group for tpl-06 (restructured)\"",
-      "attribute": "description",
-      "before": "\"Application security group for tpl-06\"",
-      "operator": "op_f5_inline_to_separate_sg_rules_safe",
+      "after": "1",
+      "attribute": "count",
+      "before": null,
+      "operator": "op_f5_count_each_safe",
       "step": 1,
-      "target_address": "aws_security_group.prod_app_sg"
+      "target_address": "aws_instance.prod_app_server"
     }
   ],
   "oracle": null,
@@ -74,7 +74,7 @@
   "scenario_id": "tp-v1-F5-0110",
   "seed": 110,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -90,14 +90,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "f55847aab0f5b14cd4507f0ac8fb1b32483e661dc041641e2417613b611a7147",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -48,7 +48,7 @@\n }\n \n resource \"aws_security_group\" \"prod_app_sg\" {\n-  description = \"Application security group for tpl-06\"\n+  description = \"Application security group for tpl-06 (restructured)\"\n   name        = \"prod_app_sg-tpl-06\"\n   vpc_id      = aws_vpc.prod_vpc.id\n \n",
+      "content_hash": "431b3063e2e8c56f4e22e03b54178bc2f715ee7b257b5b934c04e3c28d3765b0",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -82,6 +82,7 @@\n \n resource \"aws_instance\" \"prod_app_server\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n+  count                  = 1\n   instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.prod_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.prod_app_sg.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Restructures SG rules safely.",
+    "description": "Adds or removes count = 1 on the application instance.",
     "invariant_id": null,
     "kind": "change_request"
   },

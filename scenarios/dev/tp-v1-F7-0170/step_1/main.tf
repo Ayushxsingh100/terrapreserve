@@ -1,7 +1,7 @@
 resource "aws_vpc" "main" {
   cidr_block           = "10.143.0.0/16"
   enable_dns_hostnames = true
-  enable_dns_support   = false
+  enable_dns_support   = true
 }
 
 resource "aws_internet_gateway" "igw" {
@@ -59,7 +59,7 @@ resource "aws_security_group_rule" "db_egress" {
 }
 
 resource "aws_security_group_rule" "app_egress" {
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = ["192.168.0.0/16"]
   from_port         = 0
   protocol          = "-1"
   security_group_id = aws_security_group.app.id
@@ -98,7 +98,7 @@ resource "aws_db_instance" "main" {
   identifier             = "main-tpl-01"
   instance_class         = "db.t3.micro"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.db.id]

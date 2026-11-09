@@ -41,15 +41,15 @@ resource "aws_route_table_association" "assoc_app" {
 }
 
 resource "aws_security_group" "frontend_sg" {
-  description = "Application security group for tpl-10 (central egress gateway)"
+  description = "Application security group for tpl-10"
   name        = "frontend_sg-tpl-10"
   vpc_id      = aws_vpc.corp_vpc.id
 
   egress {
     cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+    from_port   = 1
+    protocol    = "tcp"
+    to_port     = 1023
   }
 }
 
@@ -98,7 +98,7 @@ resource "aws_db_instance" "backend_database" {
   identifier             = "backend-database-tpl-10"
   instance_class         = "db.t3.nano"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.backend_sg.id]

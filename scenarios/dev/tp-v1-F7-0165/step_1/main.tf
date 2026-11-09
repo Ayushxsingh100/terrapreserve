@@ -1,6 +1,6 @@
 resource "aws_vpc" "network" {
   cidr_block           = "10.55.0.0/16"
-  enable_dns_hostnames = true
+  enable_dns_hostnames = false
   enable_dns_support   = true
 }
 
@@ -88,7 +88,7 @@ resource "aws_security_group" "data_secgroup" {
 
 resource "aws_instance" "web_instance" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.medium"
+  instance_type          = "t3.small"
   subnet_id              = aws_subnet.web_tier.id
   vpc_security_group_ids = [aws_security_group.web_secgroup.id]
 }

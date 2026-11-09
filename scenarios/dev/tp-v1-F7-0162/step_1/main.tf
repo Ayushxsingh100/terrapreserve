@@ -53,7 +53,7 @@ resource "aws_security_group" "prod_app_sg" {
   vpc_id      = aws_vpc.prod_vpc.id
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0
@@ -82,7 +82,7 @@ resource "aws_security_group" "prod_db_sg" {
 
 resource "aws_instance" "prod_app_server" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.large"
+  instance_type          = "t3.medium"
   subnet_id              = aws_subnet.prod_app_subnet.id
   vpc_security_group_ids = [aws_security_group.prod_app_sg.id]
 }

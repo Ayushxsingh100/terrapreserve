@@ -1,0 +1,23 @@
+{
+  "commit_sha": "291b6d1c0d1792421a7c2737a41a154c8278d0a3",
+  "derived": true,
+  "derived_from": "5de5027657e0d3a8025d449f0f6be380f239dfac1641db7995f048202849b1fa",
+  "kind": "derived_native",
+  "license": "MIT",
+  "lineage_id": "lin-000316823064",
+  "modifications": [
+    {
+      "address": "aws_db_instance.mydb",
+      "attribute": "password",
+      "file": "main.tf",
+      "line": 21,
+      "sha256_after": "757d425d31a685be42f4b26c2bc158e24769578abe91bed1179a1039557bae57",
+      "sha256_before": "5de5027657e0d3a8025d449f0f6be380f239dfac1641db7995f048202849b1fa"
+    }
+  ],
+  "module_id": 358849,
+  "module_path": "lessons/165/infra",
+  "pool_id": "terrads-derived-358849",
+  "repo_full_name": "antonputra/tutorials",
+  "repo_id": 316823064
+}

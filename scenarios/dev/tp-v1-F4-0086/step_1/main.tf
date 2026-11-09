@@ -62,12 +62,12 @@ resource "aws_security_group" "app" {
 }
 
 resource "aws_security_group" "db" {
-  description = "DB 5432 repaired"
+  description = "Database security group for tpl-08"
   name        = "db-tpl-08"
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
     from_port   = 5432
     protocol    = "tcp"
     to_port     = 5432

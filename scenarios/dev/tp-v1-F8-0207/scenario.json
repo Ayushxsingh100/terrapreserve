@@ -2,18 +2,18 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F8",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
     "breaks": [
-      "INV-SEC-003"
+      "INV-FUNC-001"
     ],
     "class": "unsafe",
     "preserves": [
       "INV-SEC-001",
       "INV-SEC-002",
-      "INV-FUNC-001"
+      "INV-SEC-003"
     ],
     "target_invariant": "INV-SEC-001",
     "target_kind": "repair"
@@ -45,17 +45,17 @@
       "target_address": "aws_vpc.vpc_main"
     },
     {
-      "after": "true",
-      "attribute": "publicly_accessible",
-      "before": "false",
+      "after": "[\"192.168.0.0/16\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f8_fourstep_maintenance_unsafe",
       "step": 3,
-      "target_address": "aws_db_instance.rds_postgres"
+      "target_address": "aws_security_group.sg_app"
     },
     {
-      "after": "\"Four-step maintenance completed\"",
-      "attribute": "description",
-      "before": "\"Application security group for tpl-02\"",
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f8_fourstep_maintenance_unsafe",
       "step": 4,
       "target_address": "aws_security_group.sg_app"
@@ -105,7 +105,7 @@
   "scenario_id": "tp-v1-F8-0207",
   "seed": 207,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -133,14 +133,14 @@
       "terraform_dir": "step_2"
     },
     {
-      "content_hash": "1860e3adb3d9baa837d0fef6af54066be288da19c5aa1fefa3661dde7329d5d6",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"vpc_main\" {\n   cidr_block           = \"10.31.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n@@ -113,7 +113,7 @@\n   identifier             = \"rds-postgres-tpl-02\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.sg_db.id]\n",
+      "content_hash": "0f3f03326bf213c0f72106044b2609da0a5d141fdfb3d434a9fc54bbf594386f",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"vpc_main\" {\n   cidr_block           = \"10.31.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n@@ -67,7 +67,7 @@\n   }\n \n   egress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"192.168.0.0/16\"]\n     from_port   = 0\n     protocol    = \"-1\"\n     to_port     = 0\n",
       "step": 3,
       "terraform_dir": "step_3"
     },
     {
-      "content_hash": "78d55e046d77ed393dd784e9d946b04fc3818ae765781d503d98ecc823241155",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -55,7 +55,7 @@\n }\n \n resource \"aws_security_group\" \"sg_app\" {\n-  description = \"Application security group for tpl-02\"\n+  description = \"Four-step maintenance completed\"\n   name        = \"sg_app-tpl-02\"\n   vpc_id      = aws_vpc.vpc_main.id\n \n",
+      "content_hash": "9c7a2f3b0dc44d51a01927185e102ea62997f6f5dbcb25d8dfd5707bd7d6df61",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -60,7 +60,7 @@\n   vpc_id      = aws_vpc.vpc_main.id\n \n   ingress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 22\n     protocol    = \"tcp\"\n     to_port     = 22\n",
       "step": 4,
       "terraform_dir": "step_4"
     }

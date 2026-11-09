@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4a-1",
+  "generator_version": "d4a-4",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -20,68 +20,100 @@
   "labels": null,
   "mutation_record": [
     {
-      "after": "aws_subnet.web_tier_app.id",
-      "attribute": "subnet_id",
-      "before": "aws_subnet.web_tier.id",
-      "operator": "op_f5_restructure_moved_safe",
+      "after": null,
+      "attribute": "from_port",
+      "before": "5432",
+      "operator": "op_f5_db_rule_moved_safe",
       "step": 1,
-      "target_address": "aws_instance.web_instance"
-    },
-    {
-      "after": "aws_subnet.web_tier_app.id",
-      "attribute": "subnet_id",
-      "before": "aws_subnet.web_tier.id",
-      "operator": "op_f5_restructure_moved_safe",
-      "step": 1,
-      "target_address": "aws_route_table_association.assoc_app"
+      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432"
     },
     {
       "after": null,
-      "attribute": "availability_zone",
-      "before": "\"us-east-1a\"",
-      "operator": "op_f5_restructure_moved_safe",
+      "attribute": "protocol",
+      "before": "\"tcp\"",
+      "operator": "op_f5_db_rule_moved_safe",
       "step": 1,
-      "target_address": "aws_subnet.web_tier"
+      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432"
     },
     {
       "after": null,
-      "attribute": "cidr_block",
-      "before": "\"10.193.1.0/24\"",
-      "operator": "op_f5_restructure_moved_safe",
+      "attribute": "security_group_id",
+      "before": "aws_security_group.data_secgroup.id",
+      "operator": "op_f5_db_rule_moved_safe",
       "step": 1,
-      "target_address": "aws_subnet.web_tier"
+      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432"
     },
     {
       "after": null,
-      "attribute": "vpc_id",
-      "before": "aws_vpc.network.id",
-      "operator": "op_f5_restructure_moved_safe",
+      "attribute": "source_security_group_id",
+      "before": "aws_security_group.web_secgroup.id",
+      "operator": "op_f5_db_rule_moved_safe",
       "step": 1,
-      "target_address": "aws_subnet.web_tier"
+      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432"
     },
     {
-      "after": "\"us-east-1a\"",
-      "attribute": "availability_zone",
-      "before": null,
-      "operator": "op_f5_restructure_moved_safe",
+      "after": null,
+      "attribute": "to_port",
+      "before": "5432",
+      "operator": "op_f5_db_rule_moved_safe",
       "step": 1,
-      "target_address": "aws_subnet.web_tier_app"
+      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432"
     },
     {
-      "after": "\"10.193.1.0/24\"",
-      "attribute": "cidr_block",
-      "before": null,
-      "operator": "op_f5_restructure_moved_safe",
+      "after": null,
+      "attribute": "type",
+      "before": "\"ingress\"",
+      "operator": "op_f5_db_rule_moved_safe",
       "step": 1,
-      "target_address": "aws_subnet.web_tier_app"
+      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432"
     },
     {
-      "after": "aws_vpc.network.id",
-      "attribute": "vpc_id",
+      "after": "5432",
+      "attribute": "from_port",
       "before": null,
-      "operator": "op_f5_restructure_moved_safe",
+      "operator": "op_f5_db_rule_moved_safe",
       "step": 1,
-      "target_address": "aws_subnet.web_tier_app"
+      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432_v2"
+    },
+    {
+      "after": "\"tcp\"",
+      "attribute": "protocol",
+      "before": null,
+      "operator": "op_f5_db_rule_moved_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432_v2"
+    },
+    {
+      "after": "aws_security_group.data_secgroup.id",
+      "attribute": "security_group_id",
+      "before": null,
+      "operator": "op_f5_db_rule_moved_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432_v2"
+    },
+    {
+      "after": "aws_security_group.web_secgroup.id",
+      "attribute": "source_security_group_id",
+      "before": null,
+      "operator": "op_f5_db_rule_moved_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432_v2"
+    },
+    {
+      "after": "5432",
+      "attribute": "to_port",
+      "before": null,
+      "operator": "op_f5_db_rule_moved_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432_v2"
+    },
+    {
+      "after": "\"ingress\"",
+      "attribute": "type",
+      "before": null,
+      "operator": "op_f5_db_rule_moved_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432_v2"
     }
   ],
   "oracle": null,
@@ -128,7 +160,7 @@
   "scenario_id": "tp-v1-F5-0113",
   "seed": 113,
   "source": {
-    "commit_or_version": "d4a-1+tpl-v1.0",
+    "commit_or_version": "d4a-4+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -144,14 +176,14 @@
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "9f8c59b94adde1c6b2dcfae4195fba4bc86d06f250304916aa058b1b443df1f8",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,3 +1,8 @@\n+moved {\n+  from = aws_subnet.web_tier\n+  to   = aws_subnet.web_tier_app\n+}\n+\n resource \"aws_vpc\" \"network\" {\n   cidr_block           = \"10.193.0.0/16\"\n   enable_dns_hostnames = true\n@@ -6,12 +11,6 @@\n \n resource \"aws_internet_gateway\" \"gateway\" {\n   vpc_id = aws_vpc.network.id\n-}\n-\n-resource \"aws_subnet\" \"web_tier\" {\n-  availability_zone = \"us-east-1a\"\n-  cidr_block        = \"10.193.1.0/24\"\n-  vpc_id            = aws_vpc.network.id\n }\n \n resource \"aws_subnet\" \"data_tier\" {\n@@ -33,7 +32,7 @@\n \n resource \"aws_route_table_association\" \"assoc_app\" {\n   route_table_id = aws_route_table.public_route.id\n-  subnet_id      = aws_subnet.web_tier.id\n+  subnet_id      = aws_subnet.web_tier_app.id\n }\n \n resource \"aws_route_table\" \"data_route\" {\n@@ -89,7 +88,7 @@\n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.small\"\n-  subnet_id              = aws_subnet.web_tier.id\n+  subnet_id              = aws_subnet.web_tier_app.id\n   vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n }\n \n@@ -110,3 +109,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n+\n+resource \"aws_subnet\" \"web_tier_app\" {\n+  availability_zone = \"us-east-1a\"\n+  cidr_block        = \"10.193.1.0/24\"\n+  vpc_id            = aws_vpc.network.id\n+}\n",
+      "content_hash": "9ecef2b806511a60551614a417073e9382d81a86a4f049dbe03845d6e33edaa9",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,3 +1,8 @@\n+moved {\n+  from = aws_security_group_rule.data_secgroup_from_app_5432\n+  to   = aws_security_group_rule.data_secgroup_from_app_5432_v2\n+}\n+\n resource \"aws_vpc\" \"network\" {\n   cidr_block           = \"10.193.0.0/16\"\n   enable_dns_hostnames = true\n@@ -45,15 +50,6 @@\n \n   route_table_id = aws_route_table.data_route.id\n   subnet_id      = aws_subnet.data_tier[count.index].id\n-}\n-\n-resource \"aws_security_group_rule\" \"data_secgroup_from_app_5432\" {\n-  from_port                = 5432\n-  protocol                 = \"tcp\"\n-  security_group_id        = aws_security_group.data_secgroup.id\n-  source_security_group_id = aws_security_group.web_secgroup.id\n-  to_port                  = 5432\n-  type                     = \"ingress\"\n }\n \n resource \"aws_security_group_rule\" \"data_secgroup_egress\" {\n@@ -110,3 +106,12 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n+\n+resource \"aws_security_group_rule\" \"data_secgroup_from_app_5432_v2\" {\n+  from_port                = 5432\n+  protocol                 = \"tcp\"\n+  security_group_id        = aws_security_group.data_secgroup.id\n+  source_security_group_id = aws_security_group.web_secgroup.id\n+  to_port                  = 5432\n+  type                     = \"ingress\"\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Renames subnet with moved block and updates references.",
+    "description": "Renames the DB group's 5432 ingress rule with a moved block; all attributes are identical.",
     "invariant_id": null,
     "kind": "change_request"
   },

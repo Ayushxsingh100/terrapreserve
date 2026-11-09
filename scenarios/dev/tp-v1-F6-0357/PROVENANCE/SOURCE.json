@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "provider.tf": "9733f59ff0f0ce6bfcc6dad7f0d9a08055a507a270208f24a8fd46fe3a8638a2",
+  "variables.tf": "cbb0bd550a7d53d06286ac856fd6cafc0f04e3e344129209983a5db7677013a4",
+  "vpc.tf": "c5acb876953b56da23a616ad7a439f33f8260f3858be00c8348786de25fa32f2"
+ },
+ "commit_sha": "c423f7b417e35422415a4ebe6f606e076935e9e5",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "f1899e68c99e781e58c436b1ce0828c972db18cb1a2568115890a56973c41376",
+ "module_id": 471757,
+ "module_path": "aws_vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-471757",
+ "repo_full_name": "Nettas/f5xcs-multi-region-appstack-aws",
+ "repo_id": 609289453,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

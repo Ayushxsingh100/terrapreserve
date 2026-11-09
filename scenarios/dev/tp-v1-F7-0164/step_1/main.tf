@@ -56,7 +56,7 @@ resource "aws_security_group_rule" "app_egress" {
 }
 
 resource "aws_security_group" "app" {
-  description = "Application security group for tpl-08 (central egress gateway)"
+  description = "Application security group for tpl-08"
   name        = "app-tpl-08"
   vpc_id      = aws_vpc.main.id
 }
@@ -67,10 +67,10 @@ resource "aws_security_group" "db" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port       = 5432
-    protocol        = "tcp"
-    security_groups = [aws_security_group.app.id]
-    to_port         = 5432
+    cidr_blocks = ["10.165.1.0/24"]
+    from_port   = 5432
+    protocol    = "tcp"
+    to_port     = 5432
   }
 
   egress {

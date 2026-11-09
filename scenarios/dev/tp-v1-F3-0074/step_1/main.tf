@@ -51,7 +51,7 @@ resource "aws_security_group_rule" "data_secgroup_from_app_5432" {
   from_port                = 5432
   protocol                 = "tcp"
   security_group_id        = aws_security_group.data_secgroup.id
-  source_security_group_id = aws_security_group.web_secgroup.id
+  source_security_group_id = aws_security_group.data_secgroup_peer.id
   to_port                  = 5432
   type                     = "ingress"
 }
@@ -75,7 +75,7 @@ resource "aws_security_group_rule" "web_secgroup_egress" {
 }
 
 resource "aws_security_group" "web_secgroup" {
-  description = "Application security group for tpl-09 (app sg reconfigured)"
+  description = "Application security group for tpl-09"
   name        = "web_secgroup-tpl-09"
   vpc_id      = aws_vpc.network.id
 }
@@ -105,8 +105,14 @@ resource "aws_db_instance" "data_instance" {
   identifier             = "data-instance-tpl-09"
   instance_class         = "db.t3.small"
   password               = var.db_password
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
   vpc_security_group_ids = [aws_security_group.data_secgroup.id]
+}
+
+resource "aws_security_group" "data_secgroup_peer" {
+  description = "Dependent client security group"
+  name        = "data_secgroup-tpl-09-peer"
+  vpc_id      = aws_vpc.network.id
 }
