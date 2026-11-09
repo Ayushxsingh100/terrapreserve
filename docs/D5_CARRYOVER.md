@@ -79,3 +79,44 @@ Facts for D5 so that oracle labels can be compared with generator intent and eve
 - The F1 unsafe operators break INV-SEC-003, INV-SEC-002 and INV-SEC-001 (one each: resize, storage expansion, VPC DNS toggle). The F2 unsafe operators leave the target SEC invariant violated through `ipv6_cidr_blocks = ["::/0"]` (SSH and DB ingress) or an untouched `publicly_accessible = true`; in review round 4 an earlier defect was found where they repaired the target instead (a `"safe" in name` test also matches `unsafe`).
 - Direction of F5 restructuring: only separate rules to inline blocks is generated. Inline blocks to separate rules leaves the group RETAINED-INLINE (registry section 2.6, row 2, D0 amendment A10).
 - The self-check evaluator treats the DNS settings as irrelevant, as the registry does. An AWS calibration run could still diverge on DNS-dependent behaviour (for example a name that does not resolve with `enable_dns_hostnames = false`); the generator never sets `enable_dns_support = false` in a safe variant.
+
+## 6. Whole-module reader conventions and open D5 inputs (after review round 5)
+
+The real-world S0 screen (`generator/realworld/screen.py`) and the round-5 tests (`tests/test_d4b_review_round5.py`) share one reader, `generator/realworld/modread.py`. It is a generator self-check, not the oracle. Its conventions are listed here so that the oracle's results can be compared with them. Where the oracle differs, the difference is a finding to report, not a reason to change the oracle.
+
+### 6.1 Reader conventions (conservative; the registry is not amended)
+
+- **Indeterminacy follows registry v1.0.** Sections 3.3 and 3.4 (`possible4` / `possible6` for TCP 22 and 5432), 5.4 (unresolved `publicly_accessible`) and 6.4 row 7 (an indeterminate rule that could permit TCP/5432 in SG(S), SG(D) or a pseudo-group). An unresolved value that cannot affect any of the four results never rejects a module.
+- **Pseudo-groups.** A rule whose `security_group_id` does not resolve to a configured `aws_security_group` belongs to the pseudo-group `UNRESOLVED:<rule address>` (registry 3.3). A literal group id (for example `"sg-..."`) is also treated as a pseudo-group.
+- **Pseudo-group rules count in any direction for INV-FUNC-001 (6.4 row 7).** An indeterminate pseudo-group rule that could permit TCP/5432 counts whether its type is ingress, egress or unresolved, because its target could be in SG(S) or SG(D).
+- **Type-unresolved rules.** A rule whose `type` is unresolved counts as a possible ingress rule (registry 3.3). The reader also treats such a rule as possible when its resolved sources include `0.0.0.0/0` or `::/0`. This goes one step past the quoted formula, which names only unresolved sources. On the d4b-5 pool it never decided a rejection.
+- **Prefix lists.** A non-empty `prefix_list_ids` counts as an unresolved source (registry 3.3 "include a prefix list"), for IPv4 and IPv6.
+- **`count` and `for_each`.** Resources expanded by `count` or `for_each` are assumed to exist, so a violation is counted as if the resource were created. A `count` that resolves to the literal `0` removes the resource.
+- **`dynamic` blocks.** A `dynamic "ingress"` or `dynamic "egress"` block whose `for_each` resolves is expanded. One whose `for_each` does not resolve becomes one fully unresolved rule in that direction.
+- **What resolves:**
+  - literals, lists and objects of literals;
+  - `var.<name>` with a resolvable `default`;
+  - `local.<name>`;
+  - `aws_security_group.<name>.id` (indexes allowed);
+  - `aws_vpc.<name>.cidr_block` and `aws_subnet.<name>.cidr_block` with a resolvable `cidr_block`;
+  - quoted integer ports such as `"22"`;
+  - the strings `"true"` and `"false"` for booleans.
+
+  Everything else (`each.*`, `data.*`, `module.*`, functions, conditionals, variables without a default) is unresolved.
+- **Equivalent public scope (C-64).** The CIDRs of a group's rules that permit port *p* are taken together. `0.0.0.0/1` plus `128.0.0.0/1` covers `0.0.0.0/0`.
+- **Row order.** The self-check evaluator applies registry 6.4 "first row that applies wins": row 2 (an endpoint without `vpc_security_group_ids`) is checked before row 3 (E2).
+
+### 6.2 Variable values: D5 must decide how the oracle gets them
+
+No scenario carries variable values. No `scenario.json` has a values field, and no step has a `.tfvars` file. Registry 2.2 evaluates "with the scenario's variable values", so D5 must decide how these are supplied before the oracle runs. This matters in particular for any `terraform plan` path.
+
+Measured with `generator/realworld/modread.py` over every step of `scenarios/dev/` at the merge commit `5fc927e`:
+
+| Tier | Dev scenarios | With at least one variable that has no default |
+|---|---|---|
+| Controlled | 144 | 144 (for example `db_password`) |
+| Real-world, whole module | 144 | 144 (every graft declares `tp_db_password` with no default) |
+| Real-world, host files only | 144 | 95 (for example `vpc_id`, `environment`, `project_name`) |
+
+The external review of PR #6 reported 125 of 144 for the real-world tier; the reviewer has since confirmed that figure came from a faulty block scan and that 144 of 144 (whole module) is correct. The test split was not measured for this item.
+
