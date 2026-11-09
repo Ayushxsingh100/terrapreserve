@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F1",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-6",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -164,5 +164,10 @@
     "description": "Disables VPC DNS hostnames with side effect opening SSH to the world on the app group.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "tp_db_password": "tp-placeholder"
+  },
+  "variable_values_rule": "vv-1",
+  "variable_values_unresolved": {}
 }

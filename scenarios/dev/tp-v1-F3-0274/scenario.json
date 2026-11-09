@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-6",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -123,5 +123,16 @@
     "description": "Restricts the app group egress to TCP 443 only, with no rule permitting 5432.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "allocated_storage": 1,
+    "db_password": "tp-placeholder",
+    "instance_class": "tp-placeholder",
+    "multi_az": false,
+    "resource_prefix": "tp-placeholder",
+    "subnet_ids": [],
+    "tp_db_password": "tp-placeholder"
+  },
+  "variable_values_rule": "vv-1",
+  "variable_values_unresolved": {}
 }

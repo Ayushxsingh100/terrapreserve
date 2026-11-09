@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-6",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -131,5 +131,18 @@
     "description": "Adds a new client group and re-points the DB group's 5432 ingress source to it.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "client_vpn_cidr": "tp-placeholder",
+    "ec2_app_port": 1,
+    "ec2_app_port_health": 1,
+    "isolated_subnet_cidrs": [],
+    "private_subnet_cidrs": [],
+    "project_name": "tp-placeholder",
+    "public_subnet_cidrs": [],
+    "tp_db_password": "tp-placeholder",
+    "vpc_id": "tp-placeholder"
+  },
+  "variable_values_rule": "vv-1",
+  "variable_values_unresolved": {}
 }

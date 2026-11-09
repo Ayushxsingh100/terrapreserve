@@ -54,7 +54,7 @@ D4b delivers the 160 real-world targets (+ 48 reserves) by grafting onto pooled 
 
 Facts for D5 so that oracle labels can be compared with generator intent and every disagreement reported. Decides nothing; D5 labels come from the oracle only (`oracle/`, ADR-010).
 
-- Generator versions: controlled tier `d4a-4`, real-world tier `d4b-5` (`generator/VERSION.py`, `generator/realworld/generate_rw.py`).
+- Generator versions: controlled tier `d4a-5`, real-world tier `d4b-6` (`generator/VERSION.py`, `generator/realworld/generate_rw.py`). The operators are unchanged since `d4a-4` and `d4b-5`; D5a added only `variable_values`.
 - The generator is designed so that no generated step is UNSUPPORTED or UNKNOWN for INV-FUNC-001 for a reason the generator controls (D4b-13, Open 3). It never emits `vpc_security_group_ids = []`, never leaves a group MIXED or RETAINED-INLINE, never adds a non-local route inside the VPC CIDR, and never uses an egress or ingress CIDR that only partly covers `CIDR(VPC(D))` or the app subnet. `tests/test_d4b_review_round4.py` checks this with a small self-check evaluator written from registry section 6.3 text (E1 to E6) and section 6.4 rows 1, 2, 3, 6, 8 and 9. That evaluator is not the oracle. If the oracle returns UNSUPPORTED or UNKNOWN for any generated step, that is a disagreement to report.
 - Every safe operator is designed to give INV-FUNC-001 = PASS (row 6) on every step. Every unsafe operator that does not list INV-FUNC-001 below is designed to leave INV-FUNC-001 = PASS and to violate the SEC invariant in its `intent.breaks`.
 - The INV-FUNC-001-breaking operators, their break mechanism and the registry section 6.4 row they are designed to reach on the last step (`intent.breaks` contains `INV-FUNC-001` for exactly these). Mechanisms: B1 egress port range excluding 5432; B2 egress CIDR disjoint from `CIDR(VPC(D))`; B3 DB group 5432 ingress dropped or moved off 5432; B4 DB group 5432 ingress re-pointed to a group outside `SG(S)`; B5 `aws_db_instance.port` not 5432.
@@ -108,7 +108,9 @@ The real-world S0 screen (`generator/realworld/screen.py`) and the round-5 tests
 
 ### 6.2 Variable values: D5 must decide how the oracle gets them
 
-No scenario carries variable values. No `scenario.json` has a values field, and no step has a `.tfvars` file. Registry 2.2 evaluates "with the scenario's variable values", so D5 must decide how these are supplied before the oracle runs. This matters in particular for any `terraform plan` path.
+**Update (D5a, D5-01):** every `scenario.json` now carries `variable_values` under rule `vv-1`, with `variable_values_unresolved` for variables the rule cannot satisfy. See `docs/D5_DECISIONS.md` and `docs/D5A_FEASIBILITY.md`. The text below records the state at `5fc927e`.
+
+At `5fc927e`, no scenario carried variable values. No `scenario.json` had a values field, and no step has a `.tfvars` file. Registry 2.2 evaluates "with the scenario's variable values", so D5 must decide how these are supplied before the oracle runs. This matters in particular for any `terraform plan` path.
 
 Measured with `generator/realworld/modread.py` over every step of `scenarios/dev/` at the merge commit `5fc927e`:
 

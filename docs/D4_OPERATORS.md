@@ -1,6 +1,6 @@
 # D4 Operators Catalogue
 
-Catalogue of mutation operators for benchmark scenario families F1 through F8 in TerraPreserve (D0 Decision 5; D4-07). It describes generator versions `d4a-4` (controlled tier) and `d4b-5` (real-world tier). Operator names in this file are checked against `generator/operators/__init__.py` by `tests/test_d4b_review_round4.py` (test 9); the section "Renames and removals" at the end is history and is excluded from that check.
+Catalogue of mutation operators for benchmark scenario families F1 through F8 in TerraPreserve (D0 Decision 5; D4-07). It describes generator versions `d4a-5` (controlled tier) and `d4b-6` (real-world tier). Operator names in this file are checked against `generator/operators/__init__.py` by `tests/test_d4b_review_round4.py` (test 9); the section "Renames and removals" at the end is history and is excluded from that check.
 
 Every operator:
 1. Declares its family (`F1`..`F8`).
@@ -166,11 +166,11 @@ Natives (un-grafted real-world modules and derived natives) contain real, non-ca
 - Block does not use `count` or `for_each`.
 - If preconditions fail, the operator does not apply and the module is not used for that cell.
 
-**Implemented native operators (d4b-5):** one span-edit routine serves every family label and records the operator name `op_native_<family>_<class>`.
+**Implemented native operators (d4b-6):** one span-edit routine serves every family label and records the operator name `op_native_<family>_<class>`.
 - Safe: changes the first `aws_instance` `instance_type` to the next size (1 mutation row).
 - Unsafe: the same change plus `publicly_accessible = true` on the first `aws_db_instance` (breaks `INV-SEC-003`).
 - In the committed assembly the native modules fall in the F1 safe cell only (`op_native_f1_safe`).
-- The native operators for F2, F4, F6 and F8 that D4b-05 proposes are not implemented in d4b-5.
+- The native operators for F2, F4, F6 and F8 that D4b-05 proposes are not implemented in d4b-6.
 
 ---
 

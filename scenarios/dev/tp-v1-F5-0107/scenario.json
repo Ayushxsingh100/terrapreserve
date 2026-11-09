@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4a-4",
+  "generator_version": "d4a-5",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -162,7 +162,7 @@
   "scenario_id": "tp-v1-F5-0107",
   "seed": 107,
   "source": {
-    "commit_or_version": "d4a-4+tpl-v1.0",
+    "commit_or_version": "d4a-5+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -190,5 +190,10 @@
     "kind": "change_request"
   },
   "template_id": "tpl-03",
-  "template_version": "tpl-v1.0"
+  "template_version": "tpl-v1.0",
+  "variable_values": {
+    "db_password": "tp-placeholder"
+  },
+  "variable_values_rule": "vv-1",
+  "variable_values_unresolved": {}
 }

@@ -32,11 +32,12 @@ import hcl_lex
 import operators
 import seed
 import validate
+import varvalues
 import writer
 from realworld import graft, plan as rw_plan, real_diff_verify, screen, span_edit
 
 DATASET_VERSION = "1.0"
-GENERATOR_VERSION = "d4b-5"
+GENERATOR_VERSION = "d4b-6"
 
 PROTECTED_INVARIANTS = [
     {"invariant_id": "INV-SEC-001", "version": "1.0"},
@@ -362,6 +363,9 @@ def generate_real_world_scenario(
             else:
                 flat_records.append(r)
 
+    # D5-01: variable values (rule vv-1), one set for the whole scenario; steps are not changed.
+    vv_values, vv_unresolved = varvalues.compute(steps_files)
+
     scenario_data = {
         "scenario_id": scenario_id,
         "dataset_version": DATASET_VERSION,
@@ -405,6 +409,9 @@ def generate_real_world_scenario(
         "protected_invariants": PROTECTED_INVARIANTS,
         "steps": steps_meta,
         "mutation_record": flat_records,
+        "variable_values": vv_values,
+        "variable_values_rule": varvalues.RULE,
+        "variable_values_unresolved": vv_unresolved,
         "labels": None,
         "oracle": None,
     }

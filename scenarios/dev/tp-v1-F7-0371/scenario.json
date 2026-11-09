@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F7",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-6",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -139,5 +139,22 @@
     "description": "Replaces the DB group's 5432 ingress source group with the application subnet CIDR.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "account_id": "tp-placeholder",
+    "account_profile": "tp-placeholder",
+    "private_subnet_cidr": "tp-placeholder",
+    "public_subnet_cidr": "tp-placeholder",
+    "tag_constcode": "tp-placeholder",
+    "tag_contact": "tp-placeholder",
+    "tag_description": "tp-placeholder",
+    "tag_environment": "tp-placeholder",
+    "tag_orchestration": "tp-placeholder",
+    "tag_product": "tp-placeholder",
+    "tag_sub_product": "tp-placeholder",
+    "tp_db_password": "tp-placeholder",
+    "vpc_cidr": "tp-placeholder"
+  },
+  "variable_values_rule": "vv-1",
+  "variable_values_unresolved": {}
 }

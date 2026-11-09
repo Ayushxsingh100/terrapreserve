@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F8",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-6",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -157,5 +157,13 @@
     "description": "Repair public SSH ingress on port 22",
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
-  }
+  },
+  "variable_values": {
+    "availability_zone": "tp-placeholder",
+    "availability_zone_alternate": "tp-placeholder",
+    "project": "tp-placeholder",
+    "tp_db_password": "tp-placeholder"
+  },
+  "variable_values_rule": "vv-1",
+  "variable_values_unresolved": {}
 }

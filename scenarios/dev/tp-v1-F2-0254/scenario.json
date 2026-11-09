@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F2",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-6",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -107,5 +107,17 @@
     "description": "Repair publicly accessible database instance",
     "invariant_id": "INV-SEC-003",
     "kind": "repair"
-  }
+  },
+  "variable_values": {
+    "azs": "tp-placeholder",
+    "environment": "tp-placeholder",
+    "natgw_id": "tp-placeholder",
+    "private_cidr_block": "tp-placeholder",
+    "public_cidr_block": "tp-placeholder",
+    "tp_db_password": "tp-placeholder",
+    "vpc_cidr": "tp-placeholder",
+    "vpc_name": "tp-placeholder"
+  },
+  "variable_values_rule": "vv-1",
+  "variable_values_unresolved": {}
 }
