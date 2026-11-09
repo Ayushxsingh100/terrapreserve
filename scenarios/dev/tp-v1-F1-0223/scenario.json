@@ -2,15 +2,16 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F1",
-  "generator_version": "d4b-4",
+  "generator_version": "d4b-5",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
     {
-      "bytes_after": 428,
-      "bytes_before": 533,
-      "file": "main.tf",
+      "bytes_after": 1,
+      "bytes_before": 312,
+      "file": "provider.tf",
       "removed_blocks": [
+        "terraform",
         "provider"
       ]
     }
@@ -29,7 +30,7 @@
     "target_kind": "change_request"
   },
   "labels": null,
-  "module_id": 303576,
+  "module_id": 571501,
   "mutation_record": [
     {
       "after": "30",
@@ -93,11 +94,11 @@
     "derived": false,
     "grafted": true,
     "kind": "host",
-    "lineage_id": "lin-000147527265",
-    "module_id": 303576,
-    "pool_id": "terrads-host-303576"
+    "lineage_id": "lin-000840480004",
+    "module_id": 571501,
+    "pool_id": "terrads-host-571501"
   },
-  "pool_id": "terrads-host-303576",
+  "pool_id": "terrads-host-571501",
   "protected_invariants": [
     {
       "invariant_id": "INV-SEC-001",
@@ -117,7 +118,7 @@
     }
   ],
   "reserve": false,
-  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
   "scenario_id": "tp-v1-F1-0223",
   "scope_addresses": [
     "aws_db_instance.tp_db",
@@ -138,23 +139,23 @@
   ],
   "seed": 223,
   "source": {
-    "commit_or_version": "a6fc8a7de057be242a749ba49744577a28867f0f",
+    "commit_or_version": "ed1ed07b932bf4b842e300d791c07af6673ece00",
     "grafted": true,
-    "license": "MIT",
+    "license": "Apache-2.0",
     "origin": "terrads",
-    "repo_lineage_id": "lin-000147527265",
+    "repo_lineage_id": "lin-000840480004",
     "tier": "real_world"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "6b3f5b9586ddbe4791950fc69a601d1c654c9fe09088fe58d9d1f4bddfe18138",
+      "content_hash": "ece68f016fc66f800e55bf294e5471114cbf0517c05f0f3b031a9e278d5e042a",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "daee6243675f1c2b841e8ec3dcce99322e778856b716ef2afc6f6b0e1da25164",
+      "content_hash": "e1d9a2a9b696f695f607f05fd110d69c90af0d2e629f97c3cbc9cccbc1af99d5",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -92,7 +92,7 @@\n }\n \n resource \"aws_db_instance\" \"tp_db\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.tp_db_subnet_group.name\n   engine                 = \"postgres\"\n   identifier             = \"tp-db-instance\"\n@@ -103,3 +103,12 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group_rule\" \"tp_db_sg_ingress_db_public\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 5432\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.tp_db_sg.id\n+  to_port           = 5432\n+  type              = \"ingress\"\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"

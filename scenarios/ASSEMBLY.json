@@ -427,8 +427,8 @@
   },
   "real_world": {
     "composition": {
-      "derived_natives": 5,
-      "hosts": 203,
+      "derived_natives": 0,
+      "hosts": 208,
       "original_natives": 0,
       "unique_modules": 208
     },

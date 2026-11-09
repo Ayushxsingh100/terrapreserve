@@ -1,11 +1,20 @@
-output "SG_allow_22_id" {
-  value = "${ aws_security_group.allow_22.id }"
+
+output "vpc_id" {
+  value = aws_vpc.vpc.id
 }
 
-output "SG_allow_80_id" {
-  value = "${ aws_security_group.allow_80.id }"
+output "public_subnet_ids" {
+  value = aws_subnet.public_subnet[*].id
 }
 
-output "SG_allow_4567_id" {
-  value = "${ aws_security_group.allow_4567.id }"
+output "public_subnet_cidr_blocks" {
+  value = aws_subnet.public_subnet[*].cidr_block
+}
+
+output "private_subnet_ids" {
+  value = aws_subnet.private_subnet[*].id
+}
+
+output "private_subnet_cidr_blocks" {
+  value = aws_subnet.private_subnet[*].cidr_block
 }

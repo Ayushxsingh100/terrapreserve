@@ -2,19 +2,10 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F2",
-  "generator_version": "d4b-4",
+  "generator_version": "d4b-5",
   "grafted": true,
   "gt_class": null,
-  "host_transform": [
-    {
-      "bytes_after": 786,
-      "bytes_before": 831,
-      "file": "main.tf",
-      "removed_blocks": [
-        "provider"
-      ]
-    }
-  ],
+  "host_transform": [],
   "intent": {
     "breaks": [
       "INV-SEC-003"
@@ -29,7 +20,7 @@
     "target_kind": "repair"
   },
   "labels": null,
-  "module_id": 354041,
+  "module_id": 591839,
   "mutation_record": [
     {
       "after": "7",
@@ -45,11 +36,11 @@
     "derived": false,
     "grafted": true,
     "kind": "host",
-    "lineage_id": "lin-000301645494",
-    "module_id": 354041,
-    "pool_id": "terrads-host-354041"
+    "lineage_id": "lin-000908899186",
+    "module_id": 591839,
+    "pool_id": "terrads-host-591839"
   },
-  "pool_id": "terrads-host-354041",
+  "pool_id": "terrads-host-591839",
   "protected_invariants": [
     {
       "invariant_id": "INV-SEC-001",
@@ -69,7 +60,7 @@
     }
   ],
   "reserve": false,
-  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
   "scenario_id": "tp-v1-F2-0254",
   "scope_addresses": [
     "aws_db_instance.tp_db",
@@ -90,23 +81,23 @@
   ],
   "seed": 254,
   "source": {
-    "commit_or_version": "ed45a5afd6d1e00c500acc0a365a5dfbe827ea31",
+    "commit_or_version": "6b42c8134bbdd1e1dafe0db60cf08df3f3106dfe",
     "grafted": true,
-    "license": "Apache-2.0",
+    "license": "MIT",
     "origin": "terrads",
-    "repo_lineage_id": "lin-000301645494",
+    "repo_lineage_id": "lin-000908899186",
     "tier": "real_world"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "9ffaf9c934d21128ff456d8211b3cb7638e22e62c6f44b4c2ca08b5ecefac865",
+      "content_hash": "7f157afe77f96faa39c817c241c36c82409f477d09c37ee0639f4f4569973b6e",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "613c6bdbf481f39b167415314d8180b5066d41a6b1e66d37ff533c6d12086ff1",
+      "content_hash": "5e718dabd04afbb2d2fb61014d784e1742ab1079c14be2a60f27ba86590fac7d",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -92,14 +92,15 @@\n }\n \n resource \"aws_db_instance\" \"tp_db\" {\n-  allocated_storage      = 20\n-  db_subnet_group_name   = aws_db_subnet_group.tp_db_subnet_group.name\n-  engine                 = \"postgres\"\n-  identifier             = \"tp-db-instance\"\n-  instance_class         = \"db.t3.micro\"\n-  password               = var.tp_db_password\n-  publicly_accessible    = true\n-  skip_final_snapshot    = true\n-  username               = \"tp_admin\"\n-  vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n+  allocated_storage       = 20\n+  backup_retention_period = 7\n+  db_subnet_group_name    = aws_db_subnet_group.tp_db_subnet_group.name\n+  engine                  = \"postgres\"\n+  identifier              = \"tp-db-instance\"\n+  instance_class          = \"db.t3.micro\"\n+  password                = var.tp_db_password\n+  publicly_accessible     = true\n+  skip_final_snapshot     = true\n+  username                = \"tp_admin\"\n+  vpc_security_group_ids  = [aws_security_group.tp_db_sg.id]\n }\n",
       "step": 1,
       "terraform_dir": "step_1"

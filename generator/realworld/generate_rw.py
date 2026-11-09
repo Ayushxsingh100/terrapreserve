@@ -36,7 +36,7 @@ import writer
 from realworld import graft, plan as rw_plan, real_diff_verify, screen, span_edit
 
 DATASET_VERSION = "1.0"
-GENERATOR_VERSION = "d4b-4"
+GENERATOR_VERSION = "d4b-5"
 
 PROTECTED_INVARIANTS = [
     {"invariant_id": "INV-SEC-001", "version": "1.0"},
@@ -126,6 +126,12 @@ def generate_real_world_scenario(
         # Validate no clash between host and graft
         graft.validate_no_clash(neutralised_files, seed=global_id)
 
+        # Whole-module S0 screen (D4b-15): hosts are never exempt, whatever the scenario's target.
+        host_screen = screen.screen_module(neutralised_files)
+        if not host_screen.accepted:
+            raise ValueError(f"host module {module_id} fails the S0 screen for {scenario_id}: "
+                             f"{host_screen.codes} {host_screen.details[:3]}")
+
         # Select D4a operator (deterministically finding first applicable)
         cell_ops = [op for op in operators.CATALOGUE if op.family == family and op.variant == cls]
         assert cell_ops, f"No operators found for cell ({family}, {cls})"
@@ -211,7 +217,7 @@ def generate_real_world_scenario(
         scope_addresses = sorted(
             r.type + "." + r.name for r in graft_m0.resources.values()
         )
-        s0_screen_status = "eligible (graft core synthesized clean except target)"
+        s0_screen_status = "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)"
         target_info = {
             "kind": op.target_kind,
             "invariant_id": op.target_invariant,
@@ -415,6 +421,8 @@ def write_real_world_scenario(
     """Write scenario directory with scenario.json, step_0/, step_1/, and PROVENANCE/."""
     sc_id = scenario_data["scenario_id"]
     sc_dir = target_root / sc_id
+    if sc_dir.is_dir():
+        shutil.rmtree(sc_dir)  # a replaced host must not leave files of the old host behind
     sc_dir.mkdir(parents=True, exist_ok=True)
 
     # 1. scenario.json

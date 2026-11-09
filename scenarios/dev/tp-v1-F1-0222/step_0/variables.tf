@@ -1,4 +1,9 @@
-## VPC Variables
 variable "vpc_id" {
-  description = "ID of the VPC to create subnet"
+  description = "The ID of the VPC"
+  type        = string
+}
+
+variable "environment" {
+  description = "The environment (dev or test)"
+  type        = string
 }

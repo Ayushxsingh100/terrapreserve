@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F4",
-  "generator_version": "d4b-4",
+  "generator_version": "d4b-5",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -19,7 +19,7 @@
     "target_kind": "repair"
   },
   "labels": null,
-  "module_id": 392709,
+  "module_id": 621360,
   "mutation_record": [
     {
       "after": "[\"172.16.0.0/12\"]",
@@ -35,11 +35,11 @@
     "derived": false,
     "grafted": true,
     "kind": "host",
-    "lineage_id": "lin-000420245953",
-    "module_id": 392709,
-    "pool_id": "terrads-host-392709"
+    "lineage_id": "lin-000983671103",
+    "module_id": 621360,
+    "pool_id": "terrads-host-621360"
   },
-  "pool_id": "terrads-host-392709",
+  "pool_id": "terrads-host-621360",
   "protected_invariants": [
     {
       "invariant_id": "INV-SEC-001",
@@ -59,7 +59,7 @@
     }
   ],
   "reserve": false,
-  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
   "scenario_id": "tp-v1-F4-0292",
   "scope_addresses": [
     "aws_db_instance.tp_db",
@@ -80,23 +80,23 @@
   ],
   "seed": 292,
   "source": {
-    "commit_or_version": "827d13bca26b8f6aa50e0e903e942bff2b7ac648",
+    "commit_or_version": "4c705e173f90daa69eb76fd7b44f7f18f6457e2c",
     "grafted": true,
     "license": "MIT",
     "origin": "terrads",
-    "repo_lineage_id": "lin-000420245953",
+    "repo_lineage_id": "lin-000983671103",
     "tier": "real_world"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "95758d60e95c12dca2be0cabcac369bb0787b16806291c02a1ee783d09c1f075",
+      "content_hash": "3500c1792bfb627ab24b23c98cc2333b2ad5055a0d2b600b264724e72746b525",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "2a220dc44ee448766f30b1b0f01fea914188430057147eaadc1c1454b1ebc9a5",
+      "content_hash": "d6258d3d09117a134f6b5d9fe85ee8b0beddbda8fc9725dee488ec6b3ab18c9d",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -71,7 +71,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"172.16.0.0/12\"]\n   from_port         = 5432\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_db_sg.id\n",
       "step": 1,
       "terraform_dir": "step_1"

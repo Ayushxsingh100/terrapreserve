@@ -1,7 +1,10 @@
-output "vm_sg_name" {
-  value = aws_security_group.btc.name
+output "vpc_id" {
+  description = "The ID of the VPC"
+  value       = aws_vpc.this.id
 }
 
-output "elb_sg_id" {
-  value = aws_security_group.btc_lb.id
+# Expose the subnet IDs so the EC2 example can use them
+output "public_subnet_ids" {
+  description = "IDs of the public subnets"
+  value       = [for s in aws_subnet.public : s.id]
 }

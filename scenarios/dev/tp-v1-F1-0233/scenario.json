@@ -2,19 +2,10 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F1",
-  "generator_version": "d4b-4",
+  "generator_version": "d4b-5",
   "grafted": true,
   "gt_class": null,
-  "host_transform": [
-    {
-      "bytes_after": 29,
-      "bytes_before": 134,
-      "file": "providers.tf",
-      "removed_blocks": [
-        "provider"
-      ]
-    }
-  ],
+  "host_transform": [],
   "intent": {
     "breaks": [
       "INV-SEC-001"
@@ -29,7 +20,7 @@
     "target_kind": "change_request"
   },
   "labels": null,
-  "module_id": 321391,
+  "module_id": 574177,
   "mutation_record": [
     {
       "after": "false",
@@ -93,11 +84,11 @@
     "derived": false,
     "grafted": true,
     "kind": "host",
-    "lineage_id": "lin-000204710342",
-    "module_id": 321391,
-    "pool_id": "terrads-host-321391"
+    "lineage_id": "lin-000849903194",
+    "module_id": 574177,
+    "pool_id": "terrads-host-574177"
   },
-  "pool_id": "terrads-host-321391",
+  "pool_id": "terrads-host-574177",
   "protected_invariants": [
     {
       "invariant_id": "INV-SEC-001",
@@ -117,7 +108,7 @@
     }
   ],
   "reserve": true,
-  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
   "scenario_id": "tp-v1-F1-0233",
   "scope_addresses": [
     "aws_db_instance.tp_db",
@@ -138,23 +129,23 @@
   ],
   "seed": 233,
   "source": {
-    "commit_or_version": "f44537b01b7cd73d05a8695d9c3cb404543f0ba8",
+    "commit_or_version": "08dc7e59a966111047468ad7f28fdaf8d9dc2c1d",
     "grafted": true,
     "license": "MIT",
     "origin": "terrads",
-    "repo_lineage_id": "lin-000204710342",
+    "repo_lineage_id": "lin-000849903194",
     "tier": "real_world"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "21a5327b6a20e09a1a060da59a128a0427bacfb3e10bf2d08131205592703278",
+      "content_hash": "7f6fc3288b7b7e995ad3c6ab9ebeeab94489f98e902ac6de63b3cb5851d5732c",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "57369a2f656f943f1a0021ac599e958fd7a0bf64125a1484227671aad3be0b00",
+      "content_hash": "389e7e9abaedf845f40c63af5f18af06a7df534a711b3cdadbea48078ed2d1fb",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.18.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n@@ -103,3 +103,12 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group_rule\" \"tp_app_sg_ingress_ssh\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 22\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.tp_app_sg.id\n+  to_port           = 22\n+  type              = \"ingress\"\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"

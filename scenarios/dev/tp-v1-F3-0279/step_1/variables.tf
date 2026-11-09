@@ -1,60 +1,25 @@
-variable "vpc_id" {
-  type        = string
-  description = "The ID of the VPC in which to attach the security group"
+variable "vpc_config" {
+  description = "To get the VPC configuration"
+  type = object({
+    cidr_block = string
+    name       = string
+  })
+  validation {
+    condition     = can(cidrnetmask(var.vpc_config.cidr_block))
+    error_message = "The cidr_block must be a valid CIDR block."
+  }
 }
 
-variable "sg_name_prefix" {
-  type        = string
-  description = "Prefix for security group names"
-}
+variable "subnet_config" {
+  description = "values for subnet configuration"
+  type = map(object({
+    cidr_block = string
+    az         = string
+    public  = optional(bool, false)
+  }))
 
-variable "ingress_cidr_blocks" {
-  type        = list(string)
-  description = "CIDR blocks to attach to security groups for ingress"
-  default     = []
-}
-
-variable "ingress_security_groups" {
-  type        = list(string)
-  description = "Existing security groups to attach to new security groups for ingress"
-  default     = []
-}
-
-variable "egress_cidr_blocks" {
-  type        = list(string)
-  description = "CIDR blocks to attach to security groups for egress"
-  default     = []
-}
-
-variable "egress_security_groups" {
-  type        = list(string)
-  description = "Existing security groups to attach to new security groups for egress"
-  default     = []
-}
-
-variable "tags" {
-  type        = map(string)
-  description = "A map of tags to add to all resources."
-  default     = {}
-}
-
-variable "ingress_ports" {
-  type        = list(number)
-  description = "Ports to create ingress traffic rules for"
-}
-
-variable "maximum_rules_per_sg" {
-  type        = number
-  description = "Maximum number of rules for each security group"
-  default     = 50
-}
-
-variable "ingress_protocol" {
-  type        = string
-  description = "Protocol for ingress rules. If not icmp, icmpv6, tcp, udp, or all use the protocol number."
-}
-
-variable "egress_protocol" {
-  type        = string
-  description = "Protocol for egress rules. If not icmp, icmpv6, tcp, udp, or all use the protocol number."
+  validation {
+    condition     = alltrue([for config in var.subnet_config: can(cidrnetmask(config.cidr_block))])
+    error_message = "The cidr_block must be a valid CIDR block."
+  }
 }

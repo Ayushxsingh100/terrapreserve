@@ -1,22 +1,22 @@
 {
  "archive_sha256": {
-  "main.tf": "77b65c01ad943b4436a30255da948e1952764b406069241fa08f4dc6f1550461",
-  "output.tf": "2ed53e8e6eaa9d5b831af9a9d7a3a049b61ba8fd0a728f3b6e01e681f666847e",
-  "variables.tf": "e878358b9484fb558cc67cc30002ecb31f5e90c2a4c78aeef762d8ea12022456",
-  "versions.tf": "075efb7e5c0308d43de738f30c6d777b10544d1fb301e8705d7195efeb821d61"
+  "main.tf": "ca3dc79a1dfc1da53b69de0e29d9b5e4b321d8baf56c47e08fab7ea15f6c1907",
+  "outputs.tf": "851392f36e849bda511ed52facc8ab9fa7818d0830d0adf2134f8f268cb9c54e",
+  "variables.tf": "30739a81f6e5a62eba91bff0fe31a63aedb7436e87dc598270de6f4689bfe506",
+  "versions.tf": "c7817a2c00fbb1ac4416b36f4eda56fa23dda553f7430548ae254ad1401dab51"
  },
- "commit_sha": "6c81ceae5c418ab4dfb5f993c4efd91cd9bd42d0",
+ "commit_sha": "515522229ef8b47a42f4ae5ca1555b0df8bee4aa",
  "crlf_normalised": [],
  "kind": "host",
  "licence_source_file": "LICENSE",
  "licence_spdx": "MIT",
- "licence_upstream_sha256": "7cce23d397af24d38240b6a664e7f7338176a3f93341860425e83aa8aca61440",
- "module_id": 472022,
- "module_path": "Cloud and Branch Connector/terraform/labs/modules/terraform-zsbastion-aws",
+ "licence_upstream_sha256": "54e6c733d919b689e3a20863e5fca7ee81da931068e6f00323026f6fa93d8787",
+ "module_id": 659903,
+ "module_path": "modules/vpc",
  "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
- "pool_id": "terrads-host-472022",
- "repo_full_name": "zscaler/zscaler-script-samples",
- "repo_id": 609271016,
+ "pool_id": "terrads-host-659903",
+ "repo_full_name": "vikasch123/terraform-aws-vikas-test-vpc",
+ "repo_id": 1077792647,
  "terrads": {
   "concept_doi": "10.5281/zenodo.14217385",
   "doi": "10.5281/zenodo.20339474",

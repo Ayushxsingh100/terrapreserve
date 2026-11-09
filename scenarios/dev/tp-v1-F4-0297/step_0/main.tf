@@ -1,37 +1,52 @@
-resource "aws_instance" "ec2" {
-  count                       = var.number_of_instances
-  ami                         = var.ec2_ami
-  instance_type               = var.ec2_instance_type
+resource "aws_vpc" "main" {
+    cidr_block = var.aws_config.cidr_block
+    tags = {
+      Name = var.aws_config.Name
+    }
+  
+}
+resource "aws_subnet" "main" {
+    vpc_id = aws_vpc.main.id
+    for_each = var.subnet_config #key={cidr ,az} each.key each.value
 
-  subnet_id                   = var.subnet_id
-  vpc_security_group_ids      = [aws_security_group.ec2_security_group.id]
-  associate_public_ip_address = true
-  tags = {
-    Name = "instance-${count.index}"
+    cidr_block = each.value.cidr_block
+    availability_zone = each.value.az
+    tags = {
+      Name = each.key
+    }
+  
+}
+locals {
+  public_subnet= {
+    for key, config in var.subnet_config : key => config if config.public
+  }
+   private_subnet= {
+    for key, config in var.subnet_config : key => config if !config.public
   }
 }
 
-resource "aws_security_group" "ec2_security_group" {
-  name        = var.ec2_security_group_name
-  description = var.ec2_security_group_description
+#Internet gateway , if there is atleast one public subnet
+resource "aws_internet_gateway" "main" {
 
-  vpc_id      = var.vpc_id_ec2
+vpc_id = aws_vpc.main.id
+count = length(local.public_subnet) > 0 ? 1 : 0
+  
+}
+#Routing table 
+resource "aws_route_table" "main" {
+    vpc_id = aws_vpc.main.id
+    count = length(local.public_subnet) > 0 ? 1 : 0
+    route {
+        cidr_block = "0.0.0.0/0"
+        gateway_id = aws_internet_gateway.main[0].id
+    }
+  
+}
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_route_table_association" "main" {
+    
+    for_each = local.public_subnet
+    subnet_id = aws_subnet.main[each.key].id
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = var.ec2_security_group_name
-  }
+route_table_id =  aws_route_table.main[0].id 
 }

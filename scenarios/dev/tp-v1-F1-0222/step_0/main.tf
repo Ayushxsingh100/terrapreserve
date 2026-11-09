@@ -1,25 +1,21 @@
-resource "aws_security_group" "open_all_sg" {
-  name        = "allow_all"
-  description = "Allow all inbound traffic"
-  vpc_id      = "${var.vpc_id}"
+resource "aws_security_group" "main" {
+  vpc_id      = var.vpc_id
+  name        = "${var.environment}-security-group"
+  description = "Allow inbound traffic"
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
   }
 
-  egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = ["0.0.0.0/0"]
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
   }
 
   tags = {
-    Owner       = "john-oneill"
-    Environment = "dev"
-    Terraform   = "true"
+    Name = "${var.environment}-sg"
   }
 }

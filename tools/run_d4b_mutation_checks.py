@@ -369,6 +369,156 @@ def check_13_nonlocal_route() -> None:
         _report("test 4", control, r4.check_nonlocal_routes(r4.load_scenario(dst)))
 
 
+def _r5():
+    sys.path.insert(0, str(REPO_ROOT / "tests"))
+    import test_d4b_review_round5 as r5
+
+    return r5
+
+
+def _inject_step0(dst: Path, text: str, name: str = "zz_injected.tf") -> None:
+    first = sorted(dst.glob("step_*"), key=lambda p: int(p.name.split("_")[1]))[0]
+    (first / name).write_text(text, encoding="utf-8", newline="\n")
+
+
+def _round5_check(title: str, test_label: str, injected: str, check_name: str) -> None:
+    print(f"\n=== Mutation {title} ===")
+    r4, r5 = _r4(), _r5()
+    sc = next(_dev_scenarios(r4, "real_world"))
+    fn = getattr(r5, check_name)
+    with tempfile.TemporaryDirectory() as tmp:
+        dst = _scratch(sc, Path(tmp))
+        control = fn(r4.load_scenario(dst))
+        _inject_step0(dst, injected)
+        _report(test_label, control, fn(r4.load_scenario(dst)))
+
+
+def check_14_host_group_world_ssh() -> None:
+    _round5_check("14 (a): host security group with TCP 22 from 0.0.0.0/0 added to a dev S0 (round-5 test 1)",
+                  "round-5 test 1", """
+resource "aws_security_group" "zz_injected" {
+  name = "zz-injected"
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+""", "check_sec_s0")
+
+
+def check_15_host_group_equivalent_public_scope() -> None:
+    _round5_check("15 (b): host group whose 5432 rules are 0.0.0.0/1 and 128.0.0.0/1 (round-5 test 1)",
+                  "round-5 test 1", """
+resource "aws_security_group" "zz_injected" {
+  name = "zz-injected"
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/1"]
+  }
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["128.0.0.0/1"]
+  }
+}
+""", "check_sec_s0")
+
+
+def check_16_host_db_public() -> None:
+    _round5_check("16 (c): host aws_db_instance with publicly_accessible = true (round-5 test 2)",
+                  "round-5 test 2", """
+resource "aws_db_instance" "zz_injected" {
+  identifier          = "zz-injected"
+  engine              = "postgres"
+  instance_class      = "db.t3.micro"
+  publicly_accessible = true
+}
+""", "check_sec003_s0")
+
+
+def check_17_aws_route_added() -> None:
+    _round5_check("17 (d): aws_route resource added (round-5 test 3)", "round-5 test 3", """
+resource "aws_route" "zz_injected" {
+  route_table_id         = "rtb-00000000"
+  destination_cidr_block = "10.99.0.0/16"
+  gateway_id             = "igw-00000000"
+}
+""", "check_unsupported_types")
+
+
+def check_18_for_each_rule_unresolved_type() -> None:
+    _round5_check("18 (e): for_each rule with type = each.value.type, TCP 22 and unresolved CIDRs "
+                  "(round-5 test 5, registry 3.3: type-unresolved rule counts as possible ingress)",
+                  "round-5 test 5", """
+resource "aws_security_group" "zz_injected" {
+  name = "zz-injected"
+}
+
+resource "aws_security_group_rule" "zz_injected" {
+  for_each          = { a = { type = "ingress", cidrs = ["10.0.0.0/8"] } }
+  security_group_id = aws_security_group.zz_injected.id
+  type              = each.value.type
+  protocol          = "tcp"
+  from_port         = 22
+  to_port           = 22
+  cidr_blocks       = each.value.cidrs
+}
+""", "check_indeterminacy")
+
+
+def check_19_derived_scenario_back() -> None:
+    print("\n=== Mutation 19 (f): a derived: true scenario put back (round-5 test 8) ===")
+    r4, r5 = _r4(), _r5()
+    sc = next(_dev_scenarios(r4, "real_world"))
+    with tempfile.TemporaryDirectory() as tmp:
+        dst = _scratch(sc, Path(tmp))
+        control = r5.check_not_derived(r4.load_scenario(dst))
+        j = dst / "scenario.json"
+        data = json.loads(j.read_text(encoding="utf-8"))
+        data["derived"] = True
+        j.write_text(json.dumps(data, indent=2), encoding="utf-8", newline="\n")
+        _report("round-5 test 8", control, r5.check_not_derived(r4.load_scenario(dst)))
+
+
+def check_20_port_80_unresolved_cidr_not_rejected() -> None:
+    print("\n=== Mutation 20 (g): host rule fixed to TCP 80 with an unresolved CIDR must NOT be rejected ===")
+    r4, r5 = _r4(), _r5()
+    injected = """
+resource "aws_security_group" "zz_injected" {
+  name = "zz-injected"
+}
+
+resource "aws_security_group_rule" "zz_injected" {
+  for_each          = { a = { cidrs = ["10.0.0.0/8"] } }
+  security_group_id = aws_security_group.zz_injected.id
+  type              = "ingress"
+  protocol          = "tcp"
+  from_port         = 80
+  to_port           = 80
+  cidr_blocks       = each.value.cidrs
+}
+"""
+    sc = next(_dev_scenarios(r4, "real_world"))
+    with tempfile.TemporaryDirectory() as tmp:
+        dst = _scratch(sc, Path(tmp))
+        control = r5.check_indeterminacy(r4.load_scenario(dst))
+        _inject_step0(dst, injected)
+        found = r5.check_indeterminacy(r4.load_scenario(dst)) + r5.check_sec_s0(r4.load_scenario(dst))
+        verdict = screen.screen_module({"main.tf": injected})
+        if control:
+            print(f"UNEXPECTED: the unmodified scenario already violates the rule: {control[:2]}")
+        if not found and verdict.accepted:
+            print("EXPECTED PASS (not over-strict): test 5 and test 1 accept the port-80 rule with an "
+                  "unresolved CIDR, and the screen accepts the module")
+        else:
+            print(f"UNEXPECTED REJECTION: tests {found[:2]}, screen {verdict.codes} {verdict.details[:2]}")
+
+
 def main() -> None:
     print("Running D4b Step 7 Mutation Checks...")
     check_1_real_diff_verifier_dropped_row()
@@ -384,7 +534,14 @@ def main() -> None:
     check_11_retained_inline()
     check_12_mixed_group()
     check_13_nonlocal_route()
-    print("\nAll 13 mutation checks executed.")
+    check_14_host_group_world_ssh()
+    check_15_host_group_equivalent_public_scope()
+    check_16_host_db_public()
+    check_17_aws_route_added()
+    check_18_for_each_rule_unresolved_type()
+    check_19_derived_scenario_back()
+    check_20_port_80_unresolved_cidr_not_rejected()
+    print("\nAll 20 mutation checks executed.")
 
 
 if __name__ == "__main__":

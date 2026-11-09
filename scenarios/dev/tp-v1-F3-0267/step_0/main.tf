@@ -1,111 +1,48 @@
-resource "aws_vpc" "vpc" {
-  cidr_block = var.vpc_cidr
+resource "aws_vpc" "main_vpc" {
+  cidr_block = "10.0.0.0/16"
+  enable_dns_support   = true
   enable_dns_hostnames = true
-
-  tags = {
-    environment = var.environment
-  }
+  assign_generated_ipv6_cidr_block = true
+  tags = { Name = "MainVPC" }
 }
 
-resource "aws_internet_gateway" "elk_igw" {
-  vpc_id = aws_vpc.vpc.id
-
-  tags = {
-    environment = var.environment
-  }
+resource "aws_subnet" "public_subnet_1" {
+  vpc_id            = aws_vpc.main_vpc.id
+  cidr_block        = "10.0.1.0/24"
+  availability_zone = "us-east-1a"
+  assign_ipv6_address_on_creation = true
+  ipv6_cidr_block                 = cidrsubnet(aws_vpc.main_vpc.ipv6_cidr_block, 8, 1)
+  tags = { Name = "Public_Subnet1" }
 }
 
-resource "aws_route_table" "elk_rt" {
-  vpc_id = aws_vpc.vpc.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.elk_igw.id
-  }
-
-  tags = {
-    environment = var.environment
-  }
+resource "aws_subnet" "public_subnet_2" {
+  vpc_id            = aws_vpc.main_vpc.id
+  cidr_block        = "10.0.2.0/24"
+  availability_zone = "us-east-1b"
+  assign_ipv6_address_on_creation = true
+  ipv6_cidr_block                 = cidrsubnet(aws_vpc.main_vpc.ipv6_cidr_block, 8, 2)
+  tags = { Name = "Public_Subnet2" }
 }
 
-resource "aws_route_table_association" "elk_rt_assoc" {
-  subnet_id      = aws_subnet.elk.id
-  route_table_id = aws_route_table.elk_rt.id
+resource "aws_subnet" "private_subnet_1" {
+  vpc_id            = aws_vpc.main_vpc.id
+  cidr_block        = "10.0.3.0/24"
+  availability_zone = "us-east-1a"
+  assign_ipv6_address_on_creation = true
+  ipv6_cidr_block                 = cidrsubnet(aws_vpc.main_vpc.ipv6_cidr_block, 8, 3)
+  tags = { Name = "Private_Subnet1" }
 }
 
-resource "aws_subnet" "elk" {
-  vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = var.subnet_cidr
-  map_public_ip_on_launch = true
-  availability_zone       = var.availability_zone
-
-  tags = {
-    environment = var.environment
-  }
+resource "aws_subnet" "private_subnet_2" {
+  vpc_id            = aws_vpc.main_vpc.id
+  cidr_block        = "10.0.4.0/24"
+  availability_zone = "us-east-1b"
+  assign_ipv6_address_on_creation = true
+  ipv6_cidr_block                 = cidrsubnet(aws_vpc.main_vpc.ipv6_cidr_block, 8, 4)
+  tags = { Name = "Private_Subnet2" }
 }
 
-resource "aws_security_group" "elk_sg" {
-  name        = "elk-allow"
-  description = "Allow incoming ELK traffic and Connections"
-  vpc_id      = aws_vpc.vpc.id
-
-  ingress {
-    description = "Allow HTTP internet traffic ingress"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    description = "Allow HTTPS internet traffic ingress"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    description = "Allow SSH traffic ingress"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    description = "Kibana"
-    from_port   = 5601
-    to_port     = 5601
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    description = "Transport"
-    from_port   = 9300
-    to_port     = 9300
-    protocol    = "tcp"
-    cidr_blocks = [var.subnet_cidr]
-  }
-
-  ingress {
-    description = "Elasticsearch"
-    from_port   = 9200
-    to_port     = 9200
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    environment = var.environment
-  }
+resource "aws_db_subnet_group" "main" {
+  subnet_ids = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
+  name       = "db-subnet-group"
 }
-

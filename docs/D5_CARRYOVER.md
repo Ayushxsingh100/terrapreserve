@@ -37,16 +37,16 @@ The generator records an intended class (`intent.class`) and truthful mutation r
 
 ## 4. Real-world tier notice (D4b)
 
-D4b delivers the 160 real-world targets (+ 48 reserves) by grafting onto pooled hosts and derived natives:
+D4b delivers the 160 real-world targets (+ 48 reserves) by grafting onto pooled hosts (derived natives are out of v1.0, D4b-14):
 - 208 real-world scenarios generated (144 dev, 64 test) across 16 cells.
-- 203 host modules (grafted with standalone core prefixed `tp_`).
+- 208 host modules (grafted with standalone core prefixed `tp_`), each passing the whole-module S0 screen (D4b-15).
 - 0 original native modules (module `631897` uses variable references for attributes, failing literal-span preconditions).
-- 5 derived native modules (`290262`, `358849`, `574780`, `588227`, `613257`, un-grafted, password redacted; module `653852` uses variable references, failing literal-span preconditions).
-- Scope addresses: each scenario defines `scope_addresses` (for grafts: graft resources; for natives: in-scope EC2, RDS, and SG resources).
-- S0 eligibility screen: native modules were screened to ensure S0 is clean except when an invariant is the scenario's repair target (`s0_screen`).
+- 0 derived native modules: the 5 derived natives are out of v1.0 (D4b-14; reasons in `pool/DERIVED_REPORT.md`).
+- Scope addresses: each scenario keeps `scope_addresses` as metadata only (for grafts: graft resources). It no longer limits any invariant (D4b-15).
+- S0 eligibility screen: every host module is screened as a whole (D4b-15); the graft is clean except for the repair target (`s0_screen`).
 - Decisions and Open items:
   - Open 1 (Graft attachment): Standalone network core used in v1.0.
-  - Open 2 (Invariant scope on real-world modules): D5 oracle evaluates invariants within `scope_addresses`.
+  - Open 2 (Invariant scope on real-world modules): Decided by D4b-15 (9 Nov 2026). The oracle evaluates the security invariants over the whole module, host files and graft together, as registry v1.0 C-64 says ("every security group is in scope, attached or not"); the registry is not amended. The generator's S0 screen and the round-5 tests read the whole module the same way (`generator/realworld/modread.py`, a self-check, not the oracle).
 - Total dataset across both tiers: 416 scenarios (320 targets + 96 reserves: 288 dev, 128 test). D5 will label both tiers using the unified oracle suite.
 
 
@@ -54,7 +54,7 @@ D4b delivers the 160 real-world targets (+ 48 reserves) by grafting onto pooled 
 
 Facts for D5 so that oracle labels can be compared with generator intent and every disagreement reported. Decides nothing; D5 labels come from the oracle only (`oracle/`, ADR-010).
 
-- Generator versions: controlled tier `d4a-4`, real-world tier `d4b-4` (`generator/VERSION.py`, `generator/realworld/generate_rw.py`).
+- Generator versions: controlled tier `d4a-4`, real-world tier `d4b-5` (`generator/VERSION.py`, `generator/realworld/generate_rw.py`).
 - The generator is designed so that no generated step is UNSUPPORTED or UNKNOWN for INV-FUNC-001 for a reason the generator controls (D4b-13, Open 3). It never emits `vpc_security_group_ids = []`, never leaves a group MIXED or RETAINED-INLINE, never adds a non-local route inside the VPC CIDR, and never uses an egress or ingress CIDR that only partly covers `CIDR(VPC(D))` or the app subnet. `tests/test_d4b_review_round4.py` checks this with a small self-check evaluator written from registry section 6.3 text (E1 to E6) and section 6.4 rows 1, 2, 3, 6, 8 and 9. That evaluator is not the oracle. If the oracle returns UNSUPPORTED or UNKNOWN for any generated step, that is a disagreement to report.
 - Every safe operator is designed to give INV-FUNC-001 = PASS (row 6) on every step. Every unsafe operator that does not list INV-FUNC-001 below is designed to leave INV-FUNC-001 = PASS and to violate the SEC invariant in its `intent.breaks`.
 - The INV-FUNC-001-breaking operators, their break mechanism and the registry section 6.4 row they are designed to reach on the last step (`intent.breaks` contains `INV-FUNC-001` for exactly these). Mechanisms: B1 egress port range excluding 5432; B2 egress CIDR disjoint from `CIDR(VPC(D))`; B3 DB group 5432 ingress dropped or moved off 5432; B4 DB group 5432 ingress re-pointed to a group outside `SG(S)`; B5 `aws_db_instance.port` not 5432.

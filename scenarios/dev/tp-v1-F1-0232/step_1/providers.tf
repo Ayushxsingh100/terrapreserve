@@ -1,2 +1,0 @@
-# Configure the AWS provider
-

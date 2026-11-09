@@ -1,23 +1,25 @@
 {
  "archive_sha256": {
-  "database.tf": "acd6d9822177f848e7babcb596f01b1ed28d3078c8793ed64bbe0148b52be476",
-  "ecs.tf": "4c09c79f5c04259a1f83091c1568e63e7be9650ba07c8beac7184c6e795927a8",
-  "load_balancer.tf": "77b1607b77c6a5b3b0a6f37336fd503d7b2bb52729e21e81f53a63f3711915d3",
-  "output.tf": "358cf2e9ac14c06413ddd7b38502f2ec0db2c32bf418584351743ad44c288100",
-  "variables.tf": "32f97c0385e86680c3f4076715d25fc1a6dacace0f9e6b54e83b131fc3314782"
+  "main.tf": "29fc740641d8dd3a7d7838d5bda1fd9036bd6e274b343c72b6ce0164bf20fbbe",
+  "outputs.tf": "5590185155e719872b54d6b8f65702aaeb6cc14aaf0c6674a85f8ae4a7069ccc",
+  "variables.tf": "d79233e0eabe6a6849fc925ddd1fb823d75649a4fbb9b9301f927d93292f210b"
  },
- "commit_sha": "5dc1c7dc8669cdc5c6de2c605e286c006ecc6ac2",
- "crlf_normalised": [],
+ "commit_sha": "91c4357f6a8116e79c276a1185db229498a18a62",
+ "crlf_normalised": [
+  "main.tf",
+  "outputs.tf",
+  "variables.tf"
+ ],
  "kind": "host",
- "licence_source_file": "LICENSE",
+ "licence_source_file": "LICENSE.md",
  "licence_spdx": "MIT",
- "licence_upstream_sha256": "aff406a1ee35ba690db5783f1ecfbbffd6a8ef259dacf52249e0e9200062d09c",
- "module_id": 539678,
- "module_path": "environments/staging/security_groups",
+ "licence_upstream_sha256": "ab3a8f95328ea5db061226bca286481213be6b4fe9ecc1021075d7457ab836e4",
+ "module_id": 671242,
+ "module_path": "Content/DevOps/terraform/aws/modules/network",
  "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
- "pool_id": "terrads-host-539678",
- "repo_full_name": "mantelis-source/final-project-infra",
- "repo_id": 750189620,
+ "pool_id": "terrads-host-671242",
+ "repo_full_name": "smemis/Etch.OrchardCore.SiteBoilerplate",
+ "repo_id": 1110841825,
  "terrads": {
   "concept_doi": "10.5281/zenodo.14217385",
   "doi": "10.5281/zenodo.20339474",

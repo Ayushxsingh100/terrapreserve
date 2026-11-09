@@ -1,16 +1,7 @@
-output "sg_id" {
-  value = aws_security_group.my_sg.*.id
+output "vpc_id" {
+  value = aws_vpc.this.id
 }
 
-output "sg_arn" {
-  value = aws_security_group.my_sg.*.arn
+output "public_subnet_1_id" {
+  value = aws_subnet.public_1.id
 }
-
-output "cidr_sg_id" {
-  value = aws_security_group.cidr_sg.*.id
-}
-
-output "cidr_sg_arn" {
-  value = aws_security_group.cidr_sg.*.arn
-}
-

@@ -2,10 +2,19 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-4",
+  "generator_version": "d4b-5",
   "grafted": true,
   "gt_class": null,
-  "host_transform": [],
+  "host_transform": [
+    {
+      "bytes_after": 0,
+      "bytes_before": 115,
+      "file": "providers.tf",
+      "removed_blocks": [
+        "terraform"
+      ]
+    }
+  ],
   "intent": {
     "breaks": [],
     "class": "safe",
@@ -19,7 +28,7 @@
     "target_kind": "change_request"
   },
   "labels": null,
-  "module_id": 368468,
+  "module_id": 610149,
   "mutation_record": [
     {
       "after": "[aws_subnet.tp_db_subnet_2.id, aws_subnet.tp_db_subnet_1.id]",
@@ -35,11 +44,11 @@
     "derived": false,
     "grafted": true,
     "kind": "host",
-    "lineage_id": "lin-000351295096",
-    "module_id": 368468,
-    "pool_id": "terrads-host-368468"
+    "lineage_id": "lin-000950003623",
+    "module_id": 610149,
+    "pool_id": "terrads-host-610149"
   },
-  "pool_id": "terrads-host-368468",
+  "pool_id": "terrads-host-610149",
   "protected_invariants": [
     {
       "invariant_id": "INV-SEC-001",
@@ -59,7 +68,7 @@
     }
   ],
   "reserve": false,
-  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
   "scenario_id": "tp-v1-F3-0266",
   "scope_addresses": [
     "aws_db_instance.tp_db",
@@ -80,23 +89,23 @@
   ],
   "seed": 266,
   "source": {
-    "commit_or_version": "f5cff0bf5960b4bc056f3ae47d15502404281891",
+    "commit_or_version": "def9c2957fd6ebbd127be599ee1c11fc31212cc1",
     "grafted": true,
     "license": "MIT",
     "origin": "terrads",
-    "repo_lineage_id": "lin-000351295096",
+    "repo_lineage_id": "lin-000950003623",
     "tier": "real_world"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "e0aaf0834cbd9fc318486c1d236008c9664dcc9523d43bd0c6c067ddac6ed36a",
+      "content_hash": "d888d425f5d36ca77c46734b250f84dd503e25ea022a68d50f4660c7d479f43a",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "a284a3a01906f588e3fd6d1603a6cf7372d1f2223646fea02e697f259353f296",
+      "content_hash": "e745d42314307ece68957a32807d9ca30151873bd1cba893ad39c1da7d9f89b6",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -88,7 +88,7 @@\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n   name       = \"tp-db-subnet-group\"\n-  subnet_ids = [aws_subnet.tp_db_subnet_1.id, aws_subnet.tp_db_subnet_2.id]\n+  subnet_ids = [aws_subnet.tp_db_subnet_2.id, aws_subnet.tp_db_subnet_1.id]\n }\n \n resource \"aws_db_instance\" \"tp_db\" {\n",
       "step": 1,
       "terraform_dir": "step_1"

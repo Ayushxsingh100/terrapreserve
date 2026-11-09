@@ -1,53 +1,24 @@
-resource "aws_security_group" "ec2_ssh_sg" {
-  name   = "${var.name}-ec2-ssh-sg"
-  vpc_id = var.vpc_id
-
-  ingress {
-    description = "Allow ssh connection"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_db_subnet_group" "rds_subnet_group" {
+  name       = "medical-app-rds-subnet-group"
+  subnet_ids = var.private_subnet_ids
 
   tags = {
-    Name        = "${var.name}-ec2-ssh-sg"
-    Terraform   = "true"
-    Environment = "dev"
+    Name = "medical-app-rds-subnet-group"
   }
 }
 
-resource "aws_security_group" "ec2_web_sg" {
-  name   = "${var.name}-ec2-web-sg"
-  vpc_id = var.vpc_id
+resource "aws_security_group" "rds_sg" {
+  name        = "rds-sg"
+  description = "Allow MySQL from EC2"
+  vpc_id      = var.vpc_id
 
   ingress {
-    description = "allow port 8080 for jenkins instance"
-    from_port   = 8080
-    to_port     = 8080
+    from_port   = 3306
+    to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/16"]  # Adjust if needed
   }
-  ingress {
-    description = "allow port 80"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    description = "allow port 443"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -56,8 +27,24 @@ resource "aws_security_group" "ec2_web_sg" {
   }
 
   tags = {
-    Name        = "${var.name}-ec2-web-sg"
-    Terraform   = "true"
-    Environment = "dev"
+    Name = "rds-sg"
+  }
+}
+
+resource "aws_db_instance" "mysql" {
+  identifier              = "medical-app-db"
+  engine                  = "mysql"
+  instance_class          = "db.t3.micro"
+  allocated_storage       = 20
+  username                = var.db_username
+  password                = var.db_password
+  db_subnet_group_name    = aws_db_subnet_group.rds_subnet_group.name
+  vpc_security_group_ids  = [aws_security_group.rds_sg.id]
+  multi_az                = true
+  publicly_accessible     = false
+  skip_final_snapshot     = true
+
+  tags = {
+    Name = "medical-app-db"
   }
 }

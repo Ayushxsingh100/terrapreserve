@@ -2,19 +2,10 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F3",
-  "generator_version": "d4b-4",
+  "generator_version": "d4b-5",
   "grafted": true,
   "gt_class": null,
-  "host_transform": [
-    {
-      "bytes_after": 786,
-      "bytes_before": 828,
-      "file": "main.tf",
-      "removed_blocks": [
-        "provider"
-      ]
-    }
-  ],
+  "host_transform": [],
   "intent": {
     "breaks": [],
     "class": "safe",
@@ -28,7 +19,7 @@
     "target_kind": "change_request"
   },
   "labels": null,
-  "module_id": 367249,
+  "module_id": 609933,
   "mutation_record": [
     {
       "after": "\"us-east-1b\"",
@@ -44,11 +35,11 @@
     "derived": false,
     "grafted": true,
     "kind": "host",
-    "lineage_id": "lin-000348057122",
-    "module_id": 367249,
-    "pool_id": "terrads-host-367249"
+    "lineage_id": "lin-000949225941",
+    "module_id": 609933,
+    "pool_id": "terrads-host-609933"
   },
-  "pool_id": "terrads-host-367249",
+  "pool_id": "terrads-host-609933",
   "protected_invariants": [
     {
       "invariant_id": "INV-SEC-001",
@@ -68,7 +59,7 @@
     }
   ],
   "reserve": false,
-  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
   "scenario_id": "tp-v1-F3-0265",
   "scope_addresses": [
     "aws_db_instance.tp_db",
@@ -89,23 +80,23 @@
   ],
   "seed": 265,
   "source": {
-    "commit_or_version": "4f39c1893bf1bba348216a4ce79657f57a59da6f",
+    "commit_or_version": "21891325a12f03b6c54120906b5e62fdb0f5f6e1",
     "grafted": true,
     "license": "MIT",
     "origin": "terrads",
-    "repo_lineage_id": "lin-000348057122",
+    "repo_lineage_id": "lin-000949225941",
     "tier": "real_world"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "c6aac4683a772d17861524e89d2b773697d4fc2499644a6ca7ea63504b3dd439",
+      "content_hash": "b167266ec9c8a9258fcdda26c649e4d72492074da57e74e9a94d2e8410651b59",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "7b31d51107a893a401e1358f4ddfed5fce3e2cb633fbcf74e837b6961a1a92a1",
+      "content_hash": "6b6677c4fda781ae0d9690cc4d5a9d7c0d3d1c29a3f50e773ee3190397911b80",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -9,7 +9,7 @@\n }\n \n resource \"aws_subnet\" \"tp_app_subnet\" {\n-  availability_zone = \"us-east-1a\"\n+  availability_zone = \"us-east-1b\"\n   cidr_block        = \"172.19.1.0/24\"\n   vpc_id            = aws_vpc.tp_vpc.id\n }\n",
       "step": 1,
       "terraform_dir": "step_1"

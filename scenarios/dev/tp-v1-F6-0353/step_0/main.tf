@@ -1,136 +1,70 @@
-
-resource "aws_security_group" "instance_security_group" {
-  name        = "instance_security_group"
-  description = "Allow SSH and HTTP access"
+resource "aws_security_group" "rds" {
+  name        = "${var.project_name}-${var.environment}-rds-sg"
+  description = "Security group for RDS database"
+  vpc_id      = var.vpc_id
 
   ingress {
-    from_port   = 22
-    to_port     = 22
+    from_port   = 5432
+    to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/16"]
   }
 
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 9000
-    to_port     = 9000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 8081
-    to_port     = 8081
-    protocol    = "tcp"
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name = "instance_security_group"
+    Name        = "${var.project_name}-${var.environment}-rds-sg"
+    Environment = var.environment
+    Project     = var.project_name
   }
 }
 
-resource "aws_instance" "jenkins" {
-  ami           = "ami-0aedf6b1cb669b4c7" # centos 7
-  instance_type = "t2.large"
+resource "aws_db_subnet_group" "main" {
+  name       = "${var.project_name}-${var.environment}-db-subnet-group"
+  subnet_ids = var.private_subnets
 
   tags = {
-    Name = "jenkins"
+    Name        = "${var.project_name}-${var.environment}-db-subnet-group"
+    Environment = var.environment
+    Project     = var.project_name
   }
-
-  ebs_block_device {
-    device_name = "/dev/sdb"
-    volume_type = "gp2"
-    volume_size = 20
-  }
-
-  vpc_security_group_ids = [aws_security_group.instance_security_group.id]
-
-  key_name = "gitops"
-
-  associate_public_ip_address = true
 }
 
-resource "aws_instance" "sonarqube" {
-  ami           = "ami-0aedf6b1cb669b4c7" # centos 7
-  instance_type = "t2.large"
+resource "aws_db_instance" "main" {
+  identifier            = "${var.project_name}-${var.environment}-db"
+  instance_class        = var.instance_class
+  allocated_storage     = 20
+  max_allocated_storage = 100
+  engine                = "postgres"
+  engine_version        = "14.12"
+  username              = var.database_username
+  password              = var.database_password
+  db_name               = var.database_name
+  port                  = 5432
+
+  db_subnet_group_name   = aws_db_subnet_group.main.name
+  vpc_security_group_ids = [aws_security_group.rds.id]
+
+  multi_az                = false
+  storage_type            = "gp2"
+  backup_retention_period = 7
+  backup_window           = "03:00-04:00"
+  maintenance_window      = "mon:04:00-mon:05:00"
+
+  skip_final_snapshot = true
+  deletion_protection = false
+
+  apply_immediately   = true
+  publicly_accessible = false
 
   tags = {
-    Name = "sonarqube"
+    Name        = "${var.project_name}-${var.environment}-db"
+    Environment = var.environment
+    Project     = var.project_name
   }
-
-  ebs_block_device {
-    device_name = "/dev/sdb"
-    volume_type = "gp2"
-    volume_size = 20
-  }
-
-  vpc_security_group_ids = [aws_security_group.instance_security_group.id]
-
-  key_name = "gitops"
-
-  associate_public_ip_address = true
-}
-
-resource "aws_instance" "nexus" {
-  ami           = "ami-0aedf6b1cb669b4c7" # centos 7
-  instance_type = "t2.large"
-
-  tags = {
-    Name = "nexus"
-  }
-
-  ebs_block_device {
-    device_name = "/dev/sdb"
-    volume_type = "gp2"
-    volume_size = 20
-  }
-
-  vpc_security_group_ids = [aws_security_group.instance_security_group.id]
-
-  key_name = "gitops"
-
-  associate_public_ip_address = true
-}
-resource "aws_instance" "minikube" {
-  ami           = "ami-0557a15b87f6559cf" # ubuntu 22
-  instance_type = "t2.large"
-
-  tags = {
-    Name = "minikube"
-  }
-
-  ebs_block_device {
-    device_name = "/dev/sdb"
-    volume_type = "gp2"
-    volume_size = 20
-  }
-
-  vpc_security_group_ids = [aws_security_group.instance_security_group.id]
-
-  key_name = "gitops"
-
-  associate_public_ip_address = true
-}
-
-output "jenkins_public_ip" {
-  value = aws_instance.jenkins.public_ip
-}
-
-output "sonarqube_public_ip" {
-  value = aws_instance.sonarqube.public_ip
-}
-
-output "nexus_public_ip" {
-  value = aws_instance.nexus.public_ip
-}
-
-output "minikube_public_ip" {
-  value = aws_instance.minikube.public_ip
 }

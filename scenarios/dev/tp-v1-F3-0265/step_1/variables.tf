@@ -1,25 +1,56 @@
-variable "ami_id" {
+variable "stack_name" {
+  description = "Name of the stack"
   type        = string
-  description = "The id of the machine image (AMI) to use for the server."
 }
 
-variable "instance_type" {
+variable "env" {
+  description = "Name of the environment"
   type        = string
-  description = "Type of the EC2 instace to create."
-  default     = "t2.micro"
 }
 
-variable "tags" {
-  type        = map(string)
-  description = "Tags for the EC2 instance."
+variable "vpc_id" {
+  description = "ID of the VPC"
+  type        = string
 }
 
-variable "sg_name" {
+variable "aws_region" {
+  description = "AWS region to use"
   type        = string
-  description = "Name for the security group."
+
+  validation {
+    condition     = var.aws_region == "us-gov-east-1" || var.aws_region == "us-gov-west-1"
+    error_message = "aws_region must be one of: us-gov-east-1 or us-gov-west-1."
+  }
+}
+
+variable "stack_tool" {
+  description = "SIG tools"
+  type        = string
 }
 
 variable "ingress_rules" {
-  type        = any
-  description = "Rules for the security group."
+  description = "List of ingress rule objects."
+  type = list(object({
+    description      = string
+    from_port        = number
+    to_port          = number
+    protocol         = string
+    cidr_blocks      = list(string)
+    ipv6_cidr_blocks = list(string)
+    security_groups  = list(string)
+  }))
+  default = []
+}
+
+variable "egress_rules" {
+  description = "List of egress rule objects."
+  type = list(object({
+    description      = string
+    from_port        = number
+    to_port          = number
+    protocol         = string
+    cidr_blocks      = list(string)
+    ipv6_cidr_blocks = list(string)
+  }))
+  default = []
 }

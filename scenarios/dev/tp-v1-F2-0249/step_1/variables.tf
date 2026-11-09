@@ -1,37 +1,21 @@
-variable "vpc_id" {
-  type        = string
-  description = "Your VPC ID"
+# Region
+variable "region" {
+  default = "eu-central-1"
 }
 
-variable "name" {
-    type = string
-    description = "Your Security Group Name."
+variable "vpc_cidr" {
+  default = "10.0.0.0/16"
 }
 
-variable "description" {
-    type = string
-    description = "Description for your Security Group"
+variable "vpc_name" {
+  default = "example-vpc"
 }
 
-
-variable "ingress_rules" {
-  type = list(object({
-    description = string
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks  = list(string)
-  }))
-  description = "List of objects like: {\"description\": \"\", \"from_port\": x, \"to_port\": x, \"protocol\": \"\", \"cidr_block\": \"\"}"
+variable "ami_id" {
+  default = "ami-0084a47cc718c111a"
 }
 
-variable "egress_rules" {
-  type = list(object({
-    description = string
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks  = list(string)
-  }))
-  description = "List of objects like: {\"description\": \"\", \"from_port\": x, \"to_port\": x, \"protocol\": \"\", \"cidr_block\": \"\",}"
+variable "instance_type" {
+  default = "t3.micro"
 }
+

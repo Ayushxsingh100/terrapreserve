@@ -1,28 +1,8 @@
-output "ALB-sg" {
-  value = aws_security_group.ACS["ext-alb-sg"].id
+output "public_subnet_ids" {
+  description = "IDs of created public subnets"
+  value       = aws_subnet.public[*].id
 }
-
-
-output "IALB-sg" {
-  value = aws_security_group.ACS["int-alb-sg"].id
-}
-
-
-output "bastion-sg" {
-  value = aws_security_group.ACS["bastion-sg"].id
-}
-
-
-output "nginx-sg" {
-  value = aws_security_group.ACS["nginx-sg"].id
-}
-
-
-output "web-sg" {
-  value = aws_security_group.ACS["webserver-sg"].id
-}
-
-
-output "datalayer-sg" {
-  value = aws_security_group.ACS["datalayer-sg"].id
+output "private_subnet_ids" {
+  description = "IDs of created private subnets"
+  value       = aws_subnet.private[*].id
 }

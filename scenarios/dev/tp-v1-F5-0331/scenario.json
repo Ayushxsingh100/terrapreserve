@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F5",
-  "generator_version": "d4b-4",
+  "generator_version": "d4b-5",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -20,7 +20,7 @@
     "target_kind": "change_request"
   },
   "labels": null,
-  "module_id": 445888,
+  "module_id": 655263,
   "mutation_record": [
     {
       "after": "\"Client group of the recreated rule\"",
@@ -148,11 +148,11 @@
     "derived": false,
     "grafted": true,
     "kind": "host",
-    "lineage_id": "lin-000546766808",
-    "module_id": 445888,
-    "pool_id": "terrads-host-445888"
+    "lineage_id": "lin-001061193057",
+    "module_id": 655263,
+    "pool_id": "terrads-host-655263"
   },
-  "pool_id": "terrads-host-445888",
+  "pool_id": "terrads-host-655263",
   "protected_invariants": [
     {
       "invariant_id": "INV-SEC-001",
@@ -172,7 +172,7 @@
     }
   ],
   "reserve": false,
-  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
   "scenario_id": "tp-v1-F5-0331",
   "scope_addresses": [
     "aws_db_instance.tp_db",
@@ -193,23 +193,23 @@
   ],
   "seed": 331,
   "source": {
-    "commit_or_version": "7689c777ae818650606051f8079ebd6af8623e66",
+    "commit_or_version": "cc90cedb0f6c7c07612244623d12dd18935d31fc",
     "grafted": true,
     "license": "MIT",
     "origin": "terrads",
-    "repo_lineage_id": "lin-000546766808",
+    "repo_lineage_id": "lin-001061193057",
     "tier": "real_world"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "4f073b729a930d36e94f30220b549740a7dad8afd329acd4769692640b9d8657",
+      "content_hash": "4e8f2bc9f827b9aa977cad71e31545a36b7cf884de4d17022f1819234daa1d06",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "be2b79b9cf4346a859d491783a648787fac08e6f9d56eae7f6629861093c6807",
+      "content_hash": "38d80d19f709d3aa941c94539f30349909bee25ce968c9335a7d2491dd726c45",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,3 +1,8 @@\n+moved {\n+  from = aws_security_group_rule.tp_db_ingress_postgres\n+  to   = aws_security_group_rule.tp_db_ingress_postgres_v2\n+}\n+\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.25.0.0/16\"\n   enable_dns_hostnames = true\n@@ -70,15 +75,6 @@\n   type              = \"egress\"\n }\n \n-resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  from_port                = 5432\n-  protocol                 = \"tcp\"\n-  security_group_id        = aws_security_group.tp_db_sg.id\n-  source_security_group_id = aws_security_group.tp_app_sg.id\n-  to_port                  = 5432\n-  type                     = \"ingress\"\n-}\n-\n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n@@ -103,3 +99,18 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"tp_db_sg_peer\" {\n+  description = \"Client group of the recreated rule\"\n+  name        = \"tp-db-sg-peer\"\n+  vpc_id      = aws_vpc.tp_vpc.id\n+}\n+\n+resource \"aws_security_group_rule\" \"tp_db_ingress_postgres_v2\" {\n+  from_port                = 5432\n+  protocol                 = \"tcp\"\n+  security_group_id        = aws_security_group.tp_db_sg.id\n+  source_security_group_id = aws_security_group.tp_db_sg_peer.id\n+  to_port                  = 5432\n+  type                     = \"ingress\"\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"

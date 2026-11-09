@@ -1,62 +1,16 @@
-
-resource "aws_security_group" "nginx" {
-  name   = "nginx_access"
-  vpc_id = var.aws_vpc_id
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_security_group" "lambda_sg" {
+  name        = "${var.project_name}-lambda-sg"
+  description = "Security group for Lambda function"
+  vpc_id      = var.vpc_id
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-resource "aws_instance" "nginx" {
-  ami                         = var.aws_image_id
-  subnet_id                   = var.subnet_id
-  instance_type               = "t2.micro"
-  associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.nginx.id]
-  key_name                    = var.aws_key_name
-
-  provisioner "remote-exec" {
-      inline = ["echo 'Wait until SSH to AWS is ready!'"]
-
-      connection {
-          type          =   "ssh"
-          user          =   var.aws_ssh_user
-          private_key   =   file(var.aws_private_key_path)
-          host          =   aws_instance.nginx.public_ip
-      }
+    cidr_blocks = ["0.0.0.0/0"]  # ✅ Allows outbound requests to the internet (e.g., API calls)
   }
 
-  provisioner "local-exec" {
-      command = "ansible-playbook   -i  ${aws_instance.nginx.public_ip}, --private-key ${var.aws_private_key_path} nginx.yaml"
+  tags = {
+    Name = "${var.project_name}-lambda-sg"
   }
-
-  lifecycle {
-    prevent_destroy = true
-  }
-
-}
-
-output "nginx_ip" {
-    value = aws_instance.nginx.public_ip
-}
-output "nginx_private_ip" {
-    value = aws_instance.nginx.private_ip
 }

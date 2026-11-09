@@ -12,9 +12,9 @@ Assembly of the complete benchmark dataset across both tiers: controlled synthet
 
 ## Real-World Tier Composition
 
-- **Hosts (grafted):** 203
+- **Hosts (grafted):** 208
 - **Original Natives (ungrafted):** 0
-- **Derived Natives (redacted & ungrafted):** 5
+- **Derived Natives (redacted & ungrafted):** 0
 - **Unique Modules Used:** 208 / 208 (no reuse)
 
 ## Lineage & Split Audit

@@ -1,21 +1,22 @@
 {
  "archive_sha256": {
-  "main.tf": "ffc8927714063d0920a61c99da057d410b2267ca3ff61c35f9c3c0c7237b46dd",
-  "outputs.tf": "abadbe9b26207c6f2a5365997f77d1bea556d2775736f1c20bde5bf8f5908f12",
-  "variables.tf": "1210051b6d342214c07ecc81b988a0485f6b93d41a9ad4f3363d2d24fcdc01c0"
+  "outputs.tf": "27ba689c2ad20dd9c8141e9a59fa3d7f74cf4740bac202ee62c4e842daa9fecc",
+  "providers.tf": "c8602c8fe23f6be8cc8c3a03cbd343badde6e975d88c7205b65062b640bebaa2",
+  "variables.tf": "77e049207434514f8db93a14a51d713f5bd273a1d6d9d854912ee5cb262b2d2a",
+  "vpc.tf": "51cb49448e8b7cdec86dfdf694ee90a376ce46aba745a0308209bce12556a1be"
  },
- "commit_sha": "e5a731c727e73e50d95020a0f2913f86f4ec9c1c",
+ "commit_sha": "278c2393f8c95c0cd8445f4efcf217c152ee8f26",
  "crlf_normalised": [],
  "kind": "host",
  "licence_source_file": "LICENSE",
- "licence_spdx": "Apache-2.0",
- "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
- "module_id": 335142,
- "module_path": "modules/networking",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "b6378898e33c9e24282ceebe7825669c89c235d446bd9c3016e0ebd3e64e0c1d",
+ "module_id": 578111,
+ "module_path": ".",
  "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
- "pool_id": "terrads-host-335142",
- "repo_full_name": "puppetlabs/terraform-aws-pe_arch",
- "repo_id": 246287418,
+ "pool_id": "terrads-host-578111",
+ "repo_full_name": "imgabrieldev/terraform-aws-networking",
+ "repo_id": 863746829,
  "terrads": {
   "concept_doi": "10.5281/zenodo.14217385",
   "doi": "10.5281/zenodo.20339474",

@@ -17,7 +17,7 @@ REQUIRED_IDS = [
     "D4b-01", "D4b-02", "D4b-03", "D4b-04", "D4b-05", "D4b-06",
     "D4b-07", "D4b-08", "D4b-09", "D4b-10", "D4b-11", "D4b-12", "D4b-13",
 ]
-DECIDED_IDS = {"D4-01", "D4-02", "D4b-13"}
+DECIDED_IDS = {"D4-01", "D4-02", "D4b-13", "D4b-14", "D4b-15", "Open 2"}
 PROPOSED_IDS = {
     "D4b-01", "D4b-02", "D4b-03", "D4b-04", "D4b-05", "D4b-06",
     "D4b-07", "D4b-08", "D4b-09", "D4b-10", "D4b-11", "D4b-12",
@@ -74,7 +74,7 @@ class TestD4bDecisionsFile(unittest.TestCase):
                 self.assertEqual(status, "Proposed", f"Row {id_} status should be 'Proposed', got {status!r}")
 
     def test_no_other_rows_are_decided(self) -> None:
-        """Only user-decided items D4-01, D4-02 and D4b-13 may carry 'Decided'."""
+        """Only user-decided items D4-01, D4-02, D4b-13, D4b-14, D4b-15 and Open 2 may carry 'Decided'."""
         for id_, row in self.rows.items():
             if row.get("Status", "").lower() == "decided":
                 self.assertIn(id_, DECIDED_IDS, f"Row {id_} cannot be Decided; not a user decision")

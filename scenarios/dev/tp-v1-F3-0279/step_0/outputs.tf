@@ -1,44 +1,25 @@
-output "security_groups" {
-  value = concat(
-    aws_security_group.security-groups-ingress-cidr,
-    aws_security_group.security-groups-ingress-sg,
-    aws_security_group.security-groups-egress-cidr,
-    aws_security_group.security-groups-egress-sg,
-  )
-
-  description = "Security groups created by this module"
+#vpc
+output "vpc_id" {
+  value       = aws_vpc.main.id
+  description = "The ID of the VPC"
+}
+locals {
+  #if public == true then add to public_subnets
+  public_subnet_output = { for key, subnet in local.public_subnets : key =>
+    { subnet_id = aws_subnet.main[key].id
+    subnet_az = aws_subnet.main[key].availability_zone }
+  }
+  private_subnet_output = { for key, subnet in local.private_subnets : key =>
+    { subnet_id = aws_subnet.main[key].id
+    subnet_az = aws_subnet.main[key].availability_zone }
+  }
+}
+output "public_subnets" {
+  value       = local.public_subnet_output
+  description = "The IDs of the public subnets"
 }
 
-output "security_group_ids" {
-  value = concat(
-    length(aws_security_group.security-groups-ingress-cidr) > 0 ?
-    aws_security_group.security-groups-ingress-cidr[*].id : [],
-    length(aws_security_group.security-groups-ingress-sg) > 0 ?
-    aws_security_group.security-groups-ingress-sg[*].id : [],
-    length(aws_security_group.security-groups-egress-cidr) > 0 ?
-    aws_security_group.security-groups-egress-cidr[*].id : [],
-    length(aws_security_group.security-groups-egress-sg) > 0 ?
-    aws_security_group.security-groups-egress-sg[*].id : [],
-  )
-  description = "IDs of the security groups created by this module"
-}
-
-output "ingress_security_group_ids" {
-  value = concat(
-    length(aws_security_group.security-groups-ingress-cidr) > 0 ?
-    aws_security_group.security-groups-ingress-cidr[*].id : [],
-    length(aws_security_group.security-groups-ingress-sg) > 0 ?
-    aws_security_group.security-groups-ingress-sg[*].id : [],
-  )
-  description = "IDs of the security groups that control ingress to the resource"
-}
-
-output "egress_security_group_ids" {
-  value = concat(
-    length(aws_security_group.security-groups-egress-cidr) > 0 ?
-    aws_security_group.security-groups-egress-cidr[*].id : [],
-    length(aws_security_group.security-groups-egress-sg) > 0 ?
-    aws_security_group.security-groups-egress-sg[*].id : [],
-  )
-  description = "IDs of the security groups that control egress to the resource"
+output "private_subnets" {
+  value       = local.private_subnet_output
+  description = "The IDs of the private subnets"
 }

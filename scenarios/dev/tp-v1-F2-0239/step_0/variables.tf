@@ -1,9 +1,14 @@
-variable "vpc_id" {
-  type = string
-  description = "The ID of the VPC"
-  default = "vpc-c2cdd4a5"
+variable "web_port" {
+  description = "The port the web server is listening on"
+  type        = number
 }
 
-variable "sg_name" {
-  description = "Name of the security group"
+variable "project_name" {
+  description = "The name of the project"
+  type        = string
+}
+
+variable "vpc_id" {
+  description = "The ID of the VPC to deploy the security group to"
+  type        = string
 }

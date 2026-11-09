@@ -1,155 +1,109 @@
-resource "aws_security_group" "ssh_public" {
-  name        = "${var.env}-${var.project}-ssh-public"
-  description = "Allow SSH inbound traffic"
-  vpc_id      = var.vpc_id
+# VPC
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [var.access_ip]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+resource "aws_vpc" "noptf" {
+  cidr_block = var.network_info.cidr
+  tags = {
+    Name = var.network_info.name
   }
 }
 
-resource "aws_security_group" "ssh_private" {
-  #name_prefix = "${var.env}-${var.project}-sg-ssh-private"
-  name        = "${var.env}-${var.project}-ssh-private"
-  description = "Allow SSH inbound traffic from Bastion Host"
-  vpc_id      = var.vpc_id
+# Subnets
 
-  ingress {
-    from_port       = 22
-    to_port         = 22
-    protocol        = "tcp"
-    security_groups = [aws_security_group.ssh_public.id]
+## Private
+## count depends on number of defined private subnets - uses length function
+
+resource "aws_subnet" "private_subnets" {
+  count             = length(var.network_info.private_subnets)
+  cidr_block        = var.network_info.private_subnets[count.index].cidr
+  availability_zone = var.network_info.private_subnets[count.index].az
+  vpc_id            = aws_vpc.noptf.id
+
+  tags = {
+    Name = var.network_info.private_subnets[count.index].name
   }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+  depends_on = [aws_vpc.noptf]
+}
+
+## Public
+## count depends on number of defined public subnets - uses length function
+
+resource "aws_subnet" "public_subnets" {
+  count             = length(var.network_info.public_subnets)
+  cidr_block        = var.network_info.public_subnets[count.index].cidr
+  availability_zone = var.network_info.public_subnets[count.index].az
+  vpc_id            = aws_vpc.noptf.id
+
+  tags = {
+    Name = var.network_info.public_subnets[count.index].name
   }
 
-  lifecycle {
-    create_before_destroy = true
-    #ignore_changes        = [name]
+  depends_on = [aws_vpc.noptf]
+}
+
+## Internet Gateway
+## count depends on whether the number of defined public subnets is > 0. 
+## ig is created only when public subnets exist - uses locals and conditionals
+
+resource "aws_internet_gateway" "ig" {
+  count  = local.has_public_subnets ? 1 : 0
+  vpc_id = aws_vpc.noptf.id
+  tags = {
+    Name = var.network_info.name
   }
 }
 
-resource "aws_security_group" "http_public" {
-  name        = "${var.env}-${var.project}-http-public"
-  description = "Allow all inbound HTTP[s] traffic"
-  vpc_id      = var.vpc_id
+# Route table
 
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+## Public
+## count depends on whether the number of defined public subnets is > 0
+## rt will be created only if public subnets exist - uses locals and conditionals
+
+resource "aws_route_table" "public" {
+  count  = local.has_public_subnets ? 1 : 0
+  vpc_id = aws_vpc.noptf.id
+  route {
+    cidr_block = local.anywhere
+    gateway_id = aws_internet_gateway.ig[0].id
+  }
+  tags = {
+    Name = "public"
   }
 
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 }
 
-resource "aws_security_group" "node_p2p" {
-  name        = "${var.env}-${var.project}-node_p2p"
-  description = "P2P Wire & Discovery inbound traffic"
-  vpc_id      = var.vpc_id
+## Private
+# count depends on whether the number of defined private subnets is > 0
+# rt will be created only if private subnets exist - uses locals and conditionals
 
-  ingress {
-    from_port   = 30303
-    to_port     = 30303
-    protocol    = "tcp"
-    cidr_blocks = [var.cidr_vpc]
+resource "aws_route_table" "private" {
+  count  = local.has_private_subnets ? 1 : 0
+  vpc_id = aws_vpc.noptf.id
+  tags = {
+    Name = "private"
   }
+  depends_on = [aws_vpc.noptf]
 
-  ingress {
-    from_port   = 30303
-    to_port     = 30303
-    protocol    = "udp"
-    cidr_blocks = [var.cidr_vpc]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 }
 
-resource "aws_security_group" "node_rpc" {
-  name        = "${var.env}-${var.project}-node_rpc"
-  description = "RPC inbound traffic"
-  vpc_id      = var.vpc_id
+# Route table association - to associate subnet and route table
 
-  // RPC
-  ingress {
-    from_port       = 8545
-    to_port         = 8545
-    protocol        = "tcp"
-    security_groups = [aws_security_group.http_public.id]
-  }
+## Public
+## count depends on whether the number of defined public subnets is > 0
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_route_table_association" "public" {
+  count          = length(var.network_info.public_subnets)
+  route_table_id = aws_route_table.public[0].id
+  subnet_id      = aws_subnet.public_subnets[count.index].id
+  depends_on     = [aws_route_table.public, aws_subnet.public_subnets]
 }
 
-resource "aws_security_group" "node_stats" {
-  name        = "${var.env}-${var.project}-node_stats"
-  description = "Stats inbound traffic"
-  vpc_id      = var.vpc_id
+## Private
+## count depends on whether the number of defined private subnets is > 0
 
-  // Stats read
-  ingress {
-    from_port       = 3000
-    to_port         = 3000
-    protocol        = "tcp"
-    security_groups = [aws_security_group.http_public.id]
-  }
-
-  // Stats pushing data
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = [var.cidr_vpc]
-  }
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "udp"
-    cidr_blocks = [var.cidr_vpc]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_route_table_association" "private" {
+  count          = length(var.network_info.private_subnets)
+  route_table_id = aws_route_table.private[0].id
+  subnet_id      = aws_subnet.private_subnets[count.index].id
+  depends_on     = [aws_route_table.private, aws_subnet.private_subnets]
 }

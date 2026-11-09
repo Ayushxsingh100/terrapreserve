@@ -1,14 +1,9 @@
-#output "myoutput" {
-#  description = "Description of my output"
-#  value       = "value"
-#  depends_on  = [<some resource>]
-#}
-
-output "sec_id" {
-  value = data.aws_security_group.newsg.id
+output "alb_sg_id" {
+  description = "The ID of the ALB security group"
+  value       = aws_security_group.alb.id
 }
 
-output "instance_public_ip" {
-  value       = ["${aws_instance.ec2_instance.*.public_ip}"]
-  description = "The public IP address of the instance."
+output "ecs_sg_id" {
+  description = "The ID of the ECS security group"
+  value       = aws_security_group.ecs.id
 }

@@ -1,6 +1,11 @@
-variable "vpc_id" {
-  type = string
+variable "project" {
+  description = "Name of project"
 }
-variable "environment_name" {
-  type = string
+
+variable "availability_zone" {
+  description = "Availability zone for ELB instance subnet"
+}
+
+variable "availability_zone_alternate" {
+  description = "Availability zone for ELB instance alternate subnet"
 }

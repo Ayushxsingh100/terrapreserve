@@ -1,25 +1,32 @@
-# These are the variables required for the networking submodule to function
-# properly and do not have any defaults set because this submodule should never
-# be called from anything else expect the main module where values for all these
-# variables will always be passed in
-variable id {
-  description = "Randomly generated value used to produce unique names for everything"
-  type        = string
+variable "vpc_config" {
+  description = "The configuration for the VPC"
+  type = object({
+    cidr_block = string
+    name       = string
+  })
+
+  validation {
+    condition     = can(cidrnetmask(var.vpc_config.cidr_block))
+    error_message = "The vpc_config.cidr_block must contain a valid CIDR block."
+  }
+
+  validation {
+    condition     = length(var.vpc_config.name) <= 255
+    error_message = "The vpc_config.name must be less than or equal to 255 characters."
+  }
 }
-variable allow {
-  description = "List of permitted IP subnets"
-  type        = list(string)
-}
-variable project {
-  description = "The name of the PE deployment project to tag resources with"
-}
-variable "to_create" {
-  description = "If the networks should be created"
-  type        = bool
-  default     = true
-}
-variable "subnet" {
-  description = "List of existing subnets to deploy to as opposed to creating them"
-  type        = list(string)
-  default     = []
+
+variable "subnet_config" {
+  type = map(object({
+    cidr_block = string
+    public     = optional(bool, false)
+    az         = string
+  }))
+
+  validation {
+    condition = alltrue([
+      for config in values(var.subnet_config) : can(cidrnetmask(config.cidr_block))
+    ])
+    error_message = "The subnet_config.cidr_block must contain a valid CIDR block."
+  }
 }

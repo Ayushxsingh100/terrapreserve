@@ -1,20 +1,24 @@
-variable "instance_count" {
-  default = 1
+variable "application_name" {
+  description = "Name of the application"
+  type        = string
 }
 
-variable "key_name" {
-  description = "Private key name to use with instance"
-  default     = "DemoKeyPair"
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  type        = string
 }
 
-variable "instance_type" {
-  description = "AWS instance type"
-  default     = "t3.micro"
+variable "public_subnet_cidrs" {
+  description = "CIDR blocks for the public subnets"
+  type        = list(string)
 }
 
-variable "ami" {
-  description = "Base AMI to launch the instances"
+variable "private_subnet_cidrs" {
+  description = "CIDR blocks for the private subnets"
+  type        = list(string)
+}
 
-  # Bitnami NGINX AMI
-  default = "ami-021acbdb89706aa89"
+variable "availability_zones" {
+  description = "List of availability zones"
+  type        = list(string)
 }

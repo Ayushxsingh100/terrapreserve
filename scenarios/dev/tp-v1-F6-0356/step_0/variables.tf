@@ -1,16 +1,10 @@
-variable "sg_name" {
-  description = "Name of the Security group"
+variable "project_name" {
+  description = "Name of the project"
   type        = string
-}
-
-variable "sg_description" {
-  description = "Description of the Security Group"
-  type        = string
-  default     = ""
 }
 
 variable "environment" {
-  description = "Environment to be installed"
+  description = "Environment name"
   type        = string
 }
 
@@ -19,21 +13,8 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "ingress_rules" {
-  type = list(object({
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    type        = string
-    cidr_block  = list(string)
-    description = string
-  }))
+variable "tags" {
+  description = "Tags to apply to resources"
+  type        = map(string)
+  default     = {}
 }
-
-
-
-
-
-
-
-

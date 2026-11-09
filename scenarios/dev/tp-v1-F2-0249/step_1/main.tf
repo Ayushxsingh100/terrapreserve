@@ -1,27 +1,29 @@
-resource "aws_security_group" "sg" {
-  name        = var.name
-  description = var.description
-  vpc_id      = var.vpc_id
+# Create a VPC
+resource "aws_vpc" "main" {
+    cidr_block = "10.0.0.0/16"
 
-  dynamic "ingress" {
-    for_each = var.ingress_rules
-    content {
-      description = ingress.value.description
-      from_port   = ingress.value.from_port
-      to_port     = ingress.value.to_port
-      protocol    = ingress.value.protocol
-      cidr_blocks = ingress.value.cidr_blocks
+    tags = {
+        Name = var.vpc_name
     }
-  }
+}
 
-  dynamic "egress" {
-    for_each = var.egress_rules
-    content {
-      description = egress.value.description
-      from_port   = egress.value.from_port
-      to_port     = egress.value.to_port
-      protocol    = egress.value.protocol
-      cidr_blocks = egress.value.cidr_blocks
+# Create a subnet
+resource "aws_subnet" "main" {
+    vpc_id     = aws_vpc.main.id
+    cidr_block = var.vpc_cidr
+
+    tags = {
+        Name = var.vpc_name
     }
-  }
+}
+
+# Create an EC2 instance
+resource "aws_instance" "example" {
+    ami           = var.ami_id
+    instance_type = var.instance_type
+    subnet_id     = aws_subnet.main.id
+
+    tags = {
+        Name = var.vpc_name
+    }
 }

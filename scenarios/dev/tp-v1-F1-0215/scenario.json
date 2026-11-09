@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F1",
-  "generator_version": "d4b-4",
+  "generator_version": "d4b-5",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -19,7 +19,7 @@
     "target_kind": "change_request"
   },
   "labels": null,
-  "module_id": 289773,
+  "module_id": 562423,
   "mutation_record": [
     {
       "after": "false",
@@ -35,11 +35,11 @@
     "derived": false,
     "grafted": true,
     "kind": "host",
-    "lineage_id": "lin-000101150176",
-    "module_id": 289773,
-    "pool_id": "terrads-host-289773"
+    "lineage_id": "lin-000813142218",
+    "module_id": 562423,
+    "pool_id": "terrads-host-562423"
   },
-  "pool_id": "terrads-host-289773",
+  "pool_id": "terrads-host-562423",
   "protected_invariants": [
     {
       "invariant_id": "INV-SEC-001",
@@ -59,7 +59,7 @@
     }
   ],
   "reserve": false,
-  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
   "scenario_id": "tp-v1-F1-0215",
   "scope_addresses": [
     "aws_db_instance.tp_db",
@@ -80,23 +80,23 @@
   ],
   "seed": 215,
   "source": {
-    "commit_or_version": "3160bcfe6f28e23afe0751bf4be95d2e8d9bfdcb",
+    "commit_or_version": "80b71e37e62f54a31168125e27d8c551780e11a4",
     "grafted": true,
     "license": "Apache-2.0",
     "origin": "terrads",
-    "repo_lineage_id": "lin-000101150176",
+    "repo_lineage_id": "lin-000813142218",
     "tier": "real_world"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "bb77b72012ce2da77519dfa7a482598bff184344076a9994b21bf8b0eb502917",
+      "content_hash": "66eb069f82741c6b4c5dac30a1e1b3bfa9a930d98122ea64b240aec793a5d380",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "4e6521b11d4fc16ee13a75ebd37d1a575a35321c1a840ec2a63589e04eafca64",
+      "content_hash": "68eaf3b61cf150c48e53c509c8f80def20d0fa97c5eaca5daa9a30df4b865ee6",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"tp_vpc\" {\n   cidr_block           = \"172.31.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n",
       "step": 1,
       "terraform_dir": "step_1"

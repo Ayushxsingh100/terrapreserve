@@ -1,17 +1,29 @@
-# Output data that will be used by other submodules to build other parts of the
-# stack to support defined architecture
+locals {
+  output_public_subnets = {
+    for key in keys(local.public_subnets) : key => {
+      subnet_id         = aws_subnet.this[key].id
+      availability_zone = aws_subnet.this[key].availability_zone
+    }
+  }
+  output_private_subnets = {
+    for key in keys(local.private_subnets) : key => {
+      subnet_id         = aws_subnet.this[key].id
+      availability_zone = aws_subnet.this[key].availability_zone
+    }
+  }
+}
+
 output "vpc_id" {
-  value       = local.vpc_id
-  description = "AWS VPC id"
-
+  description = "The ID of the VPC"
+  value       = aws_vpc.this.id
 }
 
-output "subnet_ids" {
-  value       = local.subnet_ids
-  description = "AWS subnet ids"
+output "public_subnets" {
+  description = "The public subnets"
+  value       = local.output_public_subnets
 }
 
-output "security_group_ids" {
-  value       = aws_security_group.pe_sg[*].id
-  description = "AWS security group ids"
+output "private_subnets" {
+  description = "The private subnets"
+  value       = local.output_private_subnets
 }

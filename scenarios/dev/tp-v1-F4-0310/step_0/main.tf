@@ -1,63 +1,54 @@
-# security group
-resource "aws_security_group" "btc" {
-  name        = "btc_alert_api_sg"
-  description = "Allow TLS BTC API to function"
-  vpc_id      = var.vpc_id
 
-  ingress {
-    description      = "SSH from all"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
+resource "aws_vpc" "this" {
+  cidr_block = var.cidr_block
 
-  ingress {
-    description = "Port 3000 from ELB"
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-
-    security_groups = [aws_security_group.btc_lb.id]
-  }
-
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
+  enable_dns_support   = var.enable_dns_support
+  enable_dns_hostnames = var.enable_dns_hostnames
 
   tags = {
-    Name = "btc_alert_api_sg"
+    Name = var.name
+  }
+
+}
+
+resource "aws_subnet" "public" {
+  count                   = length(var.public_subnet_cidrs) # Create one subnet resource for each CIDR block in var.public_subnet_cidrs
+  vpc_id                  = aws_vpc.this.id
+  cidr_block              = var.public_subnet_cidrs[count.index] # count.index is the index number of the currently evaluated resource within the loop
+  availability_zone       = var.availability_zones[count.index]
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "public-subnet-${count.index}"
   }
 }
 
-resource "aws_security_group" "btc_lb" {
-  name        = "btc-alert-api"
-  description = "Allow API traffic from UI to API"
-  vpc_id      = var.vpc_id
+# Internet Gateway
+resource "aws_internet_gateway" "this" {
+  vpc_id = aws_vpc.this.id
 
-  ingress {
-    description      = "SSL from Cloudfront"
-    from_port        = 443
-    to_port          = 443
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+  tags = {
+    Name = "${var.name}-igw"
   }
+}
 
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+# Public route table
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.this.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.this.id
   }
 
   tags = {
-    Name = "btc_alert_api_lb_sg"
+    Name = "${var.name}-public-rt"
   }
+}
+
+# Associate public subnets with public route table
+resource "aws_route_table_association" "public" {
+  count          = length(var.public_subnet_cidrs)
+  subnet_id      = aws_subnet.public[count.index].id
+  route_table_id = aws_route_table.public.id
 }

@@ -1,20 +1,30 @@
-variable "instance_count" {
-  default = 1
+variable "aws_region" {
+  type    = string
+  default = "us-east-1"
 }
 
-variable "key_name" {
-  description = "Private key name to use with instance"
-  default     = "terraform"
+variable "vpc_name" {
+  type    = string
+  default = "demo_vpc"
 }
 
-variable "instance_type" {
-  description = "AWS instance type"
-  default     = "t3.small"
+variable "vpc_cidr" {
+  type    = string
+  default = "10.0.0.0/16"
 }
 
-variable "ami" {
-  description = "Base AMI to launch the instances"
+variable "private_subnets" {
+  default = {
+    "private_subnet_1" = 1
+    "private_subnet_2" = 2
+    "private_subnet_3" = 3
+  }
+}
 
-  # Bitnami NGINX AMI
-  default = "ami-073a8e22592a4a925"
+variable "public_subnets" {
+  default = {
+    "public_subnet_1" = 1
+    "public_subnet_2" = 2
+    "public_subnet_3" = 3
+  }
 }

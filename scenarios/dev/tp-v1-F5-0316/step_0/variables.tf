@@ -1,59 +1,28 @@
-#           ~ Vpc variables ~
-variable "vpc_cidr_block" {
-    type = string
-    default = "10.0.0.0/16"
-    description = "The cidr block of the vpc"
+variable "vpc_config" {
+  description = "To get the CIDR and Name of the VPC"
+  type = object({
+    cidr_block = string
+    Name       = string
+  })
+
+  validation {
+    condition     = can(cidrnetmask(var.vpc_config.cidr_block))
+    error_message = "Invalid CIDR - ${var.vpc_config.cidr_block}"
+  }
 }
 
-variable "vpc_name" {
-    type = string
-    description = "The name of this vpc"
-}
+variable "subnet_config" {
+  description = "To get the CIDR and AZ of the Subnet"
+  type = map(object({
+    cidr_block = string
+    az         = string
+    public     = optional(bool, false)  #Default value false hoga
+  }))
 
-# Internet Gateway
-variable "igw_name" {
-    type = string 
-    description = "the name of the internet gateway"
-}
-
-
-#           ~ Subnets ~
-#public
-variable "subnet_public_availability_zones" {
-    type = list(string)
-    description = "the list of azs for the public subnets (one subnet per az will be provisioned)"
-}
-
-#private
-variable "subnet_private_availability_zones"{
-    type = list(string)
-    description = "the list of azs for the private subnets (one subnet per az will be provisioned)"
-}
-
-#configuration arguments
-variable "subnet_bits" {
-    type = number
-    default = 8
-    description = "argument used in order to configure the subnets' subnetting"
-}
-
-#security groups
-variable "sg_dmz_ports_ingress" {
-    type = list(number)
-    description = "the ingress ports allowed for the dmz sg"
-}
-
-variable "sg_dmz_protocol_ingress" {
-    type = string
-    description = "The protocol allowed for ingress traffic in the dmz"
-}
-
-variable "sg_rds_ports_ingress" {
-    type = list(number)
-    description = "The ports allowed for ingress traffic in the database sunets's sg"
-}
-
-variable "sg_rds_protocol_ingress" {
-    type = string
-    description = "The protocol allowed for ingress traffic in the database sg/subnet"
+  validation {
+    condition = alltrue([
+      for config in values(var.subnet_config) : can(cidrnetmask(config.cidr_block))   #can() returns boolean
+    ])                                                                              #cidrnetmask() defines the structure 
+    error_message = "Invalid CIDR block in subnet_config"
+  }
 }

@@ -3,7 +3,10 @@
 Builds the 208 real-world benchmark scenarios across 16 cells (8 families x 2 classes):
 - 160 targets (112 dev, 48 test: 7 dev + 3 test per cell)
 - 48 reserves (32 dev, 16 test: 2 dev + 1 test per cell)
-- Natives and derived natives assigned first, hosts fill remaining slots.
+- Slot layout as in D4b-09 (natives first, then hosts in sorted order), then D4b-14 and D4b-15:
+  derived natives are out of v1.0, and a module that fails the whole-module S0 screen is replaced by
+  an unused, screen-passing host of the same side of the split. A slot with no such host is left
+  short and reported, never padded.
 - Exactly one base module per scenario (never reused).
 Standard library only.
 """
@@ -18,7 +21,9 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "sources"))
+sys.path.insert(0, str(REPO_ROOT / "generator"))
 import hcl_lex
+from realworld import graft, screen
 
 SPLIT_REAL_WORLD = REPO_ROOT / "scenarios" / "split_real_world.json"
 POOL_JSON = REPO_ROOT / "pool" / "pool.json"
@@ -62,142 +67,138 @@ def load_split() -> tuple[set[str], set[str]]:
     return set(data["dev_lineages"]), set(data["test_lineages"])
 
 
-def build_real_world_plan() -> list[dict[str, Any]]:
-    """Build the deterministic plan for the 208 real-world scenarios."""
+# D4b-14: the derived natives (pool/derived.json, kept for v1.1) are not used in v1.0.
+DERIVED_IN_V1_0 = False
+
+
+def _module_dir(mod: dict[str, Any]) -> Path:
+    kind = "derived" if mod.get("derived") else ("host" if mod["kind"] == "host" else "native")
+    return REPO_ROOT / "pool" / "terrads" / kind / str(mod["module_id"])
+
+
+def screen_entry(mod: dict[str, Any]) -> screen.ScreenResult:
+    """Whole-module S0 screen of one pool entry (hosts are neutralised exactly as the generator does)."""
+    files: dict[str, str] = {}
+    for p in sorted(_module_dir(mod).glob("*.tf")):
+        text = p.read_text(encoding="utf-8", errors="replace")
+        if mod["kind"] == "host":
+            text, _log = graft.neutralise_host_file(p.name, text)
+        files[p.name] = text
+    return screen.screen_module(files, is_native=(mod["kind"] != "host"))
+
+
+def build_plan_with_report() -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Build the plan and a report: screen statistics, replacements and shortfalls."""
     hosts, natives, derived = load_pool_modules()
     dev_lins, test_lins = load_split()
 
-    # Tag entries with native/derived/host flags
-    all_natives = []
-    for n in natives:
-        entry = dict(n)
-        entry["kind"] = "native"
-        entry["derived"] = False
-        all_natives.append(entry)
+    def tag(entries: list[dict[str, Any]], kind: str, is_derived: bool) -> list[dict[str, Any]]:
+        out = []
+        for e in entries:
+            entry = dict(e)
+            entry["kind"] = kind
+            entry["derived"] = is_derived
+            out.append(entry)
+        return out
 
-    for d in derived:
-        entry = dict(d)
-        entry["kind"] = "native"
-        entry["derived"] = True
-        all_natives.append(entry)
+    all_natives = tag(natives, "native", False) + tag(derived, "native", True)
+    all_hosts = tag(hosts, "host", False)
+    all_natives.sort(key=lambda m: m["module_id"])
+    all_hosts.sort(key=lambda m: m["module_id"])
 
-    all_hosts = []
-    for h in hosts:
-        entry = dict(h)
-        entry["kind"] = "host"
-        entry["derived"] = False
-        all_hosts.append(entry)
+    def side(m: dict[str, Any]) -> str:
+        return "dev" if m["lineage_id"] in dev_lins else "test"
 
-    # Sort deterministically
-    all_natives.sort(key=lambda m: (m["module_id"]))
-    all_hosts.sort(key=lambda m: (m["module_id"]))
-
-    dev_native_pool = [m for m in all_natives if m["lineage_id"] in dev_lins and is_eligible_native(m)]
-    test_native_pool = [m for m in all_natives if m["lineage_id"] in test_lins and is_eligible_native(m)]
-    dev_host_pool = [m for m in all_hosts if m["lineage_id"] in dev_lins]
-    test_host_pool = [m for m in all_hosts if m["lineage_id"] in test_lins]
-
-    plan: list[dict[str, Any]] = []
-    global_counter = 209  # Continues from D4a controlled tier (1..208)
-
+    # Pass 1: the layout of D4b-09 (natives first, then hosts in sorted order), exactly as d4b-4.
+    pools = {
+        "dev": {"native": [m for m in all_natives if m["lineage_id"] in dev_lins and is_eligible_native(m)],
+                "host": [m for m in all_hosts if m["lineage_id"] in dev_lins]},
+        "test": {"native": [m for m in all_natives if m["lineage_id"] in test_lins and is_eligible_native(m)],
+                 "host": [m for m in all_hosts if m["lineage_id"] in test_lins]},
+    }
+    layout: list[dict[str, Any]] = []
+    counter = 209  # continues from the controlled tier (1..208)
     for fam in FAMILIES:
         for cls in CLASSES:
-            # 1. 10 Targets: 7 dev, 3 test
-            # Dev targets
-            for _ in range(7):
-                if dev_native_pool:
-                    mod = dev_native_pool.pop(0)
-                else:
-                    mod = dev_host_pool.pop(0)
+            for split, reserve, n in (("dev", False, 7), ("test", False, 3), ("dev", True, 2), ("test", True, 1)):
+                for _ in range(n):
+                    pl = pools[split]
+                    mod = pl["native"].pop(0) if pl["native"] else pl["host"].pop(0)
+                    layout.append({"global_id": counter, "family": fam, "class": cls, "split": split,
+                                   "reserve": reserve, "mod": mod})
+                    counter += 1
+    used_ids = {slot["mod"]["module_id"] for slot in layout}
 
-                plan.append({
-                    "global_id": global_counter,
-                    "scenario_id": f"tp-v1-{fam}-{global_counter:04d}",
-                    "family": fam,
-                    "class": cls,
-                    "split": "dev",
-                    "reserve": False,
-                    "module_id": mod["module_id"],
-                    "pool_id": mod["pool_id"],
-                    "lineage_id": mod["lineage_id"],
-                    "kind": mod["kind"],
-                    "derived": mod["derived"],
-                    "grafted": (mod["kind"] == "host"),
-                    "module_entry": mod,
-                })
-                global_counter += 1
+    # Screen every host of the pool once (statistics) and every module of the layout.
+    screen_cache: dict[tuple[bool, int], screen.ScreenResult] = {}
 
-            # Test targets
-            for _ in range(3):
-                if test_native_pool:
-                    mod = test_native_pool.pop(0)
-                else:
-                    mod = test_host_pool.pop(0)
+    def screened(m: dict[str, Any]) -> screen.ScreenResult:
+        key = (bool(m["derived"]), m["module_id"])
+        if key not in screen_cache:
+            screen_cache[key] = screen_entry(m)
+        return screen_cache[key]
 
-                plan.append({
-                    "global_id": global_counter,
-                    "scenario_id": f"tp-v1-{fam}-{global_counter:04d}",
-                    "family": fam,
-                    "class": cls,
-                    "split": "test",
-                    "reserve": False,
-                    "module_id": mod["module_id"],
-                    "pool_id": mod["pool_id"],
-                    "lineage_id": mod["lineage_id"],
-                    "kind": mod["kind"],
-                    "derived": mod["derived"],
-                    "grafted": (mod["kind"] == "host"),
-                    "module_entry": mod,
-                })
-                global_counter += 1
+    spare: dict[str, list[dict[str, Any]]] = {"dev": [], "test": []}
+    for m in all_hosts:
+        if m["module_id"] not in used_ids and screened(m).accepted:
+            spare[side(m)].append(m)
 
-            # 2. 3 Reserves: 2 dev, 1 test
-            # Dev reserves
-            for _ in range(2):
-                if dev_native_pool:
-                    mod = dev_native_pool.pop(0)
-                else:
-                    mod = dev_host_pool.pop(0)
+    plan: list[dict[str, Any]] = []
+    replacements: list[dict[str, Any]] = []
+    shortfalls: list[dict[str, Any]] = []
+    for slot in layout:
+        mod = slot["mod"]
+        keep = (not mod["derived"] or DERIVED_IN_V1_0) and screened(mod).accepted
+        old = mod
+        if not keep:
+            reason = "derived native (D4b-14)" if mod["derived"] else screened(mod).primary
+            if spare[slot["split"]]:
+                mod = spare[slot["split"]].pop(0)
+                replacements.append({"scenario_id": f"tp-v1-{slot['family']}-{slot['global_id']:04d}",
+                                     "split": slot["split"], "old_module_id": old["module_id"],
+                                     "old_kind": "derived native" if old["derived"] else old["kind"],
+                                     "reason": reason, "new_module_id": mod["module_id"]})
+            else:
+                shortfalls.append({"scenario_id": f"tp-v1-{slot['family']}-{slot['global_id']:04d}",
+                                   "family": slot["family"], "class": slot["class"], "split": slot["split"],
+                                   "reserve": slot["reserve"], "old_module_id": old["module_id"],
+                                   "reason": reason})
+                continue
+        plan.append({
+            "global_id": slot["global_id"],
+            "scenario_id": f"tp-v1-{slot['family']}-{slot['global_id']:04d}",
+            "family": slot["family"],
+            "class": slot["class"],
+            "split": slot["split"],
+            "reserve": slot["reserve"],
+            "module_id": mod["module_id"],
+            "pool_id": mod["pool_id"],
+            "lineage_id": mod["lineage_id"],
+            "kind": mod["kind"],
+            "derived": mod["derived"],
+            "grafted": (mod["kind"] == "host"),
+            "module_entry": mod,
+        })
 
-                plan.append({
-                    "global_id": global_counter,
-                    "scenario_id": f"tp-v1-{fam}-{global_counter:04d}",
-                    "family": fam,
-                    "class": cls,
-                    "split": "dev",
-                    "reserve": True,
-                    "module_id": mod["module_id"],
-                    "pool_id": mod["pool_id"],
-                    "lineage_id": mod["lineage_id"],
-                    "kind": mod["kind"],
-                    "derived": mod["derived"],
-                    "grafted": (mod["kind"] == "host"),
-                    "module_entry": mod,
-                })
-                global_counter += 1
+    stats: dict[str, dict[str, Any]] = {"dev": {}, "test": {}}
+    for split in ("dev", "test"):
+        examined = [m for m in all_hosts if side(m) == split]
+        primary: dict[str, int] = {}
+        anycode: dict[str, int] = {}
+        for m in examined:
+            r = screened(m)
+            primary[r.primary] = primary.get(r.primary, 0) + 1
+            for c in r.codes:
+                anycode[c] = anycode.get(c, 0) + 1
+        stats[split] = {"hosts_examined": len(examined), "accepted": primary.get("accepted", 0),
+                        "rejected": len(examined) - primary.get("accepted", 0),
+                        "by_primary_code": dict(sorted(primary.items())),
+                        "by_any_code": dict(sorted(anycode.items()))}
+    report = {"stats": stats, "replacements": replacements, "shortfalls": shortfalls,
+              "slots": len(layout), "planned": len(plan)}
+    return plan, report
 
-            # Test reserve
-            for _ in range(1):
-                if test_native_pool:
-                    mod = test_native_pool.pop(0)
-                else:
-                    mod = test_host_pool.pop(0)
 
-                plan.append({
-                    "global_id": global_counter,
-                    "scenario_id": f"tp-v1-{fam}-{global_counter:04d}",
-                    "family": fam,
-                    "class": cls,
-                    "split": "test",
-                    "reserve": True,
-                    "module_id": mod["module_id"],
-                    "pool_id": mod["pool_id"],
-                    "lineage_id": mod["lineage_id"],
-                    "kind": mod["kind"],
-                    "derived": mod["derived"],
-                    "grafted": (mod["kind"] == "host"),
-                    "module_entry": mod,
-                })
-                global_counter += 1
-
-    return plan
+def build_real_world_plan() -> list[dict[str, Any]]:
+    """Build the deterministic plan for the real-world scenarios (cells short of clean hosts are omitted)."""
+    return build_plan_with_report()[0]

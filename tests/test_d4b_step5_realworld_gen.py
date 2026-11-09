@@ -43,7 +43,7 @@ class TestRealWorldGeneration(unittest.TestCase):
         self.assertTrue(data["grafted"])
         self.assertIn("scope_addresses", data)
         self.assertIn("host_transform", data)
-        self.assertEqual(data["generator_version"], "d4b-4")
+        self.assertEqual(data["generator_version"], "d4b-5")
 
         # Step 0 files must include graft
         s0_files = steps_files[0]
@@ -53,17 +53,26 @@ class TestRealWorldGeneration(unittest.TestCase):
 
     def test_generate_native_scenario(self) -> None:
         """A native scenario generates S0 and applies span edits cleanly."""
+        # Derived natives are out of v1.0 (D4b-14), so no plan item is a native; the span-edit path is kept
+        # for v1.1 and is exercised here on a derived-native pool entry.
         plan = rw_plan.build_real_world_plan()
-        native_items = [i for i in plan if i["kind"] == "native"]
-        self.assertGreater(len(native_items), 0)
-
+        self.assertEqual([i for i in plan if i["kind"] == "native"], [])
+        _hosts, _natives, derived = rw_plan.load_pool_modules()
+        entry = dict(next(d for d in derived if rw_plan.is_eligible_native({**d, "kind": "native", "derived": True})))
+        entry.update({"kind": "native", "derived": True})
+        native_items = [{
+            "global_id": 209, "scenario_id": "tp-v1-F1-0209", "family": "F1", "class": "safe", "split": "dev",
+            "reserve": False, "module_id": entry["module_id"], "pool_id": entry["pool_id"],
+            "lineage_id": entry["lineage_id"], "kind": "native", "derived": True, "grafted": False,
+            "module_entry": entry,
+        }]
         item = native_items[0]
         data, steps_files, _records = generate_rw.generate_real_world_scenario(item)
 
         self.assertEqual(data["scenario_id"], item["scenario_id"])
         self.assertEqual(data["source"]["tier"], "real_world")
         self.assertFalse(data["grafted"])
-        self.assertEqual(data["generator_version"], "d4b-4")
+        self.assertEqual(data["generator_version"], "d4b-5")
 
         # Check steps
         self.assertGreaterEqual(len(steps_files), 2)

@@ -1,56 +1,71 @@
+# ----
+# Security Group
+# ----
 
+resource "aws_security_group" "main" {
+  count = var.enabled ? 1 : 0
 
-locals {
-  subnet_id    = "subnet-0d05de32e811f03c4"
-  ssh_key_name = "lindarr"
-}
+  name        = var.name
+  description = var.description
+  vpc_id      = var.vpc_id
 
-resource "aws_instance" "workstation_ec2_instnace" {
-
-  instance_type = "c5.xlarge"
-  subnet_id     = local.subnet_id
-  ami           = data.aws_ami.ubuntu.id
-
-  security_groups = [aws_security_group.allow_ssh.id]
-
-  ebs_block_device {
-    volume_size = 60
-    volume_type = "gp2"
-    device_name = "/dev/sda1"
+  dynamic "ingress" {
+    for_each = var.ingress_rules
+    content {
+      description      = ingress.value.description
+      from_port        = ingress.value.from_port
+      to_port          = ingress.value.to_port
+      protocol         = ingress.value.protocol
+      cidr_blocks      = ingress.value.cidr_blocks
+      ipv6_cidr_blocks = ingress.value.ipv6_cidr_blocks
+      security_groups  = ingress.value.security_groups
+      self             = ingress.value.self
+    }
   }
 
-  key_name = local.ssh_key_name
-
-
-  tags = {
-    "Name" = "Workstation"
+  dynamic "ingress" {
+    for_each = var.ingress_named_rules
+    content {
+      description      = var.named_rules[ingress.value.named_rule].description
+      from_port        = var.named_rules[ingress.value.named_rule].from_port
+      to_port          = var.named_rules[ingress.value.named_rule].to_port
+      protocol         = var.named_rules[ingress.value.named_rule].protocol
+      cidr_blocks      = ingress.value.cidr_blocks
+      ipv6_cidr_blocks = ingress.value.ipv6_cidr_blocks
+    }
   }
 
-  iam_instance_profile = "SSMManagedInstanceProfileRole"
-}
-
-data "aws_ami" "ubuntu" {
-  owners      = ["099720109477"]
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-*-amd64-server-*"]
+  dynamic "egress" {
+    for_each = var.egress_rules
+    content {
+      description      = egress.value.description
+      from_port        = egress.value.from_port
+      to_port          = egress.value.to_port
+      protocol         = egress.value.protocol
+      cidr_blocks      = egress.value.cidr_blocks
+      ipv6_cidr_blocks = egress.value.ipv6_cidr_blocks
+      security_groups  = egress.value.security_groups
+      self             = egress.value.self
+    }
   }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+
+  dynamic "egress" {
+    for_each = var.egress_named_rules
+    content {
+      description      = var.named_rules[egress.value.named_rule].description
+      from_port        = var.named_rules[egress.value.named_rule].from_port
+      to_port          = var.named_rules[egress.value.named_rule].to_port
+      protocol         = var.named_rules[egress.value.named_rule].protocol
+      cidr_blocks      = egress.value.cidr_blocks
+      ipv6_cidr_blocks = egress.value.ipv6_cidr_blocks
+    }
   }
-}
 
-
-resource "aws_security_group" "allow_ssh" {
-  vpc_id = "vpc-0c544fbcafdbbb035"
-    ingress {
-      cidr_blocks = [ "0.0.0.0/0" ]
-      description = "Allow SSH"
-      from_port = 22
-      protocol = "TCP"
-      to_port = 22
-    } 
+  tags = merge(
+    var.tags,
+    {
+      Name                      = var.name
+      "${var.networktags_name}" = var.networktags_value
+    }
+  )
 }

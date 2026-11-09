@@ -1,21 +1,21 @@
 {
  "archive_sha256": {
-  "outputs.tf": "15acefc88d53a41a9cf08d7de7bc76317fa5e1e8419bba1da1419929e3ec98e2",
-  "sg.tf": "97166e396b7fcb30d4fef66a6bf17dc7926c015675a5fa50c678cba33a8e148e",
-  "var.tf": "cb72ca9cb9eddae47e3dd947e9bdcb239717b5773b7221135d671fc2468ca900"
+  "main.tf": "0f35d4e77bb6e8ee8764ec7fe94cb2db9f2a324206038a3916b2f4969d12f7e1",
+  "outputs.tf": "519c9127a1bcb5d65db7a835c21497cae424550b027380675edc852582e510a2",
+  "variables.tf": "2b0d628c7e97500ebad105b3cd86c1164a4acc47b84acf2c3d18e6e455d33b48"
  },
- "commit_sha": "827d13bca26b8f6aa50e0e903e942bff2b7ac648",
+ "commit_sha": "4c705e173f90daa69eb76fd7b44f7f18f6457e2c",
  "crlf_normalised": [],
  "kind": "host",
  "licence_source_file": "LICENSE",
  "licence_spdx": "MIT",
- "licence_upstream_sha256": "e8b289247bc1687c25885793a0c6b397a825f2b65579f0c40841295994d55103",
- "module_id": 392709,
- "module_path": "modules/aws/mod-security-groups",
+ "licence_upstream_sha256": "b9846f3eb648ae67a745137c1dcb6f21d9c7d02dcc5cce174e86fa7f8bfa146f",
+ "module_id": 621360,
+ "module_path": "terraform/modules/vpc",
  "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
- "pool_id": "terrads-host-392709",
- "repo_full_name": "austiincottrell/terraform_modules",
- "repo_id": 420245953,
+ "pool_id": "terrads-host-621360",
+ "repo_full_name": "mnaviapi/pagerduty-devops-Monserrat-Navia",
+ "repo_id": 983671103,
  "terrads": {
   "concept_doi": "10.5281/zenodo.14217385",
   "doi": "10.5281/zenodo.20339474",

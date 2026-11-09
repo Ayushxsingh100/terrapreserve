@@ -2,7 +2,7 @@
   "dataset_version": "1.0",
   "derived": false,
   "family": "F6",
-  "generator_version": "d4b-4",
+  "generator_version": "d4b-5",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -20,7 +20,7 @@
     "target_kind": "change_request"
   },
   "labels": null,
-  "module_id": 467559,
+  "module_id": 658975,
   "mutation_record": [
     {
       "after": "\"Monitoring security group\"",
@@ -92,11 +92,11 @@
     "derived": false,
     "grafted": true,
     "kind": "host",
-    "lineage_id": "lin-000599315260",
-    "module_id": 467559,
-    "pool_id": "terrads-host-467559"
+    "lineage_id": "lin-001074711129",
+    "module_id": 658975,
+    "pool_id": "terrads-host-658975"
   },
-  "pool_id": "terrads-host-467559",
+  "pool_id": "terrads-host-658975",
   "protected_invariants": [
     {
       "invariant_id": "INV-SEC-001",
@@ -116,7 +116,7 @@
     }
   ],
   "reserve": false,
-  "s0_screen": "eligible (graft core synthesized clean except target)",
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
   "scenario_id": "tp-v1-F6-0354",
   "scope_addresses": [
     "aws_db_instance.tp_db",
@@ -137,23 +137,23 @@
   ],
   "seed": 354,
   "source": {
-    "commit_or_version": "035ba8ef4ee0e671fc98a4a2601d3b10ae29c74c",
+    "commit_or_version": "fb45c4101650fe7ae0a74bf7a5602849ec755ec4",
     "grafted": true,
     "license": "MIT",
     "origin": "terrads",
-    "repo_lineage_id": "lin-000599315260",
+    "repo_lineage_id": "lin-001074711129",
     "tier": "real_world"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "61ce677a9065686aa37af87ab2ab21d10e86ce05ca925a8057ebe951b43fe7ab",
+      "content_hash": "cda256b9504842773185e4a5e977a0c4fb3f4d61c4b832d28052996b8cdbcba8",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "8018afb01ecfc494d5f82deeba3ea6e509664691acef36081b9029fa99f69a02",
+      "content_hash": "ef1259f90a06145b408f33740530ca798561fc8b785ac0b368289d9ae515b985",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = [aws_security_group.tp_app_sg.id, aws_security_group.tp_monitoring_sg.id]\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n@@ -103,3 +103,16 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"tp_monitoring_sg\" {\n+  description = \"Monitoring security group\"\n+  name        = \"tp_monitoring_sg-mon\"\n+  vpc_id      = aws_vpc.tp_vpc.id\n+\n+  ingress {\n+    cidr_blocks = [\"0.0.0.0/0\"]\n+    from_port   = 5432\n+    protocol    = \"tcp\"\n+    to_port     = 5432\n+  }\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"

@@ -1,46 +1,30 @@
-output "security_group_id" {
-  description = "The ID of the security group"
-  value = concat(
-    aws_security_group.this.*.id,
-    #aws_security_group.this_name_prefix.*.id,
-    [""],
-  )[0]
-}
-/*
-output "security_group_vpc_id" {
-  description = "The VPC ID"
-  value = concat(
-    aws_security_group.this.*.vpc_id,
-    aws_security_group.this_name_prefix.*.vpc_id,
-    [""],
-  )[0]
+# The security group Id's that will be used to pass on other resources 
+output "trident_web_alb_sg_id" {
+  value = aws_security_group.trident_web_alb_sg.id
 }
 
-output "security_group_owner_id" {
-  description = "The owner ID"
-  value = concat(
-    aws_security_group.this.*.owner_id,
-    aws_security_group.this_name_prefix.*.owner_id,
-    [""],
-  )[0]
+output "trident_web_sg_id" {
+  value = aws_security_group.trident_web_sg.id
 }
 
-output "security_group_name" {
-  description = "The name of the security group"
-  value = concat(
-    aws_security_group.this.*.name,
-    aws_security_group.this_name_prefix.*.name,
-    [""],
-  )[0]
+output "trident_app_alb_sg_id" {
+  value = aws_security_group.trident_app_alb_sg.id
 }
 
-output "security_group_description" {
-  description = "The description of the security group"
-  value = concat(
-    aws_security_group.this.*.description,
-    aws_security_group.this_name_prefix.*.description,
-    [""],
-  )[0]
+output "trident_app_sg_id" {
+  value = aws_security_group.trident_app_sg.id
 }
 
-*/
+output "trident_data_sg_id" {
+  value = aws_security_group.trident_data_sg.id
+}
+
+output "sg_ids" {
+  value = {
+    web_alb = aws_security_group.trident_web_alb_sg.id
+    web     = aws_security_group.trident_web_sg.id
+    app_alb = aws_security_group.trident_app_alb_sg.id
+    app     = aws_security_group.trident_app_sg.id
+    data    = aws_security_group.trident_data_sg.id
+  }
+}

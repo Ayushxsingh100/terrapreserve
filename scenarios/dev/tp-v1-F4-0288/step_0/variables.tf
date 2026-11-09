@@ -1,34 +1,31 @@
-variable "services" {
-  description = "Consul services monitored by Consul-Terraform-Sync"
-  type = map(
-    object({
-      id        = string
-      name      = string
-      kind      = string
-      address   = string
-      port      = number
-      meta      = map(string)
-      tags      = list(string)
-      namespace = string
-      status    = string
-
-      node                  = string
-      node_id               = string
-      node_address          = string
-      node_datacenter       = string
-      node_tagged_addresses = map(string)
-      node_meta             = map(string)
-
-      cts_user_defined_meta = map(string)
-    })
-  )
+variable "resource_tags" {
+  description = "default tags for all the module resources"
+  type        = map(string)
+  default = {
+    terraform = "ec2-module"
+  }
+}
+variable "vpc_cidr" {
+  description = "default vpc cidr for lab module"
+  type        = string
+  default = "10.0.0.0/16"
 }
 
-variable "security_group_id" {
-	type        = string
-  description = "ID of security group"
+variable "private_subnets" {
+  description = "list of private subnets from module"
+  type        = map(any)
+  default = {
+    websubnet     = "10.0.1.0/24"
+    dbsubnet      = "10.0.11.0/24"
+    privatesubnet = "10.0.21.0/24"
+  }
 }
-
-locals {
-	  ip_addresses = [for service, info in var.services : "${info.address}"]
+variable "public_subnets" {
+  description = "list of private subnets from module"
+  type        = map(any)
+  default = {
+    bastionsubnet     = "10.0.100.0/28"
+    firewallsubnet      = "10.0.120.0/28"
+    publicsubnet = "10.0.150.0/28"
+  }
 }

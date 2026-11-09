@@ -1,34 +1,39 @@
-
-resource "aws_instance" "this" {
-  ami             = var.ami_id
-  instance_type   = var.instance_type
-  tags            = var.tags
-  security_groups = [aws_security_group.tcp_ssh_connections.name]
-}
-
-resource "aws_security_group" "tcp_ssh_connections" {
-  name        = var.sg_name
-  description = "Allow TCP and SSH connections."
+resource "aws_security_group" "sig_sg" {
+  name        = "${var.stack_name}-${var.env}-${var.aws_region}-${var.stack_tool}-sg"
+  description = "SIG security group"
+  vpc_id      = var.vpc_id
 
   dynamic "ingress" {
     for_each = var.ingress_rules
+    iterator = each
+
     content {
-      description = "SSH ingress rule"
-      from_port   = ingress.value.from_port
-      to_port     = ingress.value.to_port
-      protocol    = ingress.value.protocol
-      cidr_blocks = ingress.value.cidr_blocks
+      description      = each.value.description
+      from_port        = each.value.from_port
+      to_port          = each.value.to_port
+      protocol         = each.value.protocol
+      cidr_blocks      = each.value.cidr_blocks
+      ipv6_cidr_blocks = each.value.ipv6_cidr_blocks
+      security_groups = each.value.security_groups
     }
   }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+  dynamic "egress" {
+    for_each = var.egress_rules
+    iterator = each
+
+    content {
+      description      = each.value.description
+      from_port        = each.value.from_port
+      to_port          = each.value.to_port
+      protocol         = each.value.protocol
+      cidr_blocks      = each.value.cidr_blocks
+      ipv6_cidr_blocks = each.value.ipv6_cidr_blocks
+    }
   }
 
   tags = {
-    Name = "allow_tcp_and_ssh"
+    Name = "${var.stack_name}-${var.env}-${var.aws_region}-${var.stack_tool}-sg"
+    Environment = terraform.workspace
   }
 }

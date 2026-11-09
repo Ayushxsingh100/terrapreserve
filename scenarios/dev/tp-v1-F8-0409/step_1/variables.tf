@@ -1,5 +1,4 @@
-variable "vpc_id" {
-  type = string
-  nullable = false
-  description = "Id de VPC"
+variable "aws_region" {
+  description = "AWS region to deploy resources into"
+  type        = string
 }

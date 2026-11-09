@@ -1,120 +1,52 @@
-# data "aws_region" "current" {}
-data "aws_vpc" "selected" {
-  id = var.vpc
-}
 
-
-
-data "aws_ami" "ubuntu" {
-  # executable_users = ["self"]
-  most_recent      = true
-  owners           = ["494789115339"]
-
-  filter {
-    name   = "name"
-    values = ["packer-guac-arohyans*"]
-  }
-
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+resource "aws_vpc" "test-vpc" {
+  cidr_block = var.vpc_config.cidr_block
+  tags = {
+    Name = var.vpc_config.name
   }
 }
 
-# # Get a reference to aws_ami.id using a data resource by finding the right AMI
-# data "aws_ami" "ubuntu" {
-#   # Pick the most recent version of the AMI
-#   most_recent = true
 
-#   # Find the 20.04 image
-#   filter {
-#     name   = "name"
-#     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-#   }
-
-#   # With the right virtualization type
-#   filter {
-#     name   = "virtualization-type"
-#     values = ["hvm"]
-#   }
-
-#   # Check that the image is published by Canonical (a trusted source)
-#   owners = ["099720109477"]
-# }
-
-resource "aws_security_group" "bastion" {
-  name        = "${var.name_prefix}-bastion-sg-${var.resource_tag}"
-  description = "Allow SSH access to bastion host and outbound internet access"
-  vpc_id      = data.aws_vpc.selected.id
-
-  lifecycle {
-    create_before_destroy = true
+resource "aws_subnet" "test-subnet" {
+  for_each          = var.subnet_config
+  vpc_id            = aws_vpc.test-vpc.id # the vpc id of the vpc created above 
+  cidr_block        = each.value.cidr_block
+  availability_zone = each.value.az
+  tags = {
+    Name = each.key
   }
-
-  tags = merge(var.global_tags,
-        { Name = "${var.name_prefix}-bastion-sg-${var.resource_tag}" }
-  )
 }
 
-resource "aws_security_group_rule" "ssh" {
-  protocol          = "TCP"
-  from_port         = 22
-  to_port           = 22
-  type              = "ingress"
-  cidr_blocks       = var.allowed_hosts_from_bastion
-  security_group_id = aws_security_group.bastion.id
-}
+# creating a local for counting the number of public subnets 
 
-resource "aws_security_group_rule" "guacamole" {
-  protocol          = "TCP"
-  from_port         = 8080
-  to_port           = 8080
-  type              = "ingress"
-  cidr_blocks       = var.allowed_hosts_from_bastion
-  security_group_id = aws_security_group.bastion.id
-}
-
-resource "aws_security_group_rule" "internet" {
-  protocol          = "-1"
-  from_port         = 0
-  to_port           = 0
-  type              = "egress"
-  cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.bastion.id
-}
-
-resource "aws_security_group_rule" "intranet" {
-  protocol  = "-1"
-  from_port = 0
-  to_port   = 0
-  type      = "egress"
-  cidr_blocks       = [data.aws_vpc.selected.cidr_block]
-  security_group_id = aws_security_group.bastion.id
-}
-
-resource "aws_instance" "bastion" {
-  ami                         = data.aws_ami.ubuntu.id
-  instance_type               = var.instance_type
-  key_name                    = var.instance_key
-  subnet_id                   = var.public_subnet
-  vpc_security_group_ids      = [aws_security_group.bastion.id]
-  associate_public_ip_address = true
-
-  root_block_device {
-    volume_size           = var.disk_size
-    delete_on_termination = true
+locals {
+  public_subnet_count = {
+    for key, config in var.subnet_config : key => config if config.is_public
   }
+}
 
-  lifecycle {
-    ignore_changes = [ami]
+resource "aws_internet_gateway" "test-igw" {
+  vpc_id = aws_vpc.test-vpc.id
+  count  = length(local.public_subnet_count) > 0 ? 1 : 0 # we do not want to create 10 igw if there are 10 public subnets , that would be terrible 
+  tags = {
+    Name = "${var.vpc_config.name}-igw"
   }
+}
 
-  tags = merge(var.global_tags,
-        { Name = "${var.name_prefix}-bastion-host-${var.resource_tag}" }
-  )
+resource "aws_route_table" "test-rtb" {
+  vpc_id = aws_vpc.test-vpc.id
+  count  = length(local.public_subnet_count) > 0 ? 1 : 0 # we do not want to create 10 rtb if there are 10 public subnets , that would be terrible
+  tags = {
+    Name = "${var.vpc_config.name}-rtb"
+  }
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.test-igw[0].id # notice [0] because now we have a list of igw , with a length of 1 or 0
+  }
+}
+
+resource "aws_route_table_association" "test-rtb-assoc" {
+  for_each       = local.public_subnet_count           # local.public_subnet_count is a map of public subnets only
+  subnet_id      = aws_subnet.test-subnet[each.key].id # each.key is like subnet1,subnet2 and we use it to get the id of the subnet from the aws_subnet resource , how? because we used for_each in the aws_subnet resource, so the resource is a map with keys like subnet1, subnet2 and values are the subnet objects like {id=...,cidr_block=...,az=...}, when we do map[key] we get the value of that key and here we want the id of that subnet so we do .id , we can do this because we used for_each in the aws_subnet resopurce
+  route_table_id = aws_route_table.test-rtb[0].id      # notice [0] because now we have a list of rtb , with a length of 1 or 0
 }

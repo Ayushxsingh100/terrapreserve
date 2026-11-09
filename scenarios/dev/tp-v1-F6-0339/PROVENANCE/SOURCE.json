@@ -1,21 +1,21 @@
 {
  "archive_sha256": {
-  "output.tf": "d282ffa56ac334748c6fd51f11179d3bf1bb32c87ab1f259a1261604ce676d49",
-  "sg.tf": "cbf0d9be4e9af980ac0507fb7cc13c1c21ed1182cce3c0e7b0cdc673273dcc39",
-  "vars.tf": "2b7769e7620f1a026dabf919c1dc6335c0945b232b98bd3fb321ea14e07a63ad"
+  "main.tf": "300a7dc03f1b86fea9902776b7874842689a378cf63ebbbd5b910cb8005e3c83",
+  "outputs.tf": "48601598f8a9f1f9fde42cfd13b796fd5c5e6077e2fce877dea382ac48df3887",
+  "variables.tf": "11e2ed830afde58019a1e9effa777026916d34a8aa5eb82c1f297472bb7a5be5"
  },
- "commit_sha": "a41f95ef0208070251ee5d909ce7b9450012ff29",
+ "commit_sha": "3c3d35215e5097f80d07fbca8ea98a0768957ad3",
  "crlf_normalised": [],
  "kind": "host",
  "licence_source_file": "LICENSE",
- "licence_spdx": "Apache-2.0",
- "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
- "module_id": 449469,
- "module_path": "modules/sg",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "9936d54adbf8a86f5ca9c33f7827961791fb5887b0e3c557096f537b88d95b29",
+ "module_id": 656536,
+ "module_path": "infrastructure/terraform/modules/rds",
  "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
- "pool_id": "terrads-host-449469",
- "repo_full_name": "Tom-HA/tf-challenge",
- "repo_id": 556600849,
+ "pool_id": "terrads-host-656536",
+ "repo_full_name": "jongwoo108/enterprise-rag-platform",
+ "repo_id": 1066965801,
  "terrads": {
   "concept_doi": "10.5281/zenodo.14217385",
   "doi": "10.5281/zenodo.20339474",

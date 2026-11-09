@@ -1,24 +1,9 @@
-variable "sg_name" {
+variable "cidr_block" {
   type        = string
-  description = "Security group name"
+  description = "Networking CIDR block to be used for the VPC"
 }
 
-variable "sg_description" {
+variable "project_name" {
   type        = string
-  description = "Security group description. "
-}
-
-variable "vpc_id" {
-  type        = string
-  description = "Vpc Id where securitygroup should be used to create"
-}
-
-variable "ingress_ports" {
-  type        = list(any)
-  description = "Ingress Ports"
-}
-
-variable "egress_ports" {
-  type        = list(any)
-  description = "Egress Ports"
+  description = "Project name to be used to name the resources (Name tag)"
 }

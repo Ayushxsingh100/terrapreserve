@@ -561,6 +561,11 @@ def evaluate_func(model: Model, s_addr: str, d_addr: str) -> Verdict:
     if s_addr not in model.resources or d_addr not in model.resources:
         return Verdict("FAIL", 1, "S or D absent")
     s, d = model.resources[s_addr], model.resources[d_addr]
+    # Registry 6.4 "first row that applies wins": row 2 (no vpc_security_group_ids) comes before row 3 (E2).
+    d_sgs = ref_list(d.attrs.get("vpc_security_group_ids")) if "vpc_security_group_ids" in d.attrs else []
+    s_sgs = ref_list(s.attrs.get("vpc_security_group_ids")) if "vpc_security_group_ids" in s.attrs else []
+    if not d_sgs or not s_sgs:
+        return Verdict("UNSUPPORTED", 2, "D or S has no vpc_security_group_ids")
     # E2
     port = as_int(d.attrs.get("port"))
     if port is not None:
@@ -568,11 +573,7 @@ def evaluate_func(model: Model, s_addr: str, d_addr: str) -> Verdict:
             return Verdict("FAIL", 3, f"D.port is {port}")
     elif as_str(d.attrs.get("engine")) != "postgres":
         raise UnsupportedForm("D.engine is not the literal postgres and D.port is absent")
-    # E3, row 2
-    d_sgs = ref_list(d.attrs.get("vpc_security_group_ids")) if "vpc_security_group_ids" in d.attrs else []
-    s_sgs = ref_list(s.attrs.get("vpc_security_group_ids")) if "vpc_security_group_ids" in s.attrs else []
-    if not d_sgs or not s_sgs:
-        return Verdict("UNSUPPORTED", 2, "D or S has no vpc_security_group_ids")
+    # E3
     vpcs = set()
     for g in d_sgs:
         if g not in model.resources:
