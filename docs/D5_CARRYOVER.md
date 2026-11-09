@@ -118,5 +118,5 @@ Measured with `generator/realworld/modread.py` over every step of `scenarios/dev
 | Real-world, whole module | 144 | 144 (every graft declares `tp_db_password` with no default) |
 | Real-world, host files only | 144 | 95 (for example `vpc_id`, `environment`, `project_name`) |
 
-The external review of PR #6 reported 125 of 144 for the real-world tier. Neither count above matches that, so the reviewer's counting rule is not established here. The test split was not measured for this item.
+The external review of PR #6 reported 125 of 144 for the real-world tier; the reviewer has since confirmed that figure came from a faulty block scan and that 144 of 144 (whole module) is correct. The test split was not measured for this item.
 
