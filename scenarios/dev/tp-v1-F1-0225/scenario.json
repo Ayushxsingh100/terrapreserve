@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F1",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -124,5 +125,99 @@
     "description": "Resizes EC2 instance with side effect making DB publicly accessible.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "subnet_config": {},
+    "tp_db_password": "tp-secret-primary",
+    "vpc_config": {
+      "cidr_block": "10.201.0.0/16",
+      "name": "tp-primary"
+    }
+  },
+  "variable_values_alt": {
+    "subnet_config": {
+      "tp-alt": {
+        "az": "us-east-1b",
+        "cidr_block": "192.168.77.0/24"
+      }
+    },
+    "tp_db_password": "tp-secret-alt",
+    "vpc_config": {
+      "cidr_block": "192.168.77.0/24",
+      "name": "tp-alt"
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "subnet_config": 0,
+      "tp_db_password": 0,
+      "vpc_config": 0
+    },
+    "primary": {
+      "subnet_config": 0,
+      "tp_db_password": 0,
+      "vpc_config": 0
+    }
+  },
+  "variable_values_kinds": {
+    "subnet_config": {
+      "evidence": [
+        "declared_type:map(object({cidr_block=stringaz=stringpublic=optional(bool,false)}))",
+        "usage:aws_subnet.main.availability_zone",
+        "usage:aws_subnet.main.cidr_block",
+        "validation"
+      ],
+      "kind": {
+        "keys": "empty-able",
+        "map": {
+          "object": {
+            "az": "az",
+            "cidr_block": "ipv4_cidr"
+          }
+        }
+      },
+      "validation": {
+        "alternate": {
+          "tp-alt": {
+            "az": "us-east-1b",
+            "cidr_block": "192.168.77.0/24"
+          }
+        },
+        "primary": {}
+      }
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_config": {
+      "evidence": [
+        "declared_type:object({cidr_block=stringname=string})",
+        "no table attribute reached at .name",
+        "usage:aws_vpc.name.cidr_block",
+        "validation"
+      ],
+      "kind": {
+        "object": {
+          "cidr_block": "ipv4_cidr",
+          "name": "string"
+        }
+      },
+      "validation": {
+        "alternate": {
+          "cidr_block": "192.168.77.0/24",
+          "name": "tp-alt"
+        },
+        "primary": {
+          "cidr_block": "10.201.0.0/16",
+          "name": "tp-primary"
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

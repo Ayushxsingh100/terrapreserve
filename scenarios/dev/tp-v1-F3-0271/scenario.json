@@ -1,8 +1,30 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": {
+    "failing_steps": [
+      {
+        "step": 0,
+        "value_set": "primary"
+      },
+      {
+        "step": 1,
+        "value_set": "primary"
+      },
+      {
+        "step": 0,
+        "value_set": "alternate"
+      },
+      {
+        "step": 1,
+        "value_set": "alternate"
+      }
+    ],
+    "first_error": "Error: No value for required variable",
+    "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; unresolved variable has no value"
+  },
   "family": "F3",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -115,5 +137,65 @@
     "description": "Reorders subnets in DB subnet group safely.",
     "invariant_id": null,
     "kind": "change_request"
+  },
+  "variable_values": {
+    "name": "tp-primary",
+    "tp_db_password": "tp-secret-primary",
+    "vpc": {
+      "id": "vpc-0201201201201201a"
+    }
+  },
+  "variable_values_alt": {
+    "name": "tp-alt",
+    "tp_db_password": "tp-secret-alt",
+    "vpc": {
+      "id": "vpc-0777777777777777b"
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "name": 0,
+      "tp_db_password": 0,
+      "vpc": 0
+    },
+    "primary": {
+      "name": 0,
+      "tp_db_password": 0,
+      "vpc": 0
+    }
+  },
+  "variable_values_kinds": {
+    "name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc": {
+      "evidence": [
+        "declared_type:object({id=string})",
+        "usage:aws_subnet.this.vpc_id"
+      ],
+      "kind": {
+        "object": {
+          "id": "vpc_id"
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {
+    "cidr_blocks": {
+      "reason": "conflict at []: ipv4_cidr by usage:aws_subnet.this.cidr_block; ipv6_cidr by usage:aws_subnet.this.ipv6_cidr_block",
+      "status": "conflict"
+    }
   }
 }

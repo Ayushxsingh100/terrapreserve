@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F4",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -13,6 +14,14 @@
       "removed_blocks": [
         "terraform"
       ]
+    },
+    {
+      "block_sha256": "a0fe9b2a45c1c777c5650a33165edc776d4220bb76a8ebe6f8cf2f15433b6314",
+      "data_name": "available",
+      "data_type": "aws_availability_zones",
+      "file": "main.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_available"
     }
   ],
   "intent": {
@@ -148,13 +157,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "5092040a95b131c489d940e71ed556da96956aa64039413de86d3882c1482052",
+      "content_hash": "0978ec6a5cd9f564184f430f99cd0a978c88761c34d1b5315b4b8592978c4157",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "79997d21e7128583a8284ed8c0b9b968fe66148dca3d4426905e44d627bf0168",
+      "content_hash": "6dadb8173bdd03a1108b211baae1b3edb9ad27a8611d58d5f31f9e4d0d5697e0",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -71,7 +71,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"172.16.0.0/12\"]\n   from_port         = 5432\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_db_sg.id\n@@ -103,3 +103,12 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group_rule\" \"tp_app_sg_ingress_ssh\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 22\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.tp_app_sg.id\n+  to_port           = 22\n+  type              = \"ingress\"\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -164,5 +173,60 @@
     "description": "Repair public database ingress on port 5432",
     "invariant_id": "INV-SEC-002",
     "kind": "repair"
-  }
+  },
+  "variable_values": {
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1a",
+        "us-east-1a",
+        "us-east-1a"
+      ]
+    }
+  },
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1b",
+        "us-east-1b",
+        "us-east-1b"
+      ]
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 0
+    },
+    "primary": {
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 0
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "evidence": [
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({names=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "names": {
+            "length": 3,
+            "list": "az"
+          }
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

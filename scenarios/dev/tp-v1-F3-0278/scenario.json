@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F3",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -131,5 +132,134 @@
     "description": "Adds a new client group and re-points the DB group's 5432 ingress source to it.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "client_vpn_cidr": "10.201.0.0/16",
+    "ec2_app_port": 1,
+    "ec2_app_port_health": 1,
+    "isolated_subnet_cidrs": [],
+    "private_subnet_cidrs": [],
+    "project_name": "tp-primary",
+    "public_subnet_cidrs": [],
+    "tp_db_password": "tp-secret-primary",
+    "vpc_id": "vpc-0201201201201201a"
+  },
+  "variable_values_alt": {
+    "client_vpn_cidr": "192.168.77.0/24",
+    "ec2_app_port": 2,
+    "ec2_app_port_health": 2,
+    "isolated_subnet_cidrs": [
+      "192.168.77.0/24"
+    ],
+    "private_subnet_cidrs": [
+      "192.168.77.0/24"
+    ],
+    "project_name": "tp-alt",
+    "public_subnet_cidrs": [
+      "192.168.77.0/24"
+    ],
+    "tp_db_password": "tp-secret-alt",
+    "vpc_id": "vpc-0777777777777777b"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "client_vpn_cidr": 0,
+      "ec2_app_port": 0,
+      "ec2_app_port_health": 0,
+      "isolated_subnet_cidrs": 0,
+      "private_subnet_cidrs": 0,
+      "project_name": 0,
+      "public_subnet_cidrs": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "client_vpn_cidr": 0,
+      "ec2_app_port": 0,
+      "ec2_app_port_health": 0,
+      "isolated_subnet_cidrs": 0,
+      "private_subnet_cidrs": 0,
+      "project_name": 0,
+      "public_subnet_cidrs": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    }
+  },
+  "variable_values_kinds": {
+    "client_vpn_cidr": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.vpn_endpoint_sg.ingress.cidr_blocks"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "ec2_app_port": {
+      "evidence": [
+        "declared_type:number"
+      ],
+      "kind": "number"
+    },
+    "ec2_app_port_health": {
+      "evidence": [
+        "declared_type:number"
+      ],
+      "kind": "number"
+    },
+    "isolated_subnet_cidrs": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_security_group.ec2_sg.egress.cidr_blocks"
+      ],
+      "kind": {
+        "length": "empty-able",
+        "list": "ipv4_cidr"
+      }
+    },
+    "private_subnet_cidrs": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_security_group.alb_sg.egress.cidr_blocks"
+      ],
+      "kind": {
+        "length": "empty-able",
+        "list": "ipv4_cidr"
+      }
+    },
+    "project_name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "public_subnet_cidrs": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_security_group.alb_sg.ingress.cidr_blocks"
+      ],
+      "kind": {
+        "length": "empty-able",
+        "list": "ipv4_cidr"
+      }
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.alb_sg.vpc_id",
+        "usage:aws_security_group.ec2_sg.vpc_id",
+        "usage:aws_security_group.rds_sg.vpc_id",
+        "usage:aws_security_group.vpn_endpoint_sg.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

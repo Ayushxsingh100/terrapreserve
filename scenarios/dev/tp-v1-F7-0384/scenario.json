@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F7",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -13,6 +14,14 @@
       "removed_blocks": [
         "terraform"
       ]
+    },
+    {
+      "block_sha256": "faa206ab48171183b5a7de57e6a19ecb87a2978ef4a15107c5b3ce8757e9bd35",
+      "data_name": "nat",
+      "data_type": "aws_ami",
+      "file": "nat.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_ami_nat"
     }
   ],
   "intent": {
@@ -100,13 +109,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "285b9cd3142f81eb1d9822c478b1fbd8542030971fea8442ccfd0c5478e0aa4d",
+      "content_hash": "a84f982c506c3d664aa7d5074a343e6bc52aec00d9025056d5cca81a03e80b1b",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "6955d71377a9663b4db9e6d52d9b9556fa578f81c0e89946467365a64e53a51b",
+      "content_hash": "4d927a9ed20f6e668cc9ebf5172e7849f149c6e33d73ad3b1b8abb957ca46d5a",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -62,7 +62,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"192.168.0.0/16\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -116,5 +125,49 @@
     "description": "Tightens the app group egress to a CIDR disjoint from CIDR(VPC(D)).",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_ami_nat": {
+      "id": "ami-0201201201201201a"
+    }
+  },
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_ami_nat": {
+      "id": "ami-0777777777777777b"
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0,
+      "tp_ds_aws_ami_nat": 0
+    },
+    "primary": {
+      "tp_db_password": 0,
+      "tp_ds_aws_ami_nat": 0
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_ami_nat": {
+      "evidence": [
+        "data_source:aws_ami.id",
+        "declared_type:object({id=string})"
+      ],
+      "kind": {
+        "object": {
+          "id": "ami"
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

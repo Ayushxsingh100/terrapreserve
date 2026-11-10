@@ -1,0 +1,19 @@
+{
+  "reason": "Measured a second time with 4 workers on 2026-11-09. First pass: 8 dev steps (tp-v1-F5-0120, -0123, -0125, -0126) stalled together for about 2420 s (an environmental stall during the run: wall or Checkov time of 2407 to 2424 s at the same moment, 2 of them reported as a show-stage timeout); 5 dev and 2 test steps had Checkov exit with UnicodeDecodeError ('charmap' codec, Windows cp1252 locale reading UTF-8 files), fixed by running Checkov with PYTHONUTF8=1. The rows in the CSVs are the second measurement.",
+  "dev_rows": [
+    "tp-v1-F5-0120:0",
+    "tp-v1-F5-0120:1",
+    "tp-v1-F5-0123:0",
+    "tp-v1-F5-0123:1",
+    "tp-v1-F5-0125:0",
+    "tp-v1-F5-0125:1",
+    "tp-v1-F5-0126:0",
+    "tp-v1-F5-0126:1",
+    "tp-v1-F6-0339:0",
+    "tp-v1-F6-0339:1",
+    "tp-v1-F8-0414:0",
+    "tp-v1-F8-0414:1",
+    "tp-v1-F8-0414:2"
+  ],
+  "test_rows_count": 2
+}

@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F1",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -14,6 +15,22 @@
         "terraform",
         "provider"
       ]
+    },
+    {
+      "block_sha256": "a0fe9b2a45c1c777c5650a33165edc776d4220bb76a8ebe6f8cf2f15433b6314",
+      "data_name": "available",
+      "data_type": "aws_availability_zones",
+      "file": "main.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_available"
+    },
+    {
+      "block_sha256": "bc14f674cfdea40ee9536693ac5dc44cefa3222a654a48098f42774d49eb38e0",
+      "data_name": "current",
+      "data_type": "aws_region",
+      "file": "main.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_region_current"
     }
   ],
   "intent": {
@@ -100,13 +117,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "5b5a291073358d1857b6b84cb15ab170dbedd1d3a8e9e660cbf15de52bfcff5f",
+      "content_hash": "b36cda7ae5e52c460c7090dd01aad379797e2e742849df9240799e8d36cd4e44",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "b30e47b26dd043d8f2f2f2a0c2b54262cfd429160da585e5a8a55063139a496b",
+      "content_hash": "4c9e33eef616136376225909f503c4f9c5832b62f14164d6a93b2f4cef98c251",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,7 +81,7 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -116,5 +133,73 @@
     "description": "Resizes application EC2 instance type safely.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1a",
+        "us-east-1a",
+        "us-east-1a"
+      ]
+    },
+    "tp_ds_aws_region_current": {}
+  },
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1b",
+        "us-east-1b",
+        "us-east-1b"
+      ]
+    },
+    "tp_ds_aws_region_current": {}
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 0,
+      "tp_ds_aws_region_current": 0
+    },
+    "primary": {
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 0,
+      "tp_ds_aws_region_current": 0
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "evidence": [
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({names=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "names": {
+            "length": 3,
+            "list": "az"
+          }
+        }
+      }
+    },
+    "tp_ds_aws_region_current": {
+      "evidence": [
+        "declared_type:object({})"
+      ],
+      "kind": {
+        "object": {}
+      },
+      "same_in_both_sets": "object with no attributes used"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

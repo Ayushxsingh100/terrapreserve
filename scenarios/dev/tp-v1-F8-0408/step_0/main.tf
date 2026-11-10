@@ -1,6 +1,5 @@
 ### VPC ###
 
-data "aws_availability_zones" "available" {}
 
 resource "aws_vpc" "main" {
   cidr_block = var.cidr_block
@@ -22,7 +21,7 @@ resource "aws_subnet" "private" {
   count             = local.num_private_subnets
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.private_subnet_cidrs[count.index]
-  availability_zone = data.aws_availability_zones.available.names[count.index]
+  availability_zone = var.tp_ds_aws_availability_zones_available.names[count.index]
 
   tags = {
     Name = "${var.private_subnet_name_prefix}[${count.index}]"
@@ -39,7 +38,7 @@ resource "aws_subnet" "public" {
   count             = local.num_public_subnets
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.public_subnet_cidrs[count.index]
-  availability_zone = data.aws_availability_zones.available.names[count.index]
+  availability_zone = var.tp_ds_aws_availability_zones_available.names[count.index]
 
   tags = {
     Name = "${var.public_subnet_name_prefix}[${count.index}]"

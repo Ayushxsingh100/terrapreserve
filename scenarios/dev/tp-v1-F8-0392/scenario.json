@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F8",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -148,5 +149,90 @@
     "description": "Repair public SSH ingress on port 22",
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
-  }
+  },
+  "variable_values": {
+    "az1": "us-east-1a",
+    "az2": "us-east-1a",
+    "az3": "us-east-1a",
+    "tp_db_password": "tp-secret-primary",
+    "vpc_id": "vpc-0201201201201201a",
+    "workload": "tp-primary"
+  },
+  "variable_values_alt": {
+    "az1": "us-east-1b",
+    "az2": "us-east-1b",
+    "az3": "us-east-1b",
+    "tp_db_password": "tp-secret-alt",
+    "vpc_id": "vpc-0777777777777777b",
+    "workload": "tp-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "az1": 0,
+      "az2": 0,
+      "az3": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0,
+      "workload": 0
+    },
+    "primary": {
+      "az1": 0,
+      "az2": 0,
+      "az3": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0,
+      "workload": 0
+    }
+  },
+  "variable_values_kinds": {
+    "az1": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.private1.availability_zone"
+      ],
+      "kind": "az"
+    },
+    "az2": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.private2.availability_zone"
+      ],
+      "kind": "az"
+    },
+    "az3": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.private3.availability_zone"
+      ],
+      "kind": "az"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_route_table.private1.vpc_id",
+        "usage:aws_route_table.private2.vpc_id",
+        "usage:aws_route_table.private3.vpc_id",
+        "usage:aws_subnet.private1.vpc_id",
+        "usage:aws_subnet.private2.vpc_id",
+        "usage:aws_subnet.private3.vpc_id"
+      ],
+      "kind": "vpc_id"
+    },
+    "workload": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

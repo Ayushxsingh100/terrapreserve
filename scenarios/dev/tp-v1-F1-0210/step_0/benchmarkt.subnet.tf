@@ -3,7 +3,7 @@ resource "aws_subnet" "private_subnets" {
   for_each          = var.private_subnets
   vpc_id            = aws_vpc.benchmarkt_vpc.id
   cidr_block        = cidrsubnet(var.vpc_cidr, 8, each.value)
-  availability_zone = tolist(data.aws_availability_zones.available.names)[each.value]
+  availability_zone = tolist(var.tp_ds_aws_availability_zones_available.names)[each.value]
 
   tags = {
     Name      = each.key

@@ -1,0 +1,425 @@
+"""D5a-3 (D5-09 exclusion after one bounded fix round, D5-10 value rule vv-3). Written before the code (test-first).
+
+Every test runs over all of ``scenarios/dev/`` and, when ``TERRAPRESERVE_PRIVATE`` names an existing
+directory, over the withheld test split too (skipped with a printed reason otherwise). Test-split scenario ids
+never appear in a message (counts only).
+
+(a) A declared default is never overridden unless the vv-3 search recorded its rejection at plan time.
+(b) Every override of a declared default carries ``reason: "declared default rejected: <first error line>"``.
+(c) Every value comes from the fixed candidate lists (or, for a validation, from the vv-2 validation candidates),
+    and the candidate index taken is recorded for every valued variable in both sets.
+(d) The primary and the alternate set differ, except where the record states a same-in-both-sets reason.
+(e) No ``ipv4_cidr`` candidate (and no ``ipv4_cidr`` value) covers ``0.0.0.0/0``.
+(f) Every step of every non-excluded scenario produced plan JSON under both sets (D5a-3 feasibility results).
+(g) Every excluded scenario has a reason and at least one failing step under at least one set, as measured.
+(h) Every stored record equals a fresh vv-3 computation from the step files and the recorded search result.
+(i) Controlled step files are byte-identical to ``5f71c00`` (unchanged since ``e96c017``).
+(j) Test-split content exists only in ``$TERRAPRESERVE_PRIVATE``.
+Plus: generator versions ``d4a-7`` (controlled) and ``d4b-8`` (real-world).
+"""
+
+from __future__ import annotations
+
+import csv
+import hashlib
+import ipaddress
+import json
+import os
+import sys
+import unittest
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO_ROOT / "sources"))
+sys.path.insert(0, str(REPO_ROOT / "generator"))
+
+from realworld import modread  # noqa: E402
+
+RECORD_FIELDS = ("variable_values", "variable_values_alt", "variable_values_rule", "variable_values_kinds",
+                 "variable_values_unresolved", "variable_values_candidates", "excluded_from_v1")
+SAME_IN_BOTH_REASONS = {"kind region: the provider pin us-east-1 in both sets",
+                        "object with no attributes used",
+                        "the validation admits only one candidate"}
+OVERRIDE_PREFIX = "declared default rejected: "
+SEARCH_DEV = REPO_ROOT / "generator" / "vv3" / "dev.json"
+FEAS_DEV = REPO_ROOT / "docs" / "d5a3"
+
+# D5-10: the fixed candidate lists, (primary list, alternate list) by kind. Written here independently of the code.
+CANDIDATES: dict[str, tuple[list, list]] = {
+    "string": (["tp-primary", "tpprimary", "tp-primary-1", "tpp"], ["tp-alt", "tpalt", "tp-alt-1", "tpa"]),
+    "ipv4_cidr": (["10.201.0.0/16", "10.201.1.0/24", "172.20.0.0/16", "10.201.0.0/20"],
+                  ["192.168.77.0/24", "192.168.78.0/24", "172.21.0.0/16", "192.168.64.0/20"]),
+    "az": (["us-east-1a", "us-east-1b", "us-east-1c"], ["us-east-1b", "us-east-1c", "us-east-1a"]),
+    "number": ([1, 2, 3, 10], [2, 3, 4, 20]),
+    "vpc_id": (["vpc-0201201201201201a", "vpc-02012012", "vpc-0123456789abcdef0"],
+               ["vpc-0777777777777777b", "vpc-07777777", "vpc-0fedcba9876543210"]),
+    "subnet_id": (["subnet-0201201201201201a", "subnet-02012012", "subnet-0123456789abcdef0"],
+                  ["subnet-0777777777777777b", "subnet-07777777", "subnet-0fedcba9876543210"]),
+    "sg_id": (["sg-0201201201201201a", "sg-02012012", "sg-0123456789abcdef0"],
+              ["sg-0777777777777777b", "sg-07777777", "sg-0fedcba9876543210"]),
+    "ami": (["ami-0201201201201201a", "ami-02012012", "ami-0123456789abcdef0"],
+            ["ami-0777777777777777b", "ami-07777777", "ami-0fedcba9876543210"]),
+    "secret": (["tp-secret-primary", "tp-secret-primary-long"], ["tp-secret-alt", "tp-secret-alt-long"]),
+    "bool": ([False], [True]),
+    "region": (["us-east-1"], ["us-east-1"]),
+    "instance_type": (["t3.micro"], ["t3.small"]),
+    "key_name": (["tp-key-primary"], ["tp-key-alt"]),
+    "ipv6_cidr": (["fd00:201::/64"], ["fd00:77::/64"]),
+}
+
+# Digests of the controlled tier at 5f71c00 (identical to e96c017: only scenario.json changed in between).
+CONTROLLED_DEV_FILES = 984
+CONTROLLED_DEV_DIGEST = "db8526865230008f8aa84fb46c7bc22d7390a0ac23f73f3d1cc0ecc787597a7d"
+CONTROLLED_TEST_STEPS = 138
+CONTROLLED_TEST_DIGEST = "47d59e577c31a69e08a0ec3573eebc8d881683325528dd978d04fb3277e1c820"
+CONTROLLED_PRIVATE_FILES = 414
+CONTROLLED_PRIVATE_DIGEST = "ad5380013b3ed78cf69d1165dd89fe4740723bcad23edb8800d82fe37041f233"
+
+
+def private_root() -> Path | None:
+    env = os.environ.get("TERRAPRESERVE_PRIVATE")
+    if env and Path(env).is_dir():
+        return Path(env)
+    print("\n[d5a3] TERRAPRESERVE_PRIVATE is not set to an existing directory: test-split checks skipped.",
+          file=sys.stderr)
+    return None
+
+
+def scenarios() -> list[tuple[str, Path, dict]]:
+    out = []
+    roots = [("dev", REPO_ROOT / "scenarios" / "dev")]
+    priv = private_root()
+    if priv is not None:
+        roots.append(("test", priv))
+    for split, root in roots:
+        for p in sorted(root.glob("tp-v1-*")):
+            if (p / "scenario.json").is_file():
+                out.append((split, p, json.loads((p / "scenario.json").read_text(encoding="utf-8"))))
+    return out
+
+
+def shown(split: str, sid: str) -> str:
+    return sid if split == "dev" else "<test-split scenario>"
+
+
+def step_dirs(p: Path) -> list[Path]:
+    return sorted((x for x in p.glob("step_*") if x.is_dir()), key=lambda x: int(x.name.split("_")[1]))
+
+
+def defaulted_variables(p: Path) -> set[str]:
+    out: set[str] = set()
+    for sd in step_dirs(p):
+        mod = modread.read_module({f.name: f.read_text(encoding="utf-8") for f in sd.glob("*.tf")})
+        out |= {n for n, b in mod.variables.items() if "default" in b.attrs}
+    return out
+
+
+def search_file(split: str) -> Path | None:
+    if split == "dev":
+        return SEARCH_DEV
+    priv = private_root()
+    return priv / "vv3_test.json" if priv else None
+
+
+def feasibility_rows(split: str, vset: str) -> list[dict[str, str]] | None:
+    priv = private_root()
+    path = FEAS_DEV / f"feasibility_dev_{vset}.csv" if split == "dev" else (
+        priv / f"d5a3_feasibility_test_{vset}.csv" if priv else None)
+    if path is None or not path.is_file():
+        return None
+    with open(path, encoding="utf-8") as f:
+        return list(csv.DictReader(f))
+
+
+def file_digest(root: Path, tier: str) -> tuple[int, str]:
+    rows = []
+    for p in sorted(root.glob("tp-v1-*")):
+        d = json.loads((p / "scenario.json").read_text(encoding="utf-8"))
+        if d["source"]["tier"] != tier:
+            continue
+        for f in sorted(x for x in p.rglob("*") if x.is_file() and x.name != "scenario.json"):
+            rows.append(f"{f.relative_to(p.parent).as_posix()}|{hashlib.sha256(f.read_bytes()).hexdigest()}")
+    return len(rows), hashlib.sha256("\n".join(rows).encode()).hexdigest()
+
+
+def leaf_pairs(kt, value) -> list[tuple[str, object]] | None:
+    """(kind, value) of every leaf, walking the recorded kind tree beside the value; None when they disagree."""
+    if isinstance(kt, str):
+        return [(kt, value)]
+    out: list = []
+    if "object" in kt:
+        if not isinstance(value, dict) or set(value) != set(kt["object"]):
+            return None
+        for k, sub in kt["object"].items():
+            r = leaf_pairs(sub, value[k])
+            if r is None:
+                return None
+            out += r
+        return out
+    if "tuple" in kt:
+        if not isinstance(value, list) or len(value) != len(kt["tuple"]):
+            return None
+        for sub, v in zip(kt["tuple"], value):
+            r = leaf_pairs(sub, v)
+            if r is None:
+                return None
+            out += r
+        return out
+    for key in ("list", "set"):
+        if key in kt:
+            if not isinstance(value, list):
+                return None
+            for v in value:
+                r = leaf_pairs(kt[key], v)
+                if r is None:
+                    return None
+                out += r
+            return out
+    if "map" in kt:
+        if not isinstance(value, dict):
+            return None
+        for v in value.values():
+            r = leaf_pairs(kt["map"], v)
+            if r is None:
+                return None
+            out += r
+        return out
+    return None
+
+
+class TestVv3(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.scs = scenarios()
+
+    def _search(self, split: str) -> dict:
+        path = search_file(split)
+        self.assertTrue(path is not None and path.is_file(), f"no vv-3 search result for the {split} split")
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    def test_a_declared_defaults_that_plan_are_never_overridden(self) -> None:
+        bad = []
+        searches = {}
+        for split, p, d in self.scs:
+            sid = shown(split, d["scenario_id"])
+            if d.get("variable_values_rule") != "vv-3":
+                bad.append(f"{sid}: not vv-3")
+                continue
+            if split not in searches:
+                searches[split] = self._search(split)["scenarios"]
+            rec = searches[split].get(d["scenario_id"])
+            if rec is None:
+                bad.append(f"{sid}: not in the vv-3 search result")
+                continue
+            overridden = set(d["variable_values"]) & defaulted_variables(p)
+            if overridden != set(rec.get("overrides", {})):
+                bad.append(f"{sid}: valued defaults {sorted(overridden)} but search overrides "
+                           f"{sorted(rec.get('overrides', {}))}")
+            for name, ev in rec.get("overrides", {}).items():
+                if not str(ev.get("error", "")).startswith("Error:") or ev.get("value_set") not in (
+                        "primary", "alternate") or not isinstance(ev.get("step"), int):
+                    bad.append(f"{sid}: override of {name} without a recorded plan error")
+        self.assertGreater(len(self.scs), 0)
+        self.assertEqual(bad, [], f"{len(bad)} problems, first 10: {bad[:10]}")
+
+    def test_b_every_override_carries_the_rejection_reason(self) -> None:
+        bad = []
+        n = 0
+        for split, p, d in self.scs:
+            sid = shown(split, d["scenario_id"])
+            kinds = d.get("variable_values_kinds") or {}
+            defaulted = defaulted_variables(p)
+            for name in set(d.get("variable_values") or {}) & defaulted:
+                n += 1
+                reason = str(kinds.get(name, {}).get("reason", ""))
+                if not reason.startswith(OVERRIDE_PREFIX + "Error:"):
+                    bad.append(f"{sid}: {name} overridden without reason")
+            for name, entry in kinds.items():
+                if "reason" in entry and name not in defaulted:
+                    bad.append(f"{sid}: {name} has an override reason but no declared default")
+        self.assertEqual(bad, [], f"{len(bad)} problems ({n} overrides), first 10: {bad[:10]}")
+
+    def test_c_values_come_from_the_fixed_lists_with_the_index_recorded(self) -> None:
+        import varvalues  # noqa: PLC0415
+
+        self.assertEqual({k: (list(p), list(a)) for k, (p, a) in varvalues.KIND_CANDIDATES.items()}, CANDIDATES)
+        self.assertTrue(all(1 <= len(p) == len(a) <= 4 for p, a in CANDIDATES.values()))
+        bad = []
+        for split, _p, d in self.scs:
+            sid = shown(split, d["scenario_id"])
+            cand = d.get("variable_values_candidates")
+            if not isinstance(cand, dict) or set(cand) != {"primary", "alternate"}:
+                bad.append(f"{sid}: no candidate indices")
+                continue
+            for which, key, col in (("primary", "variable_values", 0), ("alternate", "variable_values_alt", 1)):
+                values = d.get(key) or {}
+                if set(cand[which]) != set(values):
+                    bad.append(f"{sid}: {which} indices for {sorted(cand[which])} but values for {sorted(values)}")
+                    continue
+                for name, value in values.items():
+                    idx = cand[which][name]
+                    entry = (d.get("variable_values_kinds") or {}).get(name, {})
+                    if not isinstance(idx, int) or idx < 0 or idx > 3:
+                        bad.append(f"{sid}: {name} {which} index {idx!r}")
+                        continue
+                    if "validation" in entry:
+                        if entry["validation"].get(which) != value:
+                            bad.append(f"{sid}: {name} {which} differs from the validation candidate taken")
+                        continue
+                    pairs = leaf_pairs(entry.get("kind"), value)
+                    if pairs is None:
+                        bad.append(f"{sid}: {name} {which} value does not have its recorded kind structure")
+                        continue
+                    for kind, v in pairs:
+                        lst = CANDIDATES.get(kind, ([], []))[col]
+                        if not lst or v != lst[min(idx, len(lst) - 1)]:
+                            bad.append(f"{sid}: {name} {which} leaf {v!r} is not candidate {idx} of {kind}")
+        self.assertEqual(bad, [], f"{len(bad)} problems, first 10: {bad[:10]}")
+
+    def test_d_the_two_sets_differ_except_where_recorded(self) -> None:
+        bad = []
+        for split, _p, d in self.scs:
+            sid = shown(split, d["scenario_id"])
+            alt = d.get("variable_values_alt") or {}
+            for name, value in (d.get("variable_values") or {}).items():
+                same = (d.get("variable_values_kinds") or {}).get(name, {}).get("same_in_both_sets")
+                if name not in alt:
+                    bad.append(f"{sid}: {name} has no alternate value")
+                elif value == alt[name] and same not in SAME_IN_BOTH_REASONS:
+                    bad.append(f"{sid}: {name}")
+                elif value != alt[name] and same is not None:
+                    bad.append(f"{sid}: {name} records same_in_both_sets but the values differ")
+        self.assertEqual(bad, [], f"{len(bad)} variables with equal values in both sets: {bad[:10]}")
+
+    def test_e_no_ipv4_candidate_covers_the_whole_internet(self) -> None:
+        import varvalues  # noqa: PLC0415
+
+        everything = ipaddress.ip_network("0.0.0.0/0")
+        for lst in (*CANDIDATES["ipv4_cidr"], *varvalues.KIND_CANDIDATES["ipv4_cidr"]):
+            for c in lst:
+                net = ipaddress.ip_network(c, strict=False)
+                self.assertFalse(net.supernet_of(everything), c)
+                self.assertGreater(net.prefixlen, 0, c)
+        bad = []
+        for split, _p, d in self.scs:
+            for key in ("variable_values", "variable_values_alt"):
+                for name, value in (d.get(key) or {}).items():
+                    kt = (d.get("variable_values_kinds") or {}).get(name, {}).get("kind")
+                    for kind, v in leaf_pairs(kt, value) or []:
+                        if kind == "ipv4_cidr" and ipaddress.ip_network(v, strict=False).prefixlen == 0:
+                            bad.append(f"{shown(split, d['scenario_id'])}: {name}")
+        self.assertEqual(bad, [], f"{len(bad)} ipv4_cidr values cover 0.0.0.0/0: {bad[:10]}")
+
+    def test_f_every_non_excluded_scenario_plans_under_both_sets(self) -> None:
+        bad = []
+        for split in sorted({s for s, _p, _d in self.scs}):
+            for vset in ("primary", "alternate"):
+                rows = feasibility_rows(split, vset)
+                if rows is None:
+                    bad.append(f"no D5a-3 feasibility results for {split}/{vset}")
+                    continue
+                got = {(r["scenario_id"], int(r["step"])): r["status"] for r in rows}
+                for s, p, d in self.scs:
+                    if s != split:
+                        continue
+                    for sd in step_dirs(p):
+                        key = (d["scenario_id"], int(sd.name.split("_")[1]))
+                        if key not in got:
+                            bad.append(f"{shown(s, key[0])} step {key[1]}: not measured under {vset}")
+                        elif got[key] != "success" and not d.get("excluded_from_v1"):
+                            bad.append(f"{shown(s, key[0])} step {key[1]}: no plan JSON under {vset}, not excluded")
+        self.assertEqual(bad, [], f"{len(bad)} problems, first 10: {bad[:10]}")
+
+    def test_g_every_excluded_scenario_has_a_reason_and_a_failing_step(self) -> None:
+        bad = []
+        fails: dict[str, set[tuple[str, int]]] = {}
+        for split in sorted({s for s, _p, _d in self.scs}):
+            for vset in ("primary", "alternate"):
+                for r in feasibility_rows(split, vset) or []:
+                    if r["status"] != "success":
+                        fails.setdefault(r["scenario_id"], set()).add((vset, int(r["step"])))
+        n = 0
+        for split, _p, d in self.scs:
+            sid = shown(split, d["scenario_id"])
+            if "excluded_from_v1" not in d:
+                bad.append(f"{sid}: no excluded_from_v1 field")
+                continue
+            ex = d["excluded_from_v1"]
+            if ex is None:
+                continue
+            n += 1
+            measured = fails.get(d["scenario_id"], set())
+            recorded = {(f.get("value_set"), f.get("step")) for f in ex.get("failing_steps") or []}
+            if not str(ex.get("reason", "")).strip() or not str(ex.get("first_error", "")).startswith("Error"):
+                bad.append(f"{sid}: excluded without a reason or first error")
+            if not measured:
+                bad.append(f"{sid}: excluded but every step planned under both sets")
+            if recorded != measured:
+                bad.append(f"{sid}: recorded failing steps differ from the measurement")
+        self.assertEqual(bad, [], f"{len(bad)} problems ({n} excluded), first 10: {bad[:10]}")
+
+    def test_h_record_equals_a_fresh_vv3_computation(self) -> None:
+        import varvalues  # noqa: PLC0415
+
+        bad = []
+        searches: dict[str, dict] = {}
+        for split, p, d in self.scs:
+            if split not in searches:
+                searches[split] = self._search(split)["scenarios"]
+            steps = [{f.name: f.read_text(encoding="utf-8") for f in sd.glob("*.tf")} for sd in step_dirs(p)]
+            fresh = varvalues.compute(steps, searches[split].get(d["scenario_id"]))
+            if {k: d.get(k) for k in RECORD_FIELDS} != {k: fresh.get(k) for k in RECORD_FIELDS}:
+                bad.append(shown(split, d["scenario_id"]))
+        self.assertEqual(bad, [], f"{len(bad)} scenario records differ from a vv-3 recomputation: {bad[:10]}")
+
+    def test_i_controlled_steps_byte_identical_to_5f71c00(self) -> None:
+        self.assertEqual(file_digest(REPO_ROOT / "scenarios" / "dev", "controlled"),
+                         (CONTROLLED_DEV_FILES, CONTROLLED_DEV_DIGEST))
+        manifest = json.loads((REPO_ROOT / "scenarios" / "test_manifest.json").read_text(encoding="utf-8"))
+        rows = sorted(f"{e['scenario_id']}|{s['step']}|{s['content_hash']}" for e in manifest
+                      if int(e["scenario_id"].split("-")[-1]) <= 208 for s in e["steps"])
+        self.assertEqual((len(rows), hashlib.sha256("\n".join(rows).encode()).hexdigest()),
+                         (CONTROLLED_TEST_STEPS, CONTROLLED_TEST_DIGEST))
+        priv = private_root()
+        if priv is not None:
+            self.assertEqual(file_digest(priv, "controlled"), (CONTROLLED_PRIVATE_FILES, CONTROLLED_PRIVATE_DIGEST))
+
+    def test_j_test_split_only_in_private_dir(self) -> None:
+        manifest = json.loads((REPO_ROOT / "scenarios" / "test_manifest.json").read_text(encoding="utf-8"))
+        ids = {e["scenario_id"] for e in manifest}
+        skip = {".git", ".venv", ".venv-tools", "__pycache__", ".terraform", "node_modules"}
+        seen_dirs = 0
+        seen_text: set[str] = set()
+        for dirpath, dirnames, filenames in os.walk(REPO_ROOT):
+            dirnames[:] = [x for x in dirnames if x not in skip]
+            seen_dirs += sum(1 for x in dirnames if x in ids)
+            rel = Path(dirpath).relative_to(REPO_ROOT).as_posix()
+            if rel.startswith(("generator/vv3", "docs/d5a3")):
+                for fn in filenames:
+                    text = (Path(dirpath) / fn).read_text(encoding="utf-8", errors="replace")
+                    seen_text |= {i for i in ids if i in text}
+        self.assertEqual(seen_dirs, 0, f"{seen_dirs} test-split id directories inside the repository (ids withheld)")
+        self.assertEqual(len(seen_text), 0, f"{len(seen_text)} test-split ids in D5a-3 files (ids withheld)")
+        self.assertTrue(SEARCH_DEV.is_file(), "no dev vv-3 search result")
+        dev_ids = set(json.loads(SEARCH_DEV.read_text(encoding="utf-8"))["scenarios"])
+        self.assertEqual(len(dev_ids & ids), 0, "test-split ids in the dev search result (ids withheld)")
+        priv = private_root()
+        if priv is not None:
+            import writer  # noqa: PLC0415
+
+            bad = 0
+            for e in manifest:
+                sj = priv / e["scenario_id"] / "scenario.json"
+                if not sj.is_file() or writer.sha256_text(sj.read_text(encoding="utf-8")) != e["scenario_json_sha256"]:
+                    bad += 1
+            self.assertEqual(bad, 0, f"{bad} private-split scenarios missing or not matching the manifest (ids withheld)")
+            self.assertTrue((priv / "vv3_test.json").is_file(), "no test-split vv-3 search result in the private dir")
+
+    def test_generator_versions(self) -> None:
+        bad = [shown(split, d["scenario_id"]) for split, _p, d in self.scs
+               if d["generator_version"] != {"controlled": "d4a-7", "real_world": "d4b-8"}[d["source"]["tier"]]]
+        self.assertEqual(bad, [], f"{len(bad)} scenarios with an old generator version: {bad[:5]}")
+
+
+if __name__ == "__main__":
+    unittest.main()

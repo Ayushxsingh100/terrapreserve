@@ -31,10 +31,10 @@ resource "aws_subnet" "subnet" {
   cidr_block              = cidrsubnet(var.network_address_space, 8, count.index)
   vpc_id                  = aws_vpc.vpc.id
   map_public_ip_on_launch = "true"
-  availability_zone       = data.aws_availability_zones.az.names[count.index]
+  availability_zone       = var.tp_ds_aws_availability_zones_az.names[count.index]
 
   tags = {
-    Name        = "${var.environment_tag}-${data.aws_availability_zones.az.names[count.index]}-subnet"
+    Name        = "${var.environment_tag}-${var.tp_ds_aws_availability_zones_az.names[count.index]}-subnet"
     Environment = var.environment_tag
   }
 }

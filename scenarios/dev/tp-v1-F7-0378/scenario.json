@@ -1,8 +1,30 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": {
+    "failing_steps": [
+      {
+        "step": 0,
+        "value_set": "primary"
+      },
+      {
+        "step": 1,
+        "value_set": "primary"
+      },
+      {
+        "step": 0,
+        "value_set": "alternate"
+      },
+      {
+        "step": 1,
+        "value_set": "alternate"
+      }
+    ],
+    "first_error": "Error: Invalid function argument",
+    "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+  },
   "family": "F7",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -107,5 +129,107 @@
     "description": "Tightens the app group egress to a CIDR disjoint from CIDR(VPC(D)).",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "ami_id": "ami-0201201201201201a",
+    "bastion_sg_id": "sg-0123456789abcdef0",
+    "instance_profile_name": "tpp",
+    "name": "tpp",
+    "subnet_id": "subnet-0201201201201201a",
+    "tp_db_password": "tp-secret-primary",
+    "user_data_template": "tpp",
+    "vpc_id": "vpc-0123456789abcdef0"
+  },
+  "variable_values_alt": {
+    "ami_id": "ami-0777777777777777b",
+    "bastion_sg_id": "sg-0fedcba9876543210",
+    "instance_profile_name": "tpa",
+    "name": "tpa",
+    "subnet_id": "subnet-0777777777777777b",
+    "tp_db_password": "tp-secret-alt",
+    "user_data_template": "tpa",
+    "vpc_id": "vpc-0fedcba9876543210"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "ami_id": 0,
+      "bastion_sg_id": 2,
+      "instance_profile_name": 3,
+      "name": 3,
+      "subnet_id": 0,
+      "tp_db_password": 0,
+      "user_data_template": 3,
+      "vpc_id": 2
+    },
+    "primary": {
+      "ami_id": 0,
+      "bastion_sg_id": 2,
+      "instance_profile_name": 3,
+      "name": 3,
+      "subnet_id": 0,
+      "tp_db_password": 0,
+      "user_data_template": 3,
+      "vpc_id": 2
+    }
+  },
+  "variable_values_kinds": {
+    "ami_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_instance.worker.ami"
+      ],
+      "kind": "ami"
+    },
+    "bastion_sg_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group_rule.worker_ssh_ingress.source_security_group_id"
+      ],
+      "kind": "sg_id"
+    },
+    "instance_profile_name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "subnet_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_instance.worker.subnet_id"
+      ],
+      "kind": "subnet_id"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "user_data_template": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "vpc_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.worker_sg.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

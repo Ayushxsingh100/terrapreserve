@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F5",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -162,5 +163,135 @@
     "description": "Renames the application subnet with a moved block and updates its references.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "availability_zones": [
+      "us-east-1a",
+      "us-east-1a",
+      "us-east-1a"
+    ],
+    "cidrs": [
+      "10.201.0.0/16",
+      "10.201.0.0/16",
+      "10.201.0.0/16"
+    ],
+    "environment": "tp-primary",
+    "project": "tp-primary",
+    "tags": {},
+    "tp_db_password": "tp-secret-primary",
+    "type": "tp-primary",
+    "vpc_id": "vpc-0201201201201201a"
+  },
+  "variable_values_alt": {
+    "availability_zones": [
+      "us-east-1b",
+      "us-east-1b",
+      "us-east-1b"
+    ],
+    "cidrs": [
+      "192.168.77.0/24",
+      "192.168.77.0/24",
+      "192.168.77.0/24"
+    ],
+    "environment": "tp-alt",
+    "project": "tp-alt",
+    "tags": {
+      "tp-alt": "tp-alt"
+    },
+    "tp_db_password": "tp-secret-alt",
+    "type": "tp-alt",
+    "vpc_id": "vpc-0777777777777777b"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "availability_zones": 0,
+      "cidrs": 0,
+      "environment": 0,
+      "project": 0,
+      "tags": 0,
+      "tp_db_password": 0,
+      "type": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "availability_zones": 0,
+      "cidrs": 0,
+      "environment": 0,
+      "project": 0,
+      "tags": 0,
+      "tp_db_password": 0,
+      "type": 0,
+      "vpc_id": 0
+    }
+  },
+  "variable_values_kinds": {
+    "availability_zones": {
+      "evidence": [
+        "declared_type:list",
+        "usage:aws_subnet.subnet.availability_zone"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "az"
+      }
+    },
+    "cidrs": {
+      "evidence": [
+        "declared_type:list",
+        "usage:aws_subnet.subnet.cidr_block"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "ipv4_cidr"
+      }
+    },
+    "environment": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "project": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "tags": {
+      "evidence": [
+        "declared_type:map(string)",
+        "no table attribute reached at []"
+      ],
+      "kind": {
+        "keys": "empty-able",
+        "map": "string"
+      }
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "type": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "vpc_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_route_table.subnet.vpc_id",
+        "usage:aws_subnet.subnet.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

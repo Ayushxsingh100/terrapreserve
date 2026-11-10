@@ -1,8 +1,30 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": {
+    "failing_steps": [
+      {
+        "step": 0,
+        "value_set": "primary"
+      },
+      {
+        "step": 1,
+        "value_set": "primary"
+      },
+      {
+        "step": 0,
+        "value_set": "alternate"
+      },
+      {
+        "step": 1,
+        "value_set": "alternate"
+      }
+    ],
+    "first_error": "Error: Incorrect attribute value type",
+    "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+  },
   "family": "F1",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -106,5 +128,139 @@
     "description": "Expands RDS allocated storage safely.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "app_name": "tpp",
+    "deployment_branch": "tpp",
+    "game_server_name_container": "tpp",
+    "game_server_port": 1,
+    "proxy_server_port": "tpp",
+    "public_subnet_id_a": "tpp",
+    "public_subnet_id_b": "tpp",
+    "subdomain_game_stacks": "tpp",
+    "tp_db_password": "tp-secret-primary",
+    "vpc_cidr_block": "tpp",
+    "vpc_id": "vpc-0201201201201201a"
+  },
+  "variable_values_alt": {
+    "app_name": "tpa",
+    "deployment_branch": "tpa",
+    "game_server_name_container": "tpa",
+    "game_server_port": 2,
+    "proxy_server_port": "tpa",
+    "public_subnet_id_a": "tpa",
+    "public_subnet_id_b": "tpa",
+    "subdomain_game_stacks": "tpa",
+    "tp_db_password": "tp-secret-alt",
+    "vpc_cidr_block": "tpa",
+    "vpc_id": "vpc-0777777777777777b"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "app_name": 3,
+      "deployment_branch": 3,
+      "game_server_name_container": 3,
+      "game_server_port": 0,
+      "proxy_server_port": 3,
+      "public_subnet_id_a": 3,
+      "public_subnet_id_b": 3,
+      "subdomain_game_stacks": 3,
+      "tp_db_password": 0,
+      "vpc_cidr_block": 3,
+      "vpc_id": 0
+    },
+    "primary": {
+      "app_name": 3,
+      "deployment_branch": 3,
+      "game_server_name_container": 3,
+      "game_server_port": 0,
+      "proxy_server_port": 3,
+      "public_subnet_id_a": 3,
+      "public_subnet_id_b": 3,
+      "subdomain_game_stacks": 3,
+      "tp_db_password": 0,
+      "vpc_cidr_block": 3,
+      "vpc_id": 0
+    }
+  },
+  "variable_values_kinds": {
+    "app_name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "deployment_branch": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "game_server_name_container": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "game_server_port": {
+      "evidence": [
+        "declared_type:number"
+      ],
+      "kind": "number"
+    },
+    "proxy_server_port": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "public_subnet_id_a": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "public_subnet_id_b": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "subdomain_game_stacks": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_cidr_block": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "vpc_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.sg_alb.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

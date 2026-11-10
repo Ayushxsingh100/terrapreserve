@@ -1,8 +1,30 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": {
+    "failing_steps": [
+      {
+        "step": 0,
+        "value_set": "primary"
+      },
+      {
+        "step": 1,
+        "value_set": "primary"
+      },
+      {
+        "step": 0,
+        "value_set": "alternate"
+      },
+      {
+        "step": 1,
+        "value_set": "alternate"
+      }
+    ],
+    "first_error": "Error: No value for required variable",
+    "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; unresolved variable has no value"
+  },
   "family": "F7",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -115,5 +137,106 @@
     "description": "Tightens the app group egress to the RFC 1918 block that contains CIDR(VPC(D)).",
     "invariant_id": null,
     "kind": "change_request"
+  },
+  "variable_values": {
+    "aws_account_id": "tp-primary",
+    "cidr_blocks": "10.201.0.0/16",
+    "default_tags": {},
+    "env": "tp-primary",
+    "name": "tp-primary",
+    "region": "us-east-1a",
+    "tp_db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "aws_account_id": "tp-alt",
+    "cidr_blocks": "192.168.77.0/24",
+    "default_tags": {
+      "tp-alt": "tp-alt"
+    },
+    "env": "tp-alt",
+    "name": "tp-alt",
+    "region": "us-east-1b",
+    "tp_db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "aws_account_id": 0,
+      "cidr_blocks": 0,
+      "default_tags": 0,
+      "env": 0,
+      "name": 0,
+      "region": 0,
+      "tp_db_password": 0
+    },
+    "primary": {
+      "aws_account_id": 0,
+      "cidr_blocks": 0,
+      "default_tags": 0,
+      "env": 0,
+      "name": 0,
+      "region": 0,
+      "tp_db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "aws_account_id": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "cidr_blocks": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_vpc.vpc.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "default_tags": {
+      "evidence": [
+        "declared_type:map(any)",
+        "no table attribute reached at []"
+      ],
+      "kind": {
+        "keys": "empty-able",
+        "map": "string"
+      }
+    },
+    "env": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "region": {
+      "evidence": [
+        "untyped",
+        "usage:aws_subnet.private_subnets.availability_zone"
+      ],
+      "kind": "az"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {
+    "private_subnet_cidr_blocks": {
+      "reason": "conflict at []: az by usage:aws_subnet.private_subnets.availability_zone; ipv4_cidr by usage:aws_subnet.private_subnets.cidr_block",
+      "status": "conflict"
+    }
   }
 }

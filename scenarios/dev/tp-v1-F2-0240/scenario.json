@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F2",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -13,6 +14,14 @@
       "removed_blocks": [
         "provider"
       ]
+    },
+    {
+      "block_sha256": "cffcfe51814ece8e459bfe30d403836d5095ccb75bd6a971412ef2184654ff1c",
+      "data_name": "ubuntu",
+      "data_type": "aws_ami",
+      "file": "servers.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_ami_ubuntu"
     }
   ],
   "intent": {
@@ -99,13 +108,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "010d00a395e3c3803a53b0dfaadaa50c2c9bcd0b6e0784874dda685662a98086",
+      "content_hash": "1d641a45a427b973a71bb946e631b2b358da3c524a49549403ad4e1d056817a3",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "3140ac40be03146cf9757e23c7ac3577fe610d6506db0df43c0ddb7d30d0feec",
+      "content_hash": "a81f17073aaa5c87087da57f57ec3a7a6d7c569830cc211b213d50a9dbe0f56c",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -53,7 +53,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_ingress_ssh\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 22\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -115,5 +124,49 @@
     "description": "Repair public SSH ingress on port 22",
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
-  }
+  },
+  "variable_values": {
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_ami_ubuntu": {
+      "id": "ami-0201201201201201a"
+    }
+  },
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_ami_ubuntu": {
+      "id": "ami-0777777777777777b"
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0,
+      "tp_ds_aws_ami_ubuntu": 0
+    },
+    "primary": {
+      "tp_db_password": 0,
+      "tp_ds_aws_ami_ubuntu": 0
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_ami_ubuntu": {
+      "evidence": [
+        "data_source:aws_ami.id",
+        "declared_type:object({id=string})"
+      ],
+      "kind": {
+        "object": {
+          "id": "ami"
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

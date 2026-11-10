@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F8",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -144,5 +145,85 @@
     "description": "Repair public SSH ingress on port 22",
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
-  }
+  },
+  "variable_values": {
+    "cidr_block": "10.201.0.0/16",
+    "environment": "tp-primary",
+    "project_name": "tp-primary",
+    "subnet_az_a": "10.201.0.0/16",
+    "subnet_az_b": "10.201.0.0/16",
+    "tp_db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "cidr_block": "192.168.77.0/24",
+    "environment": "tp-alt",
+    "project_name": "tp-alt",
+    "subnet_az_a": "192.168.77.0/24",
+    "subnet_az_b": "192.168.77.0/24",
+    "tp_db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "cidr_block": 0,
+      "environment": 0,
+      "project_name": 0,
+      "subnet_az_a": 0,
+      "subnet_az_b": 0,
+      "tp_db_password": 0
+    },
+    "primary": {
+      "cidr_block": 0,
+      "environment": 0,
+      "project_name": 0,
+      "subnet_az_a": 0,
+      "subnet_az_b": 0,
+      "tp_db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "cidr_block": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_vpc.vpc.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "environment": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "project_name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "subnet_az_a": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.subnet_a.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "subnet_az_b": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.subnet_b.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

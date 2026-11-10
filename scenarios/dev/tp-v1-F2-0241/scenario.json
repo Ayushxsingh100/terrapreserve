@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F2",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -106,5 +107,119 @@
     "description": "Repair public database ingress on port 5432",
     "invariant_id": "INV-SEC-002",
     "kind": "repair"
-  }
+  },
+  "variable_values": {
+    "application_name": "tp-primary",
+    "availability_zones": [
+      "us-east-1a",
+      "us-east-1a",
+      "us-east-1a"
+    ],
+    "private_subnet_cidrs": [
+      "10.201.0.0/16",
+      "10.201.0.0/16",
+      "10.201.0.0/16"
+    ],
+    "public_subnet_cidrs": [
+      "10.201.0.0/16",
+      "10.201.0.0/16",
+      "10.201.0.0/16"
+    ],
+    "tp_db_password": "tp-secret-primary",
+    "vpc_cidr": "10.201.0.0/16"
+  },
+  "variable_values_alt": {
+    "application_name": "tp-alt",
+    "availability_zones": [
+      "us-east-1b",
+      "us-east-1b",
+      "us-east-1b"
+    ],
+    "private_subnet_cidrs": [
+      "192.168.77.0/24",
+      "192.168.77.0/24",
+      "192.168.77.0/24"
+    ],
+    "public_subnet_cidrs": [
+      "192.168.77.0/24",
+      "192.168.77.0/24",
+      "192.168.77.0/24"
+    ],
+    "tp_db_password": "tp-secret-alt",
+    "vpc_cidr": "192.168.77.0/24"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "application_name": 0,
+      "availability_zones": 0,
+      "private_subnet_cidrs": 0,
+      "public_subnet_cidrs": 0,
+      "tp_db_password": 0,
+      "vpc_cidr": 0
+    },
+    "primary": {
+      "application_name": 0,
+      "availability_zones": 0,
+      "private_subnet_cidrs": 0,
+      "public_subnet_cidrs": 0,
+      "tp_db_password": 0,
+      "vpc_cidr": 0
+    }
+  },
+  "variable_values_kinds": {
+    "application_name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "availability_zones": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_subnet.private.availability_zone",
+        "usage:aws_subnet.public.availability_zone"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "az"
+      }
+    },
+    "private_subnet_cidrs": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_subnet.private.cidr_block"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "ipv4_cidr"
+      }
+    },
+    "public_subnet_cidrs": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_subnet.public.cidr_block"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "ipv4_cidr"
+      }
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_cidr": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_vpc.main.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

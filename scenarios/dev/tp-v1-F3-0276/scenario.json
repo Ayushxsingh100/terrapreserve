@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F3",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -107,5 +108,194 @@
     "description": "Restricts the app group egress to a CIDR disjoint from CIDR(VPC(D)).",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "cluster_name": "tp-primary",
+    "env": "tp-primary",
+    "private_availability_zones": [
+      "us-east-1a",
+      "us-east-1a",
+      "us-east-1a"
+    ],
+    "private_cidr_blocks": [
+      "10.201.0.0/16",
+      "10.201.0.0/16",
+      "10.201.0.0/16"
+    ],
+    "private_subnet_count": 1,
+    "private_subnet_name": "tp-primary",
+    "public_availability_zones": [
+      "us-east-1a",
+      "us-east-1a",
+      "us-east-1a"
+    ],
+    "public_cidr_blocks": [
+      "10.201.0.0/16",
+      "10.201.0.0/16",
+      "10.201.0.0/16"
+    ],
+    "public_subnet_count": 1,
+    "public_subnet_name": "tp-primary",
+    "tp_db_password": "tp-secret-primary",
+    "vpc_id": "vpc-0201201201201201a"
+  },
+  "variable_values_alt": {
+    "cluster_name": "tp-alt",
+    "env": "tp-alt",
+    "private_availability_zones": [
+      "us-east-1b",
+      "us-east-1b",
+      "us-east-1b"
+    ],
+    "private_cidr_blocks": [
+      "192.168.77.0/24",
+      "192.168.77.0/24",
+      "192.168.77.0/24"
+    ],
+    "private_subnet_count": 2,
+    "private_subnet_name": "tp-alt",
+    "public_availability_zones": [
+      "us-east-1b",
+      "us-east-1b",
+      "us-east-1b"
+    ],
+    "public_cidr_blocks": [
+      "192.168.77.0/24",
+      "192.168.77.0/24",
+      "192.168.77.0/24"
+    ],
+    "public_subnet_count": 2,
+    "public_subnet_name": "tp-alt",
+    "tp_db_password": "tp-secret-alt",
+    "vpc_id": "vpc-0777777777777777b"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "cluster_name": 0,
+      "env": 0,
+      "private_availability_zones": 0,
+      "private_cidr_blocks": 0,
+      "private_subnet_count": 0,
+      "private_subnet_name": 0,
+      "public_availability_zones": 0,
+      "public_cidr_blocks": 0,
+      "public_subnet_count": 0,
+      "public_subnet_name": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "cluster_name": 0,
+      "env": 0,
+      "private_availability_zones": 0,
+      "private_cidr_blocks": 0,
+      "private_subnet_count": 0,
+      "private_subnet_name": 0,
+      "public_availability_zones": 0,
+      "public_cidr_blocks": 0,
+      "public_subnet_count": 0,
+      "public_subnet_name": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    }
+  },
+  "variable_values_kinds": {
+    "cluster_name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "env": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "private_availability_zones": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_subnet.private.availability_zone"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "az"
+      }
+    },
+    "private_cidr_blocks": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_subnet.private.cidr_block"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "ipv4_cidr"
+      }
+    },
+    "private_subnet_count": {
+      "evidence": [
+        "declared_type:number"
+      ],
+      "kind": "number"
+    },
+    "private_subnet_name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "public_availability_zones": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_subnet.public.availability_zone"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "az"
+      }
+    },
+    "public_cidr_blocks": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_subnet.public.cidr_block"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "ipv4_cidr"
+      }
+    },
+    "public_subnet_count": {
+      "evidence": [
+        "declared_type:number"
+      ],
+      "kind": "number"
+    },
+    "public_subnet_name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.private.vpc_id",
+        "usage:aws_subnet.public.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

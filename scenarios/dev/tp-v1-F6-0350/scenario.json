@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F6",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -146,5 +147,41 @@
     "description": "Adds new private read-replica RDS instance safely.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "aws_vpc_id": "vpc-0201201201201201a",
+    "tp_db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "aws_vpc_id": "vpc-0777777777777777b",
+    "tp_db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "aws_vpc_id": 0,
+      "tp_db_password": 0
+    },
+    "primary": {
+      "aws_vpc_id": 0,
+      "tp_db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "aws_vpc_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.sg.vpc_id"
+      ],
+      "kind": "vpc_id"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

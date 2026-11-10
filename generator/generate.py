@@ -30,6 +30,7 @@ import operators
 import seed
 import templates
 import validate
+import varvalues
 import writer
 from VERSION import VERSION
 
@@ -250,6 +251,10 @@ def generate_scenario(
                 "after": r.after,
             })
 
+    # D5-10: variable values (rule vv-3), a primary and an alternate set for the whole scenario, from the
+    # recorded vv-3 search result; steps are not changed. D5-09: excluded_from_v1 comes from the same result.
+    vv_record = varvalues.compute(steps_files, varvalues.search_record(scenario_id, split))
+
     scenario_data = {
         "scenario_id": scenario_id,
         "dataset_version": DATASET_VERSION,
@@ -283,6 +288,7 @@ def generate_scenario(
         "protected_invariants": PROTECTED_INVARIANTS,
         "steps": steps_meta,
         "mutation_record": flat_records,
+        **vv_record,
         "labels": None,
         "oracle": None,
     }

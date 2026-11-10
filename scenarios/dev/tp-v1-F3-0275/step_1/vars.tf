@@ -1,4 +1,3 @@
-data "aws_availability_zones" "available" {}
 
 variable "project" {
   default = "fiap-lab"

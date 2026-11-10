@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F4",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -164,5 +165,52 @@
     "description": "Repair public database ingress on port 5432",
     "invariant_id": "INV-SEC-002",
     "kind": "repair"
-  }
+  },
+  "variable_values": {
+    "cidr_block": "10.201.0.0/16",
+    "name": "tp-primary",
+    "tp_db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "cidr_block": "192.168.77.0/24",
+    "name": "tp-alt",
+    "tp_db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "cidr_block": 0,
+      "name": 0,
+      "tp_db_password": 0
+    },
+    "primary": {
+      "cidr_block": 0,
+      "name": 0,
+      "tp_db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "cidr_block": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_vpc.this.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

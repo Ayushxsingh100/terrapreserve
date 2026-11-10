@@ -1,8 +1,30 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": {
+    "failing_steps": [
+      {
+        "step": 0,
+        "value_set": "primary"
+      },
+      {
+        "step": 1,
+        "value_set": "primary"
+      },
+      {
+        "step": 0,
+        "value_set": "alternate"
+      },
+      {
+        "step": 1,
+        "value_set": "alternate"
+      }
+    ],
+    "first_error": "Error: \"tpp/32\" is not a valid CIDR block: invalid CIDR address: tpp/32",
+    "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+  },
   "family": "F6",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -22,6 +44,14 @@
         "terraform",
         "provider"
       ]
+    },
+    {
+      "block_sha256": "a55f1e5d9201169236abc5f6fbce0b1d37d9d126507072f0fa67e486745ba1ef",
+      "data_name": "eip",
+      "data_type": "terraform_remote_state",
+      "file": "remote-backend.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_terraform_remote_state_eip"
     }
   ],
   "intent": {
@@ -132,13 +162,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "8272418fade63a2ef98b5b58d044edde1f9deb9c2a6ae9eaae40af50551cc107",
+      "content_hash": "bd25b7a6f634f41db87b3eb95257c9d134dc6338aa12354634bb71566040edae",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "5d3f48c941616fce05a183b307badc0b3ba4b354b5ef476c94404698b32eebe7",
+      "content_hash": "6f3bf3ef73c7e0c09b18083be016bf74046825d7273cbfe2ff50575ab7bfb78f",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = [aws_security_group.tp_app_sg.id, aws_security_group.tp_monitoring_sg.id]\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n@@ -103,3 +103,9 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"tp_monitoring_sg\" {\n+  description = \"Monitoring security group\"\n+  name        = \"tp_monitoring_sg-mon\"\n+  vpc_id      = aws_vpc.tp_vpc.id\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -148,5 +178,57 @@
     "description": "Adds new monitoring security group safely.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_terraform_remote_state_eip": {
+      "outputs": {
+        "public_ip_addr": "tpp"
+      }
+    }
+  },
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_terraform_remote_state_eip": {
+      "outputs": {
+        "public_ip_addr": "tpa"
+      }
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0,
+      "tp_ds_terraform_remote_state_eip": 3
+    },
+    "primary": {
+      "tp_db_password": 0,
+      "tp_ds_terraform_remote_state_eip": 3
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_terraform_remote_state_eip": {
+      "evidence": [
+        "declared_type:object({outputs=object({public_ip_addr=string})})",
+        "no table attribute reached at .outputs.public_ip_addr"
+      ],
+      "kind": {
+        "object": {
+          "outputs": {
+            "object": {
+              "public_ip_addr": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

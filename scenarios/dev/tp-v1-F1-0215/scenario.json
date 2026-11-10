@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F1",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -106,5 +107,146 @@
     "description": "Disables VPC DNS hostnames safely.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "ami_id": "ami-0201201201201201a",
+    "backend_instance_count": 1,
+    "frontend_instance_count": 1,
+    "instance_type": "t3.micro",
+    "private_subnet_ids": [
+      "subnet-0201201201201201a",
+      "subnet-0201201201201201a",
+      "subnet-0201201201201201a"
+    ],
+    "private_subnets": [],
+    "public_subnet_ids": [
+      "subnet-0201201201201201a",
+      "subnet-0201201201201201a",
+      "subnet-0201201201201201a"
+    ],
+    "tp_db_password": "tp-secret-primary",
+    "vpc_id": "vpc-0201201201201201a"
+  },
+  "variable_values_alt": {
+    "ami_id": "ami-0777777777777777b",
+    "backend_instance_count": 2,
+    "frontend_instance_count": 2,
+    "instance_type": "t3.small",
+    "private_subnet_ids": [
+      "subnet-0777777777777777b",
+      "subnet-0777777777777777b",
+      "subnet-0777777777777777b"
+    ],
+    "private_subnets": [
+      "tp-alt"
+    ],
+    "public_subnet_ids": [
+      "subnet-0777777777777777b",
+      "subnet-0777777777777777b",
+      "subnet-0777777777777777b"
+    ],
+    "tp_db_password": "tp-secret-alt",
+    "vpc_id": "vpc-0777777777777777b"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "ami_id": 0,
+      "backend_instance_count": 0,
+      "frontend_instance_count": 0,
+      "instance_type": 0,
+      "private_subnet_ids": 0,
+      "private_subnets": 0,
+      "public_subnet_ids": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "ami_id": 0,
+      "backend_instance_count": 0,
+      "frontend_instance_count": 0,
+      "instance_type": 0,
+      "private_subnet_ids": 0,
+      "private_subnets": 0,
+      "public_subnet_ids": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    }
+  },
+  "variable_values_kinds": {
+    "ami_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_instance.backend.ami",
+        "usage:aws_instance.frontend.ami"
+      ],
+      "kind": "ami"
+    },
+    "backend_instance_count": {
+      "evidence": [
+        "declared_type:number"
+      ],
+      "kind": "number"
+    },
+    "frontend_instance_count": {
+      "evidence": [
+        "declared_type:number"
+      ],
+      "kind": "number"
+    },
+    "instance_type": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_instance.backend.instance_type",
+        "usage:aws_instance.frontend.instance_type"
+      ],
+      "kind": "instance_type"
+    },
+    "private_subnet_ids": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_instance.backend.subnet_id"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "subnet_id"
+      }
+    },
+    "private_subnets": {
+      "evidence": [
+        "declared_type:list(string)",
+        "no table attribute reached at []"
+      ],
+      "kind": {
+        "length": "empty-able",
+        "list": "string"
+      }
+    },
+    "public_subnet_ids": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_instance.frontend.subnet_id"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "subnet_id"
+      }
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.backend_sg.vpc_id",
+        "usage:aws_security_group.frontend_sg.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

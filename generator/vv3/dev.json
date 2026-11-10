@@ -1,0 +1,6092 @@
+{
+  "decision": "D5-10",
+  "rule": "vv-3",
+  "scenarios": {
+    "tp-v1-F1-0001": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0002": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0003": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0006": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0008": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0009": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0010": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0011": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0012": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0014": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0015": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0016": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0019": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0021": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0022": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0023": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0024": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0025": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0209": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0210": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0211": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0212": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0213": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0214": {
+      "candidates": {
+        "alternate": {},
+        "primary": {
+          "vpc_id": 1
+        }
+      },
+      "excluded_from_v1": null,
+      "overrides": {
+        "environment": {
+          "error": "Error: first character of \"identifier\" must be a letter",
+          "step": 0,
+          "value_set": "primary"
+        },
+        "name": {
+          "error": "Error: first character of \"identifier\" must be a letter",
+          "step": 0,
+          "value_set": "primary"
+        },
+        "project": {
+          "error": "Error: first character of \"identifier\" must be a letter",
+          "step": 0,
+          "value_set": "primary"
+        },
+        "tag": {
+          "error": "Error: first character of \"identifier\" must be a letter",
+          "step": 0,
+          "value_set": "primary"
+        }
+      },
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [
+          "primary: override environment",
+          "primary: override name",
+          "primary: override project",
+          "primary: override tag",
+          "primary: vpc_id -> 1"
+        ],
+        "plans_run": 9,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0215": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0219": {
+      "candidates": {
+        "alternate": {
+          "cidr_block": 3,
+          "subnet_count": 3
+        },
+        "primary": {
+          "cidr_block": 3,
+          "subnet_count": 3
+        }
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: Incorrect value type",
+        "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Incorrect value type",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [
+          "primary: cidr_block -> 1",
+          "primary: subnet_count -> 1",
+          "primary: cidr_block -> 2",
+          "primary: subnet_count -> 2",
+          "primary: cidr_block -> 3",
+          "primary: subnet_count -> 3",
+          "alternate: cidr_block -> 1",
+          "alternate: subnet_count -> 1",
+          "alternate: cidr_block -> 2",
+          "alternate: subnet_count -> 2",
+          "alternate: cidr_block -> 3",
+          "alternate: subnet_count -> 3"
+        ],
+        "plans_run": 8,
+        "primary": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Incorrect value type",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F1-0220": {
+      "candidates": {
+        "alternate": {
+          "app_name": 3,
+          "deployment_branch": 3,
+          "game_server_name_container": 3,
+          "proxy_server_port": 3,
+          "public_subnet_id_a": 3,
+          "public_subnet_id_b": 3,
+          "subdomain_game_stacks": 3,
+          "vpc_cidr_block": 3
+        },
+        "primary": {
+          "app_name": 3,
+          "deployment_branch": 3,
+          "game_server_name_container": 3,
+          "proxy_server_port": 3,
+          "public_subnet_id_a": 3,
+          "public_subnet_id_b": 3,
+          "subdomain_game_stacks": 3,
+          "vpc_cidr_block": 3
+        }
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: Incorrect attribute value type",
+        "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Incorrect attribute value type",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [
+          "primary: app_name -> 1",
+          "primary: deployment_branch -> 1",
+          "primary: game_server_name_container -> 1",
+          "primary: proxy_server_port -> 1",
+          "primary: public_subnet_id_a -> 1",
+          "primary: public_subnet_id_b -> 1",
+          "primary: subdomain_game_stacks -> 1",
+          "primary: vpc_cidr_block -> 1",
+          "primary: app_name -> 2",
+          "primary: deployment_branch -> 2",
+          "primary: game_server_name_container -> 2",
+          "primary: proxy_server_port -> 2",
+          "primary: public_subnet_id_a -> 2",
+          "primary: public_subnet_id_b -> 2",
+          "primary: subdomain_game_stacks -> 2",
+          "primary: vpc_cidr_block -> 2",
+          "primary: app_name -> 3",
+          "primary: deployment_branch -> 3",
+          "primary: game_server_name_container -> 3",
+          "primary: proxy_server_port -> 3",
+          "primary: public_subnet_id_a -> 3",
+          "primary: public_subnet_id_b -> 3",
+          "primary: subdomain_game_stacks -> 3",
+          "primary: vpc_cidr_block -> 3",
+          "alternate: app_name -> 1",
+          "alternate: deployment_branch -> 1",
+          "alternate: game_server_name_container -> 1",
+          "alternate: proxy_server_port -> 1",
+          "alternate: public_subnet_id_a -> 1",
+          "alternate: public_subnet_id_b -> 1",
+          "alternate: subdomain_game_stacks -> 1",
+          "alternate: vpc_cidr_block -> 1",
+          "alternate: app_name -> 2",
+          "alternate: deployment_branch -> 2",
+          "alternate: game_server_name_container -> 2",
+          "alternate: proxy_server_port -> 2",
+          "alternate: public_subnet_id_a -> 2",
+          "alternate: public_subnet_id_b -> 2",
+          "alternate: subdomain_game_stacks -> 2",
+          "alternate: vpc_cidr_block -> 2",
+          "alternate: app_name -> 3",
+          "alternate: deployment_branch -> 3",
+          "alternate: game_server_name_container -> 3",
+          "alternate: proxy_server_port -> 3",
+          "alternate: public_subnet_id_a -> 3",
+          "alternate: public_subnet_id_b -> 3",
+          "alternate: subdomain_game_stacks -> 3",
+          "alternate: vpc_cidr_block -> 3"
+        ],
+        "plans_run": 8,
+        "primary": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Incorrect attribute value type",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F1-0222": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0223": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0224": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0225": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0226": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0227": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0228": {
+      "candidates": {
+        "alternate": {
+          "network_address_space": 3,
+          "subnet_count": 3,
+          "tp_ds_aws_availability_zones_az": 2
+        },
+        "primary": {
+          "network_address_space": 3,
+          "subnet_count": 3,
+          "tp_ds_aws_availability_zones_az": 2
+        }
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: Incorrect value type",
+        "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+      },
+      "overrides": {
+        "network_address_space": {
+          "error": "Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:",
+          "step": 0,
+          "value_set": "primary"
+        },
+        "subnet_count": {
+          "error": "Error: Incorrect value type",
+          "step": 0,
+          "value_set": "primary"
+        }
+      },
+      "search": {
+        "alternate": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Incorrect value type",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [
+          "primary: override network_address_space",
+          "primary: tp_ds_aws_availability_zones_az -> 1",
+          "primary: network_address_space -> 1",
+          "primary: override subnet_count",
+          "primary: tp_ds_aws_availability_zones_az -> 2",
+          "primary: network_address_space -> 2",
+          "primary: subnet_count -> 1",
+          "primary: network_address_space -> 3",
+          "primary: subnet_count -> 2",
+          "primary: subnet_count -> 3",
+          "alternate: network_address_space -> 1",
+          "alternate: subnet_count -> 1",
+          "alternate: tp_ds_aws_availability_zones_az -> 2",
+          "alternate: network_address_space -> 2",
+          "alternate: subnet_count -> 2",
+          "alternate: network_address_space -> 3",
+          "alternate: subnet_count -> 3"
+        ],
+        "plans_run": 12,
+        "primary": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Incorrect value type",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F1-0232": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F1-0233": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0027": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0028": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0029": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0032": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0034": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0035": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0036": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0037": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0038": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0040": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0041": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0042": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0045": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0047": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0048": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0049": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0050": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0051": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0235": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0236": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0237": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0238": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0239": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0240": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0241": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0245": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0246": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0248": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0249": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0250": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0251": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0252": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {
+        "controller_IP_CIDR": {
+          "error": "Error: \"This variable must be defined at environment level.\" is not a valid CIDR block: invalid CIDR address: This variable must be defined at environment level.",
+          "step": 0,
+          "value_set": "primary"
+        }
+      },
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [
+          "primary: override controller_IP_CIDR"
+        ],
+        "plans_run": 9,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0253": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0254": {
+      "candidates": {
+        "alternate": {
+          "private_cidr_block": 3,
+          "public_cidr_block": 3,
+          "vpc_cidr": 3
+        },
+        "primary": {
+          "private_cidr_block": 3,
+          "public_cidr_block": 3,
+          "vpc_cidr": 3
+        }
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: Error in function call",
+        "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Error in function call",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [
+          "primary: private_cidr_block -> 1",
+          "primary: public_cidr_block -> 1",
+          "primary: vpc_cidr -> 1",
+          "primary: private_cidr_block -> 2",
+          "primary: public_cidr_block -> 2",
+          "primary: vpc_cidr -> 2",
+          "primary: private_cidr_block -> 3",
+          "primary: public_cidr_block -> 3",
+          "primary: vpc_cidr -> 3",
+          "alternate: private_cidr_block -> 1",
+          "alternate: public_cidr_block -> 1",
+          "alternate: vpc_cidr -> 1",
+          "alternate: private_cidr_block -> 2",
+          "alternate: public_cidr_block -> 2",
+          "alternate: vpc_cidr -> 2",
+          "alternate: private_cidr_block -> 3",
+          "alternate: public_cidr_block -> 3",
+          "alternate: vpc_cidr -> 3"
+        ],
+        "plans_run": 8,
+        "primary": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Error in function call",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F2-0258": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F2-0259": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0053": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0054": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0055": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0058": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0060": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0061": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0062": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0063": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0064": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0066": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0067": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0068": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0071": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0073": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0074": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0075": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0076": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0077": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0261": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0262": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0263": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0264": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0265": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0266": {
+      "candidates": {
+        "alternate": {
+          "tp_ds_aws_availability_zones_available": 2
+        },
+        "primary": {
+          "tp_ds_aws_availability_zones_available": 2
+        }
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: Resource precondition failed",
+        "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Resource precondition failed",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [
+          "primary: tp_ds_aws_availability_zones_available -> 1",
+          "primary: tp_ds_aws_availability_zones_available -> 2",
+          "alternate: tp_ds_aws_availability_zones_available -> 1",
+          "alternate: tp_ds_aws_availability_zones_available -> 2"
+        ],
+        "plans_run": 6,
+        "primary": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Resource precondition failed",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F3-0267": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0271": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: No value for required variable",
+        "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; unresolved variable has no value"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "unresolved variable has no value",
+          "error_class": "variable error",
+          "first_error": "Error: No value for required variable",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [],
+        "plans_run": 2,
+        "primary": {
+          "error_cause": "unresolved variable has no value",
+          "error_class": "variable error",
+          "first_error": "Error: No value for required variable",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F3-0272": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0274": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0275": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0276": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0277": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0278": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0279": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0280": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F3-0284": {
+      "candidates": {
+        "alternate": {
+          "admin_sg": 2,
+          "bat_tag": 3,
+          "protect_enable": 3,
+          "vpc_id": 2,
+          "web_sg": 2
+        },
+        "primary": {
+          "admin_sg": 2,
+          "bat_tag": 3,
+          "protect_enable": 3,
+          "vpc_id": 2,
+          "web_sg": 2
+        }
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: Incorrect attribute value type",
+        "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Incorrect attribute value type",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [
+          "primary: admin_sg -> 1",
+          "primary: bat_tag -> 1",
+          "primary: protect_enable -> 1",
+          "primary: vpc_id -> 1",
+          "primary: web_sg -> 1",
+          "primary: admin_sg -> 2",
+          "primary: bat_tag -> 2",
+          "primary: protect_enable -> 2",
+          "primary: vpc_id -> 2",
+          "primary: web_sg -> 2",
+          "primary: bat_tag -> 3",
+          "primary: protect_enable -> 3",
+          "alternate: admin_sg -> 1",
+          "alternate: bat_tag -> 1",
+          "alternate: protect_enable -> 1",
+          "alternate: vpc_id -> 1",
+          "alternate: web_sg -> 1",
+          "alternate: admin_sg -> 2",
+          "alternate: bat_tag -> 2",
+          "alternate: protect_enable -> 2",
+          "alternate: vpc_id -> 2",
+          "alternate: web_sg -> 2",
+          "alternate: bat_tag -> 3",
+          "alternate: protect_enable -> 3"
+        ],
+        "plans_run": 8,
+        "primary": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Incorrect attribute value type",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F3-0285": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0079": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0080": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0081": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0084": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0086": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0087": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0088": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0089": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0090": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0092": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0093": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0094": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0097": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0099": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0100": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0101": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0102": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0103": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0287": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0288": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0289": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0290": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0291": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0292": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0293": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0297": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0298": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0300": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0301": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0302": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0303": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0304": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0305": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0306": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0310": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F4-0311": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0105": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0106": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0107": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0110": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0112": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0113": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0114": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0115": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0116": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0118": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0119": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0120": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0123": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0125": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0126": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0127": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0128": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0129": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0313": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0314": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0315": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0316": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0317": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0318": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0319": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0323": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0324": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0326": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0327": {
+      "candidates": {
+        "alternate": {
+          "tp_ds_aws_availability_zones_available": 2
+        },
+        "primary": {
+          "tp_ds_aws_availability_zones_available": 2
+        }
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: Invalid index",
+        "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Invalid index",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [
+          "primary: tp_ds_aws_availability_zones_available -> 1",
+          "primary: tp_ds_aws_availability_zones_available -> 2",
+          "alternate: tp_ds_aws_availability_zones_available -> 2"
+        ],
+        "plans_run": 5,
+        "primary": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Invalid index",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F5-0328": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0329": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0330": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: Invalid index",
+        "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, other"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "",
+          "error_class": "other",
+          "first_error": "Error: Invalid index",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [],
+        "plans_run": 2,
+        "primary": {
+          "error_cause": "",
+          "error_class": "other",
+          "first_error": "Error: Invalid index",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F5-0331": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0332": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0336": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F5-0337": {
+      "candidates": {
+        "alternate": {
+          "container_port": 3,
+          "environment": 3,
+          "name": 3
+        },
+        "primary": {
+          "container_port": 3,
+          "environment": 3,
+          "name": 3
+        }
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: Incorrect attribute value type",
+        "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Incorrect attribute value type",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [
+          "primary: container_port -> 1",
+          "primary: environment -> 1",
+          "primary: name -> 1",
+          "primary: container_port -> 2",
+          "primary: environment -> 2",
+          "primary: name -> 2",
+          "primary: container_port -> 3",
+          "primary: environment -> 3",
+          "primary: name -> 3",
+          "alternate: container_port -> 1",
+          "alternate: environment -> 1",
+          "alternate: name -> 1",
+          "alternate: container_port -> 2",
+          "alternate: environment -> 2",
+          "alternate: name -> 2",
+          "alternate: container_port -> 3",
+          "alternate: environment -> 3",
+          "alternate: name -> 3"
+        ],
+        "plans_run": 8,
+        "primary": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Incorrect attribute value type",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F6-0131": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0132": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0133": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0136": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0138": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0139": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0140": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0141": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0142": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0144": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0145": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0146": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0149": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0151": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0152": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0153": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0154": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0155": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0339": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0340": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0341": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0342": {
+      "candidates": {
+        "alternate": {
+          "tp_ds_terraform_remote_state_eip": 3
+        },
+        "primary": {
+          "tp_ds_terraform_remote_state_eip": 3
+        }
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: \"tpp/32\" is not a valid CIDR block: invalid CIDR address: tpp/32",
+        "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: \"tpa/32\" is not a valid CIDR block: invalid CIDR address: tpa/32",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [
+          "primary: tp_ds_terraform_remote_state_eip -> 1",
+          "primary: tp_ds_terraform_remote_state_eip -> 2",
+          "primary: tp_ds_terraform_remote_state_eip -> 3",
+          "alternate: tp_ds_terraform_remote_state_eip -> 1",
+          "alternate: tp_ds_terraform_remote_state_eip -> 2",
+          "alternate: tp_ds_terraform_remote_state_eip -> 3"
+        ],
+        "plans_run": 8,
+        "primary": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: \"tpp/32\" is not a valid CIDR block: invalid CIDR address: tpp/32",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F6-0343": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0344": {
+      "candidates": {
+        "alternate": {
+          "sg_cidr": 3
+        },
+        "primary": {
+          "sg_cidr": 3
+        }
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: Incorrect attribute value type",
+        "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Incorrect attribute value type",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [
+          "primary: sg_cidr -> 1",
+          "primary: sg_cidr -> 2",
+          "primary: sg_cidr -> 3",
+          "alternate: sg_cidr -> 1",
+          "alternate: sg_cidr -> 2",
+          "alternate: sg_cidr -> 3"
+        ],
+        "plans_run": 8,
+        "primary": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Incorrect attribute value type",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F6-0345": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0349": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0350": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0352": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0353": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0354": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0355": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0356": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0357": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0358": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0362": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F6-0363": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0157": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0158": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0159": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0162": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0164": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0165": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0166": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0167": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0168": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0170": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0171": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0172": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0175": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0177": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0178": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0179": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0180": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0181": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0365": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0366": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0367": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0368": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0369": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: No value for required variable",
+        "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; unresolved variable has no value"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "unresolved variable has no value",
+          "error_class": "variable error",
+          "first_error": "Error: No value for required variable",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [],
+        "plans_run": 2,
+        "primary": {
+          "error_cause": "unresolved variable has no value",
+          "error_class": "variable error",
+          "first_error": "Error: No value for required variable",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F7-0370": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0371": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0375": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0376": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0378": {
+      "candidates": {
+        "alternate": {
+          "bastion_sg_id": 2,
+          "instance_profile_name": 3,
+          "name": 3,
+          "user_data_template": 3,
+          "vpc_id": 2
+        },
+        "primary": {
+          "bastion_sg_id": 2,
+          "instance_profile_name": 3,
+          "name": 3,
+          "user_data_template": 3,
+          "vpc_id": 2
+        }
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: Invalid function argument",
+        "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Invalid function argument",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [
+          "primary: bastion_sg_id -> 1",
+          "primary: instance_profile_name -> 1",
+          "primary: name -> 1",
+          "primary: user_data_template -> 1",
+          "primary: vpc_id -> 1",
+          "primary: bastion_sg_id -> 2",
+          "primary: instance_profile_name -> 2",
+          "primary: name -> 2",
+          "primary: user_data_template -> 2",
+          "primary: vpc_id -> 2",
+          "primary: instance_profile_name -> 3",
+          "primary: name -> 3",
+          "primary: user_data_template -> 3",
+          "alternate: bastion_sg_id -> 1",
+          "alternate: instance_profile_name -> 1",
+          "alternate: name -> 1",
+          "alternate: user_data_template -> 1",
+          "alternate: vpc_id -> 1",
+          "alternate: bastion_sg_id -> 2",
+          "alternate: instance_profile_name -> 2",
+          "alternate: name -> 2",
+          "alternate: user_data_template -> 2",
+          "alternate: vpc_id -> 2",
+          "alternate: instance_profile_name -> 3",
+          "alternate: name -> 3",
+          "alternate: user_data_template -> 3"
+        ],
+        "plans_run": 8,
+        "primary": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Invalid function argument",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F7-0379": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0380": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0381": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0382": {
+      "candidates": {
+        "alternate": {},
+        "primary": {
+          "cidr_block": 1,
+          "private_subnet1": 1,
+          "private_subnet2": 1,
+          "public_subnet1": 1,
+          "public_subnet2": 1,
+          "public_subnet3": 1
+        }
+      },
+      "excluded_from_v1": null,
+      "overrides": {
+        "cidr_block": {
+          "error": "Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:",
+          "step": 0,
+          "value_set": "primary"
+        },
+        "private_subnet1": {
+          "error": "Error: \"\" is not a valid CIDR block: invalid CIDR address:",
+          "step": 0,
+          "value_set": "primary"
+        },
+        "private_subnet2": {
+          "error": "Error: \"\" is not a valid CIDR block: invalid CIDR address:",
+          "step": 0,
+          "value_set": "primary"
+        },
+        "private_subnet3": {
+          "error": "Error: \"\" is not a valid CIDR block: invalid CIDR address:",
+          "step": 0,
+          "value_set": "primary"
+        },
+        "public_subnet1": {
+          "error": "Error: \"\" is not a valid CIDR block: invalid CIDR address:",
+          "step": 0,
+          "value_set": "primary"
+        },
+        "public_subnet2": {
+          "error": "Error: \"\" is not a valid CIDR block: invalid CIDR address:",
+          "step": 0,
+          "value_set": "primary"
+        },
+        "public_subnet3": {
+          "error": "Error: \"\" is not a valid CIDR block: invalid CIDR address:",
+          "step": 0,
+          "value_set": "primary"
+        }
+      },
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [
+          "primary: override cidr_block",
+          "primary: override public_subnet1",
+          "primary: override public_subnet2",
+          "primary: override public_subnet3",
+          "primary: override private_subnet1",
+          "primary: override private_subnet2",
+          "primary: cidr_block -> 1",
+          "primary: private_subnet1 -> 1",
+          "primary: private_subnet2 -> 1",
+          "primary: override private_subnet3",
+          "primary: public_subnet1 -> 1",
+          "primary: public_subnet2 -> 1",
+          "primary: public_subnet3 -> 1"
+        ],
+        "plans_run": 15,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0383": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0384": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0388": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F7-0389": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 4,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0183": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 6,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0184": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 8,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0185": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 10,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0188": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 10,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0190": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 8,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0191": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 10,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0192": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 6,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0193": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 8,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0194": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 10,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0196": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 6,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0197": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 8,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0198": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 10,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0201": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 10,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0203": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 8,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0204": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 10,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0205": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 6,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0206": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 8,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0207": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 10,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0391": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 8,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0392": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 10,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0393": {
+      "candidates": {
+        "alternate": {
+          "cidr_private_subnet": 3,
+          "cidr_public_subnet": 3,
+          "vpc_cidr": 3
+        },
+        "primary": {
+          "cidr_private_subnet": 3,
+          "cidr_public_subnet": 3,
+          "vpc_cidr": 3
+        }
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 2,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          },
+          {
+            "step": 2,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: Error in function call",
+        "reason": "6 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Error in function call",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [
+          "primary: cidr_private_subnet -> 1",
+          "primary: cidr_public_subnet -> 1",
+          "primary: vpc_cidr -> 1",
+          "primary: cidr_private_subnet -> 2",
+          "primary: cidr_public_subnet -> 2",
+          "primary: vpc_cidr -> 2",
+          "primary: cidr_private_subnet -> 3",
+          "primary: cidr_public_subnet -> 3",
+          "primary: vpc_cidr -> 3",
+          "alternate: cidr_private_subnet -> 1",
+          "alternate: cidr_public_subnet -> 1",
+          "alternate: vpc_cidr -> 1",
+          "alternate: cidr_private_subnet -> 2",
+          "alternate: cidr_public_subnet -> 2",
+          "alternate: vpc_cidr -> 2",
+          "alternate: cidr_private_subnet -> 3",
+          "alternate: cidr_public_subnet -> 3",
+          "alternate: vpc_cidr -> 3"
+        ],
+        "plans_run": 8,
+        "primary": {
+          "error_cause": "vv-3 value rejected in an expression or by the provider",
+          "error_class": "variable error",
+          "first_error": "Error: Error in function call",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F8-0394": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 8,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0395": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 10,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0396": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 6,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0397": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 8,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0401": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 10,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0402": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 6,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0404": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 10,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0405": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 6,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0406": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": {
+        "failing_steps": [
+          {
+            "step": 0,
+            "value_set": "primary"
+          },
+          {
+            "step": 1,
+            "value_set": "primary"
+          },
+          {
+            "step": 2,
+            "value_set": "primary"
+          },
+          {
+            "step": 3,
+            "value_set": "primary"
+          },
+          {
+            "step": 0,
+            "value_set": "alternate"
+          },
+          {
+            "step": 1,
+            "value_set": "alternate"
+          },
+          {
+            "step": 2,
+            "value_set": "alternate"
+          },
+          {
+            "step": 3,
+            "value_set": "alternate"
+          }
+        ],
+        "first_error": "Error: No value for required variable",
+        "reason": "8 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; unresolved variable has no value"
+      },
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "error_cause": "unresolved variable has no value",
+          "error_class": "variable error",
+          "first_error": "Error: No value for required variable",
+          "result": "fails",
+          "step": 0
+        },
+        "moves": [],
+        "plans_run": 2,
+        "primary": {
+          "error_cause": "unresolved variable has no value",
+          "error_class": "variable error",
+          "first_error": "Error: No value for required variable",
+          "result": "fails",
+          "step": 0
+        }
+      }
+    },
+    "tp-v1-F8-0407": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 10,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0408": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 6,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0409": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 8,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0410": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 10,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0414": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 6,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    },
+    "tp-v1-F8-0415": {
+      "candidates": {
+        "alternate": {},
+        "primary": {}
+      },
+      "excluded_from_v1": null,
+      "overrides": {},
+      "search": {
+        "alternate": {
+          "result": "plans"
+        },
+        "moves": [],
+        "plans_run": 8,
+        "primary": {
+          "result": "plans"
+        }
+      }
+    }
+  },
+  "tool": "tools/search_vv3.py"
+}

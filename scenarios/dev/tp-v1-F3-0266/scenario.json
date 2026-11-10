@@ -1,8 +1,30 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": {
+    "failing_steps": [
+      {
+        "step": 0,
+        "value_set": "primary"
+      },
+      {
+        "step": 1,
+        "value_set": "primary"
+      },
+      {
+        "step": 0,
+        "value_set": "alternate"
+      },
+      {
+        "step": 1,
+        "value_set": "alternate"
+      }
+    ],
+    "first_error": "Error: Resource precondition failed",
+    "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+  },
   "family": "F3",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -13,6 +35,14 @@
       "removed_blocks": [
         "terraform"
       ]
+    },
+    {
+      "block_sha256": "407c85bf2784d4b21c7cfc13f55b8f7f9b017fb09241f60cd693234ea208aaed",
+      "data_name": "available",
+      "data_type": "aws_availability_zones",
+      "file": "vpc.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_available"
     }
   ],
   "intent": {
@@ -99,13 +129,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "d888d425f5d36ca77c46734b250f84dd503e25ea022a68d50f4660c7d479f43a",
+      "content_hash": "e7836c2a0f03cde941d1b9b820b7b2f3bed44e57134a99fab07219a10446a089",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "e745d42314307ece68957a32807d9ca30151873bd1cba893ad39c1da7d9f89b6",
+      "content_hash": "0d6d4d1397931be5a84fe275fdc5fda5715d502eae0be24eb5c7bd56bbcccc95",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -88,7 +88,7 @@\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n   name       = \"tp-db-subnet-group\"\n-  subnet_ids = [aws_subnet.tp_db_subnet_1.id, aws_subnet.tp_db_subnet_2.id]\n+  subnet_ids = [aws_subnet.tp_db_subnet_2.id, aws_subnet.tp_db_subnet_1.id]\n }\n \n resource \"aws_db_instance\" \"tp_db\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -115,5 +145,58 @@
     "description": "Reorders subnets in DB subnet group safely.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_available": {
+      "id": "us-east-1",
+      "names": []
+    }
+  },
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_available": {
+      "id": "us-east-1",
+      "names": [
+        "us-east-1a"
+      ]
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 2
+    },
+    "primary": {
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 2
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "evidence": [
+        "data_source:aws_availability_zones.id",
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({id=stringnames=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "id": "region",
+          "names": {
+            "length": "empty-able",
+            "list": "az"
+          }
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

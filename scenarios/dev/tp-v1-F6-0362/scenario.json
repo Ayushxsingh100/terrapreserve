@@ -1,11 +1,21 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F6",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
-  "host_transform": [],
+  "host_transform": [
+    {
+      "block_sha256": "407c85bf2784d4b21c7cfc13f55b8f7f9b017fb09241f60cd693234ea208aaed",
+      "data_name": "available",
+      "data_type": "aws_availability_zones",
+      "file": "vpc-main.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_available"
+    }
+  ],
   "intent": {
     "breaks": [
       "INV-SEC-003"
@@ -131,13 +141,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "d0d0929c5363e258a36010614c3512e2e27691904c312e16fa9f36cc33b5f59e",
+      "content_hash": "94149a2abb1ecbe38aeb0b7c8cd5d21151153560d64c5f1d5595c5615ca37300",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "db5f418fc7f62dcc643387f18a71cd842ec92aae1a46779eef0e57c7cfb5737c",
+      "content_hash": "9daefb46c0dd3c130211e67a4af7386dd460fc53b8d4daaefa1f4b82408ec43b",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -103,3 +103,12 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_db_instance\" \"tp_replica\" {\n+  allocated_storage    = 20\n+  db_subnet_group_name = aws_db_subnet_group.tp_db_subnet_group.name\n+  engine               = \"postgres\"\n+  identifier           = \"tp-replica-db\"\n+  instance_class       = \"db.t3.micro\"\n+  publicly_accessible  = true\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -147,5 +157,60 @@
     "description": "Adds new read-replica RDS instance with publicly_accessible=true, breaking INV-SEC-003.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1a",
+        "us-east-1a",
+        "us-east-1a"
+      ]
+    }
+  },
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1b",
+        "us-east-1b",
+        "us-east-1b"
+      ]
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 0
+    },
+    "primary": {
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 0
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "evidence": [
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({names=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "names": {
+            "length": 3,
+            "list": "az"
+          }
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

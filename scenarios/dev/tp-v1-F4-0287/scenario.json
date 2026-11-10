@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F4",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -106,5 +107,63 @@
     "description": "Repair publicly accessible database instance",
     "invariant_id": "INV-SEC-003",
     "kind": "repair"
-  }
+  },
+  "variable_values": {
+    "tp_db_password": "tp-secret-primary",
+    "vpc_cidr": "10.201.0.0/16",
+    "vpc_public_subnet_cidr_1": "10.201.0.0/16",
+    "vpc_public_subnet_cidr_2": "10.201.0.0/16"
+  },
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "vpc_cidr": "192.168.77.0/24",
+    "vpc_public_subnet_cidr_1": "192.168.77.0/24",
+    "vpc_public_subnet_cidr_2": "192.168.77.0/24"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0,
+      "vpc_cidr": 0,
+      "vpc_public_subnet_cidr_1": 0,
+      "vpc_public_subnet_cidr_2": 0
+    },
+    "primary": {
+      "tp_db_password": 0,
+      "vpc_cidr": 0,
+      "vpc_public_subnet_cidr_1": 0,
+      "vpc_public_subnet_cidr_2": 0
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_cidr": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_vpc.main_vpc.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "vpc_public_subnet_cidr_1": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.main_vpc_public_subnet.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "vpc_public_subnet_cidr_2": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.main_vpc_public_subnet2.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

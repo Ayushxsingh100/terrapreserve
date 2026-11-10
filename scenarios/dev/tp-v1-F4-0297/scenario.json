@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F4",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -115,5 +116,78 @@
     "description": "Repair public SSH ingress on port 22",
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
-  }
+  },
+  "variable_values": {
+    "aws_config": {
+      "Name": "tp-primary",
+      "cidr_block": "10.201.0.0/16"
+    },
+    "subnet_config": {},
+    "tp_db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "aws_config": {
+      "Name": "tp-alt",
+      "cidr_block": "192.168.77.0/24"
+    },
+    "subnet_config": {
+      "tp-alt": {
+        "az": "us-east-1b",
+        "cidr_block": "192.168.77.0/24"
+      }
+    },
+    "tp_db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "aws_config": 0,
+      "subnet_config": 0,
+      "tp_db_password": 0
+    },
+    "primary": {
+      "aws_config": 0,
+      "subnet_config": 0,
+      "tp_db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "aws_config": {
+      "evidence": [
+        "declared_type:object({cidr_block=stringName=string})",
+        "no table attribute reached at .Name",
+        "usage:aws_vpc.main.cidr_block"
+      ],
+      "kind": {
+        "object": {
+          "Name": "string",
+          "cidr_block": "ipv4_cidr"
+        }
+      }
+    },
+    "subnet_config": {
+      "evidence": [
+        "declared_type:map(object({cidr_block=stringaz=stringpublic=optional(bool,false)}))",
+        "usage:aws_subnet.main.availability_zone",
+        "usage:aws_subnet.main.cidr_block"
+      ],
+      "kind": {
+        "keys": "empty-able",
+        "map": {
+          "object": {
+            "az": "az",
+            "cidr_block": "ipv4_cidr"
+          }
+        }
+      }
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

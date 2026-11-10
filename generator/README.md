@@ -23,7 +23,10 @@ Ground-truth evaluation is deferred to the independent oracle in D5 (ADR-010); t
   - `screen.py`: S0 lexical eligibility screen checking for insecure open ingress on ports 22/5432 and publicly accessible RDS.
   - `plan.py`: Deterministic 208-scenario plan assigner prioritizing natives and derived natives over hosts.
   - `generate_rw.py`: Real-world tier pipeline driver generating and validating all 208 real-world scenarios.
-- **`VERSION.py`**: Generator version tag (`d4a-4` for controlled tier; the real-world tier version `d4b-5` is `GENERATOR_VERSION` in `realworld/generate_rw.py`).
+- **`VERSION.py`**: Generator version tag (`d4a-7` for controlled tier; the real-world tier version `d4b-8` is `GENERATOR_VERSION` in `realworld/generate_rw.py`).
+- **`varvalues.py`**: Rule vv-3 for the two value sets `variable_values` and `variable_values_alt` in `scenario.json` (D5-10; it keeps vv-2, D5-07, whole and superseded it, as vv-2 superseded vv-1, D5-01). It reads the recorded vv-3 search result.
+- **`vv3/dev.json`**: The vv-3 search result of the dev split (written by `tools/search_vv3.py`, exclusions by `tools/mark_d5a3_exclusions.py`, D5-09); the test split's is in `$TERRAPRESERVE_PRIVATE/vv3_test.json`.
+- **`realworld/data_vars.py`**: The D5-08 transform: every `data` block becomes a `tp_ds_*` variable without a default, recorded in `host_transform`.
 
 ## Independence
 

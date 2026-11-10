@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F8",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -13,6 +14,14 @@
       "removed_blocks": [
         "terraform"
       ]
+    },
+    {
+      "block_sha256": "407c85bf2784d4b21c7cfc13f55b8f7f9b017fb09241f60cd693234ea208aaed",
+      "data_name": "available",
+      "data_type": "aws_availability_zones",
+      "file": "main.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_available"
     }
   ],
   "intent": {
@@ -124,19 +133,19 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "b7b9a5e774736b54bea6e72ca451abb8bc4ea84e27b2da6c76585b38cca18167",
+      "content_hash": "ddd43ae8a0da684ad6d864cb7ae81326099ad6b23d4e18fb7dfa8dba512d6394",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "14a86cff0f5d1dda973a2a38206fb0ebd6f1d81168732d4593bdb0d5765d04d1",
+      "content_hash": "1c0c0ebb84346909856cd6dfe0035e4a624590353a184b557a51c60c7684a123",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,7 +81,7 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
     },
     {
-      "content_hash": "86120c471a4bd7d86dcfb4f8038287d4d3d0fb44a62b582a79c968e7ee6325e3",
+      "content_hash": "dc1627c6955ad7e5cd9c8c41c9981d3d43e2bd917b28423818dc9a1753a96267",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -53,7 +53,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_ingress_ssh\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 22\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_app_sg.id\n@@ -71,11 +71,11 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  from_port                = 5432\n+  from_port                = 5433\n   protocol                 = \"tcp\"\n   security_group_id        = aws_security_group.tp_db_sg.id\n   source_security_group_id = aws_security_group.tp_app_sg.id\n-  to_port                  = 5432\n+  to_port                  = 5433\n   type                     = \"ingress\"\n }\n \n",
       "step": 2,
       "terraform_dir": "step_2"
@@ -146,5 +155,87 @@
     "description": "Repair public SSH ingress on port 22",
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
-  }
+  },
+  "variable_values": {
+    "env": "tst",
+    "name": "tp-primary",
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1a",
+        "us-east-1a",
+        "us-east-1a"
+      ]
+    }
+  },
+  "variable_values_alt": {
+    "env": "dev",
+    "name": "tp-alt",
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1b",
+        "us-east-1b",
+        "us-east-1b"
+      ]
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "env": 0,
+      "name": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 0
+    },
+    "primary": {
+      "env": 0,
+      "name": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 0
+    }
+  },
+  "variable_values_kinds": {
+    "env": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)",
+        "validation"
+      ],
+      "kind": "string",
+      "validation": {
+        "alternate": "dev",
+        "primary": "tst"
+      }
+    },
+    "name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "evidence": [
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({names=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "names": {
+            "length": 3,
+            "list": "az"
+          }
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

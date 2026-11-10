@@ -16,5 +16,3 @@ variable "subnet_count" {
 }
 
 #Get the availability zones, this creates an array with the available AZs
-data "aws_availability_zones" "az" {
-}

@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F7",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -139,5 +140,162 @@
     "description": "Replaces the DB group's 5432 ingress source group with the application subnet CIDR.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "account_id": "tp-primary",
+    "account_profile": "tp-primary",
+    "private_subnet_cidr": "10.201.0.0/16",
+    "public_subnet_cidr": "10.201.0.0/16",
+    "tag_constcode": "tp-primary",
+    "tag_contact": "tp-primary",
+    "tag_description": "tp-primary",
+    "tag_environment": "tp-primary",
+    "tag_orchestration": "tp-primary",
+    "tag_product": "tp-primary",
+    "tag_sub_product": "tp-primary",
+    "tp_db_password": "tp-secret-primary",
+    "vpc_cidr": "10.201.0.0/16"
+  },
+  "variable_values_alt": {
+    "account_id": "tp-alt",
+    "account_profile": "tp-alt",
+    "private_subnet_cidr": "192.168.77.0/24",
+    "public_subnet_cidr": "192.168.77.0/24",
+    "tag_constcode": "tp-alt",
+    "tag_contact": "tp-alt",
+    "tag_description": "tp-alt",
+    "tag_environment": "tp-alt",
+    "tag_orchestration": "tp-alt",
+    "tag_product": "tp-alt",
+    "tag_sub_product": "tp-alt",
+    "tp_db_password": "tp-secret-alt",
+    "vpc_cidr": "192.168.77.0/24"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "account_id": 0,
+      "account_profile": 0,
+      "private_subnet_cidr": 0,
+      "public_subnet_cidr": 0,
+      "tag_constcode": 0,
+      "tag_contact": 0,
+      "tag_description": 0,
+      "tag_environment": 0,
+      "tag_orchestration": 0,
+      "tag_product": 0,
+      "tag_sub_product": 0,
+      "tp_db_password": 0,
+      "vpc_cidr": 0
+    },
+    "primary": {
+      "account_id": 0,
+      "account_profile": 0,
+      "private_subnet_cidr": 0,
+      "public_subnet_cidr": 0,
+      "tag_constcode": 0,
+      "tag_contact": 0,
+      "tag_description": 0,
+      "tag_environment": 0,
+      "tag_orchestration": 0,
+      "tag_product": 0,
+      "tag_sub_product": 0,
+      "tp_db_password": 0,
+      "vpc_cidr": 0
+    }
+  },
+  "variable_values_kinds": {
+    "account_id": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "account_profile": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "private_subnet_cidr": {
+      "evidence": [
+        "untyped",
+        "usage:aws_subnet.private_subnet.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "public_subnet_cidr": {
+      "evidence": [
+        "untyped",
+        "usage:aws_subnet.public_subnet.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "tag_constcode": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "tag_contact": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "tag_description": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "tag_environment": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "tag_orchestration": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "tag_product": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "tag_sub_product": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_cidr": {
+      "evidence": [
+        "untyped",
+        "usage:aws_vpc.main.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

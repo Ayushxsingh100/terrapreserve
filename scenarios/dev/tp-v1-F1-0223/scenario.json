@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F1",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -14,6 +15,14 @@
         "terraform",
         "provider"
       ]
+    },
+    {
+      "block_sha256": "bc14f674cfdea40ee9536693ac5dc44cefa3222a654a48098f42774d49eb38e0",
+      "data_name": "current",
+      "data_type": "aws_region",
+      "file": "region.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_region_current"
     }
   ],
   "intent": {
@@ -149,13 +158,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "ece68f016fc66f800e55bf294e5471114cbf0517c05f0f3b031a9e278d5e042a",
+      "content_hash": "33c571eeea8e658c0fe165afa167ed6685e96e1cac543835933f5a95e5d70ff5",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "e1d9a2a9b696f695f607f05fd110d69c90af0d2e629f97c3cbc9cccbc1af99d5",
+      "content_hash": "670697ddb434beffd5c90fea17bd149cc0b19f134f2bd515d59695bce3d9948b",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -92,7 +92,7 @@\n }\n \n resource \"aws_db_instance\" \"tp_db\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.tp_db_subnet_group.name\n   engine                 = \"postgres\"\n   identifier             = \"tp-db-instance\"\n@@ -103,3 +103,12 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group_rule\" \"tp_db_sg_ingress_db_public\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 5432\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.tp_db_sg.id\n+  to_port           = 5432\n+  type              = \"ingress\"\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -165,5 +174,62 @@
     "description": "Expands RDS storage with side effect opening port 5432 to the world on the DB group.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "cidr_block": "10.201.0.0/16",
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_region_current": {
+      "name": "us-east-1"
+    }
+  },
+  "variable_values_alt": {
+    "cidr_block": "192.168.77.0/24",
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_region_current": {
+      "name": "us-east-1"
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "cidr_block": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_region_current": 0
+    },
+    "primary": {
+      "cidr_block": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_region_current": 0
+    }
+  },
+  "variable_values_kinds": {
+    "cidr_block": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.eks_subnet_public_1a.cidr_block",
+        "usage:aws_subnet.eks_subnet_public_1b.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_region_current": {
+      "evidence": [
+        "data_source:aws_region.name",
+        "declared_type:object({name=string})"
+      ],
+      "kind": {
+        "object": {
+          "name": "region"
+        }
+      },
+      "same_in_both_sets": "kind region: the provider pin us-east-1 in both sets"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

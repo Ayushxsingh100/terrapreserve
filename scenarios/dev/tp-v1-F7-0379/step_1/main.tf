@@ -2,22 +2,13 @@
 
 
 # Get default VPC
-data "aws_vpc" "default" {
-  default = true
-}
 
 # Get subnets for DB subnet group
-data "aws_subnets" "available" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.default.id]
-  }
-}
 
 # DB subnet group
 resource "aws_db_subnet_group" "this" {
   name       = "${var.environment}-db-subnet-group"
-  subnet_ids = data.aws_subnets.available.ids
+  subnet_ids = var.tp_ds_aws_subnets_available.ids
 
   tags = merge(
     var.common_tags,
@@ -33,14 +24,14 @@ resource "aws_db_subnet_group" "this" {
 resource "aws_security_group" "db_sg" {
   name_prefix = "${var.environment}-db-sg-"
   description = "Security group for ${var.environment} RDS database"
-  vpc_id      = data.aws_vpc.default.id
+  vpc_id      = var.tp_ds_aws_vpc_default.id
 
   ingress {
     description = "MariaDB from VPC"
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = [data.aws_vpc.default.cidr_block]
+    cidr_blocks = [var.tp_ds_aws_vpc_default.cidr_block]
   }
 
   egress {

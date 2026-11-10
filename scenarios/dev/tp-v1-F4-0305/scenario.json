@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F4",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -14,6 +15,22 @@
         "terraform",
         "provider"
       ]
+    },
+    {
+      "block_sha256": "df55a63095720d2b4872821d4bf717f65ab5f97c269d8b31673645e1769d345f",
+      "data_name": "ubuntu",
+      "data_type": "aws_ami",
+      "file": "compute.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_ami_ubuntu"
+    },
+    {
+      "block_sha256": "d2ac9b3560ab8dd4fa4e21b2ad46c8f373c7a5daee296d61bccc2409528c6b42",
+      "data_name": "default",
+      "data_type": "aws_vpc",
+      "file": "networking.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_vpc_default"
     }
   ],
   "intent": {
@@ -149,13 +166,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "4c2e6e3085b21c6d0c57da0b029690726f05e73d9af0bc0ad8a0f1dc93c94c2d",
+      "content_hash": "53995e9a153f3a05e7871bf51152fb56dcd40322cb7b68ace72218c141c3bd01",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "eb0ccf3721ab460c97f3bceb1458febf016eced68a2fec8a706a9b90f142e8e9",
+      "content_hash": "8b0120516d0da2c71c7b1cbb5d4c1c88efed5bf3a802314d4fb25b90edde1806",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -98,8 +98,17 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = true\n+  publicly_accessible    = false\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group_rule\" \"tp_db_sg_ingress_db_public\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 5432\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.tp_db_sg.id\n+  to_port           = 5432\n+  type              = \"ingress\"\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -165,5 +182,68 @@
     "description": "Repair publicly accessible database instance",
     "invariant_id": "INV-SEC-003",
     "kind": "repair"
-  }
+  },
+  "variable_values": {
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_ami_ubuntu": {
+      "id": "ami-0201201201201201a"
+    },
+    "tp_ds_aws_vpc_default": {
+      "id": "vpc-0201201201201201a"
+    }
+  },
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_ami_ubuntu": {
+      "id": "ami-0777777777777777b"
+    },
+    "tp_ds_aws_vpc_default": {
+      "id": "vpc-0777777777777777b"
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0,
+      "tp_ds_aws_ami_ubuntu": 0,
+      "tp_ds_aws_vpc_default": 0
+    },
+    "primary": {
+      "tp_db_password": 0,
+      "tp_ds_aws_ami_ubuntu": 0,
+      "tp_ds_aws_vpc_default": 0
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_ami_ubuntu": {
+      "evidence": [
+        "data_source:aws_ami.id",
+        "declared_type:object({id=string})"
+      ],
+      "kind": {
+        "object": {
+          "id": "ami"
+        }
+      }
+    },
+    "tp_ds_aws_vpc_default": {
+      "evidence": [
+        "data_source:aws_vpc.id",
+        "declared_type:object({id=string})"
+      ],
+      "kind": {
+        "object": {
+          "id": "vpc_id"
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

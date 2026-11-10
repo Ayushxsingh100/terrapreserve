@@ -1,8 +1,30 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": {
+    "failing_steps": [
+      {
+        "step": 0,
+        "value_set": "primary"
+      },
+      {
+        "step": 1,
+        "value_set": "primary"
+      },
+      {
+        "step": 0,
+        "value_set": "alternate"
+      },
+      {
+        "step": 1,
+        "value_set": "alternate"
+      }
+    ],
+    "first_error": "Error: Incorrect value type",
+    "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+  },
   "family": "F1",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -13,6 +35,14 @@
       "removed_blocks": [
         "terraform"
       ]
+    },
+    {
+      "block_sha256": "f02f92bb3b1225d20ea9749c9be76d38a65a44b27421ec4557edaf19840dc898",
+      "data_name": "az",
+      "data_type": "aws_availability_zones",
+      "file": "variables.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_az"
     }
   ],
   "intent": {
@@ -108,13 +138,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "dac3fce18270826750e8dfb381e4a754300bc663e3a44bfe017c28f4cd7c126f",
+      "content_hash": "b74e066ce7f5b201e1886cdc866c48c7f97adab721eac24d47e4bb767d051b88",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "06f9c0689368580850cad6d264e4a964af3c9207cadd70c418cef38b558cfe59",
+      "content_hash": "26946b7b863e35484026c3824ae91dbd376e9b15f66a26a1fcb9f71d16af2803",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,7 +81,7 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n@@ -98,7 +98,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -124,5 +154,85 @@
     "description": "Resizes EC2 instance with side effect making DB publicly accessible.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "network_address_space": "10.201.0.0/20",
+    "subnet_count": "tpp",
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_az": {
+      "names": [
+        "us-east-1c",
+        "us-east-1c",
+        "us-east-1c"
+      ]
+    }
+  },
+  "variable_values_alt": {
+    "network_address_space": "192.168.64.0/20",
+    "subnet_count": "tpa",
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_az": {
+      "names": [
+        "us-east-1a",
+        "us-east-1a",
+        "us-east-1a"
+      ]
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "network_address_space": 3,
+      "subnet_count": 3,
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_az": 2
+    },
+    "primary": {
+      "network_address_space": 3,
+      "subnet_count": 3,
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_az": 2
+    }
+  },
+  "variable_values_kinds": {
+    "network_address_space": {
+      "evidence": [
+        "untyped",
+        "usage:aws_subnet.subnet.cidr_block",
+        "usage:aws_vpc.vpc.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:"
+    },
+    "subnet_count": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string",
+      "reason": "declared default rejected: Error: Incorrect value type"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_az": {
+      "evidence": [
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({names=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "names": {
+            "length": 3,
+            "list": "az"
+          }
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

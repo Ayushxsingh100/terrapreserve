@@ -1,4 +1,3 @@
-data "aws_availability_zones" "available" {}
 
 # VPC
 resource "aws_vpc" "main" {
@@ -24,7 +23,7 @@ resource "aws_subnet" "subnet" {
   count                   = var.subnet_count
   vpc_id                  = aws_vpc.main.id
   cidr_block              = cidrsubnet(aws_vpc.main.cidr_block, 8, count.index)
-  availability_zone       = data.aws_availability_zones.available.names[count.index]
+  availability_zone       = var.tp_ds_aws_availability_zones_available.names[count.index]
   map_public_ip_on_launch = true
 
   tags = {

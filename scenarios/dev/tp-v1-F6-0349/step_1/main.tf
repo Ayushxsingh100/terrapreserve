@@ -16,15 +16,12 @@ resource "aws_vpc" "main" {
 ### Create subnets
 
 # Get available azs
-data "aws_availability_zones" "available" {
-  state = "available"
-}
 
 # Create private and public subnets in the first two available availability zones
 resource "aws_subnet" "primary_public" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.0.0/24" #10.0.0.0 - 10.0.0.255
-  availability_zone       = data.aws_availability_zones.available.names[0]
+  availability_zone       = var.tp_ds_aws_availability_zones_available.names[0]
   map_public_ip_on_launch = true
   tags = {
     Name = "public-a"
@@ -34,7 +31,7 @@ resource "aws_subnet" "primary_public" {
 resource "aws_subnet" "secondary_public" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.1.0/24" #10.0.1.0 - 10.0.1.255
-  availability_zone       = data.aws_availability_zones.available.names[1]
+  availability_zone       = var.tp_ds_aws_availability_zones_available.names[1]
   map_public_ip_on_launch = true
   tags = {
     Name = "public-b"
@@ -44,7 +41,7 @@ resource "aws_subnet" "secondary_public" {
 resource "aws_subnet" "private_primary" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.16.0/20" # 10.0.16.0 - 10.0.31.255
-  availability_zone = data.aws_availability_zones.available.names[0]
+  availability_zone = var.tp_ds_aws_availability_zones_available.names[0]
   tags = {
     Name = "private-a"
   }
@@ -53,7 +50,7 @@ resource "aws_subnet" "private_primary" {
 resource "aws_subnet" "private_secondary" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.32.0/20" # 10.0.32.0 - 10.0.47.255
-  availability_zone = data.aws_availability_zones.available.names[1]
+  availability_zone = var.tp_ds_aws_availability_zones_available.names[1]
   tags = {
     Name = "private-b"
   }

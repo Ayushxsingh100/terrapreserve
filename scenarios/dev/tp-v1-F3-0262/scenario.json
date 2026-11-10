@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F3",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -106,5 +107,96 @@
     "description": "Narrows the app group egress CIDR to exactly CIDR(VPC(D)), computed from the scenario.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "route_table_id": "tp-primary",
+    "subnet_az": "us-east-1a",
+    "subnet_cidr_block": "10.201.0.0/16",
+    "subnet_name": "tp-primary",
+    "subnet_type": "tp-primary",
+    "tp_db_password": "tp-secret-primary",
+    "vpc_id": "vpc-0201201201201201a"
+  },
+  "variable_values_alt": {
+    "route_table_id": "tp-alt",
+    "subnet_az": "us-east-1b",
+    "subnet_cidr_block": "192.168.77.0/24",
+    "subnet_name": "tp-alt",
+    "subnet_type": "tp-alt",
+    "tp_db_password": "tp-secret-alt",
+    "vpc_id": "vpc-0777777777777777b"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "route_table_id": 0,
+      "subnet_az": 0,
+      "subnet_cidr_block": 0,
+      "subnet_name": 0,
+      "subnet_type": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "route_table_id": 0,
+      "subnet_az": 0,
+      "subnet_cidr_block": 0,
+      "subnet_name": 0,
+      "subnet_type": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    }
+  },
+  "variable_values_kinds": {
+    "route_table_id": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "subnet_az": {
+      "evidence": [
+        "untyped",
+        "usage:aws_subnet.subnet.availability_zone"
+      ],
+      "kind": "az"
+    },
+    "subnet_cidr_block": {
+      "evidence": [
+        "untyped",
+        "usage:aws_subnet.subnet.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "subnet_name": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "subnet_type": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_id": {
+      "evidence": [
+        "untyped",
+        "usage:aws_subnet.subnet.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

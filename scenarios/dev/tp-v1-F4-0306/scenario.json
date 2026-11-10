@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F4",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -123,5 +124,101 @@
     "description": "Repair public SSH ingress on port 22",
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
-  }
+  },
+  "variable_values": {
+    "db_name": "tp-primary",
+    "db_password": "tp-secret-primary",
+    "db_username": "tp-primary",
+    "ec2_security_group_id": "sg-0201201201201201a",
+    "private_subnet_ids": [],
+    "tp_db_password": "tp-secret-primary",
+    "vpc_id": "vpc-0201201201201201a"
+  },
+  "variable_values_alt": {
+    "db_name": "tp-alt",
+    "db_password": "tp-secret-alt",
+    "db_username": "tp-alt",
+    "ec2_security_group_id": "sg-0777777777777777b",
+    "private_subnet_ids": [
+      "subnet-0777777777777777b"
+    ],
+    "tp_db_password": "tp-secret-alt",
+    "vpc_id": "vpc-0777777777777777b"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "db_name": 0,
+      "db_password": 0,
+      "db_username": 0,
+      "ec2_security_group_id": 0,
+      "private_subnet_ids": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "db_name": 0,
+      "db_password": 0,
+      "db_username": 0,
+      "ec2_security_group_id": 0,
+      "private_subnet_ids": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    }
+  },
+  "variable_values_kinds": {
+    "db_name": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "db_username": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "ec2_security_group_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.rds_sg.ingress.security_groups"
+      ],
+      "kind": "sg_id"
+    },
+    "private_subnet_ids": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_db_subnet_group.chatbot_db_subnet_group.subnet_ids"
+      ],
+      "kind": {
+        "length": "empty-able",
+        "list": "subnet_id"
+      }
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.rds_sg.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

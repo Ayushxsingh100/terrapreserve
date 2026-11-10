@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F8",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -134,5 +135,67 @@
     "description": "Repair public SSH ingress on port 22",
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
-  }
+  },
+  "variable_values": {
+    "kaira_default_region": "tp-primary",
+    "kaira_vpc_id": "vpc-0201201201201201a",
+    "kaira_vpc_ip_block": "10.201.0.0/16",
+    "tp_db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "kaira_default_region": "tp-alt",
+    "kaira_vpc_id": "vpc-0777777777777777b",
+    "kaira_vpc_ip_block": "192.168.77.0/24",
+    "tp_db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "kaira_default_region": 0,
+      "kaira_vpc_id": 0,
+      "kaira_vpc_ip_block": 0,
+      "tp_db_password": 0
+    },
+    "primary": {
+      "kaira_default_region": 0,
+      "kaira_vpc_id": 0,
+      "kaira_vpc_ip_block": 0,
+      "tp_db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "kaira_default_region": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string"
+    },
+    "kaira_vpc_id": {
+      "evidence": [
+        "untyped",
+        "usage:aws_subnet.kaira_subnet_public_a.vpc_id",
+        "usage:aws_subnet.kaira_subnet_public_b.vpc_id",
+        "usage:aws_subnet.kaira_subnet_public_c.vpc_id"
+      ],
+      "kind": "vpc_id"
+    },
+    "kaira_vpc_ip_block": {
+      "evidence": [
+        "untyped",
+        "usage:aws_subnet.kaira_subnet_public_a.cidr_block",
+        "usage:aws_subnet.kaira_subnet_public_b.cidr_block",
+        "usage:aws_subnet.kaira_subnet_public_c.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

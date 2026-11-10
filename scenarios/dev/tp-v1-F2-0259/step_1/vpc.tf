@@ -1,6 +1,3 @@
-data "aws_availability_zones" "available" {
-  state = "available"
-}
 
 locals {
   public_subnets = {
@@ -29,10 +26,10 @@ resource "aws_subnet" "this" {
   }
   lifecycle {
     precondition {
-      condition     = contains(data.aws_availability_zones.available.names, each.value.az)
+      condition     = contains(var.tp_ds_aws_availability_zones_available.names, each.value.az)
       error_message = <<-EOT
       The AZ "${each.value.az}" for the subnet "${each.key}" is not a valid AZ in the current region
-      Fine the list of supported AZs: [${join(", ", data.aws_availability_zones.available.names)}]
+      Fine the list of supported AZs: [${join(", ", var.tp_ds_aws_availability_zones_available.names)}]
       EOT
     }
   }

@@ -1,8 +1,30 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": {
+    "failing_steps": [
+      {
+        "step": 0,
+        "value_set": "primary"
+      },
+      {
+        "step": 1,
+        "value_set": "primary"
+      },
+      {
+        "step": 0,
+        "value_set": "alternate"
+      },
+      {
+        "step": 1,
+        "value_set": "alternate"
+      }
+    ],
+    "first_error": "Error: Invalid index",
+    "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+  },
   "family": "F5",
-  "generator_version": "d4b-5",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -13,6 +35,30 @@
       "removed_blocks": [
         "provider"
       ]
+    },
+    {
+      "block_sha256": "dab805473508c26c94b392f0df580fa9cd74638fde08c214064a80add7da3c9c",
+      "data_name": "ubuntu",
+      "data_type": "aws_ami",
+      "file": "main.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_ami_ubuntu"
+    },
+    {
+      "block_sha256": "a0fe9b2a45c1c777c5650a33165edc776d4220bb76a8ebe6f8cf2f15433b6314",
+      "data_name": "available",
+      "data_type": "aws_availability_zones",
+      "file": "main.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_available"
+    },
+    {
+      "block_sha256": "bc14f674cfdea40ee9536693ac5dc44cefa3222a654a48098f42774d49eb38e0",
+      "data_name": "current",
+      "data_type": "aws_region",
+      "file": "main.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_region_current"
     }
   ],
   "intent": {
@@ -140,13 +186,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "642007f9f1543664a46968758995e13fea573d5fea8146709a8edad5066d20d3",
+      "content_hash": "d6b6c09160a5eced1c02d7f4482bed3a2996e91a48ead0d68e7d91ae46c4a588",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "83ede9d520b35b2fb2807e1f08f84437efb410538999eb5d45ae4908c926e515",
+      "content_hash": "7b9ebc8cdcac75fab6a9c9dcc6dbc874918bb8aa203540c31cd36906cc436ff6",
       "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -70,15 +70,6 @@\n   type              = \"egress\"\n }\n \n-resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  from_port                = 5432\n-  protocol                 = \"tcp\"\n-  security_group_id        = aws_security_group.tp_db_sg.id\n-  source_security_group_id = aws_security_group.tp_app_sg.id\n-  to_port                  = 5432\n-  type                     = \"ingress\"\n-}\n-\n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -156,5 +202,92 @@
     "description": "Moves the DB group's rules into inline blocks and drops the 5432 ingress rule in the process.",
     "invariant_id": null,
     "kind": "change_request"
-  }
+  },
+  "variable_values": {
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_ami_ubuntu": {
+      "id": "ami-0201201201201201a"
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1c",
+        "us-east-1c",
+        "us-east-1c"
+      ]
+    },
+    "tp_ds_aws_region_current": {}
+  },
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_ami_ubuntu": {
+      "id": "ami-0777777777777777b"
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1a",
+        "us-east-1a",
+        "us-east-1a"
+      ]
+    },
+    "tp_ds_aws_region_current": {}
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0,
+      "tp_ds_aws_ami_ubuntu": 0,
+      "tp_ds_aws_availability_zones_available": 2,
+      "tp_ds_aws_region_current": 0
+    },
+    "primary": {
+      "tp_db_password": 0,
+      "tp_ds_aws_ami_ubuntu": 0,
+      "tp_ds_aws_availability_zones_available": 2,
+      "tp_ds_aws_region_current": 0
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_ami_ubuntu": {
+      "evidence": [
+        "data_source:aws_ami.id",
+        "declared_type:object({id=string})"
+      ],
+      "kind": {
+        "object": {
+          "id": "ami"
+        }
+      }
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "evidence": [
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({names=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "names": {
+            "length": 3,
+            "list": "az"
+          }
+        }
+      }
+    },
+    "tp_ds_aws_region_current": {
+      "evidence": [
+        "declared_type:object({})"
+      ],
+      "kind": {
+        "object": {}
+      },
+      "same_in_both_sets": "object with no attributes used"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
 }

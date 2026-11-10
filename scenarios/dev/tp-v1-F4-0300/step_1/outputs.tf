@@ -11,5 +11,5 @@ output "private_subnet_ids" {
 }
 
 output "azs" {
-  value = data.aws_availability_zones.available.names
+  value = var.tp_ds_aws_availability_zones_available.names
 }
