@@ -1,9 +1,13 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.tp_db",
+    "S": "aws_instance.tp_app"
+  },
   "excluded_from_v1": null,
   "family": "F7",
-  "generator_version": "d4b-8",
+  "generator_version": "d4b-9",
   "grafted": true,
   "gt_class": null,
   "host_transform": [

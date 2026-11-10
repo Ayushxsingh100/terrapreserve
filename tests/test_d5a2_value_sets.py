@@ -31,6 +31,7 @@ import json
 import os
 import re
 import sys
+import shutil
 import unittest
 from pathlib import Path
 
@@ -423,6 +424,7 @@ class TestValueSets(unittest.TestCase):
                     bad.append(f"{sid}: not {CURRENT_RULE}")
             self.assertEqual(len(bad), 0, f"{len(bad)} private-split scenarios fail (ids withheld)")
 
+    @unittest.skipUnless(shutil.which("terraform"), "terraform is not on PATH: the value rule checks validation blocks with terraform")
     def test_h_record_equals_a_fresh_computation(self) -> None:
         import varvalues  # noqa: PLC0415
 
@@ -448,7 +450,7 @@ class TestValueSets(unittest.TestCase):
 
     def test_j_generator_versions(self) -> None:
         bad = [shown(split, d["scenario_id"]) for split, _p, d in self.scs
-               if d["generator_version"] != {"controlled": "d4a-7", "real_world": "d4b-8"}[d["source"]["tier"]]]
+               if d["generator_version"] != {"controlled": "d4a-8", "real_world": "d4b-9"}[d["source"]["tier"]]]
         self.assertEqual(bad, [], f"{len(bad)} scenarios with an old generator version: {bad[:5]}")
 
 

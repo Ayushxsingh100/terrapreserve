@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import csv
 import json
+import shutil
 import unittest
 from pathlib import Path
 
@@ -158,6 +159,7 @@ class TestControlledTierOutput(unittest.TestCase):
         # Total committed size under 40 MiB
         self.assertLessEqual(total_bytes, 40 * 1024 * 1024)
 
+    @unittest.skipUnless(shutil.which("terraform"), "terraform is not on PATH: the generator validates every step with terraform")
     def test_generator_determinism_two_runs_byte_identical(self) -> None:
         import sys
         sys.path.insert(0, str(REPO_ROOT / "sources"))
@@ -184,6 +186,7 @@ class TestControlledTierOutput(unittest.TestCase):
             self.assertEqual(steps1, steps2, f"Scenario {item['global_id']} step files not identical across runs")
             self.assertEqual(records1, records2, f"Scenario {item['global_id']} mutation records not identical across runs")
 
+    @unittest.skipUnless(shutil.which("terraform"), "terraform is not on PATH: the generator validates every step with terraform")
     def test_full_dev_tree_determinism_byte_identical_across_runs(self) -> None:
         """A8: Two independent full writes of all 144 dev scenarios produce byte-identical file trees."""
         import tempfile

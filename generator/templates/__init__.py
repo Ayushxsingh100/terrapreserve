@@ -66,6 +66,11 @@ class TemplateDef:
         default_factory=lambda: copy.deepcopy(TERRAGOAT_VOCABULARY)
     )
 
+    def endpoints(self) -> dict[str, str]:
+        """Registry 6.1 endpoint binding (D5-12): the application instance S and the database D this template builds."""
+        names = _resolve_names(self.naming_scheme)
+        return {"S": f"aws_instance.{names['ec2']}", "D": f"aws_db_instance.{names['rds']}"}
+
     def instantiate(
         self,
         rng: random.Random,

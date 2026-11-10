@@ -15,7 +15,7 @@ never appear in a message (counts only).
 (h) Every stored record equals a fresh vv-3 computation from the step files and the recorded search result.
 (i) Controlled step files are byte-identical to ``5f71c00`` (unchanged since ``e96c017``).
 (j) Test-split content exists only in ``$TERRAPRESERVE_PRIVATE``.
-Plus: generator versions ``d4a-7`` (controlled) and ``d4b-8`` (real-world).
+Plus: generator versions ``d4a-8`` (controlled) and ``d4b-9`` (real-world; D5b endpoint binding, D5-12, keeps vv-3).
 """
 
 from __future__ import annotations
@@ -26,6 +26,7 @@ import ipaddress
 import json
 import os
 import sys
+import shutil
 import unittest
 from pathlib import Path
 
@@ -358,6 +359,7 @@ class TestVv3(unittest.TestCase):
                 bad.append(f"{sid}: recorded failing steps differ from the measurement")
         self.assertEqual(bad, [], f"{len(bad)} problems ({n} excluded), first 10: {bad[:10]}")
 
+    @unittest.skipUnless(shutil.which("terraform"), "terraform is not on PATH: the value rule checks validation blocks with terraform")
     def test_h_record_equals_a_fresh_vv3_computation(self) -> None:
         import varvalues  # noqa: PLC0415
 
@@ -417,7 +419,7 @@ class TestVv3(unittest.TestCase):
 
     def test_generator_versions(self) -> None:
         bad = [shown(split, d["scenario_id"]) for split, _p, d in self.scs
-               if d["generator_version"] != {"controlled": "d4a-7", "real_world": "d4b-8"}[d["source"]["tier"]]]
+               if d["generator_version"] != {"controlled": "d4a-8", "real_world": "d4b-9"}[d["source"]["tier"]]]
         self.assertEqual(bad, [], f"{len(bad)} scenarios with an old generator version: {bad[:5]}")
 
 

@@ -1,0 +1,2054 @@
+{
+ "rule": "per family the lowest-numbered non-excluded dev scenario, plus the next two lowest of F8",
+ "scenarios": {
+  "tp-v1-F1-0001": {
+   "alternate": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     []
+    ],
+    "plan_status": [
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": null,
+    "value_set": "alternate"
+   },
+   "family": "F1",
+   "intent_class": "safe",
+   "invariance_differences": [],
+   "primary": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     []
+    ],
+    "plan_status": [
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": null,
+    "value_set": "primary"
+   },
+   "tier": "controlled"
+  },
+  "tp-v1-F2-0027": {
+   "alternate": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+       "INV-SEC-001",
+       "INV-SEC-002",
+       "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+     ]
+    ],
+    "plan_status": [
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": "INV-SEC-001",
+    "value_set": "alternate"
+   },
+   "family": "F2",
+   "intent_class": "safe",
+   "invariance_differences": [],
+   "primary": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+       "INV-SEC-001",
+       "INV-SEC-002",
+       "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+     ]
+    ],
+    "plan_status": [
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": "INV-SEC-001",
+    "value_set": "primary"
+   },
+   "tier": "controlled"
+  },
+  "tp-v1-F3-0053": {
+   "alternate": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     []
+    ],
+    "plan_status": [
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": null,
+    "value_set": "alternate"
+   },
+   "family": "F3",
+   "intent_class": "safe",
+   "invariance_differences": [],
+   "primary": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     []
+    ],
+    "plan_status": [
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": null,
+    "value_set": "primary"
+   },
+   "tier": "controlled"
+  },
+  "tp-v1-F4-0079": {
+   "alternate": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+       "INV-SEC-001",
+       "INV-SEC-002",
+       "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+     ]
+    ],
+    "plan_status": [
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": "INV-SEC-001",
+    "value_set": "alternate"
+   },
+   "family": "F4",
+   "intent_class": "safe",
+   "invariance_differences": [],
+   "primary": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+       "INV-SEC-001",
+       "INV-SEC-002",
+       "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+     ]
+    ],
+    "plan_status": [
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": "INV-SEC-001",
+    "value_set": "primary"
+   },
+   "tier": "controlled"
+  },
+  "tp-v1-F5-0105": {
+   "alternate": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+       "INV-SEC-001",
+       "INV-SEC-002",
+       "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+     ]
+    ],
+    "plan_status": [
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": null,
+    "value_set": "alternate"
+   },
+   "family": "F5",
+   "intent_class": "safe",
+   "invariance_differences": [],
+   "primary": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+       "INV-SEC-001",
+       "INV-SEC-002",
+       "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+     ]
+    ],
+    "plan_status": [
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": null,
+    "value_set": "primary"
+   },
+   "tier": "controlled"
+  },
+  "tp-v1-F6-0131": {
+   "alternate": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+       "INV-SEC-001",
+       "INV-SEC-002",
+       "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+     ]
+    ],
+    "plan_status": [
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": null,
+    "value_set": "alternate"
+   },
+   "family": "F6",
+   "intent_class": "safe",
+   "invariance_differences": [],
+   "primary": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+       "INV-SEC-001",
+       "INV-SEC-002",
+       "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+     ]
+    ],
+    "plan_status": [
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": null,
+    "value_set": "primary"
+   },
+   "tier": "controlled"
+  },
+  "tp-v1-F7-0157": {
+   "alternate": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     []
+    ],
+    "plan_status": [
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": null,
+    "value_set": "alternate"
+   },
+   "family": "F7",
+   "intent_class": "safe",
+   "invariance_differences": [],
+   "primary": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     []
+    ],
+    "plan_status": [
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": null,
+    "value_set": "primary"
+   },
+   "tier": "controlled"
+  },
+  "tp-v1-F8-0183": {
+   "alternate": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+       "INV-SEC-001",
+       "INV-SEC-002",
+       "INV-FUNC-001"
+      ],
+      "step": 2,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     [],
+     [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+     ]
+    ],
+    "plan_status": [
+     "planned",
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": "INV-SEC-001",
+    "value_set": "alternate"
+   },
+   "family": "F8",
+   "intent_class": "safe",
+   "invariance_differences": [],
+   "primary": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     },
+     {
+      "D": "aws_db_instance.main",
+      "S": "aws_instance.app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+       "INV-SEC-001",
+       "INV-SEC-002",
+       "INV-FUNC-001"
+      ],
+      "step": 2,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     [],
+     [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+     ]
+    ],
+    "plan_status": [
+     "planned",
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": "INV-SEC-001",
+    "value_set": "primary"
+   },
+   "tier": "controlled"
+  },
+  "tp-v1-F8-0184": {
+   "alternate": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.rds_postgres",
+      "S": "aws_instance.ec2_app"
+     },
+     {
+      "D": "aws_db_instance.rds_postgres",
+      "S": "aws_instance.ec2_app"
+     },
+     {
+      "D": "aws_db_instance.rds_postgres",
+      "S": "aws_instance.ec2_app"
+     },
+     {
+      "D": "aws_db_instance.rds_postgres",
+      "S": "aws_instance.ec2_app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 2,
+      "target_safe": true
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+       "INV-SEC-001",
+       "INV-SEC-002"
+      ],
+      "step": 3,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     [],
+     [],
+     [
+      "INV-SEC-001",
+      "INV-SEC-002"
+     ]
+    ],
+    "plan_status": [
+     "planned",
+     "planned",
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": "INV-SEC-001",
+    "value_set": "alternate"
+   },
+   "family": "F8",
+   "intent_class": "safe",
+   "invariance_differences": [],
+   "primary": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.rds_postgres",
+      "S": "aws_instance.ec2_app"
+     },
+     {
+      "D": "aws_db_instance.rds_postgres",
+      "S": "aws_instance.ec2_app"
+     },
+     {
+      "D": "aws_db_instance.rds_postgres",
+      "S": "aws_instance.ec2_app"
+     },
+     {
+      "D": "aws_db_instance.rds_postgres",
+      "S": "aws_instance.ec2_app"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 2,
+      "target_safe": true
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+       "INV-SEC-001",
+       "INV-SEC-002"
+      ],
+      "step": 3,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     [],
+     [],
+     [
+      "INV-SEC-001",
+      "INV-SEC-002"
+     ]
+    ],
+    "plan_status": [
+     "planned",
+     "planned",
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": "INV-SEC-001",
+    "value_set": "primary"
+   },
+   "tier": "controlled"
+  },
+  "tp-v1-F8-0185": {
+   "alternate": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.data_instance",
+      "S": "aws_instance.web_instance"
+     },
+     {
+      "D": "aws_db_instance.data_instance",
+      "S": "aws_instance.web_instance"
+     },
+     {
+      "D": "aws_db_instance.data_instance",
+      "S": "aws_instance.web_instance"
+     },
+     {
+      "D": "aws_db_instance.data_instance",
+      "S": "aws_instance.web_instance"
+     },
+     {
+      "D": "aws_db_instance.data_instance",
+      "S": "aws_instance.web_instance"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 2,
+      "target_safe": true
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 3,
+      "target_safe": true
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+       "INV-SEC-001",
+       "INV-SEC-002"
+      ],
+      "step": 4,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     [],
+     [],
+     [],
+     [
+      "INV-SEC-001",
+      "INV-SEC-002"
+     ]
+    ],
+    "plan_status": [
+     "planned",
+     "planned",
+     "planned",
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": "INV-SEC-001",
+    "value_set": "alternate"
+   },
+   "family": "F8",
+   "intent_class": "safe",
+   "invariance_differences": [],
+   "primary": {
+    "ambiguities": [],
+    "defects": [],
+    "endpoints": [
+     {
+      "D": "aws_db_instance.data_instance",
+      "S": "aws_instance.web_instance"
+     },
+     {
+      "D": "aws_db_instance.data_instance",
+      "S": "aws_instance.web_instance"
+     },
+     {
+      "D": "aws_db_instance.data_instance",
+      "S": "aws_instance.web_instance"
+     },
+     {
+      "D": "aws_db_instance.data_instance",
+      "S": "aws_instance.web_instance"
+     },
+     {
+      "D": "aws_db_instance.data_instance",
+      "S": "aws_instance.web_instance"
+     }
+    ],
+    "func": [
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     },
+     {
+      "reason": "E5 and E6 hold with determinate rules",
+      "row": 6
+     }
+    ],
+    "gt_class": "safe",
+    "gt_reason": "every protected invariant PASS at every step k >= 1 (repair target PASS at step n)",
+    "labels": [
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 2,
+      "target_safe": true
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "FAIL",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 3,
+      "target_safe": true
+     },
+     {
+      "invariant_truth": {
+       "INV-FUNC-001": "PASS",
+       "INV-SEC-001": "PASS",
+       "INV-SEC-002": "PASS",
+       "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+       "INV-SEC-001",
+       "INV-SEC-002"
+      ],
+      "step": 4,
+      "target_safe": true
+     }
+    ],
+    "oracle_affected": [
+     [],
+     [],
+     [],
+     [],
+     [
+      "INV-SEC-001",
+      "INV-SEC-002"
+     ]
+    ],
+    "plan_status": [
+     "planned",
+     "planned",
+     "planned",
+     "planned",
+     "planned"
+    ],
+    "results": [
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "FAIL",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     },
+     {
+      "INV-FUNC-001": "PASS",
+      "INV-SEC-001": "PASS",
+      "INV-SEC-002": "PASS",
+      "INV-SEC-003": "PASS"
+     }
+    ],
+    "s0_clean": [
+     true,
+     ""
+    ],
+    "target": "INV-SEC-001",
+    "value_set": "primary"
+   },
+   "tier": "controlled"
+  }
+ },
+ "stop_findings": []
+}

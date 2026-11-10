@@ -26,6 +26,9 @@ class GraftClashError(Exception):
     """Raised when a graft identifier clashes with a host module identifier."""
 
 
+# D5-12: registry 6.1 endpoint binding of every grafted scenario (the graft's application instance and database).
+GRAFT_ENDPOINTS: dict[str, str] = {"S": "aws_instance.tp_app", "D": "aws_db_instance.tp_db"}
+
 GRAFT_DECLARED_IDENTIFIERS: set[str] = {
     "tp_vpc",
     "tp_igw",
