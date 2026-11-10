@@ -285,6 +285,8 @@ def generate_scenario(
             "grafted": False,
         },
         "target": target_info,
+        # D5-12: registry 6.1 endpoint binding, from what the template built (never inferred by the oracle).
+        "endpoints": tpl.endpoints(),
         "protected_invariants": PROTECTED_INVARIANTS,
         "steps": steps_meta,
         "mutation_record": flat_records,

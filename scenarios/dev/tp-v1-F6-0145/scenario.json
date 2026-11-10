@@ -1,9 +1,13 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.rds_postgres",
+    "S": "aws_instance.ec2_app"
+  },
   "excluded_from_v1": null,
   "family": "F6",
-  "generator_version": "d4a-7",
+  "generator_version": "d4a-8",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -154,7 +158,7 @@
   "scenario_id": "tp-v1-F6-0145",
   "seed": 145,
   "source": {
-    "commit_or_version": "d4a-7+tpl-v1.0",
+    "commit_or_version": "d4a-8+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",

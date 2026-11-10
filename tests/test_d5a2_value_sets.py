@@ -448,7 +448,7 @@ class TestValueSets(unittest.TestCase):
 
     def test_j_generator_versions(self) -> None:
         bad = [shown(split, d["scenario_id"]) for split, _p, d in self.scs
-               if d["generator_version"] != {"controlled": "d4a-7", "real_world": "d4b-8"}[d["source"]["tier"]]]
+               if d["generator_version"] != {"controlled": "d4a-8", "real_world": "d4b-9"}[d["source"]["tier"]]]
         self.assertEqual(bad, [], f"{len(bad)} scenarios with an old generator version: {bad[:5]}")
 
 

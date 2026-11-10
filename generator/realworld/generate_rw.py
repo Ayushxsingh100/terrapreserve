@@ -37,7 +37,7 @@ import writer
 from realworld import data_vars, graft, plan as rw_plan, real_diff_verify, screen, span_edit
 
 DATASET_VERSION = "1.0"
-GENERATOR_VERSION = "d4b-8"
+GENERATOR_VERSION = "d4b-9"
 
 PROTECTED_INVARIANTS = [
     {"invariant_id": "INV-SEC-001", "version": "1.0"},
@@ -412,6 +412,9 @@ def generate_real_world_scenario(
         "host_transform": transform_records,
         "s0_screen": s0_screen_status,
         "target": target_info,
+        # D5-12: registry 6.1 endpoint binding from the graft (never inferred by the oracle). A native module has
+        # no graft and no binding (none is in v1.0, D4b-14); the oracle then labels the scenario unlabelable.
+        "endpoints": dict(graft.GRAFT_ENDPOINTS) if kind == "host" else None,
         "protected_invariants": PROTECTED_INVARIANTS,
         "steps": steps_meta,
         "mutation_record": flat_records,
