@@ -38,6 +38,21 @@ from realworld import modread  # noqa: E402
 
 RECORD_FIELDS = ("variable_values", "variable_values_alt", "variable_values_rule", "variable_values_kinds",
                  "variable_values_unresolved", "variable_values_candidates", "excluded_from_v1")
+# D5b (D5-20) adds exclusions with a ``kind``; D5a-3's own (unplannable) ones have none. The D5a-3 checks see a
+# D5b exclusion as no D5a-3 exclusion.
+D5B_KINDS = ("unlabelable", "value_dependent", "s0_not_clean")
+
+
+EXCLUSION_FIELD = RECORD_FIELDS[-1]  # excluded_from_v1
+
+
+def _d5a3_view(d: dict, field_name: str):
+    v = d.get(field_name)
+    if field_name == EXCLUSION_FIELD and isinstance(v, dict) and v.get("kind") in D5B_KINDS:
+        return None
+    return v
+
+
 SAME_IN_BOTH_REASONS = {"kind region: the provider pin us-east-1 in both sets",
                         "object with no attributes used",
                         "the validation admits only one candidate"}
@@ -346,8 +361,8 @@ class TestVv3(unittest.TestCase):
                 bad.append(f"{sid}: no excluded_from_v1 field")
                 continue
             ex = d["excluded_from_v1"]
-            if ex is None:
-                continue
+            if ex is None or ex.get("kind") in D5B_KINDS:
+                continue  # D5b exclusions (D5-20) are checked by tests/test_d5b_labels.py
             n += 1
             measured = fails.get(d["scenario_id"], set())
             recorded = {(f.get("value_set"), f.get("step")) for f in ex.get("failing_steps") or []}
@@ -370,7 +385,7 @@ class TestVv3(unittest.TestCase):
                 searches[split] = self._search(split)["scenarios"]
             steps = [{f.name: f.read_text(encoding="utf-8") for f in sd.glob("*.tf")} for sd in step_dirs(p)]
             fresh = varvalues.compute(steps, searches[split].get(d["scenario_id"]))
-            if {k: d.get(k) for k in RECORD_FIELDS} != {k: fresh.get(k) for k in RECORD_FIELDS}:
+            if {k: _d5a3_view(d, k) for k in RECORD_FIELDS} != {k: fresh.get(k) for k in RECORD_FIELDS}:
                 bad.append(shown(split, d["scenario_id"]))
         self.assertEqual(bad, [], f"{len(bad)} scenario records differ from a vv-3 recomputation: {bad[:10]}")
 

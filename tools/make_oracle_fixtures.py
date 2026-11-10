@@ -366,6 +366,51 @@ moved {
   subnet_id              = aws_subnet.app.id
   vpc_security_group_ids = [aws_security_group.app.id]
 }'''}),
+    # ---- D5-22 symmetric references: two inline ingress blocks whose security_groups name two configured groups
+    # (plan JSON merges the references; tp-v1-F3-0062 step 1 is the identical-block pattern).
+    "X_sym_identical": edit(drop=("app_to_db",), replace={"sg_db": '''resource "aws_security_group" "db" {
+  name   = "db"
+  vpc_id = aws_vpc.main.id
+
+  ingress {
+    protocol        = "tcp"
+    from_port       = 5432
+    to_port         = 5432
+    security_groups = [aws_security_group.app.id]
+  }
+
+  ingress {
+    protocol        = "tcp"
+    from_port       = 5432
+    to_port         = 5432
+    security_groups = [aws_security_group.peer.id]
+  }
+}'''}, add={"sg_peer": '''resource "aws_security_group" "peer" {
+  name   = "peer"
+  vpc_id = aws_vpc.main.id
+}'''}),
+    "X_sym_differ": edit(drop=("app_to_db",), replace={"sg_db": '''resource "aws_security_group" "db" {
+  name   = "db"
+  vpc_id = aws_vpc.main.id
+
+  ingress {
+    protocol        = "tcp"
+    from_port       = 5432
+    to_port         = 5432
+    security_groups = [aws_security_group.app.id]
+  }
+
+  ingress {
+    protocol        = "tcp"
+    from_port       = 5433
+    to_port         = 5433
+    cidr_blocks     = ["10.0.9.0/24"]
+    security_groups = [aws_security_group.peer.id]
+  }
+}'''}, add={"sg_peer": '''resource "aws_security_group" "peer" {
+  name   = "peer"
+  vpc_id = aws_vpc.main.id
+}'''}),
     # ---- D5-16 footprint pairs (parent F1)
     "P_instance_type": edit(replace={"ec2": CANON["ec2"].replace('"t3.micro"', '"t3.small"')}),
     "P_sg_tags": edit(replace={"sg_app": '''resource "aws_security_group" "app" {

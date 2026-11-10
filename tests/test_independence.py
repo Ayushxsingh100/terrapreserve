@@ -292,12 +292,29 @@ def ground_truth_write_violations(root: Path) -> list[str]:
 
 
 def committed_ground_truth_violations(root: Path) -> list[str]:
+    """Since D5b (D5-20) committed dev scenarios carry labels. Ground truth must be the oracle's: either all three
+    fields are null (an excluded scenario, ``excluded_from_v1`` set) or all are set, with ``oracle.versions.oracle``
+    naming the version in ``oracle/VERSION.py`` and no exclusion."""
+    import re
+    vfile = root / "oracle" / "VERSION.py"
+    m = re.search(r'ORACLE_VERSION\s*(?::\s*str\s*)?=\s*"([^"]+)"', vfile.read_text(encoding="utf-8")) if vfile.is_file() else None
+    version = m.group(1) if m else None
     out = []
     for p in sorted((root / "scenarios" / "dev").glob("tp-v1-*/scenario.json")):
         d = json.loads(p.read_text(encoding="utf-8"))
-        for f in GROUND_TRUTH_FIELDS:
-            if d.get(f, None) is not None:
-                out.append(f"{p.parent.name}: {f} is not null")
+        set_ = [f for f in GROUND_TRUTH_FIELDS if d.get(f, None) is not None]
+        if not set_:
+            if not d.get("excluded_from_v1"):
+                out.append(f"{p.parent.name}: no ground truth and no exclusion")
+            continue
+        if len(set_) != len(GROUND_TRUTH_FIELDS):
+            out.append(f"{p.parent.name}: only {set_} set")
+            continue
+        if d.get("excluded_from_v1"):
+            out.append(f"{p.parent.name}: ground truth on an excluded scenario")
+        got = ((d.get("oracle") or {}).get("versions") or {}).get("oracle")
+        if version is None or got != version:
+            out.append(f"{p.parent.name}: oracle version {got!r}, expected {version!r}")
     return out
 
 
@@ -321,7 +338,7 @@ class TestOracleIndependence(unittest.TestCase):
     def test_only_oracle_and_tools_write_ground_truth(self) -> None:
         self.assertEqual(ground_truth_write_violations(_root()), [])
 
-    def test_committed_scenarios_carry_no_ground_truth(self) -> None:
+    def test_committed_ground_truth_is_the_oracles(self) -> None:
         self.assertEqual(committed_ground_truth_violations(_root()), [])
 
 
