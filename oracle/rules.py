@@ -12,7 +12,9 @@ only as ``dynamic`` blocks, which plan JSON leaves out of ``configuration``), a 
 an ambiguity), and a null or unknown planned value is *absent*.
 
 Per-block identity references (D5-13 gap b): plan JSON merges the references of all inline blocks of one direction;
-a block whose ``security_groups`` is unknown gets the referenced groups only when that is unambiguous.
+a block whose ``security_groups`` is unknown gets the referenced groups only when that is unambiguous: one such
+block, one named group, or (D5-22) blocks identical in every other field, so that every assignment yields the same
+canonical rule set.
 
 Standard library only.
 """
@@ -169,6 +171,36 @@ def _field(block: dict, unk: Any, key: str, where: str) -> Any:
     return block.get(key)
 
 
+_SYM_FIELDS = ("protocol", "from_port", "to_port", "cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids", "self")
+
+
+def _symmetric(v: list, unk_list: list, idx: list[int], where: str) -> bool:
+    """D5-22: the blocks ``idx`` (each with unknown ``security_groups``) are identical in every other canonical field,
+    all resolved. With two or more named groups this is exactly when every assignment of the merged references to
+    the blocks yields the same canonical rule set (a block that differs could take all groups or only one)."""
+    keys = []
+    for i in idx:
+        bu = unk_list[i] if i < len(unk_list) and isinstance(unk_list[i], dict) else {}
+        k = []
+        for f in _SYM_FIELDS:
+            x = _field(v[i], bu, f, f"{where}[{i}]")
+            if isinstance(x, Unresolved):
+                return False
+            if f in ("cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids"):
+                x = tuple(sorted(x or []))
+            elif f == "protocol":
+                x = _proto(x)
+            elif f in ("from_port", "to_port"):
+                x = _port(x)
+            elif f == "self":
+                x = bool(x)
+            if isinstance(x, Unresolved):
+                return False
+            k.append(x)
+        keys.append(tuple(k))
+    return len(set(keys)) == 1
+
+
 def inline_form(inst: Instance, direction: str) -> str:
     """The C-84 form of one direction of a configured group (D5-13 gap a)."""
     v = value(inst, direction)
@@ -204,12 +236,19 @@ def inline_rules(config: Config, inst: Instance, direction: str) -> tuple[list[R
     unknown_sg_blocks = [i for i, b in enumerate(v)
                          if _contains_true((unk_list[i] if i < len(unk_list) else {}).get("security_groups")
                                            if isinstance(unk_list[i] if i < len(unk_list) else {}, dict) else False)]
+    symmetric = bool(sg_refs) and len(unknown_sg_blocks) > 1 and len(sg_refs) > 1 \
+        and _symmetric(v, unk_list, unknown_sg_blocks, where)
+    if symmetric:
+        notes.append(f"{where}: {len(unknown_sg_blocks)} blocks with merged security_groups references are identical "
+                     f"apart from them; every assignment gives the same rule set (D5-22)")
     out: list[Rule] = []
     for i, block in enumerate(v):
         bu = unk_list[i] if i < len(unk_list) and isinstance(unk_list[i], dict) else {}
         w = f"{where}[{i}]"
         if i in unknown_sg_blocks:
-            if sg_refs and (len(unknown_sg_blocks) == 1 or len(sg_refs) == 1):
+            if sg_refs and (len(unknown_sg_blocks) == 1 or len(sg_refs) == 1 or symmetric):
+                # One block, one group, or identical blocks (D5-22): giving every such block every named group is
+                # one of the possible assignments and yields the rule set every assignment yields.
                 src: Any = [Ref(a) for a in sg_refs]
             else:
                 src = Unresolved(f"{w}.security_groups: plan JSON merges the references of {len(unknown_sg_blocks)} "

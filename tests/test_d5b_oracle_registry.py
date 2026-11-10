@@ -134,6 +134,27 @@ class TestWorkedCases(unittest.TestCase):
         self.assertNotIn("INV-FUNC-001", out["affected"])
 
 
+class TestSymmetricReferences(unittest.TestCase):
+    """D5-22 (Decided 10 Nov 2026): merged security-group references of several inline blocks count as resolved only
+    if every assignment of them to those blocks yields the identical canonical rule set (registry 2.6); else the
+    sources stay unresolved and the rule is indeterminate (2.6 "Indeterminate rules")."""
+
+    def test_identical_blocks_resolve(self) -> None:
+        # Every assignment gives {tcp 5432 from app, tcp 5432 from peer}: E6 holds via app (6.3), so with E1-E5, E7
+        # holding as in F1, 6.4 row 1 gives PASS.
+        r = run("X_sym_identical")["results"]["INV-FUNC-001"]
+        self.assertEqual(r["result"], "PASS")
+        self.assertEqual(r["observations"]["ingress_rule_matched"], ["aws_security_group.db.ingress[0]",
+                                                                      "aws_security_group.db.ingress[1]"])
+
+    def test_differing_blocks_stay_unknown(self) -> None:
+        # Ports and CIDRs differ: whether app's block is the 5432 one depends on the assignment, so the sources are
+        # unresolved and an indeterminate rule could satisfy E6: 6.4 row 7, UNKNOWN.
+        r = run("X_sym_differ")["results"]["INV-FUNC-001"]
+        self.assertEqual(r["result"], "UNKNOWN")
+        self.assertEqual(r["observations"]["row"], 7)
+
+
 class TestFurtherRules(unittest.TestCase):
     def test_pseudo_groups_are_in_scope(self) -> None:
         # 2.6: a rule whose security_group_id is external or unresolved belongs to a pseudo-group keyed by the literal

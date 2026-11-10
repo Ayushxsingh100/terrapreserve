@@ -129,3 +129,16 @@ Measured with `generator/realworld/modread.py` over every step of `scenarios/dev
 
 The external review of PR #6 reported 125 of 144 for the real-world tier; the reviewer has since confirmed that figure came from a faulty block scan and that 144 of 144 (whole module) is correct. The test split was not measured for this item.
 
+
+## 7. D6 carry-over (from D5b)
+
+Figures below are from `docs/D5_REPORT.md` (computed by `tools/report_d5b.py`); test split as counts only.
+
+- **Labels are in place.** Dev: `labels`, `gt_class` and `oracle` (D0 gate 9 versions; Checkov disagreements) in each `scenarios/dev/<id>/scenario.json`; 269 of 288 labelled (135 safe, 134 unsafe). Test: written only under `$TERRAPRESERVE_PRIVATE`, 122 of 128 labelled (61 safe, 61 unsafe); `scenarios/test_manifest.json` carries the new hashes. The oracle's run records (both value sets, evidence) are outside the repository (`~/.terrapreserve-cache/d5b-records`, `$TERRAPRESERVE_PRIVATE/d5b-records`).
+- **Regeneration resets labels.** `generator/generate.py` and `generator/realworld/generate_rw.py` write `labels`, `gt_class` and `oracle` as null. Any regeneration in D6 must be followed by `tools/label_d5b.py --plans` and `--label --write` (and `tools/report_d5b.py`).
+- **Exclusions from v1.0.** Dev: 16 `unplannable` (D5a-3) and 3 `s0_not_clean` (tp-v1-F2-0250, tp-v1-F2-0252, tp-v1-F3-0263), all real-world; test: 6 `unplannable`. No `value_dependent` and no `unlabelable` scenario in either split.
+- **Fill (D0 Decision 3, D5-09 amended).** By oracle gt_class, three dev real-world cells are short by 1 each: F2 x unsafe, F3 x safe, F5 x unsafe; each same-cell controlled surplus is 2. No test cell is short. D6 fills from the same cell's reserves first, then from controlled scenarios of the same family x class x split, and reports the actual counts.
+- **Generator self-check findings (reported, not fixed in D5b).** The D4b whole-module reader (`generator/realworld/modread.py`) accepted three hosts that the oracle finds UNSUPPORTED at step 0: it has no registry 2.5 rule for TCP `from_port > to_port` (tp-v1-F2-0250: `from_port = 443`, `to_port = 22`), and it marks a group MIXED only when the inline blocks and the separate `aws_security_group_rule` have the same direction, whereas registry 2.6 needs only one of each (tp-v1-F2-0252, tp-v1-F3-0263: inline `egress` with separate ingress rules). No other disagreement between the self-checks and the oracle (per step, both splits).
+- **Intent.** No disagreement between oracle gt_class and `intent.class`, nor between the invariants FAIL and `intent.breaks` (both splits).
+- **Checkov (advisory).** INV-SEC-001: oracle PASS, Checkov FAIL on 3 dev and 2 test steps; in the dev cases a TCP 22 inline ingress block has no source at all (no CIDR, no group), which registry 3.4 does not count as public. No other disagreement.
+- **DAIL follow-up:** add a wording clarification of registry §2.9 in a new INVARIANT_REGISTRY_v1.1.md (C-85) so DAIL and the oracle read footprint comparison the same way; predicates and results unchanged.

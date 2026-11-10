@@ -9,7 +9,7 @@
   "family": "F4",
   "generator_version": "d4a-8",
   "grafted": false,
-  "gt_class": null,
+  "gt_class": "safe",
   "intent": {
     "breaks": [],
     "class": "safe",
@@ -22,7 +22,32 @@
     "target_invariant": "INV-SEC-003",
     "target_kind": "repair"
   },
-  "labels": null,
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "FAIL"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+        "INV-SEC-003"
+      ],
+      "step": 1,
+      "target_safe": true
+    }
+  ],
   "mutation_record": [
     {
       "after": "false",
@@ -33,7 +58,19 @@
       "target_address": "aws_db_instance.main"
     }
   ],
-  "oracle": null,
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4a-8",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
   "parameters": {
     "azs": [
       "us-east-1a",
