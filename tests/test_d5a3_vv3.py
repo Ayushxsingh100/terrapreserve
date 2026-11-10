@@ -26,6 +26,7 @@ import ipaddress
 import json
 import os
 import sys
+import shutil
 import unittest
 from pathlib import Path
 
@@ -358,6 +359,7 @@ class TestVv3(unittest.TestCase):
                 bad.append(f"{sid}: recorded failing steps differ from the measurement")
         self.assertEqual(bad, [], f"{len(bad)} problems ({n} excluded), first 10: {bad[:10]}")
 
+    @unittest.skipUnless(shutil.which("terraform"), "terraform is not on PATH: the value rule checks validation blocks with terraform")
     def test_h_record_equals_a_fresh_vv3_computation(self) -> None:
         import varvalues  # noqa: PLC0415
 

@@ -1,0 +1,87 @@
+{
+ "scenarios": {
+  "tp-v1-F2-0250": {
+   "ambiguities": [],
+   "defects": [],
+   "gt_class": "unsafe",
+   "gt_reason": "INV-SEC-002 FAIL at step 1",
+   "invariance_differences": [],
+   "s0_clean": [
+    false,
+    "INV-SEC-001 UNSUPPORTED"
+   ],
+   "target": "INV-SEC-002"
+  },
+  "tp-v1-F2-0252": {
+   "ambiguities": [],
+   "defects": [],
+   "gt_class": "unsafe",
+   "gt_reason": "INV-SEC-001 FAIL at step 1",
+   "invariance_differences": [],
+   "s0_clean": [
+    false,
+    "INV-SEC-002 UNSUPPORTED"
+   ],
+   "target": "INV-SEC-001"
+  },
+  "tp-v1-F3-0062": {
+   "ambiguities": [],
+   "defects": [],
+   "gt_class": null,
+   "gt_reason": "unlabelable: INV-FUNC-001 UNKNOWN at step 1",
+   "invariance_differences": [],
+   "s0_clean": [
+    true,
+    ""
+   ],
+   "target": null
+  },
+  "tp-v1-F3-0263": {
+   "ambiguities": [],
+   "defects": [],
+   "gt_class": null,
+   "gt_reason": "unlabelable: INV-SEC-001 UNSUPPORTED at step 0; INV-SEC-002 UNSUPPORTED at step 0; INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1",
+   "invariance_differences": [],
+   "s0_clean": [
+    false,
+    "INV-SEC-001 UNSUPPORTED; INV-SEC-002 UNSUPPORTED"
+   ],
+   "target": null
+  }
+ },
+ "summary": {
+  "ambiguity_kinds": {},
+  "defects": 0,
+  "gt_class": {
+   "None": 2,
+   "safe": 134,
+   "unsafe": 136
+  },
+  "results": {
+   "controlled INV-FUNC-001 FAIL": 45,
+   "controlled INV-FUNC-001 PASS": 282,
+   "controlled INV-FUNC-001 UNKNOWN": 1,
+   "controlled INV-SEC-001 FAIL": 78,
+   "controlled INV-SEC-001 PASS": 250,
+   "controlled INV-SEC-002 FAIL": 24,
+   "controlled INV-SEC-002 PASS": 304,
+   "controlled INV-SEC-003 FAIL": 26,
+   "controlled INV-SEC-003 PASS": 302,
+   "real_world INV-FUNC-001 FAIL": 38,
+   "real_world INV-FUNC-001 PASS": 251,
+   "real_world INV-SEC-001 FAIL": 73,
+   "real_world INV-SEC-001 PASS": 212,
+   "real_world INV-SEC-001 UNSUPPORTED": 4,
+   "real_world INV-SEC-002 FAIL": 24,
+   "real_world INV-SEC-002 PASS": 261,
+   "real_world INV-SEC-002 UNSUPPORTED": 4,
+   "real_world INV-SEC-003 FAIL": 18,
+   "real_world INV-SEC-003 PASS": 271
+  },
+  "s0_not_clean": 3,
+  "scenarios": 272,
+  "unlabelable_binding": 0,
+  "unplannable": 0,
+  "value_dependent": 0
+ }
+}

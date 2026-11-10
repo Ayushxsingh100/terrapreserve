@@ -31,6 +31,7 @@ import json
 import os
 import re
 import sys
+import shutil
 import unittest
 from pathlib import Path
 
@@ -423,6 +424,7 @@ class TestValueSets(unittest.TestCase):
                     bad.append(f"{sid}: not {CURRENT_RULE}")
             self.assertEqual(len(bad), 0, f"{len(bad)} private-split scenarios fail (ids withheld)")
 
+    @unittest.skipUnless(shutil.which("terraform"), "terraform is not on PATH: the value rule checks validation blocks with terraform")
     def test_h_record_equals_a_fresh_computation(self) -> None:
         import varvalues  # noqa: PLC0415
 

@@ -1,6 +1,6 @@
 """D5a Step 3 (D5-02, D5-04): oracle skeleton. Written before the code (test-first).
 
-1. ``oracle/`` is a package: ``VERSION.py`` (``ORACLE_VERSION = "oracle-0.1"``), ``inputs.py``, ``record.py``, ``README.md``.
+1. ``oracle/`` is a package: ``VERSION.py`` (``ORACLE_VERSION = "oracle-1.0"`` since D5b; ``oracle-0.1`` in D5a), ``inputs.py``, ``record.py``, ``README.md``.
 2. ``inputs.build_working_copy`` copies a step's ``.tf`` files, adds the oracle-only provider block and a
    ``terraform.tfvars.json`` from ``variable_values``, and never writes into ``scenarios/`` (it refuses such a
    destination, and the step directory is byte-identical afterwards).
@@ -50,7 +50,7 @@ class TestOracleSkeleton(unittest.TestCase):
             self.assertTrue((REPO_ROOT / "oracle" / name).is_file(), f"oracle/{name} missing")
         from oracle.VERSION import ORACLE_VERSION
 
-        self.assertEqual(ORACLE_VERSION, "oracle-0.1")
+        self.assertEqual(ORACLE_VERSION, "oracle-1.0")  # D5b (was oracle-0.1 in D5a)
 
     def test_02_working_copy_never_touches_scenarios(self) -> None:
         from oracle import inputs
@@ -126,7 +126,7 @@ class TestOracleSkeleton(unittest.TestCase):
             self.assertEqual(row["oracle_affected"], [])
             self.assertIsNone(row["target_safe"])
         self.assertEqual(oracle_block["disagreements"], [])
-        self.assertEqual(oracle_block["versions"]["oracle"], "oracle-0.1")
+        self.assertEqual(oracle_block["versions"]["oracle"], "oracle-1.0")
         self.assertTrue(oracle_block["dry_run"])
         with self.assertRaises(ValueError):
             record.write_dry_run(sc, REPO_ROOT / "scenarios" / "dev" / "x.json", versions={})
