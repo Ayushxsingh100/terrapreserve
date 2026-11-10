@@ -12,7 +12,8 @@ For every step of every scenario (dev, and the private test split when ``$TERRAP
    invariant-relevant checks (``CHECKOV_CHECKS``); only whether it ran and its run time are recorded.
 
 Per step it records the result, for a failure the stage, the first error's class and first line, and wall time.
-D5a-2 (default ``--run d5a2``): dev rows go to ``docs/d5a2/feasibility_dev_<set>.csv``, test rows to
+D5a-3 (default ``--run d5a3``, rule vv-3) writes ``docs/d5a3/`` and ``d5a3_feasibility_test_<set>.csv`` the same
+way. D5a-2 (``--run d5a2``): dev rows go to ``docs/d5a2/feasibility_dev_<set>.csv``, test rows to
 ``$TERRAPRESERVE_PRIVATE/d5a2_feasibility_test_<set>.csv``. The D5a run (``--run d5a``, vv-1, commit
 ``e96c017``) wrote ``docs/d5a/feasibility_dev.csv`` and ``$TERRAPRESERVE_PRIVATE/d5a_feasibility_test.csv``;
 those files are kept as they were. Test rows never enter the repository. Rows are appended as they finish, so a
@@ -54,7 +55,9 @@ CACHE = Path.home() / ".terrapreserve-cache"
 RUN_ROOT = CACHE / "d5a-feasibility"  # set by configure()
 VALUE_KEY = "variable_values"  # set by configure()
 OUT: dict[str, Path | None] = {"dev": REPO_ROOT / "docs" / "d5a" / "feasibility_dev.csv", "test": None}
-_VV_LITERAL = re.compile(r"tp-placeholder|tp-primary|tp-alt|tp-secret-primary|tp-secret-alt")
+_VV_LITERAL = re.compile(r"tp-placeholder|tp-primary|tp-alt|tp-secret-primary|tp-secret-alt|tpprimary|tpalt|"
+                         r"\btpp\b|\btpa\b")
+RULE_NAME = "vv-2"  # the value rule named in the causes; set by configure()
 
 
 def configure(run: str, value_set: str) -> None:
@@ -69,10 +72,12 @@ def configure(run: str, value_set: str) -> None:
         OUT["dev"] = REPO_ROOT / "docs" / "d5a" / "feasibility_dev.csv"
         OUT["test"] = Path(priv) / "d5a_feasibility_test.csv" if priv else None
         return
-    RUN_ROOT = CACHE / f"d5a2-feasibility-{value_set}"
+    global RULE_NAME
+    RULE_NAME = {"d5a2": "vv-2", "d5a3": "vv-3"}[run]
+    RUN_ROOT = CACHE / f"{run}-feasibility-{value_set}"
     VALUE_KEY = {"primary": "variable_values", "alternate": "variable_values_alt"}[value_set]
-    OUT["dev"] = REPO_ROOT / "docs" / "d5a2" / f"feasibility_dev_{value_set}.csv"
-    OUT["test"] = Path(priv) / f"d5a2_feasibility_test_{value_set}.csv" if priv else None
+    OUT["dev"] = REPO_ROOT / "docs" / run / f"feasibility_dev_{value_set}.csv"
+    OUT["test"] = Path(priv) / f"{run}_feasibility_test_{value_set}.csv" if priv else None
 FIELDS = ["scenario_id", "tier", "step", "status", "stage", "error_class", "error_cause", "error_first_line",
           "wall_seconds", "plan_json_bytes", "checkov_ran", "checkov_seconds"]
 CLASSES = ("data source needs API", "provider tried to call AWS", "variable error", "other")
@@ -120,14 +125,14 @@ def classify(text: str, valued: set[str] | None = None) -> tuple[str, str, str]:
     if re.search(r"No value for required variable", first):
         return "variable error", "unresolved variable has no value", first[:300]
     if re.search(r"Invalid value for (input )?variable", first):
-        return "variable error", "vv-2 value rejected by the variable's type or validation", first[:300]
+        return "variable error", f"{RULE_NAME} value rejected by the variable's type or validation", first[:300]
     # Which variables does the failing expression read? (source snippet lines and value details)
     snippet_vars = set(re.findall(r"\bvar\.([A-Za-z_][A-Za-z0-9_-]*)", body))
     if _VV_LITERAL.search(body) or (snippet_vars and valued is not None and snippet_vars & valued) \
             or (valued is None and _VAR_IN_DETAIL.search(body)):
-        return "variable error", "vv-2 value rejected in an expression or by the provider", first[:300]
+        return "variable error", f"{RULE_NAME} value rejected in an expression or by the provider", first[:300]
     if snippet_vars and valued is not None:
-        return "variable error", "a declared default (not set by vv-2) rejected in an expression or by the provider", \
+        return "variable error", f"a declared default (not set by {RULE_NAME}) rejected in an expression or by the provider", \
             first[:300]
     if re.search(r"Failed to query available provider packages|Failed to install provider|"
                  r"provider registry|could not find", body, re.I):
@@ -310,7 +315,7 @@ def main() -> int:
                     help="recompute error_class and error_cause of failed rows from the saved logs, then exit")
     ap.add_argument("--rerun", default="",
                     help="comma-separated scenario_id:step rows to drop and measure again (reported as reruns)")
-    ap.add_argument("--run", choices=("d5a", "d5a2"), default="d5a2")
+    ap.add_argument("--run", choices=("d5a", "d5a2", "d5a3"), default="d5a3")
     ap.add_argument("--value-set", choices=("primary", "alternate"), default="primary")
     ap.add_argument("--checkov", action="store_true", help="also time Checkov (the D5a run did)")
     args = ap.parse_args()

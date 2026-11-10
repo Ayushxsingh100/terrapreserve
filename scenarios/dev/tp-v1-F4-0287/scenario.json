@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F4",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -119,6 +120,20 @@
     "vpc_public_subnet_cidr_1": "192.168.77.0/24",
     "vpc_public_subnet_cidr_2": "192.168.77.0/24"
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0,
+      "vpc_cidr": 0,
+      "vpc_public_subnet_cidr_1": 0,
+      "vpc_public_subnet_cidr_2": 0
+    },
+    "primary": {
+      "tp_db_password": 0,
+      "vpc_cidr": 0,
+      "vpc_public_subnet_cidr_1": 0,
+      "vpc_public_subnet_cidr_2": 0
+    }
+  },
   "variable_values_kinds": {
     "tp_db_password": {
       "evidence": [
@@ -149,6 +164,6 @@
       "kind": "ipv4_cidr"
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

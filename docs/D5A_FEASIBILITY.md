@@ -565,3 +565,308 @@ Dev failures (first error):
 - test real_world: M other step file: 52
 - test real_world: M scenario.json: 64
 
+<!-- D5a-3 results below: written by tools/report_d5a3.py; the D5a and D5a-2 parts above are kept as they were -->
+
+## D5a-3 measurements (computed by `tools/report_d5a3.py`)
+
+Value rule vv-3 (D5-10) and exclusion (D5-09), both value sets (D5-06). Every number below is computed from the repository and, for the test split, from the withheld directory (counts only). Regenerate with `python tools/report_d5a3.py` (with `TERRAPRESERVE_PRIVATE` set). The D5a and D5a-2 parts above describe vv-1 at `e96c017` and vv-2 at `5f71c00` and are kept as they were.
+
+### D5a-3.1 Decision rows (as written in `docs/D5_DECISIONS.md`)
+- D5-01: Superseded
+- D5-02: Proposed
+- D5-03: Proposed
+- D5-04: Proposed
+- D5-05: Decided
+- D5-06: Decided
+- D5-07: Proposed
+- D5-08: Proposed
+- D5-09: Decided
+- D5-10: Proposed
+- Open D5-A: Decided
+- Open D5-B: Decided
+- Open D5-C: Decided
+
+### D5a-3.2 Effect of vv-3 (D5-10)
+Overridden declared defaults (rule 1; one override holds in both sets):
+- dev controlled: 0
+- dev real_world: 14
+- test controlled: 0
+- test real_world: 20
+- dev variables overridden: tp-v1-F1-0214 `environment` (declared default rejected: Error: first character of "identifier" must be a letter); tp-v1-F1-0214 `name` (declared default rejected: Error: first character of "identifier" must be a letter); tp-v1-F1-0214 `project` (declared default rejected: Error: first character of "identifier" must be a letter); tp-v1-F1-0214 `tag` (declared default rejected: Error: first character of "identifier" must be a letter); tp-v1-F1-0228 `network_address_space` (declared default rejected: Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:); tp-v1-F1-0228 `subnet_count` (declared default rejected: Error: Incorrect value type); tp-v1-F2-0252 `controller_IP_CIDR` (declared default rejected: Error: "This variable must be defined at environment level." is not a valid CIDR block: invalid CIDR address: Thi); tp-v1-F7-0382 `cidr_block` (declared default rejected: Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:); tp-v1-F7-0382 `private_subnet1` (declared default rejected: Error: "" is not a valid CIDR block: invalid CIDR address:); tp-v1-F7-0382 `private_subnet2` (declared default rejected: Error: "" is not a valid CIDR block: invalid CIDR address:); tp-v1-F7-0382 `private_subnet3` (declared default rejected: Error: "" is not a valid CIDR block: invalid CIDR address:); tp-v1-F7-0382 `public_subnet1` (declared default rejected: Error: "" is not a valid CIDR block: invalid CIDR address:); tp-v1-F7-0382 `public_subnet2` (declared default rejected: Error: "" is not a valid CIDR block: invalid CIDR address:); tp-v1-F7-0382 `public_subnet3` (declared default rejected: Error: "" is not a valid CIDR block: invalid CIDR address:)
+
+Candidates taken (rule 2), per set: variables by the kinds of their leaves and the index taken (index 0 is the vv-2 value):
+| split | tier | set | kinds | index | variables |
+|---|---|---|---|---|---|
+| dev | controlled | alternate | secret | 0 | 144 |
+| dev | controlled | primary | secret | 0 | 144 |
+| dev | real_world | alternate | (no leaf) | 0 | 2 |
+| dev | real_world | alternate | ami | 0 | 11 |
+| dev | real_world | alternate | az | 0 | 34 |
+| dev | real_world | alternate | az | 2 | 2 |
+| dev | real_world | alternate | az+ipv4_cidr | 0 | 12 |
+| dev | real_world | alternate | az+region | 0 | 3 |
+| dev | real_world | alternate | az+region | 2 | 1 |
+| dev | real_world | alternate | bool | 0 | 3 |
+| dev | real_world | alternate | instance_type | 0 | 4 |
+| dev | real_world | alternate | ipv4_cidr | 0 | 55 |
+| dev | real_world | alternate | ipv4_cidr | 3 | 10 |
+| dev | real_world | alternate | ipv4_cidr+string | 0 | 12 |
+| dev | real_world | alternate | ipv4_cidr+vpc_id | 0 | 1 |
+| dev | real_world | alternate | key_name | 0 | 3 |
+| dev | real_world | alternate | number | 0 | 14 |
+| dev | real_world | alternate | number+string | 0 | 1 |
+| dev | real_world | alternate | region | 0 | 2 |
+| dev | real_world | alternate | secret | 0 | 153 |
+| dev | real_world | alternate | sg_id | 0 | 5 |
+| dev | real_world | alternate | sg_id | 2 | 3 |
+| dev | real_world | alternate | string | 0 | 127 |
+| dev | real_world | alternate | string | 3 | 18 |
+| dev | real_world | alternate | subnet_id | 0 | 14 |
+| dev | real_world | alternate | vpc_id | 0 | 58 |
+| dev | real_world | alternate | vpc_id | 2 | 2 |
+| dev | real_world | primary | (no leaf) | 0 | 2 |
+| dev | real_world | primary | ami | 0 | 11 |
+| dev | real_world | primary | az | 0 | 34 |
+| dev | real_world | primary | az | 2 | 2 |
+| dev | real_world | primary | az+ipv4_cidr | 0 | 12 |
+| dev | real_world | primary | az+region | 0 | 3 |
+| dev | real_world | primary | az+region | 2 | 1 |
+| dev | real_world | primary | bool | 0 | 3 |
+| dev | real_world | primary | instance_type | 0 | 4 |
+| dev | real_world | primary | ipv4_cidr | 0 | 49 |
+| dev | real_world | primary | ipv4_cidr | 1 | 6 |
+| dev | real_world | primary | ipv4_cidr | 3 | 10 |
+| dev | real_world | primary | ipv4_cidr+string | 0 | 12 |
+| dev | real_world | primary | ipv4_cidr+vpc_id | 0 | 1 |
+| dev | real_world | primary | key_name | 0 | 3 |
+| dev | real_world | primary | number | 0 | 14 |
+| dev | real_world | primary | number+string | 0 | 1 |
+| dev | real_world | primary | region | 0 | 2 |
+| dev | real_world | primary | secret | 0 | 153 |
+| dev | real_world | primary | sg_id | 0 | 5 |
+| dev | real_world | primary | sg_id | 2 | 3 |
+| dev | real_world | primary | string | 0 | 127 |
+| dev | real_world | primary | string | 3 | 18 |
+| dev | real_world | primary | subnet_id | 0 | 14 |
+| dev | real_world | primary | vpc_id | 0 | 57 |
+| dev | real_world | primary | vpc_id | 1 | 1 |
+| dev | real_world | primary | vpc_id | 2 | 2 |
+| test | controlled | alternate | secret | 0 | 64 |
+| test | controlled | primary | secret | 0 | 64 |
+| test | real_world | alternate | (no leaf) | 0 | 4 |
+| test | real_world | alternate | ami | 0 | 1 |
+| test | real_world | alternate | az | 0 | 7 |
+| test | real_world | alternate | az | 1 | 1 |
+| test | real_world | alternate | az | 2 | 3 |
+| test | real_world | alternate | az+ipv4_cidr | 0 | 4 |
+| test | real_world | alternate | az+ipv4_cidr+string | 0 | 1 |
+| test | real_world | alternate | az+region | 0 | 2 |
+| test | real_world | alternate | bool | 0 | 1 |
+| test | real_world | alternate | ipv4_cidr | 0 | 31 |
+| test | real_world | alternate | ipv4_cidr | 2 | 1 |
+| test | real_world | alternate | ipv4_cidr | 3 | 1 |
+| test | real_world | alternate | ipv4_cidr+string | 0 | 5 |
+| test | real_world | alternate | ipv4_cidr+vpc_id | 0 | 2 |
+| test | real_world | alternate | number | 0 | 5 |
+| test | real_world | alternate | number | 2 | 2 |
+| test | real_world | alternate | number | 3 | 1 |
+| test | real_world | alternate | region+string | 0 | 1 |
+| test | real_world | alternate | secret | 0 | 71 |
+| test | real_world | alternate | sg_id | 0 | 3 |
+| test | real_world | alternate | sg_id | 2 | 1 |
+| test | real_world | alternate | string | 0 | 45 |
+| test | real_world | alternate | string | 3 | 6 |
+| test | real_world | alternate | subnet_id | 0 | 6 |
+| test | real_world | alternate | subnet_id | 2 | 1 |
+| test | real_world | alternate | vpc_id | 0 | 21 |
+| test | real_world | alternate | vpc_id | 2 | 1 |
+| test | real_world | primary | (no leaf) | 0 | 4 |
+| test | real_world | primary | ami | 0 | 1 |
+| test | real_world | primary | az | 0 | 7 |
+| test | real_world | primary | az | 1 | 1 |
+| test | real_world | primary | az | 2 | 3 |
+| test | real_world | primary | az+ipv4_cidr | 0 | 4 |
+| test | real_world | primary | az+ipv4_cidr+string | 0 | 1 |
+| test | real_world | primary | az+region | 0 | 2 |
+| test | real_world | primary | bool | 0 | 1 |
+| test | real_world | primary | ipv4_cidr | 0 | 17 |
+| test | real_world | primary | ipv4_cidr | 1 | 15 |
+| test | real_world | primary | ipv4_cidr | 3 | 1 |
+| test | real_world | primary | ipv4_cidr+string | 0 | 5 |
+| test | real_world | primary | ipv4_cidr+vpc_id | 0 | 2 |
+| test | real_world | primary | number | 0 | 5 |
+| test | real_world | primary | number | 3 | 3 |
+| test | real_world | primary | region+string | 0 | 1 |
+| test | real_world | primary | secret | 0 | 71 |
+| test | real_world | primary | sg_id | 0 | 3 |
+| test | real_world | primary | sg_id | 2 | 1 |
+| test | real_world | primary | string | 0 | 44 |
+| test | real_world | primary | string | 1 | 1 |
+| test | real_world | primary | string | 3 | 6 |
+| test | real_world | primary | subnet_id | 0 | 6 |
+| test | real_world | primary | subnet_id | 2 | 1 |
+| test | real_world | primary | vpc_id | 0 | 21 |
+| test | real_world | primary | vpc_id | 2 | 1 |
+
+- dev variables on a candidate other than 0: tp-v1-F1-0214 `vpc_id` primary 1; tp-v1-F1-0219 `cidr_block` alternate 3; tp-v1-F1-0219 `cidr_block` primary 3; tp-v1-F1-0219 `subnet_count` alternate 3; tp-v1-F1-0219 `subnet_count` primary 3; tp-v1-F1-0220 `app_name` alternate 3; tp-v1-F1-0220 `app_name` primary 3; tp-v1-F1-0220 `deployment_branch` alternate 3; tp-v1-F1-0220 `deployment_branch` primary 3; tp-v1-F1-0220 `game_server_name_container` alternate 3; tp-v1-F1-0220 `game_server_name_container` primary 3; tp-v1-F1-0220 `proxy_server_port` alternate 3; tp-v1-F1-0220 `proxy_server_port` primary 3; tp-v1-F1-0220 `public_subnet_id_a` alternate 3; tp-v1-F1-0220 `public_subnet_id_a` primary 3; tp-v1-F1-0220 `public_subnet_id_b` alternate 3; tp-v1-F1-0220 `public_subnet_id_b` primary 3; tp-v1-F1-0220 `subdomain_game_stacks` alternate 3; tp-v1-F1-0220 `subdomain_game_stacks` primary 3; tp-v1-F1-0220 `vpc_cidr_block` alternate 3; tp-v1-F1-0220 `vpc_cidr_block` primary 3; tp-v1-F1-0228 `network_address_space` alternate 3; tp-v1-F1-0228 `network_address_space` primary 3; tp-v1-F1-0228 `subnet_count` alternate 3; tp-v1-F1-0228 `subnet_count` primary 3; tp-v1-F1-0228 `tp_ds_aws_availability_zones_az` alternate 2; tp-v1-F1-0228 `tp_ds_aws_availability_zones_az` primary 2; tp-v1-F2-0254 `private_cidr_block` alternate 3; tp-v1-F2-0254 `private_cidr_block` primary 3; tp-v1-F2-0254 `public_cidr_block` alternate 3; tp-v1-F2-0254 `public_cidr_block` primary 3; tp-v1-F2-0254 `vpc_cidr` alternate 3; tp-v1-F2-0254 `vpc_cidr` primary 3; tp-v1-F3-0266 `tp_ds_aws_availability_zones_available` alternate 2; tp-v1-F3-0266 `tp_ds_aws_availability_zones_available` primary 2; tp-v1-F3-0284 `admin_sg` alternate 2; tp-v1-F3-0284 `admin_sg` primary 2; tp-v1-F3-0284 `bat_tag` alternate 3; tp-v1-F3-0284 `bat_tag` primary 3; tp-v1-F3-0284 `protect_enable` alternate 3; tp-v1-F3-0284 `protect_enable` primary 3; tp-v1-F3-0284 `vpc_id` alternate 2; tp-v1-F3-0284 `vpc_id` primary 2; tp-v1-F3-0284 `web_sg` alternate 2; tp-v1-F3-0284 `web_sg` primary 2; tp-v1-F5-0327 `tp_ds_aws_availability_zones_available` alternate 2; tp-v1-F5-0327 `tp_ds_aws_availability_zones_available` primary 2; tp-v1-F5-0337 `container_port` alternate 3; tp-v1-F5-0337 `container_port` primary 3; tp-v1-F5-0337 `environment` alternate 3; tp-v1-F5-0337 `environment` primary 3; tp-v1-F5-0337 `name` alternate 3; tp-v1-F5-0337 `name` primary 3; tp-v1-F6-0342 `tp_ds_terraform_remote_state_eip` alternate 3; tp-v1-F6-0342 `tp_ds_terraform_remote_state_eip` primary 3; tp-v1-F6-0344 `sg_cidr` alternate 3; tp-v1-F6-0344 `sg_cidr` primary 3; tp-v1-F7-0378 `bastion_sg_id` alternate 2; tp-v1-F7-0378 `bastion_sg_id` primary 2; tp-v1-F7-0378 `instance_profile_name` alternate 3; tp-v1-F7-0378 `instance_profile_name` primary 3; tp-v1-F7-0378 `name` alternate 3; tp-v1-F7-0378 `name` primary 3; tp-v1-F7-0378 `user_data_template` alternate 3; tp-v1-F7-0378 `user_data_template` primary 3; tp-v1-F7-0378 `vpc_id` alternate 2; tp-v1-F7-0378 `vpc_id` primary 2; tp-v1-F7-0382 `cidr_block` primary 1; tp-v1-F7-0382 `private_subnet1` primary 1; tp-v1-F7-0382 `private_subnet2` primary 1; tp-v1-F7-0382 `public_subnet1` primary 1; tp-v1-F7-0382 `public_subnet2` primary 1; tp-v1-F7-0382 `public_subnet3` primary 1; tp-v1-F8-0393 `cidr_private_subnet` alternate 3; tp-v1-F8-0393 `cidr_private_subnet` primary 3; tp-v1-F8-0393 `cidr_public_subnet` alternate 3; tp-v1-F8-0393 `cidr_public_subnet` primary 3; tp-v1-F8-0393 `vpc_cidr` alternate 3; tp-v1-F8-0393 `vpc_cidr` primary 3
+
+### D5a-3.3 The vv-3 search (`tools/search_vv3.py`)
+| split | tier | scenarios | plans run | primary plans | primary fails | alternate plans | alternate fails |
+|---|---|---|---|---|---|---|---|
+| dev | controlled | 144 | 656 | 144 | 0 | 144 | 0 |
+| dev | real_world | 144 | 702 | 128 | 16 | 128 | 16 |
+| test | controlled | 64 | 276 | 64 | 0 | 64 | 0 |
+| test | real_world | 64 | 347 | 59 | 5 | 58 | 6 |
+
+### D5a-3.4 Feasibility under each value set (D5-04 offline rules unchanged)
+#### Value set: primary (`variable_values`)
+| split | tier | steps | plan JSON | data source needs API | provider tried to call AWS | variable error | other | median wall s | max wall s |
+|---|---|---|---|---|---|---|---|---|---|
+| dev | controlled | 328 | 328 | 0 | 0 | 0 | 0 | 15.5 | 36.7 |
+| dev | real_world | 324 | 289 | 0 | 0 | 33 | 2 | 15.6 | 31.6 |
+| test | controlled | 138 | 138 | 0 | 0 | 0 | 0 | 18.2 | 32.9 |
+| test | real_world | 145 | 135 | 0 | 0 | 8 | 2 | 16.1 | 31.9 |
+
+Failures by class and cause (steps):
+- dev: 2 x other: (no sub-cause)
+- dev: 8 x variable error: unresolved variable has no value
+- dev: 25 x variable error: vv-3 value rejected in an expression or by the provider
+- test: 2 x other: (no sub-cause)
+- test: 2 x variable error: unresolved variable has no value
+- test: 6 x variable error: vv-3 value rejected in an expression or by the provider
+
+#### Value set: alternate (`variable_values_alt`)
+| split | tier | steps | plan JSON | data source needs API | provider tried to call AWS | variable error | other | median wall s | max wall s |
+|---|---|---|---|---|---|---|---|---|---|
+| dev | controlled | 328 | 328 | 0 | 0 | 0 | 0 | 17.3 | 33.8 |
+| dev | real_world | 324 | 289 | 0 | 0 | 33 | 2 | 16.6 | 49.7 |
+| test | controlled | 138 | 138 | 0 | 0 | 0 | 0 | 17.5 | 26.5 |
+| test | real_world | 145 | 133 | 0 | 0 | 10 | 2 | 17.1 | 26.4 |
+
+Failures by class and cause (steps):
+- dev: 2 x other: (no sub-cause)
+- dev: 8 x variable error: unresolved variable has no value
+- dev: 25 x variable error: vv-3 value rejected in an expression or by the provider
+- test: 2 x other: (no sub-cause)
+- test: 2 x variable error: unresolved variable has no value
+- test: 8 x variable error: vv-3 value rejected in an expression or by the provider
+
+### D5a-3.5 Exclusions (D5-09)
+- dev controlled: 0 of 144 scenarios excluded
+- dev real_world: 16 of 144 scenarios excluded
+- test controlled: 0 of 64 scenarios excluded
+- test real_world: 6 of 64 scenarios excluded
+
+Excluded scenarios by the class and cause of their first failing step:
+- dev real_world: 1 x other
+- dev real_world: 3 x variable error; unresolved variable has no value
+- dev real_world: 12 x variable error; vv-3 value rejected in an expression or by the provider
+- test real_world: 1 x other
+- test real_world: 1 x variable error; unresolved variable has no value
+- test real_world: 4 x variable error; vv-3 value rejected in an expression or by the provider
+
+Dev scenarios excluded:
+- tp-v1-F1-0219: 4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider; first error `Error: Incorrect value type`
+- tp-v1-F1-0220: 4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider; first error `Error: Incorrect attribute value type`
+- tp-v1-F1-0228: 4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider; first error `Error: Incorrect value type`
+- tp-v1-F2-0254: 4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider; first error `Error: Error in function call`
+- tp-v1-F3-0266: 4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider; first error `Error: Resource precondition failed`
+- tp-v1-F3-0271: 4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; unresolved variable has no value; first error `Error: No value for required variable`
+- tp-v1-F3-0284: 4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider; first error `Error: Incorrect attribute value type`
+- tp-v1-F5-0327: 4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider; first error `Error: Invalid index`
+- tp-v1-F5-0330: 4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, other; first error `Error: Invalid index`
+- tp-v1-F5-0337: 4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider; first error `Error: Incorrect attribute value type`
+- tp-v1-F6-0342: 4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider; first error `Error: "tpp/32" is not a valid CIDR block: invalid CIDR address: tpp/32`
+- tp-v1-F6-0344: 4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider; first error `Error: Incorrect attribute value type`
+- tp-v1-F7-0369: 4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; unresolved variable has no value; first error `Error: No value for required variable`
+- tp-v1-F7-0378: 4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider; first error `Error: Invalid function argument`
+- tp-v1-F8-0393: 6 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider; first error `Error: Error in function call`
+- tp-v1-F8-0406: 8 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; unresolved variable has no value; first error `Error: No value for required variable`
+
+### D5a-3.6 Yields per cell (family x class x split x tier)
+Targets and reserves as assigned in `scenarios/ASSEMBLY.json` (not changed; D6 fills). A cell can fill its targets when its excluded targets are no more than its reserves that are not excluded; filling across tiers is not allowed (D5-09).
+
+Agreement with `ASSEMBLY.json` (per family x class: targets and reserves, total and per tier): 96 of 96 figures agree
+
+| family | class | split | tier | targets | reserves | excluded targets | excluded reserves | can fill |
+|---|---|---|---|---|---|---|---|---|
+| F1 | safe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F1 | safe | dev | real_world | 7 | 2 | 0 | 2 | yes |
+| F1 | safe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F1 | safe | test | real_world | 3 | 1 | 0 | 0 | yes |
+| F1 | unsafe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F1 | unsafe | dev | real_world | 7 | 2 | 1 | 0 | yes |
+| F1 | unsafe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F1 | unsafe | test | real_world | 3 | 1 | 0 | 1 | yes |
+| F2 | safe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F2 | safe | dev | real_world | 7 | 2 | 0 | 0 | yes |
+| F2 | safe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F2 | safe | test | real_world | 3 | 1 | 0 | 0 | yes |
+| F2 | unsafe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F2 | unsafe | dev | real_world | 7 | 2 | 1 | 0 | yes |
+| F2 | unsafe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F2 | unsafe | test | real_world | 3 | 1 | 0 | 0 | yes |
+| F3 | safe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F3 | safe | dev | real_world | 7 | 2 | 1 | 1 | yes |
+| F3 | safe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F3 | safe | test | real_world | 3 | 1 | 1 | 0 | yes |
+| F3 | unsafe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F3 | unsafe | dev | real_world | 7 | 2 | 0 | 1 | yes |
+| F3 | unsafe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F3 | unsafe | test | real_world | 3 | 1 | 1 | 0 | yes |
+| F4 | safe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F4 | safe | dev | real_world | 7 | 2 | 0 | 0 | yes |
+| F4 | safe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F4 | safe | test | real_world | 3 | 1 | 0 | 0 | yes |
+| F4 | unsafe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F4 | unsafe | dev | real_world | 7 | 2 | 0 | 0 | yes |
+| F4 | unsafe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F4 | unsafe | test | real_world | 3 | 1 | 0 | 0 | yes |
+| F5 | safe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F5 | safe | dev | real_world | 7 | 2 | 0 | 0 | yes |
+| F5 | safe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F5 | safe | test | real_world | 3 | 1 | 0 | 1 | yes |
+| F5 | unsafe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F5 | unsafe | dev | real_world | 7 | 2 | 2 | 1 | no |
+| F5 | unsafe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F5 | unsafe | test | real_world | 3 | 1 | 0 | 0 | yes |
+| F6 | safe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F6 | safe | dev | real_world | 7 | 2 | 2 | 0 | yes |
+| F6 | safe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F6 | safe | test | real_world | 3 | 1 | 1 | 0 | yes |
+| F6 | unsafe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F6 | unsafe | dev | real_world | 7 | 2 | 0 | 0 | yes |
+| F6 | unsafe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F6 | unsafe | test | real_world | 3 | 1 | 0 | 0 | yes |
+| F7 | safe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F7 | safe | dev | real_world | 7 | 2 | 1 | 0 | yes |
+| F7 | safe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F7 | safe | test | real_world | 3 | 1 | 0 | 0 | yes |
+| F7 | unsafe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F7 | unsafe | dev | real_world | 7 | 2 | 1 | 0 | yes |
+| F7 | unsafe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F7 | unsafe | test | real_world | 3 | 1 | 1 | 0 | yes |
+| F8 | safe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F8 | safe | dev | real_world | 7 | 2 | 1 | 0 | yes |
+| F8 | safe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F8 | safe | test | real_world | 3 | 1 | 0 | 0 | yes |
+| F8 | unsafe | dev | controlled | 7 | 2 | 0 | 0 | yes |
+| F8 | unsafe | dev | real_world | 7 | 2 | 1 | 0 | yes |
+| F8 | unsafe | test | controlled | 3 | 1 | 0 | 0 | yes |
+| F8 | unsafe | test | real_world | 3 | 1 | 0 | 0 | yes |
+
+Totals:
+- dev controlled: targets 112, reserves 32, excluded targets 0, excluded reserves 0
+- dev real_world: targets 112, reserves 32, excluded targets 11, excluded reserves 5
+- test controlled: targets 48, reserves 16, excluded targets 0, excluded reserves 0
+- test real_world: targets 48, reserves 16, excluded targets 4, excluded reserves 2
+
+Short cells (cannot fill their targets from their own reserves): F5 x unsafe x dev x real_world (short by 1)
+
+### D5a-3.7 Drift against `5f71c00`
+- dev controlled: M scenario.json: 144
+- dev real_world: M scenario.json: 144
+- repo -: M scenarios/test_manifest.json: 1
+- test controlled: M scenario.json: 64
+- test real_world: M scenario.json: 64
+

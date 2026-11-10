@@ -57,7 +57,7 @@ def plant_unlisted_variable(root: Path) -> None:
 
 def plant_value_off_rule(root: Path) -> None:
     def fn(d):
-        d["variable_values"]["tp_ds_aws_ami_ubuntu"] = {"id": "ami-0123456789abcdef0"}
+        d["variable_values"]["tp_ds_aws_ami_ubuntu"] = {"id": "ami-0aaaaaaaaaaaaaaaa"}
     _edit_json(root, "tp-v1-F1-0227", fn)
 
 
@@ -90,7 +90,7 @@ PLANTS = [
     ("(b) alternate value equal to the primary without a recorded exception", plant_same_alt, "test_b_the_two_sets_differ_except_where_recorded"),
     ("(b) a valued variable without an alternate value", plant_missing_alt, "test_b_the_two_sets_differ_except_where_recorded"),
     ("(a) a variable without a default left out of both sets", plant_unlisted_variable, "test_a_every_variable_has_both_values_or_a_reason"),
-    ("(h) a stored value that vv-2 does not give", plant_value_off_rule, "test_h_record_equals_a_fresh_vv2_computation"),
+    ("(h) a stored value that the rule does not give", plant_value_off_rule, "test_h_record_equals_a_fresh_computation"),
     ("(e) a transform record whose sha256 matches no removed block", plant_transform_sha, "test_e_every_transform_matches_a_removed_block"),
     ("(d) a data block in a step", plant_data_block, "test_d_no_data_block_or_reference_in_any_step"),
     ("(f) one byte added to a controlled step file", plant_controlled_byte, "test_f_controlled_steps_byte_identical_to_e96c017"),

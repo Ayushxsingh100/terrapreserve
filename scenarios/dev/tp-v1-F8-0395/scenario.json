@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F8",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -190,6 +191,40 @@
     "volume_size": 2,
     "vpc_id": "vpc-0777777777777777b"
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "ami_id": 0,
+      "instance_type": 0,
+      "one_ee": 0,
+      "one_fireedge_port": 0,
+      "one_password": 0,
+      "one_sunstone_port": 0,
+      "one_version": 0,
+      "ssh_key": 0,
+      "ssh_key_path": 0,
+      "ssh_user": 0,
+      "subnet_id": 0,
+      "tp_db_password": 0,
+      "volume_size": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "ami_id": 0,
+      "instance_type": 0,
+      "one_ee": 0,
+      "one_fireedge_port": 0,
+      "one_password": 0,
+      "one_sunstone_port": 0,
+      "one_version": 0,
+      "ssh_key": 0,
+      "ssh_key_path": 0,
+      "ssh_user": 0,
+      "subnet_id": 0,
+      "tp_db_password": 0,
+      "volume_size": 0,
+      "vpc_id": 0
+    }
+  },
   "variable_values_kinds": {
     "ami_id": {
       "evidence": [
@@ -287,6 +322,6 @@
       "kind": "vpc_id"
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

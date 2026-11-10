@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F3",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -144,6 +145,26 @@
     ],
     "tp_db_password": "tp-secret-alt"
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "allocated_storage": 0,
+      "db_password": 0,
+      "instance_class": 0,
+      "multi_az": 0,
+      "resource_prefix": 0,
+      "subnet_ids": 0,
+      "tp_db_password": 0
+    },
+    "primary": {
+      "allocated_storage": 0,
+      "db_password": 0,
+      "instance_class": 0,
+      "multi_az": 0,
+      "resource_prefix": 0,
+      "subnet_ids": 0,
+      "tp_db_password": 0
+    }
+  },
   "variable_values_kinds": {
     "allocated_storage": {
       "evidence": [
@@ -196,6 +217,6 @@
       "kind": "secret"
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

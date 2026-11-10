@@ -37,7 +37,7 @@ import writer
 from realworld import data_vars, graft, plan as rw_plan, real_diff_verify, screen, span_edit
 
 DATASET_VERSION = "1.0"
-GENERATOR_VERSION = "d4b-7"
+GENERATOR_VERSION = "d4b-8"
 
 PROTECTED_INVARIANTS = [
     {"invariant_id": "INV-SEC-001", "version": "1.0"},
@@ -368,8 +368,9 @@ def generate_real_world_scenario(
             else:
                 flat_records.append(r)
 
-    # D5-07: variable values (rule vv-2), a primary and an alternate set for the whole scenario.
-    vv_record = varvalues.compute(steps_files)
+    # D5-10: variable values (rule vv-3), a primary and an alternate set for the whole scenario, from the
+    # recorded vv-3 search result. D5-09: excluded_from_v1 comes from the same result.
+    vv_record = varvalues.compute(steps_files, varvalues.search_record(scenario_id, split))
 
     scenario_data = {
         "scenario_id": scenario_id,

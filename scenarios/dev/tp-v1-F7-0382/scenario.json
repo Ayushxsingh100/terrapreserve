@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F7",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -142,12 +143,104 @@
     "kind": "change_request"
   },
   "variable_values": {
+    "cidr_block": "10.201.1.0/24",
+    "private_subnet1": "10.201.1.0/24",
+    "private_subnet2": "10.201.1.0/24",
+    "private_subnet3": "10.201.0.0/16",
+    "public_subnet1": "10.201.1.0/24",
+    "public_subnet2": "10.201.1.0/24",
+    "public_subnet3": "10.201.1.0/24",
     "tp_db_password": "tp-secret-primary"
   },
   "variable_values_alt": {
+    "cidr_block": "192.168.77.0/24",
+    "private_subnet1": "192.168.77.0/24",
+    "private_subnet2": "192.168.77.0/24",
+    "private_subnet3": "192.168.77.0/24",
+    "public_subnet1": "192.168.77.0/24",
+    "public_subnet2": "192.168.77.0/24",
+    "public_subnet3": "192.168.77.0/24",
     "tp_db_password": "tp-secret-alt"
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "cidr_block": 0,
+      "private_subnet1": 0,
+      "private_subnet2": 0,
+      "private_subnet3": 0,
+      "public_subnet1": 0,
+      "public_subnet2": 0,
+      "public_subnet3": 0,
+      "tp_db_password": 0
+    },
+    "primary": {
+      "cidr_block": 1,
+      "private_subnet1": 1,
+      "private_subnet2": 1,
+      "private_subnet3": 0,
+      "public_subnet1": 1,
+      "public_subnet2": 1,
+      "public_subnet3": 1,
+      "tp_db_password": 0
+    }
+  },
   "variable_values_kinds": {
+    "cidr_block": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_vpc.main.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:"
+    },
+    "private_subnet1": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.private1.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: \"\" is not a valid CIDR block: invalid CIDR address:"
+    },
+    "private_subnet2": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.private2.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: \"\" is not a valid CIDR block: invalid CIDR address:"
+    },
+    "private_subnet3": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.private3.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: \"\" is not a valid CIDR block: invalid CIDR address:"
+    },
+    "public_subnet1": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.public1.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: \"\" is not a valid CIDR block: invalid CIDR address:"
+    },
+    "public_subnet2": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.public2.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: \"\" is not a valid CIDR block: invalid CIDR address:"
+    },
+    "public_subnet3": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.public3.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: \"\" is not a valid CIDR block: invalid CIDR address:"
+    },
     "tp_db_password": {
       "evidence": [
         "declared_type:string",
@@ -156,6 +249,6 @@
       "kind": "secret"
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

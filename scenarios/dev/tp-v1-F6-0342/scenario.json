@@ -1,8 +1,30 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": {
+    "failing_steps": [
+      {
+        "step": 0,
+        "value_set": "primary"
+      },
+      {
+        "step": 1,
+        "value_set": "primary"
+      },
+      {
+        "step": 0,
+        "value_set": "alternate"
+      },
+      {
+        "step": 1,
+        "value_set": "alternate"
+      }
+    ],
+    "first_error": "Error: \"tpp/32\" is not a valid CIDR block: invalid CIDR address: tpp/32",
+    "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+  },
   "family": "F6",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -161,7 +183,7 @@
     "tp_db_password": "tp-secret-primary",
     "tp_ds_terraform_remote_state_eip": {
       "outputs": {
-        "public_ip_addr": "tp-primary"
+        "public_ip_addr": "tpp"
       }
     }
   },
@@ -169,8 +191,18 @@
     "tp_db_password": "tp-secret-alt",
     "tp_ds_terraform_remote_state_eip": {
       "outputs": {
-        "public_ip_addr": "tp-alt"
+        "public_ip_addr": "tpa"
       }
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0,
+      "tp_ds_terraform_remote_state_eip": 3
+    },
+    "primary": {
+      "tp_db_password": 0,
+      "tp_ds_terraform_remote_state_eip": 3
     }
   },
   "variable_values_kinds": {
@@ -197,6 +229,6 @@
       }
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

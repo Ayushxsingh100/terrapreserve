@@ -8,7 +8,7 @@ uses (nested types as used; ``list(...)`` of it for a block with ``count``, ``ma
 Each removal is recorded in the scenario's ``host_transform`` list with the sha256 of the original block text
 (from the ``data`` keyword to the closing brace, as written in the pool file).
 
-Rule vv-2 (``generator/varvalues.py``) then gives the variables a primary and an alternate value. The
+Rule vv-3 (``generator/varvalues.py``, D5-10, which keeps vv-2) then gives the variables a primary and an alternate value. The
 attribute types follow the use in the module, with the list-typed attributes of ``DS_LIST_ATTRS`` typed as
 lists. Standard library only.
 """

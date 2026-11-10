@@ -351,6 +351,11 @@ def drift() -> None:
 
 def main() -> None:
     scs = load()
+    if any(d.get("variable_values_rule") != "vv-2" for _s, _p, d in scs):
+        # D5a-3 (D5-10) replaced vv-2 by vv-3: the D5a-2 part of the document describes the records at 5f71c00
+        # and is kept as it was; tools/report_d5a3.py writes the D5a-3 part.
+        raise SystemExit("the records are no longer vv-2: the D5a-2 part of docs/D5A_FEASIBILITY.md is frozen "
+                         "(see tools/report_d5a3.py)")
     head = DOC.read_text(encoding="utf-8")
     head = head.split(MARKER)[0].rstrip("\n") + "\n"
     emit(MARKER)

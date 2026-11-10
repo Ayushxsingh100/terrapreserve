@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F3",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -138,6 +139,18 @@
       "name": "tp-alt"
     }
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "subnet_config": 0,
+      "tp_db_password": 0,
+      "vpc_config": 0
+    },
+    "primary": {
+      "subnet_config": 0,
+      "tp_db_password": 0,
+      "vpc_config": 0
+    }
+  },
   "variable_values_kinds": {
     "subnet_config": {
       "evidence": [
@@ -197,6 +210,6 @@
       }
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

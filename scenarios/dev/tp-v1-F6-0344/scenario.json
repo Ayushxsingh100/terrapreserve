@@ -1,8 +1,30 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": {
+    "failing_steps": [
+      {
+        "step": 0,
+        "value_set": "primary"
+      },
+      {
+        "step": 1,
+        "value_set": "primary"
+      },
+      {
+        "step": 0,
+        "value_set": "alternate"
+      },
+      {
+        "step": 1,
+        "value_set": "alternate"
+      }
+    ],
+    "first_error": "Error: Incorrect attribute value type",
+    "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+  },
   "family": "F6",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -149,15 +171,29 @@
   },
   "variable_values": {
     "name": "tp-primary",
-    "sg_cidr": "10.201.0.0/16",
+    "sg_cidr": "10.201.0.0/20",
     "sg_vpc_id": "vpc-0201201201201201a",
     "tp_db_password": "tp-secret-primary"
   },
   "variable_values_alt": {
     "name": "tp-alt",
-    "sg_cidr": "192.168.77.0/24",
+    "sg_cidr": "192.168.64.0/20",
     "sg_vpc_id": "vpc-0777777777777777b",
     "tp_db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "name": 0,
+      "sg_cidr": 3,
+      "sg_vpc_id": 0,
+      "tp_db_password": 0
+    },
+    "primary": {
+      "name": 0,
+      "sg_cidr": 3,
+      "sg_vpc_id": 0,
+      "tp_db_password": 0
+    }
   },
   "variable_values_kinds": {
     "name": {
@@ -189,6 +225,6 @@
       "kind": "secret"
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

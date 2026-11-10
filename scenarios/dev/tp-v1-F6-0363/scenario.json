@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F6",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -186,6 +187,28 @@
     "tp_db_password": "tp-secret-alt",
     "vpc_id": "vpc-0777777777777777b"
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "app_sg_id": 0,
+      "db_name": 0,
+      "db_password": 0,
+      "db_username": 0,
+      "private_db_subnet_ids": 0,
+      "project_name": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "app_sg_id": 0,
+      "db_name": 0,
+      "db_password": 0,
+      "db_username": 0,
+      "private_db_subnet_ids": 0,
+      "project_name": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    }
+  },
   "variable_values_kinds": {
     "app_sg_id": {
       "evidence": [
@@ -247,6 +270,6 @@
       "kind": "vpc_id"
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

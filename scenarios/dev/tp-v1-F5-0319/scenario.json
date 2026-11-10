@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F5",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -201,6 +202,28 @@
     "type": "tp-alt",
     "vpc_id": "vpc-0777777777777777b"
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "availability_zones": 0,
+      "cidrs": 0,
+      "environment": 0,
+      "project": 0,
+      "tags": 0,
+      "tp_db_password": 0,
+      "type": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "availability_zones": 0,
+      "cidrs": 0,
+      "environment": 0,
+      "project": 0,
+      "tags": 0,
+      "tp_db_password": 0,
+      "type": 0,
+      "vpc_id": 0
+    }
+  },
   "variable_values_kinds": {
     "availability_zones": {
       "evidence": [
@@ -269,6 +292,6 @@
       "kind": "vpc_id"
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

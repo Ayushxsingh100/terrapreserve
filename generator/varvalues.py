@@ -1,4 +1,15 @@
-"""Variable values for the scenario record (D5-07, rule ``vv-2``; supersedes ``vv-1`` of D5-01).
+"""Variable values for the scenario record (D5-10, rule ``vv-3``; supersedes ``vv-2`` of D5-07 and ``vv-1`` of D5-01).
+
+Rule vv-3 (``docs/D5_DECISIONS.md`` D5-10) is vv-2 (below) plus three changes: (1) a variable whose declared
+default was rejected at plan time is valued like a variable without a default, with the reason recorded; (2) every
+kind has a fixed, ordered candidate list per set (``KIND_CANDIDATES``; the first is the vv-2 value), and the
+candidate index taken for each variable in each set is recorded in ``variable_values_candidates``; (3) a ``conflict``
+or ``unresolved`` variable gets no value (its scenario is excluded under D5-09 if it cannot plan). Which defaults are
+overridden and which indices are taken is decided by the offline plan search of ``tools/search_vv3.py``; its result
+(per split: ``generator/vv3/dev.json``, ``$TERRAPRESERVE_PRIVATE/vv3_test.json``) is an input of ``compute``, which
+also copies the scenario's ``excluded_from_v1`` (D5-09) from it.
+
+The text below describes vv-2, which vv-3 keeps whole.
 
 Registry v1.0 section 2.1 evaluates a configuration "together with the scenario's variable values", and
 section 2.2 resolves an input variable to its "provided value, else declared default". Every variable that is
@@ -51,28 +62,66 @@ sys.path.insert(0, str(REPO_ROOT / "generator"))
 import hcl_lex  # noqa: E402
 from realworld import data_vars, modread  # noqa: E402
 
-RULE = "vv-2"
-SUPERSEDED_RULES = ("vv-1",)  # D5-01 (D5a); described in docs/D5_DECISIONS.md, no longer used
+RULE = "vv-3"
+SUPERSEDED_RULES = ("vv-1", "vv-2")  # D5-01 (D5a), D5-07 (D5a-2); described in docs/D5_DECISIONS.md
 NON_EMPTY_LENGTH = 3
 _SECRET_NAME = re.compile(r"password|secret|token", re.IGNORECASE)
 
-# (primary, alternate) by kind: the D5-07 table.
-KIND_VALUES: dict[str, tuple[Any, Any]] = {
-    "ipv4_cidr": ("10.201.0.0/16", "192.168.77.0/24"),
-    "ipv6_cidr": ("fd00:201::/64", "fd00:77::/64"),
-    "vpc_id": ("vpc-0201201201201201a", "vpc-0777777777777777b"),
-    "subnet_id": ("subnet-0201201201201201a", "subnet-0777777777777777b"),
-    "sg_id": ("sg-0201201201201201a", "sg-0777777777777777b"),
-    "ami": ("ami-0201201201201201a", "ami-0777777777777777b"),
-    "az": ("us-east-1a", "us-east-1b"),
-    "region": ("us-east-1", "us-east-1"),  # the provider pin, the same in both sets (recorded)
-    "instance_type": ("t3.micro", "t3.small"),
-    "key_name": ("tp-key-primary", "tp-key-alt"),
-    "string": ("tp-primary", "tp-alt"),
-    "secret": ("tp-secret-primary", "tp-secret-alt"),
-    "number": (1, 2),
-    "bool": (False, True),
+# D5-10: (primary candidates, alternate candidates) by kind, fixed in advance; the first of each is the D5-07
+# (vv-2) value. At most 4 per kind per set; never chosen for a single scenario.
+KIND_CANDIDATES: dict[str, tuple[tuple[Any, ...], tuple[Any, ...]]] = {
+    "string": (("tp-primary", "tpprimary", "tp-primary-1", "tpp"), ("tp-alt", "tpalt", "tp-alt-1", "tpa")),
+    "ipv4_cidr": (("10.201.0.0/16", "10.201.1.0/24", "172.20.0.0/16", "10.201.0.0/20"),
+                  ("192.168.77.0/24", "192.168.78.0/24", "172.21.0.0/16", "192.168.64.0/20")),
+    "az": (("us-east-1a", "us-east-1b", "us-east-1c"), ("us-east-1b", "us-east-1c", "us-east-1a")),
+    "number": ((1, 2, 3, 10), (2, 3, 4, 20)),
+    "vpc_id": (("vpc-0201201201201201a", "vpc-02012012", "vpc-0123456789abcdef0"),
+               ("vpc-0777777777777777b", "vpc-07777777", "vpc-0fedcba9876543210")),
+    "subnet_id": (("subnet-0201201201201201a", "subnet-02012012", "subnet-0123456789abcdef0"),
+                  ("subnet-0777777777777777b", "subnet-07777777", "subnet-0fedcba9876543210")),
+    "sg_id": (("sg-0201201201201201a", "sg-02012012", "sg-0123456789abcdef0"),
+              ("sg-0777777777777777b", "sg-07777777", "sg-0fedcba9876543210")),
+    "ami": (("ami-0201201201201201a", "ami-02012012", "ami-0123456789abcdef0"),
+            ("ami-0777777777777777b", "ami-07777777", "ami-0fedcba9876543210")),
+    "secret": (("tp-secret-primary", "tp-secret-primary-long"), ("tp-secret-alt", "tp-secret-alt-long")),
+    "bool": ((False,), (True,)),
+    "region": (("us-east-1",), ("us-east-1",)),  # the provider pin, the same in both sets (recorded)
+    "instance_type": (("t3.micro",), ("t3.small",)),
+    "key_name": (("tp-key-primary",), ("tp-key-alt",)),
+    "ipv6_cidr": (("fd00:201::/64",), ("fd00:77::/64",)),
 }
+# (primary, alternate) by kind: the D5-07 table (candidate 0).
+KIND_VALUES: dict[str, tuple[Any, Any]] = {k: (p[0], a[0]) for k, (p, a) in KIND_CANDIDATES.items()}
+OVERRIDE_PREFIX = "declared default rejected: "
+SEARCH_DEV = REPO_ROOT / "generator" / "vv3" / "dev.json"
+SEARCH_TEST_NAME = "vv3_test.json"
+_SEARCH_CACHE: dict[str, dict[str, Any]] = {}
+
+
+def candidate(kind: str, which: int, idx: int) -> Any:
+    """Candidate ``idx`` of ``kind`` in set ``which`` (0 primary, 1 alternate); past the end, the last one."""
+    lst = KIND_CANDIDATES[kind][which]
+    return lst[min(idx, len(lst) - 1)]
+
+
+def candidate_count(kt: Any) -> int:
+    """Number of candidates of a variable: the longest list among its leaf kinds (1 with no leaf)."""
+    return max([len(KIND_CANDIDATES[k][0]) for k in _all_leaves(kt)] + [1])
+
+
+def search_record(scenario_id: str, split: str) -> dict[str, Any] | None:
+    """The vv-3 search result of one scenario (None when the split has no search file yet)."""
+    if split == "dev":
+        path: Path | None = SEARCH_DEV
+    else:
+        priv = os.environ.get("TERRAPRESERVE_PRIVATE")
+        path = Path(priv) / SEARCH_TEST_NAME if priv else None
+    if path is None or not path.is_file():
+        return None
+    key = str(path)
+    if key not in _SEARCH_CACHE:
+        _SEARCH_CACHE[key] = json.loads(path.read_text(encoding="utf-8"))["scenarios"]
+    return _SEARCH_CACHE[key].get(scenario_id)
 # Attribute the value flows into -> kind (the D5-07 table, by argument name in the AWS provider 6.53.0).
 ATTR_KINDS: dict[str, str] = {
     "cidr_block": "ipv4_cidr", "cidr_blocks": "ipv4_cidr", "destination_cidr_block": "ipv4_cidr",
@@ -484,8 +533,9 @@ def _leaf_kind(var: _Var, path: tuple[str, ...], base: str) -> str:
     return "string"
 
 
-def _build(var: _Var, node: tuple, path: tuple[str, ...]) -> tuple[Any, Any, Any]:
-    """(kind tree, primary, alternate) for the part of ``var`` at ``path`` with type ``node``."""
+def _build(var: _Var, node: tuple, path: tuple[str, ...], ip: int = 0, ia: int = 0) -> tuple[Any, Any, Any]:
+    """(kind tree, primary, alternate) for the part of ``var`` at ``path`` with type ``node``; ``ip`` and ``ia``
+    are the candidate indices of the two sets (D5-10)."""
     kind = node[0]
     if kind == "any":
         node = _infer(var, path)
@@ -494,10 +544,9 @@ def _build(var: _Var, node: tuple, path: tuple[str, ...]) -> tuple[Any, Any, Any
             raise _NoValue(f"type any at {''.join(path) or '(value)'}: the uses do not decide a structure")
     if kind in ("string", "number", "bool"):
         k = _leaf_kind(var, path, kind)
-        p, a = KIND_VALUES[k]
-        return k, p, a
+        return k, candidate(k, 0, ip), candidate(k, 1, ia)
     if kind in ("list", "set"):
-        kt, pe, ae = _build(var, node[1], path + ("[]",))
+        kt, pe, ae = _build(var, node[1], path + ("[]",), ip, ia)
         consts = [int(r[0][1:-1]) for r in var.below(path) if r[0][1:-1].isdigit()]
         indexed = var.fn_indexed_at(path) or any(_is_index(r[0]) for r in var.below(path))
         if not indexed:
@@ -505,10 +554,10 @@ def _build(var: _Var, node: tuple, path: tuple[str, ...]) -> tuple[Any, Any, Any
         n = max([NON_EMPTY_LENGTH] + [c + 1 for c in consts])
         return {kind: kt, "length": n}, [pe] * n, [ae] * n
     if kind == "tuple":
-        parts = [_build(var, e, path + (f"[{i}]",)) for i, e in enumerate(node[1])]
+        parts = [_build(var, e, path + (f"[{i}]",), ip, ia) for i, e in enumerate(node[1])]
         return {"tuple": [p[0] for p in parts]}, [p[1] for p in parts], [p[2] for p in parts]
     if kind == "map":
-        kt, pe, ae = _build(var, node[1], path + ("[]",))
+        kt, pe, ae = _build(var, node[1], path + ("[]",), ip, ia)
         below = var.below(path)
         keys = sorted({r[0][2:-2] for r in below if r[0].startswith('["')}
                       | {r[0][1:] for r in below if r[0].startswith(".")})
@@ -522,9 +571,9 @@ def _build(var: _Var, node: tuple, path: tuple[str, ...]) -> tuple[Any, Any, Any
         for aname, (optional, anode) in sorted(node[1].items()):
             if optional:
                 continue
-            kts[aname], pv[aname], av[aname] = _build(var, anode, path + (f".{aname}",))
+            kts[aname], pv[aname], av[aname] = _build(var, anode, path + (f".{aname}",), ip, ia)
         return {"object": kts}, pv, av
-    raise _NoValue(f"type {kind!r} not covered by vv-2")
+    raise _NoValue(f"type {kind!r} not covered by vv-3")
 
 
 def _all_leaves(kt: Any) -> list[str]:
@@ -583,7 +632,7 @@ def validation_check(blocks: dict[str, str], values: dict[str, Any]) -> tuple[st
         return _VALIDATION_CACHE[key]
     terraform = shutil.which("terraform")
     if terraform is None:
-        raise RuntimeError("terraform is required to check validation blocks for rule vv-2")
+        raise RuntimeError("terraform is required to check validation blocks for rule vv-3")
     with tempfile.TemporaryDirectory(prefix="tp-vv2-") as tmp:
         Path(tmp, "variables.tf").write_text("\n\n".join(blocks[n] for n in sorted(blocks)) + "\n",
                                              encoding="utf-8", newline="\n")
@@ -646,10 +695,17 @@ def _ds_of(blk: modread.Block) -> tuple[str, str] | None:
     return None
 
 
-def compute(steps_files: list[dict[str, str]]) -> dict[str, Any]:
-    """The vv-2 record of one scenario (all steps share both sets):
+def compute(steps_files: list[dict[str, str]], search: dict[str, Any] | None = None) -> dict[str, Any]:
+    """The vv-3 record of one scenario (all steps share both sets):
     ``variable_values``, ``variable_values_alt``, ``variable_values_rule``, ``variable_values_kinds``,
-    ``variable_values_unresolved``."""
+    ``variable_values_unresolved``, ``variable_values_candidates`` and ``excluded_from_v1``.
+
+    ``search`` is the scenario's entry of the vv-3 search result (``candidates``: per set, variable to index,
+    0 when absent; ``overrides``: variables whose declared default was rejected, with the error;
+    ``excluded_from_v1``). None means no search result: every index 0, no override, not excluded."""
+    search = search or {}
+    overrides: dict[str, dict[str, Any]] = search.get("overrides") or {}
+    cand_in = search.get("candidates") or {}
     decls: dict[str, set[str]] = {}
     blocks: dict[str, modread.Block] = {}
     with_default: set[str] = set()
@@ -659,7 +715,7 @@ def compute(steps_files: list[dict[str, str]]) -> dict[str, Any]:
         mod = modread.read_module(tf)
         collect_uses(mod, uses)
         for name, blk in mod.variables.items():
-            if "default" in blk.attrs:
+            if "default" in blk.attrs and name not in overrides:
                 with_default.add(name)
                 continue
             text = next((bt for t in tf.values() if (bt := variable_block_text(t, name)) is not None), None)
@@ -684,7 +740,11 @@ def compute(steps_files: list[dict[str, str]]) -> dict[str, Any]:
             else:
                 node = ("any",)
                 var.evidence.add("untyped")
-            kt, pv, av = _build(var, node, ())
+            ip = int((cand_in.get("primary") or {}).get(name, 0))
+            ia = int((cand_in.get("alternate") or {}).get(name, 0))
+            kt, pv, av = _build(var, node, (), ip, ia)
+            if max(ip, ia) >= candidate_count(kt):
+                raise ValueError(f"candidate index past the end of the lists for {name}")
         except _NoValue as exc:
             unresolved[name] = {"status": exc.status, "reason": str(exc)}
             continue
@@ -698,6 +758,8 @@ def compute(steps_files: list[dict[str, str]]) -> dict[str, Any]:
         for name in list(pending):
             kt, pv, av, var = built[name]
             entry: dict[str, Any] = {"kind": kt}
+            if name in overrides:
+                entry["reason"] = OVERRIDE_PREFIX + overrides[name]["error"]
             checks = [c for c in var.blk.children if c.kind == "validation"]
             if checks:
                 refs = {r[1] for c in checks for toks in c.attrs.values() for r in _raw_refs(toks) if r[0] == "var"}
@@ -706,7 +768,7 @@ def compute(steps_files: list[dict[str, str]]) -> dict[str, Any]:
                 if missing:
                     unresolved[name] = {"status": "unresolved",
                                         "reason": f"its validation refers to {', '.join('var.' + m for m in missing)},"
-                                                  " which has no vv-2 value, so the value cannot be checked"}
+                                                  " which has no vv-3 value, so the value cannot be checked"}
                     pending.remove(name)
                     progressed = True
                     continue
@@ -716,7 +778,7 @@ def compute(steps_files: list[dict[str, str]]) -> dict[str, Any]:
                     bad = [o for o in others if o in unresolved]
                     unresolved[name] = {"status": "unresolved",
                                         "reason": f"its validation refers to {', '.join('var.' + m for m in bad)},"
-                                                  " which has no vv-2 value, so the value cannot be checked"}
+                                                  " which has no vv-3 value, so the value cannot be checked"}
                     pending.remove(name)
                     progressed = True
                     continue
@@ -739,7 +801,7 @@ def compute(steps_files: list[dict[str, str]]) -> dict[str, Any]:
                         fallback.append(cand)
                     if fallback:
                         return fallback[0]
-                    raise _NoValue("a validation block rejects every vv-2 candidate "
+                    raise _NoValue("a validation block rejects every vv-3 candidate "
                                    f"{json.dumps([first] + [c for c in literals if c != first])} "
                                    f"({'; '.join(errors) or 'no error text'})")
 
@@ -775,4 +837,9 @@ def compute(steps_files: list[dict[str, str]]) -> dict[str, Any]:
         "variable_values_rule": RULE,
         "variable_values_kinds": dict(sorted(kinds.items())),
         "variable_values_unresolved": dict(sorted(unresolved.items())),
+        "variable_values_candidates": {
+            "primary": {n: int((cand_in.get("primary") or {}).get(n, 0)) for n in sorted(values)},
+            "alternate": {n: int((cand_in.get("alternate") or {}).get(n, 0)) for n in sorted(values)},
+        },
+        "excluded_from_v1": search.get("excluded_from_v1"),
     }

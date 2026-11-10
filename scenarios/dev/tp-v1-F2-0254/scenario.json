@@ -1,8 +1,30 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": {
+    "failing_steps": [
+      {
+        "step": 0,
+        "value_set": "primary"
+      },
+      {
+        "step": 1,
+        "value_set": "primary"
+      },
+      {
+        "step": 0,
+        "value_set": "alternate"
+      },
+      {
+        "step": 1,
+        "value_set": "alternate"
+      }
+    ],
+    "first_error": "Error: Error in function call",
+    "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+  },
   "family": "F2",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -112,21 +134,43 @@
     "azs": "us-east-1a",
     "environment": "tp-primary",
     "natgw_id": "tp-primary",
-    "private_cidr_block": "10.201.0.0/16",
-    "public_cidr_block": "10.201.0.0/16",
+    "private_cidr_block": "10.201.0.0/20",
+    "public_cidr_block": "10.201.0.0/20",
     "tp_db_password": "tp-secret-primary",
-    "vpc_cidr": "10.201.0.0/16",
+    "vpc_cidr": "10.201.0.0/20",
     "vpc_name": "tp-primary"
   },
   "variable_values_alt": {
     "azs": "us-east-1b",
     "environment": "tp-alt",
     "natgw_id": "tp-alt",
-    "private_cidr_block": "192.168.77.0/24",
-    "public_cidr_block": "192.168.77.0/24",
+    "private_cidr_block": "192.168.64.0/20",
+    "public_cidr_block": "192.168.64.0/20",
     "tp_db_password": "tp-secret-alt",
-    "vpc_cidr": "192.168.77.0/24",
+    "vpc_cidr": "192.168.64.0/20",
     "vpc_name": "tp-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "azs": 0,
+      "environment": 0,
+      "natgw_id": 0,
+      "private_cidr_block": 3,
+      "public_cidr_block": 3,
+      "tp_db_password": 0,
+      "vpc_cidr": 3,
+      "vpc_name": 0
+    },
+    "primary": {
+      "azs": 0,
+      "environment": 0,
+      "natgw_id": 0,
+      "private_cidr_block": 3,
+      "public_cidr_block": 3,
+      "tp_db_password": 0,
+      "vpc_cidr": 3,
+      "vpc_name": 0
+    }
   },
   "variable_values_kinds": {
     "azs": {
@@ -187,6 +231,6 @@
       "kind": "string"
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

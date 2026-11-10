@@ -251,9 +251,9 @@ def generate_scenario(
                 "after": r.after,
             })
 
-    # D5-07: variable values (rule vv-2), a primary and an alternate set for the whole scenario; steps are
-    # not changed.
-    vv_record = varvalues.compute(steps_files)
+    # D5-10: variable values (rule vv-3), a primary and an alternate set for the whole scenario, from the
+    # recorded vv-3 search result; steps are not changed. D5-09: excluded_from_v1 comes from the same result.
+    vv_record = varvalues.compute(steps_files, varvalues.search_record(scenario_id, split))
 
     scenario_data = {
         "scenario_id": scenario_id,

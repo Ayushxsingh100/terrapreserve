@@ -1,8 +1,30 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": {
+    "failing_steps": [
+      {
+        "step": 0,
+        "value_set": "primary"
+      },
+      {
+        "step": 1,
+        "value_set": "primary"
+      },
+      {
+        "step": 0,
+        "value_set": "alternate"
+      },
+      {
+        "step": 1,
+        "value_set": "alternate"
+      }
+    ],
+    "first_error": "Error: Invalid index",
+    "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, other"
+  },
   "family": "F5",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -172,6 +194,24 @@
     "tp_db_password": "tp-secret-alt",
     "vpc_name": "tp-alt"
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "cidr_block": 0,
+      "region": 0,
+      "subnets": 0,
+      "tags": 0,
+      "tp_db_password": 0,
+      "vpc_name": 0
+    },
+    "primary": {
+      "cidr_block": 0,
+      "region": 0,
+      "subnets": 0,
+      "tags": 0,
+      "tp_db_password": 0,
+      "vpc_name": 0
+    }
+  },
   "variable_values_kinds": {
     "cidr_block": {
       "evidence": [
@@ -230,6 +270,6 @@
       "kind": "string"
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

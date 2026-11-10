@@ -14,8 +14,14 @@ directory, over the withheld test split too (skipped with a printed reason other
     in ``terrapreserve_data_variables.tf`` of every step.
 (f) Controlled step files are byte-identical to ``e96c017`` (only ``scenario.json`` changes there).
 (g) The test split is written only to ``$TERRAPRESERVE_PRIVATE``.
-Plus: the stored record equals a fresh vv-2 computation, recorded step hashes match the files, and the
-generator versions are ``d4a-6`` (controlled) and ``d4b-7`` (real-world).
+Plus: the stored record equals a fresh computation, recorded step hashes match the files, and the
+generator versions are current.
+
+D5a-3 (D5-10): vv-3 keeps vv-2 whole and adds rejected-default overrides and backup candidates. These tests
+therefore read the current rule: a variable whose declared default was overridden (its kinds entry has a
+``reason``) is valued like one without a default; the hand-worked values of (c) are checked where the recorded
+candidate index is 0 (the vv-2 value); the recomputation passes the recorded vv-3 search result; the versions are
+those of ``tests/test_d5a3_vv3.py``. The vv-3 additions themselves are tested there.
 """
 
 from __future__ import annotations
@@ -37,6 +43,7 @@ from realworld import modread  # noqa: E402
 
 RECORD_FIELDS = ("variable_values", "variable_values_alt", "variable_values_rule", "variable_values_kinds",
                  "variable_values_unresolved")
+CURRENT_RULE = "vv-3"  # D5-10 (D5a-3); vv-2 (D5-07) is kept whole inside it
 SAME_IN_BOTH_REASONS = {"kind region: the provider pin us-east-1 in both sets",
                         "object with no attributes used",
                         "the validation admits only one candidate"}
@@ -252,13 +259,14 @@ class TestValueSets(unittest.TestCase):
         bad = []
         for split, p, d in self.scs:
             sid = shown(split, d["scenario_id"])
-            if d.get("variable_values_rule") != "vv-2" or any(not isinstance(d.get(f), dict) for f in RECORD_FIELDS
-                                                               if f != "variable_values_rule"):
-                bad.append(f"{sid}: no vv-2 record")
+            if d.get("variable_values_rule") != CURRENT_RULE or any(not isinstance(d.get(f), dict)
+                                                                     for f in RECORD_FIELDS
+                                                                     if f != "variable_values_rule"):
+                bad.append(f"{sid}: no {CURRENT_RULE} record")
                 continue
             pri, alt, kinds, un = (d["variable_values"], d["variable_values_alt"], d["variable_values_kinds"],
                                    d["variable_values_unresolved"])
-            need = no_default_variables(p)
+            need = no_default_variables(p) | {n for n, e in kinds.items() if "reason" in e}
             if set(pri) != set(alt):
                 bad.append(f"{sid}: the two sets cover different variables")
             if set(pri) & set(un):
@@ -306,9 +314,12 @@ class TestValueSets(unittest.TestCase):
                 d = self.by_id[sid][1]
                 pri = d.get("variable_values") or {}
                 alt = d.get("variable_values_alt") or {}
+                cand = d.get("variable_values_candidates") or {}
                 for name, (want_p, want_a) in exp.items():
-                    self.assertEqual(pri.get(name), want_p, f"{sid} primary {name}")
-                    self.assertEqual(alt.get(name), want_a, f"{sid} alternate {name}")
+                    if (cand.get("primary") or {}).get(name, 0) == 0:
+                        self.assertEqual(pri.get(name), want_p, f"{sid} primary {name}")
+                    if (cand.get("alternate") or {}).get(name, 0) == 0:
+                        self.assertEqual(alt.get(name), want_a, f"{sid} alternate {name}")
                 if complete:
                     self.assertEqual(set(pri), set(exp), f"{sid}: valued variables")
                     self.assertEqual(d.get("variable_values_unresolved"), {}, f"{sid}: unresolved")
@@ -408,20 +419,20 @@ class TestValueSets(unittest.TestCase):
                 text = sj.read_text(encoding="utf-8")
                 if writer.sha256_text(text) != e["scenario_json_sha256"]:
                     bad.append(f"{sid}: manifest sha256 differs")
-                if json.loads(text).get("variable_values_rule") != "vv-2":
-                    bad.append(f"{sid}: not vv-2")
+                if json.loads(text).get("variable_values_rule") != CURRENT_RULE:
+                    bad.append(f"{sid}: not {CURRENT_RULE}")
             self.assertEqual(len(bad), 0, f"{len(bad)} private-split scenarios fail (ids withheld)")
 
-    def test_h_record_equals_a_fresh_vv2_computation(self) -> None:
+    def test_h_record_equals_a_fresh_computation(self) -> None:
         import varvalues  # noqa: PLC0415
 
         bad = []
         for split, p, d in self.scs:
             steps = [{f.name: f.read_text(encoding="utf-8") for f in sd.glob("*.tf")} for sd in step_dirs(p)]
-            fresh = varvalues.compute(steps)
+            fresh = varvalues.compute(steps, varvalues.search_record(d["scenario_id"], split))
             if {k: d.get(k) for k in RECORD_FIELDS} != {k: fresh.get(k) for k in RECORD_FIELDS}:
                 bad.append(shown(split, d["scenario_id"]))
-        self.assertEqual(bad, [], f"{len(bad)} scenario records differ from a vv-2 recomputation: {bad[:10]}")
+        self.assertEqual(bad, [], f"{len(bad)} scenario records differ from a recomputation: {bad[:10]}")
 
     def test_i_recorded_step_hashes_match_files(self) -> None:
         import writer  # noqa: PLC0415
@@ -437,7 +448,7 @@ class TestValueSets(unittest.TestCase):
 
     def test_j_generator_versions(self) -> None:
         bad = [shown(split, d["scenario_id"]) for split, _p, d in self.scs
-               if d["generator_version"] != {"controlled": "d4a-6", "real_world": "d4b-7"}[d["source"]["tier"]]]
+               if d["generator_version"] != {"controlled": "d4a-7", "real_world": "d4b-8"}[d["source"]["tier"]]]
         self.assertEqual(bad, [], f"{len(bad)} scenarios with an old generator version: {bad[:5]}")
 
 

@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F5",
-  "generator_version": "d4a-6",
+  "generator_version": "d4a-7",
   "grafted": false,
   "gt_class": null,
   "intent": {
@@ -89,7 +90,7 @@
   "scenario_id": "tp-v1-F5-0119",
   "seed": 119,
   "source": {
-    "commit_or_version": "d4a-6+tpl-v1.0",
+    "commit_or_version": "d4a-7+tpl-v1.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -124,6 +125,14 @@
   "variable_values_alt": {
     "db_password": "tp-secret-alt"
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "db_password": 0
+    },
+    "primary": {
+      "db_password": 0
+    }
+  },
   "variable_values_kinds": {
     "db_password": {
       "evidence": [
@@ -138,6 +147,6 @@
       }
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

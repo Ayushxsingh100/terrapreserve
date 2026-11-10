@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F3",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -125,6 +126,26 @@
     "tp_db_password": "tp-secret-alt",
     "vpc_id": "vpc-0777777777777777b"
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "route_table_id": 0,
+      "subnet_az": 0,
+      "subnet_cidr_block": 0,
+      "subnet_name": 0,
+      "subnet_type": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "route_table_id": 0,
+      "subnet_az": 0,
+      "subnet_cidr_block": 0,
+      "subnet_name": 0,
+      "subnet_type": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    }
+  },
   "variable_values_kinds": {
     "route_table_id": {
       "evidence": [
@@ -176,6 +197,6 @@
       "kind": "vpc_id"
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

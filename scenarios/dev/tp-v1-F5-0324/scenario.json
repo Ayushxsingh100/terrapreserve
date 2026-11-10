@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F5",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -193,6 +194,22 @@
     "vpc_cidr": "192.168.77.0/24",
     "vpc_id": "vpc-0777777777777777b"
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "environment": 0,
+      "project_name": 0,
+      "tp_db_password": 0,
+      "vpc_cidr": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "environment": 0,
+      "project_name": 0,
+      "tp_db_password": 0,
+      "vpc_cidr": 0,
+      "vpc_id": 0
+    }
+  },
   "variable_values_kinds": {
     "environment": {
       "evidence": [
@@ -231,6 +248,6 @@
       "kind": "vpc_id"
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

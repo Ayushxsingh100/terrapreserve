@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F6",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -155,6 +156,16 @@
     "aws_vpc_id": "vpc-0777777777777777b",
     "tp_db_password": "tp-secret-alt"
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "aws_vpc_id": 0,
+      "tp_db_password": 0
+    },
+    "primary": {
+      "aws_vpc_id": 0,
+      "tp_db_password": 0
+    }
+  },
   "variable_values_kinds": {
     "aws_vpc_id": {
       "evidence": [
@@ -171,6 +182,6 @@
       "kind": "secret"
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F3",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [],
@@ -160,6 +161,30 @@
     "tp_db_password": "tp-secret-alt",
     "vpc_id": "vpc-0777777777777777b"
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "client_vpn_cidr": 0,
+      "ec2_app_port": 0,
+      "ec2_app_port_health": 0,
+      "isolated_subnet_cidrs": 0,
+      "private_subnet_cidrs": 0,
+      "project_name": 0,
+      "public_subnet_cidrs": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "client_vpn_cidr": 0,
+      "ec2_app_port": 0,
+      "ec2_app_port_health": 0,
+      "isolated_subnet_cidrs": 0,
+      "private_subnet_cidrs": 0,
+      "project_name": 0,
+      "public_subnet_cidrs": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    }
+  },
   "variable_values_kinds": {
     "client_vpn_cidr": {
       "evidence": [
@@ -235,6 +260,6 @@
       "kind": "vpc_id"
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

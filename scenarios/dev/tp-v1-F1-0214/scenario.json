@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F1",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -126,7 +127,11 @@
   },
   "variable_values": {
     "engine": "tp-primary",
+    "environment": "tp-primary",
+    "name": "tp-primary",
+    "project": "tp-primary",
     "subnets": [],
+    "tag": "tp-primary",
     "tp_db_password": "tp-secret-primary",
     "tp_ds_aws_db_instance_master": {
       "db_parameter_groups": [
@@ -135,13 +140,17 @@
         "tp-primary"
       ]
     },
-    "vpc_id": "vpc-0201201201201201a"
+    "vpc_id": "vpc-02012012"
   },
   "variable_values_alt": {
     "engine": "tp-alt",
+    "environment": "tp-alt",
+    "name": "tp-alt",
+    "project": "tp-alt",
     "subnets": [
       "subnet-0777777777777777b"
     ],
+    "tag": "tp-alt",
     "tp_db_password": "tp-secret-alt",
     "tp_ds_aws_db_instance_master": {
       "db_parameter_groups": [
@@ -152,6 +161,30 @@
     },
     "vpc_id": "vpc-0777777777777777b"
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "engine": 0,
+      "environment": 0,
+      "name": 0,
+      "project": 0,
+      "subnets": 0,
+      "tag": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_db_instance_master": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "engine": 0,
+      "environment": 0,
+      "name": 0,
+      "project": 0,
+      "subnets": 0,
+      "tag": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_db_instance_master": 0,
+      "vpc_id": 1
+    }
+  },
   "variable_values_kinds": {
     "engine": {
       "evidence": [
@@ -159,6 +192,30 @@
         "untyped"
       ],
       "kind": "string"
+    },
+    "environment": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string",
+      "reason": "declared default rejected: Error: first character of \"identifier\" must be a letter"
+    },
+    "name": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string",
+      "reason": "declared default rejected: Error: first character of \"identifier\" must be a letter"
+    },
+    "project": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string",
+      "reason": "declared default rejected: Error: first character of \"identifier\" must be a letter"
     },
     "subnets": {
       "evidence": [
@@ -169,6 +226,14 @@
         "length": "empty-able",
         "list": "subnet_id"
       }
+    },
+    "tag": {
+      "evidence": [
+        "no table attribute reached at (value)",
+        "untyped"
+      ],
+      "kind": "string",
+      "reason": "declared default rejected: Error: first character of \"identifier\" must be a letter"
     },
     "tp_db_password": {
       "evidence": [
@@ -199,6 +264,6 @@
       "kind": "vpc_id"
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }

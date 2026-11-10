@@ -1,8 +1,9 @@
 {
   "dataset_version": "1.0",
   "derived": false,
+  "excluded_from_v1": null,
   "family": "F7",
-  "generator_version": "d4b-7",
+  "generator_version": "d4b-8",
   "grafted": true,
   "gt_class": null,
   "host_transform": [
@@ -175,6 +176,22 @@
       "id": "vpc-0777777777777777b"
     }
   },
+  "variable_values_candidates": {
+    "alternate": {
+      "db_password": 0,
+      "environment": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_subnets_available": 0,
+      "tp_ds_aws_vpc_default": 0
+    },
+    "primary": {
+      "db_password": 0,
+      "environment": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_subnets_available": 0,
+      "tp_ds_aws_vpc_default": 0
+    }
+  },
   "variable_values_kinds": {
     "db_password": {
       "evidence": [
@@ -225,6 +242,6 @@
       }
     }
   },
-  "variable_values_rule": "vv-2",
+  "variable_values_rule": "vv-3",
   "variable_values_unresolved": {}
 }
