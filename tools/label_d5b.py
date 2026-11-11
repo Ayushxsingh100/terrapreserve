@@ -50,6 +50,9 @@ def private_root() -> Path | None:
     return Path(p) if p and Path(p).is_dir() else None
 
 
+TIER: list[str | None] = [None]  # --tier: restrict to one tier (D4c-06)
+
+
 def scenarios(splits: list[str]) -> list[tuple[str, Path, dict]]:
     out = []
     roots = []
@@ -63,7 +66,9 @@ def scenarios(splits: list[str]) -> list[tuple[str, Path, dict]]:
     for split, root in roots:
         for p in sorted(root.glob("tp-v1-*")):
             if (p / "scenario.json").is_file():
-                out.append((split, p, json.loads((p / "scenario.json").read_text(encoding="utf-8"))))
+                d = json.loads((p / "scenario.json").read_text(encoding="utf-8"))
+                if TIER[0] is None or d["source"]["tier"] == TIER[0]:
+                    out.append((split, p, d))
     return out
 
 
@@ -79,14 +84,33 @@ def step_dirs(p: Path, sc: dict) -> list[Path]:
     return [p / s["terraform_dir"] for s in sorted(sc["steps"], key=lambda s: s["step"])]
 
 
-def cached_run(split: str, vset: str, sid: str, k: int) -> dict | None:
+def step_hash(sc: dict, k: int) -> str | None:
+    return next((s.get("content_hash") for s in sc["steps"] if s["step"] == k), None)
+
+
+def hash_for(sc: dict, k: int) -> str | None:
+    """The content hash a cached run must match: always for the controlled tier (regenerated in D4c), never for the
+    real-world tier (its D5b runs carry no hash and its steps are unchanged)."""
+    return step_hash(sc, k) if sc["source"]["tier"] == "controlled" else None
+
+
+def cached_run(split: str, vset: str, sid: str, k: int, chash: str | None = None) -> dict | None:
+    """The cached plan run of a step. D4c-06: with ``chash`` given, only a run that recorded that content hash is
+    used (a run made before D4c, which records none, is planned again)."""
     f = plan_dir(split, vset, sid) / f"step_{k}.json"
-    return json.loads(f.read_text(encoding="utf-8")) if f.is_file() else None
+    if not f.is_file():
+        return None
+    res = json.loads(f.read_text(encoding="utf-8"))
+    if chash is not None and res.get("content_hash") != chash:
+        return None
+    return res
 
 
-def save_run(split: str, vset: str, sid: str, k: int, res: dict) -> None:
+def save_run(split: str, vset: str, sid: str, k: int, res: dict, chash: str | None = None) -> None:
     d = plan_dir(split, vset, sid)
     d.mkdir(parents=True, exist_ok=True)
+    if chash is not None:
+        res = dict(res, content_hash=chash)
     (d / f"step_{k}.json").write_text(json.dumps(res, sort_keys=True, separators=(",", ":")), encoding="utf-8")
 
 
@@ -98,7 +122,7 @@ def run_plans(jobs: list[tuple[str, Path, dict, str]], workers: int) -> dict[str
     tasks = []
     for split, p, sc, vset in jobs:
         for k, sd in enumerate(step_dirs(p, sc)):
-            if cached_run(split, vset, sc["scenario_id"], k) is None:
+            if cached_run(split, vset, sc["scenario_id"], k, hash_for(sc, k)) is None:
                 tasks.append((split, sd, sc, vset, k))
     pool = [oplan.Runner(CACHE / "d5b-runners" / f"w{i}", terraform) for i in range(max(1, workers))]
     free = list(pool)
@@ -115,7 +139,7 @@ def run_plans(jobs: list[tuple[str, Path, dict, str]], workers: int) -> dict[str
         finally:
             with lock:
                 free.append(r)
-        save_run(split, vset, sc["scenario_id"], k, res)
+        save_run(split, vset, sc["scenario_id"], k, res, hash_for(sc, k))
         return res["status"]
 
     done = 0
@@ -134,7 +158,7 @@ def evaluate_scenario(split: str, p: Path, sc: dict, vset: str) -> dict[str, Any
     steps = []
     plan_status = []
     for k, sd in enumerate(step_dirs(p, sc)):
-        res = cached_run(split, vset, sid, k)
+        res = cached_run(split, vset, sid, k, hash_for(sc, k))
         if res is None:
             raise SystemExit(f"no cached plan for a step ({split}); run --plans first")
         plan_status.append(res["status"])
@@ -257,13 +281,14 @@ def plannable_comparison(splits: list[str]) -> dict[str, Any]:
                 for k, _sd in enumerate(step_dirs(p, sc)):
                     key = (sc["scenario_id"], k)
                     seen.add(key)
-                    res = cached_run(split, vset, sc["scenario_id"], k)
+                    res = cached_run(split, vset, sc["scenario_id"], k, hash_for(sc, k))
                     now = "missing" if res is None else ("success" if res["status"] == "planned" else "failure")
                     then = ref.get(key, "not measured")
                     counts[f"{vset} {now}"] = counts.get(f"{vset} {now}", 0) + 1
                     if now != then:
                         diffs.append(f"{sc['scenario_id']} step {k} {vset}: D5a-3 {then}, now {now}")
-            diffs += [f"{sid} step {k} {vset}: measured by D5a-3, not a step now" for sid, k in sorted(set(ref) - seen)]
+            diffs += [f"{sid} step {k} {vset}: measured by D5a-3, not a step now" for sid, k in sorted(set(ref) - seen)
+                      if TIER[0] is None or (TIER[0] == "controlled") == (int(sid.rsplit("-", 1)[1]) <= 208)]
         out[split] = {"counts": dict(sorted(counts.items())), "differences": len(diffs),
                       "difference_list": diffs if split == "dev" else None}
     return out
@@ -281,7 +306,13 @@ def run_checkov(jobs: list[tuple[str, str, int, Path]], workers: int) -> dict[st
     exe, py = VENV_BIN / "checkov", VENV_BIN / ("python.exe" if os.name == "nt" else "python")
     if not exe.exists():
         raise SystemExit(f"checkov not found at {exe}")
-    todo = [j for j in jobs if not (checkov_dir(j[0]) / j[1] / f"step_{j[2]}.json").is_file()]
+    def cached(j) -> bool:
+        f = checkov_dir(j[0]) / j[1] / f"step_{j[2]}.json"
+        if not f.is_file():
+            return False
+        return len(j) < 5 or j[4] is None or json.loads(f.read_text(encoding="utf-8")).get("content_hash") == j[4]
+
+    todo = [j for j in jobs if not cached(j)]
     print(f"checkov steps to run: {len(todo)}", flush=True)
     env = {k: v for k, v in os.environ.items() if not k.startswith("AWS_")}
     env.update(PYTHONUTF8="1", AWS_SHARED_CREDENTIALS_FILE=os.devnull, AWS_CONFIG_FILE=os.devnull)
@@ -289,7 +320,7 @@ def run_checkov(jobs: list[tuple[str, str, int, Path]], workers: int) -> dict[st
     work.mkdir(parents=True, exist_ok=True)
 
     def one(j):
-        split, sid, k, sd = j
+        split, sid, k, sd = j[:4]
         t0 = time.monotonic()
         with tempfile.TemporaryDirectory(prefix="tp-ckv-", dir=work) as tmp:
             for f in sd.glob("*.tf"):
@@ -303,6 +334,8 @@ def run_checkov(jobs: list[tuple[str, str, int, Path]], workers: int) -> dict[st
             except subprocess.TimeoutExpired:
                 out, rc = "", -1
         rec: dict[str, Any] = {"ran": False, "failed": [], "passed": [], "seconds": round(time.monotonic() - t0, 2)}
+        if len(j) > 4 and j[4] is not None:
+            rec["content_hash"] = j[4]
         try:
             doc = json.loads(out) if out.strip() else None
         except json.JSONDecodeError:
@@ -435,8 +468,8 @@ def label_run(splits: list[str], workers: int, write: bool) -> int:
         print(f"stop before writing: {len(stops)} scenarios; dev: {[s for s in stops if s != '(test)']}", flush=True)
         return 4
     measure_tool_versions()
-    ck_jobs = [(split, sc["scenario_id"], k, sd) for split, p, sc, dec in decided if "exclude" not in dec
-               for k, sd in enumerate(step_dirs(p, sc))]
+    ck_jobs = [(split, sc["scenario_id"], k, sd, hash_for(sc, k)) for split, p, sc, dec in decided
+               if "exclude" not in dec for k, sd in enumerate(step_dirs(p, sc))]
     print("checkov:", run_checkov(ck_jobs, workers), flush=True)
     if not write:
         return 0
@@ -453,7 +486,7 @@ def label_run(splits: list[str], workers: int, write: bool) -> int:
             sc["labels"], sc["gt_class"], sc["oracle"] = None, None, None
             sc["excluded_from_v1"] = {"kind": kind, "reason": why, "by": ORACLE_VERSION}
         else:
-            plan0 = cached_run(split, "primary", sid, 0)
+            plan0 = cached_run(split, "primary", sid, 0, hash_for(sc, 0))
             dis, errs = checkov_disagreements(split, sid, pr["results"])
             sc["labels"], sc["gt_class"] = pr["labels"], pr["gt_class"]
             sc["oracle"] = {"versions": versions(sc, (plan0 or {}).get("plan")), "disagreements": dis}
@@ -478,11 +511,13 @@ def label_run(splits: list[str], workers: int, write: bool) -> int:
         if manifest_updates:
             raise SystemExit(f"{len(manifest_updates)} test scenarios missing from test_manifest.json")
         mp.write_text(writer.canonical_json(man), encoding="utf-8", newline="\n")
-    (REPO_ROOT / "docs" / "d5b" / "plannable_dev.json").write_text(
-        json.dumps(cmp_.get("dev"), indent=1, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    tag = "" if TIER[0] is None else f"_{TIER[0]}"
+    out_dev = REPO_ROOT / "docs" / ("d5b" if TIER[0] is None else "d4c") / f"plannable{tag}_dev.json"
+    out_dev.parent.mkdir(parents=True, exist_ok=True)
+    out_dev.write_text(json.dumps(cmp_.get("dev"), indent=1, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     if "test" in cmp_:
-        (private_root() / "d5b_plannable_test.json").write_text(json.dumps(cmp_["test"], indent=1, sort_keys=True),
-                                                                 encoding="utf-8")
+        (private_root() / f"d5b_plannable{tag}_test.json").write_text(
+            json.dumps(cmp_["test"], indent=1, sort_keys=True), encoding="utf-8")
     print("written:", {k: len(v) for k, v in summary.items()}, flush=True)
     return 0
 
@@ -503,9 +538,12 @@ def main() -> int:
     ap.add_argument("--write", action="store_true", help="with --label: write labels (D5-20)")
     ap.add_argument("--splits", default="dev,test")
     ap.add_argument("--workers", type=int, default=8)
+    ap.add_argument("--tier", choices=("controlled", "real_world"), default=None,
+                    help="D4c-06: restrict planning, labelling and writing to one tier")
     ap.add_argument("--include-excluded", action="store_true",
                     help="with --plans: also plan the scenarios D5a-3 excluded (for the A5 plannable-set comparison)")
     args = ap.parse_args()
+    TIER[0] = args.tier
     splits = args.splits.split(",")
     if args.dry_run:
         chosen = dry_run_choice(scenarios(["dev"]))

@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.rds_postgres",
-    "S": "aws_instance.ec2_app"
+    "D": "aws_db_instance.prod_postgres_db",
+    "S": "aws_instance.prod_app_server"
   },
   "excluded_from_v1": null,
   "family": "F6",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "unsafe",
   "intent": {
@@ -68,7 +68,7 @@
       "target_address": "aws_instance.bastion"
     },
     {
-      "after": "aws_subnet.sub_app.id",
+      "after": "aws_subnet.prod_app_subnet.id",
       "attribute": "subnet_id",
       "before": null,
       "operator": "op_f6_add_bastion_host_unsafe",
@@ -100,7 +100,7 @@
       "target_address": "aws_security_group.bastion_sg"
     },
     {
-      "after": "aws_vpc.vpc_main.id",
+      "after": "aws_vpc.prod_vpc.id",
       "attribute": "vpc_id",
       "before": null,
       "operator": "op_f6_add_bastion_host_unsafe",
@@ -144,7 +144,7 @@
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -156,22 +156,34 @@
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b"
+      "us-east-1b",
+      "us-east-1c"
     ],
     "cidr_plan": {
       "app": "10.75.1.0/24",
       "db": [
         "10.75.10.0/24",
-        "10.75.11.0/24"
+        "10.75.11.0/24",
+        "10.75.12.0/24"
       ],
       "vpc": "10.75.0.0/16"
     },
     "db_class": "db.t3.small",
-    "instance_class": "t3.small",
-    "naming_scheme": "kebab",
+    "features": {
+      "egress": "all",
+      "extras": "none",
+      "files": "single",
+      "naming": "env",
+      "routing": "private_db",
+      "sg_style": "all_inline",
+      "subnets": "db_count",
+      "values": "literal"
+    },
+    "instance_class": "t3.medium",
+    "naming_scheme": "env",
     "sg_style": "all_inline",
-    "template_id": "tpl-02",
-    "template_version": "tpl-v1.0",
+    "template_id": "tpl-06",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -196,24 +208,24 @@
   "scenario_id": "tp-v1-F6-0145",
   "seed": 145,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-02",
+    "repo_lineage_id": "tpl-06",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "959be5f4d9ba6b1efc556d60c8712242f66c9acdd8ac8390fb3cb6b7c22936a3",
+      "content_hash": "ed28df587b0b0ec189cfcd1bd029d20fd8840bf8825c210494782382e3c1fbac",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "085a24aae3cd1e29445ecbe33e8e83c12ff522a0206539b07a5de23ca029d04c",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -111,3 +111,23 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.sg_db.id]\n }\n+\n+resource \"aws_instance\" \"bastion\" {\n+  ami                    = \"ami-0c55b159cbfafe1f0\"\n+  instance_type          = \"t3.nano\"\n+  subnet_id              = aws_subnet.sub_app.id\n+  vpc_security_group_ids = [aws_security_group.bastion_sg.id]\n+}\n+\n+resource \"aws_security_group\" \"bastion_sg\" {\n+  description = \"Bastion security group\"\n+  name        = \"bastion_sg-host\"\n+  vpc_id      = aws_vpc.vpc_main.id\n+\n+  ingress {\n+    cidr_blocks = [\"0.0.0.0/0\"]\n+    from_port   = 22\n+    protocol    = \"tcp\"\n+    to_port     = 22\n+  }\n+}\n",
+      "content_hash": "04c509ecb0c11196f380aed3f7362fab1c01ab895d3ae56cca34572dee2dba0d",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -104,3 +104,23 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n }\n+\n+resource \"aws_instance\" \"bastion\" {\n+  ami                    = \"ami-0c55b159cbfafe1f0\"\n+  instance_type          = \"t3.nano\"\n+  subnet_id              = aws_subnet.prod_app_subnet.id\n+  vpc_security_group_ids = [aws_security_group.bastion_sg.id]\n+}\n+\n+resource \"aws_security_group\" \"bastion_sg\" {\n+  description = \"Bastion security group\"\n+  name        = \"bastion_sg-host\"\n+  vpc_id      = aws_vpc.prod_vpc.id\n+\n+  ingress {\n+    cidr_blocks = [\"0.0.0.0/0\"]\n+    from_port   = 22\n+    protocol    = \"tcp\"\n+    to_port     = 22\n+  }\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -223,8 +235,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-02",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-06",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

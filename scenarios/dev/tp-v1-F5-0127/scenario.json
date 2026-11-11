@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.backend_database",
-    "S": "aws_instance.frontend_server"
+    "D": "aws_db_instance.rds_postgres",
+    "S": "aws_instance.ec2_app"
   },
   "excluded_from_v1": null,
   "family": "F5",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "unsafe",
   "intent": {
@@ -53,12 +53,12 @@
   ],
   "mutation_record": [
     {
-      "after": "\"backend_sg-tpl-10-v2\"",
+      "after": "\"sg_db-tpl-32-v2\"",
       "attribute": "name",
-      "before": "\"backend_sg-tpl-10\"",
+      "before": "\"sg_db-tpl-32\"",
       "operator": "op_f5_db_sg_replacement_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.backend_sg"
+      "target_address": "aws_security_group.sg_db"
     },
     {
       "after": "5433",
@@ -66,7 +66,7 @@
       "before": "5432",
       "operator": "op_f5_db_sg_replacement_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.backend_sg"
+      "target_address": "aws_security_group.sg_db"
     },
     {
       "after": "5433",
@@ -74,14 +74,14 @@
       "before": "5432",
       "operator": "op_f5_db_sg_replacement_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.backend_sg"
+      "target_address": "aws_security_group.sg_db"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -93,22 +93,35 @@
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b"
+      "us-east-1b",
+      "us-east-1c"
     ],
     "cidr_plan": {
       "app": "10.51.1.0/24",
       "db": [
         "10.51.10.0/24",
-        "10.51.11.0/24"
+        "10.51.11.0/24",
+        "10.51.12.0/24"
       ],
+      "extra": "10.51.200.0/24",
       "vpc": "10.51.0.0/16"
     },
-    "db_class": "db.t3.nano",
+    "db_class": "db.t3.micro",
+    "features": {
+      "egress": "all",
+      "extras": "extra_subnet",
+      "files": "split",
+      "naming": "kebab",
+      "routing": "shared_public",
+      "sg_style": "all_inline",
+      "subnets": "db_count",
+      "values": "variables"
+    },
     "instance_class": "t3.micro",
-    "naming_scheme": "component",
+    "naming_scheme": "kebab",
     "sg_style": "all_inline",
-    "template_id": "tpl-10",
-    "template_version": "tpl-v1.0",
+    "template_id": "tpl-32",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -133,24 +146,24 @@
   "scenario_id": "tp-v1-F5-0127",
   "seed": 127,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-10",
+    "repo_lineage_id": "tpl-32",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "f07971655ee01d0f128e8fe3c9ecdd1f0e236ff9e5581fe0a43bfa14cbcfbd8a",
+      "content_hash": "3c4ac692c11e81cca7360236ced9a866ad8eceaa285366e7f3f59817a2c4df85",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "fbaabb31bb95a9cda6ce0f8dc90414c798c86e0058a3047bf5df7fcaf7b35b02",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -55,14 +55,14 @@\n \n resource \"aws_security_group\" \"backend_sg\" {\n   description = \"Database security group for tpl-10\"\n-  name        = \"backend_sg-tpl-10\"\n+  name        = \"backend_sg-tpl-10-v2\"\n   vpc_id      = aws_vpc.corp_vpc.id\n \n   ingress {\n-    from_port       = 5432\n+    from_port       = 5433\n     protocol        = \"tcp\"\n     security_groups = [aws_security_group.frontend_sg.id]\n-    to_port         = 5432\n+    to_port         = 5433\n   }\n \n   egress {\n",
+      "content_hash": "451ae7da0ba059e579efe182d337c119c77e0d809ee60dcaa3bbe1770114acbb",
+      "diff_from_previous": "--- a/database.tf\n+++ b/database.tf\n@@ -1,13 +1,13 @@\n resource \"aws_security_group\" \"sg_db\" {\n   description = \"Database security group for tpl-32\"\n-  name        = \"sg_db-tpl-32\"\n+  name        = \"sg_db-tpl-32-v2\"\n   vpc_id      = aws_vpc.vpc_main.id\n \n   ingress {\n-    from_port       = 5432\n+    from_port       = 5433\n     protocol        = \"tcp\"\n     security_groups = [aws_security_group.sg_app.id]\n-    to_port         = 5432\n+    to_port         = 5433\n   }\n \n   egress {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -160,8 +173,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-10",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-32",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

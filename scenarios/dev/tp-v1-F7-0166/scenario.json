@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.backend_database",
-    "S": "aws_instance.frontend_server"
+    "D": "aws_db_instance.storage_db",
+    "S": "aws_instance.service_node"
   },
   "excluded_from_v1": null,
   "family": "F7",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "safe",
   "intent": {
@@ -42,6 +42,8 @@
         "INV-SEC-003": "PASS"
       },
       "oracle_affected": [
+        "INV-SEC-001",
+        "INV-SEC-002",
         "INV-FUNC-001"
       ],
       "step": 1,
@@ -50,19 +52,27 @@
   ],
   "mutation_record": [
     {
-      "after": "[\"10.0.0.0/8\"]",
-      "attribute": "cidr_blocks",
-      "before": "[\"0.0.0.0/0\"]",
-      "operator": "op_f7_app_egress_cidr_tighten_safe",
+      "after": null,
+      "attribute": "security_groups",
+      "before": "[aws_security_group.service_access.id]",
+      "operator": "op_f7_db_ingress_source_safe",
       "step": 1,
-      "target_address": "aws_security_group.frontend_sg"
+      "target_address": "aws_security_group.storage_access"
+    },
+    {
+      "after": "[\"10.18.1.0/24\"]",
+      "attribute": "cidr_blocks",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_safe",
+      "step": 1,
+      "target_address": "aws_security_group.storage_access"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -74,22 +84,34 @@
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b"
+      "us-east-1b",
+      "us-east-1c"
     ],
     "cidr_plan": {
       "app": "10.18.1.0/24",
       "db": [
         "10.18.10.0/24",
-        "10.18.11.0/24"
+        "10.18.11.0/24",
+        "10.18.12.0/24"
       ],
       "vpc": "10.18.0.0/16"
     },
-    "db_class": "db.t3.nano",
+    "db_class": "db.t3.micro",
+    "features": {
+      "egress": "db_only",
+      "extras": "second_app_sg",
+      "files": "split",
+      "naming": "role",
+      "routing": "private_db",
+      "sg_style": "app_separate_db_inline",
+      "subnets": "one_app",
+      "values": "literal"
+    },
     "instance_class": "t3.micro",
-    "naming_scheme": "component",
-    "sg_style": "all_inline",
-    "template_id": "tpl-10",
-    "template_version": "tpl-v1.0",
+    "naming_scheme": "role",
+    "sg_style": "app_separate_db_inline",
+    "template_id": "tpl-26",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -114,35 +136,35 @@
   "scenario_id": "tp-v1-F7-0166",
   "seed": 166,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-10",
+    "repo_lineage_id": "tpl-26",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "799752588c24d88164d65a9a77e6e67c9b67a4b14a34d3bcbba60a7350d8e6ef",
+      "content_hash": "2458f5d8f47de763e4323fc497a6c5e36a7d0a4a15f168fb394259f2cabf368b",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "f1fc11d8cc84e3465b222ccf604290f598b60a750be5a7672d3b207dade37c9f",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -46,7 +46,7 @@\n   vpc_id      = aws_vpc.corp_vpc.id\n \n   egress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 0\n     protocol    = \"-1\"\n     to_port     = 0\n",
+      "content_hash": "0ff9a551fa5f34168088a7a077f7df5146d0ab852c892276d41cd50ea359847e",
+      "diff_from_previous": "--- a/database.tf\n+++ b/database.tf\n@@ -4,10 +4,10 @@\n   vpc_id      = aws_vpc.platform.id\n \n   ingress {\n-    from_port       = 5432\n-    protocol        = \"tcp\"\n-    security_groups = [aws_security_group.service_access.id]\n-    to_port         = 5432\n+    cidr_blocks = [\"10.18.1.0/24\"]\n+    from_port   = 5432\n+    protocol    = \"tcp\"\n+    to_port     = 5432\n   }\n \n   egress {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
   ],
   "target": {
-    "description": "Tightens the app group egress to the RFC 1918 block that contains CIDR(VPC(D)).",
+    "description": "Replaces the DB group's 5432 ingress source group with the application subnet CIDR.",
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-10",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-26",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

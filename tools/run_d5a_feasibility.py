@@ -318,8 +318,19 @@ def main() -> int:
     ap.add_argument("--run", choices=("d5a", "d5a2", "d5a3"), default="d5a3")
     ap.add_argument("--value-set", choices=("primary", "alternate"), default="primary")
     ap.add_argument("--checkov", action="store_true", help="also time Checkov (the D5a run did)")
+    ap.add_argument("--redo-controlled", action="store_true",
+                    help="D4c-06: drop every controlled-tier row (ids up to 208) and measure the controlled tier again; "
+                         "real-world rows are kept as they are")
     args = ap.parse_args()
     configure(args.run, args.value_set)
+    if args.redo_controlled:
+        for path in _csv_paths(args.splits.split(",")):
+            if path.is_file():
+                with open(path, encoding="utf-8") as f:
+                    rows = list(csv.DictReader(f))
+                kept = [r for r in rows if int(r["scenario_id"].rsplit("-", 1)[1]) > 208]
+                print(f"{path.name}: dropping {len(rows) - len(kept)} controlled rows to measure again", flush=True)
+                _rewrite(path, kept)
     if args.reclassify:
         return reclassify(args.splits.split(","))
     if args.rerun:

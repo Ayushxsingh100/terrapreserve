@@ -7,7 +7,7 @@
   },
   "excluded_from_v1": null,
   "family": "F4",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "safe",
   "intent": {
@@ -64,7 +64,7 @@
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -87,11 +87,21 @@
       "vpc": "10.115.0.0/16"
     },
     "db_class": "db.t3.micro",
+    "features": {
+      "egress": "all",
+      "extras": "none",
+      "files": "single",
+      "naming": "standard",
+      "routing": "shared_public",
+      "sg_style": "all_separate",
+      "subnets": "one_app",
+      "values": "literal"
+    },
     "instance_class": "t3.micro",
     "naming_scheme": "standard",
     "sg_style": "all_separate",
     "template_id": "tpl-01",
-    "template_version": "tpl-v1.0",
+    "template_version": "tpl-v2.0",
     "variant": "sec_001_violated"
   },
   "protected_invariants": [
@@ -116,7 +126,7 @@
   "scenario_id": "tp-v1-F4-0079",
   "seed": 79,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -144,7 +154,7 @@
     "kind": "repair"
   },
   "template_id": "tpl-01",
-  "template_version": "tpl-v1.0",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

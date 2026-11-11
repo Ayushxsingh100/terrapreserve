@@ -21,10 +21,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "generator"))
 DEV = REPO_ROOT / "scenarios" / "dev"
-# Digest of every file under scenarios/dev/*/step_*/ at 872b194 (3044 files), and of the withheld test split's
-# step files before D5b (1354 files); computed as in step_digest() below.
-DEV_STEPS_872B194 = (3044, "4694b5d302caabddecdfe12d624d7d4bf83c5428e31f38c264ac189dbdb4a085")
-TEST_STEPS_872B194 = (1354, "c4eee35c8efdc6144551fbb841fce843202cd2628c2ef58edaa10cda0a7e1b18")
+# Digest of every real-world step file (ids above 208) under scenarios/dev/*/step_*/ at 872b194 (2060 files) and
+# of the withheld test split's real-world step files (940 files); computed as in step_digest() below. Until D4c the
+# test covered both tiers (3044 and 1354 files); D4c regenerated the controlled tier on purpose (D4c-01), so only
+# the real-world tier is pinned here (the controlled tier: tests/test_d5a3_vv3.py and tests/test_d4c_templates.py).
+DEV_STEPS_872B194 = (2060, "7d6405a9f037cbaa39bcc41f8c74e9aa01459d57a3e5098d2b028d197b67d946")
+TEST_STEPS_872B194 = (940, "9ad3574a25e565e6df54ae1e728c1be0671ae3a094f1916151e6251f92f6356b")
 _RES = re.compile(r'^\s*resource\s+"(aws_instance|aws_db_instance)"\s+"([^"]+)"\s*\{', re.M)
 
 
@@ -32,7 +34,7 @@ def step_digest(root: Path) -> tuple[int, str]:
     h = hashlib.sha256()
     n = 0
     for p in sorted(root.glob("tp-v1-*/step_*/**/*")):
-        if p.is_file():
+        if p.is_file() and int(p.relative_to(root).parts[0].rsplit("-", 1)[1]) > 208:
             h.update(p.relative_to(root).as_posix().encode() + b"\0" + p.read_bytes() + b"\0")
             n += 1
     return n, h.hexdigest()
@@ -96,7 +98,7 @@ class TestEndpointBinding(unittest.TestCase):
     def test_generator_versions(self) -> None:
         import VERSION  # noqa: E402
         from realworld import generate_rw  # noqa: E402
-        self.assertEqual(VERSION.VERSION, "d4a-8")
+        self.assertEqual(VERSION.VERSION, "d4a-9")
         self.assertEqual(generate_rw.GENERATOR_VERSION, "d4b-9")
 
 

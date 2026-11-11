@@ -204,6 +204,9 @@ def main() -> int:
     ap.add_argument("--splits", default="dev,test")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--only", default="", help="comma-separated dev scenario ids (a check run; nothing written)")
+    ap.add_argument("--redo-controlled", action="store_true",
+                    help="D4c-06: forget the partial results of the controlled tier (ids up to 208) and search it "
+                         "again; real-world results are kept as they are")
     args = ap.parse_args()
     feas.RUN_ROOT = CACHE
     feas.VALUE_KEY = "variable_values"
@@ -219,6 +222,14 @@ def main() -> int:
             raise SystemExit("TERRAPRESERVE_PRIVATE is not set to an existing directory")
         outs["test"] = Path(priv) / varvalues.SEARCH_TEST_NAME
     CACHE.mkdir(parents=True, exist_ok=True)
+    if args.redo_controlled:
+        for split in splits:
+            part = CACHE / f"partial_{split}.jsonl"
+            if part.is_file():
+                lines = part.read_text(encoding="utf-8").splitlines()
+                kept = [ln for ln in lines if int(json.loads(ln)["scenario_id"].rsplit("-", 1)[1]) > 208]
+                part.write_text("".join(ln + "\n" for ln in kept), encoding="utf-8", newline="\n")
+                print(f"{split}: dropped {len(lines) - len(kept)} controlled partial results", flush=True)
     only = set(filter(None, args.only.split(",")))
     jobs = []
     partial: dict[str, dict[str, Any]] = {}

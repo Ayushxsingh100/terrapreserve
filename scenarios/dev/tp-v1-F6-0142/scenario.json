@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.data_instance",
-    "S": "aws_instance.web_instance"
+    "D": "aws_db_instance.storage_db",
+    "S": "aws_instance.service_node"
   },
   "excluded_from_v1": null,
   "family": "F6",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "safe",
   "intent": {
@@ -58,7 +58,7 @@
       "target_address": "aws_db_instance.replica"
     },
     {
-      "after": "aws_db_subnet_group.data_subnets.name",
+      "after": "aws_db_subnet_group.storage_subnets.name",
       "attribute": "db_subnet_group_name",
       "before": null,
       "operator": "op_f6_add_read_replica_safe",
@@ -102,7 +102,7 @@
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -126,12 +126,22 @@
       ],
       "vpc": "10.105.0.0/16"
     },
-    "db_class": "db.t3.micro",
-    "instance_class": "t3.nano",
-    "naming_scheme": "tier",
-    "sg_style": "mixed_app_inline_db_separate",
-    "template_id": "tpl-03",
-    "template_version": "tpl-v1.0",
+    "db_class": "db.t3.small",
+    "features": {
+      "egress": "db_only",
+      "extras": "unattached_sg",
+      "files": "single",
+      "naming": "role",
+      "routing": "shared_public",
+      "sg_style": "all_separate",
+      "subnets": "one_app",
+      "values": "locals"
+    },
+    "instance_class": "t3.small",
+    "naming_scheme": "role",
+    "sg_style": "all_separate",
+    "template_id": "tpl-31",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -156,24 +166,24 @@
   "scenario_id": "tp-v1-F6-0142",
   "seed": 142,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-03",
+    "repo_lineage_id": "tpl-31",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "ac6f060c4f453e1b957adcf2ab7a184b291686d581142477af2aa2a47d23cb9e",
+      "content_hash": "3c1ec8ede5aad18bceaf61a46648ff4145199be0e65228a3584fc31c62186738",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "425edd198f882ee33c549ca3987a6deae25e7dc1b84bce06ce0e945e2ac1fd7e",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -97,3 +97,12 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n+\n+resource \"aws_db_instance\" \"replica\" {\n+  allocated_storage    = 20\n+  db_subnet_group_name = aws_db_subnet_group.data_subnets.name\n+  engine               = \"postgres\"\n+  identifier           = \"db-replica\"\n+  instance_class       = \"db.t3.micro\"\n+  publicly_accessible  = false\n+}\n",
+      "content_hash": "f7813d1c24ad4f04936b738878b6aa08e04292b106a5da5ac9703bbf383ba275",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -122,3 +122,12 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.storage_access.id]\n }\n+\n+resource \"aws_db_instance\" \"replica\" {\n+  allocated_storage    = 20\n+  db_subnet_group_name = aws_db_subnet_group.storage_subnets.name\n+  engine               = \"postgres\"\n+  identifier           = \"db-replica\"\n+  instance_class       = \"db.t3.micro\"\n+  publicly_accessible  = false\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -183,8 +193,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-03",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-31",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

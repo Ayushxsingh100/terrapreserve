@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.data_instance",
-    "S": "aws_instance.web_instance"
+    "D": "aws_db_instance.acme_db",
+    "S": "aws_instance.acme_app"
   },
   "excluded_from_v1": null,
   "family": "F7",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "unsafe",
   "intent": {
@@ -58,38 +58,38 @@
       "before": null,
       "operator": "op_f7_db_ingress_source_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.data_secgroup_hub"
+      "target_address": "aws_security_group.acme_db_sg_hub"
     },
     {
-      "after": "\"data_secgroup-tpl-09-hub\"",
+      "after": "\"acme_db_sg-tpl-29-hub\"",
       "attribute": "name",
       "before": null,
       "operator": "op_f7_db_ingress_source_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.data_secgroup_hub"
+      "target_address": "aws_security_group.acme_db_sg_hub"
     },
     {
-      "after": "aws_vpc.network.id",
+      "after": "aws_vpc.acme_vpc.id",
       "attribute": "vpc_id",
       "before": null,
       "operator": "op_f7_db_ingress_source_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.data_secgroup_hub"
+      "target_address": "aws_security_group.acme_db_sg_hub"
     },
     {
-      "after": "aws_security_group.data_secgroup_hub.id",
+      "after": "aws_security_group.acme_db_sg_hub.id",
       "attribute": "source_security_group_id",
-      "before": "aws_security_group.web_secgroup.id",
+      "before": "aws_security_group.acme_app_sg.id",
       "operator": "op_f7_db_ingress_source_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.data_secgroup_from_app_5432"
+      "target_address": "aws_security_group_rule.acme_db_sg_from_app_5432"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -111,12 +111,22 @@
       ],
       "vpc": "10.11.0.0/16"
     },
-    "db_class": "db.t3.small",
+    "db_class": "db.t3.medium",
+    "features": {
+      "egress": "all",
+      "extras": "none",
+      "files": "single",
+      "naming": "prefixed",
+      "routing": "shared_public",
+      "sg_style": "app_inline_db_separate",
+      "subnets": "one_app",
+      "values": "locals"
+    },
     "instance_class": "t3.small",
-    "naming_scheme": "tier",
-    "sg_style": "all_separate",
-    "template_id": "tpl-09",
-    "template_version": "tpl-v1.0",
+    "naming_scheme": "prefixed",
+    "sg_style": "app_inline_db_separate",
+    "template_id": "tpl-29",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -141,24 +151,24 @@
   "scenario_id": "tp-v1-F7-0178",
   "seed": 178,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-09",
+    "repo_lineage_id": "tpl-29",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "00cc11be7009141e6ff083e3dcc7654a6b4a176b6048dec04cbea4ef19123c9e",
+      "content_hash": "3096f6707b389dabbf4a0a97e0d6177d7b2c0d94b39ec44e7a2751ecb894653b",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "b395f3e710523e3c6bd6d23bb0f32bdd942a429c80f743ca1fe92697e30196a0",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -51,7 +51,7 @@\n   from_port                = 5432\n   protocol                 = \"tcp\"\n   security_group_id        = aws_security_group.data_secgroup.id\n-  source_security_group_id = aws_security_group.web_secgroup.id\n+  source_security_group_id = aws_security_group.data_secgroup_hub.id\n   to_port                  = 5432\n   type                     = \"ingress\"\n }\n@@ -110,3 +110,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n+\n+resource \"aws_security_group\" \"data_secgroup_hub\" {\n+  description = \"Shared client security group\"\n+  name        = \"data_secgroup-tpl-09-hub\"\n+  vpc_id      = aws_vpc.network.id\n+}\n",
+      "content_hash": "681a0a8aa6cd70b26934a6d6711ca7426c475046ea9970efcb770a6d6543a5a8",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -44,7 +44,7 @@\n   from_port                = 5432\n   protocol                 = \"tcp\"\n   security_group_id        = aws_security_group.acme_db_sg.id\n-  source_security_group_id = aws_security_group.acme_app_sg.id\n+  source_security_group_id = aws_security_group.acme_db_sg_hub.id\n   to_port                  = 5432\n   type                     = \"ingress\"\n }\n@@ -101,3 +101,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.acme_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"acme_db_sg_hub\" {\n+  description = \"Shared client security group\"\n+  name        = \"acme_db_sg-tpl-29-hub\"\n+  vpc_id      = aws_vpc.acme_vpc.id\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -168,8 +178,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-09",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-29",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

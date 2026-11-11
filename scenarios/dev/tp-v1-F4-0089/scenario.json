@@ -7,7 +7,7 @@
   },
   "excluded_from_v1": null,
   "family": "F4",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "safe",
   "intent": {
@@ -64,7 +64,7 @@
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -87,11 +87,21 @@
       "vpc": "10.133.0.0/16"
     },
     "db_class": "db.t3.nano",
+    "features": {
+      "egress": "all",
+      "extras": "second_app_sg",
+      "files": "single",
+      "naming": "component",
+      "routing": "shared_public",
+      "sg_style": "all_inline",
+      "subnets": "one_app",
+      "values": "locals"
+    },
     "instance_class": "t3.micro",
     "naming_scheme": "component",
     "sg_style": "all_inline",
     "template_id": "tpl-10",
-    "template_version": "tpl-v1.0",
+    "template_version": "tpl-v2.0",
     "variant": "sec_002_violated"
   },
   "protected_invariants": [
@@ -116,7 +126,7 @@
   "scenario_id": "tp-v1-F4-0089",
   "seed": 89,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
@@ -126,13 +136,13 @@
   "split": "dev",
   "steps": [
     {
-      "content_hash": "a794b410e50fa98eb5ce090b125b080ad2daf3ea444be0d69a6c95385769ecf1",
+      "content_hash": "cbc41844eb0b8392763effe4b6c0c07e7293fef1fe375158171424c59a54636d",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "c8e4dafda81b097d10f2ca6f83ffb7d3f5a96ef9712351e3a325cf437860bb91",
+      "content_hash": "9137e8b31474faebdafa0b1504ab2416214fc39c8843c9b31103f25b730a4776",
       "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -59,7 +59,7 @@\n   vpc_id      = aws_vpc.corp_vpc.id\n \n   ingress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 5432\n     protocol    = \"tcp\"\n     to_port     = 5432\n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -144,7 +154,7 @@
     "kind": "repair"
   },
   "template_id": "tpl-10",
-  "template_version": "tpl-v1.0",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

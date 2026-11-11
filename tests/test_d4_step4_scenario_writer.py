@@ -5,7 +5,7 @@ Tests:
 2. Step content hashes recompute deterministically from step directory files.
 3. Unified diff reproduces step k from step k-1.
 4. Dev writer strictly REFUSES test-split scenarios (raises ValueError).
-5. Split assignment by template lineage: exactly 7 dev, 3 test templates; no template in both splits (D0 gate 6).
+5. Split assignment by template lineage: 23 dev, 10 test templates (D4-03 plus the D4c-01 draw); no template in both splits (D0 gate 6).
 6. test_manifest.json contains ids and hashes ONLY (no family, class, intent, template, step content).
 7. scenarios/NOTICE exists and has required licence notices.
 8. No secret-named literals in emitted scenario directories (inventory check).
@@ -33,18 +33,25 @@ class TestSplitAssignment(unittest.TestCase):
         return seed, templates
 
     def test_split_by_template_is_70_30(self) -> None:
+        """D4-03 split of tpl-01..tpl-10 (7/3), kept by D4c-01, plus the D4c draw of the 23 new templates (16/7)."""
+        import json
         seed_mod, tpl_mod = self._get_modules()
-        tpl_ids = sorted(tpl_mod.TEMPLATES.keys())
-        shuffled = seed_mod.template_shuffle_order(tpl_ids)
-
+        old_ids = [f"tpl-{i:02d}" for i in range(1, 11)]
+        shuffled = seed_mod.template_shuffle_order(old_ids)
         dev_tpls = shuffled[:7]
         test_tpls = shuffled[7:]
-
         self.assertEqual(len(dev_tpls), 7)
         self.assertEqual(len(test_tpls), 3)
+        new_ids = [f"tpl-{i}" for i in range(11, 34)]
+        drawn = seed_mod.template_shuffle_order(sorted(new_ids))
+        dev_tpls += drawn[:16]
+        test_tpls += drawn[16:]
+        split = json.loads((REPO_ROOT / "scenarios" / "split.json").read_text(encoding="utf-8"))
+        self.assertEqual(sorted(split["dev_templates"]), sorted(dev_tpls))
+        self.assertEqual(sorted(split["test_templates"]), sorted(test_tpls))
         # No template in both splits (D0 gate 6)
         self.assertEqual(set(dev_tpls) & set(test_tpls), set())
-        self.assertEqual(sorted(dev_tpls + test_tpls), tpl_ids)
+        self.assertEqual(sorted(dev_tpls + test_tpls), sorted(tpl_mod.TEMPLATES.keys()))
 
 
 class TestScenarioWriter(unittest.TestCase):

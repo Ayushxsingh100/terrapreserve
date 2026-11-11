@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.prod_postgres_db",
-    "S": "aws_instance.prod_app_server"
+    "D": "aws_db_instance.backend_database",
+    "S": "aws_instance.frontend_server"
   },
   "excluded_from_v1": null,
   "family": "F3",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "safe",
   "intent": {
@@ -48,19 +48,19 @@
   ],
   "mutation_record": [
     {
-      "after": "[aws_subnet.prod_db_subnet[2].id, aws_subnet.prod_db_subnet[1].id, aws_subnet.prod_db_subnet[0].id]",
+      "after": "[aws_subnet.backend_subnet[2].id, aws_subnet.backend_subnet[1].id, aws_subnet.backend_subnet[0].id]",
       "attribute": "subnet_ids",
-      "before": "[aws_subnet.prod_db_subnet[0].id, aws_subnet.prod_db_subnet[1].id, aws_subnet.prod_db_subnet[2].id]",
+      "before": "[aws_subnet.backend_subnet[0].id, aws_subnet.backend_subnet[1].id, aws_subnet.backend_subnet[2].id]",
       "operator": "op_f3_modify_db_subnet_group_safe",
       "step": 1,
-      "target_address": "aws_db_subnet_group.prod_db_sng"
+      "target_address": "aws_db_subnet_group.backend_sng"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -84,12 +84,22 @@
       ],
       "vpc": "10.14.0.0/16"
     },
-    "db_class": "db.t3.small",
+    "db_class": "db.t3.micro",
+    "features": {
+      "egress": "db_only",
+      "extras": "none",
+      "files": "single",
+      "naming": "component",
+      "routing": "private_db",
+      "sg_style": "app_inline_db_separate",
+      "subnets": "db_count",
+      "values": "variables"
+    },
     "instance_class": "t3.medium",
-    "naming_scheme": "env",
-    "sg_style": "all_inline",
-    "template_id": "tpl-06",
-    "template_version": "tpl-v1.0",
+    "naming_scheme": "component",
+    "sg_style": "app_inline_db_separate",
+    "template_id": "tpl-21",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -114,24 +124,24 @@
   "scenario_id": "tp-v1-F3-0064",
   "seed": 64,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-06",
+    "repo_lineage_id": "tpl-21",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "9e82c94ad8a6c604721f1668fc415f1c22ef23c49629340ff82c7a41aff2d068",
+      "content_hash": "04ec1af04ef553392022f3798649cc32ab64ec2d9a85ee91fd6b392346a370c9",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "0671e4aba0c5fc29a336cb709cb0e5e35429a4640afa23f31b82b4b057e565d6",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -89,7 +89,7 @@\n \n resource \"aws_db_subnet_group\" \"prod_db_sng\" {\n   name       = \"prod_db_sng-tpl-06\"\n-  subnet_ids = [aws_subnet.prod_db_subnet[0].id, aws_subnet.prod_db_subnet[1].id, aws_subnet.prod_db_subnet[2].id]\n+  subnet_ids = [aws_subnet.prod_db_subnet[2].id, aws_subnet.prod_db_subnet[1].id, aws_subnet.prod_db_subnet[0].id]\n }\n \n resource \"aws_db_instance\" \"prod_postgres_db\" {\n",
+      "content_hash": "48e48a1b687f58aa2735f473cc03272a9f63f8dd92a9b7373cf6dcb91e6307d2",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -93,7 +93,7 @@\n \n resource \"aws_db_subnet_group\" \"backend_sng\" {\n   name       = \"backend_sng-tpl-21\"\n-  subnet_ids = [aws_subnet.backend_subnet[0].id, aws_subnet.backend_subnet[1].id, aws_subnet.backend_subnet[2].id]\n+  subnet_ids = [aws_subnet.backend_subnet[2].id, aws_subnet.backend_subnet[1].id, aws_subnet.backend_subnet[0].id]\n }\n \n resource \"aws_db_instance\" \"backend_database\" {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -141,8 +151,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-06",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-21",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

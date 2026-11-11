@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.main",
-    "S": "aws_instance.app"
+    "D": "aws_db_instance.acme_db",
+    "S": "aws_instance.acme_app"
   },
   "excluded_from_v1": null,
   "family": "F2",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "unsafe",
   "intent": {
@@ -58,7 +58,7 @@
       "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f2_repair_db_ingress_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.db"
+      "target_address": "aws_security_group_rule.acme_db_sg_public_5432"
     },
     {
       "after": "[\"::/0\"]",
@@ -66,14 +66,14 @@
       "before": null,
       "operator": "op_f2_repair_db_ingress_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.db"
+      "target_address": "aws_security_group_rule.acme_db_sg_public_5432"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -85,24 +85,32 @@
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b",
-      "us-east-1c"
+      "us-east-1b"
     ],
     "cidr_plan": {
       "app": "10.56.1.0/24",
       "db": [
         "10.56.10.0/24",
-        "10.56.11.0/24",
-        "10.56.12.0/24"
+        "10.56.11.0/24"
       ],
       "vpc": "10.56.0.0/16"
     },
-    "db_class": "db.t3.micro",
-    "instance_class": "t3.nano",
-    "naming_scheme": "standard",
-    "sg_style": "mixed_app_separate_db_inline",
-    "template_id": "tpl-08",
-    "template_version": "tpl-v1.0",
+    "db_class": "db.t3.medium",
+    "features": {
+      "egress": "all",
+      "extras": "none",
+      "files": "single",
+      "naming": "prefixed",
+      "routing": "shared_public",
+      "sg_style": "app_inline_db_separate",
+      "subnets": "one_app",
+      "values": "locals"
+    },
+    "instance_class": "t3.small",
+    "naming_scheme": "prefixed",
+    "sg_style": "app_inline_db_separate",
+    "template_id": "tpl-29",
+    "template_version": "tpl-v2.0",
     "variant": "sec_002_violated"
   },
   "protected_invariants": [
@@ -127,24 +135,24 @@
   "scenario_id": "tp-v1-F2-0047",
   "seed": 47,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-08",
+    "repo_lineage_id": "tpl-29",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "707e4181d13134554ff0016c70c52f1998d2d524774b1213c670c54c9dc5370d",
+      "content_hash": "bfc12a93a036db3d38b67f8146ec762f55198b8744d54ca97e3009175727af12",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "2402149076c0f34673bbd65ae22dd965c15c01adf3569866acae28f24b28ee32",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -67,10 +67,11 @@\n   vpc_id      = aws_vpc.main.id\n \n   ingress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n-    from_port   = 5432\n-    protocol    = \"tcp\"\n-    to_port     = 5432\n+    cidr_blocks      = [\"10.0.0.0/8\"]\n+    from_port        = 5432\n+    ipv6_cidr_blocks = [\"::/0\"]\n+    protocol         = \"tcp\"\n+    to_port          = 5432\n   }\n \n   ingress {\n",
+      "content_hash": "f76e1565b6d7da2d6ae7bb4e1ade51e8e9b322483ad97a220871dced8d7669da",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -41,8 +41,9 @@\n }\n \n resource \"aws_security_group_rule\" \"acme_db_sg_public_5432\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 5432\n+  ipv6_cidr_blocks  = [\"::/0\"]\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.acme_db_sg.id\n   to_port           = 5432\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -154,8 +162,8 @@
     "invariant_id": "INV-SEC-002",
     "kind": "repair"
   },
-  "template_id": "tpl-08",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-29",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

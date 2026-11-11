@@ -110,6 +110,11 @@ def check_unsupported_types(sc: r4.Sc) -> list[str]:
 
 def check_mixed_whole(sc: r4.Sc) -> list[str]:
     out: list[str] = []
+    ex = sc.data.get("excluded_from_v1") or {}
+    if ex.get("kind") == "s0_not_clean":
+        # D4c-05: with MIXED read in any direction the reader now flags the hosts the oracle excluded as
+        # s0_not_clean (tp-v1-F2-0252, tp-v1-F3-0263); tests/test_d4c_templates.py asserts that it does.
+        return out
     for k in range(len(sc.step_dirs())):
         for g in whole(sc, k).mixed:
             out.append(f"{sc.id}/step_{k}: MIXED group {g}")

@@ -1,75 +1,75 @@
-resource "aws_vpc" "main" {
+resource "aws_vpc" "prod_vpc" {
   cidr_block           = "10.81.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
 }
 
-resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.main.id
+resource "aws_internet_gateway" "prod_igw" {
+  vpc_id = aws_vpc.prod_vpc.id
 }
 
-resource "aws_subnet" "app" {
+resource "aws_subnet" "prod_app_subnet" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.81.1.0/24"
-  vpc_id            = aws_vpc.main.id
+  vpc_id            = aws_vpc.prod_vpc.id
 }
 
-resource "aws_subnet" "db_1" {
+resource "aws_subnet" "prod_db_subnet_1" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.81.10.0/24"
-  vpc_id            = aws_vpc.main.id
+  vpc_id            = aws_vpc.prod_vpc.id
 }
 
-resource "aws_subnet" "db_2" {
+resource "aws_subnet" "prod_db_subnet_2" {
   availability_zone = "us-east-1b"
   cidr_block        = "10.81.11.0/24"
-  vpc_id            = aws_vpc.main.id
+  vpc_id            = aws_vpc.prod_vpc.id
 }
 
-resource "aws_subnet" "db_3" {
-  availability_zone = "us-east-1c"
-  cidr_block        = "10.81.12.0/24"
-  vpc_id            = aws_vpc.main.id
+resource "aws_subnet" "prod_app_subnet_spare" {
+  availability_zone = "us-east-1b"
+  cidr_block        = "10.81.200.0/24"
+  vpc_id            = aws_vpc.prod_vpc.id
 }
 
-resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.main.id
+resource "aws_route_table" "prod_public_rt" {
+  vpc_id = aws_vpc.prod_vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw.id
+    gateway_id = aws_internet_gateway.prod_igw.id
   }
 }
 
-resource "aws_route_table_association" "rta_app" {
-  route_table_id = aws_route_table.public.id
-  subnet_id      = aws_subnet.app.id
+resource "aws_route_table_association" "prod_rta_app" {
+  route_table_id = aws_route_table.prod_public_rt.id
+  subnet_id      = aws_subnet.prod_app_subnet.id
 }
 
-resource "aws_security_group_rule" "app_egress" {
+resource "aws_security_group_rule" "prod_app_sg_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
   from_port         = 0
   protocol          = "-1"
-  security_group_id = aws_security_group.app.id
+  security_group_id = aws_security_group.prod_app_sg.id
   to_port           = 0
   type              = "egress"
 }
 
-resource "aws_security_group" "app" {
-  description = "Application security group for tpl-08"
-  name        = "app-tpl-08"
-  vpc_id      = aws_vpc.main.id
+resource "aws_security_group" "prod_app_sg" {
+  description = "Application security group for tpl-22"
+  name        = "prod_app_sg-tpl-22"
+  vpc_id      = aws_vpc.prod_vpc.id
 }
 
-resource "aws_security_group" "db" {
-  description = "Database security group for tpl-08"
-  name        = "db-tpl-08"
-  vpc_id      = aws_vpc.main.id
+resource "aws_security_group" "prod_db_sg" {
+  description = "Database security group for tpl-22"
+  name        = "prod_db_sg-tpl-22"
+  vpc_id      = aws_vpc.prod_vpc.id
 
   ingress {
     from_port       = 5432
     protocol        = "tcp"
-    security_groups = [aws_security_group.app.id]
+    security_groups = [aws_security_group.prod_app_sg.id]
     to_port         = 5432
   }
 
@@ -81,27 +81,27 @@ resource "aws_security_group" "db" {
   }
 }
 
-resource "aws_instance" "app" {
-  ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.nano"
-  subnet_id              = aws_subnet.app.id
-  vpc_security_group_ids = [aws_security_group.app.id]
+resource "aws_instance" "prod_app_server" {
+  ami                    = var.app_ami
+  instance_type          = var.app_instance_type
+  subnet_id              = aws_subnet.prod_app_subnet.id
+  vpc_security_group_ids = [aws_security_group.prod_app_sg.id]
 }
 
-resource "aws_db_subnet_group" "main" {
-  name       = "main-tpl-08"
-  subnet_ids = [aws_subnet.db_1.id, aws_subnet.db_2.id, aws_subnet.db_3.id]
+resource "aws_db_subnet_group" "prod_db_sng" {
+  name       = "prod_db_sng-tpl-22"
+  subnet_ids = [aws_subnet.prod_db_subnet_1.id, aws_subnet.prod_db_subnet_2.id]
 }
 
-resource "aws_db_instance" "main" {
+resource "aws_db_instance" "prod_postgres_db" {
   allocated_storage      = 20
-  db_subnet_group_name   = aws_db_subnet_group.main.name
+  db_subnet_group_name   = aws_db_subnet_group.prod_db_sng.name
   engine                 = "postgres"
-  identifier             = "main-tpl-08"
-  instance_class         = "db.t3.micro"
+  identifier             = "prod-postgres-db-tpl-22"
+  instance_class         = var.db_instance_class
   password               = var.db_password
   publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
-  vpc_security_group_ids = [aws_security_group.db.id]
+  vpc_security_group_ids = [aws_security_group.prod_db_sg.id]
 }

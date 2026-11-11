@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.rds_postgres",
-    "S": "aws_instance.ec2_app"
+    "D": "aws_db_instance.acme_db",
+    "S": "aws_instance.acme_app"
   },
   "excluded_from_v1": null,
   "family": "F6",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "safe",
   "intent": {
@@ -64,7 +64,7 @@
       "target_address": "aws_instance.bastion"
     },
     {
-      "after": "aws_subnet.sub_app.id",
+      "after": "aws_subnet.acme_app_subnet.id",
       "attribute": "subnet_id",
       "before": null,
       "operator": "op_f6_add_bastion_host_safe",
@@ -76,7 +76,7 @@
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -92,18 +92,29 @@
     ],
     "cidr_plan": {
       "app": "10.48.1.0/24",
+      "app_2": "10.48.2.0/24",
       "db": [
         "10.48.10.0/24",
         "10.48.11.0/24"
       ],
       "vpc": "10.48.0.0/16"
     },
-    "db_class": "db.t3.small",
-    "instance_class": "t3.small",
-    "naming_scheme": "kebab",
-    "sg_style": "all_inline",
-    "template_id": "tpl-02",
-    "template_version": "tpl-v1.0",
+    "db_class": "db.t3.micro",
+    "features": {
+      "egress": "all",
+      "extras": "none",
+      "files": "single",
+      "naming": "prefixed",
+      "routing": "per_subnet",
+      "sg_style": "all_separate",
+      "subnets": "two_app",
+      "values": "variables"
+    },
+    "instance_class": "t3.micro",
+    "naming_scheme": "prefixed",
+    "sg_style": "all_separate",
+    "template_id": "tpl-11",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -128,24 +139,24 @@
   "scenario_id": "tp-v1-F6-0132",
   "seed": 132,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-02",
+    "repo_lineage_id": "tpl-11",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "02ab0858b748e6599b281c30fc4ad67a3d6d5313c4617a15bc410704d8d3712f",
+      "content_hash": "65b1523f82246ecc2958ab435eefbf2017712e7aa933d36adfb480f88269f6e0",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "1908d6f4832e8b633fbc5eaf19a89b87613be28016ca812438362afd3e5c3adb",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -111,3 +111,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.sg_db.id]\n }\n+\n+resource \"aws_instance\" \"bastion\" {\n+  ami           = \"ami-0c55b159cbfafe1f0\"\n+  instance_type = \"t3.nano\"\n+  subnet_id     = aws_subnet.sub_app.id\n+}\n",
+      "content_hash": "9f82c0bb036e89951c7f492183337c1b8a6ff1fd3dbdcc2b397e2a878ecd31fc",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -141,3 +141,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.acme_db_sg.id]\n }\n+\n+resource \"aws_instance\" \"bastion\" {\n+  ami           = \"ami-0c55b159cbfafe1f0\"\n+  instance_type = \"t3.nano\"\n+  subnet_id     = aws_subnet.acme_app_subnet.id\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -155,8 +166,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-02",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-11",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

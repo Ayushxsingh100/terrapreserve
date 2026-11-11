@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.backend_database",
-    "S": "aws_instance.frontend_server"
+    "D": "aws_db_instance.data_instance",
+    "S": "aws_instance.web_instance"
   },
   "excluded_from_v1": null,
   "family": "F8",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "unsafe",
   "intent": {
@@ -69,7 +69,7 @@
       "before": "\"t3.micro\"",
       "operator": "op_f8_twostep_repair_unsafe",
       "step": 1,
-      "target_address": "aws_instance.frontend_server"
+      "target_address": "aws_instance.web_instance"
     },
     {
       "after": "[\"10.0.0.0/8\"]",
@@ -77,7 +77,7 @@
       "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f8_twostep_repair_unsafe",
       "step": 2,
-      "target_address": "aws_security_group.frontend_sg"
+      "target_address": "aws_security_group.web_secgroup"
     },
     {
       "after": "5433",
@@ -85,7 +85,7 @@
       "before": "5432",
       "operator": "op_f8_twostep_repair_unsafe",
       "step": 2,
-      "target_address": "aws_security_group.backend_sg"
+      "target_address": "aws_security_group.data_secgroup"
     },
     {
       "after": "5433",
@@ -93,14 +93,14 @@
       "before": "5432",
       "operator": "op_f8_twostep_repair_unsafe",
       "step": 2,
-      "target_address": "aws_security_group.backend_sg"
+      "target_address": "aws_security_group.data_secgroup"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -112,22 +112,34 @@
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b"
+      "us-east-1b",
+      "us-east-1c"
     ],
     "cidr_plan": {
       "app": "10.23.1.0/24",
       "db": [
         "10.23.10.0/24",
-        "10.23.11.0/24"
+        "10.23.11.0/24",
+        "10.23.12.0/24"
       ],
       "vpc": "10.23.0.0/16"
     },
-    "db_class": "db.t3.nano",
+    "db_class": "db.t3.small",
+    "features": {
+      "egress": "all",
+      "extras": "none",
+      "files": "split",
+      "naming": "tier",
+      "routing": "per_subnet",
+      "sg_style": "all_inline",
+      "subnets": "one_app",
+      "values": "literal"
+    },
     "instance_class": "t3.micro",
-    "naming_scheme": "component",
+    "naming_scheme": "tier",
     "sg_style": "all_inline",
-    "template_id": "tpl-10",
-    "template_version": "tpl-v1.0",
+    "template_id": "tpl-24",
+    "template_version": "tpl-v2.0",
     "variant": "sec_001_violated"
   },
   "protected_invariants": [
@@ -152,30 +164,30 @@
   "scenario_id": "tp-v1-F8-0205",
   "seed": 205,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-10",
+    "repo_lineage_id": "tpl-24",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "6fabb097087d9f7a5ac532419195edbf942b8dcc0a42f1040fd230dd45991175",
+      "content_hash": "5c9b8be49328740aee9971f0e48de8d93b2bb99e33f9e404992a466f37a8232b",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "bc10cf8ba038e48524232054decb844bddbd901b3f8aa4cb18b7decd8f68cd4f",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -88,7 +88,7 @@\n \n resource \"aws_instance\" \"frontend_server\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.frontend_subnet.id\n   vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]\n }\n",
+      "content_hash": "4bd6641e59499f125e917f8b832f6e23a9b7001b3043f3d256c726b6e58d5fa3",
+      "diff_from_previous": "--- a/compute.tf\n+++ b/compute.tf\n@@ -20,7 +20,7 @@\n \n resource \"aws_instance\" \"web_instance\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.web_tier.id\n   vpc_security_group_ids = [aws_security_group.web_secgroup.id]\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
     },
     {
-      "content_hash": "d5f60b67d3090d4302bad890a83b6762724fba035036ff7020544aab8bf5eab1",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -46,7 +46,7 @@\n   vpc_id      = aws_vpc.corp_vpc.id\n \n   ingress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 22\n     protocol    = \"tcp\"\n     to_port     = 22\n@@ -66,10 +66,10 @@\n   vpc_id      = aws_vpc.corp_vpc.id\n \n   ingress {\n-    from_port       = 5432\n+    from_port       = 5433\n     protocol        = \"tcp\"\n     security_groups = [aws_security_group.frontend_sg.id]\n-    to_port         = 5432\n+    to_port         = 5433\n   }\n \n   egress {\n",
+      "content_hash": "aea392eb4050d534eba4c014bfc40a56c119a7259f8e0512a640e42531778006",
+      "diff_from_previous": "--- a/compute.tf\n+++ b/compute.tf\n@@ -4,7 +4,7 @@\n   vpc_id      = aws_vpc.network.id\n \n   ingress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 22\n     protocol    = \"tcp\"\n     to_port     = 22\n--- a/database.tf\n+++ b/database.tf\n@@ -4,10 +4,10 @@\n   vpc_id      = aws_vpc.network.id\n \n   ingress {\n-    from_port       = 5432\n+    from_port       = 5433\n     protocol        = \"tcp\"\n     security_groups = [aws_security_group.web_secgroup.id]\n-    to_port         = 5432\n+    to_port         = 5433\n   }\n \n   egress {\n",
       "step": 2,
       "terraform_dir": "step_2"
     }
@@ -185,8 +197,8 @@
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
   },
-  "template_id": "tpl-10",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-24",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },
