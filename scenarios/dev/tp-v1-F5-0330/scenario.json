@@ -174,6 +174,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
+  "v1_role": "excluded",
+  "v1_role_reason": "excluded_from_v1: unplannable; replaced by tp-v1-F5-0128",
   "variable_values": {
     "cidr_block": "10.201.0.0/16",
     "region": "us-east-1a",

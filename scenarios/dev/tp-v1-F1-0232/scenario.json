@@ -209,6 +209,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
+  "v1_role": "target",
+  "v1_role_reason": "D6-02 step 2: lowest-numbered labelled reserve of the cell; replaces excluded target tp-v1-F1-0228",
   "variable_values": {
     "tp_db_password": "tp-secret-primary"
   },

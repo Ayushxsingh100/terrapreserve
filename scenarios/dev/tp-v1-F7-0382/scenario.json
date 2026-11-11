@@ -185,6 +185,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
+  "v1_role": "target",
+  "v1_role_reason": null,
   "variable_values": {
     "cidr_block": "10.201.1.0/24",
     "private_subnet1": "10.201.1.0/24",

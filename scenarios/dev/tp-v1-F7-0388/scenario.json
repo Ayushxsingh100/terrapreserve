@@ -177,6 +177,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
+  "v1_role": "target",
+  "v1_role_reason": "D6-02 step 2: lowest-numbered labelled reserve of the cell; replaces excluded target tp-v1-F7-0378",
   "variable_values": {
     "ami_id": "ami-0201201201201201a",
     "controller_sg_id": "sg-0201201201201201a",

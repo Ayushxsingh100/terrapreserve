@@ -221,6 +221,8 @@
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
   },
+  "v1_role": "reserve",
+  "v1_role_reason": null,
   "variable_values": {
     "app_ami": "ami-0201201201201201a",
     "tp_db_password": "tp-secret-primary"

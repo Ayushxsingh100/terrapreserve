@@ -207,6 +207,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
+  "v1_role": "excluded",
+  "v1_role_reason": "excluded_from_v1: unplannable; replaced by tp-v1-F5-0336",
   "variable_values": {
     "tp_db_password": "tp-secret-primary",
     "tp_ds_aws_ami_ubuntu": {

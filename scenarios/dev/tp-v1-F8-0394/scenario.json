@@ -201,6 +201,8 @@
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
   },
+  "v1_role": "target",
+  "v1_role_reason": null,
   "variable_values": {
     "kaira_default_region": "tp-primary",
     "kaira_vpc_id": "vpc-0201201201201201a",

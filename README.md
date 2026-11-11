@@ -29,4 +29,4 @@ Terraform `~> 1.15.0` (CI uses 1.15.8), `hashicorp/aws` 6.53.0, Python 3.12. The
 
 ## Status
 
-Pre-release; scenarios not yet generated. The real-world pool (D3) is built and awaiting external review: see [pool/README.md](pool/README.md) and [pool/POOL_REPORT.md](pool/POOL_REPORT.md).
+**v1.0 frozen (D6), internal until paper submission** (D0 Decision 9). 416 scenarios (288 dev, 128 test), 320 of them v1.0 targets (20 safe and 20 unsafe per family), labelled by the independent oracle `oracle-1.0`; D0 freeze gates 1 to 9 all PASS ([docs/D6_GATES.md](docs/D6_GATES.md)). The frozen commit is the merge commit of the D6 pull request, tagged `terrapreserve-v1.0` by the maintainers after review; later fixes go to v1.1 ([docs/D6_FREEZE.md](docs/D6_FREEZE.md)). The test split is withheld until release. Composition and limitations: [DATASHEET.md](DATASHEET.md); scenarios: [scenarios/README.md](scenarios/README.md); the real-world pool: [pool/README.md](pool/README.md).

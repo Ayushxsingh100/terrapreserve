@@ -169,6 +169,8 @@
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
   },
+  "v1_role": "target",
+  "v1_role_reason": "D6-02 step 2: lowest-numbered labelled reserve of the cell; replaces excluded target tp-v1-F2-0250",
   "variable_values": {
     "subnet_config": {},
     "tp_db_password": "tp-secret-primary",

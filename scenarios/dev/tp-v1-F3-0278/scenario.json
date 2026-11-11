@@ -176,6 +176,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
+  "v1_role": "target",
+  "v1_role_reason": null,
   "variable_values": {
     "client_vpn_cidr": "10.201.0.0/16",
     "ec2_app_port": 1,

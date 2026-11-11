@@ -166,6 +166,8 @@
     "invariant_id": "INV-SEC-003",
     "kind": "repair"
   },
+  "v1_role": "reserve",
+  "v1_role_reason": null,
   "variable_values": {
     "subnet_config": {},
     "tp_db_password": "tp-secret-primary",

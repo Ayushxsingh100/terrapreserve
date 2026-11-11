@@ -142,6 +142,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
+  "v1_role": "excluded",
+  "v1_role_reason": "excluded_from_v1: unplannable",
   "variable_values": {
     "name": "tp-primary",
     "tp_db_password": "tp-secret-primary",

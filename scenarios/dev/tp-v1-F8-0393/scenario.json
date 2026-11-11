@@ -155,6 +155,8 @@
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
   },
+  "v1_role": "excluded",
+  "v1_role_reason": "excluded_from_v1: unplannable; replaced by tp-v1-F8-0401",
   "variable_values": {
     "cidr_private_subnet": "10.201.0.0/20",
     "cidr_public_subnet": "10.201.0.0/20",

@@ -232,6 +232,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
+  "v1_role": "target",
+  "v1_role_reason": null,
   "variable_values": {
     "name": "tp-primary",
     "networktags_value": "tp-primary",

@@ -195,6 +195,8 @@
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
   },
+  "v1_role": "excluded",
+  "v1_role_reason": "excluded_from_v1: unplannable; replaced by tp-v1-F8-0414",
   "variable_values": {
     "project": {
       "zone": "us-east-1a"

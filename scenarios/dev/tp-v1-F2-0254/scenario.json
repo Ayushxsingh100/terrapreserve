@@ -134,6 +134,8 @@
     "invariant_id": "INV-SEC-003",
     "kind": "repair"
   },
+  "v1_role": "excluded",
+  "v1_role_reason": "excluded_from_v1: unplannable; replaced by tp-v1-F2-0050",
   "variable_values": {
     "azs": "us-east-1a",
     "environment": "tp-primary",

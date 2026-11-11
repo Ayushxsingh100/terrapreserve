@@ -208,6 +208,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
+  "v1_role": "reserve",
+  "v1_role_reason": null,
   "variable_values": {
     "app_sg_id": "sg-0201201201201201a",
     "db_name": "tp-primary",

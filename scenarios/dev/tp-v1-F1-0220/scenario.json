@@ -133,6 +133,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
+  "v1_role": "excluded",
+  "v1_role_reason": "excluded_from_v1: unplannable",
   "variable_values": {
     "app_name": "tpp",
     "deployment_branch": "tpp",
