@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.main",
-    "S": "aws_instance.app"
+    "D": "aws_db_instance.data_instance",
+    "S": "aws_instance.web_instance"
   },
   "excluded_from_v1": null,
   "family": "F3",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "unsafe",
   "intent": {
@@ -58,14 +58,14 @@
       "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f3_app_egress_cidr_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.app_egress"
+      "target_address": "aws_security_group_rule.web_secgroup_egress"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -87,12 +87,22 @@
       ],
       "vpc": "10.181.0.0/16"
     },
-    "db_class": "db.t3.micro",
-    "instance_class": "t3.micro",
-    "naming_scheme": "standard",
+    "db_class": "db.t3.small",
+    "features": {
+      "egress": "all",
+      "extras": "none",
+      "files": "single",
+      "naming": "tier",
+      "routing": "private_db",
+      "sg_style": "all_separate",
+      "subnets": "db_count",
+      "values": "literal"
+    },
+    "instance_class": "t3.small",
+    "naming_scheme": "tier",
     "sg_style": "all_separate",
-    "template_id": "tpl-01",
-    "template_version": "tpl-v1.0",
+    "template_id": "tpl-09",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -117,24 +127,24 @@
   "scenario_id": "tp-v1-F3-0066",
   "seed": 66,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-01",
+    "repo_lineage_id": "tpl-09",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "86a4adbe2dfa24a26941f19672375579a0e71ead466c92d1a497230e9cd34a67",
+      "content_hash": "653ab3ac202e74a1dc66d61e71e3a74133ab9e929c70e8f500ae6aa2e0219c0d",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "dd8fa1f442147d76f0024cb7e7b0f4049c99e3d2325d26038b38240cdb99ebe7",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -59,7 +59,7 @@\n }\n \n resource \"aws_security_group_rule\" \"app_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"192.168.0.0/16\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.app.id\n",
+      "content_hash": "11cb22590c49d6fef7b7b6e7582226ca9c19ed315a84daa9592b25944ffc2297",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -66,7 +66,7 @@\n }\n \n resource \"aws_security_group_rule\" \"web_secgroup_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"192.168.0.0/16\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.web_secgroup.id\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -144,8 +154,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-01",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-09",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

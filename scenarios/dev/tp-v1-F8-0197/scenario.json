@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.rds_postgres",
-    "S": "aws_instance.ec2_app"
+    "D": "aws_db_instance.acme_db",
+    "S": "aws_instance.acme_app"
   },
   "excluded_from_v1": null,
   "family": "F8",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "unsafe",
   "intent": {
@@ -68,7 +68,8 @@
       },
       "oracle_affected": [
         "INV-SEC-001",
-        "INV-SEC-002"
+        "INV-SEC-002",
+        "INV-FUNC-001"
       ],
       "step": 3,
       "target_safe": false
@@ -76,12 +77,12 @@
   ],
   "mutation_record": [
     {
-      "after": "\"t3.medium\"",
+      "after": "\"t3.large\"",
       "attribute": "instance_type",
-      "before": "\"t3.small\"",
+      "before": "var.app_instance_type",
       "operator": "op_f8_threestep_refactor_repair_unsafe",
       "step": 1,
-      "target_address": "aws_instance.ec2_app"
+      "target_address": "aws_instance.acme_app"
     },
     {
       "after": "30",
@@ -89,7 +90,7 @@
       "before": "20",
       "operator": "op_f8_threestep_refactor_repair_unsafe",
       "step": 2,
-      "target_address": "aws_db_instance.rds_postgres"
+      "target_address": "aws_db_instance.acme_db"
     },
     {
       "after": "5433",
@@ -97,7 +98,7 @@
       "before": null,
       "operator": "op_f8_threestep_refactor_repair_unsafe",
       "step": 2,
-      "target_address": "aws_db_instance.rds_postgres"
+      "target_address": "aws_db_instance.acme_db"
     },
     {
       "after": "[\"10.0.0.0/8\"]",
@@ -105,14 +106,14 @@
       "before": "[\"0.0.0.0/0\"]",
       "operator": "op_f8_threestep_refactor_repair_unsafe",
       "step": 3,
-      "target_address": "aws_security_group.sg_app"
+      "target_address": "aws_security_group_rule.acme_app_sg_ssh_public"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -128,18 +129,29 @@
     ],
     "cidr_plan": {
       "app": "10.25.1.0/24",
+      "app_2": "10.25.2.0/24",
       "db": [
         "10.25.10.0/24",
         "10.25.11.0/24"
       ],
       "vpc": "10.25.0.0/16"
     },
-    "db_class": "db.t3.small",
-    "instance_class": "t3.small",
-    "naming_scheme": "kebab",
-    "sg_style": "all_inline",
-    "template_id": "tpl-02",
-    "template_version": "tpl-v1.0",
+    "db_class": "db.t3.micro",
+    "features": {
+      "egress": "all",
+      "extras": "none",
+      "files": "single",
+      "naming": "prefixed",
+      "routing": "per_subnet",
+      "sg_style": "all_separate",
+      "subnets": "two_app",
+      "values": "variables"
+    },
+    "instance_class": "t3.micro",
+    "naming_scheme": "prefixed",
+    "sg_style": "all_separate",
+    "template_id": "tpl-11",
+    "template_version": "tpl-v2.0",
     "variant": "sec_001_violated"
   },
   "protected_invariants": [
@@ -164,36 +176,36 @@
   "scenario_id": "tp-v1-F8-0197",
   "seed": 197,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-02",
+    "repo_lineage_id": "tpl-11",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "3499cccb19f1ff001224c8bae26cd7dd168e0d9172f27e9f080a7be056adb654",
+      "content_hash": "a5169c0c2dd0550c7bc89c712c49444ecfc3317630263a7a460cff07f2a472cd",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "6b7c7aa46d53de5c6a3ec4fab1322babe9f4458238e074908b4865d70cea0733",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -96,7 +96,7 @@\n \n resource \"aws_instance\" \"ec2_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.small\"\n+  instance_type          = \"t3.medium\"\n   subnet_id              = aws_subnet.sub_app.id\n   vpc_security_group_ids = [aws_security_group.sg_app.id]\n }\n",
+      "content_hash": "b49a20c154fc7cd7057d8aaddabff75e6ef4dd3d245cb22405f5c6536f072ea3",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -128,7 +128,7 @@\n \n resource \"aws_instance\" \"acme_app\" {\n   ami                    = var.app_ami\n-  instance_type          = var.app_instance_type\n+  instance_type          = \"t3.large\"\n   subnet_id              = aws_subnet.acme_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.acme_app_sg.id]\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
     },
     {
-      "content_hash": "196ac431b93935cc625224a13879830742bd2bfdf09d60b19a72bf1d702921d1",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -107,12 +107,13 @@\n }\n \n resource \"aws_db_instance\" \"rds_postgres\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.dbsng_main.name\n   engine                 = \"postgres\"\n   identifier             = \"rds-postgres-tpl-02\"\n   instance_class         = \"db.t3.small\"\n   password               = var.db_password\n+  port                   = 5433\n   publicly_accessible    = false\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n",
+      "content_hash": "456ecc04b58a08142c0068de34c8a0b56005af5b8f8d313436e7a2ea7993e786",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -139,12 +139,13 @@\n }\n \n resource \"aws_db_instance\" \"acme_db\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.acme_db_sng.name\n   engine                 = \"postgres\"\n   identifier             = \"acme-db-tpl-11\"\n   instance_class         = var.db_instance_class\n   password               = var.db_password\n+  port                   = 5433\n   publicly_accessible    = false\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n",
       "step": 2,
       "terraform_dir": "step_2"
     },
     {
-      "content_hash": "d44efde62016ff61ada3953c60b5a4eeaeb46d24ef29ace9409a38c520ad02ff",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -60,7 +60,7 @@\n   vpc_id      = aws_vpc.vpc_main.id\n \n   ingress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 22\n     protocol    = \"tcp\"\n     to_port     = 22\n",
+      "content_hash": "1eec98c27f87101676cfc104937b2f05a5ebae3ebfb5fd5bc827728fa1a72df2",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -79,7 +79,7 @@\n }\n \n resource \"aws_security_group_rule\" \"acme_app_sg_ssh_public\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 22\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.acme_app_sg.id\n",
       "step": 3,
       "terraform_dir": "step_3"
     }
@@ -203,8 +215,8 @@
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
   },
-  "template_id": "tpl-02",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-11",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

@@ -1,7 +1,7 @@
 """Tests for the ten controlled templates (Step 2; D0 Decision 3, D4-05).
 
 Structural checks on the model (not invariant evaluation):
-- 10 templates exist (tpl-01 to tpl-10).
+- 33 templates exist (tpl-01 to tpl-33; D4c-01).
 - Every template shares the Appendix B topology resources:
   aws_vpc, aws_subnet (app + at least 2 db subnets in different AZs),
   aws_internet_gateway, aws_route_table, aws_route_table_association,
@@ -40,10 +40,10 @@ class TestTenTemplatesStructure(unittest.TestCase):
         import templates
         return templates
 
-    def test_ten_templates_exist(self) -> None:
+    def test_thirty_three_templates_exist(self) -> None:
         templates = self._get_templates_module()
-        self.assertEqual(len(templates.TEMPLATES), 10)
-        expected_ids = [f"tpl-{i:02d}" for i in range(1, 11)]
+        self.assertEqual(len(templates.TEMPLATES), 33)
+        expected_ids = [f"tpl-{i:02d}" for i in range(1, 34)]
         self.assertEqual(sorted(templates.TEMPLATES.keys()), expected_ids)
 
     def test_template_axes_difference(self) -> None:
@@ -54,18 +54,10 @@ class TestTenTemplatesStructure(unittest.TestCase):
         for i in range(len(tpls)):
             for j in range(i + 1, len(tpls)):
                 t1, t2 = tpls[i], tpls[j]
-                diffs = [
-                    t1.sg_style != t2.sg_style,
-                    t1.db_subnet_count != t2.db_subnet_count,
-                    t1.has_second_app_sg != t2.has_second_app_sg,
-                    t1.route_table_layout != t2.route_table_layout,
-                    t1.use_count_for_db_subnets != t2.use_count_for_db_subnets,
-                    t1.naming_scheme != t2.naming_scheme,
-                    t1.instance_class != t2.instance_class or t1.db_class != t2.db_class,
-                ]
-                self.assertTrue(
-                    any(diffs),
-                    f"{t1.id} and {t2.id} must differ on at least one structural axis",
+                # D4c-03: at least two of the eight variation axes
+                self.assertGreaterEqual(
+                    templates.axis_distance(t1, t2), 2,
+                    f"{t1.id} and {t2.id} must differ on at least two variation axes",
                 )
 
         # Check all four SG styles occur
@@ -75,8 +67,8 @@ class TestTenTemplatesStructure(unittest.TestCase):
             {
                 "all_separate",
                 "all_inline",
-                "mixed_app_inline_db_separate",
-                "mixed_app_separate_db_inline",
+                "app_inline_db_separate",
+                "app_separate_db_inline",
             },
         )
 

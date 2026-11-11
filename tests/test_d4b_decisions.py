@@ -17,11 +17,10 @@ REQUIRED_IDS = [
     "D4b-01", "D4b-02", "D4b-03", "D4b-04", "D4b-05", "D4b-06",
     "D4b-07", "D4b-08", "D4b-09", "D4b-10", "D4b-11", "D4b-12", "D4b-13",
 ]
-DECIDED_IDS = {"D4-01", "D4-02", "D4b-13", "D4b-14", "D4b-15", "Open 2"}
-PROPOSED_IDS = {
-    "D4b-01", "D4b-02", "D4b-03", "D4b-04", "D4b-05", "D4b-06",
-    "D4b-07", "D4b-08", "D4b-09", "D4b-10", "D4b-11", "D4b-12",
-}
+# D4c-02 (user, 10 Nov 2026): every Proposed and Open row was settled as built after external review.
+DECIDED_IDS = {"D4-01", "D4-02", "D4b-13", "D4b-14", "D4b-15", "Open 1", "Open 2", "Open 3",
+               *{f"D4b-{n:02d}" for n in range(1, 13)}}
+PROPOSED_IDS: set[str] = set()
 
 
 def _parse_table(text: str) -> dict[str, dict[str, str]]:
@@ -74,17 +73,18 @@ class TestD4bDecisionsFile(unittest.TestCase):
                 self.assertEqual(status, "Proposed", f"Row {id_} status should be 'Proposed', got {status!r}")
 
     def test_no_other_rows_are_decided(self) -> None:
-        """Only user-decided items D4-01, D4-02, D4b-13, D4b-14, D4b-15 and Open 2 may carry 'Decided'."""
+        """Only rows the user decided (including the D4c-02 settlement) may carry 'Decided'."""
         for id_, row in self.rows.items():
             if row.get("Status", "").lower() == "decided":
                 self.assertIn(id_, DECIDED_IDS, f"Row {id_} cannot be Decided; not a user decision")
 
     def test_open_rows_present(self) -> None:
-        """There must be at least two Open rows (Graft attachment and Invariant scope)."""
+        """The Open rows are kept as rows (Graft attachment, Invariant scope, INV-FUNC-001), all settled."""
+        for key in ("Open 1", "Open 2", "Open 3"):
+            self.assertIn(key, self.rows)
         open_rows = {k: v for k, v in self.rows.items() if v.get("Status", "").lower() == "open"}
-        self.assertGreaterEqual(len(open_rows), 2, "At least two Open rows must exist")
-        open_keys = " ".join(open_rows.keys())
-        self.assertTrue("Open 1" in open_keys or "open" in open_keys.lower())
+        self.assertEqual(open_rows, {}, "no Open row remains (D4c-02)")
+        self.assertIn("standalone graft for v1.0; attach mode is v1.1 work", self.rows["Open 1"]["Reason"])
 
     def test_measured_at_start_table_present(self) -> None:
         """The document must contain a 'Measured at start' table with baseline metrics."""

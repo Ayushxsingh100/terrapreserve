@@ -1,113 +1,125 @@
-resource "aws_vpc" "network" {
+resource "aws_vpc" "platform" {
   cidr_block           = "10.129.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
 }
 
-resource "aws_internet_gateway" "gateway" {
-  vpc_id = aws_vpc.network.id
+resource "aws_internet_gateway" "edge" {
+  vpc_id = aws_vpc.platform.id
 }
 
-resource "aws_subnet" "web_tier" {
+resource "aws_subnet" "service" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.129.1.0/24"
-  vpc_id            = aws_vpc.network.id
+  vpc_id            = aws_vpc.platform.id
 }
 
-resource "aws_subnet" "data_tier" {
-  count = 2
-
-  availability_zone = ["us-east-1a", "us-east-1b"][count.index]
-  cidr_block        = ["10.129.10.0/24", "10.129.11.0/24"][count.index]
-  vpc_id            = aws_vpc.network.id
+resource "aws_subnet" "storage_1" {
+  availability_zone = "us-east-1a"
+  cidr_block        = "10.129.10.0/24"
+  vpc_id            = aws_vpc.platform.id
 }
 
-resource "aws_route_table" "public_route" {
-  vpc_id = aws_vpc.network.id
+resource "aws_subnet" "storage_2" {
+  availability_zone = "us-east-1b"
+  cidr_block        = "10.129.11.0/24"
+  vpc_id            = aws_vpc.platform.id
+}
+
+resource "aws_subnet" "storage_3" {
+  availability_zone = "us-east-1c"
+  cidr_block        = "10.129.12.0/24"
+  vpc_id            = aws_vpc.platform.id
+}
+
+resource "aws_route_table" "edge_routes" {
+  vpc_id = aws_vpc.platform.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.gateway.id
+    gateway_id = aws_internet_gateway.edge.id
   }
 }
 
-resource "aws_route_table_association" "assoc_app" {
-  route_table_id = aws_route_table.public_route.id
-  subnet_id      = aws_subnet.web_tier.id
+resource "aws_route_table_association" "route_link_app" {
+  route_table_id = aws_route_table.edge_routes.id
+  subnet_id      = aws_subnet.service.id
 }
 
-resource "aws_route_table" "data_route" {
-  vpc_id = aws_vpc.network.id
-}
-
-resource "aws_route_table_association" "assoc_db" {
-  count = 2
-
-  route_table_id = aws_route_table.data_route.id
-  subnet_id      = aws_subnet.data_tier[count.index].id
-}
-
-resource "aws_security_group_rule" "data_secgroup_from_app_5432" {
+resource "aws_security_group_rule" "storage_access_from_app_5432" {
   from_port                = 5432
   protocol                 = "tcp"
-  security_group_id        = aws_security_group.data_secgroup.id
-  source_security_group_id = aws_security_group.web_secgroup.id
+  security_group_id        = aws_security_group.storage_access.id
+  source_security_group_id = aws_security_group.service_access.id
   to_port                  = 5432
   type                     = "ingress"
 }
 
-resource "aws_security_group_rule" "data_secgroup_egress" {
+resource "aws_security_group_rule" "storage_access_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
   from_port         = 0
   protocol          = "-1"
-  security_group_id = aws_security_group.data_secgroup.id
+  security_group_id = aws_security_group.storage_access.id
   to_port           = 0
   type              = "egress"
 }
 
-resource "aws_security_group_rule" "web_secgroup_egress" {
-  cidr_blocks       = ["0.0.0.0/0"]
-  from_port         = 0
-  protocol          = "-1"
-  security_group_id = aws_security_group.web_secgroup.id
-  to_port           = 0
-  type              = "egress"
+resource "aws_security_group_rule" "service_access_egress_db" {
+  from_port                = 5432
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.service_access.id
+  source_security_group_id = aws_security_group.storage_access.id
+  to_port                  = 5432
+  type                     = "egress"
 }
 
-resource "aws_security_group" "web_secgroup" {
-  description = "Application security group for tpl-09"
-  name        = "web_secgroup-tpl-09"
-  vpc_id      = aws_vpc.network.id
+resource "aws_security_group" "service_access" {
+  description = "Application security group for tpl-31"
+  name        = "service_access-tpl-31"
+  vpc_id      = aws_vpc.platform.id
 }
 
-resource "aws_security_group" "data_secgroup" {
-  description = "Database security group for tpl-09"
-  name        = "data_secgroup-tpl-09"
-  vpc_id      = aws_vpc.network.id
+resource "aws_security_group" "storage_access" {
+  description = "Database security group for tpl-31"
+  name        = "storage_access-tpl-31"
+  vpc_id      = aws_vpc.platform.id
 }
 
-resource "aws_instance" "web_instance" {
-  ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.small"
-  subnet_id              = aws_subnet.web_tier.id
-  vpc_security_group_ids = [aws_security_group.web_secgroup.id]
+resource "aws_security_group" "service_access_ops" {
+  description = "Operations security group for tpl-31, attached to nothing"
+  name        = "service_access_ops-tpl-31"
+  vpc_id      = aws_vpc.platform.id
+
+  ingress {
+    cidr_blocks = ["10.129.0.0/16"]
+    from_port   = 443
+    protocol    = "tcp"
+    to_port     = 443
+  }
 }
 
-resource "aws_db_subnet_group" "data_subnets" {
-  name       = "data_subnets-tpl-09"
-  subnet_ids = [aws_subnet.data_tier[0].id, aws_subnet.data_tier[1].id]
+resource "aws_instance" "service_node" {
+  ami                    = local.app_ami
+  instance_type          = local.app_instance_type
+  subnet_id              = aws_subnet.service.id
+  vpc_security_group_ids = [aws_security_group.service_access.id]
 }
 
-resource "aws_db_instance" "data_instance" {
+resource "aws_db_subnet_group" "storage_subnets" {
+  name       = "storage_subnets-tpl-31"
+  subnet_ids = [aws_subnet.storage_1.id, aws_subnet.storage_2.id, aws_subnet.storage_3.id]
+}
+
+resource "aws_db_instance" "storage_db" {
   allocated_storage       = 20
   backup_retention_period = 7
-  db_subnet_group_name    = aws_db_subnet_group.data_subnets.name
+  db_subnet_group_name    = aws_db_subnet_group.storage_subnets.name
   engine                  = "postgres"
-  identifier              = "data-instance-tpl-09"
-  instance_class          = "db.t3.small"
+  identifier              = "storage-db-tpl-31"
+  instance_class          = local.db_instance_class
   password                = var.db_password
   publicly_accessible     = true
   skip_final_snapshot     = true
   username                = "postgres"
-  vpc_security_group_ids  = [aws_security_group.data_secgroup.id]
+  vpc_security_group_ids  = [aws_security_group.storage_access.id]
 }

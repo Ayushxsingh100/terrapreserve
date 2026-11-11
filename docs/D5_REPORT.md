@@ -1,6 +1,6 @@
 # D5 report: the oracle and the labelling run (D5b)
 
-Work package D5b (queue step 17, final part). Branch `feature/d5b-oracle-labels`, PR #9. This part is written by hand and explains the method; every id, count and status is in the computed part below the marker, written by `tools/report_d5b.py` from the repository, the oracle's run records and (counts only) the withheld test split.
+Work package D5b (queue step 17, final part). Branch `feature/d5b-oracle-labels`, PRs #9 and #10; the controlled tier was relabelled in D4c (section below). This part is written by hand and explains the method; every id, count and status is in the computed part below the marker, written by `tools/report_d5b.py` from the repository, the oracle's run records and (counts only) the withheld test split.
 
 ## Method
 
@@ -11,6 +11,15 @@ Work package D5b (queue step 17, final part). Branch `feature/d5b-oracle-labels`
 - **Comparisons (Step 7).** Intent: oracle gt_class against `intent.class`, and the invariants FAIL at the last step (F8: any step k >= 1) against `intent.breaks`. Generator self-check: the D4b round-4/5 evaluators (`tests/test_d4b_review_round4.py`, `generator/realworld/modread.py`) against the oracle per step. Both are reports only: the oracle's label stands and the generator is not changed in D5b.
 - **Earlier records kept.** `docs/d5b/dry_run.json` (Step 5) and `docs/d5b/scan_dev.json` (the dev scan before Open D5-D and D5-22 were decided) are kept as they were produced; the run below supersedes them.
 
+## Controlled relabel (D4c)
+
+Work package D4c (branch `feature/d4c-templates`) replaced the controlled tier: 33 templates instead of 10, a 23/10 template split, generator `d4a-9`, template set `tpl-v2.0` (`docs/D4C_DECISIONS.md`). No controlled scenario id changed side, and the real-world tier is byte-identical to `49837f2` (files, labels, test-manifest entries, validation rows, vv-3 search entries). The controlled tier was relabelled with the same oracle (`oracle-1.0`) and the same D5 rules (D4c-06):
+
+- **Values and feasibility.** `tools/search_vv3.py --redo-controlled` searched the controlled tier again (both splits): every scenario plans under both sets with candidate index 0 and no override (as before D4c). `tools/run_d5a_feasibility.py --run d5a3 --redo-controlled` re-measured the controlled rows of the D5a-3 feasibility files under both sets; real-world rows are unchanged.
+- **Plans and labels.** `tools/label_d5b.py --plans|--label [--write] --tier controlled`. A cached plan or Checkov run of a controlled step is used only when it records the step's `content_hash` (D4c-06), so no pre-D4c run was reused. Six dev plan runs ended as timeouts recording about 27,100 s of wall time (the machine was suspended overnight during the run); their cached results were deleted and the six steps planned again, all successfully, before any label was decided.
+- **Self-check comparison.** Since D4c the self-check reader is the fixed one (D4c-05). With it the self-check agrees with the oracle on every step of both tiers; with the reader of `49837f2`, D5b found the three self-check misses F2-0250, F2-0252 and F3-0263 (steps 0 and 1).
+- The computed part below covers both tiers: the real-world figures are those of D5b (unchanged), the controlled figures those of the D4c relabel; its last section lists the D4c specifics (per-template counts, F5 SG-name replacement usage).
+
 <!-- computed below by tools/report_d5b.py; the part above is written by hand -->
 
 ## Computed results (`tools/report_d5b.py`)
@@ -19,25 +28,32 @@ Regenerate with `python tools/report_d5b.py` with `TERRAPRESERVE_PRIVATE` set an
 
 ### Decision rows (`docs/D5_DECISIONS.md`, id and status as written)
 
-D5-01 Superseded; D5-02 Proposed; D5-03 Proposed; D5-04 Proposed; D5-05 Decided; D5-06 Decided; D5-07 Proposed; D5-08 Proposed; D5-09 Decided; D5-10 Proposed; D5-11 Decided; D5-12 Proposed; D5-13 Proposed; D5-14 Proposed; D5-15 Proposed; D5-16 Proposed; D5-17 Proposed; D5-18 Proposed; D5-19 Proposed; D5-20 Proposed; D5-21 Proposed; D5-22 Decided; Open D5-A Decided; Open D5-B Decided; Open D5-C Decided; Open D5-D Decided
+D5-01 Superseded; D5-02 Decided; D5-03 Decided; D5-04 Decided; D5-05 Decided; D5-06 Decided; D5-07 Decided; D5-08 Decided; D5-09 Decided; D5-10 Decided; D5-11 Decided; D5-12 Decided; D5-13 Decided; D5-14 Decided; D5-15 Decided; D5-16 Decided; D5-17 Decided; D5-18 Decided; D5-19 Decided; D5-20 Decided; D5-21 Decided; D5-22 Decided; Open D5-A Decided; Open D5-B Decided; Open D5-C Decided; Open D5-D Decided
 
 ### Versions recorded in the labels (D0 gate 9)
 
-- dev: 144 scenarios: `{"checkov": "3.3.30", "generator": "d4a-8", "oracle": "oracle-1.0", "provider_hashicorp_aws": "6.53.0", "registry": "registry-v1.0", "terraform": "1.15.8", "value_rule": "vv-3", "value_set": "primary"}`
+- dev: 144 scenarios: `{"checkov": "3.3.30", "generator": "d4a-9", "oracle": "oracle-1.0", "provider_hashicorp_aws": "6.53.0", "registry": "registry-v1.0", "terraform": "1.15.8", "value_rule": "vv-3", "value_set": "primary"}`
 - dev: 125 scenarios: `{"checkov": "3.3.30", "generator": "d4b-9", "oracle": "oracle-1.0", "provider_hashicorp_aws": "6.53.0", "registry": "registry-v1.0", "terraform": "1.15.8", "value_rule": "vv-3", "value_set": "primary"}`
-- test: 64 scenarios: `{"checkov": "3.3.30", "generator": "d4a-8", "oracle": "oracle-1.0", "provider_hashicorp_aws": "6.53.0", "registry": "registry-v1.0", "terraform": "1.15.8", "value_rule": "vv-3", "value_set": "primary"}`
+- test: 64 scenarios: `{"checkov": "3.3.30", "generator": "d4a-9", "oracle": "oracle-1.0", "provider_hashicorp_aws": "6.53.0", "registry": "registry-v1.0", "terraform": "1.15.8", "value_rule": "vv-3", "value_set": "primary"}`
 - test: 58 scenarios: `{"checkov": "3.3.30", "generator": "d4b-9", "oracle": "oracle-1.0", "provider_hashicorp_aws": "6.53.0", "registry": "registry-v1.0", "terraform": "1.15.8", "value_rule": "vv-3", "value_set": "primary"}`
 
 ### A5: plannable set against D5a-3
 
+D5b run (both tiers; its controlled part is superseded by the D4c relabel below, its real-world part stands because the real-world tier is unchanged):
+
 - dev: {'alternate failure': 35, 'alternate success': 617, 'primary failure': 35, 'primary success': 617}; differences from D5a-3: 0
 - test: {'alternate failure': 12, 'alternate success': 271, 'primary failure': 10, 'primary success': 273}; differences from D5a-3: 0
+
+D4c relabel of the controlled tier (D4c-06; D5a-3 feasibility re-measured for the controlled tier):
+
+- dev controlled: {'alternate success': 324, 'primary success': 324}; differences from D5a-3: 0
+- test controlled: {'alternate success': 138, 'primary success': 138}; differences from D5a-3: 0
 
 ### Steps labelled (each under both value sets, D5-18)
 
 | split | tier | scenarios labelled | steps labelled per value set | steps evaluated per value set |
 |---|---|---|---|---|
-| dev | controlled | 144 | 328 | 328 |
+| dev | controlled | 144 | 324 | 324 |
 | dev | real_world | 125 | 283 | 289 |
 | test | controlled | 64 | 138 | 138 |
 | test | real_world | 58 | 133 | 133 |
@@ -135,7 +151,7 @@ D5-01 Superseded; D5-02 Proposed; D5-03 Proposed; D5-04 Proposed; D5-05 Decided;
 
 ### Checkov 3.3.30, advisory (D5-19)
 
-- dev: 611 labelled steps; Checkov did not run on 0
+- dev: 607 labelled steps; Checkov did not run on 0
 - test: 271 labelled steps; Checkov did not run on 0
 - dev INV-SEC-001: oracle PASS, Checkov FAIL: 3
 - test INV-SEC-001: oracle PASS, Checkov FAIL: 2
@@ -157,26 +173,17 @@ Per labelled scenario: oracle `gt_class` against `intent.class`, and the invaria
 
 ### Generator self-check comparison (Step 7; `docs/D5_CARRYOVER.md` 5: findings to report)
 
-The D4b round-4/5 self-check evaluators against the oracle (primary value set), per step and invariant, over every scenario the oracle evaluated (D5a-3 exclusions left out). Self-check result: INV-SEC-001/002 from `modread.analyse` over all `.tf` files of the step (a violation is FAIL; a MIXED group or a relevant-unsupported type is UNSUPPORTED; `possible` is UNKNOWN; else PASS); INV-SEC-003 likewise (unresolved `publicly_accessible` is UNKNOWN); INV-FUNC-001 from `evaluate_func` of round 4 (controlled and grafted scenarios; n/a elsewhere or when it rejects the form).
+The D4b round-4/5 self-check evaluators against the oracle (primary value set), per step and invariant, over every scenario the oracle evaluated (D5a-3 exclusions left out). Self-check result: INV-SEC-001/002 from `modread.analyse` over all `.tf` files of the step (a violation is FAIL; a MIXED group, a TCP rule with from_port > to_port or a relevant-unsupported type is UNSUPPORTED; `possible` is UNKNOWN; else PASS). Since D4c the reader is the fixed one (D4c-05: registry 2.5 and MIXED in any direction); in D5b, with the reader of 49837f2, F2-0250, F2-0252 and F3-0263 were self-check misses at steps 0 and 1 (oracle UNSUPPORTED, self-check PASS). INV-SEC-003 likewise (unresolved `publicly_accessible` is UNKNOWN); INV-FUNC-001 from `evaluate_func` of round 4 (controlled and grafted scenarios; n/a elsewhere or when it rejects the form).
 
-- tp-v1-F2-0250 step 0 INV-SEC-001: oracle UNSUPPORTED, self-check PASS; oracle: 3.4 UNSUPPORTED: 2.5 aws_security_group.example_group_22.ingress[0]: TCP from_port > to_port (self-check miss at S0: the self-check accepted the host)
-- tp-v1-F2-0250 step 1 INV-SEC-001: oracle UNSUPPORTED, self-check PASS; oracle: 3.4 UNSUPPORTED: 2.5 aws_security_group.example_group_22.ingress[0]: TCP from_port > to_port
-- tp-v1-F2-0252 step 0 INV-SEC-002: oracle UNSUPPORTED, self-check PASS; oracle: 3.4 UNSUPPORTED: MIXED ['aws_security_group.k8s_controller_sec_group', 'aws_security_group.k8s_node_sec_group', 'aws_security_group.rds_sec_group'] (self-check miss at S0: the self-check accepted the host)
-- tp-v1-F2-0252 step 1 INV-SEC-002: oracle UNSUPPORTED, self-check PASS; oracle: 3.4 UNSUPPORTED: MIXED ['aws_security_group.k8s_controller_sec_group', 'aws_security_group.k8s_node_sec_group', 'aws_security_group.rds_sec_group']
-- tp-v1-F3-0263 step 0 INV-SEC-001: oracle UNSUPPORTED, self-check PASS; oracle: 3.4 UNSUPPORTED: MIXED ['aws_security_group.alb_sg', 'aws_security_group.ec2_sg'] (self-check miss at S0: the self-check accepted the host)
-- tp-v1-F3-0263 step 0 INV-SEC-002: oracle UNSUPPORTED, self-check PASS; oracle: 3.4 UNSUPPORTED: MIXED ['aws_security_group.alb_sg', 'aws_security_group.ec2_sg'] (self-check miss at S0: the self-check accepted the host)
-- tp-v1-F3-0263 step 1 INV-SEC-001: oracle UNSUPPORTED, self-check PASS; oracle: 3.4 UNSUPPORTED: MIXED ['aws_security_group.alb_sg', 'aws_security_group.ec2_sg']
-- tp-v1-F3-0263 step 1 INV-SEC-002: oracle UNSUPPORTED, self-check PASS; oracle: 3.4 UNSUPPORTED: MIXED ['aws_security_group.alb_sg', 'aws_security_group.ec2_sg']
+- dev: no disagreement
 
-- dev controlled INV-FUNC-001 compared: 328
-- dev controlled INV-SEC-001 compared: 328
-- dev controlled INV-SEC-002 compared: 328
-- dev controlled INV-SEC-003 compared: 328
+- dev controlled INV-FUNC-001 compared: 324
+- dev controlled INV-SEC-001 compared: 324
+- dev controlled INV-SEC-002 compared: 324
+- dev controlled INV-SEC-003 compared: 324
 - dev real_world INV-FUNC-001 compared: 289
 - dev real_world INV-SEC-001 compared: 289
-- dev real_world INV-SEC-001 oracle UNSUPPORTED / self-check PASS: 4
 - dev real_world INV-SEC-002 compared: 289
-- dev real_world INV-SEC-002 oracle UNSUPPORTED / self-check PASS: 4
 - dev real_world INV-SEC-003 compared: 289
 - test controlled INV-FUNC-001 compared: 138
 - test controlled INV-SEC-001 compared: 138
@@ -262,4 +269,12 @@ Per family x class x split x tier. *targets*: scenarios assigned as targets (not
 - dev real_world: targets 112, reserves 32, labelled 125, short 3
 - test controlled: targets 48, reserves 16, labelled 64, short 0
 - test real_world: targets 48, reserves 16, labelled 58, short 0
+
+### D4c: controlled tier, 33 templates (D4c-01 to D4c-06)
+
+- generator and template versions: dev d4a-9 tpl-v2.0: 144; test d4a-9 tpl-v2.0: 64
+- dev scenarios per template: tpl-01 6, tpl-02 6, tpl-03 6, tpl-06 6, tpl-08 6, tpl-09 7, tpl-10 6, tpl-11 6, tpl-14 7, tpl-15 6, tpl-16 6, tpl-19 7, tpl-21 6, tpl-22 7, tpl-24 7, tpl-25 6, tpl-26 6, tpl-28 6, tpl-29 7, tpl-30 6, tpl-31 6, tpl-32 6, tpl-33 6
+- test scenarios per template: tpl-04 6, tpl-05 7, tpl-07 7, tpl-12 6, tpl-13 6, tpl-17 7, tpl-18 6, tpl-20 6, tpl-23 7, tpl-27 6
+- F5 scenarios using the SG-name replacement operator (`op_f5_db_sg_replacement_safe`/`_unsafe`), by tier, split, intent class: controlled dev safe: 1; controlled dev unsafe: 7; controlled test safe: 1; controlled test unsafe: 3; real_world dev safe: 1; real_world dev unsafe: 3; real_world test safe: 1; real_world test unsafe: 2
+- controlled outcome by split: dev labelled: 144; test labelled: 64
 

@@ -7,7 +7,7 @@
   },
   "excluded_from_v1": null,
   "family": "F1",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "safe",
   "intent": {
@@ -60,7 +60,7 @@
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -72,24 +72,33 @@
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b",
-      "us-east-1c"
+      "us-east-1b"
     ],
     "cidr_plan": {
       "app": "10.43.1.0/24",
       "db": [
         "10.43.10.0/24",
-        "10.43.11.0/24",
-        "10.43.12.0/24"
+        "10.43.11.0/24"
       ],
+      "extra": "10.43.200.0/24",
       "vpc": "10.43.0.0/16"
     },
     "db_class": "db.t3.small",
-    "instance_class": "t3.medium",
+    "features": {
+      "egress": "all",
+      "extras": "extra_subnet",
+      "files": "single",
+      "naming": "env",
+      "routing": "shared_public",
+      "sg_style": "app_separate_db_inline",
+      "subnets": "one_app",
+      "values": "variables"
+    },
+    "instance_class": "t3.small",
     "naming_scheme": "env",
-    "sg_style": "all_inline",
-    "template_id": "tpl-06",
-    "template_version": "tpl-v1.0",
+    "sg_style": "app_separate_db_inline",
+    "template_id": "tpl-22",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -114,23 +123,23 @@
   "scenario_id": "tp-v1-F1-0006",
   "seed": 6,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-06",
+    "repo_lineage_id": "tpl-22",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "d7de62cb484cfe126d2ebfc9ff93fe6891427bb0ea9105cb064537f82efc4717",
+      "content_hash": "0335a6d3629330c6aeb01e3a1d8faea9aab0858eedca1012e55c4e3b617d1344",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "b9af2a11373fec13c85ae2294321ce24d1f9d7702a06d5635ae5ec00fda3314c",
+      "content_hash": "895a6c9d5603f05eca4a580f1f543c99903c706c354dd21be67c2e6b78266551",
       "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,6 +1,6 @@\n resource \"aws_vpc\" \"prod_vpc\" {\n   cidr_block           = \"10.43.0.0/16\"\n-  enable_dns_hostnames = true\n+  enable_dns_hostnames = false\n   enable_dns_support   = true\n }\n \n",
       "step": 1,
       "terraform_dir": "step_1"
@@ -141,8 +150,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-06",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-22",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

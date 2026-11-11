@@ -66,56 +66,91 @@ def get_private_dir() -> Path:
     return p
 
 
-def build_scenario_plan() -> list[dict[str, Any]]:
-    """Build the deterministic generation plan for all 208 scenarios in stable order."""
-    split_info = json.loads((REPO_ROOT / "scenarios" / "split.json").read_text(encoding="utf-8"))
-    dev_templates = set(split_info["dev_templates"])
-    test_templates = set(split_info["test_templates"])
+# Per cell (D4-04 counts, kept by D4c-04): targets and reserves by split.
+DEV_TARGETS, TEST_TARGETS, DEV_RESERVES, TEST_RESERVES = 7, 3, 2, 1
+# The D4a side of each position in a cell (targets 0-9 were tpl-01..tpl-10, of which tpl-04, tpl-05 and tpl-07 were
+# test; reserves 10-12 were dev, dev, test). D4c keeps it, so no scenario id changes side.
+CELL_SIDES = ("dev", "dev", "dev", "test", "test", "dev", "test", "dev", "dev", "dev", "dev", "dev", "test")
+D4C_NEW_TEMPLATES = [f"tpl-{i}" for i in range(11, 34)]
+D4C_NEW_TEST = 7  # D4c-01: 7 of the 23 new templates join the test side
 
-    all_tpl_ids = sorted(templates.TEMPLATES.keys())
-    shuffled_tpl_ids = seed.template_shuffle_order(all_tpl_ids)
-    dev_tpl_list = [t for t in shuffled_tpl_ids if t in dev_templates]
-    test_tpl_list = [t for t in shuffled_tpl_ids if t in test_templates]
+
+def d4c_draw() -> dict[str, Any]:
+    """D4c-01: the new templates in ``seed.template_shuffle_order`` (master seed); the last 7 are test."""
+    order = seed.template_shuffle_order(sorted(D4C_NEW_TEMPLATES))
+    return {"order": order, "dev": sorted(order[:-D4C_NEW_TEST]), "test": sorted(order[-D4C_NEW_TEST:])}
+
+
+def serving(tpl_id: str, family: str, cls: str) -> list[str]:
+    """D4c-04: the operators of one family x class cell the template accepts (OperatorNotApplicable excluded)."""
+    tpl = templates.TEMPLATES[tpl_id]
+    out = []
+    for op in operators.CATALOGUE:
+        if op.family != family or op.variant != cls:
+            continue
+        variant = "clean"
+        if op.target_kind == "repair":
+            variant = {"INV-SEC-001": "sec_001_violated", "INV-SEC-002": "sec_002_violated",
+                       "INV-SEC-003": "sec_003_violated"}[op.target_invariant]
+        m0, _ = tpl.instantiate(seed.scenario_rng(0), variant=variant)
+        try:
+            op.apply(m0, seed.scenario_rng(0))
+        except operators.OperatorNotApplicable:
+            continue
+        out.append(op.name)
+    return out
+
+
+def build_scenario_plan() -> list[dict[str, Any]]:
+    """Build the deterministic generation plan for all 208 scenarios in stable order (D4c-04).
+
+    Each split's templates are put in ``seed.template_shuffle_order`` (master seed) and walked cyclically
+    across the 16 cells in family x class order: a cell takes the next 9 dev templates (7 targets, then 2
+    reserves) and the next 4 test templates (3 targets, then 1 reserve) that serve it, each at most once per
+    cell. Ids follow D4-09 (family, class, targets, then reserves) and keep the D4a side of each position in a
+    cell (``CELL_SIDES``), so no scenario id changes side; within each side, templates are in template-id order."""
+    split_info = json.loads((REPO_ROOT / "scenarios" / "split.json").read_text(encoding="utf-8"))
+    dev_order = seed.template_shuffle_order(sorted(split_info["dev_templates"]))
+    test_order = seed.template_shuffle_order(sorted(split_info["test_templates"]))
+    pos = {"dev": 0, "test": 0}
+
+    def take(split: str, order: list[str], n: int, family: str, cls: str) -> list[str]:
+        got: list[str] = []
+        tried = 0
+        while len(got) < n:
+            if tried >= len(order):
+                raise ValueError(f"not enough {split} templates serve {family} {cls}")
+            t = order[pos[split] % len(order)]
+            pos[split] += 1
+            tried += 1
+            if t not in got and serving(t, family, cls):
+                got.append(t)
+        return got
 
     plan = []
     global_counter = 1
-    cell_num = 0
-
     for family in FAMILIES:
         for cls in CLASSES:
-            # 10 target scenarios: one per template tpl-01..tpl-10
-            for tpl_idx, tpl_id in enumerate(all_tpl_ids):
+            dev = take("dev", dev_order, DEV_TARGETS + DEV_RESERVES, family, cls)
+            test = take("test", test_order, TEST_TARGETS + TEST_RESERVES, family, cls)
+            # Every id keeps the side it had in D4a (D4-03: "a scenario never changes side"): the cell's dev and
+            # test templates, each sorted by template id, fill the dev and test positions of the D4a layout.
+            dev_sorted = iter(sorted(dev[:DEV_TARGETS]) + sorted(dev[DEV_TARGETS:]))
+            test_sorted = iter(sorted(test[:TEST_TARGETS]) + sorted(test[TEST_TARGETS:]))
+            slots = [((next(dev_sorted) if side == "dev" else next(test_sorted)), side)
+                     for side in CELL_SIDES]
+            for idx, ((tpl_id, split), reserve) in enumerate(
+                    (x, i >= TARGETS_PER_CELL) for i, x in enumerate(slots)):
                 plan.append({
                     "global_id": global_counter,
                     "family": family,
                     "cls": cls,
-                    "reserve": False,
+                    "reserve": reserve,
                     "template_id": tpl_id,
-                    "cell_index": tpl_idx,
-                    "split": "dev" if tpl_id in dev_templates else "test",
+                    "cell_index": idx,
+                    "split": split,
                 })
                 global_counter += 1
-
-            # 3 reserve scenarios rotating across all 10 templates (2 dev, 1 test per cell)
-            dev_res_0 = dev_tpl_list[(cell_num * 2) % len(dev_tpl_list)]
-            dev_res_1 = dev_tpl_list[(cell_num * 2 + 1) % len(dev_tpl_list)]
-            test_res_2 = test_tpl_list[cell_num % len(test_tpl_list)]
-            cell_res_tpls = [dev_res_0, dev_res_1, test_res_2]
-
-            for res_idx, tpl_id in enumerate(cell_res_tpls):
-                plan.append({
-                    "global_id": global_counter,
-                    "family": family,
-                    "cls": cls,
-                    "reserve": True,
-                    "template_id": tpl_id,
-                    "cell_index": TARGETS_PER_CELL + res_idx,
-                    "split": "dev" if tpl_id in dev_templates else "test",
-                })
-                global_counter += 1
-
-            cell_num += 1
-
     return plan
 
 
@@ -207,21 +242,13 @@ def generate_scenario(
     ):
         dv.verify(prev_m, curr_m, rec, step=step_num, operator_name=op.name)
 
-    # Emit step files
-    variables_tf = emitter.emit_db_password_variable()
-    versions_tf = emitter.emit_versions()
-
+    # Emit step files (the template decides the file layout and value style, D4c-03 axes 5 and 6)
     steps_files: list[dict[str, str]] = []
     steps_meta: list[dict[str, Any]] = []
 
     prev_files: dict[str, str] | None = None
     for step_idx, model in enumerate(all_models):
-        main_tf = emitter.emit(model)
-        files = {
-            "main.tf": main_tf,
-            "variables.tf": variables_tf,
-            "versions.tf": versions_tf,
-        }
+        files = tpl.emit_step_files(model)
         steps_files.append(files)
 
         content_hash = writer.compute_step_content_hash(files)
@@ -356,6 +383,14 @@ def run_pipeline(resume: bool = True) -> dict[str, Any]:
                         shutil.rmtree(item)
                 except ValueError:
                     pass
+    # D4c: the controlled test split is rewritten too (a scenario id may change side or step count).
+    for item in private_root.glob("tp-v1-*"):
+        if item.is_dir():
+            try:
+                if int(item.name.split("-")[-1]) <= 208:
+                    shutil.rmtree(item)
+            except ValueError:
+                pass
 
     test_manifest_entries = []
     dev_validation_rows = []
@@ -375,8 +410,58 @@ def run_pipeline(resume: bool = True) -> dict[str, Any]:
         "error_steps": 0,
     }
 
-    for item in plan:
-        sc_data, steps_files, _ = generate_scenario(item)
+    generated = [generate_scenario(item)[:2] for item in plan]
+
+    # D4c: validate every distinct step content not already known valid, in parallel; each worker has its own
+    # harness directory (same Terraform, provider mirror and pins as Harness.default()). Results are identical
+    # to validating step by step; only the order of the work changes.
+    validated: dict[str, tuple[str, str]] = {}
+    todo: dict[str, dict[str, str]] = {}
+    for sc_data, steps_files in generated:
+        for step_idx, files in enumerate(steps_files):
+            chash = sc_data["steps"][step_idx]["content_hash"]
+            if not (resume and chash in valid_hash_cache):
+                todo.setdefault(chash, files)
+    if todo:
+        import concurrent.futures as cf
+        import threading
+        import time
+
+        n_workers = max(1, int(os.environ.get("TP_VALIDATE_WORKERS", "6")))
+        base = harness.work.parent / "d4c-tfv"
+        pool = [validate.Harness(base / f"w{i}", harness.terraform, Path(harness.env["TF_CLI_CONFIG_FILE"]))
+                for i in range(n_workers)]
+        free = list(pool)
+        lock = threading.Lock()
+        print(f"steps to validate: {len(todo)} ({n_workers} workers)", flush=True)
+
+        def one(item: tuple[str, dict[str, str]]) -> tuple[str, tuple[str, str]]:
+            chash, files = item
+            with lock:
+                h = free.pop()
+            try:
+                res = h.validate(files)
+                retries = 0
+                while res.status == "error" and retries < 3:
+                    retries += 1
+                    time.sleep(0.5)
+                    res = h.validate(files)
+                return chash, (res.status, res.error_class)
+            finally:
+                with lock:
+                    free.append(h)
+
+        for h in pool:  # initialise one at a time (provider from the local mirror)
+            h.ensure_ready()
+        done = 0
+        with cf.ThreadPoolExecutor(max_workers=n_workers) as ex:
+            for chash, result in ex.map(one, sorted(todo.items())):
+                validated[chash] = result
+                done += 1
+                if done % 50 == 0:
+                    print(f"{done}/{len(todo)} validated", flush=True)
+
+    for sc_data, steps_files in generated:
         sc_id = sc_data["scenario_id"]
         split = sc_data["split"]
 
@@ -403,17 +488,7 @@ def run_pipeline(resume: bool = True) -> dict[str, Any]:
             if resume and chash in valid_hash_cache:
                 status, error_class = valid_hash_cache[chash]
             else:
-                res = harness.validate(files)
-                retries = 0
-                while res.status == "error" and retries < 3:
-                    retries += 1
-                    import time
-                    time.sleep(0.5)
-                    res = harness.validate(files)
-                status = res.status
-                error_class = res.error_class
-                if status == "valid":
-                    valid_hash_cache[chash] = ("valid", "")
+                status, error_class = validated[chash]
 
             if status == "valid":
                 counts["valid_steps"] += 1
@@ -437,11 +512,12 @@ def run_pipeline(resume: bool = True) -> dict[str, Any]:
     manifest_path = REPO_ROOT / "scenarios" / "test_manifest.json"
     rw_test_entries = []
     if manifest_path.is_file():
-        try:
-            existing_doc = json.loads(manifest_path.read_text(encoding="utf-8"))
-            rw_test_entries = [e for e in existing_doc.get("scenarios", []) if int(e["scenario_id"].split("-")[-1]) > 208]
-        except Exception:
-            pass
+        # The manifest is a JSON list (writer.canonical_json of the entries). Before D4c this read
+        # ``.get("scenarios")`` inside a bare ``except``, which drops the real-world entries when only the
+        # controlled tier is regenerated; any read error now stops the run instead.
+        existing_doc = json.loads(manifest_path.read_text(encoding="utf-8"))
+        entries = existing_doc if isinstance(existing_doc, list) else existing_doc.get("scenarios", [])
+        rw_test_entries = [e for e in entries if int(e["scenario_id"].split("-")[-1]) > 208]
     all_test_entries = test_manifest_entries + rw_test_entries
     manifest_path.write_text(writer.canonical_json(all_test_entries), encoding="utf-8", newline="\n")
 

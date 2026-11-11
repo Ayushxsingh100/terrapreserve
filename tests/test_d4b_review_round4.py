@@ -127,7 +127,10 @@ class Sc:
         if mf is None:
             return None
         if k not in self._models:
-            text = (self.step_dirs()[k] / mf).read_text(encoding="utf-8")
+            sd = self.step_dirs()[k]
+            # D4c-03 axis 5: a controlled step is main.tf, or split into network.tf, compute.tf and database.tf.
+            parts = [mf] if (sd / mf).is_file() else ["network.tf", "compute.tf", "database.tf"]
+            text = "\n".join((sd / f).read_text(encoding="utf-8") for f in parts)
             self._models[k] = parse_model(text)
         return self._models[k]
 

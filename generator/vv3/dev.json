@@ -5540,7 +5540,7 @@
           "result": "plans"
         },
         "moves": [],
-        "plans_run": 10,
+        "plans_run": 6,
         "primary": {
           "result": "plans"
         }
@@ -5558,7 +5558,7 @@
           "result": "plans"
         },
         "moves": [],
-        "plans_run": 10,
+        "plans_run": 6,
         "primary": {
           "result": "plans"
         }

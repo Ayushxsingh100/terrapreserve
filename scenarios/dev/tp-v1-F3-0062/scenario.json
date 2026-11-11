@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.backend_database",
-    "S": "aws_instance.frontend_server"
+    "D": "aws_db_instance.rds_postgres",
+    "S": "aws_instance.ec2_app"
   },
   "excluded_from_v1": null,
   "family": "F3",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "safe",
   "intent": {
@@ -57,23 +57,23 @@
       "before": null,
       "operator": "op_f3_db_ingress_peer_safe",
       "step": 1,
-      "target_address": "aws_security_group.backend_sg_peer"
+      "target_address": "aws_security_group.sg_db_peer"
     },
     {
-      "after": "\"backend_sg-tpl-10-peer\"",
+      "after": "\"sg_db-tpl-32-peer\"",
       "attribute": "name",
       "before": null,
       "operator": "op_f3_db_ingress_peer_safe",
       "step": 1,
-      "target_address": "aws_security_group.backend_sg_peer"
+      "target_address": "aws_security_group.sg_db_peer"
     },
     {
-      "after": "aws_vpc.corp_vpc.id",
+      "after": "aws_vpc.vpc_main.id",
       "attribute": "vpc_id",
       "before": null,
       "operator": "op_f3_db_ingress_peer_safe",
       "step": 1,
-      "target_address": "aws_security_group.backend_sg_peer"
+      "target_address": "aws_security_group.sg_db_peer"
     },
     {
       "after": "5432",
@@ -81,7 +81,7 @@
       "before": null,
       "operator": "op_f3_db_ingress_peer_safe",
       "step": 1,
-      "target_address": "aws_security_group.backend_sg"
+      "target_address": "aws_security_group.sg_db"
     },
     {
       "after": "\"tcp\"",
@@ -89,15 +89,15 @@
       "before": null,
       "operator": "op_f3_db_ingress_peer_safe",
       "step": 1,
-      "target_address": "aws_security_group.backend_sg"
+      "target_address": "aws_security_group.sg_db"
     },
     {
-      "after": "[aws_security_group.backend_sg_peer.id]",
+      "after": "[aws_security_group.sg_db_peer.id]",
       "attribute": "security_groups",
       "before": null,
       "operator": "op_f3_db_ingress_peer_safe",
       "step": 1,
-      "target_address": "aws_security_group.backend_sg"
+      "target_address": "aws_security_group.sg_db"
     },
     {
       "after": "5432",
@@ -105,14 +105,14 @@
       "before": null,
       "operator": "op_f3_db_ingress_peer_safe",
       "step": 1,
-      "target_address": "aws_security_group.backend_sg"
+      "target_address": "aws_security_group.sg_db"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -124,22 +124,35 @@
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b"
+      "us-east-1b",
+      "us-east-1c"
     ],
     "cidr_plan": {
       "app": "10.182.1.0/24",
       "db": [
         "10.182.10.0/24",
-        "10.182.11.0/24"
+        "10.182.11.0/24",
+        "10.182.12.0/24"
       ],
+      "extra": "10.182.200.0/24",
       "vpc": "10.182.0.0/16"
     },
-    "db_class": "db.t3.nano",
+    "db_class": "db.t3.micro",
+    "features": {
+      "egress": "all",
+      "extras": "extra_subnet",
+      "files": "split",
+      "naming": "kebab",
+      "routing": "shared_public",
+      "sg_style": "all_inline",
+      "subnets": "db_count",
+      "values": "variables"
+    },
     "instance_class": "t3.micro",
-    "naming_scheme": "component",
+    "naming_scheme": "kebab",
     "sg_style": "all_inline",
-    "template_id": "tpl-10",
-    "template_version": "tpl-v1.0",
+    "template_id": "tpl-32",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -164,24 +177,24 @@
   "scenario_id": "tp-v1-F3-0062",
   "seed": 62,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-10",
+    "repo_lineage_id": "tpl-32",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "c98885a12286a6a9304d8b396133719f76c28a224eac5a31af97e03c747af447",
+      "content_hash": "25b90ccc08edb1306f92d45e4340985ac1987dc312060eebe995c78b9bc9fd9f",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "ff55d7dc8d222cac236c3dda8089cfa2f0fa1d80805bc24c73d6df07871c875f",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -71,6 +71,13 @@\n     protocol    = \"-1\"\n     to_port     = 0\n   }\n+\n+  ingress {\n+    from_port       = 5432\n+    protocol        = \"tcp\"\n+    security_groups = [aws_security_group.backend_sg_peer.id]\n+    to_port         = 5432\n+  }\n }\n \n resource \"aws_security_group\" \"frontend_sg_extra\" {\n@@ -103,3 +110,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.backend_sg.id]\n }\n+\n+resource \"aws_security_group\" \"backend_sg_peer\" {\n+  description = \"Dependent client security group\"\n+  name        = \"backend_sg-tpl-10-peer\"\n+  vpc_id      = aws_vpc.corp_vpc.id\n+}\n",
+      "content_hash": "49bd59392d22ff90beb8228827e1c688d69a7ddd208f657e7c554c7851270429",
+      "diff_from_previous": "--- a/compute.tf\n+++ b/compute.tf\n@@ -17,3 +17,9 @@\n   subnet_id              = aws_subnet.sub_app.id\n   vpc_security_group_ids = [aws_security_group.sg_app.id]\n }\n+\n+resource \"aws_security_group\" \"sg_db_peer\" {\n+  description = \"Dependent client security group\"\n+  name        = \"sg_db-tpl-32-peer\"\n+  vpc_id      = aws_vpc.vpc_main.id\n+}\n--- a/database.tf\n+++ b/database.tf\n@@ -15,6 +15,13 @@\n     from_port   = 0\n     protocol    = \"-1\"\n     to_port     = 0\n+  }\n+\n+  ingress {\n+    from_port       = 5432\n+    protocol        = \"tcp\"\n+    security_groups = [aws_security_group.sg_db_peer.id]\n+    to_port         = 5432\n   }\n }\n \n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -191,8 +204,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-10",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-32",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

@@ -138,12 +138,26 @@ def versions(scs) -> None:
 def plannable() -> None:
     emit("### A5: plannable set against D5a-3")
     emit()
+    emit("D5b run (both tiers; its controlled part is superseded by the D4c relabel below, its real-world part "
+         "stands because the real-world tier is unchanged):")
+    emit()
     docs = {"dev": json.loads((REPO_ROOT / "docs" / "d5b" / "plannable_dev.json").read_text(encoding="utf-8"))}
     if private_root() is not None and (private_root() / "d5b_plannable_test.json").is_file():
         docs["test"] = json.loads((private_root() / "d5b_plannable_test.json").read_text(encoding="utf-8"))
     for split, doc in docs.items():
         emit(f"- {split}: {doc['counts']}; differences from D5a-3: {doc['differences']}")
     emit()
+    c4 = REPO_ROOT / "docs" / "d4c" / "plannable_controlled_dev.json"
+    if c4.is_file():
+        emit("D4c relabel of the controlled tier (D4c-06; D5a-3 feasibility re-measured for the controlled tier):")
+        emit()
+        docs = {"dev": json.loads(c4.read_text(encoding="utf-8"))}
+        tp = private_root() / "d5b_plannable_controlled_test.json" if private_root() is not None else None
+        if tp is not None and tp.is_file():
+            docs["test"] = json.loads(tp.read_text(encoding="utf-8"))
+        for split, doc in docs.items():
+            emit(f"- {split} controlled: {doc['counts']}; differences from D5a-3: {doc['differences']}")
+        emit()
 
 
 def steps_labelled(scs) -> None:
@@ -317,7 +331,8 @@ def selfcheck_verdicts(p: Path, d: dict) -> list[dict[str, str]]:
         an = modread.analyse({f.name: f.read_text(encoding="utf-8") for f in sorted(sd.glob("*.tf"))})
         v: dict[str, str] = {}
         for inv in ("INV-SEC-001", "INV-SEC-002"):
-            v[inv] = ("FAIL" if an.violations.get(inv) else "UNSUPPORTED" if (an.mixed or an.unsupported_types)
+            unsup = an.mixed or an.unsupported_types or getattr(an, "unsupported_rules", [])
+            v[inv] = ("FAIL" if an.violations.get(inv) else "UNSUPPORTED" if unsup
                       else "UNKNOWN" if an.possible.get(inv) else "PASS")
         v["INV-SEC-003"] = ("FAIL" if an.violations.get("INV-SEC-003") else "UNKNOWN" if an.unresolved_public
                             else "PASS")
@@ -337,7 +352,10 @@ def selfcheck(scs) -> None:
     emit("The D4b round-4/5 self-check evaluators against the oracle (primary value set), per step and invariant, "
          "over every scenario the oracle evaluated (D5a-3 exclusions left out). Self-check result: "
          "INV-SEC-001/002 from `modread.analyse` over all `.tf` files of the step (a violation is FAIL; a MIXED "
-         "group or a relevant-unsupported type is UNSUPPORTED; `possible` is UNKNOWN; else PASS); INV-SEC-003 "
+         "group, a TCP rule with from_port > to_port or a relevant-unsupported type is UNSUPPORTED; `possible` is "
+         "UNKNOWN; else PASS). Since D4c the reader is the fixed one (D4c-05: registry 2.5 and MIXED in any "
+         "direction); in D5b, with the reader of 49837f2, F2-0250, F2-0252 and F3-0263 were self-check misses "
+         "at steps 0 and 1 (oracle UNSUPPORTED, self-check PASS). INV-SEC-003 "
          "likewise (unresolved `publicly_accessible` is UNKNOWN); INV-FUNC-001 from `evaluate_func` of round 4 "
          "(controlled and grafted scenarios; n/a elsewhere or when it rejects the form).")
     emit()
@@ -415,6 +433,30 @@ def yields(scs) -> None:
     emit()
 
 
+def controlled_d4c(scs) -> None:
+    """D4c: the controlled tier after the relabel (33 templates)."""
+    emit("### D4c: controlled tier, 33 templates (D4c-01 to D4c-06)")
+    emit()
+    ctl = [(s, d) for s, _p, d in scs if tier(d) == "controlled"]
+    gens = collections.Counter((s, d["generator_version"], d["template_version"]) for s, d in ctl)
+    emit("- generator and template versions: " + "; ".join(f"{s} {g} {t}: {n}" for (s, g, t), n in sorted(gens.items())))
+    per = collections.Counter((s, d["template_id"]) for s, d in ctl)
+    for split in ("dev", "test"):
+        row = [f"{t} {n}" for (s, t), n in sorted(per.items()) if s == split]
+        if row:
+            emit(f"- {split} scenarios per template: " + ", ".join(row))
+    f5 = collections.Counter()
+    for split, _p, d in scs:
+        if d["family"] == "F5" and any(r["operator"].startswith("op_f5_db_sg_replacement")
+                                       for r in d["mutation_record"]):
+            f5[(tier(d), split, d["intent"]["class"])] += 1
+    emit("- F5 scenarios using the SG-name replacement operator (`op_f5_db_sg_replacement_safe`/`_unsafe`), "
+         "by tier, split, intent class: " + ("; ".join(f"{' '.join(k)}: {n}" for k, n in sorted(f5.items())) or "none"))
+    ex = collections.Counter((s, kind_of(d) or "labelled") for s, d in ctl)
+    emit("- controlled outcome by split: " + "; ".join(f"{s} {k}: {n}" for (s, k), n in sorted(ex.items())))
+    emit()
+
+
 def main() -> None:
     scs = load()
     text = DOC.read_text(encoding="utf-8") if DOC.is_file() else MARKER + "\n"
@@ -437,6 +479,7 @@ def main() -> None:
     intent(scs)
     selfcheck(scs)
     yields(scs)
+    controlled_d4c(scs)
     DOC.write_text(head + "\n" + "\n".join(OUT) + "\n", encoding="utf-8", newline="\n")
     print(f"wrote {DOC} ({len(OUT)} lines)")
 

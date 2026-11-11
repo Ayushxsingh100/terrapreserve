@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.prod_postgres_db",
-    "S": "aws_instance.prod_app_server"
+    "D": "aws_db_instance.rds_postgres",
+    "S": "aws_instance.ec2_app"
   },
   "excluded_from_v1": null,
   "family": "F1",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "unsafe",
   "intent": {
@@ -58,7 +58,7 @@
       "before": "20",
       "operator": "op_f1_storage_expand_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.prod_postgres_db"
+      "target_address": "aws_db_instance.rds_postgres"
     },
     {
       "after": "[\"0.0.0.0/0\"]",
@@ -66,7 +66,7 @@
       "before": null,
       "operator": "op_f1_storage_expand_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.prod_db_sg"
+      "target_address": "aws_security_group.sg_db"
     },
     {
       "after": "5432",
@@ -74,7 +74,7 @@
       "before": null,
       "operator": "op_f1_storage_expand_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.prod_db_sg"
+      "target_address": "aws_security_group.sg_db"
     },
     {
       "after": "\"tcp\"",
@@ -82,7 +82,7 @@
       "before": null,
       "operator": "op_f1_storage_expand_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.prod_db_sg"
+      "target_address": "aws_security_group.sg_db"
     },
     {
       "after": "5432",
@@ -90,14 +90,14 @@
       "before": null,
       "operator": "op_f1_storage_expand_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.prod_db_sg"
+      "target_address": "aws_security_group.sg_db"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -109,24 +109,32 @@
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b",
-      "us-east-1c"
+      "us-east-1b"
     ],
     "cidr_plan": {
       "app": "10.161.1.0/24",
       "db": [
         "10.161.10.0/24",
-        "10.161.11.0/24",
-        "10.161.12.0/24"
+        "10.161.11.0/24"
       ],
       "vpc": "10.161.0.0/16"
     },
     "db_class": "db.t3.small",
-    "instance_class": "t3.medium",
-    "naming_scheme": "env",
+    "features": {
+      "egress": "all",
+      "extras": "none",
+      "files": "single",
+      "naming": "kebab",
+      "routing": "private_db",
+      "sg_style": "all_inline",
+      "subnets": "one_app",
+      "values": "literal"
+    },
+    "instance_class": "t3.small",
+    "naming_scheme": "kebab",
     "sg_style": "all_inline",
-    "template_id": "tpl-06",
-    "template_version": "tpl-v1.0",
+    "template_id": "tpl-02",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -151,24 +159,24 @@
   "scenario_id": "tp-v1-F1-0024",
   "seed": 24,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-06",
+    "repo_lineage_id": "tpl-02",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "f87c11938cef72c461f497fe3db42ea013ea98bc949e636cf43907b2099a6c77",
+      "content_hash": "2e23f227fec93e5db54b77408b8836d9e25818e248433807f414b92efec74ab9",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "f490ac21ee93922770f966e6528d6aef2f00004afd3adc10b4124277efa696de",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -78,6 +78,13 @@\n     protocol    = \"-1\"\n     to_port     = 0\n   }\n+\n+  ingress {\n+    cidr_blocks = [\"0.0.0.0/0\"]\n+    from_port   = 5432\n+    protocol    = \"tcp\"\n+    to_port     = 5432\n+  }\n }\n \n resource \"aws_instance\" \"prod_app_server\" {\n@@ -93,7 +100,7 @@\n }\n \n resource \"aws_db_instance\" \"prod_postgres_db\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.prod_db_sng.name\n   engine                 = \"postgres\"\n   identifier             = \"prod-postgres-db-tpl-06\"\n",
+      "content_hash": "8a16c21d55246e047fef495d448bada7d107cca5afb7ab08bab6669d3447e31a",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -85,6 +85,13 @@\n     protocol    = \"-1\"\n     to_port     = 0\n   }\n+\n+  ingress {\n+    cidr_blocks = [\"0.0.0.0/0\"]\n+    from_port   = 5432\n+    protocol    = \"tcp\"\n+    to_port     = 5432\n+  }\n }\n \n resource \"aws_instance\" \"ec2_app\" {\n@@ -100,7 +107,7 @@\n }\n \n resource \"aws_db_instance\" \"rds_postgres\" {\n-  allocated_storage      = 20\n+  allocated_storage      = 30\n   db_subnet_group_name   = aws_db_subnet_group.dbsng_main.name\n   engine                 = \"postgres\"\n   identifier             = \"rds-postgres-tpl-02\"\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -178,8 +186,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-06",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-02",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

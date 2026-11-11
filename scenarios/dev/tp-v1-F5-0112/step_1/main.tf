@@ -1,76 +1,66 @@
 moved {
-  from = aws_subnet.app
-  to   = aws_subnet.app_app
+  from = aws_subnet.acme_app_subnet
+  to   = aws_subnet.acme_app_subnet_app
 }
 
-resource "aws_vpc" "main" {
+resource "aws_vpc" "acme_vpc" {
   cidr_block           = "10.30.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
 }
 
-resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.main.id
+resource "aws_internet_gateway" "acme_igw" {
+  vpc_id = aws_vpc.acme_vpc.id
 }
 
-resource "aws_subnet" "db_1" {
+resource "aws_subnet" "acme_db_subnet_1" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.30.10.0/24"
-  vpc_id            = aws_vpc.main.id
+  vpc_id            = aws_vpc.acme_vpc.id
 }
 
-resource "aws_subnet" "db_2" {
+resource "aws_subnet" "acme_db_subnet_2" {
   availability_zone = "us-east-1b"
   cidr_block        = "10.30.11.0/24"
-  vpc_id            = aws_vpc.main.id
+  vpc_id            = aws_vpc.acme_vpc.id
 }
 
-resource "aws_subnet" "db_3" {
-  availability_zone = "us-east-1c"
-  cidr_block        = "10.30.12.0/24"
-  vpc_id            = aws_vpc.main.id
-}
-
-resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.main.id
+resource "aws_route_table" "acme_public_rt" {
+  vpc_id = aws_vpc.acme_vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw.id
+    gateway_id = aws_internet_gateway.acme_igw.id
   }
 }
 
-resource "aws_route_table_association" "rta_app" {
-  route_table_id = aws_route_table.public.id
-  subnet_id      = aws_subnet.app_app.id
+resource "aws_route_table_association" "acme_rta_app" {
+  route_table_id = aws_route_table.acme_public_rt.id
+  subnet_id      = aws_subnet.acme_app_subnet_app.id
 }
 
-resource "aws_security_group_rule" "app_egress" {
+resource "aws_security_group_rule" "acme_db_sg_from_app_5432" {
+  from_port                = 5432
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.acme_db_sg.id
+  source_security_group_id = aws_security_group.acme_app_sg.id
+  to_port                  = 5432
+  type                     = "ingress"
+}
+
+resource "aws_security_group_rule" "acme_db_sg_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
   from_port         = 0
   protocol          = "-1"
-  security_group_id = aws_security_group.app.id
+  security_group_id = aws_security_group.acme_db_sg.id
   to_port           = 0
   type              = "egress"
 }
 
-resource "aws_security_group" "app" {
-  description = "Application security group for tpl-08"
-  name        = "app-tpl-08"
-  vpc_id      = aws_vpc.main.id
-}
-
-resource "aws_security_group" "db" {
-  description = "Database security group for tpl-08"
-  name        = "db-tpl-08"
-  vpc_id      = aws_vpc.main.id
-
-  ingress {
-    from_port       = 5432
-    protocol        = "tcp"
-    security_groups = [aws_security_group.app.id]
-    to_port         = 5432
-  }
+resource "aws_security_group" "acme_app_sg" {
+  description = "Application security group for tpl-29"
+  name        = "acme_app_sg-tpl-29"
+  vpc_id      = aws_vpc.acme_vpc.id
 
   egress {
     cidr_blocks = ["0.0.0.0/0"]
@@ -80,33 +70,39 @@ resource "aws_security_group" "db" {
   }
 }
 
-resource "aws_instance" "app" {
-  ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.nano"
-  subnet_id              = aws_subnet.app_app.id
-  vpc_security_group_ids = [aws_security_group.app.id]
+resource "aws_security_group" "acme_db_sg" {
+  description = "Database security group for tpl-29"
+  name        = "acme_db_sg-tpl-29"
+  vpc_id      = aws_vpc.acme_vpc.id
 }
 
-resource "aws_db_subnet_group" "main" {
-  name       = "main-tpl-08"
-  subnet_ids = [aws_subnet.db_1.id, aws_subnet.db_2.id, aws_subnet.db_3.id]
+resource "aws_instance" "acme_app" {
+  ami                    = local.app_ami
+  instance_type          = local.app_instance_type
+  subnet_id              = aws_subnet.acme_app_subnet_app.id
+  vpc_security_group_ids = [aws_security_group.acme_app_sg.id]
 }
 
-resource "aws_db_instance" "main" {
+resource "aws_db_subnet_group" "acme_db_sng" {
+  name       = "acme_db_sng-tpl-29"
+  subnet_ids = [aws_subnet.acme_db_subnet_1.id, aws_subnet.acme_db_subnet_2.id]
+}
+
+resource "aws_db_instance" "acme_db" {
   allocated_storage      = 20
-  db_subnet_group_name   = aws_db_subnet_group.main.name
+  db_subnet_group_name   = aws_db_subnet_group.acme_db_sng.name
   engine                 = "postgres"
-  identifier             = "main-tpl-08"
-  instance_class         = "db.t3.micro"
+  identifier             = "acme-db-tpl-29"
+  instance_class         = local.db_instance_class
   password               = var.db_password
   publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
-  vpc_security_group_ids = [aws_security_group.db.id]
+  vpc_security_group_ids = [aws_security_group.acme_db_sg.id]
 }
 
-resource "aws_subnet" "app_app" {
+resource "aws_subnet" "acme_app_subnet_app" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.30.1.0/24"
-  vpc_id            = aws_vpc.main.id
+  vpc_id            = aws_vpc.acme_vpc.id
 }

@@ -17,9 +17,13 @@ REQUIRED_IDS = [
     "D4-06", "D4-07", "D4-08", "D4-09", "D4-10",
     "D4-11", "D4-12",
 ]
-REQUIRED_STATUSES = {"D4-01": "Decided", "D4-02": "Decided"}
-PROPOSED_IDS = {"D4-03", "D4-04", "D4-05", "D4-06", "D4-07",
-                "D4-08", "D4-09", "D4-10", "D4-11", "D4-12"}
+# D4c-02 (user, 10 Nov 2026): the Proposed rows were settled as built; D4-03, D4-04 and D4-05, which describe the
+# 10-template tier D4c-01 replaces, are Superseded by D4c rows (user, 10 Nov 2026).
+REQUIRED_STATUSES = {"D4-01": "Decided", "D4-02": "Decided", "Open": "Decided",
+                     **{f"D4-{n:02d}": "Decided" for n in range(6, 13)},
+                     "D4-03": "Superseded", "D4-04": "Superseded", "D4-05": "Superseded"}
+PROPOSED_IDS: set[str] = set()
+SUPERSEDED_BY = {"D4-03": "Superseded by D4c-01", "D4-04": "Superseded by D4c-04", "D4-05": "Superseded by D4c-03"}
 OPEN_TEXT = "F3 and F6"
 
 
@@ -74,10 +78,18 @@ class TestD4DecisionsFile(unittest.TestCase):
                 self.assertEqual(status, "Proposed", f"Row {id_} status should be Proposed, got {status!r}")
 
     def test_open_row_present(self) -> None:
-        """There must be an Open row for F3/F6 target kind."""
-        self.assertIn(OPEN_TEXT, self.text, "Open row for F3/F6 target kind must be present")
+        """The row for F3/F6 target kind is kept (settled as Decided by D4c-02, 10 Nov 2026)."""
+        self.assertIn(OPEN_TEXT, self.text, "the F3/F6 target kind row must be present")
+        self.assertIn("F3 and F6 are change requests, as generated", self.rows["Open"]["Reason"])
         open_rows = {k: v for k, v in self.rows.items() if v.get("Status", "").lower() == "open"}
-        self.assertGreaterEqual(len(open_rows), 1, "At least one Open row must exist")
+        self.assertEqual(open_rows, {}, "no Open row remains (D4c-02)")
+
+    def test_superseded_rows_point_to_d4c_and_keep_their_text(self) -> None:
+        for id_, pointer in SUPERSEDED_BY.items():
+            with self.subTest(id=id_):
+                cell = self.rows[id_]["Decision"]
+                self.assertTrue(cell.startswith(pointer), cell[:80])
+                self.assertIn("Original text: ", cell)
 
     def test_no_pipe_in_cells(self) -> None:
         """Cells must not contain pipe characters (mechanical parseability)."""

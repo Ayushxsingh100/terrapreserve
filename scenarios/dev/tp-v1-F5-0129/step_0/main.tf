@@ -14,15 +14,11 @@ resource "aws_subnet" "frontend_subnet" {
   vpc_id            = aws_vpc.corp_vpc.id
 }
 
-resource "aws_subnet" "backend_subnet_1" {
-  availability_zone = "us-east-1a"
-  cidr_block        = "10.103.10.0/24"
-  vpc_id            = aws_vpc.corp_vpc.id
-}
+resource "aws_subnet" "backend_subnet" {
+  count = 3
 
-resource "aws_subnet" "backend_subnet_2" {
-  availability_zone = "us-east-1b"
-  cidr_block        = "10.103.11.0/24"
+  availability_zone = ["us-east-1a", "us-east-1b", "us-east-1c"][count.index]
+  cidr_block        = ["10.103.10.0/24", "10.103.11.0/24", "10.103.12.0/24"][count.index]
   vpc_id            = aws_vpc.corp_vpc.id
 }
 
@@ -40,63 +36,72 @@ resource "aws_route_table_association" "assoc_app" {
   subnet_id      = aws_subnet.frontend_subnet.id
 }
 
+resource "aws_route_table" "backend_rt" {
+  vpc_id = aws_vpc.corp_vpc.id
+}
+
+resource "aws_route_table_association" "assoc_db" {
+  count = 3
+
+  route_table_id = aws_route_table.backend_rt.id
+  subnet_id      = aws_subnet.backend_subnet[count.index].id
+}
+
+resource "aws_security_group_rule" "backend_sg_from_app_5432" {
+  from_port                = 5432
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.backend_sg.id
+  source_security_group_id = aws_security_group.frontend_sg.id
+  to_port                  = 5432
+  type                     = "ingress"
+}
+
+resource "aws_security_group_rule" "backend_sg_egress" {
+  cidr_blocks       = ["0.0.0.0/0"]
+  from_port         = 0
+  protocol          = "-1"
+  security_group_id = aws_security_group.backend_sg.id
+  to_port           = 0
+  type              = "egress"
+}
+
 resource "aws_security_group" "frontend_sg" {
-  description = "Application security group for tpl-10"
-  name        = "frontend_sg-tpl-10"
+  description = "Application security group for tpl-21"
+  name        = "frontend_sg-tpl-21"
   vpc_id      = aws_vpc.corp_vpc.id
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+    from_port       = 5432
+    protocol        = "tcp"
+    security_groups = [aws_security_group.backend_sg.id]
+    to_port         = 5432
   }
 }
 
 resource "aws_security_group" "backend_sg" {
-  description = "Database security group for tpl-10"
-  name        = "backend_sg-tpl-10"
-  vpc_id      = aws_vpc.corp_vpc.id
-
-  ingress {
-    from_port       = 5432
-    protocol        = "tcp"
-    security_groups = [aws_security_group.frontend_sg.id]
-    to_port         = 5432
-  }
-
-  egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
-  }
-}
-
-resource "aws_security_group" "frontend_sg_extra" {
-  description = "Secondary application security group for tpl-10"
-  name        = "frontend_sg_extra-tpl-10"
+  description = "Database security group for tpl-21"
+  name        = "backend_sg-tpl-21"
   vpc_id      = aws_vpc.corp_vpc.id
 }
 
 resource "aws_instance" "frontend_server" {
-  ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.micro"
+  ami                    = var.app_ami
+  instance_type          = var.app_instance_type
   subnet_id              = aws_subnet.frontend_subnet.id
-  vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]
+  vpc_security_group_ids = [aws_security_group.frontend_sg.id]
 }
 
 resource "aws_db_subnet_group" "backend_sng" {
-  name       = "backend_sng-tpl-10"
-  subnet_ids = [aws_subnet.backend_subnet_1.id, aws_subnet.backend_subnet_2.id]
+  name       = "backend_sng-tpl-21"
+  subnet_ids = [aws_subnet.backend_subnet[0].id, aws_subnet.backend_subnet[1].id, aws_subnet.backend_subnet[2].id]
 }
 
 resource "aws_db_instance" "backend_database" {
   allocated_storage      = 20
   db_subnet_group_name   = aws_db_subnet_group.backend_sng.name
   engine                 = "postgres"
-  identifier             = "backend-database-tpl-10"
-  instance_class         = "db.t3.nano"
+  identifier             = "backend-database-tpl-21"
+  instance_class         = var.db_instance_class
   password               = var.db_password
   publicly_accessible    = false
   skip_final_snapshot    = true

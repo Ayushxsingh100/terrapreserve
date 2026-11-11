@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.prod_postgres_db",
-    "S": "aws_instance.prod_app_server"
+    "D": "aws_db_instance.main",
+    "S": "aws_instance.app"
   },
   "excluded_from_v1": null,
   "family": "F5",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "safe",
   "intent": {
@@ -48,19 +48,19 @@
   ],
   "mutation_record": [
     {
-      "after": "\"prod_db_sg-tpl-06-v2\"",
+      "after": "\"db-tpl-28-v2\"",
       "attribute": "name",
-      "before": "\"prod_db_sg-tpl-06\"",
+      "before": "\"db-tpl-28\"",
       "operator": "op_f5_db_sg_replacement_safe",
       "step": 1,
-      "target_address": "aws_security_group.prod_db_sg"
+      "target_address": "aws_security_group.db"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -77,6 +77,7 @@
     ],
     "cidr_plan": {
       "app": "10.41.1.0/24",
+      "app_2": "10.41.2.0/24",
       "db": [
         "10.41.10.0/24",
         "10.41.11.0/24",
@@ -84,12 +85,22 @@
       ],
       "vpc": "10.41.0.0/16"
     },
-    "db_class": "db.t3.small",
-    "instance_class": "t3.medium",
-    "naming_scheme": "env",
+    "db_class": "db.t3.micro",
+    "features": {
+      "egress": "all",
+      "extras": "unattached_sg",
+      "files": "single",
+      "naming": "standard",
+      "routing": "private_db",
+      "sg_style": "all_inline",
+      "subnets": "two_app",
+      "values": "locals"
+    },
+    "instance_class": "t3.nano",
+    "naming_scheme": "standard",
     "sg_style": "all_inline",
-    "template_id": "tpl-06",
-    "template_version": "tpl-v1.0",
+    "template_id": "tpl-28",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -114,24 +125,24 @@
   "scenario_id": "tp-v1-F5-0115",
   "seed": 115,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-06",
+    "repo_lineage_id": "tpl-28",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "b49bc794327884526650e2487eab7ff1d2b0708b4ef94cd58d9a8ab754573c39",
+      "content_hash": "360e61e665f626d9c0979fe4a179fe80ed85ebb9a3d9fca80ecb50963b383aee",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "16b8c15e651ed34cc373c8b1f0b86e99b50d20ec3847d482159dbffd9197e8bc",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -62,7 +62,7 @@\n \n resource \"aws_security_group\" \"prod_db_sg\" {\n   description = \"Database security group for tpl-06\"\n-  name        = \"prod_db_sg-tpl-06\"\n+  name        = \"prod_db_sg-tpl-06-v2\"\n   vpc_id      = aws_vpc.prod_vpc.id\n \n   ingress {\n",
+      "content_hash": "9362efa2519e06c8e66da4e03308757a79b61b81d8ad77ae1da99cf8e35d26ec",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -91,7 +91,7 @@\n \n resource \"aws_security_group\" \"db\" {\n   description = \"Database security group for tpl-28\"\n-  name        = \"db-tpl-28\"\n+  name        = \"db-tpl-28-v2\"\n   vpc_id      = aws_vpc.main.id\n \n   ingress {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -141,8 +152,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-06",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-28",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

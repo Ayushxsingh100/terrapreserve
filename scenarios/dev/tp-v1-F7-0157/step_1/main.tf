@@ -1,105 +1,113 @@
-resource "aws_vpc" "main" {
+resource "aws_vpc" "vpc_main" {
   cidr_block           = "10.109.0.0/16"
   enable_dns_hostnames = false
   enable_dns_support   = true
 }
 
-resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.main.id
+resource "aws_internet_gateway" "igw_main" {
+  vpc_id = aws_vpc.vpc_main.id
 }
 
-resource "aws_subnet" "app" {
+resource "aws_subnet" "sub_app" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.109.1.0/24"
-  vpc_id            = aws_vpc.main.id
+  vpc_id            = aws_vpc.vpc_main.id
 }
 
-resource "aws_subnet" "db_1" {
+resource "aws_subnet" "sub_db_1" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.109.10.0/24"
-  vpc_id            = aws_vpc.main.id
+  vpc_id            = aws_vpc.vpc_main.id
 }
 
-resource "aws_subnet" "db_2" {
+resource "aws_subnet" "sub_db_2" {
   availability_zone = "us-east-1b"
   cidr_block        = "10.109.11.0/24"
-  vpc_id            = aws_vpc.main.id
+  vpc_id            = aws_vpc.vpc_main.id
 }
 
-resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.main.id
+resource "aws_route_table" "rt_public" {
+  vpc_id = aws_vpc.vpc_main.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw.id
+    gateway_id = aws_internet_gateway.igw_main.id
   }
 }
 
 resource "aws_route_table_association" "rta_app" {
-  route_table_id = aws_route_table.public.id
-  subnet_id      = aws_subnet.app.id
+  route_table_id = aws_route_table.rt_public.id
+  subnet_id      = aws_subnet.sub_app.id
 }
 
-resource "aws_security_group_rule" "db_from_app_5432" {
-  from_port                = 5432
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.db.id
-  source_security_group_id = aws_security_group.app.id
-  to_port                  = 5432
-  type                     = "ingress"
+resource "aws_route_table" "rt_db" {
+  vpc_id = aws_vpc.vpc_main.id
 }
 
-resource "aws_security_group_rule" "db_egress" {
-  cidr_blocks       = ["0.0.0.0/0"]
-  from_port         = 0
-  protocol          = "-1"
-  security_group_id = aws_security_group.db.id
-  to_port           = 0
-  type              = "egress"
+resource "aws_route_table_association" "rta_db_1" {
+  route_table_id = aws_route_table.rt_db.id
+  subnet_id      = aws_subnet.sub_db_1.id
 }
 
-resource "aws_security_group_rule" "app_egress" {
-  cidr_blocks       = ["0.0.0.0/0"]
-  from_port         = 0
-  protocol          = "-1"
-  security_group_id = aws_security_group.app.id
-  to_port           = 0
-  type              = "egress"
+resource "aws_route_table_association" "rta_db_2" {
+  route_table_id = aws_route_table.rt_db.id
+  subnet_id      = aws_subnet.sub_db_2.id
 }
 
-resource "aws_security_group" "app" {
-  description = "Application security group for tpl-01"
-  name        = "app-tpl-01"
-  vpc_id      = aws_vpc.main.id
+resource "aws_security_group" "sg_app" {
+  description = "Application security group for tpl-02"
+  name        = "sg_app-tpl-02"
+  vpc_id      = aws_vpc.vpc_main.id
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 0
+    protocol    = "-1"
+    to_port     = 0
+  }
 }
 
-resource "aws_security_group" "db" {
-  description = "Database security group for tpl-01"
-  name        = "db-tpl-01"
-  vpc_id      = aws_vpc.main.id
+resource "aws_security_group" "sg_db" {
+  description = "Database security group for tpl-02"
+  name        = "sg_db-tpl-02"
+  vpc_id      = aws_vpc.vpc_main.id
+
+  ingress {
+    from_port       = 5432
+    protocol        = "tcp"
+    security_groups = [aws_security_group.sg_app.id]
+    to_port         = 5432
+  }
+
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 0
+    protocol    = "-1"
+    to_port     = 0
+  }
 }
 
-resource "aws_instance" "app" {
+resource "aws_instance" "ec2_app" {
   ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.micro"
-  subnet_id              = aws_subnet.app.id
-  vpc_security_group_ids = [aws_security_group.app.id]
+  instance_type          = "t3.small"
+  subnet_id              = aws_subnet.sub_app.id
+  vpc_security_group_ids = [aws_security_group.sg_app.id]
 }
 
-resource "aws_db_subnet_group" "main" {
-  name       = "main-tpl-01"
-  subnet_ids = [aws_subnet.db_1.id, aws_subnet.db_2.id]
+resource "aws_db_subnet_group" "dbsng_main" {
+  name       = "dbsng_main-tpl-02"
+  subnet_ids = [aws_subnet.sub_db_1.id, aws_subnet.sub_db_2.id]
 }
 
-resource "aws_db_instance" "main" {
+resource "aws_db_instance" "rds_postgres" {
   allocated_storage      = 20
-  db_subnet_group_name   = aws_db_subnet_group.main.name
+  db_subnet_group_name   = aws_db_subnet_group.dbsng_main.name
   engine                 = "postgres"
-  identifier             = "main-tpl-01"
-  instance_class         = "db.t3.micro"
+  identifier             = "rds-postgres-tpl-02"
+  instance_class         = "db.t3.small"
   password               = var.db_password
   publicly_accessible    = false
   skip_final_snapshot    = true
   username               = "postgres"
-  vpc_security_group_ids = [aws_security_group.db.id]
+  vpc_security_group_ids = [aws_security_group.sg_db.id]
 }

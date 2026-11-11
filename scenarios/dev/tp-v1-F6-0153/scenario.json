@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.backend_database",
-    "S": "aws_instance.frontend_server"
+    "D": "aws_db_instance.prod_postgres_db",
+    "S": "aws_instance.prod_app_server"
   },
   "excluded_from_v1": null,
   "family": "F6",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "unsafe",
   "intent": {
@@ -69,7 +69,7 @@
       "target_address": "aws_security_group.monitoring_sg"
     },
     {
-      "after": "aws_vpc.corp_vpc.id",
+      "after": "aws_vpc.prod_vpc.id",
       "attribute": "vpc_id",
       "before": null,
       "operator": "op_f6_add_monitoring_sg_unsafe",
@@ -77,12 +77,12 @@
       "target_address": "aws_security_group.monitoring_sg"
     },
     {
-      "after": "[aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id, aws_security_group.monitoring_sg.id]",
+      "after": "[aws_security_group.prod_app_sg.id, aws_security_group.monitoring_sg.id]",
       "attribute": "vpc_security_group_ids",
-      "before": "[aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]",
+      "before": "[aws_security_group.prod_app_sg.id]",
       "operator": "op_f6_add_monitoring_sg_unsafe",
       "step": 1,
-      "target_address": "aws_instance.frontend_server"
+      "target_address": "aws_instance.prod_app_server"
     },
     {
       "after": "[\"0.0.0.0/0\"]",
@@ -121,7 +121,7 @@
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -141,14 +141,25 @@
         "10.47.10.0/24",
         "10.47.11.0/24"
       ],
+      "extra": "10.47.200.0/24",
       "vpc": "10.47.0.0/16"
     },
-    "db_class": "db.t3.nano",
-    "instance_class": "t3.micro",
-    "naming_scheme": "component",
-    "sg_style": "all_inline",
-    "template_id": "tpl-10",
-    "template_version": "tpl-v1.0",
+    "db_class": "db.t3.small",
+    "features": {
+      "egress": "db_only",
+      "extras": "extra_subnet",
+      "files": "split",
+      "naming": "env",
+      "routing": "per_subnet",
+      "sg_style": "app_inline_db_separate",
+      "subnets": "db_count",
+      "values": "locals"
+    },
+    "instance_class": "t3.nano",
+    "naming_scheme": "env",
+    "sg_style": "app_inline_db_separate",
+    "template_id": "tpl-33",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -173,24 +184,24 @@
   "scenario_id": "tp-v1-F6-0153",
   "seed": 153,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-10",
+    "repo_lineage_id": "tpl-33",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "f209e67b815e8c9a9c33a33778d104bf7991a0973fb21b7a96fd141725782027",
+      "content_hash": "e3f2065a021788888e457abbc37cb5ab45ee7920d37933013e3841ea3c5712bf",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "77f10889248758e6b2c30589bfbc4c7ae320d9731eabcd88cfaed4ed0460155c",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.frontend_subnet.id\n-  vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]\n+  vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id, aws_security_group.monitoring_sg.id]\n }\n \n resource \"aws_db_subnet_group\" \"backend_sng\" {\n@@ -103,3 +103,16 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.backend_sg.id]\n }\n+\n+resource \"aws_security_group\" \"monitoring_sg\" {\n+  description = \"Monitoring security group\"\n+  name        = \"monitoring_sg-mon\"\n+  vpc_id      = aws_vpc.corp_vpc.id\n+\n+  ingress {\n+    cidr_blocks = [\"0.0.0.0/0\"]\n+    from_port   = 5432\n+    protocol    = \"tcp\"\n+    to_port     = 5432\n+  }\n+}\n",
+      "content_hash": "067f994618b94a3f887ca88d7401129a0678855beba72c3859ea964122c73e40",
+      "diff_from_previous": "--- a/compute.tf\n+++ b/compute.tf\n@@ -15,5 +15,18 @@\n   ami                    = local.app_ami\n   instance_type          = local.app_instance_type\n   subnet_id              = aws_subnet.prod_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.prod_app_sg.id]\n+  vpc_security_group_ids = [aws_security_group.prod_app_sg.id, aws_security_group.monitoring_sg.id]\n }\n+\n+resource \"aws_security_group\" \"monitoring_sg\" {\n+  description = \"Monitoring security group\"\n+  name        = \"monitoring_sg-mon\"\n+  vpc_id      = aws_vpc.prod_vpc.id\n+\n+  ingress {\n+    cidr_blocks = [\"0.0.0.0/0\"]\n+    from_port   = 5432\n+    protocol    = \"tcp\"\n+    to_port     = 5432\n+  }\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -200,8 +211,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-10",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-33",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

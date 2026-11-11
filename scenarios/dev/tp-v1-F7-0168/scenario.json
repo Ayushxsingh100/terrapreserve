@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.main",
-    "S": "aws_instance.app"
+    "D": "aws_db_instance.data_instance",
+    "S": "aws_instance.web_instance"
   },
   "excluded_from_v1": null,
   "family": "F7",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "safe",
   "intent": {
@@ -54,10 +54,10 @@
     {
       "after": null,
       "attribute": "security_groups",
-      "before": "[aws_security_group.app.id]",
+      "before": "[aws_security_group.web_secgroup.id]",
       "operator": "op_f7_db_ingress_source_safe",
       "step": 1,
-      "target_address": "aws_security_group.db"
+      "target_address": "aws_security_group.data_secgroup"
     },
     {
       "after": "[\"10.93.1.0/24\"]",
@@ -65,14 +65,14 @@
       "before": null,
       "operator": "op_f7_db_ingress_source_safe",
       "step": 1,
-      "target_address": "aws_security_group.db"
+      "target_address": "aws_security_group.data_secgroup"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -96,12 +96,22 @@
       ],
       "vpc": "10.93.0.0/16"
     },
-    "db_class": "db.t3.micro",
-    "instance_class": "t3.nano",
-    "naming_scheme": "standard",
-    "sg_style": "mixed_app_separate_db_inline",
-    "template_id": "tpl-08",
-    "template_version": "tpl-v1.0",
+    "db_class": "db.t3.small",
+    "features": {
+      "egress": "all",
+      "extras": "none",
+      "files": "split",
+      "naming": "tier",
+      "routing": "per_subnet",
+      "sg_style": "all_inline",
+      "subnets": "one_app",
+      "values": "literal"
+    },
+    "instance_class": "t3.micro",
+    "naming_scheme": "tier",
+    "sg_style": "all_inline",
+    "template_id": "tpl-24",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -126,24 +136,24 @@
   "scenario_id": "tp-v1-F7-0168",
   "seed": 168,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-08",
+    "repo_lineage_id": "tpl-24",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "24a1eaf9617ca6464970f3284d40ed46b243bdb0a134e31622c0b765ee961dab",
+      "content_hash": "29aba8a60da48da2f4633ed7a40232fb5400512a09de8d011cd55e2b0a65af23",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "4142a25e52926cb070ad6f85ef677c4db33fdad776a82166ad5d1749e8be1e28",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -67,10 +67,10 @@\n   vpc_id      = aws_vpc.main.id\n \n   ingress {\n-    from_port       = 5432\n-    protocol        = \"tcp\"\n-    security_groups = [aws_security_group.app.id]\n-    to_port         = 5432\n+    cidr_blocks = [\"10.93.1.0/24\"]\n+    from_port   = 5432\n+    protocol    = \"tcp\"\n+    to_port     = 5432\n   }\n \n   egress {\n",
+      "content_hash": "2751caf91f36fd3dfd743ad4c0ebd71238dd98409cab8b7c09f08274aacc824b",
+      "diff_from_previous": "--- a/database.tf\n+++ b/database.tf\n@@ -4,10 +4,10 @@\n   vpc_id      = aws_vpc.network.id\n \n   ingress {\n-    from_port       = 5432\n-    protocol        = \"tcp\"\n-    security_groups = [aws_security_group.web_secgroup.id]\n-    to_port         = 5432\n+    cidr_blocks = [\"10.93.1.0/24\"]\n+    from_port   = 5432\n+    protocol    = \"tcp\"\n+    to_port     = 5432\n   }\n \n   egress {\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -153,8 +163,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-08",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-24",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

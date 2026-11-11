@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.data_instance",
-    "S": "aws_instance.web_instance"
+    "D": "aws_db_instance.acme_db",
+    "S": "aws_instance.acme_app"
   },
   "excluded_from_v1": null,
   "family": "F4",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "unsafe",
   "intent": {
@@ -59,7 +59,7 @@
       "before": "true",
       "operator": "op_f4_repair_rds_public_open_db_unsafe",
       "step": 1,
-      "target_address": "aws_db_instance.data_instance"
+      "target_address": "aws_db_instance.acme_db"
     },
     {
       "after": "[\"0.0.0.0/0\"]",
@@ -67,7 +67,7 @@
       "before": null,
       "operator": "op_f4_repair_rds_public_open_db_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.data_secgroup_ingress_db_public"
+      "target_address": "aws_security_group_rule.acme_db_sg_ingress_db_public"
     },
     {
       "after": "5432",
@@ -75,7 +75,7 @@
       "before": null,
       "operator": "op_f4_repair_rds_public_open_db_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.data_secgroup_ingress_db_public"
+      "target_address": "aws_security_group_rule.acme_db_sg_ingress_db_public"
     },
     {
       "after": "\"tcp\"",
@@ -83,15 +83,15 @@
       "before": null,
       "operator": "op_f4_repair_rds_public_open_db_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.data_secgroup_ingress_db_public"
+      "target_address": "aws_security_group_rule.acme_db_sg_ingress_db_public"
     },
     {
-      "after": "aws_security_group.data_secgroup.id",
+      "after": "aws_security_group.acme_db_sg.id",
       "attribute": "security_group_id",
       "before": null,
       "operator": "op_f4_repair_rds_public_open_db_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.data_secgroup_ingress_db_public"
+      "target_address": "aws_security_group_rule.acme_db_sg_ingress_db_public"
     },
     {
       "after": "5432",
@@ -99,7 +99,7 @@
       "before": null,
       "operator": "op_f4_repair_rds_public_open_db_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.data_secgroup_ingress_db_public"
+      "target_address": "aws_security_group_rule.acme_db_sg_ingress_db_public"
     },
     {
       "after": "\"ingress\"",
@@ -107,14 +107,14 @@
       "before": null,
       "operator": "op_f4_repair_rds_public_open_db_unsafe",
       "step": 1,
-      "target_address": "aws_security_group_rule.data_secgroup_ingress_db_public"
+      "target_address": "aws_security_group_rule.acme_db_sg_ingress_db_public"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -126,24 +126,33 @@
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b",
-      "us-east-1c"
+      "us-east-1b"
     ],
     "cidr_plan": {
       "app": "10.103.1.0/24",
+      "app_2": "10.103.2.0/24",
       "db": [
         "10.103.10.0/24",
-        "10.103.11.0/24",
-        "10.103.12.0/24"
+        "10.103.11.0/24"
       ],
       "vpc": "10.103.0.0/16"
     },
     "db_class": "db.t3.micro",
-    "instance_class": "t3.nano",
-    "naming_scheme": "tier",
-    "sg_style": "mixed_app_inline_db_separate",
-    "template_id": "tpl-03",
-    "template_version": "tpl-v1.0",
+    "features": {
+      "egress": "all",
+      "extras": "none",
+      "files": "single",
+      "naming": "prefixed",
+      "routing": "per_subnet",
+      "sg_style": "all_separate",
+      "subnets": "two_app",
+      "values": "variables"
+    },
+    "instance_class": "t3.micro",
+    "naming_scheme": "prefixed",
+    "sg_style": "all_separate",
+    "template_id": "tpl-11",
+    "template_version": "tpl-v2.0",
     "variant": "sec_003_violated"
   },
   "protected_invariants": [
@@ -168,24 +177,24 @@
   "scenario_id": "tp-v1-F4-0094",
   "seed": 94,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-03",
+    "repo_lineage_id": "tpl-11",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "c95d331bab6e1366a4defca2c41731c4aa7928632d22b1f4f7bab30d42083eca",
+      "content_hash": "669bb6192a2f2fcece99c350ef02c8d467ed8e425eef3ae9e9611d58924d5ebc",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "a0ab3a1737319e1efedd01973872c5f6e3d8710c170e2e3323cba4fb8c5637c6",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -92,8 +92,17 @@\n   identifier             = \"data-instance-tpl-03\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.db_password\n-  publicly_accessible    = true\n+  publicly_accessible    = false\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.data_secgroup.id]\n }\n+\n+resource \"aws_security_group_rule\" \"data_secgroup_ingress_db_public\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 5432\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.data_secgroup.id\n+  to_port           = 5432\n+  type              = \"ingress\"\n+}\n",
+      "content_hash": "b83728eb0933f0a420ffe348da2b9a2def06fe1684cb791f5a458958266891ad",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -136,8 +136,17 @@\n   identifier             = \"acme-db-tpl-11\"\n   instance_class         = var.db_instance_class\n   password               = var.db_password\n-  publicly_accessible    = true\n+  publicly_accessible    = false\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.acme_db_sg.id]\n }\n+\n+resource \"aws_security_group_rule\" \"acme_db_sg_ingress_db_public\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 5432\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.acme_db_sg.id\n+  to_port           = 5432\n+  type              = \"ingress\"\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -195,8 +204,8 @@
     "invariant_id": "INV-SEC-003",
     "kind": "repair"
   },
-  "template_id": "tpl-03",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-11",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

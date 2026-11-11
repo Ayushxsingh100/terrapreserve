@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.backend_database",
-    "S": "aws_instance.frontend_server"
+    "D": "aws_db_instance.prod_postgres_db",
+    "S": "aws_instance.prod_app_server"
   },
   "excluded_from_v1": null,
   "family": "F2",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "safe",
   "intent": {
@@ -55,14 +55,14 @@
       "before": "true",
       "operator": "op_f2_repair_db_public_safe",
       "step": 1,
-      "target_address": "aws_db_instance.backend_database"
+      "target_address": "aws_db_instance.prod_postgres_db"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -82,14 +82,25 @@
         "10.120.10.0/24",
         "10.120.11.0/24"
       ],
+      "extra": "10.120.200.0/24",
       "vpc": "10.120.0.0/16"
     },
-    "db_class": "db.t3.nano",
-    "instance_class": "t3.micro",
-    "naming_scheme": "component",
-    "sg_style": "all_inline",
-    "template_id": "tpl-10",
-    "template_version": "tpl-v1.0",
+    "db_class": "db.t3.small",
+    "features": {
+      "egress": "all",
+      "extras": "extra_subnet",
+      "files": "single",
+      "naming": "env",
+      "routing": "shared_public",
+      "sg_style": "app_separate_db_inline",
+      "subnets": "one_app",
+      "values": "variables"
+    },
+    "instance_class": "t3.small",
+    "naming_scheme": "env",
+    "sg_style": "app_separate_db_inline",
+    "template_id": "tpl-22",
+    "template_version": "tpl-v2.0",
     "variant": "sec_003_violated"
   },
   "protected_invariants": [
@@ -114,24 +125,24 @@
   "scenario_id": "tp-v1-F2-0038",
   "seed": 38,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-10",
+    "repo_lineage_id": "tpl-22",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "0b5f3239f0cd9079185215fdaa3b41e4b3ec1d2e41e3b86ac02cf0d417892d13",
+      "content_hash": "fecf88cec0117e38ab4a07ae5c1f5f26e6448344d2ad93985ba56dd7760906f9",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "95ef7f55c8e1f2fbb1d410cb29de6862a80e279b76ee091ea1635d937fb794c0",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -98,7 +98,7 @@\n   identifier             = \"backend-database-tpl-10\"\n   instance_class         = \"db.t3.nano\"\n   password               = var.db_password\n-  publicly_accessible    = true\n+  publicly_accessible    = false\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.backend_sg.id]\n",
+      "content_hash": "d934a442494ac6263be8f2fab649ce229712c7554aae6ff1b90c0c0cd65daaba",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -100,7 +100,7 @@\n   identifier             = \"prod-postgres-db-tpl-22\"\n   instance_class         = var.db_instance_class\n   password               = var.db_password\n-  publicly_accessible    = true\n+  publicly_accessible    = false\n   skip_final_snapshot    = true\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.prod_db_sg.id]\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -141,8 +152,8 @@
     "invariant_id": "INV-SEC-003",
     "kind": "repair"
   },
-  "template_id": "tpl-10",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-22",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

@@ -87,8 +87,8 @@ resource "aws_security_group" "frontend_sg_extra" {
 }
 
 resource "aws_instance" "frontend_server" {
-  ami                    = "ami-0c55b159cbfafe1f0"
-  instance_type          = "t3.micro"
+  ami                    = local.app_ami
+  instance_type          = local.app_instance_type
   subnet_id              = aws_subnet.frontend_subnet.id
   vpc_security_group_ids = [aws_security_group.frontend_sg.id, aws_security_group.frontend_sg_extra.id]
 }
@@ -103,7 +103,7 @@ resource "aws_db_instance" "backend_database" {
   db_subnet_group_name   = aws_db_subnet_group.backend_sng.name
   engine                 = "postgres"
   identifier             = "backend-database-tpl-10"
-  instance_class         = "db.t3.nano"
+  instance_class         = local.db_instance_class
   password               = var.db_password
   publicly_accessible    = false
   skip_final_snapshot    = true

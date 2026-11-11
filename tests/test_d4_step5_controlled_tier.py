@@ -3,7 +3,7 @@
 Tests:
 1. Total controlled scenarios plan = 208 (160 targets + 48 reserves).
 2. Exactly 16 cells (8 families x 2 classes), each having 13 scenarios (10 target, 3 reserve).
-3. Every template (tpl-01..tpl-10) is instantiated in every cell.
+3. Every cell has 10 distinct target templates (D4c-04: 7 of the 23 dev and 3 of the 10 test templates).
 4. Dev split scenarios are committed under scenarios/dev/; no test scenario is under scenarios/dev/.
 5. scenarios/validate_results.csv exists, is well-formed, and has zero invalid/error steps.
 6. scenarios/test_manifest.json exists and contains ids and hashes only.
@@ -56,26 +56,25 @@ class TestControlledTierPlan(unittest.TestCase):
                 self.assertEqual(len(cell_targets), 10)
                 self.assertEqual(len(cell_reserves), 3)
 
-                # All 10 templates must occur in target scenarios
+                # D4c-04: 10 distinct target templates per cell (7 dev, 3 test)
                 target_tpls = {it["template_id"] for it in cell_targets}
                 self.assertEqual(len(target_tpls), 10)
+                self.assertEqual(sum(it["split"] == "dev" for it in cell_targets), 7)
 
-    def test_reserves_cover_all_ten_templates(self) -> None:
+    def test_reserves_cover_templates_of_both_splits(self) -> None:
         gen = self._get_gen_module()
         plan = gen.build_scenario_plan()
         reserves = [p for p in plan if p["reserve"]]
         self.assertEqual(len(reserves), 48)
 
-        reserve_tpls = {p["template_id"] for p in reserves}
-        all_tpls = {f"tpl-{i:02d}" for i in range(1, 11)}
-        self.assertEqual(reserve_tpls, all_tpls, f"Reserves must cover all 10 templates, missing: {all_tpls - reserve_tpls}")
-
-        # Check each template appears in reserves at least 3 times
-        tpl_counts = {}
+        # D4c-04: reserves come from the templates of their own split (32 dev, 16 test). The rotation balances
+        # scenarios per template (6 or 7 per split), not reserves: not every template carries a reserve.
+        import json
+        split = json.loads((REPO_ROOT / "scenarios" / "split.json").read_text(encoding="utf-8"))
         for p in reserves:
-            tpl_counts[p["template_id"]] = tpl_counts.get(p["template_id"], 0) + 1
-        for tpl_id in all_tpls:
-            self.assertGreaterEqual(tpl_counts.get(tpl_id, 0), 3, f"Template {tpl_id} has only {tpl_counts.get(tpl_id, 0)} reserves")
+            self.assertIn(p["template_id"], split[f"{p['split']}_templates"])
+        self.assertEqual(sum(p["split"] == "dev" for p in reserves), 32)
+        self.assertEqual(sum(p["split"] == "test" for p in reserves), 16)
 
     def test_every_cell_has_reserves_in_both_splits(self) -> None:
         gen = self._get_gen_module()
@@ -217,7 +216,7 @@ class TestControlledTierOutput(unittest.TestCase):
             files2 = {p.relative_to(root2): p for p in root2.rglob("*") if p.is_file()}
 
             self.assertEqual(set(files1.keys()), set(files2.keys()))
-            self.assertEqual(len(files1), 1128)  # Exactly 1128 files across 144 dev scenarios
+            self.assertEqual(len(files1), 1423)  # 1423 files across 144 dev scenarios (D4c; 1128 before D4c)
 
             for rel_path, path1 in files1.items():
                 bytes1 = path1.read_bytes()

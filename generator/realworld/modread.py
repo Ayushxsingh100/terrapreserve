@@ -568,6 +568,7 @@ class Analysis:
     func_unknown: list[str] = field(default_factory=list)  # registry 6.4 row 7, pseudo-group rules
     unsupported_types: list[str] = field(default_factory=list)  # addresses
     mixed: list[str] = field(default_factory=list)
+    unsupported_rules: list[str] = field(default_factory=list)  # registry 2.5: TCP with from_port > to_port
     ignored: list[str] = field(default_factory=list)  # unresolved values that cannot affect any of the four results
     db_instances: list[str] = field(default_factory=list)
 
@@ -589,6 +590,8 @@ class Analysis:
             out.append("RW-S0-UNSUP-TYPE")
         if self.mixed:
             out.append("RW-S0-MIXED")
+        if self.unsupported_rules:
+            out.append("RW-S0-UNSUP-RULE")
         for inv, code in (("INV-SEC-001", "RW-S0-SEC-001"), ("INV-SEC-002", "RW-S0-SEC-002"),
                           ("INV-SEC-003", "RW-S0-SEC-003")):
             if self.violations.get(inv):
@@ -742,12 +745,21 @@ def analyse(files: dict[str, str]) -> Analysis:
                     else:
                         an.unresolved_public.append(f"{addr}: publicly_accessible is not a boolean")
 
-    # MIXED groups (registry 2.6, C-84)
+    # MIXED groups (registry 2.6, C-84): at least one inline rule block, ingress or egress, and the target of at
+    # least one aws_security_group_rule in any direction (D4c-05; before D4c only the same direction was checked);
+    # an explicit empty list in a direction that a rule resource also targets is MIXED too.
     for key, gf in an.groups.items():
-        for d in ("ingress", "egress"):
-            if d in gf.rule_targets and getattr(gf, d) in ("blocks", "empty"):
-                if key not in an.mixed:
-                    an.mixed.append(key)
+        has_blocks = "blocks" in (gf.ingress, gf.egress)
+        same_dir_empty = any(d in gf.rule_targets and getattr(gf, d) == "empty" for d in ("ingress", "egress"))
+        if (has_blocks and gf.rule_targets) or same_dir_empty:
+            if key not in an.mixed:
+                an.mixed.append(key)
+
+    # Registry 2.5: for TCP, from_port > to_port makes the rule UNSUPPORTED (D4c-05).
+    for r in an.rules:
+        if r.protocol in ("tcp", "6") and r.from_port is not None and r.to_port is not None \
+                and r.from_port > r.to_port:
+            an.unsupported_rules.append(f"{r.holder}: TCP from_port {r.from_port} > to_port {r.to_port}")
 
     # public ingress per group, alone or together (C-64); possible(g) per registry 3.3 and 3.4
     by_group: dict[str, list[SgRule]] = {}

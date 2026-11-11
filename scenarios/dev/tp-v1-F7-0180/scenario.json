@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.backend_database",
-    "S": "aws_instance.frontend_server"
+    "D": "aws_db_instance.main",
+    "S": "aws_instance.app"
   },
   "excluded_from_v1": null,
   "family": "F7",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "unsafe",
   "intent": {
@@ -56,7 +56,7 @@
       "before": "\"-1\"",
       "operator": "op_f7_app_egress_port_range_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.frontend_sg"
+      "target_address": "aws_security_group.app"
     },
     {
       "after": "1",
@@ -64,7 +64,7 @@
       "before": "0",
       "operator": "op_f7_app_egress_port_range_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.frontend_sg"
+      "target_address": "aws_security_group.app"
     },
     {
       "after": "1023",
@@ -72,14 +72,14 @@
       "before": "0",
       "operator": "op_f7_app_egress_port_range_unsafe",
       "step": 1,
-      "target_address": "aws_security_group.frontend_sg"
+      "target_address": "aws_security_group.app"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -91,22 +91,35 @@
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b"
+      "us-east-1b",
+      "us-east-1c"
     ],
     "cidr_plan": {
       "app": "10.74.1.0/24",
+      "app_2": "10.74.2.0/24",
       "db": [
         "10.74.10.0/24",
-        "10.74.11.0/24"
+        "10.74.11.0/24",
+        "10.74.12.0/24"
       ],
       "vpc": "10.74.0.0/16"
     },
-    "db_class": "db.t3.nano",
-    "instance_class": "t3.micro",
-    "naming_scheme": "component",
+    "db_class": "db.t3.micro",
+    "features": {
+      "egress": "all",
+      "extras": "unattached_sg",
+      "files": "single",
+      "naming": "standard",
+      "routing": "private_db",
+      "sg_style": "all_inline",
+      "subnets": "two_app",
+      "values": "locals"
+    },
+    "instance_class": "t3.nano",
+    "naming_scheme": "standard",
     "sg_style": "all_inline",
-    "template_id": "tpl-10",
-    "template_version": "tpl-v1.0",
+    "template_id": "tpl-28",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -131,24 +144,24 @@
   "scenario_id": "tp-v1-F7-0180",
   "seed": 180,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-10",
+    "repo_lineage_id": "tpl-28",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "079ec8dd43e14b9cdd12c88c4e82855b7766ea05bf400805158b843608a803e1",
+      "content_hash": "af4c9bb494ddf0d6d52cdcc79f944ad1a5854bb21a28299639cfeac96468f363",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "f1dfcc21e12832c5a7f7ee2bf52fc5cfaae7ea51eb4b0f46204e3ff8b1fa838f",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -47,9 +47,9 @@\n \n   egress {\n     cidr_blocks = [\"0.0.0.0/0\"]\n-    from_port   = 0\n-    protocol    = \"-1\"\n-    to_port     = 0\n+    from_port   = 1\n+    protocol    = \"tcp\"\n+    to_port     = 1023\n   }\n }\n \n",
+      "content_hash": "4751feeb0416f1d4e657f5089d76ec0d79d47fa6a85f7f12f58026b0fa5980b0",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -83,9 +83,9 @@\n \n   egress {\n     cidr_blocks = [\"0.0.0.0/0\"]\n-    from_port   = 0\n-    protocol    = \"-1\"\n-    to_port     = 0\n+    from_port   = 1\n+    protocol    = \"tcp\"\n+    to_port     = 1023\n   }\n }\n \n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -158,8 +171,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-10",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-28",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

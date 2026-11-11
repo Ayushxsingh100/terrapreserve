@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.main",
-    "S": "aws_instance.app"
+    "D": "aws_db_instance.rds_postgres",
+    "S": "aws_instance.ec2_app"
   },
   "excluded_from_v1": null,
   "family": "F3",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "safe",
   "intent": {
@@ -53,14 +53,14 @@
       "before": "\"us-east-1a\"",
       "operator": "op_f3_app_subnet_az_change_safe",
       "step": 1,
-      "target_address": "aws_subnet.app"
+      "target_address": "aws_subnet.sub_app"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -82,12 +82,22 @@
       ],
       "vpc": "10.168.0.0/16"
     },
-    "db_class": "db.t3.micro",
-    "instance_class": "t3.micro",
-    "naming_scheme": "standard",
-    "sg_style": "all_separate",
-    "template_id": "tpl-01",
-    "template_version": "tpl-v1.0",
+    "db_class": "db.t3.small",
+    "features": {
+      "egress": "all",
+      "extras": "none",
+      "files": "single",
+      "naming": "kebab",
+      "routing": "private_db",
+      "sg_style": "all_inline",
+      "subnets": "one_app",
+      "values": "literal"
+    },
+    "instance_class": "t3.small",
+    "naming_scheme": "kebab",
+    "sg_style": "all_inline",
+    "template_id": "tpl-02",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -112,24 +122,24 @@
   "scenario_id": "tp-v1-F3-0053",
   "seed": 53,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-01",
+    "repo_lineage_id": "tpl-02",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "fdb84faa98025063f7612ab643c738ff63c1be732fcaffe76ebc6e2408039528",
+      "content_hash": "f9661a50a93e24b8e6fa4b24c5bc6e9b47f51490315e4c1faf7c35a6944e19ed",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "da0311f2ece5ef8d5a51aac90321292909fbfa530510e3c7cae6fc4e7fac4674",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -9,7 +9,7 @@\n }\n \n resource \"aws_subnet\" \"app\" {\n-  availability_zone = \"us-east-1a\"\n+  availability_zone = \"us-east-1b\"\n   cidr_block        = \"10.168.1.0/24\"\n   vpc_id            = aws_vpc.main.id\n }\n",
+      "content_hash": "e6c1fe501702a5b42e13b38fcb03dee2b1f120ef2b4218fa309048e01d50e49d",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -9,7 +9,7 @@\n }\n \n resource \"aws_subnet\" \"sub_app\" {\n-  availability_zone = \"us-east-1a\"\n+  availability_zone = \"us-east-1b\"\n   cidr_block        = \"10.168.1.0/24\"\n   vpc_id            = aws_vpc.vpc_main.id\n }\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -139,8 +149,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-01",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-02",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

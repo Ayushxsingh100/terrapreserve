@@ -2,12 +2,12 @@
   "dataset_version": "1.0",
   "derived": false,
   "endpoints": {
-    "D": "aws_db_instance.rds_postgres",
-    "S": "aws_instance.ec2_app"
+    "D": "aws_db_instance.main",
+    "S": "aws_instance.app"
   },
   "excluded_from_v1": null,
   "family": "F5",
-  "generator_version": "d4a-8",
+  "generator_version": "d4a-9",
   "grafted": false,
   "gt_class": "safe",
   "intent": {
@@ -48,17 +48,17 @@
   ],
   "mutation_record": [
     {
-      "after": "aws_subnet.sub_app_app.id",
+      "after": "aws_subnet.app_app.id",
       "attribute": "subnet_id",
-      "before": "aws_subnet.sub_app.id",
+      "before": "aws_subnet.app.id",
       "operator": "op_f5_restructure_moved_safe",
       "step": 1,
-      "target_address": "aws_instance.ec2_app"
+      "target_address": "aws_instance.app"
     },
     {
-      "after": "aws_subnet.sub_app_app.id",
+      "after": "aws_subnet.app_app.id",
       "attribute": "subnet_id",
-      "before": "aws_subnet.sub_app.id",
+      "before": "aws_subnet.app.id",
       "operator": "op_f5_restructure_moved_safe",
       "step": 1,
       "target_address": "aws_route_table_association.rta_app"
@@ -69,7 +69,7 @@
       "before": "\"us-east-1a\"",
       "operator": "op_f5_restructure_moved_safe",
       "step": 1,
-      "target_address": "aws_subnet.sub_app"
+      "target_address": "aws_subnet.app"
     },
     {
       "after": null,
@@ -77,15 +77,15 @@
       "before": "\"10.176.1.0/24\"",
       "operator": "op_f5_restructure_moved_safe",
       "step": 1,
-      "target_address": "aws_subnet.sub_app"
+      "target_address": "aws_subnet.app"
     },
     {
       "after": null,
       "attribute": "vpc_id",
-      "before": "aws_vpc.vpc_main.id",
+      "before": "aws_vpc.main.id",
       "operator": "op_f5_restructure_moved_safe",
       "step": 1,
-      "target_address": "aws_subnet.sub_app"
+      "target_address": "aws_subnet.app"
     },
     {
       "after": "\"us-east-1a\"",
@@ -93,7 +93,7 @@
       "before": null,
       "operator": "op_f5_restructure_moved_safe",
       "step": 1,
-      "target_address": "aws_subnet.sub_app_app"
+      "target_address": "aws_subnet.app_app"
     },
     {
       "after": "\"10.176.1.0/24\"",
@@ -101,22 +101,22 @@
       "before": null,
       "operator": "op_f5_restructure_moved_safe",
       "step": 1,
-      "target_address": "aws_subnet.sub_app_app"
+      "target_address": "aws_subnet.app_app"
     },
     {
-      "after": "aws_vpc.vpc_main.id",
+      "after": "aws_vpc.main.id",
       "attribute": "vpc_id",
       "before": null,
       "operator": "op_f5_restructure_moved_safe",
       "step": 1,
-      "target_address": "aws_subnet.sub_app_app"
+      "target_address": "aws_subnet.app_app"
     }
   ],
   "oracle": {
     "disagreements": [],
     "versions": {
       "checkov": "3.3.30",
-      "generator": "d4a-8",
+      "generator": "d4a-9",
       "oracle": "oracle-1.0",
       "provider_hashicorp_aws": "6.53.0",
       "registry": "registry-v1.0",
@@ -128,22 +128,34 @@
   "parameters": {
     "azs": [
       "us-east-1a",
-      "us-east-1b"
+      "us-east-1b",
+      "us-east-1c"
     ],
     "cidr_plan": {
       "app": "10.176.1.0/24",
       "db": [
         "10.176.10.0/24",
-        "10.176.11.0/24"
+        "10.176.11.0/24",
+        "10.176.12.0/24"
       ],
       "vpc": "10.176.0.0/16"
     },
-    "db_class": "db.t3.small",
-    "instance_class": "t3.small",
-    "naming_scheme": "kebab",
-    "sg_style": "all_inline",
-    "template_id": "tpl-02",
-    "template_version": "tpl-v1.0",
+    "db_class": "db.t3.micro",
+    "features": {
+      "egress": "all",
+      "extras": "none",
+      "files": "split",
+      "naming": "standard",
+      "routing": "shared_public",
+      "sg_style": "app_separate_db_inline",
+      "subnets": "one_app",
+      "values": "literal"
+    },
+    "instance_class": "t3.nano",
+    "naming_scheme": "standard",
+    "sg_style": "app_separate_db_inline",
+    "template_id": "tpl-08",
+    "template_version": "tpl-v2.0",
     "variant": "clean"
   },
   "protected_invariants": [
@@ -168,24 +180,24 @@
   "scenario_id": "tp-v1-F5-0106",
   "seed": 106,
   "source": {
-    "commit_or_version": "d4a-8+tpl-v1.0",
+    "commit_or_version": "d4a-9+tpl-v2.0",
     "grafted": false,
     "license": "CC-BY-4.0",
     "origin": "terragoat",
-    "repo_lineage_id": "tpl-02",
+    "repo_lineage_id": "tpl-08",
     "tier": "controlled"
   },
   "split": "dev",
   "steps": [
     {
-      "content_hash": "64bcaa5af01a582b3ed6707ce1151bd9740aea302a99a08a4dd50db380714a04",
+      "content_hash": "94d6d57859a6721491ae43eca338a57183941fd0457710a83f0802725a0690d1",
       "diff_from_previous": null,
       "step": 0,
       "terraform_dir": "step_0"
     },
     {
-      "content_hash": "fe7d4c3c3995fb4b87510ab1965ba5bf10f6f5b872b68ee0fd5ffd59ba6f2592",
-      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,3 +1,8 @@\n+moved {\n+  from = aws_subnet.sub_app\n+  to   = aws_subnet.sub_app_app\n+}\n+\n resource \"aws_vpc\" \"vpc_main\" {\n   cidr_block           = \"10.176.0.0/16\"\n   enable_dns_hostnames = true\n@@ -6,12 +11,6 @@\n \n resource \"aws_internet_gateway\" \"igw_main\" {\n   vpc_id = aws_vpc.vpc_main.id\n-}\n-\n-resource \"aws_subnet\" \"sub_app\" {\n-  availability_zone = \"us-east-1a\"\n-  cidr_block        = \"10.176.1.0/24\"\n-  vpc_id            = aws_vpc.vpc_main.id\n }\n \n resource \"aws_subnet\" \"sub_db_1\" {\n@@ -37,7 +36,7 @@\n \n resource \"aws_route_table_association\" \"rta_app\" {\n   route_table_id = aws_route_table.rt_public.id\n-  subnet_id      = aws_subnet.sub_app.id\n+  subnet_id      = aws_subnet.sub_app_app.id\n }\n \n resource \"aws_route_table\" \"rt_db\" {\n@@ -90,7 +89,7 @@\n resource \"aws_instance\" \"ec2_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.small\"\n-  subnet_id              = aws_subnet.sub_app.id\n+  subnet_id              = aws_subnet.sub_app_app.id\n   vpc_security_group_ids = [aws_security_group.sg_app.id]\n }\n \n@@ -111,3 +110,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.sg_db.id]\n }\n+\n+resource \"aws_subnet\" \"sub_app_app\" {\n+  availability_zone = \"us-east-1a\"\n+  cidr_block        = \"10.176.1.0/24\"\n+  vpc_id            = aws_vpc.vpc_main.id\n+}\n",
+      "content_hash": "3dfb64ae3dbd781fe5946067aac10818303a062ac13cefb8152c7db131210a54",
+      "diff_from_previous": "--- a/compute.tf\n+++ b/compute.tf\n@@ -16,6 +16,6 @@\n resource \"aws_instance\" \"app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.nano\"\n-  subnet_id              = aws_subnet.app.id\n+  subnet_id              = aws_subnet.app_app.id\n   vpc_security_group_ids = [aws_security_group.app.id]\n }\n--- a/network.tf\n+++ b/network.tf\n@@ -1,3 +1,8 @@\n+moved {\n+  from = aws_subnet.app\n+  to   = aws_subnet.app_app\n+}\n+\n resource \"aws_vpc\" \"main\" {\n   cidr_block           = \"10.176.0.0/16\"\n   enable_dns_hostnames = true\n@@ -6,12 +11,6 @@\n \n resource \"aws_internet_gateway\" \"igw\" {\n   vpc_id = aws_vpc.main.id\n-}\n-\n-resource \"aws_subnet\" \"app\" {\n-  availability_zone = \"us-east-1a\"\n-  cidr_block        = \"10.176.1.0/24\"\n-  vpc_id            = aws_vpc.main.id\n }\n \n resource \"aws_subnet\" \"db_1\" {\n@@ -43,5 +42,11 @@\n \n resource \"aws_route_table_association\" \"rta_app\" {\n   route_table_id = aws_route_table.public.id\n-  subnet_id      = aws_subnet.app.id\n+  subnet_id      = aws_subnet.app_app.id\n }\n+\n+resource \"aws_subnet\" \"app_app\" {\n+  availability_zone = \"us-east-1a\"\n+  cidr_block        = \"10.176.1.0/24\"\n+  vpc_id            = aws_vpc.main.id\n+}\n",
       "step": 1,
       "terraform_dir": "step_1"
     }
@@ -195,8 +207,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
-  "template_id": "tpl-02",
-  "template_version": "tpl-v1.0",
+  "template_id": "tpl-08",
+  "template_version": "tpl-v2.0",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },
