@@ -151,6 +151,8 @@
     "invariant_id": "INV-SEC-002",
     "kind": "repair"
   },
+  "v1_role": "target",
+  "v1_role_reason": null,
   "variable_values": {
     "az_1": "us-east-1a",
     "environment": "tp-primary",

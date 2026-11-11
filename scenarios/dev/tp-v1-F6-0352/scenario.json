@@ -231,6 +231,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
+  "v1_role": "target",
+  "v1_role_reason": null,
   "variable_values": {
     "backend_security_group_id": "sg-0201201201201201a",
     "project_name": "tp-primary",

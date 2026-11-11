@@ -142,6 +142,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
+  "v1_role": "excluded",
+  "v1_role_reason": "excluded_from_v1: unplannable; replaced by tp-v1-F7-0375",
   "variable_values": {
     "aws_account_id": "tp-primary",
     "cidr_blocks": "10.201.0.0/16",

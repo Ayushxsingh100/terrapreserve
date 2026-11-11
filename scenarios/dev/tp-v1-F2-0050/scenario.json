@@ -164,6 +164,8 @@
   },
   "template_id": "tpl-16",
   "template_version": "tpl-v2.0",
+  "v1_role": "target",
+  "v1_role_reason": "D6-02 step 3: lowest-numbered labelled controlled reserve of F2 unsafe dev; fills the real-world cell of excluded target tp-v1-F2-0254 (counted as controlled)",
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

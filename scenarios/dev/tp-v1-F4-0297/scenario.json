@@ -160,6 +160,8 @@
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
   },
+  "v1_role": "reserve",
+  "v1_role_reason": null,
   "variable_values": {
     "aws_config": {
       "Name": "tp-primary",

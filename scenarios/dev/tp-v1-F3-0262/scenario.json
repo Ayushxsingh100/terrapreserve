@@ -151,6 +151,8 @@
     "invariant_id": null,
     "kind": "change_request"
   },
+  "v1_role": "target",
+  "v1_role_reason": null,
   "variable_values": {
     "route_table_id": "tp-primary",
     "subnet_az": "us-east-1a",

@@ -149,6 +149,8 @@
     "invariant_id": "INV-SEC-003",
     "kind": "repair"
   },
+  "v1_role": "target",
+  "v1_role_reason": null,
   "variable_values": {
     "assign_public": false,
     "subnet_cidr_block": "10.201.0.0/16",

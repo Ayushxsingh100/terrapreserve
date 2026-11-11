@@ -35,6 +35,11 @@ The dataset benchmark consists of 8 families (F1 through F8), each partitioned i
 - **Reserves**: 96 scenarios (64 dev, 32 test: 48 controlled + 48 real-world).
 - **Detailed Assembly Counts**: Recorded in `scenarios/ASSEMBLY.json` and `scenarios/ASSEMBLY.md`.
 
+### v1.0 (D6)
+- **Roles (D6-02):** every `scenario.json` has `v1_role` (`target`, `reserve` or `excluded`) and `v1_role_reason` (set for swaps and exclusions). 320 targets (224 dev, 96 test): 20 safe and 20 unsafe per family by oracle `gt_class`; 71 reserves; 25 excluded (19 dev, 6 test).
+- **Swaps:** each excluded target was replaced by the lowest-numbered labelled reserve of its cell; three dev real-world cells (F2 unsafe, F3 safe, F5 unsafe) were filled from controlled reserves of the same family, class and split (tp-v1-F2-0050, tp-v1-F3-0063, tp-v1-F5-0128), which stay controlled. Test: 4 swaps, all within the real-world tier.
+- **Manifests (D6-04):** `V1_MANIFEST.json` (dev entries in full; test ids, roles and hashes only) and `V1_MANIFEST.sha256` (the sha256 of the public and the withheld private manifest).
+
 ### Split Withholding (D4-01, D0 Decision 9)
 Because the repository is public, test-split scenarios are strictly withheld outside the repository (`$TERRAPRESERVE_PRIVATE`, default `~/.terrapreserve-private`).
 The repository carries only `scenarios/test_manifest.json`, which records each withheld scenario's ID, the SHA-256 of its `scenario.json`, and the SHA-256 of each step directory (128 test entries total: 64 controlled + 64 real-world). The manifest leaks no intent, family, class, template, or diff content. Test-split scenarios will be released alongside the full benchmark at publication.
@@ -52,6 +57,7 @@ The repository carries only `scenarios/test_manifest.json`, which records each w
 - **`ASSEMBLY.md`**: Human-readable assembly audit report.
 - **`assemble.py`**: Assembly aggregation script.
 - **`test_manifest.json`**: Cryptographic integrity manifest for withheld test-split scenarios (128 entries).
+- **`V1_MANIFEST.json`**, **`V1_MANIFEST.sha256`**: The frozen v1.0 manifests (D6-04).
 - **`validate_results.csv`**: Validation audit log recording the result of running `terraform validate` against every step of every scenario.
 - **`NOTICE`**: Licencing attribution for CC-BY-4.0 scenario structures, Apache-2.0 TerraGoat vocabulary, and TerraDS modifications.
 

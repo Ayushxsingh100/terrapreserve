@@ -188,6 +188,8 @@
   },
   "template_id": "tpl-10",
   "template_version": "tpl-v2.0",
+  "v1_role": "reserve",
+  "v1_role_reason": null,
   "variable_values": {
     "db_password": "tp-secret-primary"
   },

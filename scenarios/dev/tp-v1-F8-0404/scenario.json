@@ -248,6 +248,8 @@
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
   },
+  "v1_role": "target",
+  "v1_role_reason": null,
   "variable_values": {
     "tp_db_password": "tp-secret-primary",
     "vpc_id": "vpc-0201201201201201a"

@@ -123,7 +123,10 @@ class TestD5bLabels(unittest.TestCase):
                 # D4c: its decisions, the template feature table and its evidence files
                 REPO_ROOT / "docs" / "D4C_DECISIONS.md", REPO_ROOT / "generator" / "templates" / "FEATURES.md",
                 REPO_ROOT / "docs" / "D5_CARRYOVER.md", REPO_ROOT / "scenarios" / "README.md",
-                *sorted((REPO_ROOT / "docs" / "d4c").glob("*"))]
+                *sorted((REPO_ROOT / "docs" / "d4c").glob("*")),
+                # D6: its decisions, gates and freeze documents, and the top-level README
+                REPO_ROOT / "docs" / "D6_DECISIONS.md", REPO_ROOT / "docs" / "D6_GATES.md",
+                REPO_ROOT / "docs" / "D6_FREEZE.md", REPO_ROOT / "README.md"]
         hits = [f"{p.name}: {n}" for p in docs if p.is_file() for n in
                 [sum(1 for i in ids if i in p.read_text(encoding="utf-8"))] if n]
         self.assertEqual(hits, [])

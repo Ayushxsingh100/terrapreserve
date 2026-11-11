@@ -168,6 +168,8 @@
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
   },
+  "v1_role": "target",
+  "v1_role_reason": null,
   "variable_values": {
     "db_name": "tp-primary",
     "db_password": "tp-secret-primary",

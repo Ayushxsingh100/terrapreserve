@@ -235,6 +235,8 @@
     "invariant_id": "INV-SEC-001",
     "kind": "repair"
   },
+  "v1_role": "target",
+  "v1_role_reason": null,
   "variable_values": {
     "ami_id": "ami-0201201201201201a",
     "instance_type": "t3.micro",

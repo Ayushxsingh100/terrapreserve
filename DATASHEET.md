@@ -161,3 +161,35 @@ Full dataset assembly documented in `scenarios/ASSEMBLY.md` and `scenarios/ASSEM
 | Will it be updated? | Not yet established. Releases are frozen and versioned (ADR-013); versioning scheme: not yet established. |
 | Will older versions remain available? | Not yet established. |
 | How can others contribute? | Not yet established. |
+
+## TerraPreserve v1.0 (D6, 11 Nov 2026)
+
+Frozen by D6 (`docs/D6_DECISIONS.md`, `docs/D6_GATES.md`, `docs/D6_FREEZE.md`). Every scenario has `dataset_version: "1.0"` and a `v1_role`. Counts below are computed from the scenario records (test split: counts only).
+
+**Composition (targets counted by oracle `gt_class`).**
+
+| | dev controlled | dev real-world | test controlled | test real-world | total |
+|---|---|---|---|---|---|
+| targets | 115 | 109 | 48 | 48 | 320 |
+| reserves | 29 | 16 | 16 | 10 | 71 |
+| excluded | 0 | 19 | 0 | 6 | 25 |
+
+Per family and class: 20 safe and 20 unsafe targets (dev 14, test 6). In the dev split each family x class has 7 controlled and 7 real-world targets, except F2 unsafe, F3 safe and F5 unsafe (8 controlled, 6 real-world: one controlled reserve fills each, D6-02 step 3). In the test split each family x class has 3 controlled and 3 real-world targets.
+
+**Exclusions by reason.** Dev: 16 `unplannable` (D5a-3) and 3 `s0_not_clean` (D5b: tp-v1-F2-0250, tp-v1-F2-0252, tp-v1-F3-0263), all real-world. Test: 6 `unplannable`, all real-world. No `unlabelable` and no `value_dependent` scenario.
+
+**Swaps (D6-02).** Dev: 14 excluded targets replaced, 11 by the lowest-numbered labelled real-world reserve of the cell and 3 by a controlled reserve of the same family, class and split (tp-v1-F2-0050 for F2 unsafe, tp-v1-F3-0063 for F3 safe, tp-v1-F5-0128 for F5 unsafe). Test: 4 excluded targets replaced, all by real-world reserves of the cell. No shortfall; no padding. Each swap is recorded in `v1_role_reason` of both scenarios.
+
+**Freeze gates (D0 Decision 10).** Gates 1 to 9 PASS (`docs/D6_GATES.md`).
+
+**Pinned versions (gate 9).** Terraform 1.15.8; `hashicorp/aws` 6.53.0; Checkov 3.3.30 (advisory only); oracle `oracle-1.0`; registry `registry-v1.0`; generator `d4a-9` (controlled, template set `tpl-v2.0`) and `d4b-9` (real-world); value rule vv-3; Python 3.12.
+
+**Known limitations (carried from the reviews).**
+- The controlled test split had 3 template clusters until D4c, which expanded the controlled tier to 33 templates (10 test clusters).
+- Grafts are standalone (D4b `Open 1`, decided for v1.0): the core is not attached to the host's VPC or subnets; attach mode is v1.1 work.
+- The generator's S0 screen missed three hosts (MIXED in either direction, a reversed TCP port range); the oracle caught them and they are excluded (`s0_not_clean`). The screen was fixed in D4c; the real-world tier was not regenerated.
+- Reserves are spread unevenly across controlled templates (five test templates carry none, `tpl-05` carries 4); per-template reporting must use the actual counts.
+- INV-FUNC-001 is evaluated at configuration level and does not model DNS (for example `enable_dns_hostnames = false`).
+- F5 `for_each` restructuring is not generated (only `count`); inline-to-separate rule restructuring is not generated (it leaves a group RETAINED-INLINE).
+
+**Licences (D0 Decision 9).** "our scenarios and labels are released under CC-BY-4.0. TerraGoat-derived files keep their Apache-2.0 notice. TerraDS-derived files keep their original repository's license, recorded per scenario." TerraPreserve is "kept internal until v1.0 is frozen, then released when the paper is submitted".
