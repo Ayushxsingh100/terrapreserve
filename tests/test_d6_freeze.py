@@ -99,7 +99,7 @@ class TestD6Decisions(unittest.TestCase):
         self.assertEqual({k: d6.get(k) for k in ("D6-01", "D6-02")}, {"D6-01": "Decided", "D6-02": "Decided"})
         rest = {k: v for k, v in d6.items() if k not in ("D6-01", "D6-02")}
         self.assertEqual(sorted(rest), [f"D6-0{i}" for i in range(3, 8)])
-        self.assertEqual(set(rest.values()), {"Proposed"})
+        self.assertEqual(set(rest.values()), {"Decided"})  # D6-03 to D6-07 accepted as built (11 Nov 2026)
         d4c = self.rows("D4C_DECISIONS.md")
         self.assertEqual(set(d4c.values()), {"Decided"})
         for f in ("D4_DECISIONS.md", "D4B_DECISIONS.md", "D5_DECISIONS.md", "D4C_DECISIONS.md", "D6_DECISIONS.md"):
