@@ -33,7 +33,9 @@ OLD_DEV_TEMPLATES = {"tpl-01", "tpl-02", "tpl-03", "tpl-06", "tpl-08", "tpl-09",
 # entries.
 RW_DEV_FILES = (2492, "7e348756a0c7300dd399213e835a992d27ba2122634bd6d92468f1bd03f2a7a7")
 RW_PRIVATE_FILES = (1132, "6e5a7c936502df48b2adb79124cb0b126b94e24471815d102749d456c6fb674c")
-RW_MANIFEST = (64, "671ec11d2acfa355c971466e914bef52d65c031ce9a9a421441b14638fa92daf")
+# Real-world test-manifest entries at 49837f2 without scenario_json_sha256 (D6 changes that hash: v1_role is added
+# to each scenario.json; the withheld records themselves are checked by rw_digest with the v1 fields removed).
+RW_MANIFEST = (64, "9ede53c5e4370d4a8f30e4e731dbcc763a422d550a5eaecc5ec5165c2e6bc4b4")
 RW_VALIDATE_ROWS = (324, "f16a997b8ed4eca407d19cb59255c2fa839518ccac1f9fe24a0d013a88a21498")
 RW_VV3_DEV = (144, "7c0eaa7e74fc9790f3d8dd9cc3276f2d99862cbc94969fa26a28a3cfdad19b91")
 
@@ -59,7 +61,14 @@ def rw_digest(root: Path) -> tuple[int, str]:
         if num(p.name) <= 208:
             continue
         for f in sorted(x for x in p.rglob("*") if x.is_file()):
-            rows.append(f"{f.relative_to(root).as_posix()}|{hashlib.sha256(f.read_bytes()).hexdigest()}")
+            data = f.read_bytes()
+            if f.name == "scenario.json":
+                # D6 adds only v1_role and v1_role_reason (D6-02); without them the record is the 49837f2 bytes
+                d = json.loads(data)
+                d.pop("v1_role", None)
+                d.pop("v1_role_reason", None)
+                data = (json.dumps(d, indent=2, sort_keys=True) + "\n").encode()
+            rows.append(f"{f.relative_to(root).as_posix()}|{hashlib.sha256(data).hexdigest()}")
     return len(rows), hashlib.sha256("\n".join(rows).encode()).hexdigest()
 
 
@@ -250,7 +259,7 @@ class TestD4cTemplates(unittest.TestCase):
     def test_a5_real_world_tier_byte_identical_to_49837f2(self) -> None:
         self.assertEqual(rw_digest(DEV), RW_DEV_FILES)
         man = json.loads((REPO_ROOT / "scenarios" / "test_manifest.json").read_text(encoding="utf-8"))
-        rw = [e for e in man if num(e["scenario_id"]) > 208]
+        rw = [{k: v for k, v in e.items() if k != "scenario_json_sha256"} for e in man if num(e["scenario_id"]) > 208]
         self.assertEqual((len(rw), hashlib.sha256(json.dumps(rw, sort_keys=True).encode()).hexdigest()), RW_MANIFEST)
         with open(REPO_ROOT / "scenarios" / "validate_results.csv", encoding="utf-8") as f:
             rows = [r for r in csv.DictReader(f) if num(r["scenario_id"]) > 208]
@@ -310,7 +319,8 @@ class TestD4cDecisions(unittest.TestCase):
         self.assertEqual({k: v for k, v in d4c.items() if k in ("D4c-01", "D4c-02")},
                          {"D4c-01": "Decided", "D4c-02": "Decided"})
         rest = {k: v for k, v in d4c.items() if k not in ("D4c-01", "D4c-02")}
-        self.assertTrue(rest and set(rest.values()) == {"Proposed"})
+        # D4c-03 to D4c-06 were Proposed until D6-01 (user, 11 Nov 2026) settled them as built
+        self.assertTrue(rest and set(rest.values()) == {"Decided"})
 
 
 if __name__ == "__main__":
