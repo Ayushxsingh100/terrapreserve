@@ -1,0 +1,20 @@
+{
+ "decision": "TPL-05",
+ "exports": {
+  "77da54da-66b9-5221-8a6a-718275a5e22b": {
+   "generation": "p10b-run-b (DAIL P10b Run B, prompt v3, k = 3)",
+   "oracle_export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "source": "DAIL P10b final report (14 Nov 2026); equal to the file on disk on 20 Nov 2026"
+  },
+  "7fe30836-fbe0-5850-96ee-31dd9bbbddf1": {
+   "generation": "p10b-run-a (DAIL P10b Run A, prompt v3, k = 1)",
+   "oracle_export_sha256": "1cc74af29266274bfa1c0d2ebf50b973b76cd33a0cbcba70979d31583c3a570e",
+   "source": "DAIL P10b final report (14 Nov 2026); equal to the file on disk on 20 Nov 2026"
+  },
+  "d4507101-113d-5753-806d-593ee99b3255": {
+   "generation": "p10a-dev-pilot (DAIL P10a pilot, prompt v2, k = 1)",
+   "oracle_export_sha256": "335409e836a6bd28d68cb684e25bbd438ce8294d2bf26ca12b116f1d915e1a6f",
+   "source": "the file on disk on 20 Nov 2026 (not recorded by DAIL; user's decision TPL-05)"
+  }
+ }
+}
