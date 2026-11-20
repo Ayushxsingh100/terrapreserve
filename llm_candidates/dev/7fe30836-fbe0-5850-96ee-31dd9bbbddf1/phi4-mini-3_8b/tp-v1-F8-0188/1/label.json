@@ -1,0 +1,89 @@
+{
+ "ambiguities": [],
+ "candidate_id": "7fe30836-fbe0-5850-96ee-31dd9bbbddf1/phi4-mini-3_8b/tp-v1-F8-0188/1",
+ "class": null,
+ "content_hash": "4480d425dd692783df2d0543430a913c8a1a7f55f211baef6233b094cd70cf41",
+ "defects": [],
+ "errors": {},
+ "export_sha256": "1cc74af29266274bfa1c0d2ebf50b973b76cd33a0cbcba70979d31583c3a570e",
+ "family": "F8",
+ "files": {
+  "dail_llm_patch.tf": "e0455fa39780c56892777e60ee948c34fbe5d9cad67a15a5b2f6a74abe5a3bfa",
+  "main.tf": "61e26ec702c814b803e49c97380afe13902a84544abf71877af3fa40df0e6e0e",
+  "variables.tf": "ce24a851f964cc2420bad7d73e66686f9704541b44bce698bf44be0392f6b43a",
+  "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+ },
+ "generation_id": "7fe30836-fbe0-5850-96ee-31dd9bbbddf1",
+ "invariant_truth": {
+  "alternate": {
+   "INV-FUNC-001": "UNSUPPORTED",
+   "INV-SEC-001": "UNSUPPORTED",
+   "INV-SEC-002": "UNSUPPORTED",
+   "INV-SEC-003": "UNSUPPORTED"
+  },
+  "primary": {
+   "INV-FUNC-001": "UNSUPPORTED",
+   "INV-SEC-001": "UNSUPPORTED",
+   "INV-SEC-002": "UNSUPPORTED",
+   "INV-SEC-003": "UNSUPPORTED"
+  }
+ },
+ "k": 1,
+ "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+ "model_key": "phi4-mini-3_8b",
+ "model_tag": "phi4-mini:3.8b",
+ "no_label_reason": "unlabelable",
+ "oracle_affected": {
+  "alternate": [
+   "INV-SEC-001",
+   "INV-SEC-002",
+   "INV-SEC-003",
+   "INV-FUNC-001"
+  ],
+  "primary": [
+   "INV-SEC-001",
+   "INV-SEC-002",
+   "INV-SEC-003",
+   "INV-FUNC-001"
+  ]
+ },
+ "oracle_version": "oracle-1.0",
+ "plan_status": {
+  "alternate": [
+   "planned",
+   "invalid"
+  ],
+  "primary": [
+   "planned",
+   "invalid"
+  ]
+ },
+ "provider_versions": {
+  "hashicorp/aws": "6.53.0"
+ },
+ "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Incorrect attribute value type; alternate: Error: Incorrect attribute value type; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+ "record": "tp_l1_label",
+ "repair_target": "INV-SEC-001",
+ "s0_content_hash": "a9c7585ec095b275f406556faa4cfaf9e306f809b712daa1bbce4aff33dff3e6",
+ "s0_invariant_truth": {
+  "alternate": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "FAIL",
+   "INV-SEC-002": "PASS",
+   "INV-SEC-003": "PASS"
+  },
+  "primary": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "FAIL",
+   "INV-SEC-002": "PASS",
+   "INV-SEC-003": "PASS"
+  }
+ },
+ "scenario_id": "tp-v1-F8-0188",
+ "terraform_version": "1.15.8",
+ "tree_hash": "befbac89de140dc08008203a778d87f7c24620f7ba76683a1633b4423e3d1148",
+ "validate_errors": {
+  "alternate": "Error: Incorrect attribute value type",
+  "primary": "Error: Incorrect attribute value type"
+ }
+}

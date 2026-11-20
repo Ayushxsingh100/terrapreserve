@@ -1,0 +1,88 @@
+{
+ "ambiguities": [],
+ "candidate_id": "d4507101-113d-5753-806d-593ee99b3255/phi4-mini-3_8b/tp-v1-F4-0079/1",
+ "class": null,
+ "content_hash": "3ba274997ebbdd29a99b381d71b8d225177446d510d09b8e5156eca15a2bab10",
+ "defects": [],
+ "errors": {},
+ "export_sha256": "335409e836a6bd28d68cb684e25bbd438ce8294d2bf26ca12b116f1d915e1a6f",
+ "family": "F4",
+ "files": {
+  "main.tf": "c9963495276f56b75982bc685075800351ee14ecfc6331b27e9af89fc7532064",
+  "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+  "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+ },
+ "generation_id": "d4507101-113d-5753-806d-593ee99b3255",
+ "invariant_truth": {
+  "alternate": {
+   "INV-FUNC-001": "UNSUPPORTED",
+   "INV-SEC-001": "UNSUPPORTED",
+   "INV-SEC-002": "UNSUPPORTED",
+   "INV-SEC-003": "UNSUPPORTED"
+  },
+  "primary": {
+   "INV-FUNC-001": "UNSUPPORTED",
+   "INV-SEC-001": "UNSUPPORTED",
+   "INV-SEC-002": "UNSUPPORTED",
+   "INV-SEC-003": "UNSUPPORTED"
+  }
+ },
+ "k": 1,
+ "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+ "model_key": "phi4-mini-3_8b",
+ "model_tag": "phi4-mini:3.8b",
+ "no_label_reason": "unlabelable",
+ "oracle_affected": {
+  "alternate": [
+   "INV-SEC-001",
+   "INV-SEC-002",
+   "INV-SEC-003",
+   "INV-FUNC-001"
+  ],
+  "primary": [
+   "INV-SEC-001",
+   "INV-SEC-002",
+   "INV-SEC-003",
+   "INV-FUNC-001"
+  ]
+ },
+ "oracle_version": "oracle-1.0",
+ "plan_status": {
+  "alternate": [
+   "planned",
+   "invalid"
+  ],
+  "primary": [
+   "planned",
+   "invalid"
+  ]
+ },
+ "provider_versions": {
+  "hashicorp/aws": "6.53.0"
+ },
+ "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+ "record": "tp_l1_label",
+ "repair_target": "INV-SEC-001",
+ "s0_content_hash": "7458aa28d4110eb2952f1abcac826a0184730784c001b1ee586cff9a42a7e4a9",
+ "s0_invariant_truth": {
+  "alternate": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "FAIL",
+   "INV-SEC-002": "PASS",
+   "INV-SEC-003": "PASS"
+  },
+  "primary": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "FAIL",
+   "INV-SEC-002": "PASS",
+   "INV-SEC-003": "PASS"
+  }
+ },
+ "scenario_id": "tp-v1-F4-0079",
+ "terraform_version": "1.15.8",
+ "tree_hash": "9244c9dfd3e935dde09a1078a4777938f9509c52542ebcbc0dbb4359d404434c",
+ "validate_errors": {
+  "alternate": "Error: Missing required argument",
+  "primary": "Error: Missing required argument"
+ }
+}

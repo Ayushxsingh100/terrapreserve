@@ -1,0 +1,89 @@
+{
+ "ambiguities": [],
+ "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/granite3_3-8b-k3/tp-v1-F8-0185/2",
+ "class": null,
+ "content_hash": "1a72ce416181567aa3af91d0aeb28866155f5c0a3073436993971a3696f3427b",
+ "defects": [],
+ "errors": {},
+ "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+ "family": "F8",
+ "files": {
+  "locals.tf": "0dd704dbfa16c9fecd5c06fe4619391a2d2c36ffe8bd6a371eddc784da99f3f3",
+  "main.tf": "193dde7c9bb8526f0136091278ce891b00a66f315bb221f0ea93caa605e5c570",
+  "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+  "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+ },
+ "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+ "invariant_truth": {
+  "alternate": {
+   "INV-FUNC-001": "UNSUPPORTED",
+   "INV-SEC-001": "UNSUPPORTED",
+   "INV-SEC-002": "UNSUPPORTED",
+   "INV-SEC-003": "UNSUPPORTED"
+  },
+  "primary": {
+   "INV-FUNC-001": "UNSUPPORTED",
+   "INV-SEC-001": "UNSUPPORTED",
+   "INV-SEC-002": "UNSUPPORTED",
+   "INV-SEC-003": "UNSUPPORTED"
+  }
+ },
+ "k": 2,
+ "model_digest": "fd429f23b90980ed1bef53b990894e7b0199331f6ae90c5650240a7d5b70f1f7",
+ "model_key": "granite3_3-8b-k3",
+ "model_tag": "granite3.3:8b",
+ "no_label_reason": "unlabelable",
+ "oracle_affected": {
+  "alternate": [
+   "INV-SEC-001",
+   "INV-SEC-002",
+   "INV-SEC-003",
+   "INV-FUNC-001"
+  ],
+  "primary": [
+   "INV-SEC-001",
+   "INV-SEC-002",
+   "INV-SEC-003",
+   "INV-FUNC-001"
+  ]
+ },
+ "oracle_version": "oracle-1.0",
+ "plan_status": {
+  "alternate": [
+   "planned",
+   "invalid"
+  ],
+  "primary": [
+   "planned",
+   "invalid"
+  ]
+ },
+ "provider_versions": {
+  "hashicorp/aws": "6.53.0"
+ },
+ "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: \"<trusted_source_2_cidr>\" is not a valid CIDR block: invalid CIDR address: <trusted_source_2_cidr>; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+ "record": "tp_l1_label",
+ "repair_target": "INV-SEC-001",
+ "s0_content_hash": "58df14fd0fcda0bd49776f96afaf546c0e9dee6898380a95a85844502f8b2cec",
+ "s0_invariant_truth": {
+  "alternate": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "FAIL",
+   "INV-SEC-002": "PASS",
+   "INV-SEC-003": "PASS"
+  },
+  "primary": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "FAIL",
+   "INV-SEC-002": "PASS",
+   "INV-SEC-003": "PASS"
+  }
+ },
+ "scenario_id": "tp-v1-F8-0185",
+ "terraform_version": "1.15.8",
+ "tree_hash": "8a2ff53e3983739cac4ebb09ef3b63a641523aaac3d90048115e07ae917351a4",
+ "validate_errors": {
+  "alternate": "Error: \"<trusted_source_2_cidr>\" is not a valid CIDR block: invalid CIDR address: <trusted_source_2_cidr>",
+  "primary": "Error: Missing required argument"
+ }
+}

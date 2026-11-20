@@ -1,0 +1,89 @@
+{
+ "ambiguities": [],
+ "candidate_id": "d4507101-113d-5753-806d-593ee99b3255/qwen2_5-coder-7b/tp-v1-F2-0027/1",
+ "class": null,
+ "content_hash": "58edf06003899d8fb25ebda4937336f19bc078f8130719fc467a31a43e198349",
+ "defects": [],
+ "errors": {},
+ "export_sha256": "335409e836a6bd28d68cb684e25bbd438ce8294d2bf26ca12b116f1d915e1a6f",
+ "family": "F2",
+ "files": {
+  "dail_llm_patch.tf": "3a3dce20931873e6173b8d2b29e3e9fc24357c963b725c71f005c2427c86682e",
+  "main.tf": "dbb7eb35c4e26ffcca3ff9b20d72b0669ea728790b4e3830c57e76d28f6815df",
+  "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+  "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+ },
+ "generation_id": "d4507101-113d-5753-806d-593ee99b3255",
+ "invariant_truth": {
+  "alternate": {
+   "INV-FUNC-001": "UNSUPPORTED",
+   "INV-SEC-001": "UNSUPPORTED",
+   "INV-SEC-002": "UNSUPPORTED",
+   "INV-SEC-003": "UNSUPPORTED"
+  },
+  "primary": {
+   "INV-FUNC-001": "UNSUPPORTED",
+   "INV-SEC-001": "UNSUPPORTED",
+   "INV-SEC-002": "UNSUPPORTED",
+   "INV-SEC-003": "UNSUPPORTED"
+  }
+ },
+ "k": 1,
+ "model_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+ "model_key": "qwen2_5-coder-7b",
+ "model_tag": "qwen2.5-coder:7b",
+ "no_label_reason": "unlabelable",
+ "oracle_affected": {
+  "alternate": [
+   "INV-SEC-001",
+   "INV-SEC-002",
+   "INV-SEC-003",
+   "INV-FUNC-001"
+  ],
+  "primary": [
+   "INV-SEC-001",
+   "INV-SEC-002",
+   "INV-SEC-003",
+   "INV-FUNC-001"
+  ]
+ },
+ "oracle_version": "oracle-1.0",
+ "plan_status": {
+  "alternate": [
+   "planned",
+   "invalid"
+  ],
+  "primary": [
+   "planned",
+   "invalid"
+  ]
+ },
+ "provider_versions": {
+  "hashicorp/aws": "6.53.0"
+ },
+ "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: \"::/0\" is not a valid IPv4 CIDR block; alternate: Error: \"::/0\" is not a valid IPv4 CIDR block; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+ "record": "tp_l1_label",
+ "repair_target": "INV-SEC-001",
+ "s0_content_hash": "57e1e810e81aad13972f581b3b6620f42cc29b354dd25cd8eb77b129a3d2c877",
+ "s0_invariant_truth": {
+  "alternate": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "FAIL",
+   "INV-SEC-002": "PASS",
+   "INV-SEC-003": "PASS"
+  },
+  "primary": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "FAIL",
+   "INV-SEC-002": "PASS",
+   "INV-SEC-003": "PASS"
+  }
+ },
+ "scenario_id": "tp-v1-F2-0027",
+ "terraform_version": "1.15.8",
+ "tree_hash": "2062a203e875e89be4be0e552258f88c5b2d1b1f3399ad55cda20474049bcf4f",
+ "validate_errors": {
+  "alternate": "Error: \"::/0\" is not a valid IPv4 CIDR block",
+  "primary": "Error: \"::/0\" is not a valid IPv4 CIDR block"
+ }
+}

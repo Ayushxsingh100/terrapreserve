@@ -1,0 +1,87 @@
+{
+ "ambiguities": [],
+ "candidate_id": "7fe30836-fbe0-5850-96ee-31dd9bbbddf1/granite3_3-8b/tp-v1-F4-0080/1",
+ "class": null,
+ "content_hash": "b06b3c873876366bbba92f130459806f5fa4f67684d56775970a292d35064611",
+ "defects": [],
+ "errors": {},
+ "export_sha256": "1cc74af29266274bfa1c0d2ebf50b973b76cd33a0cbcba70979d31583c3a570e",
+ "family": "F4",
+ "files": {
+  "dail_llm_patch.tf": "9d5e0f7b8af3de7848be1074145ae39b78014102e0a5f850230f009371085f16",
+  "main.tf": "d6208312362b111f05880084c2886986a25c13b5f21350dcc48bb68f688b7471",
+  "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+  "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+ },
+ "generation_id": "7fe30836-fbe0-5850-96ee-31dd9bbbddf1",
+ "invariant_truth": {
+  "alternate": {
+   "INV-FUNC-001": "UNSUPPORTED",
+   "INV-SEC-001": "UNSUPPORTED",
+   "INV-SEC-002": "UNSUPPORTED",
+   "INV-SEC-003": "PASS"
+  },
+  "primary": {
+   "INV-FUNC-001": "UNSUPPORTED",
+   "INV-SEC-001": "UNSUPPORTED",
+   "INV-SEC-002": "UNSUPPORTED",
+   "INV-SEC-003": "PASS"
+  }
+ },
+ "k": 1,
+ "model_digest": "fd429f23b90980ed1bef53b990894e7b0199331f6ae90c5650240a7d5b70f1f7",
+ "model_key": "granite3_3-8b",
+ "model_tag": "granite3.3:8b",
+ "no_label_reason": "unlabelable",
+ "oracle_affected": {
+  "alternate": [
+   "INV-SEC-001",
+   "INV-SEC-002",
+   "INV-FUNC-001"
+  ],
+  "primary": [
+   "INV-SEC-001",
+   "INV-SEC-002",
+   "INV-FUNC-001"
+  ]
+ },
+ "oracle_version": "oracle-1.0",
+ "plan_status": {
+  "alternate": [
+   "planned",
+   "planned"
+  ],
+  "primary": [
+   "planned",
+   "planned"
+  ]
+ },
+ "provider_versions": {
+  "hashicorp/aws": "6.53.0"
+ },
+ "reason": "unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+ "record": "tp_l1_label",
+ "repair_target": "INV-SEC-002",
+ "s0_content_hash": "c1f9b465308ade70dc169103eda73c3887f33303f217114fb8bad6bce2830b4f",
+ "s0_invariant_truth": {
+  "alternate": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "PASS",
+   "INV-SEC-002": "FAIL",
+   "INV-SEC-003": "PASS"
+  },
+  "primary": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "PASS",
+   "INV-SEC-002": "FAIL",
+   "INV-SEC-003": "PASS"
+  }
+ },
+ "scenario_id": "tp-v1-F4-0080",
+ "terraform_version": "1.15.8",
+ "tree_hash": "1bd33ad502b38bd15cfa5f5e73dc8ed0dd0181ec1a5b4a9ccfec66079f65b919",
+ "validate_errors": {
+  "alternate": null,
+  "primary": null
+ }
+}

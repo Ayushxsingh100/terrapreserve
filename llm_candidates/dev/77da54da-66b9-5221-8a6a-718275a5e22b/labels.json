@@ -1,0 +1,2935 @@
+{
+ "candidates": [
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/granite3_3-8b-k3/tp-v1-F2-0029/2",
+   "class": null,
+   "content_hash": "4c03cb9f5ee54c1f2dd213c966f9e88229e8c39806963f3f728fff4bc3c986e9",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F2",
+   "files": {
+    "locals.tf": "b86f035f59ec846a7c83312e7c5d8f5ace0e50165b7fc83585a77b8e611318c1",
+    "main.tf": "665a2b850cb1176495e864f4379fbf66e5e3271ddb01002028699049a0fabd26",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 2,
+   "model_digest": "fd429f23b90980ed1bef53b990894e7b0199331f6ae90c5650240a7d5b70f1f7",
+   "model_key": "granite3_3-8b-k3",
+   "model_tag": "granite3.3:8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "ca64e932a0a87e4882be431577fa77cd45df349a877cf4b5d2460f28cf8e7554",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F2-0029",
+   "terraform_version": "1.15.8",
+   "tree_hash": "fc58e2cae8f39015a4c65623f9e8792ff591300fda13e679c782c82b82afc760",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/granite3_3-8b-k3/tp-v1-F2-0032/2",
+   "class": null,
+   "content_hash": "8d391c534735c6dcf47222542d32a7e7b2fc39a01b592f1f259ba28af21d72a1",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F2",
+   "files": {
+    "compute.tf": "53b254068120d4afebcd818c63bbd40d029fbd0bae1a8ac310628bf1336be16f",
+    "database.tf": "9c00ee8fb3c0a5d6e9b3beb1a3d1966e2dc0a62b0777abd4903dda2e86023e26",
+    "network.tf": "299bd86a5fee0904447ab07e0292c55f2cbb06b3bdca3abded162291e3f3bbeb",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 2,
+   "model_digest": "fd429f23b90980ed1bef53b990894e7b0199331f6ae90c5650240a7d5b70f1f7",
+   "model_key": "granite3_3-8b-k3",
+   "model_tag": "granite3.3:8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "35425d0e0b5fdb28794726ddf687e43ee18ff6e96a3e46bd787c2e5add3aa133",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F2-0032",
+   "terraform_version": "1.15.8",
+   "tree_hash": "a395c95c952d7ac69a9f1be62812f76f628028256b9edfea2dda5d08dd8205d0",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/granite3_3-8b-k3/tp-v1-F4-0081/1",
+   "class": null,
+   "content_hash": "cb0f3f9e40b114256f6c8094a16cd94d645e07ee5e55b5626954d438e10fe26a",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F4",
+   "files": {
+    "main.tf": "a3d5df560cb145d845850f53702d7abfa25308086c51da8a4a1f2690fd9a3291",
+    "variables.tf": "ce24a851f964cc2420bad7d73e66686f9704541b44bce698bf44be0392f6b43a",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 1,
+   "model_digest": "fd429f23b90980ed1bef53b990894e7b0199331f6ae90c5650240a7d5b70f1f7",
+   "model_key": "granite3_3-8b-k3",
+   "model_tag": "granite3.3:8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "cedf071fa6d2f82f84c1c6f356e9e6711d8dc1a2dd8345daabd3584ef8c8012f",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F4-0081",
+   "terraform_version": "1.15.8",
+   "tree_hash": "7688f438cbe1354f6cd9c3b35a56f01f0dcc82609f7e18d7d0ab1601130322f4",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/granite3_3-8b-k3/tp-v1-F8-0184/1",
+   "class": "unsafe",
+   "content_hash": "c8b3fd828c0abb37af165b58d606524ae9a3c2ac3808052af184246de6653e06",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F8",
+   "files": {
+    "main.tf": "0413876436d30155a1c3ffbe512ea1c54fa6b96c9a3d87034010a1b56e8ca6e5",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "FAIL",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "FAIL",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "k": 1,
+   "model_digest": "fd429f23b90980ed1bef53b990894e7b0199331f6ae90c5650240a7d5b70f1f7",
+   "model_key": "granite3_3-8b-k3",
+   "model_tag": "granite3.3:8b",
+   "no_label_reason": null,
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "planned"
+    ],
+    "primary": [
+     "planned",
+     "planned"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "INV-SEC-001 FAIL at step 1; INV-SEC-002 FAIL at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-001",
+   "s0_content_hash": "6891dfcc9e4426c83e854ea5734070675ffd440b4ea1f54b881e6df4ad082fca",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F8-0184",
+   "terraform_version": "1.15.8",
+   "tree_hash": "ef71d4af6578e9fdfd948f54c1fb528d0a1e6cd0181787d142d2e8b19f692a7d",
+   "validate_errors": {
+    "alternate": null,
+    "primary": null
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/granite3_3-8b-k3/tp-v1-F8-0185/2",
+   "class": null,
+   "content_hash": "1a72ce416181567aa3af91d0aeb28866155f5c0a3073436993971a3696f3427b",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F8",
+   "files": {
+    "locals.tf": "0dd704dbfa16c9fecd5c06fe4619391a2d2c36ffe8bd6a371eddc784da99f3f3",
+    "main.tf": "193dde7c9bb8526f0136091278ce891b00a66f315bb221f0ea93caa605e5c570",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 2,
+   "model_digest": "fd429f23b90980ed1bef53b990894e7b0199331f6ae90c5650240a7d5b70f1f7",
+   "model_key": "granite3_3-8b-k3",
+   "model_tag": "granite3.3:8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: \"<trusted_source_2_cidr>\" is not a valid CIDR block: invalid CIDR address: <trusted_source_2_cidr>; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-001",
+   "s0_content_hash": "58df14fd0fcda0bd49776f96afaf546c0e9dee6898380a95a85844502f8b2cec",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F8-0185",
+   "terraform_version": "1.15.8",
+   "tree_hash": "8a2ff53e3983739cac4ebb09ef3b63a641523aaac3d90048115e07ae917351a4",
+   "validate_errors": {
+    "alternate": "Error: \"<trusted_source_2_cidr>\" is not a valid CIDR block: invalid CIDR address: <trusted_source_2_cidr>",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/granite3_3-8b-k3/tp-v1-F8-0188/1",
+   "class": "unsafe",
+   "content_hash": "a259107a9f4419134ad0b4e04186e217ec1acd2b0df201f193769c6b09d66e53",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F8",
+   "files": {
+    "main.tf": "2bbaaf578929bc8434fd23df31ddf6043308b5674bfc215c434c0502c4d40485",
+    "variables.tf": "ce24a851f964cc2420bad7d73e66686f9704541b44bce698bf44be0392f6b43a",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "k": 1,
+   "model_digest": "fd429f23b90980ed1bef53b990894e7b0199331f6ae90c5650240a7d5b70f1f7",
+   "model_key": "granite3_3-8b-k3",
+   "model_tag": "granite3.3:8b",
+   "no_label_reason": null,
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "planned"
+    ],
+    "primary": [
+     "planned",
+     "planned"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "INV-SEC-001 FAIL at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-001",
+   "s0_content_hash": "a9c7585ec095b275f406556faa4cfaf9e306f809b712daa1bbce4aff33dff3e6",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F8-0188",
+   "terraform_version": "1.15.8",
+   "tree_hash": "ca076a90610f669198d4457a36ab28232335fa0f62f128903c0962e084053d0d",
+   "validate_errors": {
+    "alternate": null,
+    "primary": null
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/granite3_3-8b-k3/tp-v1-F8-0188/2",
+   "class": null,
+   "content_hash": "78f175ec7cde3d87949f75558b5e4fcd089665b5d52a81299f08f345d1aedf81",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F8",
+   "files": {
+    "dail_llm_patch.tf": "507de1908101942bdf337609e54c5ed0aa9fcea79f2f38b055d18faf47d25be3",
+    "main.tf": "61e26ec702c814b803e49c97380afe13902a84544abf71877af3fa40df0e6e0e",
+    "variables.tf": "ce24a851f964cc2420bad7d73e66686f9704541b44bce698bf44be0392f6b43a",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 2,
+   "model_digest": "fd429f23b90980ed1bef53b990894e7b0199331f6ae90c5650240a7d5b70f1f7",
+   "model_key": "granite3_3-8b-k3",
+   "model_tag": "granite3.3:8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Unsupported argument; alternate: Error: Unsupported argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-001",
+   "s0_content_hash": "a9c7585ec095b275f406556faa4cfaf9e306f809b712daa1bbce4aff33dff3e6",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F8-0188",
+   "terraform_version": "1.15.8",
+   "tree_hash": "2ee990167edfb74bd34688b1d7d5bb4b67072a71f3d9808548889930c92ef1f0",
+   "validate_errors": {
+    "alternate": "Error: Unsupported argument",
+    "primary": "Error: Unsupported argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/granite3_3-8b-k3/tp-v1-F8-0188/3",
+   "class": null,
+   "content_hash": "0a4211488d16f0a86062dfe0418130c384fe7b25938fbf1f32d2c447654b510e",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F8",
+   "files": {
+    "main.tf": "b253cbde969508e841a2fe2052dfa5480c015536ed6e5e247178df6a315e7864",
+    "variables.tf": "ce24a851f964cc2420bad7d73e66686f9704541b44bce698bf44be0392f6b43a",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 3,
+   "model_digest": "fd429f23b90980ed1bef53b990894e7b0199331f6ae90c5650240a7d5b70f1f7",
+   "model_key": "granite3_3-8b-k3",
+   "model_tag": "granite3.3:8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Cycle: aws_security_group.storage_access, aws_security_group.service_access; alternate: Error: Cycle: aws_security_group.service_access, aws_security_group.storage_access; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-001",
+   "s0_content_hash": "a9c7585ec095b275f406556faa4cfaf9e306f809b712daa1bbce4aff33dff3e6",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F8-0188",
+   "terraform_version": "1.15.8",
+   "tree_hash": "66cddce41bf9af84b453c129ca9b2fa9744f1343bc3f53021346ba5b749941de",
+   "validate_errors": {
+    "alternate": "Error: Cycle: aws_security_group.service_access, aws_security_group.storage_access",
+    "primary": "Error: Cycle: aws_security_group.storage_access, aws_security_group.service_access"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F2-0027/1",
+   "class": null,
+   "content_hash": "78184b5ac7b6b5050d7e91a6b48cf561a19cde69337b1edce5a48459a454c12a",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F2",
+   "files": {
+    "dail_llm_patch.tf": "4b6ca1458b835695737b5dd74b6682de86b788022b2fc58d666092076a82ae35",
+    "main.tf": "dbb7eb35c4e26ffcca3ff9b20d72b0669ea728790b4e3830c57e76d28f6815df",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 1,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Incorrect attribute value type; alternate: Error: Incorrect attribute value type; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-001",
+   "s0_content_hash": "57e1e810e81aad13972f581b3b6620f42cc29b354dd25cd8eb77b129a3d2c877",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F2-0027",
+   "terraform_version": "1.15.8",
+   "tree_hash": "a3bc17b3ce9e15e1a88c13d1a5d8d6e1d33043a5fb40bbd72cf214c5cf19d657",
+   "validate_errors": {
+    "alternate": "Error: Incorrect attribute value type",
+    "primary": "Error: Incorrect attribute value type"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F2-0027/2",
+   "class": null,
+   "content_hash": "0dcd5f3d533abbab8e076341d2b8c8eefa70023dfff53814c361afc0c0a441e3",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F2",
+   "files": {
+    "dail_llm_patch.tf": "9a4e988462d81218ca2915f2f31280590f8b5fd59f5fb015aebcf9d7327cddcb",
+    "main.tf": "dbb7eb35c4e26ffcca3ff9b20d72b0669ea728790b4e3830c57e76d28f6815df",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 2,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Incorrect attribute value type; alternate: Error: Incorrect attribute value type; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-001",
+   "s0_content_hash": "57e1e810e81aad13972f581b3b6620f42cc29b354dd25cd8eb77b129a3d2c877",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F2-0027",
+   "terraform_version": "1.15.8",
+   "tree_hash": "96819c5bb7f5901e8a6815cf5e20bb881a486bc6624223573da5df618ac98fd7",
+   "validate_errors": {
+    "alternate": "Error: Incorrect attribute value type",
+    "primary": "Error: Incorrect attribute value type"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F2-0028/1",
+   "class": null,
+   "content_hash": "c9b244407a34a6c3bef4b500beac81ad3a3a83ef16ee53b80464949e5bb5ede8",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F2",
+   "files": {
+    "main.tf": "66e8b0aad46adf4857d3b7bdb2b4ae69bb59af7161b7699af702b616ca1be6fa",
+    "variables.tf": "2e3dda708a5a2fec99efbafeb21d91a02bb4e6cffc157572d91df5ab1fe75ebd",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 1,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-002",
+   "s0_content_hash": "71e5b1a45459779b46006803c87721582cc9781c5c04cc94ac1fd6f486982924",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "FAIL",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "FAIL",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F2-0028",
+   "terraform_version": "1.15.8",
+   "tree_hash": "9a14e8d60368da2fb89745031abb798cb110144b88c1536d77909558ed484512",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F2-0029/1",
+   "class": null,
+   "content_hash": "257c57c5d9af92ac7e66bb4899a72cb19fd0d88a1da53c5351f719142cec647f",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F2",
+   "files": {
+    "locals.tf": "b86f035f59ec846a7c83312e7c5d8f5ace0e50165b7fc83585a77b8e611318c1",
+    "main.tf": "5a6b0ad043b66a61558f4a02bd88362f84bf660b3aba35d54a2610dd75fcf232",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 1,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "ca64e932a0a87e4882be431577fa77cd45df349a877cf4b5d2460f28cf8e7554",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F2-0029",
+   "terraform_version": "1.15.8",
+   "tree_hash": "4bdc899061cb25725d3fd07fc3754b8da9469d5b96eaaeed0eb9e03a7ed921d8",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F2-0029/2",
+   "class": null,
+   "content_hash": "257c57c5d9af92ac7e66bb4899a72cb19fd0d88a1da53c5351f719142cec647f",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F2",
+   "files": {
+    "locals.tf": "b86f035f59ec846a7c83312e7c5d8f5ace0e50165b7fc83585a77b8e611318c1",
+    "main.tf": "5a6b0ad043b66a61558f4a02bd88362f84bf660b3aba35d54a2610dd75fcf232",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 2,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "ca64e932a0a87e4882be431577fa77cd45df349a877cf4b5d2460f28cf8e7554",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F2-0029",
+   "terraform_version": "1.15.8",
+   "tree_hash": "4bdc899061cb25725d3fd07fc3754b8da9469d5b96eaaeed0eb9e03a7ed921d8",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F2-0029/3",
+   "class": null,
+   "content_hash": "257c57c5d9af92ac7e66bb4899a72cb19fd0d88a1da53c5351f719142cec647f",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F2",
+   "files": {
+    "locals.tf": "b86f035f59ec846a7c83312e7c5d8f5ace0e50165b7fc83585a77b8e611318c1",
+    "main.tf": "5a6b0ad043b66a61558f4a02bd88362f84bf660b3aba35d54a2610dd75fcf232",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 3,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "ca64e932a0a87e4882be431577fa77cd45df349a877cf4b5d2460f28cf8e7554",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F2-0029",
+   "terraform_version": "1.15.8",
+   "tree_hash": "4bdc899061cb25725d3fd07fc3754b8da9469d5b96eaaeed0eb9e03a7ed921d8",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F2-0032/1",
+   "class": null,
+   "content_hash": "bf3f1db94bb6071c915e04dc84a95e2b98bf0f14713b2b2a6066a0f7251b8423",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F2",
+   "files": {
+    "compute.tf": "53b254068120d4afebcd818c63bbd40d029fbd0bae1a8ac310628bf1336be16f",
+    "database.tf": "e92940e2a1d4a44ec9d3e9decec207f14166e0a74a6ba15ad8bae2a54d258d28",
+    "network.tf": "299bd86a5fee0904447ab07e0292c55f2cbb06b3bdca3abded162291e3f3bbeb",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 1,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "35425d0e0b5fdb28794726ddf687e43ee18ff6e96a3e46bd787c2e5add3aa133",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F2-0032",
+   "terraform_version": "1.15.8",
+   "tree_hash": "b95ee5078fba9268a7c227821ab0171011ff1046f3a5a808e6199c6e635a1264",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F2-0032/2",
+   "class": null,
+   "content_hash": "87302be20311c5de662b300de1e4438638f028577b5bcde5c2becac64d38b8fa",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F2",
+   "files": {
+    "compute.tf": "53b254068120d4afebcd818c63bbd40d029fbd0bae1a8ac310628bf1336be16f",
+    "database.tf": "7e54a4ef43dee57ae179a1de90784008a8e5bd4781408edf0c34636be0e3908b",
+    "network.tf": "299bd86a5fee0904447ab07e0292c55f2cbb06b3bdca3abded162291e3f3bbeb",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 2,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "35425d0e0b5fdb28794726ddf687e43ee18ff6e96a3e46bd787c2e5add3aa133",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F2-0032",
+   "terraform_version": "1.15.8",
+   "tree_hash": "04381825a42f03beb49fb78ef40c88cea54d8534c64394076d851b61e585a77c",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F2-0032/3",
+   "class": null,
+   "content_hash": "78589fcd0c6009cf50e058d17ddf9ffcadf9fc7bbc463d7db0e6a355e79f065d",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F2",
+   "files": {
+    "compute.tf": "53b254068120d4afebcd818c63bbd40d029fbd0bae1a8ac310628bf1336be16f",
+    "database.tf": "ff3c5ce4df30bc6c8600c8db596478e3d84bce25341a901cb6c967c70754d4e0",
+    "network.tf": "299bd86a5fee0904447ab07e0292c55f2cbb06b3bdca3abded162291e3f3bbeb",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 3,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "35425d0e0b5fdb28794726ddf687e43ee18ff6e96a3e46bd787c2e5add3aa133",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F2-0032",
+   "terraform_version": "1.15.8",
+   "tree_hash": "87062b5e980ad5f2d2188fc5762ad10e94b7c62fb380b4cb277caa2e86ff651f",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F4-0079/2",
+   "class": null,
+   "content_hash": "926d56e9250cd7405dc1ebc4bda3b31318ec212d35b6c72f245c2ee008252e0b",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F4",
+   "files": {
+    "main.tf": "96416399f03d0c47560620a59d00c24583a7e14d937e644152aded01567dc543",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 2,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-001",
+   "s0_content_hash": "7458aa28d4110eb2952f1abcac826a0184730784c001b1ee586cff9a42a7e4a9",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F4-0079",
+   "terraform_version": "1.15.8",
+   "tree_hash": "423fdbc76c10bb9554f2aeb7694ebb0a9e7173e68c283fde999b4e0fd1812b11",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F4-0081/1",
+   "class": null,
+   "content_hash": "f54999e33d8ab9fab05ec498bc6f67b8f0288fda9bdd2cd2c7a5ac583d10f32e",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F4",
+   "files": {
+    "main.tf": "e55268da0351b2c7c4bc4eb87d8805e36a7518e9565c2c71b27e3c4801457640",
+    "variables.tf": "ce24a851f964cc2420bad7d73e66686f9704541b44bce698bf44be0392f6b43a",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 1,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "cedf071fa6d2f82f84c1c6f356e9e6711d8dc1a2dd8345daabd3584ef8c8012f",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F4-0081",
+   "terraform_version": "1.15.8",
+   "tree_hash": "e2ee42b616cc199bc7b145fc970581de464bcb96d1d5fa8f1e0cd8c34757a836",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F4-0081/2",
+   "class": null,
+   "content_hash": "b1a30edd38ba8ba3e8af71320e6cefc96486647b1d6136272e7eefde80b7d751",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F4",
+   "files": {
+    "main.tf": "48c1bfccec0c801dbb428ed63ba425beb3953fa00b57772cd22891f20f033275",
+    "variables.tf": "ce24a851f964cc2420bad7d73e66686f9704541b44bce698bf44be0392f6b43a",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 2,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "cedf071fa6d2f82f84c1c6f356e9e6711d8dc1a2dd8345daabd3584ef8c8012f",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F4-0081",
+   "terraform_version": "1.15.8",
+   "tree_hash": "596c30e7a952d4b63186823b54e76a7bb07cf6821d579b542e8a89740b8ead0c",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F4-0081/3",
+   "class": null,
+   "content_hash": "90762b0df70d458dd0257bb43a3a94d1c13ccce52c342d46fd2bab91ea29ea62",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F4",
+   "files": {
+    "main.tf": "da8bbb5d482cf0c4418d388b0361a14664264196d94309187a76e3255f0dbe61",
+    "variables.tf": "ce24a851f964cc2420bad7d73e66686f9704541b44bce698bf44be0392f6b43a",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 3,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "cedf071fa6d2f82f84c1c6f356e9e6711d8dc1a2dd8345daabd3584ef8c8012f",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F4-0081",
+   "terraform_version": "1.15.8",
+   "tree_hash": "7a24348ad265e46a0671420239b3145fdb869c098f514a92e91ed9f9cb2507e6",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F4-0084/1",
+   "class": null,
+   "content_hash": "962c20698c1ddf38b08ff192e65a85f09da4a06aaa7b29e070618498b7396a52",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F4",
+   "files": {
+    "main.tf": "662367bd2bd78ed4e0f942ad5691054027dff6cc8b640be7ad62ef5b7e8e0ec6",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 1,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "676d2e0c1035de0d5caeedc37b8c5fb536609644d9e30a3419fa270d7c59b4ac",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F4-0084",
+   "terraform_version": "1.15.8",
+   "tree_hash": "465317fa993bc1cde6d478eb5924cf690ac42aa53b4060faf0c1f0eb166fb71e",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F4-0084/2",
+   "class": null,
+   "content_hash": "768b697a0ac08f076b1d36951feb9bc6ee17f891d9c0afab31fe78ff9ac7fff3",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F4",
+   "files": {
+    "main.tf": "2dfab24a18234339660f7619bb6c003998f2fd153971fe64afae3e3669c49814",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 2,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "676d2e0c1035de0d5caeedc37b8c5fb536609644d9e30a3419fa270d7c59b4ac",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F4-0084",
+   "terraform_version": "1.15.8",
+   "tree_hash": "2c0bf69127f7a8ef80e94ce5675f4e84644546b64d94ce4cc9ac8054bef78825",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F4-0084/3",
+   "class": null,
+   "content_hash": "962c20698c1ddf38b08ff192e65a85f09da4a06aaa7b29e070618498b7396a52",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F4",
+   "files": {
+    "main.tf": "662367bd2bd78ed4e0f942ad5691054027dff6cc8b640be7ad62ef5b7e8e0ec6",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 3,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "676d2e0c1035de0d5caeedc37b8c5fb536609644d9e30a3419fa270d7c59b4ac",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F4-0084",
+   "terraform_version": "1.15.8",
+   "tree_hash": "465317fa993bc1cde6d478eb5924cf690ac42aa53b4060faf0c1f0eb166fb71e",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/phi4-mini-3_8b-k3/tp-v1-F8-0183/3",
+   "class": null,
+   "content_hash": "85980d9ea111e08511cdcac771241facead8594a175edda36be688e2123cbd98",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F8",
+   "files": {
+    "dail_llm_patch.tf": "a2a5c41ac3dc3cb1452bc81a574ca9b7c51e0fb747c37170567abfa3a2b5a44d",
+    "main.tf": "5b61b00b75d55be7455685e8d28fe8f4acbdbce8a4590acfe54bdd5cb23613fe",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 3,
+   "model_digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+   "model_key": "phi4-mini-3_8b-k3",
+   "model_tag": "phi4-mini:3.8b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Unsupported block type; alternate: Error: Unsupported block type; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-001",
+   "s0_content_hash": "3620fb8d5e047fc23556965885e333ac0b3b5dc31ac70e703463f3aeb902e62e",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F8-0183",
+   "terraform_version": "1.15.8",
+   "tree_hash": "e283686b05ce877fb18d21c715d104b66b1621e52b87a424918fba4f83714726",
+   "validate_errors": {
+    "alternate": "Error: Unsupported block type",
+    "primary": "Error: Unsupported block type"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/qwen2_5-coder-7b-k3/tp-v1-F2-0028/2",
+   "class": "unsafe",
+   "content_hash": "838aa2a2b88be225e635e8d0dd8610b29bae5da15bb5d666af522c23cc2200f3",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F2",
+   "files": {
+    "dail_llm_patch.tf": "9d9519a4f252f10f5c0a1f0963f76f9b96d67a80de4fc17cbcc0dc98f65c71af",
+    "main.tf": "a73a0f7c71772657d7e6c6b3ef896b36aabdabf14d1ba5a15af03fa1af58717c",
+    "variables.tf": "2e3dda708a5a2fec99efbafeb21d91a02bb4e6cffc157572d91df5ab1fe75ebd",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "FAIL",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "FAIL",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "k": 2,
+   "model_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+   "model_key": "qwen2_5-coder-7b-k3",
+   "model_tag": "qwen2.5-coder:7b",
+   "no_label_reason": null,
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "planned"
+    ],
+    "primary": [
+     "planned",
+     "planned"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "INV-SEC-002 FAIL at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-002",
+   "s0_content_hash": "71e5b1a45459779b46006803c87721582cc9781c5c04cc94ac1fd6f486982924",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "FAIL",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "FAIL",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F2-0028",
+   "terraform_version": "1.15.8",
+   "tree_hash": "90f774c4531cd93dddf8f4f407a50daa195f7caa2e548d7811afb4fedf0604f5",
+   "validate_errors": {
+    "alternate": null,
+    "primary": null
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/qwen2_5-coder-7b-k3/tp-v1-F2-0029/1",
+   "class": null,
+   "content_hash": "16e0e5e76276f2a315d190fa9c2535ef5a2819480324db424989c82e95af147a",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F2",
+   "files": {
+    "locals.tf": "b86f035f59ec846a7c83312e7c5d8f5ace0e50165b7fc83585a77b8e611318c1",
+    "main.tf": "33b6b9b7ea1a9742af2c89c740b8ee2ccbc832c4958a82b5e5b18ca6a2db308a",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 1,
+   "model_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+   "model_key": "qwen2_5-coder-7b-k3",
+   "model_tag": "qwen2.5-coder:7b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "ca64e932a0a87e4882be431577fa77cd45df349a877cf4b5d2460f28cf8e7554",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F2-0029",
+   "terraform_version": "1.15.8",
+   "tree_hash": "95dd34ef702655c8418be5adce10d6f1097d604f4ac4a65a82e9388547852231",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/qwen2_5-coder-7b-k3/tp-v1-F4-0079/2",
+   "class": "unsafe",
+   "content_hash": "83feb8cd51b02f0bb103b8bb4b215cb6db67f68a149c04ddfd0fe0752e90b71c",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F4",
+   "files": {
+    "dail_llm_patch.tf": "8b28dcd650a59bd6b3fe08b2ce600d009d4e7ac8b5239a274206b2920ac23355",
+    "main.tf": "44e508e31de65316354497a27fdce4c5f06d7d10aa01fda12e7aaeff41022937",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "k": 2,
+   "model_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+   "model_key": "qwen2_5-coder-7b-k3",
+   "model_tag": "qwen2.5-coder:7b",
+   "no_label_reason": null,
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "planned"
+    ],
+    "primary": [
+     "planned",
+     "planned"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "INV-SEC-001 FAIL at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-001",
+   "s0_content_hash": "7458aa28d4110eb2952f1abcac826a0184730784c001b1ee586cff9a42a7e4a9",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F4-0079",
+   "terraform_version": "1.15.8",
+   "tree_hash": "ec0c7b6355768bc819fafe186e476e2ce7089c5b430cbc2f035116ae7a8359c7",
+   "validate_errors": {
+    "alternate": null,
+    "primary": null
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/qwen2_5-coder-7b-k3/tp-v1-F4-0081/3",
+   "class": null,
+   "content_hash": "530e6e09016ce711980f37f94c779607df810cc900b0ee77bd3adc438016eabd",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F4",
+   "files": {
+    "main.tf": "324229c97af5bdfebdc82e760ac363468eafbb5dd64944c9e749af47b9af19c9",
+    "variables.tf": "ce24a851f964cc2420bad7d73e66686f9704541b44bce698bf44be0392f6b43a",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 3,
+   "model_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+   "model_key": "qwen2_5-coder-7b-k3",
+   "model_tag": "qwen2.5-coder:7b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-003",
+   "s0_content_hash": "cedf071fa6d2f82f84c1c6f356e9e6711d8dc1a2dd8345daabd3584ef8c8012f",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "PASS",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "FAIL"
+    }
+   },
+   "scenario_id": "tp-v1-F4-0081",
+   "terraform_version": "1.15.8",
+   "tree_hash": "7173c9205eb28c46df9a2ca0b4fc0f757c7455bbee3d6ebcd142ad0a08133b57",
+   "validate_errors": {
+    "alternate": "Error: Missing required argument",
+    "primary": "Error: Missing required argument"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/qwen2_5-coder-7b-k3/tp-v1-F8-0184/2",
+   "class": null,
+   "content_hash": "de7ec25769e1733cbbb60166fc0bd7bd3d420da098bfdd573c43fc1a8dffbbec",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F8",
+   "files": {
+    "dail_llm_patch.tf": "366cd9a3dcb41a78f6cfd1a246abfa1e25673c37dc56fa12a4c7bb4aca945a28",
+    "main.tf": "175d981585177048993f0f62bb97c39cd9d6f0c26a014646505a25caf66c3935",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 2,
+   "model_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+   "model_key": "qwen2_5-coder-7b-k3",
+   "model_tag": "qwen2.5-coder:7b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: \"::/0\" is not a valid IPv4 CIDR block; alternate: Error: \"::/0\" is not a valid IPv4 CIDR block; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-001",
+   "s0_content_hash": "6891dfcc9e4426c83e854ea5734070675ffd440b4ea1f54b881e6df4ad082fca",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F8-0184",
+   "terraform_version": "1.15.8",
+   "tree_hash": "4340a486beffa490d21ea4a6039634bb137b335d40040bff14d0a1a8b81b8eb4",
+   "validate_errors": {
+    "alternate": "Error: \"::/0\" is not a valid IPv4 CIDR block",
+    "primary": "Error: \"::/0\" is not a valid IPv4 CIDR block"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/qwen2_5-coder-7b-k3/tp-v1-F8-0185/1",
+   "class": null,
+   "content_hash": "059c3e89ec0f7f5c286f271382377d24a63de8a97386e19774c132cdcb222131",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F8",
+   "files": {
+    "dail_llm_patch.tf": "020ad7672e69684692c0b0551330f928963eb8d2dd894cc0a75dd22b628abfcb",
+    "locals.tf": "0dd704dbfa16c9fecd5c06fe4619391a2d2c36ffe8bd6a371eddc784da99f3f3",
+    "main.tf": "bc2e84a1ba9346225051264af4c32d4392863faa84cf18f6a9e90023daeba3be",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 1,
+   "model_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+   "model_key": "qwen2_5-coder-7b-k3",
+   "model_tag": "qwen2.5-coder:7b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: \"::/0\" is not a valid IPv4 CIDR block; alternate: Error: \"::/0\" is not a valid IPv4 CIDR block; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-001",
+   "s0_content_hash": "58df14fd0fcda0bd49776f96afaf546c0e9dee6898380a95a85844502f8b2cec",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F8-0185",
+   "terraform_version": "1.15.8",
+   "tree_hash": "87632bc46622efb5c09676d97a4ca0c255a1c96486e443127cc944b01bd3e0a6",
+   "validate_errors": {
+    "alternate": "Error: \"::/0\" is not a valid IPv4 CIDR block",
+    "primary": "Error: \"::/0\" is not a valid IPv4 CIDR block"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/qwen2_5-coder-7b-k3/tp-v1-F8-0185/2",
+   "class": null,
+   "content_hash": "9aa9ae5119d99198871633dd68b39a971c138c302cd0e2d1a87df00b2c93e1b4",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F8",
+   "files": {
+    "dail_llm_patch.tf": "95ed31acdab62f4facaddec7122c1eae38b92113295fc6b0aa13fb5601d03117",
+    "locals.tf": "0dd704dbfa16c9fecd5c06fe4619391a2d2c36ffe8bd6a371eddc784da99f3f3",
+    "main.tf": "bc2e84a1ba9346225051264af4c32d4392863faa84cf18f6a9e90023daeba3be",
+    "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 2,
+   "model_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+   "model_key": "qwen2_5-coder-7b-k3",
+   "model_tag": "qwen2.5-coder:7b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: \"::/0\" is not a valid IPv4 CIDR block; alternate: Error: \"::/0\" is not a valid IPv4 CIDR block; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-001",
+   "s0_content_hash": "58df14fd0fcda0bd49776f96afaf546c0e9dee6898380a95a85844502f8b2cec",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F8-0185",
+   "terraform_version": "1.15.8",
+   "tree_hash": "aca5ac3158826730e1e83f59dec7b90320c29c0d8e353fe3028bb9c17b1c2034",
+   "validate_errors": {
+    "alternate": "Error: \"::/0\" is not a valid IPv4 CIDR block",
+    "primary": "Error: \"::/0\" is not a valid IPv4 CIDR block"
+   }
+  },
+  {
+   "ambiguities": [],
+   "candidate_id": "77da54da-66b9-5221-8a6a-718275a5e22b/qwen2_5-coder-7b-k3/tp-v1-F8-0188/2",
+   "class": null,
+   "content_hash": "0b2bdbf42d6542544c2abbab21d3a32d5f547a521d1af232ba0518b6a7977f50",
+   "defects": [],
+   "errors": {},
+   "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+   "family": "F8",
+   "files": {
+    "main.tf": "d9b88d60d6e5a14cb8aaeaee7b13762eebf195fe3b9a0ebca7d1b4fe44b9bbf3",
+    "variables.tf": "ce24a851f964cc2420bad7d73e66686f9704541b44bce698bf44be0392f6b43a",
+    "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+   },
+   "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+   "invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    },
+    "primary": {
+     "INV-FUNC-001": "UNSUPPORTED",
+     "INV-SEC-001": "UNSUPPORTED",
+     "INV-SEC-002": "UNSUPPORTED",
+     "INV-SEC-003": "UNSUPPORTED"
+    }
+   },
+   "k": 2,
+   "model_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+   "model_key": "qwen2_5-coder-7b-k3",
+   "model_tag": "qwen2.5-coder:7b",
+   "no_label_reason": "unlabelable",
+   "oracle_affected": {
+    "alternate": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ],
+    "primary": [
+     "INV-SEC-001",
+     "INV-SEC-002",
+     "INV-SEC-003",
+     "INV-FUNC-001"
+    ]
+   },
+   "oracle_version": "oracle-1.0",
+   "plan_status": {
+    "alternate": [
+     "planned",
+     "invalid"
+    ],
+    "primary": [
+     "planned",
+     "invalid"
+    ]
+   },
+   "provider_versions": {
+    "hashicorp/aws": "6.53.0"
+   },
+   "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Incorrect attribute value type; alternate: Error: Incorrect attribute value type; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+   "record": "tp_l1_label",
+   "repair_target": "INV-SEC-001",
+   "s0_content_hash": "a9c7585ec095b275f406556faa4cfaf9e306f809b712daa1bbce4aff33dff3e6",
+   "s0_invariant_truth": {
+    "alternate": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    },
+    "primary": {
+     "INV-FUNC-001": "PASS",
+     "INV-SEC-001": "FAIL",
+     "INV-SEC-002": "PASS",
+     "INV-SEC-003": "PASS"
+    }
+   },
+   "scenario_id": "tp-v1-F8-0188",
+   "terraform_version": "1.15.8",
+   "tree_hash": "b2921030abbb8bd0a29b36720bdc439cb9e2c63c0e7a3e67e642a0b2bd01635d",
+   "validate_errors": {
+    "alternate": "Error: Incorrect attribute value type",
+    "primary": "Error: Incorrect attribute value type"
+   }
+  }
+ ],
+ "export_sha256": "34ff1fa83889bb7b77de0199d4e9f81dff3a2ed1a721c5c3123a2f15d3f0ecfc",
+ "generation_id": "77da54da-66b9-5221-8a6a-718275a5e22b",
+ "oracle_version": "oracle-1.0",
+ "provider_versions": {
+  "hashicorp/aws": "6.53.0"
+ },
+ "record": "tp_l1_labels",
+ "scenarios_sha256_after": "798d51fc2692c08d75ad179fad38d7b3704ee1a5eca92fe9979432846201fbea",
+ "scenarios_sha256_before": "798d51fc2692c08d75ad179fad38d7b3704ee1a5eca92fe9979432846201fbea",
+ "terraform_version": "1.15.8"
+}
