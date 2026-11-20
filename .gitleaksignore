@@ -1,5 +1,6 @@
-# TP-L1 (20 Nov 2026): generic-api-key false positives. Each line is "model_key": "granite3_3-8b..."
-# in llm_candidates/dev label files: an Ollama model's name, not a secret. Exact fingerprints only.
+# TP-L1 (20 Nov 2026): generic-api-key false positives on the model-name field of the label files
+# under llm_candidates/dev (an Ollama model name, not a secret). Exact fingerprints only; the last one is
+# this file's own first comment line as committed in d6bbf1c.
 17857e8227f86a5bfac18738134a261c1f6bb442:llm_candidates/dev/77da54da-66b9-5221-8a6a-718275a5e22b/granite3_3-8b-k3/tp-v1-F2-0029/2/label.json:generic-api-key:33
 17857e8227f86a5bfac18738134a261c1f6bb442:llm_candidates/dev/77da54da-66b9-5221-8a6a-718275a5e22b/granite3_3-8b-k3/tp-v1-F2-0032/2/label.json:generic-api-key:34
 17857e8227f86a5bfac18738134a261c1f6bb442:llm_candidates/dev/77da54da-66b9-5221-8a6a-718275a5e22b/granite3_3-8b-k3/tp-v1-F4-0081/1/label.json:generic-api-key:32
@@ -36,3 +37,4 @@
 17857e8227f86a5bfac18738134a261c1f6bb442:llm_candidates/dev/d4507101-113d-5753-806d-593ee99b3255/labels.json:generic-api-key:120
 17857e8227f86a5bfac18738134a261c1f6bb442:llm_candidates/dev/d4507101-113d-5753-806d-593ee99b3255/labels.json:generic-api-key:208
 17857e8227f86a5bfac18738134a261c1f6bb442:llm_candidates/dev/d4507101-113d-5753-806d-593ee99b3255/labels.json:generic-api-key:34
+d6bbf1c69c81c76712e7af8c1e398d03d523237d:.gitleaksignore:generic-api-key:1
