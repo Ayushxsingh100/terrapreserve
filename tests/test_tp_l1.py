@@ -24,6 +24,7 @@ import importlib.util
 import io
 import json
 import shutil
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -55,6 +56,7 @@ def tool() -> Any:
     spec = importlib.util.spec_from_file_location("label_llm", REPO_ROOT / "tools" / "label_llm.py")
     assert spec is not None and spec.loader is not None
     module = importlib.util.module_from_spec(spec)
+    sys.modules["label_llm"] = module  # dataclasses look their module up here
     spec.loader.exec_module(module)
     return module
 
