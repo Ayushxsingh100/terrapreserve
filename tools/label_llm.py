@@ -158,6 +158,11 @@ def classify(per: dict[str, dict[str, Any]], target: str | None) -> dict[str, An
         return {"class": None, "no_label_reason": "value_dependent", "reason": "; ".join(diffs)}
     cls, why, _ = sets["primary"]
     if cls is None:
+        invalid = [f"{v}: {per[v]['validate_errors'][1]}" for v in SETS
+                   if per[v].get("plan_status", [None, None])[1] == "invalid"]
+        if invalid:  # TPL-06 (2)
+            why = ("terraform validate failed (registry 2.8: every invariant UNSUPPORTED): "
+                   + "; ".join(invalid) + "; " + why)
         return {"class": None, "no_label_reason": "unlabelable", "reason": why}
     return {"class": cls, "no_label_reason": None, "reason": why}
 
@@ -192,6 +197,7 @@ def _evaluate(s0: dict[str, Any], s0_dir: Path, cand: dict[str, Any], cand_dir: 
     return {
         "status": "evaluated",
         "plan_status": [s0["status"], cand["status"]],
+        "validate_errors": [s0.get("validate_error") or None, cand.get("validate_error") or None],
         "results": [{inv: r[inv]["result"] for inv in INVARIANTS} for r in traj["results"]],
         "oracle_affected": traj["oracle_affected"],
         "defects": traj["defects"],
@@ -290,6 +296,8 @@ def label_generation(*, export_dir: Path, pin: str, out_root: Path = OUT_ROOT, w
                                 for v in SETS},
             "plan_status": {v: per[v].get("plan_status") for v in SETS},
             "errors": {v: per[v]["error"] for v in SETS if per[v]["status"] != "evaluated"},
+            "validate_errors": {v: (per[v]["validate_errors"][1] if per[v]["status"] == "evaluated" else None)
+                                for v in SETS},
             "defects": sorted({d for v in SETS for d in per[v].get("defects", [])}),
             "ambiguities": sorted({a for v in SETS for a in per[v].get("ambiguities", [])}),
             **verdict,

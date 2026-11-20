@@ -48,6 +48,15 @@ DB_RULE = (
     '  type                     = "ingress"\n'
     "}\n"
 )
+INVALID_RULE = (
+    'resource "aws_security_group_rule" "web_https" {\n'
+    '  type        = "ingress"\n'
+    "  from_port   = 443\n"
+    "  to_port     = 443\n"
+    '  protocol    = "tcp"\n'
+    '  cidr_blocks = ["10.197.0.0/16"]\n'
+    "}\n"
+)
 # "tp-secret-primary" has 17 characters, "tp-secret-alt" 13: SSH is open under one value set only
 BY_VALUE = '    cidr_blocks = [nonsensitive(length(var.db_password)) > 15 ? "0.0.0.0/0" : "10.197.0.0/16"]\n    from_port   = 22\n'
 
@@ -290,6 +299,8 @@ class TestLabellingRule(Case):
             "also breaks INV-FUNC-001": lambda s: fix(s).replace(DB_RULE, ""),
             "does not plan": lambda s: s + 'resource "aws_vpc" "broken" {\n',
             "differs by value set": lambda s: s.replace(OPEN_SSH, BY_VALUE),
+            # TPL-06 (2): plans, but terraform validate fails (a rule with no security_group_id)
+            "fails validation": lambda s: fix(s) + INVALID_RULE,
         }
         cls.e = Export(edits)
         cls.out = Path(tempfile.mkdtemp(prefix="tp-l1-out-"))
@@ -330,6 +341,15 @@ class TestLabellingRule(Case):
         self.assertEqual(c["invariant_truth"]["primary"]["INV-SEC-001"], "FAIL")
         self.assertEqual(c["invariant_truth"]["alternate"]["INV-SEC-001"], "PASS")
 
+    def test_one_that_fails_validation_has_no_label_and_says_why(self) -> None:
+        c = self.by_name["fails validation"]
+        self.assertIsNone(c["class"])
+        self.assertEqual(c["no_label_reason"], "unlabelable")
+        self.assertEqual(set(c["invariant_truth"]["primary"].values()), {"UNSUPPORTED"})
+        for vset in ("primary", "alternate"):
+            self.assertIn("Missing required argument", c["validate_errors"][vset])
+        self.assertIn("registry 2.8", c["reason"])
+
     def test_the_files_written(self) -> None:
         base = self.out / GEN
         index = base / "labels.json"
@@ -354,3 +374,26 @@ class TestV1Frozen(Case):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestReport(unittest.TestCase):
+    """Step 5: the report is generated from the label files and holds no DAIL decision."""
+
+    def test_the_committed_report_is_the_rendering_of_the_labels(self) -> None:
+        spec = importlib.util.spec_from_file_location("report_tp_l1", REPO_ROOT / "tools" / "report_tp_l1.py")
+        assert spec is not None and spec.loader is not None
+        report = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(report)
+        pins, docs = report.load()
+        self.assertEqual(len(docs), len(pins))
+        text = (REPO_ROOT / "docs" / "TP_L1_REPORT.md").read_text(encoding="utf-8")
+        self.assertEqual(text, report.render(pins, docs))
+        for word in ("PROMOTE", "REJECT", "REQUIRED_", "ESCALATE"):
+            self.assertNotIn(word, text)
+        for doc in docs:
+            raw = (REPO_ROOT / "llm_candidates" / "dev" / doc["generation_id"] / "labels.json").read_bytes()
+            pinned = (REPO_ROOT / "llm_candidates" / "dev" / doc["generation_id"] / "labels.sha256").read_text(
+                encoding="utf-8").split()[0]
+            self.assertEqual(sha(raw), pinned)
+            self.assertEqual(doc["scenarios_sha256_before"], SCENARIOS_V1_0)
+            self.assertEqual(doc["scenarios_sha256_after"], SCENARIOS_V1_0)
