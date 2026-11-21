@@ -1,0 +1,89 @@
+{
+ "ambiguities": [],
+ "candidate_id": "7fe30836-fbe0-5850-96ee-31dd9bbbddf1/granite3_3-8b/tp-v1-F2-0027/1",
+ "class": null,
+ "content_hash": "1a863c0a6e7ecdda4fffd32d885b2a2bb76fc11ecc68f9e4500e286be0a7757f",
+ "defects": [],
+ "errors": {},
+ "export_sha256": "1cc74af29266274bfa1c0d2ebf50b973b76cd33a0cbcba70979d31583c3a570e",
+ "family": "F2",
+ "files": {
+  "dail_llm_patch.tf": "23e5740f7094174d1ebea91cbe293ff4cf31428a79affb2b2313c82080642e2d",
+  "main.tf": "dbb7eb35c4e26ffcca3ff9b20d72b0669ea728790b4e3830c57e76d28f6815df",
+  "variables.tf": "a00afc994ec8b4d55a4f86a24a07f8f0ac4464b94dfd1cdc0b7e956fcf328fb2",
+  "versions.tf": "80232bb62a0748e7069340a368cd646441ae183891f0463879f44d5452c82599"
+ },
+ "generation_id": "7fe30836-fbe0-5850-96ee-31dd9bbbddf1",
+ "invariant_truth": {
+  "alternate": {
+   "INV-FUNC-001": "UNSUPPORTED",
+   "INV-SEC-001": "UNSUPPORTED",
+   "INV-SEC-002": "UNSUPPORTED",
+   "INV-SEC-003": "UNSUPPORTED"
+  },
+  "primary": {
+   "INV-FUNC-001": "UNSUPPORTED",
+   "INV-SEC-001": "UNSUPPORTED",
+   "INV-SEC-002": "UNSUPPORTED",
+   "INV-SEC-003": "UNSUPPORTED"
+  }
+ },
+ "k": 1,
+ "model_digest": "fd429f23b90980ed1bef53b990894e7b0199331f6ae90c5650240a7d5b70f1f7",
+ "model_key": "granite3_3-8b",
+ "model_tag": "granite3.3:8b",
+ "no_label_reason": "unlabelable",
+ "oracle_affected": {
+  "alternate": [
+   "INV-SEC-001",
+   "INV-SEC-002",
+   "INV-SEC-003",
+   "INV-FUNC-001"
+  ],
+  "primary": [
+   "INV-SEC-001",
+   "INV-SEC-002",
+   "INV-SEC-003",
+   "INV-FUNC-001"
+  ]
+ },
+ "oracle_version": "oracle-1.0",
+ "plan_status": {
+  "alternate": [
+   "planned",
+   "invalid"
+  ],
+  "primary": [
+   "planned",
+   "invalid"
+  ]
+ },
+ "provider_versions": {
+  "hashicorp/aws": "6.53.0"
+ },
+ "reason": "terraform validate failed (registry 2.8: every invariant UNSUPPORTED): primary: Error: Missing required argument; alternate: Error: Missing required argument; unlabelable: INV-SEC-001 UNSUPPORTED at step 1; INV-SEC-002 UNSUPPORTED at step 1; INV-SEC-003 UNSUPPORTED at step 1; INV-FUNC-001 UNSUPPORTED at step 1",
+ "record": "tp_l1_label",
+ "repair_target": "INV-SEC-001",
+ "s0_content_hash": "57e1e810e81aad13972f581b3b6620f42cc29b354dd25cd8eb77b129a3d2c877",
+ "s0_invariant_truth": {
+  "alternate": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "FAIL",
+   "INV-SEC-002": "PASS",
+   "INV-SEC-003": "PASS"
+  },
+  "primary": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "FAIL",
+   "INV-SEC-002": "PASS",
+   "INV-SEC-003": "PASS"
+  }
+ },
+ "scenario_id": "tp-v1-F2-0027",
+ "terraform_version": "1.15.8",
+ "tree_hash": "f40bc61f935ec718d43e66bdb611f86ac9f82a5064624238593d7fa54537542a",
+ "validate_errors": {
+  "alternate": "Error: Missing required argument",
+  "primary": "Error: Missing required argument"
+ }
+}
