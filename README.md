@@ -1,6 +1,6 @@
 # TerraPreserve
 
-TerraPreserve is a benchmark dataset for evaluating whether a Terraform repair preserves the invariants that the original configuration already satisfied. It is built from three public sources, shaped to a fixed set of protected invariants, and labelled by an independent oracle written from the Invariant Registry Specification and from Terraform and AWS semantics.
+TerraPreserve is a benchmark dataset for evaluating whether a Terraform repair preserves the invariants that the original configuration already satisfied. It is built from three public sources, shaped to a fixed set of protected invariants, and labelled by an independent oracle written from the Invariant Registry Specification and from Terraform and AWS semantics. (The oracle, like DAIL, was written by Claude Code under the authors' direction, not by a different human author; what its independence rests on is in [docs/TP_L2_DECISIONS.md](docs/TP_L2_DECISIONS.md), TPL2-02.)
 
 ## Relation to DAIL
 
