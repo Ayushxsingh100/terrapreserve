@@ -152,6 +152,22 @@ class TestGeneratorIsCovered(unittest.TestCase):
         self.assertEqual(forbidden_imports("from core.promotion import z\n"), {"core"})
 
 
+class TestAuditToolsAreCovered(unittest.TestCase):
+    """TP-V: the human-audit tools sit under the same independence check (CLAUDE.md rule 5)."""
+
+    def test_walk_reaches_both_audit_tools(self) -> None:
+        walked = {f.resolve() for f in _walk(("*.py",))}
+        tools = [REPO_ROOT / "tools" / "audit_packet.py", REPO_ROOT / "tools" / "audit_score.py"]
+        self.assertTrue(all(t.is_file() for t in tools))
+        self.assertEqual([t for t in tools if t.resolve() not in walked], [])
+
+    def test_audit_tool_importing_dail_would_be_caught(self) -> None:
+        for t in ("audit_packet.py", "audit_score.py"):
+            src = (REPO_ROOT / "tools" / t).read_text(encoding="utf-8")
+            self.assertEqual(forbidden_imports(src), set(), t)
+            self.assertEqual(forbidden_imports(src + "\nfrom core.impact import x\n"), {"core"}, t)
+
+
 class TestCheckerCanFail(unittest.TestCase):
     """Self-test: the checker catches DAIL imports and ignores innocent ones."""
 
