@@ -291,7 +291,9 @@ class TestRefusals(unittest.TestCase):
     def test_a_changed_scenario_is_refused(self) -> None:
         import audit_packet as ap
         private, pin = fresh_private()
-        f = next(private.glob("tp-v1-*/step_0/*.tf"))
+        manifest = json.loads((private / "V1_MANIFEST_PRIVATE.json").read_text(encoding="utf-8"))["test"]
+        drawn = ap.draw(ap.population(manifest))  # change a scenario the protocol samples (glob order is not)
+        f = sorted((private / drawn[0] / "step_0").glob("*.tf"))[0]
         f.write_text(f.read_text(encoding="utf-8") + "\n", encoding="utf-8")
         with self.assertRaises(SystemExit):
             ap.build(private, pin)
