@@ -29,7 +29,22 @@ hash of ``scenarios/`` is taken before and after the run and must not change (v1
 
     python tools/label_llm.py --generation <generation_id> --dail-candidates <DAIL_EXPERIMENT_ROOT>/candidates
 
-Standard library plus ``oracle/``, as ``tools/label_d5b.py``. Dev only.
+**The test split (TP-L2, ``--split test``; TPL2-01 to TPL2-05).** The same rule, on the test LLM candidates of
+DAIL's main run. The private directory (``--private``, default ``$TERRAPRESERVE_PRIVATE``) is accepted only if it
+lies outside the repository and its ``V1_MANIFEST_PRIVATE.json`` has the SHA-256 that the frozen
+``scenarios/V1_MANIFEST.sha256`` gives it; the export must have the SHA-256 pinned in ``TEST_EXPORT_PINS``. S0
+and the value sets are read only from the private directory: each scenario's ``scenario.json`` must have the
+manifest's SHA-256 and ``split: test``, its step 0 directory must hash (D4-09) to the manifest's step-0
+``content_hash``, and each candidate's S0 ``content_hash`` must be that value. Labels, the candidates' copies and
+the plan JSON go under the private directory (``llm_candidates/test/<generation_id>/``, ``tp-l2-plans/``;
+S0's D5b plans in ``d5b-plans/`` are reused as for dev); the oracle's transient working copies stay outside it,
+as in D5b (``oracle.inputs`` refuses a destination inside it), and are deleted when the run ends (TPL2-05).
+Nothing about the labels is printed: no id, no class, no count by class or reason; a refused check prints no
+detail and writes it under the private directory.
+
+    python tools/label_llm.py --split test --generation <generation_id> --dail-candidates <DAIL_EXPERIMENT_ROOT>/candidates
+
+Standard library plus ``oracle/``, as ``tools/label_d5b.py``.
 """
 
 from __future__ import annotations
@@ -38,6 +53,7 @@ import argparse
 import concurrent.futures as cf
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -67,6 +83,11 @@ EXPORT_FIELDS = ("candidate_id", "generation_id", "model_key", "model_tag", "mod
                  "family", "k", "s0_content_hash", "tree_hash", "content_hash", "directory", "files")
 REQUIRED = ("candidate_id", "generation_id", "model_key", "scenario_id", "k", "s0_content_hash",
             "content_hash", "directory", "files")
+# TP-L2 (TPL2-03): the export of DAIL's main run, generation id and SHA-256 as the work package gives them
+TEST_EXPORT_PINS = {"40e2052b-b489-552d-8c27-88785414a4b1":
+                    "7d008d9d4fa28329d3d3d39ddddec76ea280c5b46b601316ecb06722754f80ff"}
+V1_SUMS = SCENARIOS / "V1_MANIFEST.sha256"
+PRIVATE_MANIFEST = "V1_MANIFEST_PRIVATE.json"
 
 
 class HashMismatch(Exception):
@@ -140,6 +161,73 @@ def verify_candidate(export_dir: Path, c: dict[str, Any], s0_hash: str) -> Path:
     return d
 
 
+# --- the private test split (TP-L2) ----------------------------------------------------------------------------
+
+
+def private_manifest_pin() -> str:
+    """The SHA-256 of ``V1_MANIFEST_PRIVATE.json`` recorded in the frozen ``scenarios/V1_MANIFEST.sha256``."""
+    for line in V1_SUMS.read_text(encoding="utf-8").splitlines():
+        digest, _, name = line.partition("  ")
+        if name == PRIVATE_MANIFEST:
+            return digest
+    raise HashMismatch(f"{V1_SUMS.name} records no {PRIVATE_MANIFEST}")
+
+
+def open_private(private: Path, pin: str) -> dict[str, dict[str, Any]]:
+    """The private manifest's test entries by scenario id, after its SHA-256 is checked against ``pin``."""
+    path = Path(private) / PRIVATE_MANIFEST
+    if not path.is_file():
+        raise HashMismatch(f"the private manifest {PRIVATE_MANIFEST} is missing")
+    raw = path.read_bytes()
+    if sha256(raw) != pin:
+        raise HashMismatch(f"the private manifest's sha256 {sha256(raw)} is not the pin {pin}")
+    return {e["scenario_id"]: e for e in json.loads(raw)["test"]}
+
+
+@dataclass(frozen=True)
+class Checked:
+    scenarios: dict[str, dict[str, Any]]
+    candidates: list[tuple[dict[str, Any], Path]]
+    counts: dict[str, int]
+
+
+def _test_scenario(private: Path, sid: str, manifest: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    entry = manifest.get(sid)
+    if entry is None:
+        raise HashMismatch(f"{sid} is not in the private manifest")
+    path = Path(private) / sid / "scenario.json"
+    if not path.is_file():
+        raise HashMismatch(f"{sid}: no scenario.json in the private directory")
+    text = path.read_text(encoding="utf-8")
+    if sha256(text.encode("utf-8")) != entry["scenario_json_sha256"]:
+        raise HashMismatch(f"{sid}: scenario.json is not the private manifest's")
+    doc = json.loads(text)
+    if doc.get("split") != "test":
+        raise HashMismatch(f"{sid} is not a test scenario")
+    step = next(s for s in doc["steps"] if s["step"] == 0)
+    pinned = next(s["content_hash"] for s in entry["steps"] if s["step"] == 0)
+    if step["content_hash"] != pinned or content_hash(Path(private) / sid / step["terraform_dir"]) != pinned:
+        raise HashMismatch(f"{sid}: step 0 is not the private manifest's")
+    return doc
+
+
+def check_test_candidates(export: Export, export_dir: Path, private: Path,
+                          manifest: dict[str, dict[str, Any]]) -> Checked:
+    """Every check of Section 1 for the test split, before anything is labelled; one mismatch stops."""
+    scen: dict[str, dict[str, Any]] = {}
+    checked: list[tuple[dict[str, Any], Path]] = []
+    counts = {"candidates_read": len(export.candidates), "files_and_hashes_verified": 0, "s0_matched": 0}
+    for c in export.candidates:
+        sid = c["scenario_id"]
+        if sid not in scen:
+            scen[sid] = _test_scenario(private, sid, manifest)
+        s0_hash = next(s["content_hash"] for s in manifest[sid]["steps"] if s["step"] == 0)
+        checked.append((c, verify_candidate(export_dir, c, s0_hash)))
+        counts["files_and_hashes_verified"] += 1
+        counts["s0_matched"] += c["s0_content_hash"] == s0_hash
+    return Checked(scen, checked, counts)
+
+
 # --- labelling (TPL-03) ----------------------------------------------------------------------------------------
 
 
@@ -206,12 +294,12 @@ def _evaluate(s0: dict[str, Any], s0_dir: Path, cand: dict[str, Any], cand_dir: 
 
 
 class _Runners:
-    def __init__(self, cache: Path, workers: int) -> None:
+    def __init__(self, cache: Path, workers: int, name: str = "tp-l1-runners") -> None:
         terraform = shutil.which("terraform")
         if terraform is None:
             raise SystemExit("terraform not found")
         self.terraform = terraform
-        self.pool = [oplan.Runner(cache / "tp-l1-runners" / f"w{i}", terraform) for i in range(max(1, workers))]
+        self.pool = [oplan.Runner(cache / name / f"w{i}", terraform) for i in range(max(1, workers))]
         self.free = list(self.pool)
         self.lock = threading.Lock()
 
@@ -231,30 +319,53 @@ class _Runners:
         found = re.findall(r'provider\s+"registry\.terraform\.io/([^"]+)"\s*\{\s*version\s*=\s*"([^"]+)"', lock)
         return doc["terraform_version"], dict(sorted(found))
 
+    def clear(self) -> None:
+        """Delete every runner's working copy (TPL2-05: test-split files do not stay outside the private dir)."""
+        for r in self.pool:
+            shutil.rmtree(r.base / "work", ignore_errors=True)
 
-def _s0_run(runners: _Runners, cache: Path, sid: str, vset: str, s0_dir: Path, values: dict, chash: str) -> dict:
+
+def _s0_run(runners: _Runners, cache: Path, sid: str, vset: str, s0_dir: Path, values: dict, chash: str,
+            plans: str = "tp-l1-plans") -> dict:
     d5b = _cached(cache / "d5b-plans" / vset / sid / "step_0.json", chash)
     if d5b is not None:
         return d5b
-    own = cache / "tp-l1-plans" / "s0" / vset / f"{sid}.json"
+    own = cache / plans / "s0" / vset / f"{sid}.json"
     return _cached(own, chash) or _save(own, runners.run(s0_dir, values), chash)
 
 
-def label_generation(*, export_dir: Path, pin: str, out_root: Path = OUT_ROOT, workers: int = 4,
-                     cache: Path = CACHE, scenarios_root: Path = DEV) -> dict[str, Any]:
+def label_generation(*, export_dir: Path, pin: str, out_root: Path | None = None, workers: int = 4,
+                     cache: Path = CACHE, scenarios_root: Path = DEV, split: str = "dev",
+                     private: Path | None = None, manifest_pin: str | None = None,
+                     runner_cache: Path = CACHE, checks: dict[str, int] | None = None) -> dict[str, Any]:
+    """Label one generation. ``split="test"`` (TP-L2) reads S0 from ``private`` (its manifest checked against
+    ``manifest_pin``) and keeps labels and plans there; ``cache`` and ``scenarios_root`` are then not used."""
     before = scenarios_sha256()
     export = read_export(export_dir, pin)
-    scen: dict[str, dict[str, Any]] = {}
-    checked: list[tuple[dict[str, Any], Path]] = []
-    for c in export.candidates:  # every check before anything is labelled
-        sid = c["scenario_id"]
-        if sid not in scen:
-            scen[sid] = json.loads((scenarios_root / sid / "scenario.json").read_text(encoding="utf-8"))
-            if scen[sid].get("split") != "dev":
-                raise HashMismatch(f"{sid} is not a dev scenario")
-        s0_hash = next(s["content_hash"] for s in scen[sid]["steps"] if s["step"] == 0)
-        checked.append((c, verify_candidate(export_dir, c, s0_hash)))
-    gen_out = Path(out_root) / export.generation_id
+    if split == "test":
+        if private is None or manifest_pin is None:
+            raise SystemExit("--split test needs the private directory and its manifest pin")
+        manifest = open_private(private, manifest_pin)
+        done = check_test_candidates(export, export_dir, private, manifest)
+        scen, checked = done.scenarios, done.candidates
+        if checks is not None:
+            checks.update(done.counts)
+        scenarios_root, cache, plans = Path(private), Path(private), "tp-l2-plans"
+        gen_out = Path(private) / "llm_candidates" / "test" / export.generation_id
+        runners_name = "tp-l2-runners"
+    else:
+        scen = {}
+        checked = []
+        for c in export.candidates:  # every check before anything is labelled
+            sid = c["scenario_id"]
+            if sid not in scen:
+                scen[sid] = json.loads((scenarios_root / sid / "scenario.json").read_text(encoding="utf-8"))
+                if scen[sid].get("split") != "dev":
+                    raise HashMismatch(f"{sid} is not a dev scenario")
+            s0_hash = next(s["content_hash"] for s in scen[sid]["steps"] if s["step"] == 0)
+            checked.append((c, verify_candidate(export_dir, c, s0_hash)))
+        plans, runners_name, runner_cache = "tp-l1-plans", "tp-l1-runners", cache
+        gen_out = Path(out_root if out_root is not None else OUT_ROOT) / export.generation_id
     if gen_out.exists():
         raise SystemExit(f"{gen_out} exists; labels are written once")
     copies = []
@@ -266,7 +377,7 @@ def label_generation(*, export_dir: Path, pin: str, out_root: Path = OUT_ROOT, w
         if content_hash(target) != c["content_hash"]:
             raise HashMismatch(f"{c['candidate_id']}: the copy differs from the export")
         copies.append((c, target))
-    runners = _Runners(cache, workers)
+    runners = _Runners(runner_cache, workers, runners_name)
     terraform_version, providers = runners.versions()
 
     def one(item: tuple[dict[str, Any], Path]) -> dict[str, Any]:
@@ -277,8 +388,8 @@ def label_generation(*, export_dir: Path, pin: str, out_root: Path = OUT_ROOT, w
         per = {}
         for vset, key in SETS.items():
             values = sc.get(key) or {}
-            s0 = _s0_run(runners, cache, c["scenario_id"], vset, s0_dir, values, s0_step["content_hash"])
-            path = cache / "tp-l1-plans" / export.generation_id / vset / c["model_key"] / c["scenario_id"] / f"{c['k']}.json"
+            s0 = _s0_run(runners, cache, c["scenario_id"], vset, s0_dir, values, s0_step["content_hash"], plans)
+            path = cache / plans / export.generation_id / vset / c["model_key"] / c["scenario_id"] / f"{c['k']}.json"
             cand = _cached(path, c["content_hash"]) or _save(path, runners.run(target, values), c["content_hash"])
             per[vset] = _evaluate(s0, s0_dir, cand, target, sc.get("endpoints"))
         target_id = label.repair_target(sc)
@@ -309,8 +420,12 @@ def label_generation(*, export_dir: Path, pin: str, out_root: Path = OUT_ROOT, w
                                            newline="\n")
         return record
 
-    with cf.ThreadPoolExecutor(max_workers=len(runners.pool)) as ex:
-        records = list(ex.map(one, copies))
+    try:
+        with cf.ThreadPoolExecutor(max_workers=len(runners.pool)) as ex:
+            records = list(ex.map(one, copies))
+    finally:
+        if split == "test":
+            runners.clear()
     after = scenarios_sha256()
     if after != before:
         raise SystemExit(f"scenarios/ changed during the run: {before} -> {after}")
@@ -325,12 +440,58 @@ def label_generation(*, export_dir: Path, pin: str, out_root: Path = OUT_ROOT, w
     return doc
 
 
+def summary(doc: dict[str, Any], checks: dict[str, int], *, split: str, labels_sha256: str, written: int,
+            path: Path) -> dict[str, Any]:
+    """What a ``--split test`` run prints: the checks and completeness, nothing about the labels (TP-L2 §4)."""
+    assert split == "test"
+    return {"generation_id": doc["generation_id"], "export_sha256_verified": doc["export_sha256"], **checks,
+            "label_json_written": written, "labels_sha256": labels_sha256, "path": str(path)}
+
+
+def main_test(args: argparse.Namespace) -> int:
+    """``--split test``: refuses unless the private directory and the export are the pinned ones (TP-L2)."""
+    if args.generation not in TEST_EXPORT_PINS:
+        raise SystemExit(f"{args.generation} is not pinned in TEST_EXPORT_PINS")
+    raw = args.private or os.environ.get("TERRAPRESERVE_PRIVATE")
+    if not raw or not Path(raw).is_dir():
+        raise SystemExit("--split test: the private directory (--private or $TERRAPRESERVE_PRIVATE) does not exist")
+    private = Path(raw).resolve()
+    if private == REPO_ROOT or REPO_ROOT in private.parents:
+        raise SystemExit("--split test: the private directory must lie outside the repository")
+    pin = private_manifest_pin()
+    try:
+        open_private(private, pin)
+    except HashMismatch as error:
+        raise SystemExit(f"--split test: {error}") from None
+    export_dir = args.dail_candidates / args.generation / "oracle_export"
+    checks: dict[str, int] = {}
+    try:
+        doc = label_generation(export_dir=export_dir, pin=TEST_EXPORT_PINS[args.generation], split="test",
+                               private=private, manifest_pin=pin, workers=args.workers, checks=checks)
+    except HashMismatch as error:  # the message may name a test id: kept in the private directory only
+        where = private / "llm_candidates" / "test" / f"{args.generation}.refused.txt"
+        where.parent.mkdir(parents=True, exist_ok=True)
+        where.write_text(f"{error}\n", encoding="utf-8", newline="\n")
+        raise SystemExit(f"--split test: a hash check failed; nothing was labelled; the detail is in {where}") \
+            from None
+    out = private / "llm_candidates" / "test" / doc["generation_id"]
+    digest = sha256((out / "labels.json").read_bytes())
+    print(json.dumps(summary(doc, checks, split="test", labels_sha256=digest,
+                             written=len(list(out.rglob("label.json"))), path=out), indent=1))
+    print((out / "labels.sha256").read_text(encoding="utf-8"), end="")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--generation", required=True, help="a generation id pinned in EXPORT_PINS.json")
     ap.add_argument("--dail-candidates", required=True, type=Path, help="DAIL's $DAIL_EXPERIMENT_ROOT/candidates")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--split", choices=("dev", "test"), default="dev")
+    ap.add_argument("--private", help="--split test: the private directory (default $TERRAPRESERVE_PRIVATE)")
     args = ap.parse_args(argv)
+    if args.split == "test":
+        return main_test(args)
     pins = json.loads(PINS.read_text(encoding="utf-8"))["exports"]
     if args.generation not in pins:
         raise SystemExit(f"{args.generation} is not pinned in {PINS}")
