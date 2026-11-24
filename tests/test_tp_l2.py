@@ -36,7 +36,7 @@ from test_tp_l1 import (  # noqa: E402
     GEN,
     S0,
     SCENARIO,
-    SCENARIOS_V1_0,
+    SCENARIOS_R2,
     Export,
     _offline_terraform,
     fix,
@@ -289,8 +289,9 @@ class TestATestSplitRun(Case):
         self.assertEqual((out / "labels.sha256").read_text(encoding="utf-8"),
                          f"{sha((out / 'labels.json').read_bytes())}  labels.json\n")
         self.assertTrue(any(p.root / "tp-l2-plans" in w.parents for w in writes))
-        self.assertEqual(doc["scenarios_sha256_before"], SCENARIOS_V1_0)
-        self.assertEqual(doc["scenarios_sha256_after"], SCENARIOS_V1_0)
+        # R2: scenarios/ now holds the released test split too, so the tool's whole-tree hash is SCENARIOS_R2
+        self.assertEqual(doc["scenarios_sha256_before"], SCENARIOS_R2)
+        self.assertEqual(doc["scenarios_sha256_after"], SCENARIOS_R2)
         by_k = {c["k"]: c for c in doc["candidates"]}
         self.assertEqual(by_k[1]["class"], "safe", by_k[1])  # TPL-03 unchanged: the fix closes SSH, keeps the path
         self.assertEqual(by_k[1]["oracle_version"], "oracle-1.0")

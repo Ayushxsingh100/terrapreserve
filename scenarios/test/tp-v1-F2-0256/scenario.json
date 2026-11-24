@@ -1,0 +1,304 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.tp_db",
+    "S": "aws_instance.tp_app"
+  },
+  "excluded_from_v1": null,
+  "family": "F2",
+  "generator_version": "d4b-9",
+  "grafted": true,
+  "gt_class": "unsafe",
+  "host_transform": [
+    {
+      "bytes_after": 0,
+      "bytes_before": 115,
+      "file": "providers.tf",
+      "removed_blocks": [
+        "terraform"
+      ]
+    },
+    {
+      "block_sha256": "407c85bf2784d4b21c7cfc13f55b8f7f9b017fb09241f60cd693234ea208aaed",
+      "data_name": "available",
+      "data_type": "aws_availability_zones",
+      "file": "vpc.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_available"
+    }
+  ],
+  "intent": {
+    "breaks": [
+      "INV-SEC-002"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": "INV-SEC-002",
+    "target_kind": "repair"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "FAIL",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "FAIL",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+        "INV-SEC-001",
+        "INV-SEC-002",
+        "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": false
+    }
+  ],
+  "module_id": 548450,
+  "mutation_record": [
+    {
+      "after": "[\"172.16.0.0/12\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f2_repair_db_ingress_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    },
+    {
+      "after": "[\"::/0\"]",
+      "attribute": "ipv6_cidr_blocks",
+      "before": null,
+      "operator": "op_f2_repair_db_ingress_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4b-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000772923823",
+    "module_id": 548450,
+    "pool_id": "terrads-host-548450"
+  },
+  "pool_id": "terrads-host-548450",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F2-0256",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 256,
+  "source": {
+    "commit_or_version": "4a826af85a54bbaa83da34f2c20236a1778bc982",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000772923823",
+    "tier": "real_world"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "ec9c96018f4e6cf3cfa7df7e08af40b20858d275ae0398318806bb07f661286f",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "330b4fa8fa2c39394ea58467f67a28ad0b638ce79d6dc46cb0f14d89ac39a4e7",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -71,8 +71,9 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"172.16.0.0/12\"]\n   from_port         = 5432\n+  ipv6_cidr_blocks  = [\"::/0\"]\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_db_sg.id\n   to_port           = 5432\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Repair public database ingress on port 5432",
+    "invariant_id": "INV-SEC-002",
+    "kind": "repair"
+  },
+  "v1_role": "target",
+  "v1_role_reason": null,
+  "variable_values": {
+    "subnet_config": {},
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_available": {
+      "id": "us-east-1",
+      "names": []
+    },
+    "vpc_config": {
+      "cidr_block": "10.201.0.0/16",
+      "name": "tp-primary"
+    }
+  },
+  "variable_values_alt": {
+    "subnet_config": {
+      "tp-alt": {
+        "az": "us-east-1b",
+        "cidr_block": "192.168.77.0/24"
+      }
+    },
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_available": {
+      "id": "us-east-1",
+      "names": [
+        "us-east-1b"
+      ]
+    },
+    "vpc_config": {
+      "cidr_block": "192.168.77.0/24",
+      "name": "tp-alt"
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "subnet_config": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 0,
+      "vpc_config": 0
+    },
+    "primary": {
+      "subnet_config": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 0,
+      "vpc_config": 0
+    }
+  },
+  "variable_values_kinds": {
+    "subnet_config": {
+      "evidence": [
+        "declared_type:map(object({cidr_block=stringpublic=optional(bool,false)az=string}))",
+        "usage:aws_subnet.this.availability_zone",
+        "usage:aws_subnet.this.cidr_block",
+        "validation"
+      ],
+      "kind": {
+        "keys": "empty-able",
+        "map": {
+          "object": {
+            "az": "az",
+            "cidr_block": "ipv4_cidr"
+          }
+        }
+      },
+      "validation": {
+        "alternate": {
+          "tp-alt": {
+            "az": "us-east-1b",
+            "cidr_block": "192.168.77.0/24"
+          }
+        },
+        "primary": {}
+      }
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "evidence": [
+        "data_source:aws_availability_zones.id",
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({id=stringnames=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "id": "region",
+          "names": {
+            "length": "empty-able",
+            "list": "az"
+          }
+        }
+      }
+    },
+    "vpc_config": {
+      "evidence": [
+        "declared_type:object({cidr_block=stringname=string})",
+        "no table attribute reached at .name",
+        "usage:aws_vpc.this.cidr_block",
+        "validation"
+      ],
+      "kind": {
+        "object": {
+          "cidr_block": "ipv4_cidr",
+          "name": "string"
+        }
+      },
+      "validation": {
+        "alternate": {
+          "cidr_block": "192.168.77.0/24",
+          "name": "tp-alt"
+        },
+        "primary": {
+          "cidr_block": "10.201.0.0/16",
+          "name": "tp-primary"
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

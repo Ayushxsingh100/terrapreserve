@@ -1,0 +1,29 @@
+{
+ "archive_sha256": {
+  "_locals.tf": "ebb3dc1529e775cf4fe50db6c3a4bbfcb4d55f4dce213fe9908d8f14b40ebab3",
+  "aws_igw.tf": "6de3c1c158ea0fd89e1ddfd7cbd9b6ac143662d2f9508ad92062bc4089e823b9",
+  "aws_route_table.tf": "7182990efbc0a18a5438ef695d07814f9cec937e424adeb24cd8cc4c7c083afa",
+  "aws_subnet.tf": "c4fbe8ed666a5fc3e80bc88d46e2b37895f5e1f33404177e1e6196f77407145e",
+  "aws_vpc.tf": "c8a3d45fa07b84faabe722d4f935750de093d44d811fd6240cbda514daa30723",
+  "output.tf": "81dcf78e50f9a3672e59d9334036990a531c4d53659aaffbe8a121805d27ec76",
+  "providers.tf": "703155fc67fc5f42728b430fbd6cd954b515ccf711be9feb1e733c3873c1cf3c",
+  "required.tf": "a4dcb5f0d0e78b185da60ec4c551cf139a36e3ea1c26aea5debeb3ed0f1451a1"
+ },
+ "commit_sha": "af7b53aadf14ce7f10842af20037149fee28e024",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "a70fa0d39c31ea99212a70672a8df17a21aa01804637495eea01e5e418713b5f",
+ "module_id": 538640,
+ "module_path": "simple-project/vpc",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-538640",
+ "repo_full_name": "id-kyo/terraform",
+ "repo_id": 746952066,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

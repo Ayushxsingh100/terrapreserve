@@ -1,0 +1,236 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.tp_db",
+    "S": "aws_instance.tp_app"
+  },
+  "excluded_from_v1": null,
+  "family": "F7",
+  "generator_version": "d4b-9",
+  "grafted": true,
+  "gt_class": "unsafe",
+  "host_transform": [],
+  "intent": {
+    "breaks": [
+      "INV-FUNC-001"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "FAIL",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+        "INV-SEC-001",
+        "INV-SEC-002",
+        "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": false
+    }
+  ],
+  "module_id": 664001,
+  "mutation_record": [
+    {
+      "after": "[\"192.168.0.0/16\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f7_app_egress_cidr_tighten_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_app_egress"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4b-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-001091401895",
+    "module_id": 664001,
+    "pool_id": "terrads-host-664001"
+  },
+  "pool_id": "terrads-host-664001",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": true,
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F7-0390",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 390,
+  "source": {
+    "commit_or_version": "6c051477c2d45e0bc80edd7209dd6c5f5b972f7b",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-001091401895",
+    "tier": "real_world"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "7353c8eab82768ce36c472c1f1652a94551498707501e5ef2cc5a6cf61a07cca",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "1245b4d0c358a671a9668c9397fba76e5369e8698acf7abb2bdf95f49adbbc2a",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -62,7 +62,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"192.168.0.0/16\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Tightens the app group egress to a CIDR disjoint from CIDR(VPC(D)).",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "v1_role": "target",
+  "v1_role_reason": "D6-02 step 2: lowest-numbered labelled reserve of the cell; replaces excluded target tp-v1-F7-0386",
+  "variable_values": {
+    "db_password": "tp-secret-primary",
+    "ec2_security_group_ids": [],
+    "private_subnet_ids": [],
+    "tp_db_password": "tp-secret-primary",
+    "vpc_id": "vpc-0201201201201201a"
+  },
+  "variable_values_alt": {
+    "db_password": "tp-secret-alt",
+    "ec2_security_group_ids": [
+      "sg-0777777777777777b"
+    ],
+    "private_subnet_ids": [
+      "subnet-0777777777777777b"
+    ],
+    "tp_db_password": "tp-secret-alt",
+    "vpc_id": "vpc-0777777777777777b"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "db_password": 0,
+      "ec2_security_group_ids": 0,
+      "private_subnet_ids": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "db_password": 0,
+      "ec2_security_group_ids": 0,
+      "private_subnet_ids": 0,
+      "tp_db_password": 0,
+      "vpc_id": 0
+    }
+  },
+  "variable_values_kinds": {
+    "db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "ec2_security_group_ids": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_security_group.rds_sg.ingress.security_groups"
+      ],
+      "kind": {
+        "length": "empty-able",
+        "list": "sg_id"
+      }
+    },
+    "private_subnet_ids": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_db_subnet_group.main.subnet_ids"
+      ],
+      "kind": {
+        "length": "empty-able",
+        "list": "subnet_id"
+      }
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_security_group.rds_sg.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

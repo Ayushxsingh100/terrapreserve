@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "main.tf": "cf5fbf139a376849ef9668f5054a27198405c669ba6fece96e37d6cfd7e19c56"
+ },
+ "commit_sha": "27ba51fd41908ba3ef42dd088fb22c9af2fc3781",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "a2a66a7e4422c168515cbb33d7668dad278376e55b7bc54ff4bb6442156aaa30",
+ "module_id": 436822,
+ "module_path": "061_dynamic_blocks",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-436822",
+ "repo_full_name": "rodrigopuls/terraform-associate-certification-hands-on",
+ "repo_id": 523035077,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

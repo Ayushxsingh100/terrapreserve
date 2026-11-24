@@ -1,0 +1,22 @@
+{
+ "archive_sha256": {
+  "main.tf": "554f5168b325b4c0c4587891ee1f88b57f36b81c016396e887ddd40033b00abd"
+ },
+ "commit_sha": "b6223925388b10b53eacca1728a7ea51e7b2c4bc",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "a84fdf9396fa1ea0c890cffe5c0ceefea70dfe18f1a1451277ef674a7ac0d7e2",
+ "module_id": 345781,
+ "module_path": "iac-terraform/Asutosh/vpc_subnets",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-345781",
+ "repo_full_name": "vedantek/drona-project-I",
+ "repo_id": 278830577,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

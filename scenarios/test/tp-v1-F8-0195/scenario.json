@@ -1,0 +1,216 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.storage_db",
+    "S": "aws_instance.service_node"
+  },
+  "excluded_from_v1": null,
+  "family": "F8",
+  "generator_version": "d4a-9",
+  "grafted": false,
+  "gt_class": "safe",
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": "INV-SEC-001",
+    "target_kind": "repair"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "FAIL",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "FAIL",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+        "INV-SEC-001",
+        "INV-SEC-002"
+      ],
+      "step": 2,
+      "target_safe": true
+    }
+  ],
+  "mutation_record": [
+    {
+      "after": "\"t3.micro\"",
+      "attribute": "instance_type",
+      "before": "\"t3.nano\"",
+      "operator": "op_f8_twostep_repair_safe",
+      "step": 1,
+      "target_address": "aws_instance.service_node"
+    },
+    {
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f8_twostep_repair_safe",
+      "step": 2,
+      "target_address": "aws_security_group.service_access"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4a-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b"
+    ],
+    "cidr_plan": {
+      "app": "10.50.1.0/24",
+      "app_2": "10.50.2.0/24",
+      "db": [
+        "10.50.10.0/24",
+        "10.50.11.0/24"
+      ],
+      "extra": "10.50.200.0/24",
+      "vpc": "10.50.0.0/16"
+    },
+    "db_class": "db.t3.micro",
+    "features": {
+      "egress": "db_only",
+      "extras": "extra_subnet",
+      "files": "single",
+      "naming": "role",
+      "routing": "shared_public",
+      "sg_style": "app_inline_db_separate",
+      "subnets": "two_app",
+      "values": "literal"
+    },
+    "instance_class": "t3.nano",
+    "naming_scheme": "role",
+    "sg_style": "app_inline_db_separate",
+    "template_id": "tpl-13",
+    "template_version": "tpl-v2.0",
+    "variant": "sec_001_violated"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": true,
+  "scenario_id": "tp-v1-F8-0195",
+  "seed": 195,
+  "source": {
+    "commit_or_version": "d4a-9+tpl-v2.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-13",
+    "tier": "controlled"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "f5fefe63804c68e17dba04224dce457cb81a0bb5a62e6aa10274c9b73905f0c1",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "fb67d314663f839ef863b017f0fe3f2604fa1b82d22fd153f0d64b0262297050",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -103,7 +103,7 @@\n \n resource \"aws_instance\" \"service_node\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.nano\"\n+  instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.service.id\n   vpc_security_group_ids = [aws_security_group.service_access.id]\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    },
+    {
+      "content_hash": "881f3914ba9d8aa48b6195b16ec6c6e3d3cb3344e92d98c479cb2842fbd3509b",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -81,7 +81,7 @@\n   vpc_id      = aws_vpc.platform.id\n \n   ingress {\n-    cidr_blocks = [\"0.0.0.0/0\"]\n+    cidr_blocks = [\"10.0.0.0/8\"]\n     from_port   = 22\n     protocol    = \"tcp\"\n     to_port     = 22\n",
+      "step": 2,
+      "terraform_dir": "step_2"
+    }
+  ],
+  "target": {
+    "description": "Repair public SSH ingress on port 22",
+    "invariant_id": "INV-SEC-001",
+    "kind": "repair"
+  },
+  "template_id": "tpl-13",
+  "template_version": "tpl-v2.0",
+  "v1_role": "reserve",
+  "v1_role_reason": null,
+  "variable_values": {
+    "db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "db_password": 0
+    },
+    "primary": {
+      "db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive",
+        "validation"
+      ],
+      "kind": "secret",
+      "validation": {
+        "alternate": "tp-secret-alt",
+        "primary": "tp-secret-primary"
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

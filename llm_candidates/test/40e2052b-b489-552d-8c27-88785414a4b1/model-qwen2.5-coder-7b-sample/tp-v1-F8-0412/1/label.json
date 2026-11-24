@@ -1,0 +1,91 @@
+{
+ "ambiguities": [],
+ "candidate_id": "40e2052b-b489-552d-8c27-88785414a4b1/model-qwen2.5-coder-7b-sample/tp-v1-F8-0412/1",
+ "class": "unsafe",
+ "content_hash": "2e14f716dea22f566f5ceadc3b117512fda88c5e65db441b17df9c4aa24af666",
+ "defects": [],
+ "errors": {},
+ "export_sha256": "7d008d9d4fa28329d3d3d39ddddec76ea280c5b46b601316ecb06722754f80ff",
+ "family": "F8",
+ "files": {
+  "dail_llm_patch.tf": "8c06211fcfefa05576b59c90044abcb3f73961082e3e5976a986ba263edba824",
+  "subnet.tf": "c043c441e14a975e901faca605099872302f123d86a0fe3f23125ab0a395090c",
+  "terrapreserve_graft.tf": "3e76e5347b2bb4f56fc58cd50eebd627d4d94c37ff69002cede56779bbb6d3d4",
+  "terrapreserve_graft_variables.tf": "09fc1e847ce794484db388073c2b51511db9212432a32b0636316694a7f2b0b3",
+  "terrapreserve_versions.tf": "0c2265107aba6e91120216bf207b47adfbf0fea16c219a6d78e1eed22f9400df",
+  "variables.tf": "e0a6b8880b166590527fcd6343ef914e53d0601c716e5c79660e8e22783d214b",
+  "versions.tf": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+  "vpc.tf": "705a9e6299667528a5c26c34e125b2d9099da5c2ad228a3f28552e7d4d640809"
+ },
+ "generation_id": "40e2052b-b489-552d-8c27-88785414a4b1",
+ "invariant_truth": {
+  "alternate": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "FAIL",
+   "INV-SEC-002": "PASS",
+   "INV-SEC-003": "PASS"
+  },
+  "primary": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "FAIL",
+   "INV-SEC-002": "PASS",
+   "INV-SEC-003": "PASS"
+  }
+ },
+ "k": 1,
+ "model_digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+ "model_key": "model-qwen2.5-coder-7b-sample",
+ "model_tag": "qwen2.5-coder:7b",
+ "no_label_reason": null,
+ "oracle_affected": {
+  "alternate": [
+   "INV-SEC-001",
+   "INV-SEC-002",
+   "INV-FUNC-001"
+  ],
+  "primary": [
+   "INV-SEC-001",
+   "INV-SEC-002",
+   "INV-FUNC-001"
+  ]
+ },
+ "oracle_version": "oracle-1.0",
+ "plan_status": {
+  "alternate": [
+   "planned",
+   "planned"
+  ],
+  "primary": [
+   "planned",
+   "planned"
+  ]
+ },
+ "provider_versions": {
+  "hashicorp/aws": "6.53.0"
+ },
+ "reason": "INV-SEC-001 FAIL at step 1",
+ "record": "tp_l1_label",
+ "repair_target": "INV-SEC-001",
+ "s0_content_hash": "983d173fbcd684db4170c4ddb8e4bede505066a87487197e428086672261fdc6",
+ "s0_invariant_truth": {
+  "alternate": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "FAIL",
+   "INV-SEC-002": "PASS",
+   "INV-SEC-003": "PASS"
+  },
+  "primary": {
+   "INV-FUNC-001": "PASS",
+   "INV-SEC-001": "FAIL",
+   "INV-SEC-002": "PASS",
+   "INV-SEC-003": "PASS"
+  }
+ },
+ "scenario_id": "tp-v1-F8-0412",
+ "terraform_version": "1.15.8",
+ "tree_hash": "d40a22558103f25ce5c3bee55c717373645285443c83657852f485a8e18dc2f7",
+ "validate_errors": {
+  "alternate": null,
+  "primary": null
+ }
+}

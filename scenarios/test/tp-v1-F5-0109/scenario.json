@@ -1,0 +1,188 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.main",
+    "S": "aws_instance.app"
+  },
+  "excluded_from_v1": null,
+  "family": "F5",
+  "generator_version": "d4a-9",
+  "grafted": false,
+  "gt_class": "safe",
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+    }
+  ],
+  "mutation_record": [
+    {
+      "after": "\"db-tpl-17-v2\"",
+      "attribute": "name",
+      "before": "\"db-tpl-17\"",
+      "operator": "op_f5_db_sg_replacement_safe",
+      "step": 1,
+      "target_address": "aws_security_group.db"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4a-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b",
+      "us-east-1c"
+    ],
+    "cidr_plan": {
+      "app": "10.98.1.0/24",
+      "db": [
+        "10.98.10.0/24",
+        "10.98.11.0/24",
+        "10.98.12.0/24"
+      ],
+      "vpc": "10.98.0.0/16"
+    },
+    "db_class": "db.t3.small",
+    "features": {
+      "egress": "all",
+      "extras": "unattached_sg",
+      "files": "split",
+      "naming": "standard",
+      "routing": "per_subnet",
+      "sg_style": "app_inline_db_separate",
+      "subnets": "one_app",
+      "values": "variables"
+    },
+    "instance_class": "t3.micro",
+    "naming_scheme": "standard",
+    "sg_style": "app_inline_db_separate",
+    "template_id": "tpl-17",
+    "template_version": "tpl-v2.0",
+    "variant": "clean"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F5-0109",
+  "seed": 109,
+  "source": {
+    "commit_or_version": "d4a-9+tpl-v2.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-17",
+    "tier": "controlled"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "d20f8011e575fee70fabff4093a55eb729bfc0f01fb438ceb764961b087b84da",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "aa5ff3bdaea48b1e607db7169649236543f6c6d720bf805c9c22d57bd5231724",
+      "diff_from_previous": "--- a/database.tf\n+++ b/database.tf\n@@ -18,7 +18,7 @@\n \n resource \"aws_security_group\" \"db\" {\n   description = \"Database security group for tpl-17\"\n-  name        = \"db-tpl-17\"\n+  name        = \"db-tpl-17-v2\"\n   vpc_id      = aws_vpc.main.id\n }\n \n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Forces replacement of the DB group by changing its name; its rules are unchanged.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "template_id": "tpl-17",
+  "template_version": "tpl-v2.0",
+  "v1_role": "target",
+  "v1_role_reason": null,
+  "variable_values": {
+    "db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "db_password": 0
+    },
+    "primary": {
+      "db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive",
+        "validation"
+      ],
+      "kind": "secret",
+      "validation": {
+        "alternate": "tp-secret-alt",
+        "primary": "tp-secret-primary"
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

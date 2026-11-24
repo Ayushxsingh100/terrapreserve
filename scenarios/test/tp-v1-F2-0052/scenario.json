@@ -1,0 +1,200 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.prod_postgres_db",
+    "S": "aws_instance.prod_app_server"
+  },
+  "excluded_from_v1": null,
+  "family": "F2",
+  "generator_version": "d4a-9",
+  "grafted": false,
+  "gt_class": "unsafe",
+  "intent": {
+    "breaks": [
+      "INV-SEC-001"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": "INV-SEC-001",
+    "target_kind": "repair"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "FAIL",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "FAIL",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+        "INV-SEC-001",
+        "INV-SEC-002",
+        "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": false
+    }
+  ],
+  "mutation_record": [
+    {
+      "after": "[\"10.0.0.0/8\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f2_repair_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.prod_app_sg_ssh_public"
+    },
+    {
+      "after": "[\"::/0\"]",
+      "attribute": "ipv6_cidr_blocks",
+      "before": null,
+      "operator": "op_f2_repair_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.prod_app_sg_ssh_public"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4a-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b"
+    ],
+    "cidr_plan": {
+      "app": "10.195.1.0/24",
+      "app_2": "10.195.2.0/24",
+      "db": [
+        "10.195.10.0/24",
+        "10.195.11.0/24"
+      ],
+      "vpc": "10.195.0.0/16"
+    },
+    "db_class": "db.t3.small",
+    "features": {
+      "egress": "all",
+      "extras": "none",
+      "files": "split",
+      "naming": "env",
+      "routing": "private_db",
+      "sg_style": "all_separate",
+      "subnets": "two_app",
+      "values": "variables"
+    },
+    "instance_class": "t3.medium",
+    "naming_scheme": "env",
+    "sg_style": "all_separate",
+    "template_id": "tpl-27",
+    "template_version": "tpl-v2.0",
+    "variant": "sec_001_violated"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": true,
+  "scenario_id": "tp-v1-F2-0052",
+  "seed": 52,
+  "source": {
+    "commit_or_version": "d4a-9+tpl-v2.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-27",
+    "tier": "controlled"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "4343a717b79a39f555cd78034be37e7756fc8d05e24ca8a1587157e6f1504c47",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "46247e310a2235d178727c75da4e0fe1f23b8cf3f404c916a061f9a7f1dfd3f8",
+      "diff_from_previous": "--- a/compute.tf\n+++ b/compute.tf\n@@ -1,6 +1,7 @@\n resource \"aws_security_group_rule\" \"prod_app_sg_ssh_public\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"10.0.0.0/8\"]\n   from_port         = 22\n+  ipv6_cidr_blocks  = [\"::/0\"]\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.prod_app_sg.id\n   to_port           = 22\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Repair public SSH ingress on port 22",
+    "invariant_id": "INV-SEC-001",
+    "kind": "repair"
+  },
+  "template_id": "tpl-27",
+  "template_version": "tpl-v2.0",
+  "v1_role": "reserve",
+  "v1_role_reason": null,
+  "variable_values": {
+    "db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "db_password": 0
+    },
+    "primary": {
+      "db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive",
+        "validation"
+      ],
+      "kind": "secret",
+      "validation": {
+        "alternate": "tp-secret-alt",
+        "primary": "tp-secret-primary"
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

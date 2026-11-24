@@ -1,0 +1,203 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.tp_db",
+    "S": "aws_instance.tp_app"
+  },
+  "excluded_from_v1": null,
+  "family": "F1",
+  "generator_version": "d4b-9",
+  "grafted": true,
+  "gt_class": "unsafe",
+  "host_transform": [],
+  "intent": {
+    "breaks": [
+      "INV-SEC-003"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "FAIL"
+      },
+      "oracle_affected": [
+        "INV-SEC-003"
+      ],
+      "step": 1,
+      "target_safe": false
+    }
+  ],
+  "module_id": 324827,
+  "mutation_record": [
+    {
+      "after": "\"t3.small\"",
+      "attribute": "instance_type",
+      "before": "\"t3.micro\"",
+      "operator": "op_f1_instance_resize_unsafe",
+      "step": 1,
+      "target_address": "aws_instance.tp_app"
+    },
+    {
+      "after": "true",
+      "attribute": "publicly_accessible",
+      "before": "false",
+      "operator": "op_f1_instance_resize_unsafe",
+      "step": 1,
+      "target_address": "aws_db_instance.tp_db"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4b-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000215519067",
+    "module_id": 324827,
+    "pool_id": "terrads-host-324827"
+  },
+  "pool_id": "terrads-host-324827",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F1-0231",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 231,
+  "source": {
+    "commit_or_version": "a75a599910e8dceb53a6a558f59cf25c19d4715c",
+    "grafted": true,
+    "license": "Apache-2.0",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000215519067",
+    "tier": "real_world"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "ec15523a7c1d97bf3c13da74c5290f94f8cbe02ebf3829574fc31e663f5e7e6f",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "fec33d117321eb38cebe92017b8b92b3c055a43d39f71474590e95fba76a0d14",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -81,7 +81,7 @@\n \n resource \"aws_instance\" \"tp_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n-  instance_type          = \"t3.micro\"\n+  instance_type          = \"t3.small\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n   vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n }\n@@ -98,7 +98,7 @@\n   identifier             = \"tp-db-instance\"\n   instance_class         = \"db.t3.micro\"\n   password               = var.tp_db_password\n-  publicly_accessible    = false\n+  publicly_accessible    = true\n   skip_final_snapshot    = true\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Resizes EC2 instance with side effect making DB publicly accessible.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "v1_role": "target",
+  "v1_role_reason": null,
+  "variable_values": {
+    "tp_db_password": "tp-secret-primary",
+    "vpc_id": "vpc-0201201201201201a"
+  },
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "vpc_id": "vpc-0777777777777777b"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0,
+      "vpc_id": 0
+    },
+    "primary": {
+      "tp_db_password": 0,
+      "vpc_id": 0
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "vpc_id": {
+      "evidence": [
+        "untyped",
+        "usage:aws_security_group.allow_http.vpc_id",
+        "usage:aws_security_group.allow_http_outbound.vpc_id",
+        "usage:aws_security_group.allow_https.vpc_id",
+        "usage:aws_security_group.allow_https_outbound.vpc_id",
+        "usage:aws_security_group.allow_ssh.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

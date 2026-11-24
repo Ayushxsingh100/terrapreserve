@@ -1,0 +1,217 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.tp_db",
+    "S": "aws_instance.tp_app"
+  },
+  "excluded_from_v1": null,
+  "family": "F7",
+  "generator_version": "d4b-9",
+  "grafted": true,
+  "gt_class": "safe",
+  "host_transform": [
+    {
+      "bytes_after": 2319,
+      "bytes_before": 2362,
+      "file": "vpcandec2.tf",
+      "removed_blocks": [
+        "provider"
+      ]
+    }
+  ],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+        "INV-SEC-001",
+        "INV-SEC-002",
+        "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": true
+    }
+  ],
+  "module_id": 623419,
+  "mutation_record": [
+    {
+      "after": "[\"172.16.0.0/12\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f7_app_egress_cidr_tighten_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_app_egress"
+    }
+  ],
+  "oracle": {
+    "disagreements": [
+      {
+        "checkov": "FAIL",
+        "checkov_checks": [
+          "CKV_AWS_24",
+          "CKV_AWS_277"
+        ],
+        "checkov_failed_resources": [
+          "aws_security_group.project-sg"
+        ],
+        "invariant": "INV-SEC-001",
+        "oracle": "PASS",
+        "step": 0
+      },
+      {
+        "checkov": "FAIL",
+        "checkov_checks": [
+          "CKV_AWS_24",
+          "CKV_AWS_277"
+        ],
+        "checkov_failed_resources": [
+          "aws_security_group.project-sg"
+        ],
+        "invariant": "INV-SEC-001",
+        "oracle": "PASS",
+        "step": 1
+      }
+    ],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4b-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000990422901",
+    "module_id": 623419,
+    "pool_id": "terrads-host-623419"
+  },
+  "pool_id": "terrads-host-623419",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F7-0373",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 373,
+  "source": {
+    "commit_or_version": "e646b9690378e93f2dea68fdc2c6fa0a53727be4",
+    "grafted": true,
+    "license": "Apache-2.0",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000990422901",
+    "tier": "real_world"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "de70431d7b0bbba408438567410a5d0c04e0ff17db5982aaa6200152b993453b",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "87de29c84b93386f6bbb074a9e5dfccffb126e932468b2a171bbc24c609d8939",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -62,7 +62,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_app_egress\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"172.16.0.0/12\"]\n   from_port         = 0\n   protocol          = \"-1\"\n   security_group_id = aws_security_group.tp_app_sg.id\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Tightens the app group egress to the RFC 1918 block that contains CIDR(VPC(D)).",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "v1_role": "target",
+  "v1_role_reason": null,
+  "variable_values": {
+    "tp_db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0
+    },
+    "primary": {
+      "tp_db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

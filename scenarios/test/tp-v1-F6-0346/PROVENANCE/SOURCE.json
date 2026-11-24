@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "main.tf": "f3b5712aecdae768ffecc8ed0ae313a613d68b0a48e583ada6a1a1638a72b9ed",
+  "outputs.tf": "593aa0cafa6fdd65711ed077806ea780c79d66af81c811d342cbe2991bd2bbf3",
+  "sg.tf": "c5e575dd682d42be0bb586ba0eb489e0957ac3a5f0d0bd7158a8491610ff1036",
+  "variables.tf": "a52cea2ad6ba244b1f82b9a7d151c3863463a74ebf37225af3b7412d6b450c9f"
+ },
+ "commit_sha": "60bc5d8c43a98dc1ee6363437d34a44d6643b5f4",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "6efd69abac4f2d8e19edb2a18596152db47a7168b5c1a5c5d8d57f2099ce1d83",
+ "module_id": 427724,
+ "module_path": "base/data-stores/rds-instance",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-427724",
+ "repo_full_name": "AgentWong/cloudlab-terraform-modules",
+ "repo_id": 504953761,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}
