@@ -1,5 +1,7 @@
 # TerraPreserve v1.0: the freeze (D6)
 
+Note (R2, 24 Nov 2026): the test split described here as withheld was released in scenarios/test/, byte for byte as frozen (docs/R2_DECISIONS.md).
+
 Work package D6 (queue step 18). This part is written by hand; the hashes and sizes below the marker are written by `tools/freeze_v1.py`, and the gate results are in `docs/D6_GATES.md` (written by `tools/check_freeze_gates.py`).
 
 ## What is frozen

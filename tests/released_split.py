@@ -80,7 +80,9 @@ def released_id_directory(path: Path, ids: set[str]) -> bool:
 
 
 def scenarios_sha256_without_test_split() -> str:
-    """``tools/label_llm.scenarios_sha256`` over ``scenarios/`` with ``scenarios/test/`` left out: the v1.0 tree."""
+    """``tools/label_llm.scenarios_sha256`` over ``scenarios/`` with ``scenarios/test/`` and ``scenarios/README.md``
+    left out: the v1.0 tree without its README, whose withholding wording R2 annotates (review of PR #17, limit 1)."""
     files = sorted((p.relative_to(SCENARIOS).as_posix(), p) for p in SCENARIOS.rglob("*")
-                   if p.is_file() and "__pycache__" not in p.parts and p.relative_to(SCENARIOS).parts[0] != "test")
+                   if p.is_file() and "__pycache__" not in p.parts
+                   and p.relative_to(SCENARIOS).parts[0] not in ("test", "README.md"))
     return sha256("\n".join(f"{rel}:{sha256(p.read_bytes())}" for rel, p in files).encode("utf-8"))

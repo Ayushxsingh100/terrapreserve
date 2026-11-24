@@ -41,8 +41,8 @@ The dataset benchmark consists of 8 families (F1 through F8), each partitioned i
 - **Manifests (D6-04):** `V1_MANIFEST.json` (dev entries in full; test ids, roles and hashes only) and `V1_MANIFEST.sha256` (the sha256 of the public and the withheld private manifest).
 
 ### Split Withholding (D4-01, D0 Decision 9)
-Because the repository is public, test-split scenarios are strictly withheld outside the repository (`$TERRAPRESERVE_PRIVATE`, default `~/.terrapreserve-private`).
-The repository carries only `scenarios/test_manifest.json`, which records each withheld scenario's ID, the SHA-256 of its `scenario.json`, and the SHA-256 of each step directory (128 test entries total: 64 controlled + 64 real-world). The manifest leaks no intent, family, class, template, or diff content. Test-split scenarios will be released alongside the full benchmark at publication.
+Because the repository is public, test-split scenarios are strictly withheld outside the repository until R2 (24 Nov 2026); since R2 the test split is released in scenarios/test/ (docs/R2_DECISIONS.md, R2-01) (`$TERRAPRESERVE_PRIVATE`, default `~/.terrapreserve-private`).
+The repository carries only `scenarios/test_manifest.json`, which records each withheld scenario's ID, the SHA-256 of its `scenario.json`, and the SHA-256 of each step directory (128 test entries total: 64 controlled + 64 real-world). The manifest leaks no intent, family, class, template, or diff content. Test-split scenarios will be released alongside the full benchmark at publication (done in R2).
 
 ## Files and Directories
 
