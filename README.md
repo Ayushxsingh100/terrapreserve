@@ -98,7 +98,7 @@ Details are in [LICENSES/README.md](LICENSES/README.md).
 
 ## Citation
 
-See [CITATION.cff](CITATION.cff). TerraDS, from which the real-world tier is drawn, is cited there and in [DATASHEET.md](DATASHEET.md).
+See [CITATION.cff](CITATION.cff). TerraDS, from which the real-world tier is drawn, is cited in [DATASHEET.md](DATASHEET.md).
 
 ## Limitations
 

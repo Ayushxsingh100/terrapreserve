@@ -1,0 +1,15 @@
+{
+  "title": "TerraPreserve: a benchmark of labelled Terraform remediation scenarios",
+  "upload_type": "dataset",
+  "description": "TerraPreserve is a benchmark dataset for evaluating whether a Terraform repair preserves the invariants that the original configuration already satisfied. It contains 320 labelled remediation scenarios in 8 change families (416 scenarios with reserves and exclusions), labelled per step by a separately implemented, plan-based oracle. This release includes the 128 test-split scenarios and the oracle labels of the test LLM candidates, byte for byte as frozen at terrapreserve-v1.0. Companion dataset to DAIL (doi:10.5281/zenodo.24495207). Code: Apache-2.0; scenarios and labels: CC-BY-4.0; TerraDS-derived files keep their source licences.",
+  "creators": [
+    {"name": "Singh, Ayush Kumar", "affiliation": "School of Computer Science, UPES, Dehradun, India"},
+    {"name": "Krishika", "affiliation": "School of Computer Science, UPES, Dehradun, India"}
+  ],
+  "license": "cc-by-4.0",
+  "keywords": ["Terraform", "infrastructure as code", "benchmark", "invariant preservation", "LLM repair"],
+  "related_identifiers": [
+    {"identifier": "10.5281/zenodo.24495207", "relation": "isSupplementTo", "scheme": "doi"}
+  ],
+  "version": "1.0"
+}
