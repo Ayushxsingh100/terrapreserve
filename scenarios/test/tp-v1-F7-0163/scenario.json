@@ -1,0 +1,200 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.storage_db",
+    "S": "aws_instance.service_node"
+  },
+  "excluded_from_v1": null,
+  "family": "F7",
+  "generator_version": "d4a-9",
+  "grafted": false,
+  "gt_class": "safe",
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+        "INV-SEC-001",
+        "INV-SEC-002",
+        "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": true
+    }
+  ],
+  "mutation_record": [
+    {
+      "after": null,
+      "attribute": "source_security_group_id",
+      "before": "aws_security_group.service_access.id",
+      "operator": "op_f7_db_ingress_source_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.storage_access_from_app_5432"
+    },
+    {
+      "after": "[\"10.106.1.0/24\"]",
+      "attribute": "cidr_blocks",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.storage_access_from_app_5432"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4a-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b"
+    ],
+    "cidr_plan": {
+      "app": "10.106.1.0/24",
+      "app_2": "10.106.2.0/24",
+      "db": [
+        "10.106.10.0/24",
+        "10.106.11.0/24"
+      ],
+      "extra": "10.106.200.0/24",
+      "vpc": "10.106.0.0/16"
+    },
+    "db_class": "db.t3.micro",
+    "features": {
+      "egress": "db_only",
+      "extras": "extra_subnet",
+      "files": "single",
+      "naming": "role",
+      "routing": "shared_public",
+      "sg_style": "app_inline_db_separate",
+      "subnets": "two_app",
+      "values": "literal"
+    },
+    "instance_class": "t3.nano",
+    "naming_scheme": "role",
+    "sg_style": "app_inline_db_separate",
+    "template_id": "tpl-13",
+    "template_version": "tpl-v2.0",
+    "variant": "clean"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F7-0163",
+  "seed": 163,
+  "source": {
+    "commit_or_version": "d4a-9+tpl-v2.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-13",
+    "tier": "controlled"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "f9ec80fdc570a1d6bad3a09441fefbae62c2a049aeb05f55ac62b58cf220761f",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "9462d9b8772439c691f3b2e93c2fcf1d997ada2e5da2728fd88d0db3d96f27b7",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -58,12 +58,12 @@\n }\n \n resource \"aws_security_group_rule\" \"storage_access_from_app_5432\" {\n-  from_port                = 5432\n-  protocol                 = \"tcp\"\n-  security_group_id        = aws_security_group.storage_access.id\n-  source_security_group_id = aws_security_group.service_access.id\n-  to_port                  = 5432\n-  type                     = \"ingress\"\n+  cidr_blocks       = [\"10.106.1.0/24\"]\n+  from_port         = 5432\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.storage_access.id\n+  to_port           = 5432\n+  type              = \"ingress\"\n }\n \n resource \"aws_security_group_rule\" \"storage_access_egress\" {\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Replaces the DB group's 5432 ingress source group with the application subnet CIDR.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "template_id": "tpl-13",
+  "template_version": "tpl-v2.0",
+  "v1_role": "target",
+  "v1_role_reason": null,
+  "variable_values": {
+    "db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "db_password": 0
+    },
+    "primary": {
+      "db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive",
+        "validation"
+      ],
+      "kind": "secret",
+      "validation": {
+        "alternate": "tp-secret-alt",
+        "primary": "tp-secret-primary"
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

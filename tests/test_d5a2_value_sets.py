@@ -396,15 +396,21 @@ class TestValueSets(unittest.TestCase):
             self.assertEqual(file_digest(priv, "controlled"),
                              (CONTROLLED_PRIVATE_FILES, CONTROLLED_PRIVATE_DIGEST_E96C017))
 
-    def test_g_test_split_only_in_private_dir(self) -> None:
+    def test_g_committed_test_split_equals_the_pinned_manifest(self) -> None:
+        # R2-01: the test split is released under scenarios/test/. Until R2 this test asserted that no test-split id
+        # directory was inside the repository; it now asserts that the committed split is the frozen one.
+        import released_split  # noqa: PLC0415
+
         manifest = json.loads((REPO_ROOT / "scenarios" / "test_manifest.json").read_text(encoding="utf-8"))
         ids = {e["scenario_id"] for e in manifest}
         skip = {".git", ".venv", ".venv-tools", "__pycache__", ".terraform", "node_modules"}
-        seen: set[str] = set()
-        for _dirpath, dirnames, filenames in os.walk(REPO_ROOT):
+        elsewhere = 0
+        for dirpath, dirnames, filenames in os.walk(REPO_ROOT):
             dirnames[:] = [x for x in dirnames if x not in skip]
-            seen.update(x for x in dirnames if x in ids)
-        self.assertEqual(len(seen), 0, f"{len(seen)} test-split id directories inside the repository (ids withheld)")
+            elsewhere += sum(1 for x in dirnames if x in ids
+                             and not released_split.released_id_directory(Path(dirpath) / x, ids))
+        self.assertEqual(elsewhere, 0, f"{elsewhere} test-split id directories outside the released layout")
+        self.assertEqual(released_split.committed_split_problems(), [])
         for split, _p, d in self.scs:
             self.assertEqual(split == "test", d["scenario_id"] in ids, shown(split, d["scenario_id"]))
         priv = private_root()

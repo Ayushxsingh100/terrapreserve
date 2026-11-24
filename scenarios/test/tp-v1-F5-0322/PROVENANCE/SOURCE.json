@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "58e05373d00c9770517bc6b71c69ebf2e2cbe13a06cf238f22573dad714a5dab",
+  "outputs.tf": "e0d7b71c3584c237add83e6223a4768cf7d5f553c74d006da996cc243d397417",
+  "variables.tf": "48c94f4c19518e47effedc975f6fa3eefbcb1ef1935b6fb4b2cb68a3dfb080b0"
+ },
+ "commit_sha": "634d3b5d22c5aa75bc96cd5b7ff6cc4e3262c900",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "74e396c1834718994b22711902d72d4e9ce9baf1d4aed5e30aaa31678e184e27",
+ "module_id": 590936,
+ "module_path": "modules copy/networking",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-590936",
+ "repo_full_name": "lj0nes/Sagemaker_SaaS",
+ "repo_id": 904363368,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

@@ -403,7 +403,12 @@ class TestVv3(unittest.TestCase):
         if priv is not None:
             self.assertEqual(file_digest(priv, "controlled"), (CONTROLLED_PRIVATE_FILES, CONTROLLED_PRIVATE_DIGEST))
 
-    def test_j_test_split_only_in_private_dir(self) -> None:
+    def test_j_committed_test_split_equals_the_pinned_manifest(self) -> None:
+        # R2-01: the test split is released under scenarios/test/. Until R2 this test asserted that no test-split id
+        # directory was inside the repository; it now asserts that the committed split is the frozen one. The checks
+        # that D5a-3's own files and the dev search result name no test id are unchanged.
+        import released_split  # noqa: PLC0415
+
         manifest = json.loads((REPO_ROOT / "scenarios" / "test_manifest.json").read_text(encoding="utf-8"))
         ids = {e["scenario_id"] for e in manifest}
         skip = {".git", ".venv", ".venv-tools", "__pycache__", ".terraform", "node_modules"}
@@ -411,13 +416,15 @@ class TestVv3(unittest.TestCase):
         seen_text: set[str] = set()
         for dirpath, dirnames, filenames in os.walk(REPO_ROOT):
             dirnames[:] = [x for x in dirnames if x not in skip]
-            seen_dirs += sum(1 for x in dirnames if x in ids)
+            seen_dirs += sum(1 for x in dirnames if x in ids
+                             and not released_split.released_id_directory(Path(dirpath) / x, ids))
             rel = Path(dirpath).relative_to(REPO_ROOT).as_posix()
             if rel.startswith(("generator/vv3", "docs/d5a3")):
                 for fn in filenames:
                     text = (Path(dirpath) / fn).read_text(encoding="utf-8", errors="replace")
                     seen_text |= {i for i in ids if i in text}
-        self.assertEqual(seen_dirs, 0, f"{seen_dirs} test-split id directories inside the repository (ids withheld)")
+        self.assertEqual(seen_dirs, 0, f"{seen_dirs} test-split id directories outside the released layout")
+        self.assertEqual(released_split.committed_split_problems(), [])
         self.assertEqual(len(seen_text), 0, f"{len(seen_text)} test-split ids in D5a-3 files (ids withheld)")
         self.assertTrue(SEARCH_DEV.is_file(), "no dev vv-3 search result")
         dev_ids = set(json.loads(SEARCH_DEV.read_text(encoding="utf-8"))["scenarios"])

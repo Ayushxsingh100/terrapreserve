@@ -1,0 +1,244 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.acme_db",
+    "S": "aws_instance.acme_app"
+  },
+  "excluded_from_v1": null,
+  "family": "F5",
+  "generator_version": "d4a-9",
+  "grafted": false,
+  "gt_class": "safe",
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+    }
+  ],
+  "mutation_record": [
+    {
+      "after": "aws_subnet.acme_app_subnet_app.id",
+      "attribute": "subnet_id",
+      "before": "aws_subnet.acme_app_subnet.id",
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_instance.acme_app"
+    },
+    {
+      "after": "aws_subnet.acme_app_subnet_app.id",
+      "attribute": "subnet_id",
+      "before": "aws_subnet.acme_app_subnet.id",
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_route_table_association.acme_rta_app"
+    },
+    {
+      "after": null,
+      "attribute": "availability_zone",
+      "before": "\"us-east-1a\"",
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_subnet.acme_app_subnet"
+    },
+    {
+      "after": null,
+      "attribute": "cidr_block",
+      "before": "\"10.54.1.0/24\"",
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_subnet.acme_app_subnet"
+    },
+    {
+      "after": null,
+      "attribute": "vpc_id",
+      "before": "aws_vpc.acme_vpc.id",
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_subnet.acme_app_subnet"
+    },
+    {
+      "after": "\"us-east-1a\"",
+      "attribute": "availability_zone",
+      "before": null,
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_subnet.acme_app_subnet_app"
+    },
+    {
+      "after": "\"10.54.1.0/24\"",
+      "attribute": "cidr_block",
+      "before": null,
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_subnet.acme_app_subnet_app"
+    },
+    {
+      "after": "aws_vpc.acme_vpc.id",
+      "attribute": "vpc_id",
+      "before": null,
+      "operator": "op_f5_restructure_moved_safe",
+      "step": 1,
+      "target_address": "aws_subnet.acme_app_subnet_app"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4a-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b"
+    ],
+    "cidr_plan": {
+      "app": "10.54.1.0/24",
+      "app_2": "10.54.2.0/24",
+      "db": [
+        "10.54.10.0/24",
+        "10.54.11.0/24"
+      ],
+      "extra": "10.54.200.0/24",
+      "vpc": "10.54.0.0/16"
+    },
+    "db_class": "db.t3.micro",
+    "features": {
+      "egress": "all",
+      "extras": "extra_subnet",
+      "files": "single",
+      "naming": "prefixed",
+      "routing": "shared_public",
+      "sg_style": "all_inline",
+      "subnets": "two_app",
+      "values": "literal"
+    },
+    "instance_class": "t3.micro",
+    "naming_scheme": "prefixed",
+    "sg_style": "all_inline",
+    "template_id": "tpl-20",
+    "template_version": "tpl-v2.0",
+    "variant": "clean"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F5-0111",
+  "seed": 111,
+  "source": {
+    "commit_or_version": "d4a-9+tpl-v2.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-20",
+    "tier": "controlled"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "12157728a7569dc7f47a4f51a388da992f00b3d0d108d17fc8d58f867df088f9",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "22a24da503e3cec6c9843e2883c20fa2b784738ba6d7ca494c9307e9664e4bcb",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -1,3 +1,8 @@\n+moved {\n+  from = aws_subnet.acme_app_subnet\n+  to   = aws_subnet.acme_app_subnet_app\n+}\n+\n resource \"aws_vpc\" \"acme_vpc\" {\n   cidr_block           = \"10.54.0.0/16\"\n   enable_dns_hostnames = true\n@@ -6,12 +11,6 @@\n \n resource \"aws_internet_gateway\" \"acme_igw\" {\n   vpc_id = aws_vpc.acme_vpc.id\n-}\n-\n-resource \"aws_subnet\" \"acme_app_subnet\" {\n-  availability_zone = \"us-east-1a\"\n-  cidr_block        = \"10.54.1.0/24\"\n-  vpc_id            = aws_vpc.acme_vpc.id\n }\n \n resource \"aws_subnet\" \"acme_app_subnet_b\" {\n@@ -49,7 +48,7 @@\n \n resource \"aws_route_table_association\" \"acme_rta_app\" {\n   route_table_id = aws_route_table.acme_public_rt.id\n-  subnet_id      = aws_subnet.acme_app_subnet.id\n+  subnet_id      = aws_subnet.acme_app_subnet_app.id\n }\n \n resource \"aws_route_table_association\" \"acme_rta_app_b\" {\n@@ -93,7 +92,7 @@\n resource \"aws_instance\" \"acme_app\" {\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n-  subnet_id              = aws_subnet.acme_app_subnet.id\n+  subnet_id              = aws_subnet.acme_app_subnet_app.id\n   vpc_security_group_ids = [aws_security_group.acme_app_sg.id]\n }\n \n@@ -114,3 +113,9 @@\n   username               = \"postgres\"\n   vpc_security_group_ids = [aws_security_group.acme_db_sg.id]\n }\n+\n+resource \"aws_subnet\" \"acme_app_subnet_app\" {\n+  availability_zone = \"us-east-1a\"\n+  cidr_block        = \"10.54.1.0/24\"\n+  vpc_id            = aws_vpc.acme_vpc.id\n+}\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Renames the application subnet with a moved block and updates its references.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "template_id": "tpl-20",
+  "template_version": "tpl-v2.0",
+  "v1_role": "target",
+  "v1_role_reason": null,
+  "variable_values": {
+    "db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "db_password": 0
+    },
+    "primary": {
+      "db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive",
+        "validation"
+      ],
+      "kind": "secret",
+      "validation": {
+        "alternate": "tp-secret-alt",
+        "primary": "tp-secret-primary"
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

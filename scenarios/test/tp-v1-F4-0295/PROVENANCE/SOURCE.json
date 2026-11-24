@@ -1,0 +1,30 @@
+{
+ "archive_sha256": {
+  "data.tf": "1fb141cfc5fb5573fffef37945f405190cf4cc8996b32ba0961b85d6f32c4efd",
+  "locals.tf": "4ad4a9c7ee9149821615f8db413249af76cc33522044b74b7d4890035b6a0954",
+  "main.tf": "f9021c7682098341b961b24a47a43d134a5ee309ac4bd67f354d4dc42a068317",
+  "outputs.tf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "variables.tf": "f5348e572b7c737ef2d93c9c46bcf8169926695f656a8fd05135b6c1fad5bde1",
+  "versions.tf": "74e8373e8e987346d426366ceddd464ed9bc95be6ea5bc4ed48f4e68551517ae"
+ },
+ "commit_sha": "c3de8cc2f2420c7282fde03203a9fdb87f0a3643",
+ "crlf_normalised": [
+  "main.tf",
+  "variables.tf"
+ ],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 375068,
+ "module_path": "FTD/AWS/Terraform/Cloud_WAN/modules/cloudwan",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-375068",
+ "repo_full_name": "CiscoDevNet/secure-firewall",
+ "repo_id": 365170429,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

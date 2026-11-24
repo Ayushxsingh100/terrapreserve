@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "9f34d4da297da2ea6b5ff3605343b2d7a9dae7616db32108cf68c25c1d0d0894",
+  "outputs.tf": "6ca642a6e2b0fe366000be695d1898703f43f90b5be38f252272144583556e86",
+  "variables.tf": "2b55ede7069694f624adbf6643e3bafdf0f094c504e48f78066503b638a74d30"
+ },
+ "commit_sha": "4f41a08d6b17b7356d76a3e6f0a69d42a657d8ba",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "Apache-2.0",
+ "licence_upstream_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+ "module_id": 558589,
+ "module_path": "modules/vpc/subnet",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-558589",
+ "repo_full_name": "ravimahey/EKS",
+ "repo_id": 801690727,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

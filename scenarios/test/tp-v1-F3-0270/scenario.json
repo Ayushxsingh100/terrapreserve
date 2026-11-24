@@ -1,0 +1,280 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.tp_db",
+    "S": "aws_instance.tp_app"
+  },
+  "excluded_from_v1": null,
+  "family": "F3",
+  "generator_version": "d4b-9",
+  "grafted": true,
+  "gt_class": "safe",
+  "host_transform": [
+    {
+      "block_sha256": "b4c2d75f3609ffd35fa1cec84e0ccefb48232b0a12539cadff00415835ee63c9",
+      "data_name": "available_zones",
+      "data_type": "aws_availability_zones",
+      "file": "main.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_available_zones"
+    }
+  ],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 1,
+      "target_safe": true
+    }
+  ],
+  "module_id": 558589,
+  "mutation_record": [
+    {
+      "after": "\"us-east-1b\"",
+      "attribute": "availability_zone",
+      "before": "\"us-east-1a\"",
+      "operator": "op_f3_app_subnet_az_change_safe",
+      "step": 1,
+      "target_address": "aws_subnet.tp_app_subnet"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4b-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000801690727",
+    "module_id": 558589,
+    "pool_id": "terrads-host-558589"
+  },
+  "pool_id": "terrads-host-558589",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F3-0270",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 270,
+  "source": {
+    "commit_or_version": "4f41a08d6b17b7356d76a3e6f0a69d42a657d8ba",
+    "grafted": true,
+    "license": "Apache-2.0",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000801690727",
+    "tier": "real_world"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "a3848ac7394169fbe970e50e029800b473a41f492073487330f554863a53bc2d",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "11096ab42ba37cec38635ccc2febfc0bc89155d5f6c3890aa59d6a53d45376bc",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -9,7 +9,7 @@\n }\n \n resource \"aws_subnet\" \"tp_app_subnet\" {\n-  availability_zone = \"us-east-1a\"\n+  availability_zone = \"us-east-1b\"\n   cidr_block        = \"172.28.1.0/24\"\n   vpc_id            = aws_vpc.tp_vpc.id\n }\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Changes the availability zone of the application subnet (same VPC, same route table).",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "v1_role": "target",
+  "v1_role_reason": null,
+  "variable_values": {
+    "cidr": "10.201.0.0/20",
+    "cluster_prefix": "tp-primary",
+    "offset": 10,
+    "subnet_bits": 10,
+    "subnet_type": "tp-primary",
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_available_zones": {
+      "names": [
+        "us-east-1c",
+        "us-east-1c",
+        "us-east-1c"
+      ]
+    },
+    "vpc_id": "vpc-0201201201201201a"
+  },
+  "variable_values_alt": {
+    "cidr": "172.21.0.0/16",
+    "cluster_prefix": "tp-alt",
+    "offset": 4,
+    "subnet_bits": 4,
+    "subnet_type": "tp-alt",
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_available_zones": {
+      "names": [
+        "us-east-1a",
+        "us-east-1a",
+        "us-east-1a"
+      ]
+    },
+    "vpc_id": "vpc-0777777777777777b"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "cidr": 2,
+      "cluster_prefix": 0,
+      "offset": 2,
+      "subnet_bits": 2,
+      "subnet_type": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available_zones": 2,
+      "vpc_id": 0
+    },
+    "primary": {
+      "cidr": 3,
+      "cluster_prefix": 0,
+      "offset": 3,
+      "subnet_bits": 3,
+      "subnet_type": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available_zones": 2,
+      "vpc_id": 0
+    }
+  },
+  "variable_values_kinds": {
+    "cidr": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.subnet.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    },
+    "cluster_prefix": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "offset": {
+      "evidence": [
+        "declared_type:number"
+      ],
+      "kind": "number"
+    },
+    "subnet_bits": {
+      "evidence": [
+        "declared_type:number"
+      ],
+      "kind": "number"
+    },
+    "subnet_type": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_available_zones": {
+      "evidence": [
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({names=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "names": {
+            "length": 3,
+            "list": "az"
+          }
+        }
+      }
+    },
+    "vpc_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.subnet.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

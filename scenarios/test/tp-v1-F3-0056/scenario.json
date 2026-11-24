@@ -1,0 +1,206 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.main",
+    "S": "aws_instance.app"
+  },
+  "excluded_from_v1": null,
+  "family": "F3",
+  "generator_version": "d4a-9",
+  "grafted": false,
+  "gt_class": "safe",
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+        "INV-SEC-001",
+        "INV-SEC-002",
+        "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": true
+    }
+  ],
+  "mutation_record": [
+    {
+      "after": "\"tcp\"",
+      "attribute": "protocol",
+      "before": "\"-1\"",
+      "operator": "op_f3_app_egress_ports_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.app_egress"
+    },
+    {
+      "after": "5432",
+      "attribute": "from_port",
+      "before": "0",
+      "operator": "op_f3_app_egress_ports_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.app_egress"
+    },
+    {
+      "after": "5432",
+      "attribute": "to_port",
+      "before": "0",
+      "operator": "op_f3_app_egress_ports_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.app_egress"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4a-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b"
+    ],
+    "cidr_plan": {
+      "app": "10.144.1.0/24",
+      "db": [
+        "10.144.10.0/24",
+        "10.144.11.0/24"
+      ],
+      "vpc": "10.144.0.0/16"
+    },
+    "db_class": "db.t3.medium",
+    "features": {
+      "egress": "all",
+      "extras": "second_app_sg",
+      "files": "single",
+      "naming": "standard",
+      "routing": "private_db",
+      "sg_style": "app_separate_db_inline",
+      "subnets": "one_app",
+      "values": "literal"
+    },
+    "instance_class": "t3.micro",
+    "naming_scheme": "standard",
+    "sg_style": "app_separate_db_inline",
+    "template_id": "tpl-04",
+    "template_version": "tpl-v2.0",
+    "variant": "clean"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F3-0056",
+  "seed": 56,
+  "source": {
+    "commit_or_version": "d4a-9+tpl-v2.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-04",
+    "tier": "controlled"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "a9e0681362cceabc44c9b78de662a24577c5409678c56db30dee85760c183d37",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "c41082e8649dc82c425765f1b71833d9ab274a0026f3c77414d7354689dc9426",
+      "diff_from_previous": "--- a/main.tf\n+++ b/main.tf\n@@ -56,10 +56,10 @@\n \n resource \"aws_security_group_rule\" \"app_egress\" {\n   cidr_blocks       = [\"0.0.0.0/0\"]\n-  from_port         = 0\n-  protocol          = \"-1\"\n+  from_port         = 5432\n+  protocol          = \"tcp\"\n   security_group_id = aws_security_group.app.id\n-  to_port           = 0\n+  to_port           = 5432\n   type              = \"egress\"\n }\n \n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Restricts the app group egress to TCP 5432 only.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "template_id": "tpl-04",
+  "template_version": "tpl-v2.0",
+  "v1_role": "target",
+  "v1_role_reason": null,
+  "variable_values": {
+    "db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "db_password": 0
+    },
+    "primary": {
+      "db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive",
+        "validation"
+      ],
+      "kind": "secret",
+      "validation": {
+        "alternate": "tp-secret-alt",
+        "primary": "tp-secret-primary"
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

@@ -1,0 +1,381 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.tp_db",
+    "S": "aws_instance.tp_app"
+  },
+  "excluded_from_v1": null,
+  "family": "F6",
+  "generator_version": "d4b-9",
+  "grafted": true,
+  "gt_class": "safe",
+  "host_transform": [
+    {
+      "bytes_after": 1754,
+      "bytes_before": 1774,
+      "file": "main.tf",
+      "removed_blocks": [
+        "provider"
+      ]
+    },
+    {
+      "bytes_after": 1522,
+      "bytes_before": 1540,
+      "file": "subnet.tf",
+      "removed_blocks": [
+        "provider"
+      ]
+    },
+    {
+      "block_sha256": "0ba56889b08d16754cf47beea0973dfe20133e6366428fca653dfd527a5fb568",
+      "data_name": "working",
+      "data_type": "aws_availability_zones",
+      "file": "subnet.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_working"
+    },
+    {
+      "block_sha256": "753581db60922abef00169f0645017490cfae17efe7976216defc86cb7446131",
+      "data_name": "current",
+      "data_type": "aws_caller_identity",
+      "file": "subnet.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_caller_identity_current"
+    },
+    {
+      "block_sha256": "bc14f674cfdea40ee9536693ac5dc44cefa3222a654a48098f42774d49eb38e0",
+      "data_name": "current",
+      "data_type": "aws_region",
+      "file": "subnet.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_region_current"
+    },
+    {
+      "block_sha256": "a241478d3567083e0f632ec42d9d2042d557b589143d82fc29f6c3401173c1f5",
+      "data_name": "prod_vpc",
+      "data_type": "aws_vpc",
+      "file": "subnet.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_vpc_prod_vpc"
+    },
+    {
+      "block_sha256": "484ded59ef77a7c2215bc23b9fb1a941b6ea5c3b8717acaaccb284ac1ff71376",
+      "data_name": "my_vpcs",
+      "data_type": "aws_vpcs",
+      "file": "subnet.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_vpcs_my_vpcs"
+    }
+  ],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+        "INV-SEC-001",
+        "INV-SEC-002",
+        "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": true
+    }
+  ],
+  "module_id": 608134,
+  "mutation_record": [
+    {
+      "after": "\"Monitoring security group\"",
+      "attribute": "description",
+      "before": null,
+      "operator": "op_f6_add_monitoring_sg_safe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_monitoring_sg"
+    },
+    {
+      "after": "\"tp_monitoring_sg-mon\"",
+      "attribute": "name",
+      "before": null,
+      "operator": "op_f6_add_monitoring_sg_safe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_monitoring_sg"
+    },
+    {
+      "after": "aws_vpc.tp_vpc.id",
+      "attribute": "vpc_id",
+      "before": null,
+      "operator": "op_f6_add_monitoring_sg_safe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_monitoring_sg"
+    },
+    {
+      "after": "[aws_security_group.tp_app_sg.id, aws_security_group.tp_monitoring_sg.id]",
+      "attribute": "vpc_security_group_ids",
+      "before": "[aws_security_group.tp_app_sg.id]",
+      "operator": "op_f6_add_monitoring_sg_safe",
+      "step": 1,
+      "target_address": "aws_instance.tp_app"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4b-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000942609529",
+    "module_id": 608134,
+    "pool_id": "terrads-host-608134"
+  },
+  "pool_id": "terrads-host-608134",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": true,
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F6-0351",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 351,
+  "source": {
+    "commit_or_version": "d955239dc1b47224778a9bbf916fe907ad4c2c06",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000942609529",
+    "tier": "real_world"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "3e1d450f47b2c464e115ea6870de97b094774583d7a4911d44190f3fe9eff5b7",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "5327e0578811dcd7d0607c9ea3224bfff7a7d4b604d4073aae78e566d8d3e3a9",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -83,7 +83,7 @@\n   ami                    = \"ami-0c55b159cbfafe1f0\"\n   instance_type          = \"t3.micro\"\n   subnet_id              = aws_subnet.tp_app_subnet.id\n-  vpc_security_group_ids = [aws_security_group.tp_app_sg.id]\n+  vpc_security_group_ids = [aws_security_group.tp_app_sg.id, aws_security_group.tp_monitoring_sg.id]\n }\n \n resource \"aws_db_subnet_group\" \"tp_db_subnet_group\" {\n@@ -103,3 +103,9 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"tp_monitoring_sg\" {\n+  description = \"Monitoring security group\"\n+  name        = \"tp_monitoring_sg-mon\"\n+  vpc_id      = aws_vpc.tp_vpc.id\n+}\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Adds new monitoring security group safely.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "v1_role": "target",
+  "v1_role_reason": "D6-02 step 2: lowest-numbered labelled reserve of the cell; replaces excluded target tp-v1-F6-0346",
+  "variable_values": {
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_working": {
+      "names": [
+        "us-east-1a",
+        "us-east-1a",
+        "us-east-1a"
+      ]
+    },
+    "tp_ds_aws_caller_identity_current": {
+      "account_id": "tp-primary"
+    },
+    "tp_ds_aws_region_current": {
+      "description": "tp-primary",
+      "name": "us-east-1"
+    },
+    "tp_ds_aws_vpc_prod_vpc": {
+      "cidr_block": "10.201.0.0/16",
+      "id": "vpc-0201201201201201a"
+    },
+    "tp_ds_aws_vpcs_my_vpcs": {
+      "ids": []
+    }
+  },
+  "variable_values_alt": {
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_working": {
+      "names": [
+        "us-east-1b",
+        "us-east-1b",
+        "us-east-1b"
+      ]
+    },
+    "tp_ds_aws_caller_identity_current": {
+      "account_id": "tp-alt"
+    },
+    "tp_ds_aws_region_current": {
+      "description": "tp-alt",
+      "name": "us-east-1"
+    },
+    "tp_ds_aws_vpc_prod_vpc": {
+      "cidr_block": "192.168.77.0/24",
+      "id": "vpc-0777777777777777b"
+    },
+    "tp_ds_aws_vpcs_my_vpcs": {
+      "ids": [
+        "vpc-0777777777777777b"
+      ]
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_working": 0,
+      "tp_ds_aws_caller_identity_current": 0,
+      "tp_ds_aws_region_current": 0,
+      "tp_ds_aws_vpc_prod_vpc": 0,
+      "tp_ds_aws_vpcs_my_vpcs": 0
+    },
+    "primary": {
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_working": 0,
+      "tp_ds_aws_caller_identity_current": 0,
+      "tp_ds_aws_region_current": 0,
+      "tp_ds_aws_vpc_prod_vpc": 0,
+      "tp_ds_aws_vpcs_my_vpcs": 0
+    }
+  },
+  "variable_values_kinds": {
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_working": {
+      "evidence": [
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({names=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "names": {
+            "length": 3,
+            "list": "az"
+          }
+        }
+      }
+    },
+    "tp_ds_aws_caller_identity_current": {
+      "evidence": [
+        "declared_type:object({account_id=string})",
+        "no table attribute reached at .account_id"
+      ],
+      "kind": {
+        "object": {
+          "account_id": "string"
+        }
+      }
+    },
+    "tp_ds_aws_region_current": {
+      "evidence": [
+        "data_source:aws_region.name",
+        "declared_type:object({description=stringname=string})",
+        "no table attribute reached at .description"
+      ],
+      "kind": {
+        "object": {
+          "description": "string",
+          "name": "region"
+        }
+      }
+    },
+    "tp_ds_aws_vpc_prod_vpc": {
+      "evidence": [
+        "data_source:aws_vpc.cidr_block",
+        "data_source:aws_vpc.id",
+        "declared_type:object({cidr_block=stringid=string})"
+      ],
+      "kind": {
+        "object": {
+          "cidr_block": "ipv4_cidr",
+          "id": "vpc_id"
+        }
+      }
+    },
+    "tp_ds_aws_vpcs_my_vpcs": {
+      "evidence": [
+        "data_source:aws_vpcs.ids",
+        "declared_type:object({ids=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "ids": {
+            "length": "empty-able",
+            "list": "vpc_id"
+          }
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

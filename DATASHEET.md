@@ -2,28 +2,30 @@
 
 Structure follows Gebru et al., *Datasheets for Datasets* (section headings: Motivation, Composition, Collection Process, Preprocessing/Cleaning/Labeling, Uses, Distribution, Maintenance).
 
-**Status:** skeleton. Every answer is `not yet established` unless a source is cited. Facts are cited to the DAIL repository at commit `7ed7aaf` (`docs/specs/D0_AMENDMENTS_v1.0.1.md`, cited "D0 amendments"; `docs/adr/`; `docs/DECISIONS_REGISTER.md`). The base document `D0_Dataset_Specification_TerraPreserve_v1.md` is not in the DAIL repository and was not read for this skeleton; facts that only it can confirm are marked as such.
+**Status:** v1.0, public release (R2, 24 Nov 2026). Every answer is `not yet established` unless a source is cited. Facts are cited to the DAIL repository at commit `7ed7aaf` (`docs/specs/D0_AMENDMENTS_v1.0.1.md`, cited "D0 amendments"; `docs/adr/`; `docs/DECISIONS_REGISTER.md`). The base document `docs/specs/D0_Dataset_Specification_TerraPreserve_v1.md` (cited "D0") was read in R2 from the DAIL repository at commit `2884fd9`. Decisions of the release are in `docs/R2_DECISIONS.md` (cited "R2-01" to "R2-05").
+
+**Since R2 the test split is public** (R2-01): the 128 test scenarios and `V1_MANIFEST_PRIVATE.json` are committed under `scenarios/test/`, byte for byte as frozen, and the test LLM candidates with their labels under `llm_candidates/test/` (R2-02). Statements below that the test split, its labels or its manifest are withheld describe the dataset before R2.
 
 ## Motivation
 
 | Question | Answer |
 |---|---|
 | Name of the dataset | TerraPreserve (DAIL ADR-013). |
-| For what purpose was it created? | A benchmark for DAIL's evaluation of LLM-generated Terraform repairs; built from TerraGoat, TerraDS and Checkov's rule library and shaped to DAIL's parameters (ADR-013, Context). Fuller statement: not yet established. |
+| For what purpose was it created? | A benchmark for DAIL's evaluation of LLM-generated Terraform repairs; built from TerraGoat, TerraDS and Checkov's rule library and shaped to DAIL's parameters (ADR-013, Context). Fuller statement (D0, Purpose): "a benchmark of Terraform remediation scenarios where each change is labeled with which protected properties it actually breaks or preserves." |
 | Who created it, and who funded it? | Authors: Ayush Kumar Singh and Krishika, UPES School of Computer Science (project statement). Funding: the project spends USD 0 (N-08; D0 amendments A3.1). |
 
 ## Composition
 
 | Question | Answer |
 |---|---|
-| What do the instances represent? | Labelled scenarios over Terraform configurations. Instance schema: not yet established. |
-| How many instances are there? | Planned: 320 scenarios (160 controlled + 160 real-world) + 96 reserves. In D4b, the complete 416-scenario dataset is generated: 320 benchmark targets (224 dev, 96 test: 160 controlled + 160 real-world) and 96 reserves (64 dev, 32 test: 48 controlled + 48 real-world). Dev split (288 scenarios: 144 controlled + 144 real-world) is committed under `scenarios/dev/`; test split (128 scenarios: 64 controlled + 64 real-world) is withheld outside the repository (`scenarios/test_manifest.json`). Full breakdown in `scenarios/ASSEMBLY.md`. |
+| What do the instances represent? | Labelled scenarios over Terraform configurations. Instance schema: D0 Decision 6 ("a trusted starting state + a remediation target + a labeled reference change", with the `Scenario` record); the fields of the committed `scenario.json` are listed in `README.md` ("The layout of a scenario"). |
+| How many instances are there? | Planned: 320 scenarios (160 controlled + 160 real-world) + 96 reserves. In D4b, the complete 416-scenario dataset is generated: 320 benchmark targets (224 dev, 96 test: 160 controlled + 160 real-world) and 96 reserves (64 dev, 32 test: 48 controlled + 48 real-world). Dev split (288 scenarios: 144 controlled + 144 real-world) is committed under `scenarios/dev/`; test split (128 scenarios: 64 controlled + 64 real-world) was withheld outside the repository (`scenarios/test_manifest.json`) until R2, and is committed under `scenarios/test/` since R2 (R2-01). Full breakdown in `scenarios/ASSEMBLY.md`. |
 | Is it a sample of a larger set? | Controlled tier: synthetic variations generated from 10 distinct architectural templates sharing the Doc 04 Appendix B topology. Real-world tier: sampled from the TerraDS pool. |
 | What data does each instance contain? | Base state S0, ordered remediation steps (full Terraform directories), step content hashes (SHA-256), unified diffs, intent annotations, and generator-recorded mutation records. Labels and oracle evaluation follow in D5 (ADR-010). |
 | Is there a label or target? | Yes: oracle labels per protected invariant (INV-SEC-001, INV-SEC-002, INV-SEC-003, INV-FUNC-001; D0 amendments A5) and a derived `gt_class` (A7). |
-| Is any information missing? | Not yet established. |
-| Are there errors, noise or redundancies? | Not yet established. |
-| Does it contain confidential or sensitive data? | Not yet established. TerraGoat contains deliberate fake secrets, which are redacted before commit (D0 gate 5, per `CLAUDE.md`). |
+| Is any information missing? | Oracle labels are missing for the scenarios the oracle could not label: dev 19 of 288 and test 6 of 128, all excluded from v1.0 (Preprocessing, "How were labels produced?"). The values of the real-world data-source variables are invented (rule vv-3), not those of any real AWS account (Preprocessing, "Do the real-world configurations contain data sources?"). |
+| Are there errors, noise or redundancies? | Known errors and gaps are listed in "Known limitations" (v1.0 section). Redundancy: the real-world tier uses 208 distinct base modules across 208 scenarios (zero reuse), and no lineage is in both splits (Real-World Tier; Assembly). |
+| Does it contain confidential or sensitive data? | No personal data about the authors or participants (R2-05). TerraGoat contains deliberate fake secrets, which are redacted before commit (D0 gate 5, per `CLAUDE.md`); freeze gate 5 (no secrets) passes (`docs/D6_GATES.md`). |
 
 ### Composition (sources)
 
@@ -49,7 +51,7 @@ The earlier data version is https://doi.org/10.5281/zenodo.14217386 (2024) and t
 
 Repository counts: the paper's abstract states 67,360 repositories, while its body (371,981 found, 67,360 with a permissive licence, minus 14 not clonable and 4,940 without Terraform) and the v1 data state 62,406; TerraPreserve reports its own measured v2 counts (82,749 repositories, 394,004 modules, 2,497,629 resources).
 
-Terraform, AWS provider and Checkov versions (D0 gate 9): Terraform 1.15.8 and `hashicorp/aws` 6.53.0 (ADR-013 pins); Checkov 3.3.30. Instance schema and counts of scenarios: not yet established.
+Terraform, AWS provider and Checkov versions (D0 gate 9): Terraform 1.15.8 and `hashicorp/aws` 6.53.0 (ADR-013 pins); Checkov 3.3.30. Instance schema: D0 Decision 6 (see "What do the instances represent?"); counts of scenarios: the Assembly and v1.0 sections below.
 
 ## Collection Process
 
@@ -57,9 +59,9 @@ Terraform, AWS provider and Checkov versions (D0 gate 9): Terraform 1.15.8 and `
 |---|---|
 | How was the data acquired? | `sources/acquire.py fetch`: TerraGoat by `git clone` at the pinned commit; TerraDS from Zenodo record `20339474` (`TerraDS.sqlite`, `TerraDS.tar.gz`, `HCL Dataset Tools.zip`), md5 checked against Zenodo's published values and sha256 measured; Checkov from PyPI. Hashes, sizes and licence evidence: `sources/manifest.json`. Raw files are in an external cache, not in Git. |
 | What was the sampling strategy? | The funnel F0..X over TerraDS metadata is measured (`sources/terrads/yield_report.md`). The pool is selected by the exclusion cascade E01 to E12 (`docs/D3_DECISIONS.md`, `pool/funnel.json`): all native modules go through every step, graft hosts are reduced to one per repository lineage and sampled with a fixed seed; see the Pool section below. Pool filtering uses TerraDS's own metadata, produced by terraform-config-inspect, not DAIL's parser (ADR-013). A lexical re-derivation of module contents from the archive (an independent implementation, not terraform-config-inspect, which could not be run here and would not have been independent) agrees with the metadata on the managed type set for 656 of 657 sampled F3/F2 modules; see the report. |
-| Who was involved in collection? | Not yet established. Run by Claude Code under the authors' instruction (D1 Prompt B). |
+| Who was involved in collection? | The authors directed it; it was run by Claude Code under the authors' instruction (D1 Prompt B; TPL2-02). |
 | Over what timeframe? | Sources retrieved on 2026-10-23 (UTC; `retrieved_utc` in the manifest). TerraDS's own data cutoff for the pinned version is January 2026, as its Zenodo record states. |
-| Were ethical review processes conducted? | Not yet established. |
+| Were ethical review processes conducted? | None was performed. The data are configuration files from public, permissively licensed repositories and synthetic templates, and contain no personal data about the authors or participants (R2-05). |
 
 ## Preprocessing / Cleaning / Labeling
 
@@ -138,29 +140,29 @@ Full dataset assembly documented in `scenarios/ASSEMBLY.md` and `scenarios/ASSEM
 
 | Question | Answer |
 |---|---|
-| What tasks has it been used for? | None yet. Intended: evaluating DAIL (P8 experiments; D0 amendments A2). |
-| Is there a repository linking to papers or systems using it? | Not yet established. |
+| What tasks has it been used for? | Used to evaluate DAIL (DOI 10.5281/zenodo.24495207); results in DAIL `docs/P10_RESULTS.md`. |
+| Is there a repository linking to papers or systems using it? | DAIL, https://github.com/Ayushxsingh100/DAIL (DAIL ADR-013). |
 | What other tasks could it be used for? | Not yet established. |
-| Are there tasks it should not be used for? | Not yet established. Oracle results are research labels and never feed promotion decisions (ADR-010; D0 amendments A4.2). |
+| Are there tasks it should not be used for? | Oracle results are research labels and never feed promotion decisions (ADR-010; D0 amendments A4.2). The test split is public since R2, so an evaluation on it after R2 is not blind (R2-01). Other restrictions: not yet established. |
 
 ## Distribution
 
 | Question | Answer |
 |---|---|
-| Will it be distributed to third parties? | Released as frozen releases that DAIL consumes pinned by version and content hash (ADR-013). Public release plan and venue: not yet established. |
-| How will it be distributed? | Not yet established. Repository: https://github.com/Ayushxsingh100/terrapreserve. DOI: not yet established. |
-| Under what licence? | Code: Apache-2.0. Our own scenarios and labels: CC-BY-4.0. TerraGoat-derived files keep Apache-2.0; TerraDS-derived files keep each source repository's own licence (D0 Decision 9, as quoted in the D1 Prompt A; the base D0 document was not read). See [LICENSES/README.md](LICENSES/README.md). |
-| Are there export controls or other restrictions? | Not yet established. |
+| Will it be distributed to third parties? | Released as frozen releases that DAIL consumes pinned by version and content hash (ADR-013). Public release: R2 (24 Nov 2026), the merge commit tagged `terrapreserve-v1.0-public` by the authors (R2-04); venue: Zenodo plus the GitHub repository (D0 Decision 9). |
+| How will it be distributed? | Zenodo (for a DOI) plus the GitHub repository (D0 Decision 9). Repository: https://github.com/Ayushxsingh100/terrapreserve. DOI: not yet established. |
+| Under what licence? | Code: Apache-2.0. Our own scenarios and labels: CC-BY-4.0. TerraGoat-derived files keep Apache-2.0; TerraDS-derived files keep each source repository's own licence (D0 Decision 9). See [LICENSES/README.md](LICENSES/README.md). |
+| Are there export controls or other restrictions? | None known (R2-05). |
 
 ## Maintenance
 
 | Question | Answer |
 |---|---|
-| Who maintains it? | Not yet established. |
-| How can the maintainers be contacted? | Not yet established. |
-| Will it be updated? | Not yet established. Releases are frozen and versioned (ADR-013); versioning scheme: not yet established. |
-| Will older versions remain available? | Not yet established. |
-| How can others contribute? | Not yet established. |
+| Who maintains it? | The authors (R2-05). |
+| How can the maintainers be contacted? | Through GitHub issues on the repository (R2-05). |
+| Will it be updated? | Releases are frozen and versioned (ADR-013). Corrections are released as new versions: 1.0.x for errata, 1.1 for new content (R2-05). |
+| Will older versions remain available? | Yes, through their tags and Zenodo (R2-05). |
+| How can others contribute? | Issues and pull requests, reviewed by the authors (R2-05). |
 
 ## TerraPreserve v1.0 (D6, 11 Nov 2026)
 

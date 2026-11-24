@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "c7d1847444153bc0a6fa0189360a2663b755bd34b565afbf8aa81235c8479624",
+  "outputs.tf": "67f464989415bc3674d9e4ac2d708c1a91ca0ee164c31e10658bb2dc2a4731a4",
+  "variables.tf": "29cbfa1bb826f21a5c28241d74aa9126d1247616aa8702bb2edbb830f52e4eed"
+ },
+ "commit_sha": "6eca0416fbef6cc95dac989245e382c63b535b6d",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "e06449293c03b3af31bb76bddcf23817a3cabdbcb80aa3fda7b8da20b2cd4abe",
+ "module_id": 592516,
+ "module_path": "modules/security_group_ec2",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-592516",
+ "repo_full_name": "AkalankaDilshan/Setting-Up-API-Gateway-with-EC2-Backend-and-DocumentDB-Database-on-AWS",
+ "repo_id": 911454901,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

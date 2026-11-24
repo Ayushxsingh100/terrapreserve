@@ -1,0 +1,310 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.tp_db",
+    "S": "aws_instance.tp_app"
+  },
+  "excluded_from_v1": null,
+  "family": "F5",
+  "generator_version": "d4b-9",
+  "grafted": true,
+  "gt_class": "unsafe",
+  "host_transform": [
+    {
+      "bytes_after": 0,
+      "bytes_before": 40,
+      "file": "provider.tf",
+      "removed_blocks": [
+        "provider"
+      ]
+    },
+    {
+      "bytes_after": 0,
+      "bytes_before": 46,
+      "file": "terraform.tf",
+      "removed_blocks": [
+        "terraform"
+      ]
+    }
+  ],
+  "intent": {
+    "breaks": [
+      "INV-FUNC-001"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "FAIL",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+        "INV-SEC-001",
+        "INV-SEC-002",
+        "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": false
+    }
+  ],
+  "module_id": 424306,
+  "mutation_record": [
+    {
+      "after": "\"tp-db-sg-v2\"",
+      "attribute": "name",
+      "before": "\"tp-db-sg\"",
+      "operator": "op_f5_db_sg_replacement_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_db_sg"
+    },
+    {
+      "after": "5433",
+      "attribute": "from_port",
+      "before": "5432",
+      "operator": "op_f5_db_sg_replacement_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    },
+    {
+      "after": "5433",
+      "attribute": "to_port",
+      "before": "5432",
+      "operator": "op_f5_db_sg_replacement_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4b-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000498832786",
+    "module_id": 424306,
+    "pool_id": "terrads-host-424306"
+  },
+  "pool_id": "terrads-host-424306",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": true,
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F5-0338",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 338,
+  "source": {
+    "commit_or_version": "4681166807c4fb3d906f11b223d2d2a456dc3c1b",
+    "grafted": true,
+    "license": "Apache-2.0",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000498832786",
+    "tier": "real_world"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "d869c42cedde8e761de11449fb0689ea221f2a1a66db83f82e4219be1f51a7a0",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "168b84f2ee7ff78f51591c995a4a9aab2b17693f95b704e1a710c5178306a599",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -48,7 +48,7 @@\n \n resource \"aws_security_group\" \"tp_db_sg\" {\n   description = \"TerraPreserve database security group\"\n-  name        = \"tp-db-sg\"\n+  name        = \"tp-db-sg-v2\"\n   vpc_id      = aws_vpc.tp_vpc.id\n }\n \n@@ -71,11 +71,11 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  from_port                = 5432\n+  from_port                = 5433\n   protocol                 = \"tcp\"\n   security_group_id        = aws_security_group.tp_db_sg.id\n   source_security_group_id = aws_security_group.tp_app_sg.id\n-  to_port                  = 5432\n+  to_port                  = 5433\n   type                     = \"ingress\"\n }\n \n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Forces replacement of the DB group; the recreated 5432 ingress carries port 5433.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "v1_role": "reserve",
+  "v1_role_reason": null,
+  "variable_values": {
+    "cidr_block": "10.201.1.0/24",
+    "private_subnet1": "10.201.1.0/24",
+    "private_subnet2": "10.201.1.0/24",
+    "private_subnet3": "10.201.0.0/16",
+    "public_subnet1": "10.201.1.0/24",
+    "public_subnet2": "10.201.1.0/24",
+    "public_subnet3": "10.201.1.0/24",
+    "region": "tp-primary",
+    "tp_db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "cidr_block": "192.168.77.0/24",
+    "private_subnet1": "192.168.77.0/24",
+    "private_subnet2": "192.168.77.0/24",
+    "private_subnet3": "192.168.77.0/24",
+    "public_subnet1": "192.168.77.0/24",
+    "public_subnet2": "192.168.77.0/24",
+    "public_subnet3": "192.168.77.0/24",
+    "region": "tp-alt",
+    "tp_db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "cidr_block": 0,
+      "private_subnet1": 0,
+      "private_subnet2": 0,
+      "private_subnet3": 0,
+      "public_subnet1": 0,
+      "public_subnet2": 0,
+      "public_subnet3": 0,
+      "region": 0,
+      "tp_db_password": 0
+    },
+    "primary": {
+      "cidr_block": 1,
+      "private_subnet1": 1,
+      "private_subnet2": 1,
+      "private_subnet3": 0,
+      "public_subnet1": 1,
+      "public_subnet2": 1,
+      "public_subnet3": 1,
+      "region": 0,
+      "tp_db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "cidr_block": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_vpc.main.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: expected cidr_block to contain a valid Value, got:  with err: invalid CIDR address:"
+    },
+    "private_subnet1": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.private1.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: \"\" is not a valid CIDR block: invalid CIDR address:"
+    },
+    "private_subnet2": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.private2.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: \"\" is not a valid CIDR block: invalid CIDR address:"
+    },
+    "private_subnet3": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.private3.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: \"\" is not a valid CIDR block: invalid CIDR address:"
+    },
+    "public_subnet1": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.public1.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: \"\" is not a valid CIDR block: invalid CIDR address:"
+    },
+    "public_subnet2": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.public2.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: \"\" is not a valid CIDR block: invalid CIDR address:"
+    },
+    "public_subnet3": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.public3.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: \"\" is not a valid CIDR block: invalid CIDR address:"
+    },
+    "region": {
+      "evidence": [
+        "declared_type:string",
+        "no table attribute reached at (value)"
+      ],
+      "kind": "string"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

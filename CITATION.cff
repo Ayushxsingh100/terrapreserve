@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use TerraPreserve, please cite it as below."
+title: "TerraPreserve: a benchmark of labelled Terraform remediation scenarios"
+type: dataset
+authors:
+  - given-names: "Ayush Kumar"
+    family-names: "Singh"
+    affiliation: "School of Computer Science, UPES, Dehradun, India"
+  - given-names: "Krishika"
+    affiliation: "School of Computer Science, UPES, Dehradun, India"
+repository-code: "https://github.com/Ayushxsingh100/terrapreserve"
+license: [Apache-2.0, CC-BY-4.0]
+version: "1.0"
+keywords: [Terraform, infrastructure as code, benchmark, invariant preservation, LLM repair]
+references:
+  - type: dataset
+    title: "TerraDS: A Dataset for Terraform HCL Programs"
+    authors:
+      - family-names: "Bühler"
+        given-names: "Christoph"
+      - family-names: "Spielmann"
+        given-names: "David"
+      - family-names: "Meier"
+        given-names: "Roland"
+      - family-names: "Salvaneschi"
+        given-names: "Guido"
+    doi: "10.5281/zenodo.20339474"

@@ -35,6 +35,9 @@ SCENARIO = "tp-v1-F2-0027"
 S0 = REPO_ROOT / "scenarios" / "dev" / SCENARIO / "step_0"
 # the hash of scenarios/ at terrapreserve-v1.0 (27f0ee4): 3926 tracked files, __pycache__ left out
 SCENARIOS_V1_0 = "798d51fc2692c08d75ad179fad38d7b3704ee1a5eca92fe9979432846201fbea"
+# the same hash after R2 released the test split under scenarios/test/ (R2-01): v1.0 plus the 128 frozen test
+# scenarios and V1_MANIFEST_PRIVATE.json; with scenarios/test/ left out it is still SCENARIOS_V1_0
+SCENARIOS_R2 = "9cfbdf05a18fae5f46c9f25a2441e66b9951ac212015b0678304b513233ae4ea"
 GEN = "00000000-0000-5000-8000-0000000000aa"
 OPEN_SSH = '    cidr_blocks = ["0.0.0.0/0"]\n    from_port   = 22\n'
 CLOSED_SSH = '    cidr_blocks = ["10.197.0.0/16"]\n    from_port   = 22\n'
@@ -363,13 +366,20 @@ class TestLabellingRule(Case):
             self.assertEqual(sorted(p.name for p in d.glob("*.tf")), sorted(c["files"]))
 
     def test_v1_0_is_unchanged_by_the_run(self) -> None:
-        self.assertEqual(self.labels["scenarios_sha256_before"], SCENARIOS_V1_0)
-        self.assertEqual(self.labels["scenarios_sha256_after"], SCENARIOS_V1_0)
+        # R2: scenarios/ now holds the released test split too, so the tool's whole-tree hash is SCENARIOS_R2
+        self.assertEqual(self.labels["scenarios_sha256_before"], SCENARIOS_R2)
+        self.assertEqual(self.labels["scenarios_sha256_after"], SCENARIOS_R2)
 
 
 class TestV1Frozen(Case):
     def test_scenarios_are_byte_identical_to_v1_0(self) -> None:
-        self.assertEqual(self.t.scenarios_sha256(), SCENARIOS_V1_0)
+        # R2: the whole tree is v1.0 plus the released test split; without scenarios/test/ it is v1.0 byte for byte,
+        # and the released split equals the pinned manifest
+        import released_split  # noqa: PLC0415
+
+        self.assertEqual(self.t.scenarios_sha256(), SCENARIOS_R2)
+        self.assertEqual(released_split.scenarios_sha256_without_test_split(), SCENARIOS_V1_0)
+        self.assertEqual(released_split.committed_split_problems(), [])
 
 
 if __name__ == "__main__":

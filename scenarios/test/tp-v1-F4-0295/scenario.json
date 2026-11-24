@@ -1,0 +1,385 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.tp_db",
+    "S": "aws_instance.tp_app"
+  },
+  "excluded_from_v1": null,
+  "family": "F4",
+  "generator_version": "d4b-9",
+  "grafted": true,
+  "gt_class": "safe",
+  "host_transform": [
+    {
+      "bytes_after": 84,
+      "bytes_before": 234,
+      "file": "versions.tf",
+      "removed_blocks": [
+        "terraform"
+      ]
+    },
+    {
+      "block_sha256": "a0fe9b2a45c1c777c5650a33165edc776d4220bb76a8ebe6f8cf2f15433b6314",
+      "data_name": "available",
+      "data_type": "aws_availability_zones",
+      "file": "data.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_available"
+    },
+    {
+      "block_sha256": "59e656f610110f5a7364f76fe17edcbe45627211316780c2b04c8be395a006c3",
+      "data_name": "wan",
+      "data_type": "aws_ec2_transit_gateway",
+      "file": "data.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_ec2_transit_gateway_wan"
+    },
+    {
+      "block_sha256": "fa812e9980a2f68087b5d840cd8165933f4d1ffbc79736abb7ffe690f46a5f89",
+      "data_name": "rt_service_vpc_attach",
+      "data_type": "aws_ec2_transit_gateway_route_table",
+      "file": "data.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_ec2_transit_gateway_route_table_rt_service_vpc_attach"
+    },
+    {
+      "block_sha256": "0018f8a64d5aa4fbf92d0890ad07f90e0b947948c1f7263d2c87410980595b6f",
+      "data_name": "wan_att_service_vpc",
+      "data_type": "aws_ec2_transit_gateway_vpc_attachment",
+      "file": "data.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_ec2_transit_gateway_vpc_attachment_wan_att_service_vpc"
+    },
+    {
+      "block_sha256": "4bd4a979925ab8446c5fa717fc8c9507a22310fc6614bd873244c48bfc595807",
+      "data_name": "wan_subnet",
+      "data_type": "aws_subnet",
+      "file": "data.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_subnet_wan_subnet"
+    }
+  ],
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": "INV-SEC-002",
+    "target_kind": "repair"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "FAIL",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+        "INV-SEC-001",
+        "INV-SEC-002",
+        "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": true
+    }
+  ],
+  "module_id": 375068,
+  "mutation_record": [
+    {
+      "after": "[\"172.16.0.0/12\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f4_repair_db_port_open_ssh_safe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4b-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000365170429",
+    "module_id": 375068,
+    "pool_id": "terrads-host-375068"
+  },
+  "pool_id": "terrads-host-375068",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F4-0295",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 295,
+  "source": {
+    "commit_or_version": "c3de8cc2f2420c7282fde03203a9fdb87f0a3643",
+    "grafted": true,
+    "license": "Apache-2.0",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000365170429",
+    "tier": "real_world"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "334c9abff5744622ea1e4d55c9654d931cebdcb26f2652cf1f0b55635a103ccf",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "9f9092f24d79f820331a0d000072383d46163d8a049db3e3cd7fa319024f4c7b",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -71,7 +71,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"172.16.0.0/12\"]\n   from_port         = 5432\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_db_sg.id\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Repair public database ingress on port 5432",
+    "invariant_id": "INV-SEC-002",
+    "kind": "repair"
+  },
+  "v1_role": "target",
+  "v1_role_reason": null,
+  "variable_values": {
+    "availability_zone_count": 1,
+    "gwlbe": [
+      "tp-primary",
+      "tp-primary",
+      "tp-primary"
+    ],
+    "service_vpc_cidr": "10.201.0.0/16",
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1a",
+        "us-east-1a",
+        "us-east-1a"
+      ]
+    },
+    "tp_ds_aws_ec2_transit_gateway_route_table_rt_service_vpc_attach": [],
+    "tp_ds_aws_ec2_transit_gateway_vpc_attachment_wan_att_service_vpc": [],
+    "tp_ds_aws_ec2_transit_gateway_wan": [],
+    "tp_ds_aws_subnet_wan_subnet": [],
+    "vpc_service_id": "vpc-0201201201201201a"
+  },
+  "variable_values_alt": {
+    "availability_zone_count": 2,
+    "gwlbe": [
+      "tp-alt",
+      "tp-alt",
+      "tp-alt"
+    ],
+    "service_vpc_cidr": "192.168.77.0/24",
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1b",
+        "us-east-1b",
+        "us-east-1b"
+      ]
+    },
+    "tp_ds_aws_ec2_transit_gateway_route_table_rt_service_vpc_attach": [
+      {}
+    ],
+    "tp_ds_aws_ec2_transit_gateway_vpc_attachment_wan_att_service_vpc": [
+      {}
+    ],
+    "tp_ds_aws_ec2_transit_gateway_wan": [
+      {}
+    ],
+    "tp_ds_aws_subnet_wan_subnet": [
+      {}
+    ],
+    "vpc_service_id": "vpc-0777777777777777b"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "availability_zone_count": 0,
+      "gwlbe": 0,
+      "service_vpc_cidr": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 0,
+      "tp_ds_aws_ec2_transit_gateway_route_table_rt_service_vpc_attach": 0,
+      "tp_ds_aws_ec2_transit_gateway_vpc_attachment_wan_att_service_vpc": 0,
+      "tp_ds_aws_ec2_transit_gateway_wan": 0,
+      "tp_ds_aws_subnet_wan_subnet": 0,
+      "vpc_service_id": 0
+    },
+    "primary": {
+      "availability_zone_count": 0,
+      "gwlbe": 0,
+      "service_vpc_cidr": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 0,
+      "tp_ds_aws_ec2_transit_gateway_route_table_rt_service_vpc_attach": 0,
+      "tp_ds_aws_ec2_transit_gateway_vpc_attachment_wan_att_service_vpc": 0,
+      "tp_ds_aws_ec2_transit_gateway_wan": 0,
+      "tp_ds_aws_subnet_wan_subnet": 0,
+      "vpc_service_id": 0
+    }
+  },
+  "variable_values_kinds": {
+    "availability_zone_count": {
+      "evidence": [
+        "declared_type:number"
+      ],
+      "kind": "number",
+      "reason": "declared default rejected: Error: Invalid function argument"
+    },
+    "gwlbe": {
+      "evidence": [
+        "declared_type:list(string)",
+        "no table attribute reached at []"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "string"
+      }
+    },
+    "service_vpc_cidr": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_subnet.wan_subnet.cidr_block"
+      ],
+      "kind": "ipv4_cidr",
+      "reason": "declared default rejected: Error: Invalid function argument"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "evidence": [
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({names=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "names": {
+            "length": 3,
+            "list": "az"
+          }
+        }
+      }
+    },
+    "tp_ds_aws_ec2_transit_gateway_route_table_rt_service_vpc_attach": {
+      "evidence": [
+        "declared_type:list(object({}))"
+      ],
+      "kind": {
+        "length": "empty-able",
+        "list": {
+          "object": {}
+        }
+      }
+    },
+    "tp_ds_aws_ec2_transit_gateway_vpc_attachment_wan_att_service_vpc": {
+      "evidence": [
+        "declared_type:list(object({}))"
+      ],
+      "kind": {
+        "length": "empty-able",
+        "list": {
+          "object": {}
+        }
+      }
+    },
+    "tp_ds_aws_ec2_transit_gateway_wan": {
+      "evidence": [
+        "declared_type:list(object({}))"
+      ],
+      "kind": {
+        "length": "empty-able",
+        "list": {
+          "object": {}
+        }
+      }
+    },
+    "tp_ds_aws_subnet_wan_subnet": {
+      "evidence": [
+        "declared_type:list(object({}))"
+      ],
+      "kind": {
+        "length": "empty-able",
+        "list": {
+          "object": {}
+        }
+      }
+    },
+    "vpc_service_id": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_route_table.wan_route.vpc_id",
+        "usage:aws_subnet.wan_subnet.vpc_id"
+      ],
+      "kind": "vpc_id"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

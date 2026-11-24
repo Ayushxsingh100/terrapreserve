@@ -1,0 +1,370 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.tp_db",
+    "S": "aws_instance.tp_app"
+  },
+  "excluded_from_v1": null,
+  "family": "F4",
+  "generator_version": "d4b-9",
+  "grafted": true,
+  "gt_class": "unsafe",
+  "host_transform": [
+    {
+      "block_sha256": "3b254127a0ec81419e488ead831427b1372d3f95c0dc2738eb60310607792d66",
+      "data_name": "available",
+      "data_type": "aws_availability_zones",
+      "file": "data.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_available"
+    }
+  ],
+  "intent": {
+    "breaks": [
+      "INV-SEC-001"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": "INV-SEC-002",
+    "target_kind": "repair"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "FAIL",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "FAIL",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+        "INV-SEC-001",
+        "INV-SEC-002",
+        "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": false
+    }
+  ],
+  "module_id": 583351,
+  "mutation_record": [
+    {
+      "after": "[\"172.16.0.0/12\"]",
+      "attribute": "cidr_blocks",
+      "before": "[\"0.0.0.0/0\"]",
+      "operator": "op_f4_repair_db_port_open_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    },
+    {
+      "after": "[\"0.0.0.0/0\"]",
+      "attribute": "cidr_blocks",
+      "before": null,
+      "operator": "op_f4_repair_db_port_open_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_app_sg_ingress_ssh"
+    },
+    {
+      "after": "22",
+      "attribute": "from_port",
+      "before": null,
+      "operator": "op_f4_repair_db_port_open_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_app_sg_ingress_ssh"
+    },
+    {
+      "after": "\"tcp\"",
+      "attribute": "protocol",
+      "before": null,
+      "operator": "op_f4_repair_db_port_open_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_app_sg_ingress_ssh"
+    },
+    {
+      "after": "aws_security_group.tp_app_sg.id",
+      "attribute": "security_group_id",
+      "before": null,
+      "operator": "op_f4_repair_db_port_open_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_app_sg_ingress_ssh"
+    },
+    {
+      "after": "22",
+      "attribute": "to_port",
+      "before": null,
+      "operator": "op_f4_repair_db_port_open_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_app_sg_ingress_ssh"
+    },
+    {
+      "after": "\"ingress\"",
+      "attribute": "type",
+      "before": null,
+      "operator": "op_f4_repair_db_port_open_ssh_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_app_sg_ingress_ssh"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4b-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000878655476",
+    "module_id": 583351,
+    "pool_id": "terrads-host-583351"
+  },
+  "pool_id": "terrads-host-583351",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F4-0307",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 307,
+  "source": {
+    "commit_or_version": "7417b89824457e9fba5f9e8a1defe1342dabb59b",
+    "grafted": true,
+    "license": "MIT",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000878655476",
+    "tier": "real_world"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "840591d75ec7a3ff1cb07a6995bc0344b9e320c66a1b0aa3c21d64dab26f7dc8",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "1bfc60db9f15fcb1420c6b50f6d8b83568f17b2e63d66d327ea13712f8feb00f",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -71,7 +71,7 @@\n }\n \n resource \"aws_security_group_rule\" \"tp_db_ingress_postgres\" {\n-  cidr_blocks       = [\"0.0.0.0/0\"]\n+  cidr_blocks       = [\"172.16.0.0/12\"]\n   from_port         = 5432\n   protocol          = \"tcp\"\n   security_group_id = aws_security_group.tp_db_sg.id\n@@ -103,3 +103,12 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group_rule\" \"tp_app_sg_ingress_ssh\" {\n+  cidr_blocks       = [\"0.0.0.0/0\"]\n+  from_port         = 22\n+  protocol          = \"tcp\"\n+  security_group_id = aws_security_group.tp_app_sg.id\n+  to_port           = 22\n+  type              = \"ingress\"\n+}\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Repair public database ingress on port 5432",
+    "invariant_id": "INV-SEC-002",
+    "kind": "repair"
+  },
+  "v1_role": "target",
+  "v1_role_reason": null,
+  "variable_values": {
+    "private_subnet_cidr": [
+      "10.201.1.0/24",
+      "10.201.1.0/24",
+      "10.201.1.0/24"
+    ],
+    "private_subnet_names": [
+      "tp-primary",
+      "tp-primary",
+      "tp-primary"
+    ],
+    "public_subnet_cidr": [
+      "10.201.1.0/24",
+      "10.201.1.0/24",
+      "10.201.1.0/24"
+    ],
+    "public_subnet_names": [
+      "tpprimary",
+      "tpprimary",
+      "tpprimary"
+    ],
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1b",
+        "us-east-1b",
+        "us-east-1b"
+      ]
+    },
+    "vpc_cidr": "10.201.1.0/24"
+  },
+  "variable_values_alt": {
+    "private_subnet_cidr": [
+      "192.168.77.0/24",
+      "192.168.77.0/24",
+      "192.168.77.0/24"
+    ],
+    "private_subnet_names": [
+      "tp-alt",
+      "tp-alt",
+      "tp-alt"
+    ],
+    "public_subnet_cidr": [
+      "192.168.77.0/24",
+      "192.168.77.0/24",
+      "192.168.77.0/24"
+    ],
+    "public_subnet_names": [
+      "tp-alt",
+      "tp-alt",
+      "tp-alt"
+    ],
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1c",
+        "us-east-1c",
+        "us-east-1c"
+      ]
+    },
+    "vpc_cidr": "192.168.77.0/24"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "private_subnet_cidr": 0,
+      "private_subnet_names": 0,
+      "public_subnet_cidr": 0,
+      "public_subnet_names": 0,
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 1,
+      "vpc_cidr": 0
+    },
+    "primary": {
+      "private_subnet_cidr": 1,
+      "private_subnet_names": 0,
+      "public_subnet_cidr": 1,
+      "public_subnet_names": 1,
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 1,
+      "vpc_cidr": 1
+    }
+  },
+  "variable_values_kinds": {
+    "private_subnet_cidr": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_subnet.playroom-subnet-private.cidr_block"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "ipv4_cidr"
+      }
+    },
+    "private_subnet_names": {
+      "evidence": [
+        "declared_type:list(string)",
+        "no table attribute reached at []"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "string"
+      },
+      "reason": "declared default rejected: Error: Invalid index"
+    },
+    "public_subnet_cidr": {
+      "evidence": [
+        "declared_type:list(string)",
+        "usage:aws_subnet.playroom-subnet-public.cidr_block"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "ipv4_cidr"
+      }
+    },
+    "public_subnet_names": {
+      "evidence": [
+        "declared_type:list(string)",
+        "no table attribute reached at []"
+      ],
+      "kind": {
+        "length": 3,
+        "list": "string"
+      },
+      "reason": "declared default rejected: Error: Invalid index"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "evidence": [
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({names=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "names": {
+            "length": 3,
+            "list": "az"
+          }
+        }
+      }
+    },
+    "vpc_cidr": {
+      "evidence": [
+        "declared_type:string",
+        "usage:aws_vpc.playroom-vpc.cidr_block"
+      ],
+      "kind": "ipv4_cidr"
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

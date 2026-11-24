@@ -1,0 +1,240 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.pg",
+    "S": "aws_instance.web"
+  },
+  "excluded_from_v1": null,
+  "family": "F3",
+  "generator_version": "d4a-9",
+  "grafted": false,
+  "gt_class": "safe",
+  "intent": {
+    "breaks": [],
+    "class": "safe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003",
+      "INV-FUNC-001"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": [
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [],
+      "step": 0,
+      "target_safe": null
+    },
+    {
+      "invariant_truth": {
+        "INV-FUNC-001": "PASS",
+        "INV-SEC-001": "PASS",
+        "INV-SEC-002": "PASS",
+        "INV-SEC-003": "PASS"
+      },
+      "oracle_affected": [
+        "INV-SEC-001",
+        "INV-SEC-002",
+        "INV-FUNC-001"
+      ],
+      "step": 1,
+      "target_safe": true
+    }
+  ],
+  "mutation_record": [
+    {
+      "after": "\"Dependent client security group\"",
+      "attribute": "description",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_safe",
+      "step": 1,
+      "target_address": "aws_security_group.pg_peer"
+    },
+    {
+      "after": "\"pg-tpl-12-peer\"",
+      "attribute": "name",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_safe",
+      "step": 1,
+      "target_address": "aws_security_group.pg_peer"
+    },
+    {
+      "after": "aws_vpc.net.id",
+      "attribute": "vpc_id",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_safe",
+      "step": 1,
+      "target_address": "aws_security_group.pg_peer"
+    },
+    {
+      "after": "5432",
+      "attribute": "from_port",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_safe",
+      "step": 1,
+      "target_address": "aws_security_group.pg"
+    },
+    {
+      "after": "\"tcp\"",
+      "attribute": "protocol",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_safe",
+      "step": 1,
+      "target_address": "aws_security_group.pg"
+    },
+    {
+      "after": "[aws_security_group.pg_peer.id]",
+      "attribute": "security_groups",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_safe",
+      "step": 1,
+      "target_address": "aws_security_group.pg"
+    },
+    {
+      "after": "5432",
+      "attribute": "to_port",
+      "before": null,
+      "operator": "op_f3_db_ingress_peer_safe",
+      "step": 1,
+      "target_address": "aws_security_group.pg"
+    }
+  ],
+  "oracle": {
+    "disagreements": [],
+    "versions": {
+      "checkov": "3.3.30",
+      "generator": "d4a-9",
+      "oracle": "oracle-1.0",
+      "provider_hashicorp_aws": "6.53.0",
+      "registry": "registry-v1.0",
+      "terraform": "1.15.8",
+      "value_rule": "vv-3",
+      "value_set": "primary"
+    }
+  },
+  "parameters": {
+    "azs": [
+      "us-east-1a",
+      "us-east-1b",
+      "us-east-1c"
+    ],
+    "cidr_plan": {
+      "app": "10.92.1.0/24",
+      "db": [
+        "10.92.10.0/24",
+        "10.92.11.0/24",
+        "10.92.12.0/24"
+      ],
+      "vpc": "10.92.0.0/16"
+    },
+    "db_class": "db.t3.small",
+    "features": {
+      "egress": "all",
+      "extras": "unattached_sg",
+      "files": "split",
+      "naming": "short",
+      "routing": "private_db",
+      "sg_style": "all_inline",
+      "subnets": "one_app",
+      "values": "locals"
+    },
+    "instance_class": "t3.small",
+    "naming_scheme": "short",
+    "sg_style": "all_inline",
+    "template_id": "tpl-12",
+    "template_version": "tpl-v2.0",
+    "variant": "clean"
+  },
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "scenario_id": "tp-v1-F3-0057",
+  "seed": 57,
+  "source": {
+    "commit_or_version": "d4a-9+tpl-v2.0",
+    "grafted": false,
+    "license": "CC-BY-4.0",
+    "origin": "terragoat",
+    "repo_lineage_id": "tpl-12",
+    "tier": "controlled"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "77f74c600f3c6e52722f2c3f491771bad248d2b6522cf2a847179c397d5583b3",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "fd08a70af4ace7bbaa32d2e3b36b86be77e969baf9de88a01c74ee19cb39eaf1",
+      "diff_from_previous": "--- a/compute.tf\n+++ b/compute.tf\n@@ -30,3 +30,9 @@\n   subnet_id              = aws_subnet.pub.id\n   vpc_security_group_ids = [aws_security_group.web.id]\n }\n+\n+resource \"aws_security_group\" \"pg_peer\" {\n+  description = \"Dependent client security group\"\n+  name        = \"pg-tpl-12-peer\"\n+  vpc_id      = aws_vpc.net.id\n+}\n--- a/database.tf\n+++ b/database.tf\n@@ -15,6 +15,13 @@\n     from_port   = 0\n     protocol    = \"-1\"\n     to_port     = 0\n+  }\n+\n+  ingress {\n+    from_port       = 5432\n+    protocol        = \"tcp\"\n+    security_groups = [aws_security_group.pg_peer.id]\n+    to_port         = 5432\n   }\n }\n \n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Adds a new client group and an extra 5432 ingress rule from it; the app rule is kept.",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "template_id": "tpl-12",
+  "template_version": "tpl-v2.0",
+  "v1_role": "target",
+  "v1_role_reason": null,
+  "variable_values": {
+    "db_password": "tp-secret-primary"
+  },
+  "variable_values_alt": {
+    "db_password": "tp-secret-alt"
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "db_password": 0
+    },
+    "primary": {
+      "db_password": 0
+    }
+  },
+  "variable_values_kinds": {
+    "db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive",
+        "validation"
+      ],
+      "kind": "secret",
+      "validation": {
+        "alternate": "tp-secret-alt",
+        "primary": "tp-secret-primary"
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}

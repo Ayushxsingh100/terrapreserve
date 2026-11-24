@@ -1,0 +1,24 @@
+{
+ "archive_sha256": {
+  "main.tf": "4ed0aa73ee98b3744ba6ece193cfc438d67188058be5cedacdd84dc728256ed6",
+  "outputs.tf": "64291471be4c7ba792d1a6b50ecd1f9e668a9c7e1137dfb1551842d3859cc61f",
+  "variables.tf": "720e7dbc0ec78be9f193e1809a45f6610ad1d28e2ba86df7ce0d75e92312d5f3"
+ },
+ "commit_sha": "21b150b9dfde77d8e6c1dfd3d2e5954e43722f6e",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "c4b77f20c8b6769b458f4419097d062368ccb982f84afbf05cfaf39f5280b1f1",
+ "module_id": 587499,
+ "module_path": "modules/rds",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-587499",
+ "repo_full_name": "suojae/infra",
+ "repo_id": 890616140,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

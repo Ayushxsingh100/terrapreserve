@@ -1,0 +1,25 @@
+{
+ "archive_sha256": {
+  "VPC.tf": "6f45eccf025348ff2551b79cc4cb1d6883e250a58e1bd3a180e8bcdc9e0dbb5d",
+  "outputs.tf": "c283e070f61b87cf1077f53f1fb41d3a85e40579f4a88027b02dc1aa1407edc3",
+  "providers.tf": "5e27db57a253a322f75c4906b058ce658ef87317a2610d4b9c97d31505130363",
+  "variables.tf": "5e7c2d9150bb81678d43cb80eec8634fce73518be336624607e960b591d36b15"
+ },
+ "commit_sha": "9d700a69d1f497e28a255071d1c7e50ec720da57",
+ "crlf_normalised": [],
+ "kind": "host",
+ "licence_source_file": "LICENSE",
+ "licence_spdx": "MIT",
+ "licence_upstream_sha256": "44bb1ea99fe214492e49407d44b3b331e7ec0e10d177f4830a8a6358f17c1aa3",
+ "module_id": 591871,
+ "module_path": ".",
+ "note": "Verbatim copy of the TerraDS archive text (CRLF read as LF). The terraform validate step used the neutralised copy described in pool/validate.py; these files are not neutralised.",
+ "pool_id": "terrads-host-591871",
+ "repo_full_name": "niyaazaws/terraform-aws-networking-tf-example",
+ "repo_id": 908971620,
+ "terrads": {
+  "concept_doi": "10.5281/zenodo.14217385",
+  "doi": "10.5281/zenodo.20339474",
+  "record_id": "20339474"
+ }
+}

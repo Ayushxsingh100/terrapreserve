@@ -1,0 +1,240 @@
+{
+  "dataset_version": "1.0",
+  "derived": false,
+  "endpoints": {
+    "D": "aws_db_instance.tp_db",
+    "S": "aws_instance.tp_app"
+  },
+  "excluded_from_v1": {
+    "failing_steps": [
+      {
+        "step": 0,
+        "value_set": "primary"
+      },
+      {
+        "step": 1,
+        "value_set": "primary"
+      },
+      {
+        "step": 0,
+        "value_set": "alternate"
+      },
+      {
+        "step": 1,
+        "value_set": "alternate"
+      }
+    ],
+    "first_error": "Error: Invalid function argument",
+    "reason": "4 step run(s) without plan JSON under vv-3 (D5-09); first: primary set, step 0, variable error; vv-3 value rejected in an expression or by the provider"
+  },
+  "family": "F7",
+  "generator_version": "d4b-9",
+  "grafted": true,
+  "gt_class": null,
+  "host_transform": [
+    {
+      "bytes_after": 1,
+      "bytes_before": 117,
+      "file": "config.tf",
+      "removed_blocks": [
+        "terraform"
+      ]
+    },
+    {
+      "block_sha256": "407c85bf2784d4b21c7cfc13f55b8f7f9b017fb09241f60cd693234ea208aaed",
+      "data_name": "available",
+      "data_type": "aws_availability_zones",
+      "file": "data-availability_zones.tf",
+      "kind": "data_source_to_variable",
+      "variable": "tp_ds_aws_availability_zones_available"
+    }
+  ],
+  "intent": {
+    "breaks": [
+      "INV-FUNC-001"
+    ],
+    "class": "unsafe",
+    "preserves": [
+      "INV-SEC-001",
+      "INV-SEC-002",
+      "INV-SEC-003"
+    ],
+    "target_invariant": null,
+    "target_kind": "change_request"
+  },
+  "labels": null,
+  "module_id": 471864,
+  "mutation_record": [
+    {
+      "after": "\"Shared client security group\"",
+      "attribute": "description",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_db_sg_hub"
+    },
+    {
+      "after": "\"tp-db-sg-hub\"",
+      "attribute": "name",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_db_sg_hub"
+    },
+    {
+      "after": "aws_vpc.tp_vpc.id",
+      "attribute": "vpc_id",
+      "before": null,
+      "operator": "op_f7_db_ingress_source_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group.tp_db_sg_hub"
+    },
+    {
+      "after": "aws_security_group.tp_db_sg_hub.id",
+      "attribute": "source_security_group_id",
+      "before": "aws_security_group.tp_app_sg.id",
+      "operator": "op_f7_db_ingress_source_unsafe",
+      "step": 1,
+      "target_address": "aws_security_group_rule.tp_db_ingress_postgres"
+    }
+  ],
+  "oracle": null,
+  "parameters": {
+    "derived": false,
+    "grafted": true,
+    "kind": "host",
+    "lineage_id": "lin-000609788158",
+    "module_id": 471864,
+    "pool_id": "terrads-host-471864"
+  },
+  "pool_id": "terrads-host-471864",
+  "protected_invariants": [
+    {
+      "invariant_id": "INV-SEC-001",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-002",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-SEC-003",
+      "version": "1.0"
+    },
+    {
+      "invariant_id": "INV-FUNC-001",
+      "version": "1.0"
+    }
+  ],
+  "reserve": false,
+  "s0_screen": "eligible (whole-module screen, D4b-15: host files clean; graft core synthesized clean except target)",
+  "scenario_id": "tp-v1-F7-0386",
+  "scope_addresses": [
+    "aws_db_instance.tp_db",
+    "aws_db_subnet_group.tp_db_subnet_group",
+    "aws_instance.tp_app",
+    "aws_internet_gateway.tp_igw",
+    "aws_route_table.tp_public_rt",
+    "aws_route_table_association.tp_rta_app",
+    "aws_security_group.tp_app_sg",
+    "aws_security_group.tp_db_sg",
+    "aws_security_group_rule.tp_app_egress",
+    "aws_security_group_rule.tp_app_ingress_ssh",
+    "aws_security_group_rule.tp_db_ingress_postgres",
+    "aws_subnet.tp_app_subnet",
+    "aws_subnet.tp_db_subnet_1",
+    "aws_subnet.tp_db_subnet_2",
+    "aws_vpc.tp_vpc"
+  ],
+  "seed": 386,
+  "source": {
+    "commit_or_version": "fd5c5535d917d2ed28f0709fb76ac0bc95c2b8a5",
+    "grafted": true,
+    "license": "Unlicense",
+    "origin": "terrads",
+    "repo_lineage_id": "lin-000609788158",
+    "tier": "real_world"
+  },
+  "split": "test",
+  "steps": [
+    {
+      "content_hash": "da5d6a2b45868e1449923818f13756b797d54c1b117fad3e8344b5cf941aa66c",
+      "diff_from_previous": null,
+      "step": 0,
+      "terraform_dir": "step_0"
+    },
+    {
+      "content_hash": "39e1472a695cb1fbb874a982d422fe9485f3025fc33a267829627f5248303289",
+      "diff_from_previous": "--- a/terrapreserve_graft.tf\n+++ b/terrapreserve_graft.tf\n@@ -74,7 +74,7 @@\n   from_port                = 5432\n   protocol                 = \"tcp\"\n   security_group_id        = aws_security_group.tp_db_sg.id\n-  source_security_group_id = aws_security_group.tp_app_sg.id\n+  source_security_group_id = aws_security_group.tp_db_sg_hub.id\n   to_port                  = 5432\n   type                     = \"ingress\"\n }\n@@ -103,3 +103,9 @@\n   username               = \"tp_admin\"\n   vpc_security_group_ids = [aws_security_group.tp_db_sg.id]\n }\n+\n+resource \"aws_security_group\" \"tp_db_sg_hub\" {\n+  description = \"Shared client security group\"\n+  name        = \"tp-db-sg-hub\"\n+  vpc_id      = aws_vpc.tp_vpc.id\n+}\n",
+      "step": 1,
+      "terraform_dir": "step_1"
+    }
+  ],
+  "target": {
+    "description": "Re-points the DB group's 5432 ingress source to a new shared group outside SG(S).",
+    "invariant_id": null,
+    "kind": "change_request"
+  },
+  "v1_role": "excluded",
+  "v1_role_reason": "excluded_from_v1: unplannable; replaced by tp-v1-F7-0390",
+  "variable_values": {
+    "number_of_availability_zones": 10,
+    "tp_db_password": "tp-secret-primary",
+    "tp_ds_aws_availability_zones_available": {
+      "names": []
+    }
+  },
+  "variable_values_alt": {
+    "number_of_availability_zones": 20,
+    "tp_db_password": "tp-secret-alt",
+    "tp_ds_aws_availability_zones_available": {
+      "names": [
+        "us-east-1a"
+      ]
+    }
+  },
+  "variable_values_candidates": {
+    "alternate": {
+      "number_of_availability_zones": 3,
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 2
+    },
+    "primary": {
+      "number_of_availability_zones": 3,
+      "tp_db_password": 0,
+      "tp_ds_aws_availability_zones_available": 2
+    }
+  },
+  "variable_values_kinds": {
+    "number_of_availability_zones": {
+      "evidence": [
+        "declared_type:number"
+      ],
+      "kind": "number",
+      "reason": "declared default rejected: Error: Invalid function argument"
+    },
+    "tp_db_password": {
+      "evidence": [
+        "declared_type:string",
+        "secret:sensitive"
+      ],
+      "kind": "secret"
+    },
+    "tp_ds_aws_availability_zones_available": {
+      "evidence": [
+        "data_source:aws_availability_zones.names",
+        "declared_type:object({names=list(string)})"
+      ],
+      "kind": {
+        "object": {
+          "names": {
+            "length": "empty-able",
+            "list": "az"
+          }
+        }
+      }
+    }
+  },
+  "variable_values_rule": "vv-3",
+  "variable_values_unresolved": {}
+}
